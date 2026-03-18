@@ -1,0 +1,8 @@
+{
+  "borders": {
+    "none": "0",
+    "thin": "1px solid",
+    "medium": "2px solid",
+    "thick": "4px solid"
+  }
+}

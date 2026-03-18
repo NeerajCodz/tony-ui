@@ -1,0 +1,9 @@
+{
+  "shadows": {
+    "sm": "var(--shadow-cyan-sm)",
+    "md": "var(--shadow-cyan-md)",
+    "lg": "var(--shadow-cyan-lg)",
+    "xl": "var(--shadow-cyan-xl)",
+    "glow": "var(--shadow-cyan-glow)"
+  }
+}

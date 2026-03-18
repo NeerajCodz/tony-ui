@@ -1,0 +1,34 @@
+{
+  "durations": {
+    "fast": "150ms",
+    "normal": "300ms",
+    "slow": "500ms"
+  },
+  "easings": {
+    "in": "cubic-bezier(0.4, 0, 1, 1)",
+    "out": "cubic-bezier(0, 0, 0.2, 1)",
+    "inOut": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "elastic": "cubic-bezier(0.68, -0.55, 0.27, 1.55)"
+  },
+  "transitions": {
+    "fade": {
+      "property": "opacity",
+      "duration": "300ms",
+      "easing": "inOut"
+    },
+    "slideUp": {
+      "property": "transform",
+      "duration": "300ms",
+      "easing": "inOut",
+      "from": "translateY(20px)",
+      "to": "translateY(0)"
+    },
+    "scale": {
+      "property": "transform",
+      "duration": "300ms",
+      "easing": "inOut",
+      "from": "scale(0.95)",
+      "to": "scale(1)"
+    }
+  }
+}

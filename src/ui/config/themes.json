@@ -1,0 +1,36 @@
+{
+  "default": "system",
+  "themes": [
+    {
+      "no": 0,
+      "id": "system",
+      "name": "System",
+      "icon_name": "circle-half",
+      "enabled": true
+    },
+    {
+      "no": 1,
+      "id": "light",
+      "name": "Light",
+      "icon_name": "sun",
+      "enabled": true,
+      "color": "light"
+    },
+    {
+      "no": 2,
+      "id": "dark",
+      "name": "Dark",
+      "icon_name": "moon",
+      "enabled": true,
+      "color": "dark"
+    },
+    {
+      "no": 3,
+      "id": "cyan",
+      "name": "Cyan",
+      "icon_name": "zap",
+      "enabled": true,
+      "color": "cyan"
+    }
+  ]
+}

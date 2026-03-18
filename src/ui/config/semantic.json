@@ -1,0 +1,74 @@
+{
+  "semantic": [
+    {
+      "id": "success",
+      "icon": "check-circle",
+      "enabled": true,
+      "colors": {
+        "base": "142 70% 50%",
+        "background": "142 70% 25%",
+        "foreground": "142 100% 95%",
+        "hover": "142 70% 55%",
+        "active": "142 70% 45%",
+        "border": "142 70% 50%",
+        "ring": "142 70% 60%"
+      }
+    },
+    {
+      "id": "warning",
+      "icon": "exclamation-triangle",
+      "enabled": true,
+      "colors": {
+        "base": "41 100% 55%",
+        "background": "41 100% 30%",
+        "foreground": "41 100% 95%",
+        "hover": "41 100% 60%",
+        "active": "41 100% 50%",
+        "border": "41 100% 55%",
+        "ring": "41 100% 65%"
+      }
+    },
+    {
+      "id": "destructive",
+      "icon": "circle-x",
+      "enabled": true,
+      "colors": {
+        "base": "0 100% 60%",
+        "background": "0 100% 35%",
+        "foreground": "0 100% 95%",
+        "hover": "0 100% 65%",
+        "active": "0 100% 55%",
+        "border": "0 100% 60%",
+        "ring": "0 100% 70%"
+      }
+    },
+    {
+      "id": "info",
+      "icon": "info",
+      "enabled": true,
+      "colors": {
+        "base": "190 100% 50%",
+        "background": "190 80% 25%",
+        "foreground": "190 100% 95%",
+        "hover": "190 100% 55%",
+        "active": "190 100% 45%",
+        "border": "190 100% 50%",
+        "ring": "190 100% 60%"
+      }
+    },
+    {
+      "id": "neutral",
+      "icon": "minus-circle",
+      "enabled": true,
+      "colors": {
+        "base": "240 3.7% 50%",
+        "background": "240 5% 25%",
+        "foreground": "240 3.7% 95%",
+        "hover": "240 5% 55%",
+        "active": "240 5% 45%",
+        "border": "240 5% 50%",
+        "ring": "240 5% 60%"
+      }
+    }
+  ]
+}

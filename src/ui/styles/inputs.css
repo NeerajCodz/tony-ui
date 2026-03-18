@@ -1,0 +1,24 @@
+/**
+ * Input & Form Component Styles
+ * All colors via CSS variables from providers
+ */
+
+/* Base input */
+.ui-input { box-sizing: border-box; }
+.ui-input:focus { box-shadow: 0 0 0 2px hsl(var(--primary-ring) / 0.3); }
+.ui-input-underline:focus { box-shadow: none; }
+.ui-input:disabled { cursor: not-allowed; }
+
+/* Textarea */
+.ui-textarea { box-sizing: border-box; }
+.ui-textarea:focus { box-shadow: 0 0 0 2px hsl(var(--primary-ring) / 0.3); }
+.ui-textarea:disabled { cursor: not-allowed; }
+
+/* Checkbox hover */
+.ui-checkbox:hover .ui-checkbox-box { filter: brightness(1.1); }
+
+/* Switch hover */
+.ui-switch button:hover:not(:disabled) { filter: brightness(1.1); }
+
+/* Select */
+.ui-select button:hover:not(:disabled) { filter: brightness(1.05); }
