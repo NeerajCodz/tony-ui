@@ -18,18 +18,27 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   iconPosition?: 'left' | 'right';
 }
 
-// Dynamic imports
+// Dynamic imports - Version-First Architecture
 const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
-  'angular-corner': lazy(() => import('../components/input/input-angular-corner.tsx')),
-  'holo-frame': lazy(() => import('../components/input/input-holo-frame.tsx')),
-  'data-panel': lazy(() => import('../components/input/input-data-panel.tsx')),
-  'circuit-board': lazy(() => import('../components/input/input-circuit-board.tsx')),
-  'quantum-gate': lazy(() => import('../components/input/input-quantum-gate.tsx')),
-  'tactical-hud': lazy(() => import('../components/input/input-tactical-hud.tsx')),
-  'energy-shield': lazy(() => import('../components/input/input-energy-shield.tsx')),
-  'terminal-window': lazy(() => import('../components/input/input-terminal-window.tsx')),
-  'matrix-grid': lazy(() => import('../components/input/input-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('../components/input/input-neon-outline.tsx')),
+  'angular-corner': lazy(() => import('../components/angular-corner/input.tsx')),
+  'holo-frame': lazy(() => import('../components/holo-frame/input.tsx')),
+  'data-panel': lazy(() => import('../components/data-panel/input.tsx')),
+  'circuit-board': lazy(() => import('../components/circuit-board/input.tsx')),
+  'quantum-gate': lazy(() => import('../components/quantum-gate/input.tsx')),
+  'tactical-hud': lazy(() => import('../components/tactical-hud/input.tsx')),
+  'energy-shield': lazy(() => import('../components/energy-shield/input.tsx')),
+  'terminal-window': lazy(() => import('../components/terminal-window/input.tsx')),
+  'matrix-grid': lazy(() => import('../components/matrix-grid/input.tsx')),
+  'neon-outline': lazy(() => import('../components/neon-outline/input.tsx')),
+  'glass-morphism': lazy(() => import('../components/glass-morphism/input.tsx')),
+  'tech-panel': lazy(() => import('../components/tech-panel/input.tsx')),
+  'default': lazy(() => import('../components/default/input.tsx')),
+  'border': lazy(() => import('../components/border/input.tsx')),
+  'compact': lazy(() => import('../components/compact/input.tsx')),
+  'ghost': lazy(() => import('../components/ghost/input.tsx')),
+  'large': lazy(() => import('../components/large/input.tsx')),
+  'padding': lazy(() => import('../components/padding/input.tsx')),
+  'raised': lazy(() => import('../components/raised/input.tsx')),
 };
 
 // Loading skeleton

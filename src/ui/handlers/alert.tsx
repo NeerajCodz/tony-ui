@@ -26,18 +26,27 @@ export interface AlertDescriptionProps extends React.HTMLAttributes<HTMLParagrap
   variant?: AlertVariant;
 }
 
-// Dynamic imports
+// Dynamic imports - Version-First Architecture
 const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
-  'angular-corner': lazy(() => import('../components/alert/alert-angular-corner.tsx')),
-  'holo-frame': lazy(() => import('../components/alert/alert-holo-frame.tsx')),
-  'data-panel': lazy(() => import('../components/alert/alert-data-panel.tsx')),
-  'circuit-board': lazy(() => import('../components/alert/alert-circuit-board.tsx')),
-  'quantum-gate': lazy(() => import('../components/alert/alert-quantum-gate.tsx')),
-  'tactical-hud': lazy(() => import('../components/alert/alert-tactical-hud.tsx')),
-  'energy-shield': lazy(() => import('../components/alert/alert-energy-shield.tsx')),
-  'terminal-window': lazy(() => import('../components/alert/alert-terminal-window.tsx')),
-  'matrix-grid': lazy(() => import('../components/alert/alert-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('../components/alert/alert-neon-outline.tsx')),
+  'angular-corner': lazy(() => import('../components/angular-corner/alert.tsx')),
+  'holo-frame': lazy(() => import('../components/holo-frame/alert.tsx')),
+  'data-panel': lazy(() => import('../components/data-panel/alert.tsx')),
+  'circuit-board': lazy(() => import('../components/circuit-board/alert.tsx')),
+  'quantum-gate': lazy(() => import('../components/quantum-gate/alert.tsx')),
+  'tactical-hud': lazy(() => import('../components/tactical-hud/alert.tsx')),
+  'energy-shield': lazy(() => import('../components/energy-shield/alert.tsx')),
+  'terminal-window': lazy(() => import('../components/terminal-window/alert.tsx')),
+  'matrix-grid': lazy(() => import('../components/matrix-grid/alert.tsx')),
+  'neon-outline': lazy(() => import('../components/neon-outline/alert.tsx')),
+  'glass-morphism': lazy(() => import('../components/glass-morphism/alert.tsx')),
+  'tech-panel': lazy(() => import('../components/tech-panel/alert.tsx')),
+  'default': lazy(() => import('../components/default/alert.tsx')),
+  'border': lazy(() => import('../components/border/alert.tsx')),
+  'compact': lazy(() => import('../components/compact/alert.tsx')),
+  'ghost': lazy(() => import('../components/ghost/alert.tsx')),
+  'large': lazy(() => import('../components/large/alert.tsx')),
+  'padding': lazy(() => import('../components/padding/alert.tsx')),
+  'raised': lazy(() => import('../components/raised/alert.tsx')),
 };
 
 // Loading skeleton

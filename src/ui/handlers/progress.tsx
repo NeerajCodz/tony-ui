@@ -21,18 +21,21 @@ export interface ProgressProps extends React.ComponentPropsWithoutRef<typeof Pro
   animated?: boolean;
 }
 
-// Dynamic imports
+// Dynamic imports - Version-First Architecture
 const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
-  'angular-corner': lazy(() => import('../components/progress/progress-angular-corner.tsx')),
-  'holo-frame': lazy(() => import('../components/progress/progress-holo-frame.tsx')),
-  'data-panel': lazy(() => import('../components/progress/progress-data-panel.tsx')),
-  'circuit-board': lazy(() => import('../components/progress/progress-circuit-board.tsx')),
-  'quantum-gate': lazy(() => import('../components/progress/progress-quantum-gate.tsx')),
-  'tactical-hud': lazy(() => import('../components/progress/progress-tactical-hud.tsx')),
-  'energy-shield': lazy(() => import('../components/progress/progress-energy-shield.tsx')),
-  'terminal-window': lazy(() => import('../components/progress/progress-terminal-window.tsx')),
-  'matrix-grid': lazy(() => import('../components/progress/progress-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('../components/progress/progress-neon-outline.tsx')),
+  'angular-corner': lazy(() => import('../components/angular-corner/progress.tsx')),
+  'holo-frame': lazy(() => import('../components/holo-frame/progress.tsx')),
+  'data-panel': lazy(() => import('../components/data-panel/progress.tsx')),
+  'circuit-board': lazy(() => import('../components/circuit-board/progress.tsx')),
+  'quantum-gate': lazy(() => import('../components/quantum-gate/progress.tsx')),
+  'tactical-hud': lazy(() => import('../components/tactical-hud/progress.tsx')),
+  'energy-shield': lazy(() => import('../components/energy-shield/progress.tsx')),
+  'terminal-window': lazy(() => import('../components/terminal-window/progress.tsx')),
+  'matrix-grid': lazy(() => import('../components/matrix-grid/progress.tsx')),
+  'neon-outline': lazy(() => import('../components/neon-outline/progress.tsx')),
+  'glass-morphism': lazy(() => import('../components/glass-morphism/progress.tsx')),
+  'tech-panel': lazy(() => import('../components/tech-panel/progress.tsx')),
+  'default': lazy(() => import('../components/default/progress.tsx')),
 };
 
 // Loading skeleton

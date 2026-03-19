@@ -18,20 +18,23 @@ export interface AvatarProps extends React.ComponentPropsWithoutRef<typeof Avata
   size?: AvatarSize;
 }
 
-// Loading helper
+// Loading helper - Version-First Architecture
 const loadVersionModule = async (version: AvatarVersion) => {
   switch (version) {
-    case 'angular-corner': return import('../components/avatar/avatar-angular-corner.tsx');
-    case 'holo-frame': return import('../components/avatar/avatar-holo-frame.tsx');
-    case 'data-panel': return import('../components/avatar/avatar-data-panel.tsx');
-    case 'circuit-board': return import('../components/avatar/avatar-circuit-board.tsx');
-    case 'quantum-gate': return import('../components/avatar/avatar-quantum-gate.tsx');
-    case 'tactical-hud': return import('../components/avatar/avatar-tactical-hud.tsx');
-    case 'energy-shield': return import('../components/avatar/avatar-energy-shield.tsx');
-    case 'terminal-window': return import('../components/avatar/avatar-terminal-window.tsx');
-    case 'matrix-grid': return import('../components/avatar/avatar-matrix-grid.tsx');
-    case 'neon-outline': return import('../components/avatar/avatar-neon-outline.tsx');
-    default: return import('../components/avatar/avatar-angular-corner.tsx');
+    case 'angular-corner': return import('../components/angular-corner/avatar.tsx');
+    case 'holo-frame': return import('../components/holo-frame/avatar.tsx');
+    case 'data-panel': return import('../components/data-panel/avatar.tsx');
+    case 'circuit-board': return import('../components/circuit-board/avatar.tsx');
+    case 'quantum-gate': return import('../components/quantum-gate/avatar.tsx');
+    case 'tactical-hud': return import('../components/tactical-hud/avatar.tsx');
+    case 'energy-shield': return import('../components/energy-shield/avatar.tsx');
+    case 'terminal-window': return import('../components/terminal-window/avatar.tsx');
+    case 'matrix-grid': return import('../components/matrix-grid/avatar.tsx');
+    case 'neon-outline': return import('../components/neon-outline/avatar.tsx');
+    case 'glass-morphism': return import('../components/glass-morphism/avatar.tsx');
+    case 'tech-panel': return import('../components/tech-panel/avatar.tsx');
+    case 'default': return import('../components/default/avatar.tsx');
+    default: return import('../components/angular-corner/avatar.tsx');
   }
 };
 

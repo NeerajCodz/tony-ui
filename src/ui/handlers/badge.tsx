@@ -20,18 +20,27 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   onRemove?: () => void;
 }
 
-// Dynamic imports
+// Dynamic imports - Version-First Architecture
 const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
-  'angular-corner': lazy(() => import('../components/badge/badge-angular-corner.tsx')),
-  'holo-frame': lazy(() => import('../components/badge/badge-holo-frame.tsx')),
-  'data-panel': lazy(() => import('../components/badge/badge-data-panel.tsx')),
-  'circuit-board': lazy(() => import('../components/badge/badge-circuit-board.tsx')),
-  'quantum-gate': lazy(() => import('../components/badge/badge-quantum-gate.tsx')),
-  'tactical-hud': lazy(() => import('../components/badge/badge-tactical-hud.tsx')),
-  'energy-shield': lazy(() => import('../components/badge/badge-energy-shield.tsx')),
-  'terminal-window': lazy(() => import('../components/badge/badge-terminal-window.tsx')),
-  'matrix-grid': lazy(() => import('../components/badge/badge-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('../components/badge/badge-neon-outline.tsx')),
+  'angular-corner': lazy(() => import('../components/angular-corner/badge.tsx')),
+  'holo-frame': lazy(() => import('../components/holo-frame/badge.tsx')),
+  'data-panel': lazy(() => import('../components/data-panel/badge.tsx')),
+  'circuit-board': lazy(() => import('../components/circuit-board/badge.tsx')),
+  'quantum-gate': lazy(() => import('../components/quantum-gate/badge.tsx')),
+  'tactical-hud': lazy(() => import('../components/tactical-hud/badge.tsx')),
+  'energy-shield': lazy(() => import('../components/energy-shield/badge.tsx')),
+  'terminal-window': lazy(() => import('../components/terminal-window/badge.tsx')),
+  'matrix-grid': lazy(() => import('../components/matrix-grid/badge.tsx')),
+  'neon-outline': lazy(() => import('../components/neon-outline/badge.tsx')),
+  'glass-morphism': lazy(() => import('../components/glass-morphism/badge.tsx')),
+  'tech-panel': lazy(() => import('../components/tech-panel/badge.tsx')),
+  'default': lazy(() => import('../components/default/badge.tsx')),
+  'border': lazy(() => import('../components/border/badge.tsx')),
+  'compact': lazy(() => import('../components/compact/badge.tsx')),
+  'ghost': lazy(() => import('../components/ghost/badge.tsx')),
+  'large': lazy(() => import('../components/large/badge.tsx')),
+  'padding': lazy(() => import('../components/padding/badge.tsx')),
+  'raised': lazy(() => import('../components/raised/badge.tsx')),
 };
 
 // Loading skeleton

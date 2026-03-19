@@ -32,20 +32,23 @@ export interface AccordionContentProps extends React.ComponentPropsWithoutRef<ty
   variant?: AccordionVariant;
 }
 
-// Loading helper to load version modules
+// Loading helper - Version-First Architecture
 const loadVersionModule = async (version: AccordionVersion) => {
   switch (version) {
-    case 'angular-corner': return import('../components/accordion/accordion-angular-corner.tsx');
-    case 'holo-frame': return import('../components/accordion/accordion-holo-frame.tsx');
-    case 'data-panel': return import('../components/accordion/accordion-data-panel.tsx');
-    case 'circuit-board': return import('../components/accordion/accordion-circuit-board.tsx');
-    case 'quantum-gate': return import('../components/accordion/accordion-quantum-gate.tsx');
-    case 'tactical-hud': return import('../components/accordion/accordion-tactical-hud.tsx');
-    case 'energy-shield': return import('../components/accordion/accordion-energy-shield.tsx');
-    case 'terminal-window': return import('../components/accordion/accordion-terminal-window.tsx');
-    case 'matrix-grid': return import('../components/accordion/accordion-matrix-grid.tsx');
-    case 'neon-outline': return import('../components/accordion/accordion-neon-outline.tsx');
-    default: return import('../components/accordion/accordion-angular-corner.tsx');
+    case 'angular-corner': return import('../components/angular-corner/accordion.tsx');
+    case 'holo-frame': return import('../components/holo-frame/accordion.tsx');
+    case 'data-panel': return import('../components/data-panel/accordion.tsx');
+    case 'circuit-board': return import('../components/circuit-board/accordion.tsx');
+    case 'quantum-gate': return import('../components/quantum-gate/accordion.tsx');
+    case 'tactical-hud': return import('../components/tactical-hud/accordion.tsx');
+    case 'energy-shield': return import('../components/energy-shield/accordion.tsx');
+    case 'terminal-window': return import('../components/terminal-window/accordion.tsx');
+    case 'matrix-grid': return import('../components/matrix-grid/accordion.tsx');
+    case 'neon-outline': return import('../components/neon-outline/accordion.tsx');
+    case 'glass-morphism': return import('../components/glass-morphism/accordion.tsx');
+    case 'tech-panel': return import('../components/tech-panel/accordion.tsx');
+    case 'default': return import('../components/default/accordion.tsx');
+    default: return import('../components/angular-corner/accordion.tsx');
   }
 };
 
