@@ -1,53 +1,64 @@
 /**
- * Separator Component
+ * Separator Component - Dynamic Renderer
+ * Refactored to use Compound Component Context Pattern
  */
-import React from 'react';
-import type { SeparatorProps } from '../../types/components/layout.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
 
-const Separator: React.FC<SeparatorProps> = ({
-  version = 'default', type: styleType = 'default', variant = 'neutral',
-  colorType = 'primary', animated = true, orientation = 'horizontal',
-  className = '', label,
-}) => {
-  const activeColor = resolveColorType(variant, colorType);
-  const isVertical = orientation === 'vertical';
+import React, { lazy, Suspense } from 'react';
+import * as SeparatorPrimitive from '@radix-ui/react-separator';
+import { cn } from '../../../lib/utils';
 
-  if (label) {
-    return (
-      <div className={`ui-separator ${className}`} style={{
-        display: 'flex', alignItems: 'center', gap: '12px',
-        margin: '16px 0',
-      }}>
-        <div style={{ flex: 1, height: '1px', backgroundColor: getColorVar(activeColor, 'border'),
-          backgroundImage: version === 'gradient' ? `linear-gradient(to right, transparent, ${getColorVar(activeColor, 'border')}, transparent)` : undefined,
-          borderStyle: version === 'dashed' ? 'dashed' : undefined,
-        }} />
-        <span style={{ fontSize: '11px', fontWeight: '500', color: getColorVar(activeColor, 'border'), whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</span>
-        <div style={{ flex: 1, height: '1px', backgroundColor: getColorVar(activeColor, 'border'),
-          backgroundImage: version === 'gradient' ? `linear-gradient(to right, transparent, ${getColorVar(activeColor, 'border')}, transparent)` : undefined,
-        }} />
-      </div>
-    );
-  }
+// --- Types ---
+type SeparatorVersion = 
+  | 'angular-corner'
+  | 'holo-frame'
+  | 'data-panel'
+  | 'circuit-board'
+  | 'quantum-gate'
+  | 'tactical-hud'
+  | 'energy-shield'
+  | 'terminal-window'
+  | 'matrix-grid'
+  | 'neon-outline';
 
-  return (
-    <div className={`ui-separator ui-separator-${version} ${className}`}
-      role="separator" aria-orientation={orientation}
-      style={{
-        width: isVertical ? '1px' : '100%',
-        height: isVertical ? '100%' : '1px',
-        margin: isVertical ? '0 8px' : '16px 0',
-        backgroundColor: version === 'gradient' ? undefined : getColorVar(activeColor, 'border'),
-        backgroundImage: version === 'gradient' ? `linear-gradient(${isVertical ? 'to bottom' : 'to right'}, transparent, ${getColorVar(activeColor, 'border')}, transparent)` : undefined,
-        borderStyle: version === 'dashed' ? 'dashed' : undefined,
-        borderColor: version === 'dashed' ? getColorVar(activeColor, 'border') : undefined,
-        borderWidth: version === 'dashed' ? (isVertical ? '0 0 0 1px' : '0 0 1px 0') : undefined,
-        flexShrink: 0,
-      }}
-    />
-  );
+interface SeparatorProps extends React.ComponentProps<typeof SeparatorPrimitive.Root> {
+  version?: SeparatorVersion;
+  variant?: 'neutral' | 'primary' | 'success' | 'warning' | 'destructive' | 'info';
+  type?: 'default' | 'outline' | 'solid' | 'ghost';
+}
+
+// --- Lazy Loaders ---
+const versionComponents: Record<string, any> = {
+  'angular-corner': lazy(() => import('./separator-angular-corner.tsx')),
+  'holo-frame': lazy(() => import('./separator-holo-frame.tsx')),
+  'data-panel': lazy(() => import('./separator-data-panel.tsx')),
+  'circuit-board': lazy(() => import('./separator-circuit-board.tsx')),
+  'quantum-gate': lazy(() => import('./separator-quantum-gate.tsx')),
+  'tactical-hud': lazy(() => import('./separator-tactical-hud.tsx')),
+  'energy-shield': lazy(() => import('./separator-energy-shield.tsx')),
+  'terminal-window': lazy(() => import('./separator-terminal-window.tsx')),
+  'matrix-grid': lazy(() => import('./separator-matrix-grid.tsx')),
+  'neon-outline': lazy(() => import('./separator-neon-outline.tsx')),
 };
+
+// --- Main Component ---
+const Separator = React.forwardRef<React.ElementRef<typeof SeparatorPrimitive.Root>, SeparatorProps>(({ 
+  version = 'angular-corner', 
+  variant = 'primary', 
+  type = 'default', 
+  ...props 
+}, ref) => {
+  const VersionComponent = versionComponents[version];
+  
+  return (
+    <Suspense fallback={<div className="h-px w-full bg-gray-800" />}>
+      {/* @ts-ignore */}
+      <VersionComponent ref={ref} variant={variant} type={type} {...props} />
+    </Suspense>
+  );
+});
+Separator.displayName = 'Separator';
 
 export { Separator };
 export default Separator;
+
+

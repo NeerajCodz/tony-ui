@@ -1,58 +1,45 @@
-/**
- * Popover Component
- */
-import React, { useState, useRef, useEffect } from 'react';
-import type { PopoverProps } from '../../types/components/overlay.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
+import React, { lazy, Suspense, createContext, useContext, useMemo } from 'react';
+import { PopoverProps } from '@radix-ui/react-popover';
+import { Skeleton } from '../skeleton';
+import * as PopoverPrimitive from '@radix-ui/react-popover';
 
-const Popover: React.FC<PopoverProps> = ({
-  version = 'default', type: styleType = 'default', variant = 'neutral',
-  colorType = 'primary', animated = true, open: controlledOpen, onOpenChange,
-  trigger, children, side = 'bottom', className = '',
-}) => {
-  const [internalOpen, setInternalOpen] = useState(false);
-  const isOpen = controlledOpen !== undefined ? controlledOpen : internalOpen;
-  const activeColor = resolveColorType(variant, colorType);
-  const containerRef = useRef<HTMLDivElement>(null);
+// Context to share version across subcomponents
+const VersionContext = createContext<string>('angular-corner');
 
-  const toggle = () => { const next = !isOpen; setInternalOpen(next); onOpenChange?.(next); };
-
-  useEffect(() => {
-    const h = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setInternalOpen(false); onOpenChange?.(false);
-      }
-    };
-    if (isOpen) { document.addEventListener('mousedown', h); return () => document.removeEventListener('mousedown', h); }
-  }, [isOpen, onOpenChange]);
-
-  const posStyles: Record<string, React.CSSProperties> = {
-    top: { bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: '8px' },
-    bottom: { top: '100%', left: '50%', transform: 'translateX(-50%)', marginTop: '8px' },
-    left: { right: '100%', top: '50%', transform: 'translateY(-50%)', marginRight: '8px' },
-    right: { left: '100%', top: '50%', transform: 'translateY(-50%)', marginLeft: '8px' },
-  };
-
+export const Popover = ({ 
+  version = 'angular-corner', 
+  variant = 'primary', 
+  type = 'default',
+  children,
+  ...props 
+}: any) => {
   return (
-    <div ref={containerRef} className={`ui-popover ${className}`} style={{ position: 'relative', display: 'inline-flex' }}>
-      <div onClick={toggle} style={{ cursor: 'pointer' }}>{trigger}</div>
-      {isOpen && (
-        <div style={{
-          position: 'absolute', ...posStyles[side], zIndex: 50,
-          minWidth: '200px', padding: version === 'compact' ? '8px' : '16px',
-          border: `1px solid ${getColorVar(activeColor, 'border')}`,
-          backgroundColor: getColorVar(activeColor, 'background'),
-          color: getColorVar(activeColor, 'foreground'),
-          borderRadius: '8px', boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
-          animation: animated ? 'ui-popover-in 150ms ease-out' : 'none',
-        }}>
-          {children}
-        </div>
-      )}
-      <style>{`@keyframes ui-popover-in { from { opacity: 0; transform: translateX(-50%) translateY(4px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }`}</style>
-    </div>
+    <VersionContext.Provider value={version}>
+      <PopoverPrimitive.Root {...props}>
+        {children}
+      </PopoverPrimitive.Root>
+    </VersionContext.Provider>
   );
 };
 
-export { Popover };
+// Subcomponents wrapper
+const createSubComponent = (name: string, exportName: string) => {
+  return ({ children, ...props }: any) => {
+    const version = useContext(VersionContext);
+    const Component = useMemo(() => lazy(() => import(`./popover-${version}.tsx`).then(module => ({ default: module[exportName] }))), [version]);
+
+    return (
+      <Suspense fallback={name === 'Content' ? null : <span className="opacity-50">{children}</span>}>
+        <Component {...props}>{children}</Component>
+      </Suspense>
+    );
+  };
+};
+
+Popover.Trigger = createSubComponent('Trigger', 'PopoverTrigger');
+Popover.Content = createSubComponent('Content', 'PopoverContent');
+// Popover typically has Close, Anchor etc, but Trigger/Content are main ones.
+// We can add Anchor if needed, but for now stick to basics.
+
 export default Popover;
+

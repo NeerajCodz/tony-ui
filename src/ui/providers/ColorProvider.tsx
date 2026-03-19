@@ -81,6 +81,13 @@ export const ColorProvider: React.FC<ColorProviderProps> = ({
       // Generate and inject CSS variables
       const vars = generateColorVariables(themeColors);
       
+      // Inject standard aliases for compatibility
+      vars['--background'] = themeColors.surface.background;
+      vars['--foreground'] = themeColors.surface.foreground;
+      vars['--text-base'] = themeColors.surface.foreground;
+      vars['--text-muted'] = themeColors.muted.foreground;
+      vars['--border-base'] = themeColors.surface.border;
+      
       // Also inject semantic colors from semantic.json
       const semanticColors = (semanticConfig as any).semantic;
       if (semanticColors && Array.isArray(semanticColors)) {

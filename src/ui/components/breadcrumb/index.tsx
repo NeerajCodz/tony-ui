@@ -1,43 +1,92 @@
-/**
- * Breadcrumb Component
- */
-import React from 'react';
-import type { BreadcrumbProps } from '../../types/components/navigation.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
+import React, { lazy, Suspense, createContext, useContext, useMemo } from 'react';
 
-const Breadcrumb: React.FC<BreadcrumbProps> = ({
-  version = 'default', type: styleType = 'default', variant = 'neutral',
-  colorType = 'primary', animated = true, items, separator, className = '',
-}) => {
-  const activeColor = resolveColorType(variant, colorType);
-  const sep = separator || (version === 'arrow' ? '›' : version === 'dot' ? '·' : '/');
+// Context to share version between compound components
+const BreadcrumbVersionContext = createContext('angular-corner');
 
-  return (
-    <nav className={`ui-breadcrumb ui-breadcrumb-${version} ${className}`} aria-label="breadcrumb"
-      style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px' }} data-version={version}>
-      {items.map((item, idx) => (
-        <React.Fragment key={idx}>
-          {idx > 0 && <span style={{ color: getColorVar(activeColor, 'border'), margin: '0 2px' }}>{sep}</span>}
-          {item.href || item.onClick ? (
-            <a href={item.href} onClick={(e) => { if (item.onClick) { e.preventDefault(); item.onClick(); } }}
-              style={{
-                color: item.active ? getColorVar(activeColor, 'foreground') : getColorVar(activeColor, 'base'),
-                textDecoration: 'none', fontWeight: item.active ? '600' : '400',
-                transition: animated ? 'color 150ms' : 'none', cursor: 'pointer',
-              }}>
-              {item.label}
-            </a>
-          ) : (
-            <span style={{
-              color: item.active ? getColorVar(activeColor, 'foreground') : getColorVar(activeColor, 'border'),
-              fontWeight: item.active ? '600' : '400',
-            }}>{item.label}</span>
-          )}
-        </React.Fragment>
-      ))}
-    </nav>
-  );
+// Helper for lazy loading subcomponents
+const createLazySubcomponent = (componentName) => {
+  return React.forwardRef((props, ref) => {
+    const version = useContext(BreadcrumbVersionContext);
+    
+    const LazyComponent = useMemo(() => lazy(async () => {
+      try {
+        const module = await import(`./breadcrumb-${version}.tsx`);
+        return { default: module[componentName] };
+      } catch (e) {
+        // Fallback for missing components
+        return { 
+          default: ({ children, className = '', ...p }) => (
+            <div className={`ui-breadcrumb-${componentName.toLowerCase()} ${className}`} {...p}>{children}</div>
+          ) 
+        };
+      }
+    }), [version]);
+
+    return (
+      <Suspense fallback={<div className="animate-pulse bg-muted/10 h-8 rounded" />}>
+        <LazyComponent ref={ref} {...props} />
+      </Suspense>
+    );
+  });
 };
 
-export { Breadcrumb };
+// Main Component (Root)
+const BreadcrumbRoot = React.forwardRef(({ 
+  version = 'angular-corner',
+  children,
+  ...props 
+}, ref) => {
+  
+  const LazyRoot = useMemo(() => lazy(async () => {
+    try {
+      const module = await import(`./breadcrumb-${version}.tsx`);
+      return { default: module.Breadcrumb }; 
+    } catch (e) {
+      return { 
+        default: ({ children }) => <>{children}</>
+      };
+    }
+  }), [version]);
+
+  return (
+    <BreadcrumbVersionContext.Provider value={version}>
+      <Suspense fallback={null}>
+        <LazyRoot {...props}>
+          {children}
+        </LazyRoot>
+      </Suspense>
+    </BreadcrumbVersionContext.Provider>
+  );
+});
+BreadcrumbRoot.displayName = 'Breadcrumb';
+
+// Subcomponents
+export const BreadcrumbList = createLazySubcomponent('BreadcrumbList');
+BreadcrumbList.displayName = 'BreadcrumbList';
+
+export const BreadcrumbItem = createLazySubcomponent('BreadcrumbItem');
+BreadcrumbItem.displayName = 'BreadcrumbItem';
+
+export const BreadcrumbLink = createLazySubcomponent('BreadcrumbLink');
+BreadcrumbLink.displayName = 'BreadcrumbLink';
+
+export const BreadcrumbPage = createLazySubcomponent('BreadcrumbPage');
+BreadcrumbPage.displayName = 'BreadcrumbPage';
+
+export const BreadcrumbSeparator = createLazySubcomponent('BreadcrumbSeparator');
+BreadcrumbSeparator.displayName = 'BreadcrumbSeparator';
+
+export const BreadcrumbEllipsis = createLazySubcomponent('BreadcrumbEllipsis');
+BreadcrumbEllipsis.displayName = 'BreadcrumbEllipsis';
+
+export const Breadcrumb = Object.assign(BreadcrumbRoot, {
+  List: BreadcrumbList,
+  Item: BreadcrumbItem,
+  Link: BreadcrumbLink,
+  Page: BreadcrumbPage,
+  Separator: BreadcrumbSeparator,
+  Ellipsis: BreadcrumbEllipsis,
+});
+
 export default Breadcrumb;
+

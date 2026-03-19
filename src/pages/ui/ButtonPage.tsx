@@ -1,219 +1,90 @@
-import { useState } from 'react';
-import { 
-  Button, 
-  IconButton,
-  BUTTON_VERSION_CONFIGS,
-  ICON_BUTTON_VERSION_CONFIGS
-} from '../../ui';
-import type { 
-  ButtonType, 
-  ButtonVariant, 
-  ButtonSize,
-  ButtonVersion,
-  IconButtonVersion
-} from '../../ui';
-import { VscRocket, VscSave, VscGear, VscTrash, VscBeaker, VscCloudDownload } from "react-icons/vsc";
+import React, { useState } from 'react';
+import { Button } from '../../ui';
 
-export function UIButtonPage() {
-  const buttonVersions = Object.keys(BUTTON_VERSION_CONFIGS) as ButtonVersion[];
-  const iconButtonVersions = Object.keys(ICON_BUTTON_VERSION_CONFIGS) as IconButtonVersion[];
-  const variants: ButtonVariant[] = ['neutral', 'primary', 'success', 'warning', 'info', 'destructive'];
-  const types: ButtonType[] = ['default', 'outline', 'solid'];
-  const sizes: ButtonSize[] = ['sm', 'md', 'lg', 'xl'];
+export function ButtonPage() {
+  const versions = [
+    'angular-corner',
+    'holo-frame',
+    'data-panel',
+    'circuit-board',
+    'quantum-gate',
+    'tactical-hud',
+    'energy-shield',
+    'terminal-window',
+    'matrix-grid',
+    'neon-outline',
+  ];
 
-  const [currentType, setCurrentType] = useState<ButtonType>('default');
-  const [currentVariant, setCurrentVariant] = useState<ButtonVariant>('primary');
-  const [currentSize, setCurrentSize] = useState<ButtonSize>('md');
-  const [isAnimated, setIsAnimated] = useState(true);
-  const [isDisabled, setIsDisabled] = useState(false);
+  const variants = ['default', 'outline', 'secondary', 'ghost', 'destructive', 'link'];
+  const sizes = ['default', 'sm', 'lg', 'icon'];
+
+  const [currentVariant, setCurrentVariant] = useState<any>('default');
+  const [currentSize, setCurrentSize] = useState<any>('default');
 
   return (
     <div className="min-h-screen bg-gray-950 text-white p-8">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2 text-cyan-400">Button & Icon Button Components</h1>
-        <p className="text-gray-400">6 button versions and 5 icon button versions, all with dynamic types, variants, sizes, and animations.</p>
-      </div>
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold mb-4 text-cyan-400 font-mono tracking-tighter">
+            Button <span className="text-gray-600 text-2xl">// Component Showcase</span>
+          </h1>
+          <p className="text-gray-400 max-w-2xl">
+            Cyber-aesthetic interactive buttons. 
+            Fully dynamic with 10 unique geometric styles.
+          </p>
+        </div>
 
-      <div className="space-y-6 p-4">
-        <div className="flex flex-wrap items-center gap-8 p-4 rounded-lg bg-gray-800/50">
+        <div className="sticky top-4 z-10 bg-gray-900/90 backdrop-blur border border-gray-800 p-4 rounded-xl mb-8 shadow-2xl flex flex-wrap gap-6 items-center">
           <div>
-            <label htmlFor="btn-type" className="block text-sm font-medium text-gray-300 mb-2">Type</label>
-            <select
-              id="btn-type"
-              value={currentType}
-              onChange={(e) => setCurrentType(e.target.value as ButtonType)}
-              className="bg-gray-900 border border-gray-700 text-white rounded-md p-2"
-            >
-              {types.map(t => <option key={t} value={t}>{t}</option>)}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="btn-variant" className="block text-sm font-medium text-gray-300 mb-2">Variant</label>
-            <select
-              id="btn-variant"
+            <label className="block text-xs font-mono text-cyan-500 mb-1">VARIANT</label>
+            <select 
               value={currentVariant}
-              onChange={(e) => setCurrentVariant(e.target.value as ButtonVariant)}
-              className="bg-gray-900 border border-gray-700 text-white rounded-md p-2"
+              onChange={(e) => setCurrentVariant(e.target.value)}
+              className="bg-gray-950 border border-gray-700 rounded px-3 py-1 text-sm focus:border-cyan-500 outline-none min-w-[120px]"
             >
               {variants.map(v => <option key={v} value={v}>{v}</option>)}
             </select>
           </div>
           <div>
-            <label htmlFor="btn-size" className="block text-sm font-medium text-gray-300 mb-2">Size</label>
-            <select
-              id="btn-size"
+            <label className="block text-xs font-mono text-cyan-500 mb-1">SIZE</label>
+            <select 
               value={currentSize}
-              onChange={(e) => setCurrentSize(e.target.value as ButtonSize)}
-              className="bg-gray-900 border border-gray-700 text-white rounded-md p-2"
+              onChange={(e) => setCurrentSize(e.target.value)}
+              className="bg-gray-950 border border-gray-700 rounded px-3 py-1 text-sm focus:border-cyan-500 outline-none min-w-[120px]"
             >
               {sizes.map(s => <option key={s} value={s}>{s}</option>)}
             </select>
           </div>
-          <div className="flex gap-6 pt-6">
-            <label htmlFor="btn-animated" className="flex items-center gap-2 text-sm font-medium text-gray-300">
-              <input
-                id="btn-animated"
-                type="checkbox"
-                checked={isAnimated}
-                onChange={(e) => setIsAnimated(e.target.checked)}
-                className="h-4 w-4 rounded bg-gray-700 border-gray-600 text-cyan-500 focus:ring-cyan-600"
-              />
-              Animate
-            </label>
-            <label htmlFor="btn-disabled" className="flex items-center gap-2 text-sm font-medium text-gray-300">
-              <input
-                id="btn-disabled"
-                type="checkbox"
-                checked={isDisabled}
-                onChange={(e) => setIsDisabled(e.target.checked)}
-                className="h-4 w-4 rounded bg-gray-700 border-gray-600 text-cyan-500 focus:ring-cyan-600"
-              />
-              Disabled
-            </label>
-          </div>
         </div>
-      </div>
 
-      <div className="space-y-16 w-full p-4">
-        
-        {/* Section 1: All Button Versions */}
-        <section>
-          <h3 className="text-2xl font-bold mb-8 uppercase tracking-wide text-cyan-300">
-            Button Versions
-          </h3>
-          <div className="flex flex-wrap items-center gap-4">
-            {buttonVersions.map(version => (
-              <Button 
-                key={version}
-                version={version}
-                type={currentType}
-                variant={currentVariant}
-                size={currentSize}
-                animated={isAnimated}
-                disabled={isDisabled}
-              >
-                {BUTTON_VERSION_CONFIGS[version].name}
-              </Button>
-            ))}
-          </div>
-        </section>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          {versions.map(version => (
+            <div key={version} className="p-8 border border-gray-800 rounded-lg bg-gray-900/50 flex flex-col gap-8 min-h-[200px] items-center justify-center">
+              <h3 className="text-lg font-mono text-cyan-400 w-full border-b border-gray-800 pb-2 mb-auto">{version}</h3>
+              
+              <div className="flex-1 flex flex-col gap-4 items-center justify-center w-full">
+                <Button 
+                  version={version as any} 
+                  variant={currentVariant}
+                  size={currentSize}
+                >
+                  {currentSize === 'icon' ? (
+                    <span className="h-4 w-4">⚡</span>
+                  ) : (
+                    "Initialize System"
+                  )}
+                </Button>
 
-        {/* Section 2: All Icon Button Versions */}
-        <section>
-          <h3 className="text-2xl font-bold mb-8 uppercase tracking-wide text-cyan-300">
-            Icon Button Versions
-          </h3>
-          <div className="flex flex-wrap items-center gap-4">
-            {iconButtonVersions.map(version => (
-              <IconButton 
-                key={version}
-                version={version}
-                type={currentType}
-                variant={currentVariant}
-                animated={isAnimated}
-                disabled={isDisabled}
-                label={ICON_BUTTON_VERSION_CONFIGS[version].name}
-                icon={<VscRocket />}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* Section 3: Variant Showcase */}
-        <section>
-          <h3 className="text-2xl font-bold mb-8 uppercase tracking-wide text-cyan-300">
-            Variant Showcase
-          </h3>
-          <div className="flex flex-wrap items-center gap-4 mb-8">
-            {variants.map(variant => (
-              <Button 
-                key={variant}
-                version="default"
-                type={currentType}
-                variant={variant}
-                size={currentSize}
-                animated={isAnimated}
-                disabled={isDisabled}
-              >
-                {variant}
-              </Button>
-            ))}
-          </div>
-          <div className="flex flex-wrap items-center gap-4">
-            {variants.map(variant => (
-              <IconButton 
-                key={variant}
-                version="default"
-                type={currentType}
-                variant={variant}
-                animated={isAnimated}
-                disabled={isDisabled}
-                label={variant}
-                icon={<VscBeaker />}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* Section 4: Size Showcase */}
-        <section>
-          <h3 className="text-2xl font-bold mb-8 uppercase tracking-wide text-cyan-300">
-            Size Showcase
-          </h3>
-          <div className="flex flex-wrap items-center gap-4">
-            {sizes.map(size => (
-              <Button 
-                key={size}
-                version="default"
-                type={currentType}
-                variant={currentVariant}
-                size={size}
-                animated={isAnimated}
-                disabled={isDisabled}
-              >
-                Size: {size.toUpperCase()}
-              </Button>
-            ))}
-          </div>
-        </section>
-
-        {/* Section 5: Full Featured Example */}
-        <section>
-          <h3 className="text-2xl font-bold mb-8 uppercase tracking-wide text-cyan-300">
-            Full Featured Example
-          </h3>
-          <div className="p-8 rounded-lg bg-gray-900/70 border border-gray-700 flex flex-wrap items-center gap-6">
-            <Button version="large" type="solid" variant="success" animated size="lg" disabled={isDisabled}>
-              <div className="flex items-center"><VscSave className="mr-2" /> Save Changes</div>
-            </Button>
-            <Button version="pill" type="outline" variant="info" animated size="md" disabled={isDisabled}>
-              <div className="flex items-center"><VscCloudDownload className="mr-2" /> Download</div>
-            </Button>
-            <IconButton version="circle" type="default" variant="destructive" animated label="Delete" disabled={isDisabled} icon={<VscTrash />} />
-            <IconButton version="floating" type="solid" variant="primary" animated label="Settings" disabled={isDisabled} icon={<VscGear />} />
-          </div>
-        </section>
-
+                {currentVariant === 'default' && (
+                   <div className="flex gap-2 mt-4 items-center">
+                      <Button version={version as any} variant="outline" size="sm">Cancel</Button>
+                      <Button version={version as any} variant="destructive" size="sm">Abort</Button>
+                   </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

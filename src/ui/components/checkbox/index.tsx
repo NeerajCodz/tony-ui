@@ -1,95 +1,74 @@
 /**
- * Checkbox Component
+ * Checkbox Component - Dynamic Renderer
+ * Refactored to use Compound Component Context Pattern
  */
-import React, { useState } from 'react';
-import type { CheckboxProps } from '../../types/components/inputs.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
-import '../../styles/inputs.css';
 
-const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({
-  version = 'default',
-  type: styleType = 'default',
-  variant = 'neutral',
-  colorType = 'primary',
-  animated = true,
-  checked: controlledChecked,
-  defaultChecked = false,
-  onChange,
-  disabled = false,
-  label,
-  className = '',
-  id,
-  name,
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import { cn } from '../../../lib/utils';
+import { Check } from 'lucide-react';
+
+// --- Types ---
+type CheckboxVersion = 
+  | 'angular-corner'
+  | 'holo-frame'
+  | 'data-panel'
+  | 'circuit-board'
+  | 'quantum-gate'
+  | 'tactical-hud'
+  | 'energy-shield'
+  | 'terminal-window'
+  | 'matrix-grid'
+  | 'neon-outline';
+
+interface CheckboxProps extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
+  version?: CheckboxVersion;
+  variant?: 'neutral' | 'primary' | 'success' | 'warning' | 'destructive' | 'info';
+  type?: 'default' | 'outline' | 'solid' | 'ghost';
+}
+
+// --- Dynamic Import Helper ---
+const loadVersionModule = async (version: CheckboxVersion) => {
+  switch (version) {
+    case 'angular-corner': return import('./checkbox-angular-corner.tsx');
+    case 'holo-frame': return import('./checkbox-holo-frame.tsx');
+    case 'data-panel': return import('./checkbox-data-panel.tsx');
+    case 'circuit-board': return import('./checkbox-circuit-board.tsx');
+    case 'quantum-gate': return import('./checkbox-quantum-gate.tsx');
+    case 'tactical-hud': return import('./checkbox-tactical-hud.tsx');
+    case 'energy-shield': return import('./checkbox-energy-shield.tsx');
+    case 'terminal-window': return import('./checkbox-terminal-window.tsx');
+    case 'matrix-grid': return import('./checkbox-matrix-grid.tsx');
+    case 'neon-outline': return import('./checkbox-neon-outline.tsx');
+    default: return import('./checkbox-angular-corner.tsx');
+  }
+};
+
+// --- Main Component ---
+const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(({ 
+  version = 'angular-corner', 
+  variant = 'primary', 
+  type = 'default', 
+  className,
+  ...props 
 }, ref) => {
-  const [internalChecked, setInternalChecked] = useState(defaultChecked);
-  const isChecked = controlledChecked !== undefined ? controlledChecked : internalChecked;
-  const activeColor = resolveColorType(variant, colorType);
+  const [versionModule, setVersionModule] = useState<any>(null);
 
-  const handleChange = () => {
-    if (disabled) return;
-    const newVal = !isChecked;
-    setInternalChecked(newVal);
-    onChange?.(newVal);
-  };
+  useEffect(() => {
+    loadVersionModule(version).then(setVersionModule);
+  }, [version]);
 
-  const boxStyle: React.CSSProperties = {
-    width: '18px',
-    height: '18px',
-    borderRadius: '4px',
-    border: `2px solid ${getColorVar(activeColor, isChecked ? 'base' : 'border')}`,
-    backgroundColor: isChecked ? getColorVar(activeColor, 'base') : 'transparent',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transition: animated ? 'all 200ms ease-in-out' : 'none',
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    opacity: disabled ? 0.5 : 1,
-    flexShrink: 0,
-  };
+  if (!versionModule) {
+    return <div className={cn("peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground", className)} />;
+  }
 
-  const checkmark = isChecked ? (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-      <path d="M2 6L5 9L10 3" stroke={getColorVar(activeColor, 'foreground')} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  ) : null;
-
+  const Component = versionModule.default;
   return (
-    <label
-      className={`ui-checkbox ui-checkbox-${version} ${className}`}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        cursor: disabled ? 'not-allowed' : 'pointer',
-        userSelect: 'none',
-      }}
-      data-version={version}
-      data-variant={variant}
-    >
-      <input
-        ref={ref}
-        type="checkbox"
-        id={id}
-        name={name}
-        checked={isChecked}
-        onChange={handleChange}
-        disabled={disabled}
-        style={{ position: 'absolute', opacity: 0, width: 0, height: 0 }}
-      />
-      <div style={boxStyle}>{checkmark}</div>
-      {label && (
-        <span style={{
-          fontSize: '14px',
-          color: getColorVar(activeColor, 'foreground'),
-          opacity: disabled ? 0.5 : 1,
-        }}>
-          {label}
-        </span>
-      )}
-    </label>
+    <Component ref={ref} className={className} variant={variant} type={type} {...props} />
   );
 });
+Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
-Checkbox.displayName = 'Checkbox';
 export { Checkbox };
 export default Checkbox;
+

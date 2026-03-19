@@ -1,0 +1,232 @@
+{
+  "version": "1.0",
+  "component": "sheet",
+  "description": "Cyber HUD/FUI Sheet System - Futuristic slide-in panels with edge effects",
+  
+  "types": {
+    "default": {
+      "border": "2px solid",
+      "background": "rgba(0, 163, 255, 0.08)",
+      "backdropFilter": "blur(12px)",
+      "description": "Glass effect with subtle background fill"
+    },
+    "outline": {
+      "border": "2px solid",
+      "background": "transparent",
+      "description": "Border only with transparent background"
+    },
+    "solid": {
+      "border": "none",
+      "background": "rgba(0, 163, 255, 0.9)",
+      "description": "Translucent 90% filled background"
+    }
+  },
+  
+  "backdrop": {
+    "background": "hsl(var(--background) / 0.6)",
+    "backdropFilter": "blur(4px)"
+  },
+  
+  "sides": {
+    "left": {
+      "width": "400px",
+      "height": "100%",
+      "position": "left: 0; top: 0;",
+      "borderEdge": "right",
+      "slideFrom": "-100%",
+      "slideTo": "0"
+    },
+    "right": {
+      "width": "400px",
+      "height": "100%",
+      "position": "right: 0; top: 0;",
+      "borderEdge": "left",
+      "slideFrom": "100%",
+      "slideTo": "0"
+    },
+    "top": {
+      "width": "100%",
+      "height": "auto",
+      "minHeight": "200px",
+      "position": "top: 0; left: 0;",
+      "borderEdge": "bottom",
+      "slideFrom": "-100%",
+      "slideTo": "0"
+    },
+    "bottom": {
+      "width": "100%",
+      "height": "auto",
+      "minHeight": "200px",
+      "position": "bottom: 0; left: 0;",
+      "borderEdge": "top",
+      "slideFrom": "100%",
+      "slideTo": "0"
+    }
+  },
+  
+  "versions": {
+    "angular-corner": {
+      "name": "Angular Corner",
+      "enabled": true,
+      "description": "Beveled corners with glowing edge accents",
+      "features": ["corner-accents", "edge-glow", "tech-notches"],
+      "edgeStyle": {
+        "borderWidth": "3px",
+        "glowSpread": "8px"
+      },
+      "animations": {
+        "slideIn": "sheetSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+        "slideOut": "sheetSlideOut 0.2s ease-in"
+      }
+    },
+    "holo-frame": {
+      "name": "Holographic Frame",
+      "enabled": true,
+      "description": "Iridescent holographic edge with shimmer",
+      "features": ["shimmer-edge", "corner-brackets", "rainbow-glow"],
+      "edgeStyle": {
+        "borderWidth": "2px",
+        "gradientBorder": true
+      },
+      "animations": {
+        "slideIn": "holoSlideIn 0.35s ease-out",
+        "slideOut": "holoSlideOut 0.2s ease-in",
+        "continuous": "holoShimmer 3s linear infinite"
+      }
+    },
+    "data-panel": {
+      "name": "Data Panel",
+      "enabled": true,
+      "description": "Technical readout strip along visible edge",
+      "features": ["status-bar", "data-readout", "scan-line"],
+      "edgeStyle": {
+        "borderWidth": "4px",
+        "statusBar": true
+      },
+      "animations": {
+        "slideIn": "dataSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+        "slideOut": "dataSlideOut 0.25s ease-in",
+        "continuous": "dataScan 2s linear infinite"
+      }
+    },
+    "circuit-board": {
+      "name": "Circuit Board",
+      "enabled": true,
+      "description": "Circuit trace patterns on edge",
+      "features": ["circuit-edge", "pulse-traces", "node-points"],
+      "edgeStyle": {
+        "borderWidth": "3px",
+        "tracePattern": true
+      },
+      "animations": {
+        "slideIn": "circuitSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "slideOut": "circuitSlideOut 0.2s ease-in",
+        "continuous": "circuitPulse 2s linear infinite"
+      }
+    },
+    "quantum-gate": {
+      "name": "Quantum Gate",
+      "enabled": true,
+      "description": "Quantum wave pattern on visible edge",
+      "features": ["wave-edge", "quantum-dots", "state-display"],
+      "edgeStyle": {
+        "borderWidth": "3px",
+        "wavePattern": true
+      },
+      "animations": {
+        "slideIn": "quantumSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+        "slideOut": "quantumSlideOut 0.25s ease-in",
+        "continuous": "quantumWave 3s ease-in-out infinite"
+      }
+    },
+    "tactical-hud": {
+      "name": "Tactical HUD",
+      "enabled": true,
+      "description": "Military HUD edge with targeting marks",
+      "features": ["targeting-edge", "status-indicators", "grid-marks"],
+      "edgeStyle": {
+        "borderWidth": "3px",
+        "targetingMarks": true
+      },
+      "animations": {
+        "slideIn": "tacticalSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "slideOut": "tacticalSlideOut 0.2s ease-in"
+      }
+    },
+    "energy-shield": {
+      "name": "Energy Shield",
+      "enabled": true,
+      "description": "Hexagonal energy pattern on edge",
+      "features": ["hex-edge", "energy-pulse", "shield-glow"],
+      "edgeStyle": {
+        "borderWidth": "3px",
+        "hexPattern": true
+      },
+      "animations": {
+        "slideIn": "energySlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "slideOut": "energySlideOut 0.2s ease-in",
+        "continuous": "energyEdgePulse 2s ease-out infinite"
+      }
+    },
+    "terminal-window": {
+      "name": "Terminal Window",
+      "enabled": true,
+      "description": "Terminal header bar with controls",
+      "features": ["header-bar", "status-dots", "scanline"],
+      "edgeStyle": {
+        "borderWidth": "2px",
+        "headerBar": true
+      },
+      "animations": {
+        "slideIn": "terminalSlideIn 0.4s steps(4)",
+        "slideOut": "terminalSlideOut 0.2s steps(2)"
+      }
+    },
+    "matrix-grid": {
+      "name": "Matrix Grid",
+      "enabled": true,
+      "description": "Digital grid overlay with rain effect",
+      "features": ["grid-edge", "digital-rain", "corner-nodes"],
+      "edgeStyle": {
+        "borderWidth": "2px",
+        "gridPattern": true
+      },
+      "animations": {
+        "slideIn": "matrixSlideIn 0.5s linear",
+        "slideOut": "matrixSlideOut 0.25s linear",
+        "continuous": "matrixRain 2s linear infinite"
+      }
+    },
+    "glass-morphism": {
+      "name": "Glass Morphism",
+      "enabled": true,
+      "description": "Frosted glass with soft edge glow",
+      "features": ["frosted-glass", "edge-gradient", "blur-backdrop"],
+      "edgeStyle": {
+        "borderWidth": "1px",
+        "gradientEdge": true
+      },
+      "animations": {
+        "slideIn": "glassSlideIn 0.3s ease-out",
+        "slideOut": "glassSlideOut 0.2s ease-in"
+      }
+    }
+  },
+  
+  "closeButton": {
+    "position": "absolute",
+    "top": "16px",
+    "right": "16px",
+    "size": "32px",
+    "glyph": "×"
+  },
+  
+  "defaults": {
+    "version": "angular-corner",
+    "type": "default",
+    "variant": "neutral",
+    "side": "right",
+    "animated": true,
+    "showClose": true
+  }
+}

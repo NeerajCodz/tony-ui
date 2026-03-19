@@ -1,0 +1,232 @@
+{
+  "version": "1.0",
+  "component": "checkbox",
+  "description": "Cyber HUD/FUI Checkbox System - 10 futuristic checkbox designs",
+  
+  "types": {
+    "default": {
+      "border": "2px solid",
+      "background": "rgba(0, 163, 255, 0.08)",
+      "backdropFilter": "blur(4px)",
+      "description": "Glass effect with subtle background"
+    },
+    "outline": {
+      "border": "2px solid",
+      "background": "transparent",
+      "description": "Border only with transparent background"
+    },
+    "solid": {
+      "border": "none",
+      "background": "rgba(0, 163, 255, 0.85)",
+      "description": "Solid filled background"
+    }
+  },
+  
+  "versions": {
+    "angular-corner": {
+      "name": "Angular Corner",
+      "enabled": true,
+      "description": "Beveled square with tech notches and cyber checkmark",
+      "shape": "square",
+      "clipPath": "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)",
+      "checkStyle": "checkmark",
+      "features": ["corner-cuts", "glow-border", "tech-notches"],
+      "animations": {
+        "entrance": "scale-in",
+        "check": "pulse-glow"
+      }
+    },
+    "hexagonal": {
+      "name": "Hexagonal",
+      "enabled": true,
+      "description": "Hex-shaped checkbox with honeycomb aesthetic",
+      "shape": "hexagon",
+      "clipPath": "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
+      "checkStyle": "fill",
+      "features": ["hex-border", "inner-glow"],
+      "animations": {
+        "entrance": "hex-spin",
+        "check": "fill-expand"
+      }
+    },
+    "diamond": {
+      "name": "Diamond",
+      "enabled": true,
+      "description": "Rotated square diamond with sharp edges",
+      "shape": "diamond",
+      "transform": "rotate(45deg)",
+      "checkStyle": "glow",
+      "features": ["diamond-shape", "edge-glow"],
+      "animations": {
+        "entrance": "rotate-in",
+        "check": "diamond-pulse"
+      }
+    },
+    "circuit-node": {
+      "name": "Circuit Node",
+      "enabled": true,
+      "description": "Circuit board node with trace connections",
+      "shape": "circle",
+      "checkStyle": "fill",
+      "features": ["circuit-traces", "node-connections", "pulse-lines"],
+      "animations": {
+        "entrance": "trace-draw",
+        "check": "node-activate"
+      }
+    },
+    "quantum-bit": {
+      "name": "Quantum Bit",
+      "enabled": true,
+      "description": "Quantum computing qubit visualization",
+      "shape": "circle",
+      "checkStyle": "glow",
+      "features": ["orbital-rings", "particle-effects", "superposition"],
+      "animations": {
+        "entrance": "quantum-fade",
+        "check": "collapse-state",
+        "continuous": "orbital-spin"
+      }
+    },
+    "holo-scan": {
+      "name": "Holo Scan",
+      "enabled": true,
+      "description": "Holographic scanning effect checkbox",
+      "shape": "square",
+      "checkStyle": "glow",
+      "features": ["scan-lines", "holographic-shimmer", "data-overlay"],
+      "animations": {
+        "entrance": "holo-materialize",
+        "check": "scan-confirm",
+        "continuous": "holo-flicker"
+      }
+    },
+    "energy-core": {
+      "name": "Energy Core",
+      "enabled": true,
+      "description": "Pulsing energy core with particle effects",
+      "shape": "hexagon",
+      "clipPath": "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
+      "checkStyle": "glow",
+      "features": ["energy-pulse", "core-glow", "particle-burst"],
+      "animations": {
+        "entrance": "energy-charge",
+        "check": "core-activate",
+        "continuous": "energy-pulse"
+      }
+    },
+    "tactical-marker": {
+      "name": "Tactical Marker",
+      "enabled": true,
+      "description": "Military HUD targeting marker style",
+      "shape": "square",
+      "checkStyle": "icon",
+      "features": ["targeting-brackets", "status-indicators", "military-font"],
+      "animations": {
+        "entrance": "target-lock",
+        "check": "confirm-target"
+      }
+    },
+    "matrix-cell": {
+      "name": "Matrix Cell",
+      "enabled": true,
+      "description": "Digital matrix grid cell with data effect",
+      "shape": "square",
+      "checkStyle": "fill",
+      "features": ["grid-lines", "data-stream", "pixel-transition"],
+      "animations": {
+        "entrance": "matrix-load",
+        "check": "data-fill",
+        "continuous": "data-stream"
+      }
+    },
+    "neon-pulse": {
+      "name": "Neon Pulse",
+      "enabled": true,
+      "description": "High-contrast neon with pulsing glow",
+      "shape": "square",
+      "checkStyle": "glow",
+      "features": ["neon-border", "bloom-effect", "pulse-animation"],
+      "animations": {
+        "entrance": "neon-flicker",
+        "check": "neon-burst",
+        "continuous": "neon-pulse"
+      }
+    }
+  },
+  
+  "animations": {
+    "scale-in": {
+      "duration": "200ms",
+      "easing": "cubic-bezier(0.34, 1.56, 0.64, 1)"
+    },
+    "pulse-glow": {
+      "duration": "300ms",
+      "easing": "ease-out"
+    },
+    "hex-spin": {
+      "duration": "400ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    "fill-expand": {
+      "duration": "250ms",
+      "easing": "ease-out"
+    },
+    "rotate-in": {
+      "duration": "300ms",
+      "easing": "cubic-bezier(0.68, -0.55, 0.27, 1.55)"
+    },
+    "trace-draw": {
+      "duration": "500ms",
+      "easing": "linear"
+    },
+    "quantum-fade": {
+      "duration": "400ms",
+      "easing": "ease-in-out"
+    },
+    "orbital-spin": {
+      "duration": "3s",
+      "iterationCount": "infinite",
+      "easing": "linear"
+    },
+    "holo-materialize": {
+      "duration": "600ms",
+      "easing": "steps(8)"
+    },
+    "energy-pulse": {
+      "duration": "2s",
+      "iterationCount": "infinite",
+      "easing": "ease-in-out"
+    },
+    "target-lock": {
+      "duration": "400ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    "matrix-load": {
+      "duration": "500ms",
+      "easing": "steps(10)"
+    },
+    "neon-flicker": {
+      "duration": "300ms",
+      "easing": "steps(3)"
+    },
+    "neon-pulse": {
+      "duration": "1.5s",
+      "iterationCount": "infinite",
+      "easing": "ease-in-out"
+    }
+  },
+  
+  "sizes": {
+    "sm": { "box": 16, "checkmark": 10 },
+    "md": { "box": 20, "checkmark": 12 },
+    "lg": { "box": 24, "checkmark": 14 }
+  },
+  
+  "defaults": {
+    "version": "angular-corner",
+    "type": "default",
+    "variant": "neutral",
+    "size": "md",
+    "animated": true
+  }
+}

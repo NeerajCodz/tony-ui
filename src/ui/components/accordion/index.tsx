@@ -1,80 +1,129 @@
 /**
- * Accordion Component
+ * Accordion Component - Dynamic Renderer
+ * Refactored to use Compound Component Context Pattern
  */
-import React, { useState } from 'react';
-import type { AccordionProps } from '../../types/components/layout.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
 
-const Accordion: React.FC<AccordionProps> = ({
-  version = 'default', type: styleType = 'default', variant = 'neutral',
-  colorType = 'primary', animated = true, items, multiple = false,
-  defaultValue = [], value: controlledValue, onValueChange, className = '',
-}) => {
-  const [internalOpen, setInternalOpen] = useState<string[]>(defaultValue);
-  const openItems = controlledValue !== undefined ? controlledValue : internalOpen;
-  const activeColor = resolveColorType(variant, colorType);
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import * as AccordionPrimitive from '@radix-ui/react-accordion';
+import { cn } from '../../../lib/utils';
+import { ChevronDown } from 'lucide-react';
 
-  const toggle = (val: string) => {
-    let next: string[];
-    if (openItems.includes(val)) {
-      next = openItems.filter(v => v !== val);
-    } else {
-      next = multiple ? [...openItems, val] : [val];
-    }
-    setInternalOpen(next);
-    onValueChange?.(next);
-  };
+// --- Types ---
+type AccordionVersion = 
+  | 'angular-corner'
+  | 'holo-frame'
+  | 'data-panel'
+  | 'circuit-board'
+  | 'quantum-gate'
+  | 'tactical-hud'
+  | 'energy-shield'
+  | 'terminal-window'
+  | 'matrix-grid'
+  | 'neon-outline';
 
-  return (
-    <div className={`ui-accordion ui-accordion-${version} ${className}`} data-version={version} data-variant={variant}>
-      {items.map((item, idx) => {
-        const isOpen = openItems.includes(item.value);
-        const isSeparated = version === 'separated';
+interface AccordionProps extends React.ComponentProps<typeof AccordionPrimitive.Root> {
+  version?: AccordionVersion;
+  variant?: 'neutral' | 'primary' | 'success' | 'warning' | 'destructive' | 'info';
+  type?: 'default' | 'outline' | 'solid' | 'ghost';
+}
 
-        return (
-          <div key={item.value} style={{
-            border: version === 'bordered' || isSeparated ? `1px solid ${getColorVar(activeColor, 'border')}` : 'none',
-            borderBottom: version === 'default' ? `1px solid ${getColorVar(activeColor, 'border')}` : undefined,
-            borderRadius: isSeparated ? '8px' : '0',
-            marginBottom: isSeparated ? '8px' : '0',
-            overflow: 'hidden',
-          }}>
-            <button
-              type="button"
-              onClick={() => !item.disabled && toggle(item.value)}
-              disabled={item.disabled}
-              style={{
-                width: '100%', textAlign: 'left', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                padding: '12px 16px', fontSize: '14px', fontWeight: '500', border: 'none', outline: 'none',
-                backgroundColor: 'transparent', color: getColorVar(activeColor, 'foreground'),
-                cursor: item.disabled ? 'not-allowed' : 'pointer', opacity: item.disabled ? 0.5 : 1,
-                fontFamily: 'inherit', transition: animated ? 'all 150ms ease-in-out' : 'none',
-              }}
-            >
-              <span>{item.title}</span>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{
-                transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
-                transition: animated ? 'transform 200ms ease-in-out' : 'none',
-              }}>
-                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-            </button>
-            {isOpen && (
-              <div style={{
-                padding: '0 16px 16px', fontSize: '13px',
-                color: getColorVar(activeColor, 'foreground'), opacity: 0.85,
-                animation: animated ? 'ui-accordion-open 200ms ease-out' : 'none',
-              }}>
-                {item.content}
-              </div>
-            )}
-          </div>
-        );
-      })}
-      <style>{`@keyframes ui-accordion-open { from { opacity: 0; max-height: 0; } to { opacity: 1; max-height: 500px; } }`}</style>
-    </div>
-  );
+// --- Dynamic Import Helper ---
+const loadVersionModule = async (version: AccordionVersion) => {
+  switch (version) {
+    case 'angular-corner': return import('./accordion-angular-corner.tsx');
+    case 'holo-frame': return import('./accordion-holo-frame.tsx');
+    case 'data-panel': return import('./accordion-data-panel.tsx');
+    case 'circuit-board': return import('./accordion-circuit-board.tsx');
+    case 'quantum-gate': return import('./accordion-quantum-gate.tsx');
+    case 'tactical-hud': return import('./accordion-tactical-hud.tsx');
+    case 'energy-shield': return import('./accordion-energy-shield.tsx');
+    case 'terminal-window': return import('./accordion-terminal-window.tsx');
+    case 'matrix-grid': return import('./accordion-matrix-grid.tsx');
+    case 'neon-outline': return import('./accordion-neon-outline.tsx');
+    default: return import('./accordion-angular-corner.tsx');
+  }
 };
 
-export { Accordion };
-export default Accordion;
+// --- Context ---
+interface AccordionContextValue {
+  version: AccordionVersion;
+  variant: AccordionProps['variant'];
+  type: AccordionProps['type'];
+  versionModule: any;
+}
+
+const AccordionContext = createContext<AccordionContextValue>({
+  version: 'angular-corner',
+  variant: 'primary',
+  type: 'default',
+  versionModule: null,
+});
+
+const useAccordionContext = () => useContext(AccordionContext);
+
+// --- Main Component ---
+const Accordion = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, AccordionProps>(({ 
+  version = 'angular-corner', 
+  variant = 'primary', 
+  type = 'default', 
+  children, 
+  ...props 
+}, ref) => {
+  const [versionModule, setVersionModule] = useState<any>(null);
+
+  useEffect(() => {
+    loadVersionModule(version).then(setVersionModule);
+  }, [version]);
+
+  return (
+    <AccordionContext.Provider value={{ version, variant, type, versionModule }}>
+      <AccordionPrimitive.Root ref={ref} {...props}>
+        {children}
+      </AccordionPrimitive.Root>
+    </AccordionContext.Provider>
+  );
+});
+Accordion.displayName = 'Accordion';
+
+// --- Subcomponents ---
+
+const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Item>, React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>>((props, ref) => {
+  const { versionModule } = useAccordionContext();
+  
+  if (!versionModule) return <div className="border-b border-gray-800 p-4 animate-pulse h-16" />;
+
+  const Component = versionModule.AccordionItem || versionModule.Item;
+  return <Component ref={ref} {...props} />;
+});
+AccordionItem.displayName = 'AccordionItem';
+
+const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Trigger>, React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>>((props, ref) => {
+  const { versionModule } = useAccordionContext();
+
+  if (!versionModule) return <div className="h-full w-full" />;
+
+  const Component = versionModule.AccordionTrigger || versionModule.Trigger;
+  return <Component ref={ref} {...props} />;
+});
+AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
+
+const AccordionContent = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Content>, React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>>((props, ref) => {
+  const { versionModule } = useAccordionContext();
+
+  if (!versionModule) return null;
+
+  const Component = versionModule.AccordionContent || versionModule.Content;
+  return <Component ref={ref} {...props} />;
+});
+AccordionContent.displayName = AccordionPrimitive.Content.displayName;
+
+// --- Exports ---
+const AccordionNamespace = Object.assign(Accordion, {
+  Item: AccordionItem,
+  Trigger: AccordionTrigger,
+  Content: AccordionContent,
+});
+
+export { AccordionNamespace as Accordion };
+export default AccordionNamespace;
+

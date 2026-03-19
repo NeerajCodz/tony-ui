@@ -1,67 +1,101 @@
-/**
- * Table Component
- */
-import React from 'react';
-import type { TableProps } from '../../types/components/data-display.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
+import React, { lazy, Suspense, createContext, useContext, useMemo } from 'react';
 
-function Table<T extends Record<string, any>>({
-  version = 'default', type: styleType = 'default', variant = 'neutral',
-  colorType = 'primary', animated = true, columns, data, className = '',
-  headerClassName = '', rowClassName, onRowClick,
-}: TableProps<T>) {
-  const activeColor = resolveColorType(variant, colorType);
+// Context to share version between compound components
+const TableVersionContext = createContext('angular-corner');
+
+// Helper for lazy loading subcomponents
+const createLazySubcomponent = (componentName) => {
+  return React.forwardRef((props, ref) => {
+    const version = useContext(TableVersionContext);
+    
+    const LazyComponent = useMemo(() => lazy(async () => {
+      try {
+        const module = await import(`./table-${version}.tsx`);
+        return { default: module[componentName] };
+      } catch (e) {
+        // Fallback for missing components
+        return { 
+          default: ({ children, className = '', ...p }) => (
+            <div className={`ui-table-${componentName.toLowerCase()} ${className}`} {...p}>{children}</div>
+          ) 
+        };
+      }
+    }), [version]);
+
+    return (
+      <Suspense fallback={<div className="animate-pulse bg-muted/10 h-8 rounded" />}>
+        <LazyComponent ref={ref} {...props} />
+      </Suspense>
+    );
+  });
+};
+
+// Main Component (Root)
+const TableRoot = React.forwardRef(({ 
+  version = 'angular-corner',
+  children,
+  ...props 
+}, ref) => {
+  
+  const LazyRoot = useMemo(() => lazy(async () => {
+    try {
+      const module = await import(`./table-${version}.tsx`);
+      return { default: module.Table }; 
+    } catch (e) {
+      return { 
+        default: ({ children, className = '', ...p }) => (
+          <div ref={ref} className={`p-4 border border-dashed border-red-500/50 bg-red-500/10 ${className}`} {...p}>
+            <span className="text-xs text-red-400 font-mono">Missing: {version}</span>
+            {children}
+          </div>
+        )
+      };
+    }
+  }), [version]);
 
   return (
-    <div className={`ui-table-wrapper ${className}`} style={{ overflowX: 'auto', borderRadius: '8px',
-      border: version === 'bordered' ? `1px solid ${getColorVar(activeColor, 'border')}` : 'none' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
-        <thead>
-          <tr className={headerClassName} style={{
-            borderBottom: `2px solid ${getColorVar(activeColor, 'border')}`,
-          }}>
-            {columns.map(col => (
-              <th key={col.key} style={{
-                padding: version === 'compact' ? '6px 10px' : '10px 14px', textAlign: (col.align as any) || 'left',
-                fontWeight: '600', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.04em',
-                color: getColorVar(activeColor, 'foreground'), whiteSpace: 'nowrap',
-                width: col.width,
-              }}>{col.header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, idx) => {
-            const rcn = typeof rowClassName === 'function' ? rowClassName(row, idx) : rowClassName || '';
-            return (
-              <tr key={idx} className={rcn}
-                onClick={() => onRowClick?.(row, idx)}
-                style={{
-                  borderBottom: `1px solid ${getColorVar(activeColor, 'border')}`,
-                  backgroundColor: version === 'striped' && idx % 2 === 1 ? getColorVar(activeColor, 'background') : 'transparent',
-                  cursor: onRowClick ? 'pointer' : undefined,
-                  transition: animated ? 'background-color 100ms' : 'none',
-                }}
-                onMouseEnter={(e) => { if (onRowClick) (e.currentTarget.style.backgroundColor = getColorVar(activeColor, 'hover')); }}
-                onMouseLeave={(e) => { (e.currentTarget.style.backgroundColor = version === 'striped' && idx % 2 === 1 ? getColorVar(activeColor, 'background') : 'transparent'); }}
-              >
-                {columns.map(col => (
-                  <td key={col.key} style={{
-                    padding: version === 'compact' ? '6px 10px' : '10px 14px',
-                    textAlign: (col.align as any) || 'left',
-                    color: getColorVar(activeColor, 'foreground'),
-                  }}>
-                    {col.render ? col.render(row[col.key], row) : row[col.key]}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+    <TableVersionContext.Provider value={version}>
+      <Suspense fallback={<div className="animate-pulse bg-muted/20 w-full min-h-[100px] rounded" />}>
+        <LazyRoot ref={ref} {...props}>
+          {children}
+        </LazyRoot>
+      </Suspense>
+    </TableVersionContext.Provider>
   );
-}
+});
+TableRoot.displayName = 'Table';
 
-export { Table };
+// Subcomponents
+export const TableHeader = createLazySubcomponent('TableHeader');
+TableHeader.displayName = 'TableHeader';
+
+export const TableBody = createLazySubcomponent('TableBody');
+TableBody.displayName = 'TableBody';
+
+export const TableFooter = createLazySubcomponent('TableFooter');
+TableFooter.displayName = 'TableFooter';
+
+export const TableRow = createLazySubcomponent('TableRow');
+TableRow.displayName = 'TableRow';
+
+export const TableHead = createLazySubcomponent('TableHead');
+TableHead.displayName = 'TableHead';
+
+export const TableCell = createLazySubcomponent('TableCell');
+TableCell.displayName = 'TableCell';
+
+export const TableCaption = createLazySubcomponent('TableCaption');
+TableCaption.displayName = 'TableCaption';
+
+export const Table = Object.assign(TableRoot, {
+  Header: TableHeader,
+  Body: TableBody,
+  Footer: TableFooter,
+  Head: TableHead,
+  Row: TableRow,
+  Cell: TableCell,
+  Caption: TableCaption,
+});
+
 export default Table;
+

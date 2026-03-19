@@ -1,60 +1,60 @@
 /**
- * Skeleton Component
+ * Skeleton Component - Dynamic Renderer
+ * Refactored to use Compound Component Context Pattern
  */
-import React from 'react';
-import type { SkeletonProps } from '../../types/components/feedback.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
 
-const Skeleton: React.FC<SkeletonProps> = ({
-  version = 'default',
-  variant = 'neutral',
-  colorType = 'primary',
-  animated = true,
-  width = '100%',
-  height = '16px',
-  className = '',
-  count = 1,
-}) => {
-  const activeColor = resolveColorType(variant, colorType);
+import React, { lazy, Suspense } from 'react';
+import { cn } from '../../../lib/utils';
 
-  const baseStyle: React.CSSProperties = {
-    backgroundColor: getColorVar(activeColor, 'border'),
-    borderRadius: version === 'circle' ? '50%' : '6px',
-    animation: animated ? 'ui-skeleton-pulse 1.5s ease-in-out infinite' : 'none',
-    opacity: 0.3,
-  };
+// --- Types ---
+type SkeletonVersion = 
+  | 'angular-corner'
+  | 'holo-frame'
+  | 'data-panel'
+  | 'circuit-board'
+  | 'quantum-gate'
+  | 'tactical-hud'
+  | 'energy-shield'
+  | 'terminal-window'
+  | 'matrix-grid'
+  | 'neon-outline';
 
-  if (version === 'card') {
-    return (
-      <div className={`ui-skeleton ui-skeleton-card ${className}`} style={{
-        border: `1px solid ${getColorVar(activeColor, 'border')}`,
-        borderRadius: '8px',
-        padding: '16px',
-        width,
-      }}>
-        <div style={{ ...baseStyle, width: '40%', height: '14px', marginBottom: '12px' }} />
-        <div style={{ ...baseStyle, width: '100%', height: '10px', marginBottom: '8px' }} />
-        <div style={{ ...baseStyle, width: '80%', height: '10px', marginBottom: '8px' }} />
-        <div style={{ ...baseStyle, width: '60%', height: '10px' }} />
-        <style>{`@keyframes ui-skeleton-pulse { 0% { opacity: 0.3; } 50% { opacity: 0.15; } 100% { opacity: 0.3; } }`}</style>
-      </div>
-    );
-  }
+interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
+  version?: SkeletonVersion;
+}
 
-  return (
-    <div className={`ui-skeleton ${className}`}>
-      {Array.from({ length: count }).map((_, i) => (
-        <div key={i} style={{
-          ...baseStyle,
-          width: version === 'circle' ? height : width,
-          height,
-          marginBottom: i < count - 1 ? '8px' : 0,
-        }} />
-      ))}
-      <style>{`@keyframes ui-skeleton-pulse { 0% { opacity: 0.3; } 50% { opacity: 0.15; } 100% { opacity: 0.3; } }`}</style>
-    </div>
-  );
+// --- Lazy Loaders ---
+const versionComponents = {
+  'angular-corner': lazy(() => import('./skeleton-angular-corner.tsx')),
+  'holo-frame': lazy(() => import('./skeleton-holo-frame.tsx')),
+  'data-panel': lazy(() => import('./skeleton-data-panel.tsx')),
+  'circuit-board': lazy(() => import('./skeleton-circuit-board.tsx')),
+  'quantum-gate': lazy(() => import('./skeleton-quantum-gate.tsx')),
+  'tactical-hud': lazy(() => import('./skeleton-tactical-hud.tsx')),
+  'energy-shield': lazy(() => import('./skeleton-energy-shield.tsx')),
+  'terminal-window': lazy(() => import('./skeleton-terminal-window.tsx')),
+  'matrix-grid': lazy(() => import('./skeleton-matrix-grid.tsx')),
+  'neon-outline': lazy(() => import('./skeleton-neon-outline.tsx')),
 };
+
+// --- Main Component ---
+const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(({ 
+  version = 'angular-corner', 
+  className,
+  ...props 
+}, ref) => {
+  const VersionModule = versionComponents[version];
+  
+  return (
+    <Suspense fallback={<div className={cn("animate-pulse rounded-md bg-muted", className)} {...props} />}>
+      {/* @ts-ignore */}
+      <VersionModule.default ref={ref} className={className} {...props} />
+    </Suspense>
+  );
+});
+Skeleton.displayName = "Skeleton";
 
 export { Skeleton };
 export default Skeleton;
+
+

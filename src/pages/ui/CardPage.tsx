@@ -1,198 +1,321 @@
-import { useState } from 'react';
-import { Card, CARD_VERSION_CONFIGS } from '../../ui';
-import type { CardType, CardVariant } from '../../ui';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Card, CARD_VERSION_CONFIGS, CardTitle, CardDescription, CardHeader, CardContent, CardFooter } from '../../ui';
+import type { CardType, CardVariant, CardVersion } from '../../ui';
 
 export function UICardPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  // All available options
+  const themes = ['cyan', 'dark', 'light'] as const;
   const variants: CardVariant[] = ['neutral', 'success', 'warning', 'info', 'destructive'];
   const types: CardType[] = ['default', 'outline', 'solid'];
+  
+  // All 12 card versions
+  const versions: CardVersion[] = [
+    'angular-corner',
+    'holo-frame',
+    'data-panel',
+    'circuit-board',
+    'quantum-gate',
+    'tactical-hud',
+    'energy-shield',
+    'terminal-window',
+    'matrix-grid',
+    'glass-morphism',
+    'tech-panel',
+    'neon-outline'
+  ];
 
-  const [currentType, setCurrentType] = useState<CardType>('default');
-  const [isAnimated, setIsAnimated] = useState(true);
+  // State from URL params or defaults
+  const [currentTheme, setCurrentTheme] = useState<typeof themes[number]>(
+    (searchParams.get('theme') as typeof themes[number]) || 'cyan'
+  );
+  const [currentType, setCurrentType] = useState<CardType>(
+    (searchParams.get('type') as CardType) || 'default'
+  );
+  const [currentVariant, setCurrentVariant] = useState<CardVariant>(
+    (searchParams.get('variant') as CardVariant) || 'neutral'
+  );
+  const [animated, setAnimated] = useState<boolean>(
+    searchParams.get('animated') !== 'false'
+  );
+
+  // Sync URL params when state changes
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.set('theme', currentTheme);
+    params.set('type', currentType);
+    params.set('variant', currentVariant);
+    params.set('animated', String(animated));
+    setSearchParams(params, { replace: true });
+  }, [currentTheme, currentType, currentVariant, animated, setSearchParams]);
+
+  // Apply theme to document
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+  }, [currentTheme]);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-8">
+    <div className="min-h-screen p-8" style={{ 
+      backgroundColor: 'hsl(var(--background))',
+      color: 'hsl(var(--text-base))',
+      fontFamily: '"Orbitron", "Rajdhani", monospace'
+    }}>
+      {/* Header with futuristic font */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2 text-cyan-400">Card Components</h1>
-        <p className="text-gray-400">8 versions with JSON-based dynamic theming, 3 types, and optional animations.</p>
+        <h1 className="text-4xl md:text-5xl font-black mb-3 tracking-[0.15em] uppercase" 
+            style={{ 
+              color: 'hsl(var(--primary-base))',
+              textShadow: '0 0 30px hsl(var(--primary-base) / 0.4)',
+              fontFamily: '"Orbitron", monospace',
+              fontWeight: 900
+            }}>
+          ⬢ CYBER CARD SYSTEM ⬢
+        </h1>
+        <p className="text-sm tracking-widest uppercase opacity-70" style={{ fontFamily: '"Rajdhani", sans-serif' }}>
+          12 UNIQUE SHAPES × 3 TYPES × 5 VARIANTS = 180 COMBINATIONS
+        </p>
       </div>
 
-      <div className="space-y-6 p-4">
-        <div className="flex items-center gap-8 p-4 rounded-lg bg-gray-800/50">
+      {/* Filter Controls */}
+      <div className="space-y-6 p-6 mb-8 relative" style={{
+        backgroundColor: 'hsl(var(--surface-base) / 0.4)',
+        border: '1px solid hsl(var(--primary-base) / 0.3)',
+        clipPath: 'polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)',
+        backdropFilter: 'blur(8px)'
+      }}>
+        <h3 className="text-base font-black uppercase tracking-[0.2em] mb-4" style={{ 
+          color: 'hsl(var(--primary-base))',
+          fontFamily: '"Orbitron", monospace'
+        }}>
+          ▸ SYSTEM CONTROLS
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          
+          {/* Theme Selector */}
           <div>
-            <label htmlFor="card-type" className="block text-sm font-medium text-gray-300 mb-2">Card Type</label>
+            <label htmlFor="theme-select" className="block text-[10px] font-bold mb-2 tracking-[0.15em] uppercase opacity-70">
+              THEME
+            </label>
             <select
-              id="card-type"
-              value={currentType}
-              onChange={(e) => setCurrentType(e.target.value as CardType)}
-              className="bg-gray-900 border border-gray-700 text-white rounded-md p-2"
+              id="theme-select"
+              value={currentTheme}
+              onChange={(e) => setCurrentTheme(e.target.value as typeof themes[number])}
+              className="w-full p-2.5 text-sm font-bold tracking-wide uppercase"
+              style={{
+                backgroundColor: 'hsl(var(--surface-base) / 0.8)',
+                border: '1px solid hsl(var(--primary-base) / 0.4)',
+                color: 'hsl(var(--text-base))',
+                clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                fontFamily: '"Rajdhani", sans-serif'
+              }}
             >
-              {types.map(t => <option key={t} value={t}>{t}</option>)}
+              {themes.map(theme => (
+                <option key={theme} value={theme}>{theme.toUpperCase()}</option>
+              ))}
             </select>
           </div>
+
+          {/* Type Selector */}
           <div>
-            <label htmlFor="card-animated" className="flex items-center gap-2 text-sm font-medium text-gray-300">
-              <input
-                id="card-animated"
-                type="checkbox"
-                checked={isAnimated}
-                onChange={(e) => setIsAnimated(e.target.checked)}
-                className="h-4 w-4 rounded bg-gray-700 border-gray-600 text-cyan-500 focus:ring-cyan-600"
-              />
-              Animate on Hover
+            <label htmlFor="type-select" className="block text-[10px] font-bold mb-2 tracking-[0.15em] uppercase opacity-70">
+              TYPE
             </label>
+            <select
+              id="type-select"
+              value={currentType}
+              onChange={(e) => setCurrentType(e.target.value as CardType)}
+              className="w-full p-2.5 text-sm font-bold tracking-wide uppercase"
+              style={{
+                backgroundColor: 'hsl(var(--surface-base) / 0.8)',
+                border: '1px solid hsl(var(--primary-base) / 0.4)',
+                color: 'hsl(var(--text-base))',
+                clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                fontFamily: '"Rajdhani", sans-serif'
+              }}
+            >
+              {types.map(type => (
+                <option key={type} value={type}>{type.toUpperCase()}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Variant Selector */}
+          <div>
+            <label htmlFor="variant-select" className="block text-[10px] font-bold mb-2 tracking-[0.15em] uppercase opacity-70">
+              VARIANT
+            </label>
+            <select
+              id="variant-select"
+              value={currentVariant}
+              onChange={(e) => setCurrentVariant(e.target.value as CardVariant)}
+              className="w-full p-2.5 text-sm font-bold tracking-wide uppercase"
+              style={{
+                backgroundColor: 'hsl(var(--surface-base) / 0.8)',
+                border: '1px solid hsl(var(--primary-base) / 0.4)',
+                color: 'hsl(var(--text-base))',
+                clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                fontFamily: '"Rajdhani", sans-serif'
+              }}
+            >
+              {variants.map(variant => (
+                <option key={variant} value={variant}>{variant.toUpperCase()}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Animate Toggle */}
+          <div>
+            <label className="block text-[10px] font-bold mb-2 tracking-[0.15em] uppercase opacity-70">
+              ANIMATE
+            </label>
+            <button
+              onClick={() => setAnimated(!animated)}
+              className="w-full p-2.5 font-black tracking-[0.15em] uppercase text-sm transition-all duration-300"
+              style={{
+                backgroundColor: animated ? 'hsl(var(--primary-base))' : 'hsl(var(--surface-base) / 0.8)',
+                border: '1px solid hsl(var(--primary-base))',
+                color: animated ? 'hsl(var(--background))' : 'hsl(var(--primary-base))',
+                clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                boxShadow: animated ? '0 0 20px hsl(var(--primary-base) / 0.5)' : 'none',
+                fontFamily: '"Orbitron", monospace'
+              }}
+            >
+              {animated ? '⬢ ACTIVE' : '⬡ INACTIVE'}
+            </button>
           </div>
         </div>
       </div>
 
-      <div className="space-y-16 w-full">
-        
-        {/* Section 1: All 8 Card Versions */}
-        <section>
-          <h3 className="text-2xl font-bold mb-8 uppercase tracking-wide" style={{ color: 'hsl(var(--primary-foreground))' }}>
-            All Card Versions
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card version="default" type={currentType} animated={isAnimated}>
-              <Card.Header title="Default Card" />
-              <Card.Content>
-                <p className="text-sm">Standard card with border and subtle background</p>
-              </Card.Content>
-              <Card.Footer>Default version</Card.Footer>
-            </Card>
-
-            <Card version="minimal" type={currentType} animated={isAnimated}>
-              <Card.Header title="Minimal Card" />
-              <Card.Content>
-                <p className="text-sm">Minimal styling with just a thin border</p>
-              </Card.Content>
-              <Card.Footer>Minimal version</Card.Footer>
-            </Card>
-
-            <Card version="compact" type={currentType} animated={isAnimated}>
-              <Card.Header title="Compact Card" />
-              <Card.Content>
-                <p className="text-sm">Reduced padding for dense layouts</p>
-              </Card.Content>
-              <Card.Footer>Compact version</Card.Footer>
-            </Card>
-
-            <Card version="expanded" type={currentType} animated={isAnimated}>
-              <Card.Header title="Expanded Card" />
-              <Card.Content>
-                <p className="text-sm">Extra padding and larger shadows for prominence</p>
-              </Card.Content>
-              <Card.Footer>Expanded version</Card.Footer>
-            </Card>
-
-            <Card version="elevated" type={currentType} animated={isAnimated}>
-              <Card.Header title="Elevated Card" />
-              <Card.Content>
-                <p className="text-sm">Floating effect with tall shadow and no border</p>
-              </Card.Content>
-              <Card.Footer>Elevated version</Card.Footer>
-            </Card>
-
-            <Card version="filled" type={currentType} animated={isAnimated}>
-              <Card.Header title="Filled Card" />
-              <Card.Content>
-                <p className="text-sm">Solid background fill without border</p>
-              </Card.Content>
-              <Card.Footer>Filled version</Card.Footer>
-            </Card>
-
-            <Card version="outlined" type={currentType} animated={isAnimated}>
-              <Card.Header title="Outlined Card" />
-              <Card.Content>
-                <p className="text-sm">Prominent border with transparent background</p>
-              </Card.Content>
-              <Card.Footer>Outlined version</Card.Footer>
-            </Card>
-
-            <Card version="tonal" type={currentType} animated={isAnimated}>
-              <Card.Header title="Tonal Card" />
-              <Card.Content>
-                <p className="text-sm">Tinted background for semantic messaging</p>
-              </Card.Content>
-              <Card.Footer>Tonal version</Card.Footer>
-            </Card>
-          </div>
-        </section>
-
-        {/* Section 2: Color Variants */}
-        <section>
-          <h3 className="text-2xl font-bold mb-8 uppercase tracking-wide" style={{ color: 'hsl(var(--primary-foreground))' }}>
-            Color Variants
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {variants.map((variant) => (
-              <Card key={variant} variant={variant} version="tonal" type={currentType} animated={isAnimated}>
-                <Card.Header title={`${variant.toUpperCase()} Variant`} />
-                <Card.Content>
-                  <p className="text-sm">This card uses the {variant} color scheme from semantic colors</p>
-                </Card.Content>
+      {/* Card Grid - All 12 versions */}
+      <section>
+        <h3 className="text-xl font-black mb-6 uppercase tracking-[0.2em]" style={{ 
+          color: 'hsl(var(--primary-base))',
+          textShadow: '0 0 15px hsl(var(--primary-base) / 0.3)',
+          fontFamily: '"Orbitron", monospace'
+        }}>
+          ▸ ALL CARD VERSIONS
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {versions.map((version, idx) => {
+            const config = CARD_VERSION_CONFIGS[version];
+            return (
+              <Card 
+                key={`${version}-${animated}-${idx}`}
+                version={version}
+                type={currentType}
+                variant={currentVariant}
+                animated={animated}
+              >
+                <CardHeader>
+                  <CardTitle style={{ 
+                    fontFamily: '"Orbitron", monospace',
+                    fontWeight: 900,
+                    letterSpacing: '0.1em'
+                  }}>
+                    {config?.name || version}
+                  </CardTitle>
+                  <CardDescription style={{ fontFamily: '"Rajdhani", sans-serif' }}>
+                    {config?.description || 'Cyber HUD card variant'}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-[10px] opacity-50 space-y-0.5 uppercase tracking-wider" style={{ fontFamily: '"Rajdhani", sans-serif' }}>
+                    <div>VERSION: {version}</div>
+                    <div>TYPE: {currentType}</div>
+                    <div>VARIANT: {currentVariant}</div>
+                  </div>
+                </CardContent>
               </Card>
-            ))}
-          </div>
-        </section>
+            );
+          })}
+        </div>
+      </section>
 
-        {/* Section 4: Full Featured Example */}
-        <section>
-          <h3 className="text-2xl font-bold mb-8 uppercase tracking-wide" style={{ color: 'hsl(var(--primary-foreground))' }}>
-            Full Featured Example
-          </h3>
-          <div className="max-w-2xl">
-            <Card version="expanded" variant="success" type="solid" animated={isAnimated}>
-              <Card.Header title="Project Complete ✓" />
-              <Card.Content>
-                <div className="space-y-4 text-sm">
-                  <p>
-                    This card demonstrates the new JSON-based color system:
-                  </p>
-                  <ul className="space-y-2 ml-4" style={{ color: 'hsl(var(--primary-foreground))' }}>
-                    <li>✓ All colors from JSON configuration</li>
-                    <li>✓ CSS variables for dynamic theming</li>
-                    <li>✓ Type-first component versioning</li>
-                    <li>✓ 8 card versions with different styles</li>
-                    <li>✓ semantic color variants</li>
-                    <li>✓ 3 component types (default, outline, solid)</li>
-                    <li>✓ Composable Header/Content/Footer</li>
-                    <li>✓ Optional hover animations</li>
-                  </ul>
+      {/* Shadcn-style API Example */}
+      <section className="mt-12">
+        <h3 className="text-xl font-black mb-6 uppercase tracking-[0.2em]" style={{ 
+          color: 'hsl(var(--primary-base))',
+          fontFamily: '"Orbitron", monospace'
+        }}>
+          ▸ SHADCN-STYLE API
+        </h3>
+        <div className="max-w-md">
+          <Card version="angular-corner" type={currentType} variant={currentVariant} animated={animated}>
+            <CardHeader>
+              <CardTitle style={{ fontFamily: '"Orbitron", monospace', fontWeight: 900 }}>
+                System Status
+              </CardTitle>
+              <CardDescription style={{ fontFamily: '"Rajdhani", sans-serif' }}>
+                Real-time monitoring dashboard
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2 text-sm" style={{ fontFamily: '"Rajdhani", sans-serif' }}>
+                <div className="flex justify-between">
+                  <span className="opacity-60">CPU Usage</span>
+                  <span className="font-mono font-bold">47%</span>
                 </div>
-              </Card.Content>
-              <Card.Footer direction="column">
-                <span className="text-sm">All 8 versions working with no hardcoded colors!</span>
-              </Card.Footer>
-            </Card>
-          </div>
-        </section>
+                <div className="flex justify-between">
+                  <span className="opacity-60">Memory</span>
+                  <span className="font-mono font-bold">8.2 GB</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="opacity-60">Network</span>
+                  <span className="font-mono font-bold" style={{ color: 'hsl(var(--success-base))' }}>● Online</span>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter>
+              <button className="px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all"
+                      style={{ 
+                        backgroundColor: 'hsl(var(--primary-base) / 0.15)',
+                        border: '1px solid hsl(var(--primary-base) / 0.5)',
+                        color: 'hsl(var(--primary-base))',
+                        clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+                        fontFamily: '"Orbitron", monospace'
+                      }}>
+                View Details
+              </button>
+            </CardFooter>
+          </Card>
+        </div>
+      </section>
 
-        {/* Section 5: Dark Mode Support */}
-        <section>
-          <h3 className="text-2xl font-bold mb-8 uppercase tracking-wide" style={{ color: 'hsl(var(--primary-foreground))' }}>
-            Theme Support
-          </h3>
-          <p className="mb-6 text-sm" style={{ color: 'hsl(var(--primary-border))' }}>
-            Switch your theme at the top of the page to see the card system automatically adapt colors!
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card version="elevated" variant="info" type="solid" animated={isAnimated}>
-              <Card.Header title="Light Theme" />
-              <Card.Content>
-                <p className="text-sm">Switch to light theme to see bright, clean colors</p>
-              </Card.Content>
-            </Card>
+      {/* Usage Info */}
+      <section className="mt-12 p-6" style={{
+        backgroundColor: 'hsl(var(--surface-base) / 0.3)',
+        border: '1px solid hsl(var(--primary-base) / 0.15)',
+        clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)'
+      }}>
+        <h3 className="text-lg font-black mb-4 uppercase tracking-[0.15em]" style={{ 
+          color: 'hsl(var(--primary-base))',
+          fontFamily: '"Orbitron", monospace'
+        }}>
+          ▸ USAGE
+        </h3>
+        <pre className="text-xs opacity-70 overflow-x-auto p-4 rounded" style={{ 
+          backgroundColor: 'hsl(var(--surface-base) / 0.5)',
+          fontFamily: 'monospace'
+        }}>
+{`import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/ui';
 
-            <Card version="filled" variant="warning" type="default" animated={isAnimated}>
-              <Card.Header title="Dark Theme" />
-              <Card.Content>
-                <p className="text-sm">Switch to dark theme for comfortable viewing</p>
-              </Card.Content>
-            </Card>
-          </div>
-        </section>
-
-      </div>
+<Card version="angular-corner" type="default" variant="neutral" animated>
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card description text</CardDescription>
+  </CardHeader>
+  <CardContent>
+    Your content here...
+  </CardContent>
+  <CardFooter>
+    <Button>Action</Button>
+  </CardFooter>
+</Card>`}
+        </pre>
+      </section>
     </div>
   );
 }
+

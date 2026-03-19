@@ -1,0 +1,224 @@
+{
+  "version": "1.0",
+  "component": "switch",
+  "description": "Cyber HUD/FUI Switch System - 10 futuristic toggle designs",
+  
+  "types": {
+    "default": {
+      "border": "2px solid",
+      "background": "rgba(0, 163, 255, 0.15)",
+      "backdropFilter": "blur(4px)",
+      "description": "Glass effect with subtle background"
+    },
+    "outline": {
+      "border": "2px solid",
+      "background": "transparent",
+      "description": "Border only with transparent background"
+    },
+    "solid": {
+      "border": "none",
+      "background": "rgba(0, 163, 255, 0.85)",
+      "description": "Solid filled background"
+    }
+  },
+  
+  "versions": {
+    "angular-slide": {
+      "name": "Angular Slide",
+      "enabled": true,
+      "description": "Angular track with beveled thumb and tech edges",
+      "trackStyle": "angular",
+      "thumbStyle": "square",
+      "clipPath": "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)",
+      "features": ["beveled-corners", "tech-notches", "slide-glow"],
+      "animations": {
+        "entrance": "slide-in",
+        "toggle": "angular-slide",
+        "active": "edge-pulse"
+      }
+    },
+    "hexagonal-cell": {
+      "name": "Hexagonal Cell",
+      "enabled": true,
+      "description": "Hex-shaped track with honeycomb thumb",
+      "trackStyle": "hexagonal",
+      "thumbStyle": "hexagon",
+      "features": ["hex-track", "honeycomb-thumb", "cell-glow"],
+      "animations": {
+        "entrance": "hex-expand",
+        "toggle": "hex-slide",
+        "active": "cell-pulse"
+      }
+    },
+    "energy-bar": {
+      "name": "Energy Bar",
+      "enabled": true,
+      "description": "Energy fill bar with charging animation",
+      "trackStyle": "angular",
+      "thumbStyle": "square",
+      "features": ["energy-fill", "charge-segments", "power-indicator"],
+      "animations": {
+        "entrance": "charge-up",
+        "toggle": "energy-flow",
+        "active": "power-pulse"
+      }
+    },
+    "circuit-path": {
+      "name": "Circuit Path",
+      "enabled": true,
+      "description": "Circuit trace path with node thumb",
+      "trackStyle": "rounded",
+      "thumbStyle": "circle",
+      "features": ["circuit-traces", "node-thumb", "signal-flow"],
+      "animations": {
+        "entrance": "trace-draw",
+        "toggle": "signal-travel",
+        "active": "node-pulse"
+      }
+    },
+    "quantum-tunnel": {
+      "name": "Quantum Tunnel",
+      "enabled": true,
+      "description": "Quantum tunneling effect with particle trail",
+      "trackStyle": "rounded",
+      "thumbStyle": "circle",
+      "features": ["tunnel-effect", "particle-trail", "probability-wave"],
+      "animations": {
+        "entrance": "tunnel-open",
+        "toggle": "quantum-leap",
+        "active": "wave-oscillate"
+      }
+    },
+    "holo-flip": {
+      "name": "Holo Flip",
+      "enabled": true,
+      "description": "Holographic flip switch with iridescent effect",
+      "trackStyle": "rounded",
+      "thumbStyle": "circle",
+      "features": ["holographic-surface", "iridescent-shimmer", "flip-effect"],
+      "animations": {
+        "entrance": "holo-materialize",
+        "toggle": "holo-flip",
+        "active": "shimmer-continuous"
+      }
+    },
+    "power-cell": {
+      "name": "Power Cell",
+      "enabled": true,
+      "description": "Power cell with charge level indicator",
+      "trackStyle": "angular",
+      "thumbStyle": "square",
+      "features": ["battery-segments", "charge-level", "power-status"],
+      "animations": {
+        "entrance": "cell-init",
+        "toggle": "charge-transfer",
+        "active": "segment-fill"
+      }
+    },
+    "tactical-toggle": {
+      "name": "Tactical Toggle",
+      "enabled": true,
+      "description": "Military HUD toggle with status indicators",
+      "trackStyle": "angular",
+      "thumbStyle": "square",
+      "features": ["tactical-frame", "status-leds", "mil-spec-font"],
+      "animations": {
+        "entrance": "deploy",
+        "toggle": "tactical-slide",
+        "active": "status-blink"
+      }
+    },
+    "matrix-switch": {
+      "name": "Matrix Switch",
+      "enabled": true,
+      "description": "Digital matrix toggle with data flow effect",
+      "trackStyle": "angular",
+      "thumbStyle": "square",
+      "features": ["matrix-bg", "data-flow", "binary-transition"],
+      "animations": {
+        "entrance": "matrix-boot",
+        "toggle": "data-shift",
+        "active": "rain-effect"
+      }
+    },
+    "neon-slide": {
+      "name": "Neon Slide",
+      "enabled": true,
+      "description": "High-contrast neon slider with glow trail",
+      "trackStyle": "rounded",
+      "thumbStyle": "circle",
+      "features": ["neon-track", "glow-trail", "bloom-effect"],
+      "animations": {
+        "entrance": "neon-flicker",
+        "toggle": "glow-slide",
+        "active": "neon-breathe"
+      }
+    }
+  },
+  
+  "animations": {
+    "slide-in": {
+      "duration": "300ms",
+      "easing": "cubic-bezier(0.34, 1.56, 0.64, 1)"
+    },
+    "angular-slide": {
+      "duration": "200ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    "hex-expand": {
+      "duration": "400ms",
+      "easing": "ease-out"
+    },
+    "charge-up": {
+      "duration": "500ms",
+      "easing": "steps(5)"
+    },
+    "energy-flow": {
+      "duration": "300ms",
+      "easing": "linear"
+    },
+    "trace-draw": {
+      "duration": "600ms",
+      "easing": "linear"
+    },
+    "quantum-leap": {
+      "duration": "150ms",
+      "easing": "cubic-bezier(0.68, -0.55, 0.27, 1.55)"
+    },
+    "holo-flip": {
+      "duration": "400ms",
+      "easing": "ease-in-out"
+    },
+    "tactical-slide": {
+      "duration": "200ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    "data-shift": {
+      "duration": "250ms",
+      "easing": "steps(8)"
+    },
+    "glow-slide": {
+      "duration": "200ms",
+      "easing": "ease-out"
+    },
+    "neon-breathe": {
+      "duration": "2s",
+      "iterationCount": "infinite",
+      "easing": "ease-in-out"
+    }
+  },
+  
+  "sizes": {
+    "sm": { "width": 36, "height": 20, "thumb": 14 },
+    "md": { "width": 44, "height": 24, "thumb": 18 },
+    "lg": { "width": 56, "height": 30, "thumb": 24 }
+  },
+  
+  "defaults": {
+    "version": "angular-slide",
+    "type": "default",
+    "variant": "neutral",
+    "size": "md",
+    "animated": true
+  }
+}

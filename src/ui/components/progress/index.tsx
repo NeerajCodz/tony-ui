@@ -1,91 +1,72 @@
 /**
- * Progress Component
+ * Progress Component - Dynamic Renderer
+ * Refactored to use Compound Component Context Pattern
  */
-import React from 'react';
-import type { ProgressProps } from '../../types/components/feedback.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
 
-const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(({
-  version = 'default',
-  type: styleType = 'default',
-  variant = 'primary',
-  colorType = 'primary',
-  animated = true,
-  value = 0,
-  max = 100,
-  showLabel = false,
-  size = 'md',
-  className = '',
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import * as ProgressPrimitive from "@radix-ui/react-progress"
+import { cn } from '../../../lib/utils';
+
+// --- Types ---
+type ProgressVersion = 
+  | 'angular-corner'
+  | 'holo-frame'
+  | 'data-panel'
+  | 'circuit-board'
+  | 'quantum-gate'
+  | 'tactical-hud'
+  | 'energy-shield'
+  | 'terminal-window'
+  | 'matrix-grid'
+  | 'neon-outline';
+
+interface ProgressProps extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> {
+  version?: ProgressVersion;
+  variant?: 'neutral' | 'primary' | 'success' | 'warning' | 'destructive' | 'info';
+}
+
+// --- Dynamic Import Helper ---
+const loadVersionModule = async (version: ProgressVersion) => {
+  switch (version) {
+    case 'angular-corner': return import('./progress-angular-corner.tsx');
+    case 'holo-frame': return import('./progress-holo-frame.tsx');
+    case 'data-panel': return import('./progress-data-panel.tsx');
+    case 'circuit-board': return import('./progress-circuit-board.tsx');
+    case 'quantum-gate': return import('./progress-quantum-gate.tsx');
+    case 'tactical-hud': return import('./progress-tactical-hud.tsx');
+    case 'energy-shield': return import('./progress-energy-shield.tsx');
+    case 'terminal-window': return import('./progress-terminal-window.tsx');
+    case 'matrix-grid': return import('./progress-matrix-grid.tsx');
+    case 'neon-outline': return import('./progress-neon-outline.tsx');
+    default: return import('./progress-angular-corner.tsx');
+  }
+};
+
+// --- Main Component ---
+const Progress = React.forwardRef<React.ElementRef<typeof ProgressPrimitive.Root>, ProgressProps>(({ 
+  version = 'angular-corner', 
+  variant = 'primary', 
+  className,
+  value,
+  ...props 
 }, ref) => {
-  const activeColor = resolveColorType(variant, colorType);
-  const percentage = Math.min(100, Math.max(0, (value / max) * 100));
+  const [versionModule, setVersionModule] = useState<any>(null);
 
-  const sizeMap: Record<string, number> = { sm: 4, md: 8, lg: 12 };
-  const barHeight = sizeMap[size] || 8;
+  useEffect(() => {
+    loadVersionModule(version).then(setVersionModule);
+  }, [version]);
 
-  if (version === 'circle') {
-    const circleSize = size === 'sm' ? 48 : size === 'lg' ? 80 : 64;
-    const strokeWidth = 4;
-    const radius = (circleSize - strokeWidth) / 2;
-    const circumference = 2 * Math.PI * radius;
-    const offset = circumference - (percentage / 100) * circumference;
-
-    return (
-      <div ref={ref} className={`ui-progress ui-progress-circle ${className}`} style={{ position: 'relative', width: circleSize, height: circleSize }}>
-        <svg width={circleSize} height={circleSize} style={{ transform: 'rotate(-90deg)' }}>
-          <circle cx={circleSize / 2} cy={circleSize / 2} r={radius} fill="none"
-            stroke={getColorVar(activeColor, 'border')} strokeWidth={strokeWidth} />
-          <circle cx={circleSize / 2} cy={circleSize / 2} r={radius} fill="none"
-            stroke={getColorVar(activeColor, 'base')} strokeWidth={strokeWidth}
-            strokeDasharray={circumference} strokeDashoffset={offset}
-            strokeLinecap="round"
-            style={{ transition: animated ? 'stroke-dashoffset 500ms ease-in-out' : 'none' }} />
-        </svg>
-        {showLabel && (
-          <div style={{
-            position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: size === 'sm' ? '10px' : '12px', fontWeight: '600', color: getColorVar(activeColor, 'foreground'),
-          }}>
-            {Math.round(percentage)}%
-          </div>
-        )}
-      </div>
-    );
+  if (!versionModule) {
+    return <ProgressPrimitive.Root className={cn("relative h-4 w-full overflow-hidden rounded-full bg-secondary", className)} {...props}><ProgressPrimitive.Indicator className="h-full w-full flex-1 bg-primary transition-all" style={{ transform: `translateX(-${100 - (value || 0)}%)` }} /></ProgressPrimitive.Root>;
   }
 
+  const Component = versionModule.default;
   return (
-    <div ref={ref} className={`ui-progress ui-progress-${version} ${className}`} data-version={version} data-variant={variant}>
-      <div style={{
-        width: '100%',
-        height: barHeight,
-        borderRadius: barHeight,
-        backgroundColor: getColorVar(activeColor, 'border'),
-        overflow: 'hidden',
-        position: 'relative',
-      }}>
-        <div style={{
-          width: `${percentage}%`,
-          height: '100%',
-          borderRadius: barHeight,
-          backgroundColor: getColorVar(activeColor, 'base'),
-          transition: animated ? 'width 500ms ease-in-out' : 'none',
-          background: version === 'gradient'
-            ? `linear-gradient(90deg, ${getColorVar(activeColor, 'base')}, ${getColorVar(activeColor, 'ring')})`
-            : undefined,
-        }} />
-      </div>
-      {showLabel && (
-        <div style={{
-          fontSize: '12px', fontWeight: '500', marginTop: '4px',
-          color: getColorVar(activeColor, 'foreground'), textAlign: 'right',
-        }}>
-          {Math.round(percentage)}%
-        </div>
-      )}
-    </div>
+    <Component ref={ref} className={className} variant={variant} value={value} {...props} />
   );
 });
+Progress.displayName = ProgressPrimitive.Root.displayName;
 
-Progress.displayName = 'Progress';
 export { Progress };
 export default Progress;
+

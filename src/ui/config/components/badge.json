@@ -1,0 +1,99 @@
+{
+  "version": "1.0",
+  "component": "badge",
+  "description": "Cyber HUD/FUI Badge System - Compact futuristic status indicators",
+  
+  "types": {
+    "default": {
+      "border": "1px solid",
+      "background": "rgba(0, 163, 255, 0.15)",
+      "description": "Glass effect with subtle background fill"
+    },
+    "outline": {
+      "border": "1px solid",
+      "background": "transparent",
+      "description": "Border only with transparent background"
+    },
+    "solid": {
+      "border": "none",
+      "background": "rgba(0, 163, 255, 0.9)",
+      "description": "Translucent filled background"
+    }
+  },
+  
+  "versions": {
+    "angular-corner": {
+      "name": "Angular Corner",
+      "enabled": true,
+      "description": "Compact beveled corners with tech accents",
+      "clipPath": "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)",
+      "features": ["corner-notch"]
+    },
+    "holo-frame": {
+      "name": "Holographic Frame",
+      "enabled": true,
+      "description": "Iridescent holographic micro-badge",
+      "clipPath": "polygon(3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px), 0 3px)",
+      "features": ["holo-shimmer"]
+    },
+    "data-panel": {
+      "name": "Data Panel",
+      "enabled": true,
+      "description": "Mini data readout badge",
+      "clipPath": "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)",
+      "features": ["side-indicator"]
+    },
+    "circuit-board": {
+      "name": "Circuit Board",
+      "enabled": true,
+      "description": "Compact circuit trace pattern",
+      "features": ["circuit-dots"]
+    },
+    "quantum-gate": {
+      "name": "Quantum Gate",
+      "enabled": true,
+      "description": "Quantum-inspired micro element",
+      "features": ["particle-dot"]
+    },
+    "tactical-hud": {
+      "name": "Tactical HUD",
+      "enabled": true,
+      "description": "Military HUD micro element",
+      "clipPath": "polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px))",
+      "features": ["bracket-corners"]
+    },
+    "energy-shield": {
+      "name": "Energy Shield",
+      "enabled": true,
+      "description": "Compact energy indicator",
+      "features": ["hex-corners"]
+    },
+    "terminal-window": {
+      "name": "Terminal Window",
+      "enabled": true,
+      "description": "Terminal-style micro tag",
+      "features": ["mono-font", "prompt-prefix"]
+    },
+    "matrix-grid": {
+      "name": "Matrix Grid",
+      "enabled": true,
+      "description": "Compact grid-style badge",
+      "clipPath": "polygon(3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px), 0 3px)",
+      "features": ["grid-bg"]
+    },
+    "neon-outline": {
+      "name": "Neon Outline",
+      "enabled": true,
+      "description": "High-contrast neon micro glow",
+      "clipPath": "polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px)",
+      "features": ["neon-glow"]
+    }
+  },
+  
+  "defaults": {
+    "version": "angular-corner",
+    "type": "default",
+    "variant": "neutral",
+    "animated": true
+  }
+}

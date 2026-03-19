@@ -1,80 +1,73 @@
 /**
- * Badge Component
+ * Badge Component - Dynamic Renderer
+ * Refactored to use Compound Component Context Pattern
  */
-import React from 'react';
-import type { BadgeProps } from '../../types/components/feedback.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
 
-const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(({
-  version = 'default',
-  type: styleType = 'default',
-  variant = 'neutral',
-  colorType = 'primary',
-  animated = true,
-  children,
-  className = '',
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from '../../../lib/utils';
+
+// --- Types ---
+type BadgeVersion = 
+  | 'angular-corner'
+  | 'holo-frame'
+  | 'data-panel'
+  | 'circuit-board'
+  | 'quantum-gate'
+  | 'tactical-hud'
+  | 'energy-shield'
+  | 'terminal-window'
+  | 'matrix-grid'
+  | 'neon-outline'
+  | 'parallelogram';
+
+interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
+  version?: BadgeVersion;
+  variant?: 'default' | 'secondary' | 'destructive' | 'outline';
+}
+
+// --- Dynamic Import Helper ---
+const loadVersionModule = async (version: BadgeVersion) => {
+  switch (version) {
+    case 'angular-corner': return import('./badge-angular-corner.tsx');
+    case 'holo-frame': return import('./badge-holo-frame.tsx');
+    case 'data-panel': return import('./badge-data-panel.tsx');
+    case 'circuit-board': return import('./badge-circuit-board.tsx');
+    case 'quantum-gate': return import('./badge-quantum-gate.tsx');
+    case 'tactical-hud': return import('./badge-tactical-hud.tsx');
+    case 'energy-shield': return import('./badge-energy-shield.tsx');
+    case 'terminal-window': return import('./badge-terminal-window.tsx');
+    case 'matrix-grid': return import('./badge-matrix-grid.tsx');
+    case 'neon-outline': return import('./badge-neon-outline.tsx');
+    case 'parallelogram': return import('./badge-parallelogram.tsx');
+    default: return import('./badge-angular-corner.tsx');
+  }
+};
+
+// --- Main Component ---
+const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(({ 
+  version = 'angular-corner', 
+  className,
+  variant,
+  ...props 
 }, ref) => {
-  const activeColor = resolveColorType(variant, colorType);
+  const [versionModule, setVersionModule] = useState<any>(null);
 
-  const versionStyles: Record<string, React.CSSProperties> = {
-    default: { borderRadius: '4px', padding: '2px 8px' },
-    pill: { borderRadius: '999px', padding: '2px 10px' },
-    dot: { borderRadius: '4px', padding: '2px 8px', paddingLeft: '20px', position: 'relative' as const },
-    outline: { borderRadius: '4px', padding: '2px 8px' },
-  };
+  useEffect(() => {
+    loadVersionModule(version).then(setVersionModule);
+  }, [version]);
+  
+  if (!versionModule) {
+    return <div className={cn("inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2", className)} {...props} />;
+  }
 
-  const typeStyles: Record<string, React.CSSProperties> = {
-    default: {
-      backgroundColor: getColorVar(activeColor, 'background'),
-      border: `1px solid ${getColorVar(activeColor, 'border')}`,
-    },
-    outline: {
-      backgroundColor: 'transparent',
-      border: `1px solid ${getColorVar(activeColor, 'border')}`,
-    },
-    solid: {
-      backgroundColor: getColorVar(activeColor, 'base'),
-      border: 'none',
-    },
-  };
-
+  const Component = versionModule.default;
   return (
-    <span
-      ref={ref}
-      className={`ui-badge ui-badge-${version} ${className}`}
-      style={{
-        ...versionStyles[version],
-        ...typeStyles[styleType || 'default'],
-        display: 'inline-flex',
-        alignItems: 'center',
-        fontSize: '11px',
-        fontWeight: '600',
-        letterSpacing: '0.02em',
-        color: getColorVar(activeColor, 'foreground'),
-        transition: animated ? 'all 150ms ease-in-out' : 'none',
-        whiteSpace: 'nowrap',
-        lineHeight: '1.5',
-      }}
-      data-version={version}
-      data-variant={variant}
-    >
-      {version === 'dot' && (
-        <span style={{
-          position: 'absolute',
-          left: '8px',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          width: '6px',
-          height: '6px',
-          borderRadius: '50%',
-          backgroundColor: getColorVar(activeColor, 'base'),
-        }} />
-      )}
-      {children}
-    </span>
+    <Component ref={ref} variant={variant} className={className} {...props} />
   );
 });
+Badge.displayName = "Badge";
 
-Badge.displayName = 'Badge';
 export { Badge };
 export default Badge;
+

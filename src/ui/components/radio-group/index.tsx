@@ -1,140 +1,92 @@
 /**
- * Radio Group Component
+ * RadioGroup Component - Dynamic Renderer
+ * Refactored to use Compound Component Context Pattern
  */
-import React, { useState } from 'react';
-import type { RadioGroupProps } from '../../types/components/inputs.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
 
-const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(({
-  version = 'default',
-  type: styleType = 'default',
-  variant = 'neutral',
-  colorType = 'primary',
-  animated = true,
-  options,
-  value: controlledValue,
-  defaultValue = '',
-  onChange,
-  disabled = false,
-  orientation = 'vertical',
-  className = '',
-  name,
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
+import { Circle } from "lucide-react"
+import { cn } from '../../../lib/utils';
+
+// --- Types ---
+type RadioGroupVersion = 
+  | 'angular-corner'
+  | 'holo-frame'
+  | 'data-panel'
+  | 'circuit-board'
+  | 'quantum-gate'
+  | 'tactical-hud'
+  | 'energy-shield'
+  | 'terminal-window'
+  | 'matrix-grid'
+  | 'neon-outline';
+
+interface RadioGroupProps extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> {
+  version?: RadioGroupVersion;
+  variant?: 'neutral' | 'primary' | 'success' | 'warning' | 'destructive' | 'info';
+  type?: 'default' | 'outline' | 'solid' | 'ghost';
+}
+
+// --- Dynamic Import Helper ---
+const loadVersionModule = async (version: RadioGroupVersion) => {
+  switch (version) {
+    case 'angular-corner': return import('./radio-group-angular-corner.tsx');
+    case 'holo-frame': return import('./radio-group-holo-frame.tsx');
+    case 'data-panel': return import('./radio-group-data-panel.tsx');
+    case 'circuit-board': return import('./radio-group-circuit-board.tsx');
+    case 'quantum-gate': return import('./radio-group-quantum-gate.tsx');
+    case 'tactical-hud': return import('./radio-group-tactical-hud.tsx');
+    case 'energy-shield': return import('./radio-group-energy-shield.tsx');
+    case 'terminal-window': return import('./radio-group-terminal-window.tsx');
+    case 'matrix-grid': return import('./radio-group-matrix-grid.tsx');
+    case 'neon-outline': return import('./radio-group-neon-outline.tsx');
+    default: return import('./radio-group-angular-corner.tsx');
+  }
+};
+
+// --- Context ---
+const VersionContext = createContext<any>(null);
+
+// --- Main Component ---
+const RadioGroup = React.forwardRef<React.ElementRef<typeof RadioGroupPrimitive.Root>, RadioGroupProps>(({ 
+  version = 'angular-corner', 
+  variant = 'primary', 
+  type = 'default', 
+  className,
+  ...props 
 }, ref) => {
-  const [internalValue, setInternalValue] = useState(defaultValue);
-  const currentValue = controlledValue !== undefined ? controlledValue : internalValue;
-  const activeColor = resolveColorType(variant, colorType);
+  const [versionModule, setVersionModule] = useState<any>(null);
 
-  const handleSelect = (val: string) => {
-    if (disabled) return;
-    setInternalValue(val);
-    onChange?.(val);
-  };
+  useEffect(() => {
+    loadVersionModule(version).then(setVersionModule);
+  }, [version]);
+  
+  if (!versionModule) {
+    return <RadioGroupPrimitive.Root className={cn("grid gap-2", className)} {...props} />;
+  }
+
+  const Component = versionModule.default || versionModule.RadioGroup;
 
   return (
-    <div
-      ref={ref}
-      className={`ui-radio-group ui-radio-group-${version} ${className}`}
-      role="radiogroup"
-      style={{
-        display: 'flex',
-        flexDirection: orientation === 'horizontal' ? 'row' : 'column',
-        gap: version === 'button' ? '0' : '10px',
-      }}
-      data-version={version}
-      data-variant={variant}
-    >
-      {options.map((option) => {
-        const isSelected = currentValue === option.value;
-        const isDisabled = disabled || option.disabled;
-
-        if (version === 'button') {
-          return (
-            <button
-              key={option.value}
-              type="button"
-              role="radio"
-              aria-checked={isSelected}
-              onClick={() => handleSelect(option.value)}
-              disabled={isDisabled}
-              style={{
-                padding: '8px 16px',
-                fontSize: '13px',
-                fontWeight: isSelected ? '600' : '400',
-                border: `1px solid ${getColorVar(activeColor, 'border')}`,
-                backgroundColor: isSelected ? getColorVar(activeColor, 'base') : getColorVar(activeColor, 'background'),
-                color: isSelected ? getColorVar(activeColor, 'foreground') : getColorVar(activeColor, 'foreground'),
-                cursor: isDisabled ? 'not-allowed' : 'pointer',
-                opacity: isDisabled ? 0.5 : 1,
-                transition: animated ? 'all 150ms ease-in-out' : 'none',
-                outline: 'none',
-                fontFamily: 'inherit',
-                marginLeft: '-1px',
-              }}
-            >
-              {option.label}
-            </button>
-          );
-        }
-
-        return (
-          <label
-            key={option.value}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              cursor: isDisabled ? 'not-allowed' : 'pointer',
-              userSelect: 'none',
-              padding: version === 'card' ? '12px 16px' : '0',
-              border: version === 'card' ? `1px solid ${getColorVar(activeColor, isSelected ? 'base' : 'border')}` : 'none',
-              borderRadius: version === 'card' ? '8px' : '0',
-              backgroundColor: version === 'card' && isSelected ? getColorVar(activeColor, 'background') : 'transparent',
-              transition: animated ? 'all 150ms ease-in-out' : 'none',
-            }}
-          >
-            <input
-              type="radio"
-              name={name}
-              value={option.value}
-              checked={isSelected}
-              onChange={() => handleSelect(option.value)}
-              disabled={isDisabled}
-              style={{ position: 'absolute', opacity: 0, width: 0, height: 0 }}
-            />
-            <div style={{
-              width: '18px',
-              height: '18px',
-              borderRadius: '50%',
-              border: `2px solid ${getColorVar(activeColor, isSelected ? 'base' : 'border')}`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: animated ? 'all 200ms ease-in-out' : 'none',
-              flexShrink: 0,
-            }}>
-              {isSelected && (
-                <div style={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  backgroundColor: getColorVar(activeColor, 'base'),
-                }} />
-              )}
-            </div>
-            <span style={{
-              fontSize: '14px',
-              color: getColorVar(activeColor, 'foreground'),
-              opacity: isDisabled ? 0.5 : 1,
-            }}>
-              {option.label}
-            </span>
-          </label>
-        );
-      })}
-    </div>
+    <VersionContext.Provider value={versionModule}>
+      <Component ref={ref} className={className} variant={variant} type={type} {...props} />
+    </VersionContext.Provider>
   );
 });
+RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 
-RadioGroup.displayName = 'RadioGroup';
-export { RadioGroup };
+const RadioGroupItem = React.forwardRef<React.ElementRef<typeof RadioGroupPrimitive.Item>, React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>>(({ className, ...props }, ref) => {
+  const versionModule = useContext(VersionContext);
+  
+  if (!versionModule) {
+     return <RadioGroupPrimitive.Item ref={ref} className={cn("aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className)} {...props}><RadioGroupPrimitive.Indicator className="flex items-center justify-center"><Circle className="h-2.5 w-2.5 fill-current text-current" /></RadioGroupPrimitive.Indicator></RadioGroupPrimitive.Item>;
+  }
+
+  const Component = versionModule.RadioGroupItem || versionModule.Item;
+  return <Component ref={ref} className={className} {...props} />;
+})
+RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName
+
+export { RadioGroup, RadioGroupItem };
 export default RadioGroup;
+

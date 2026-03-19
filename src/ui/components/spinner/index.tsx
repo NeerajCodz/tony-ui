@@ -1,85 +1,71 @@
 /**
- * Spinner Component
+ * Spinner Component - Dynamic Renderer
+ * Refactored to use Compound Component Context Pattern
  */
-import React from 'react';
-import type { SpinnerProps } from '../../types/components/feedback.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
 
-const Spinner: React.FC<SpinnerProps> = ({
-  version = 'default',
-  variant = 'primary',
-  colorType = 'primary',
-  animated = true,
-  size = 'md',
-  className = '',
-  label,
-}) => {
-  const activeColor = resolveColorType(variant, colorType);
-  const sizeMap: Record<string, number> = { sm: 16, md: 24, lg: 36 };
-  const s = sizeMap[size] || 24;
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { Loader2 } from "lucide-react"
+import { cn } from '../../../lib/utils';
 
-  if (version === 'dots') {
-    return (
-      <div className={`ui-spinner ui-spinner-dots ${className}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-        {[0, 1, 2].map(i => (
-          <div key={i} style={{
-            width: s / 3, height: s / 3, borderRadius: '50%',
-            backgroundColor: getColorVar(activeColor, 'base'),
-            animation: animated ? `ui-dot-bounce 1.2s ease-in-out infinite ${i * 0.16}s` : 'none',
-          }} />
-        ))}
-        {label && <span style={{ fontSize: '13px', marginLeft: '8px', color: getColorVar(activeColor, 'foreground') }}>{label}</span>}
-        <style>{`@keyframes ui-dot-bounce { 0%,80%,100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }`}</style>
-      </div>
-    );
+// --- Types ---
+type SpinnerVersion = 
+  | 'angular-corner'
+  | 'holo-frame'
+  | 'data-panel'
+  | 'circuit-board'
+  | 'quantum-gate'
+  | 'tactical-hud'
+  | 'energy-shield'
+  | 'terminal-window'
+  | 'matrix-grid'
+  | 'neon-outline';
+
+interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
+  version?: SpinnerVersion;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+// --- Dynamic Import Helper ---
+const loadVersionModule = async (version: SpinnerVersion) => {
+  switch (version) {
+    case 'angular-corner': return import('./spinner-angular-corner.tsx');
+    case 'holo-frame': return import('./spinner-holo-frame.tsx');
+    case 'data-panel': return import('./spinner-data-panel.tsx');
+    case 'circuit-board': return import('./spinner-circuit-board.tsx');
+    case 'quantum-gate': return import('./spinner-quantum-gate.tsx');
+    case 'tactical-hud': return import('./spinner-tactical-hud.tsx');
+    case 'energy-shield': return import('./spinner-energy-shield.tsx');
+    case 'terminal-window': return import('./spinner-terminal-window.tsx');
+    case 'matrix-grid': return import('./spinner-matrix-grid.tsx');
+    case 'neon-outline': return import('./spinner-neon-outline.tsx');
+    default: return import('./spinner-angular-corner.tsx');
   }
-
-  if (version === 'bars') {
-    return (
-      <div className={`ui-spinner ui-spinner-bars ${className}`} style={{ display: 'inline-flex', alignItems: 'end', gap: '2px', height: s }}>
-        {[0, 1, 2, 3].map(i => (
-          <div key={i} style={{
-            width: s / 6, height: '60%', borderRadius: '2px',
-            backgroundColor: getColorVar(activeColor, 'base'),
-            animation: animated ? `ui-bar-scale 1s ease-in-out infinite ${i * 0.15}s` : 'none',
-          }} />
-        ))}
-        {label && <span style={{ fontSize: '13px', marginLeft: '8px', color: getColorVar(activeColor, 'foreground') }}>{label}</span>}
-        <style>{`@keyframes ui-bar-scale { 0%, 100% { transform: scaleY(0.5); } 50% { transform: scaleY(1.5); } }`}</style>
-      </div>
-    );
-  }
-
-  if (version === 'pulse') {
-    return (
-      <div className={`ui-spinner ui-spinner-pulse ${className}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-        <div style={{
-          width: s, height: s, borderRadius: '50%',
-          backgroundColor: getColorVar(activeColor, 'base'),
-          animation: animated ? 'ui-pulse 1.5s ease-in-out infinite' : 'none',
-        }} />
-        {label && <span style={{ fontSize: '13px', color: getColorVar(activeColor, 'foreground') }}>{label}</span>}
-        <style>{`@keyframes ui-pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }`}</style>
-      </div>
-    );
-  }
-
-  // Default spinner (rotating ring)
-  return (
-    <div className={`ui-spinner ui-spinner-default ${className}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-      <svg width={s} height={s} viewBox={`0 0 ${s} ${s}`} style={{ animation: animated ? 'ui-spinner-rotate 1s linear infinite' : 'none' }}>
-        <circle cx={s / 2} cy={s / 2} r={s / 2 - 2} fill="none"
-          stroke={getColorVar(activeColor, 'border')} strokeWidth="2" />
-        <circle cx={s / 2} cy={s / 2} r={s / 2 - 2} fill="none"
-          stroke={getColorVar(activeColor, 'base')} strokeWidth="2"
-          strokeDasharray={`${Math.PI * (s - 4) * 0.75} ${Math.PI * (s - 4) * 0.25}`}
-          strokeLinecap="round" />
-      </svg>
-      {label && <span style={{ fontSize: '13px', color: getColorVar(activeColor, 'foreground') }}>{label}</span>}
-      <style>{`@keyframes ui-spinner-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
-    </div>
-  );
 };
+
+// --- Main Component ---
+const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(({ 
+  version = 'angular-corner', 
+  size = 'md',
+  className,
+  ...props 
+}, ref) => {
+  const [versionModule, setVersionModule] = useState<any>(null);
+
+  useEffect(() => {
+    loadVersionModule(version).then(setVersionModule);
+  }, [version]);
+  
+  if (!versionModule) {
+    return <Loader2 className={cn("animate-spin text-primary", className)} />;
+  }
+
+  const Component = versionModule.default;
+  return (
+    <Component ref={ref} size={size} className={className} {...props} />
+  );
+});
+Spinner.displayName = "Spinner";
 
 export { Spinner };
 export default Spinner;
+

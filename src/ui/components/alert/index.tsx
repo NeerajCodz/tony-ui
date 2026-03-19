@@ -1,97 +1,108 @@
 /**
- * Alert Component
+ * Alert Component - Dynamic Renderer
+ * Refactored to use Compound Component Context Pattern
  */
-import React from 'react';
-import type { AlertProps } from '../../types/components/feedback.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(({
-  version = 'default',
-  type: styleType = 'default',
-  variant = 'info',
-  colorType = 'primary',
-  animated = true,
-  title,
-  children,
-  onClose,
-  closable = false,
-  className = '',
-  icon,
-}, ref) => {
-  const activeColor = resolveColorType(variant, colorType);
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from '../../../lib/utils';
 
-  const versionStyles: Record<string, React.CSSProperties> = {
-    default: {
-      border: `1px solid ${getColorVar(activeColor, 'border')}`,
-      backgroundColor: getColorVar(activeColor, 'background'),
-      borderRadius: '8px',
-    },
-    filled: {
-      border: 'none',
-      backgroundColor: getColorVar(activeColor, 'base'),
-      borderRadius: '8px',
-    },
-    outlined: {
-      border: `2px solid ${getColorVar(activeColor, 'border')}`,
-      backgroundColor: 'transparent',
-      borderRadius: '8px',
-    },
-    accent: {
-      border: 'none',
-      borderLeft: `4px solid ${getColorVar(activeColor, 'base')}`,
-      backgroundColor: getColorVar(activeColor, 'background'),
-      borderRadius: '0 8px 8px 0',
-    },
-  };
+// --- Types ---
+type AlertVersion = 
+  | 'angular-corner'
+  | 'holo-frame'
+  | 'data-panel'
+  | 'circuit-board'
+  | 'quantum-gate'
+  | 'tactical-hud'
+  | 'energy-shield'
+  | 'terminal-window'
+  | 'matrix-grid'
+  | 'neon-outline';
 
-  return (
-    <div
-      ref={ref}
-      role="alert"
-      className={`ui-alert ui-alert-${version} ${className}`}
-      style={{
-        ...versionStyles[version],
-        padding: '12px 16px',
-        color: getColorVar(activeColor, 'foreground'),
-        display: 'flex',
-        gap: '12px',
-        alignItems: 'flex-start',
-        position: 'relative',
-        transition: animated ? 'all 200ms ease-in-out' : 'none',
-      }}
-      data-version={version}
-      data-variant={variant}
-    >
-      {icon && <div style={{ flexShrink: 0, marginTop: '2px' }}>{icon}</div>}
-      <div style={{ flex: 1 }}>
-        {title && (
-          <div style={{ fontWeight: '600', fontSize: '14px', marginBottom: children ? '4px' : 0 }}>
-            {title}
-          </div>
-        )}
-        {children && <div style={{ fontSize: '13px', opacity: 0.9 }}>{children}</div>}
-      </div>
-      {closable && onClose && (
-        <button
-          onClick={onClose}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: 'inherit',
-            cursor: 'pointer',
-            fontSize: '18px',
-            padding: '0',
-            lineHeight: 1,
-            opacity: 0.6,
-          }}
-        >
-          ×
-        </button>
-      )}
-    </div>
-  );
+interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
+  version?: AlertVersion;
+  variant?: 'default' | 'destructive';
+}
+
+// --- Context ---
+interface AlertContextValue {
+  version: AlertVersion;
+  versionModule: any;
+}
+
+const AlertContext = createContext<AlertContextValue>({
+  version: 'angular-corner',
+  versionModule: null,
 });
 
-Alert.displayName = 'Alert';
-export { Alert };
+const useAlertContext = () => useContext(AlertContext);
+
+// --- Dynamic Import Helper ---
+const loadVersionModule = async (version: AlertVersion) => {
+  switch (version) {
+    case 'angular-corner': return import('./alert-angular-corner.tsx');
+    case 'holo-frame': return import('./alert-holo-frame.tsx');
+    case 'data-panel': return import('./alert-data-panel.tsx');
+    case 'circuit-board': return import('./alert-circuit-board.tsx');
+    case 'quantum-gate': return import('./alert-quantum-gate.tsx');
+    case 'tactical-hud': return import('./alert-tactical-hud.tsx');
+    case 'energy-shield': return import('./alert-energy-shield.tsx');
+    case 'terminal-window': return import('./alert-terminal-window.tsx');
+    case 'matrix-grid': return import('./alert-matrix-grid.tsx');
+    case 'neon-outline': return import('./alert-neon-outline.tsx');
+    default: return import('./alert-angular-corner.tsx');
+  }
+};
+
+// --- Main Component ---
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(({ 
+  version = 'angular-corner', 
+  className,
+  variant,
+  children,
+  ...props 
+}, ref) => {
+  const [versionModule, setVersionModule] = useState<any>(null);
+
+  useEffect(() => {
+    loadVersionModule(version).then(setVersionModule);
+  }, [version]);
+
+  if (!versionModule) {
+    return <div role="alert" className={cn("relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground", className)} {...props} />;
+  }
+  
+  const Component = versionModule.default;
+
+  return (
+    <AlertContext.Provider value={{ version, versionModule }}>
+      <Component ref={ref} variant={variant} className={className} {...props}>
+        {children}
+      </Component>
+    </AlertContext.Provider>
+  );
+});
+Alert.displayName = "Alert";
+
+const AlertTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, ...props }, ref) => (
+  <h5
+    ref={ref}
+    className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+    {...props}
+  />
+))
+AlertTitle.displayName = "AlertTitle"
+
+const AlertDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("text-sm [&_p]:leading-relaxed", className)}
+    {...props}
+  />
+))
+AlertDescription.displayName = "AlertDescription"
+
+export { Alert, AlertTitle, AlertDescription };
 export default Alert;
+

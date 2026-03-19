@@ -1,0 +1,51 @@
+import React from 'react';
+import type { EmptyProps } from '../../types/components/feedback.js';
+
+const CLIP_PATH = 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)';
+
+const Component = React.forwardRef<HTMLDivElement, EmptyProps>(({
+  variant = 'neutral',
+  type = 'default',
+  animated = true,
+  className = '',
+  children,
+  ...props
+}, ref) => {
+  const colorMap: Record<string, string> = {
+    neutral: 'primary', success: 'success', warning: 'warning', info: 'info', destructive: 'destructive',
+  };
+  const color = colorMap[variant] || 'primary';
+
+  const getTypeStyles = (): React.CSSProperties => {
+    switch (type) {
+      case 'outline': return { backgroundColor: 'transparent', border: `2px solid hsl(var(--${color}-base))` };
+      case 'solid': return { backgroundColor: `hsl(var(--${color}-base) / 0.15)`, border: 'none' };
+      default: return { backgroundColor: `hsl(var(--${color}-base) / 0.05)`, backdropFilter: 'blur(4px)', border: `1px solid hsl(var(--${color}-base) / 0.3)` };
+    }
+  };
+
+  return (
+    <div
+      ref={ref}
+      className={`relative ${className}`}
+      style={{
+        clipPath: CLIP_PATH,
+        ...getTypeStyles(),
+        animation: animated ? `empty-anim 0.5s ease-out` : 'none',
+        padding: '1rem'
+      }}
+      {...props}
+    >
+      <style>{`
+        @keyframes empty-anim {
+          0% { opacity: 0; transform: translateY(10px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+      {children}
+    </div>
+  );
+});
+
+Component.displayName = 'Empty-data-panel';
+export default Component;

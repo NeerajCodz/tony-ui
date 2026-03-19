@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-sans: "Rajdhani", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Orbitron", "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   
   /* Cyberpunk color palette */
   --color-background: #0a0e14;
@@ -63,12 +64,16 @@
     --accent-muted: rgba(0, 217, 255, 0.15);
     
     --destructive: #ff4444;
+    --destructive-rgb: 255, 68, 68;
     --success: #44ff44;
+    --success-rgb: 68, 255, 68;
     --warning: #ffaa00;
+    --warning-rgb: 255, 170, 0;
     
     --background: #0a0e14;
     --foreground: #e0e6ff;
     --card-bg: #0d1520;
+    --card-bg-rgb: 13, 21, 32;
     --border: #1a3a52;
     --border-light: #2a4f7f;
     
@@ -93,5 +98,96 @@
   
   .glow-hover:hover {
     box-shadow: var(--glow-primary);
+  }
+
+  /* Clip Path Utilities */
+  .clip-path-bevel {
+    clip-path: polygon(
+      10px 0, 
+      100% 0, 
+      100% calc(100% - 10px), 
+      calc(100% - 10px) 100%, 
+      0 100%, 
+      0 10px
+    );
+  }
+
+  .clip-path-notch-sm {
+    clip-path: polygon(
+      0 0, 
+      calc(100% - 8px) 0, 
+      100% 8px, 
+      100% 100%, 
+      0 100%
+    );
+  }
+
+  .clip-path-parallelogram {
+    clip-path: polygon(
+      10px 0, 
+      100% 0, 
+      calc(100% - 10px) 100%, 
+      0 100%
+    );
+  }
+
+  .clip-path-angle {
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 10px),
+      calc(100% - 10px) 100%,
+      0 100%
+    );
+  }
+
+  .clip-path-slant {
+    clip-path: polygon(
+      15px 0,
+      100% 0,
+      calc(100% - 15px) 100%,
+      0 100%
+    );
+  }
+
+  .clip-path-step {
+    clip-path: polygon(
+      0 0,
+      calc(100% - 15px) 0,
+      100% 15px,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .clip-path-tag {
+    clip-path: polygon(
+      0 0,
+      calc(100% - 15px) 0,
+      100% 50%,
+      calc(100% - 15px) 100%,
+      0 100%
+    );
+  }
+
+  .clip-path-shards {
+    clip-path: polygon(
+      5% 0,
+      100% 0,
+      100% 80%,
+      95% 100%,
+      0 100%,
+      0 20%
+    );
+  }
+
+  .clip-path-arrow {
+    clip-path: polygon(
+      0 0,
+      calc(100% - 10px) 0,
+      100% 50%,
+      calc(100% - 10px) 100%,
+      0 100%
+    );
   }
 }

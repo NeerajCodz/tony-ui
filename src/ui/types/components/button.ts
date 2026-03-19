@@ -6,6 +6,7 @@
  * Buttons include:
  * 1. Regular buttons (no icons)
  * 2. Icon buttons (icons only)
+ * 3. Cyber/Futuristic button versions (10 unique shapes)
  * 
  * Source: Same pattern as cards with theme, type, variant, version
  */
@@ -14,17 +15,41 @@ import React from 'react';
 import type { ColorType, SemanticColorId } from '../colors.d.js';
 
 /**
- * Button Versions - When you add a version here, you can create its .tsx file
+ * Basic Button Versions - Simple utility buttons
+ */
+export type BasicButtonVersion = 'default' | 'compact' | 'large' | 'pill' | 'ghost' | 'raised';
+
+/**
+ * Cyber Button Versions - Futuristic HUD-style buttons with unique shapes
  * 
  * Versions:
- * - default: Standard button with medium padding
- * - compact: Reduced padding for tight spaces
- * - large: Larger padding for more prominence
- * - pill: Fully rounded/pill-shaped button
- * - ghost: Invisible background until hover
- * - raised: Elevated shadow effect
+ * - angular-corner: Beveled corners with clip-path
+ * - holo-frame: Octagonal with shimmer effect
+ * - data-panel: Asymmetric cut design
+ * - circuit-board: Circuit traces overlay
+ * - quantum-gate: Hexagonal shape
+ * - tactical-hud: Military HUD style
+ * - energy-shield: Force field effect
+ * - terminal-window: Command line aesthetic
+ * - matrix-grid: Digital grid pattern
+ * - neon-outline: Intense glow effect
  */
-export type ButtonVersion = 'default' | 'compact' | 'large' | 'pill' | 'ghost' | 'raised';
+export type CyberButtonVersion = 
+  | 'angular-corner' 
+  | 'holo-frame' 
+  | 'data-panel' 
+  | 'circuit-board' 
+  | 'quantum-gate' 
+  | 'tactical-hud' 
+  | 'energy-shield' 
+  | 'terminal-window' 
+  | 'matrix-grid' 
+  | 'neon-outline';
+
+/**
+ * Combined Button Version type
+ */
+export type ButtonVersion = BasicButtonVersion | CyberButtonVersion;
 
 /**
  * Button Type - Border and fill style
@@ -181,6 +206,147 @@ export const BUTTON_VERSION_CONFIGS: Record<ButtonVersion, ButtonVersionConfig> 
     colorType: 'primary',
     supportsVariants: true,
     description: 'Elevated button with shadow effect',
+  },
+
+  // Cyber Button Versions
+  'angular-corner': {
+    version: 'angular-corner',
+    name: 'Angular Corner',
+    enabled: true,
+    classPrefix: 'btn-angular-corner',
+    padding: { x: 'normal', y: 'normal' },
+    border: { style: 'solid', width: 'medium' },
+    borderRadius: 'sharp',
+    shadow: 'sm',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Beveled corners with glowing borders and tech-notches',
+  },
+
+  'holo-frame': {
+    version: 'holo-frame',
+    name: 'Holographic Frame',
+    enabled: true,
+    classPrefix: 'btn-holo-frame',
+    padding: { x: 'normal', y: 'normal' },
+    border: { style: 'solid', width: 'medium' },
+    borderRadius: 'sharp',
+    shadow: 'sm',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Octagonal with shimmer and iridescent border',
+  },
+
+  'data-panel': {
+    version: 'data-panel',
+    name: 'Data Panel',
+    enabled: true,
+    classPrefix: 'btn-data-panel',
+    padding: { x: 'normal', y: 'normal' },
+    border: { style: 'solid', width: 'medium' },
+    borderRadius: 'sharp',
+    shadow: 'sm',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Asymmetric cut design with status indicators',
+  },
+
+  'circuit-board': {
+    version: 'circuit-board',
+    name: 'Circuit Board',
+    enabled: true,
+    classPrefix: 'btn-circuit-board',
+    padding: { x: 'normal', y: 'normal' },
+    border: { style: 'solid', width: 'medium' },
+    borderRadius: 'sharp',
+    shadow: 'sm',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Circuit trace patterns with electrical pulses',
+  },
+
+  'quantum-gate': {
+    version: 'quantum-gate',
+    name: 'Quantum Gate',
+    enabled: true,
+    classPrefix: 'btn-quantum-gate',
+    padding: { x: 'large', y: 'normal' },
+    border: { style: 'solid', width: 'medium' },
+    borderRadius: 'sharp',
+    shadow: 'sm',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Hexagonal shape with quantum-inspired design',
+  },
+
+  'tactical-hud': {
+    version: 'tactical-hud',
+    name: 'Tactical HUD',
+    enabled: true,
+    classPrefix: 'btn-tactical-hud',
+    padding: { x: 'normal', y: 'normal' },
+    border: { style: 'solid', width: 'medium' },
+    borderRadius: 'sharp',
+    shadow: 'sm',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Military HUD aesthetic with targeting elements',
+  },
+
+  'energy-shield': {
+    version: 'energy-shield',
+    name: 'Energy Shield',
+    enabled: true,
+    classPrefix: 'btn-energy-shield',
+    padding: { x: 'normal', y: 'normal' },
+    border: { style: 'solid', width: 'medium' },
+    borderRadius: 'sharp',
+    shadow: 'md',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Force field effect with pulsating energy',
+  },
+
+  'terminal-window': {
+    version: 'terminal-window',
+    name: 'Terminal Window',
+    enabled: true,
+    classPrefix: 'btn-terminal-window',
+    padding: { x: 'normal', y: 'normal' },
+    border: { style: 'solid', width: 'medium' },
+    borderRadius: 'sharp',
+    shadow: 'sm',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Command line aesthetic with CRT effects',
+  },
+
+  'matrix-grid': {
+    version: 'matrix-grid',
+    name: 'Matrix Grid',
+    enabled: true,
+    classPrefix: 'btn-matrix-grid',
+    padding: { x: 'normal', y: 'normal' },
+    border: { style: 'solid', width: 'medium' },
+    borderRadius: 'sharp',
+    shadow: 'sm',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Digital grid pattern with data flow',
+  },
+
+  'neon-outline': {
+    version: 'neon-outline',
+    name: 'Neon Outline',
+    enabled: true,
+    classPrefix: 'btn-neon-outline',
+    padding: { x: 'normal', y: 'normal' },
+    border: { style: 'solid', width: 'medium' },
+    borderRadius: 'sharp',
+    shadow: 'md',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Intense neon glow with thick outer bloom',
   },
 };
 

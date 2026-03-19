@@ -1,0 +1,164 @@
+{
+  "version": "1.0",
+  "component": "dialog",
+  "description": "Cyber HUD/FUI Dialog System - Futuristic modal components with overlay effects",
+  
+  "types": {
+    "default": {
+      "border": "2px solid",
+      "background": "rgba(0, 163, 255, 0.08)",
+      "backdropFilter": "blur(12px)",
+      "description": "Glass effect with subtle background fill"
+    },
+    "outline": {
+      "border": "2px solid",
+      "background": "transparent",
+      "description": "Border only with transparent background"
+    },
+    "solid": {
+      "border": "none",
+      "background": "rgba(0, 163, 255, 0.9)",
+      "description": "Translucent 90% filled background"
+    }
+  },
+  
+  "backdrop": {
+    "background": "hsl(var(--background) / 0.8)",
+    "backdropFilter": "blur(4px)",
+    "gridPattern": true,
+    "scanLines": true
+  },
+  
+  "versions": {
+    "angular-corner": {
+      "name": "Angular Corner",
+      "enabled": true,
+      "description": "Beveled corners with glowing borders and tech-notches",
+      "clipPath": "polygon(24px 0, calc(100% - 24px) 0, 100% 24px, 100% calc(100% - 24px), calc(100% - 24px) 100%, 24px 100%, 0 calc(100% - 24px), 0 24px)",
+      "features": ["corner-accents", "scan-line", "glow-border"],
+      "animations": {
+        "entrance": "dialogScaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "exit": "dialogScaleOut 0.2s ease-out"
+      }
+    },
+    "holo-frame": {
+      "name": "Holographic Frame",
+      "enabled": true,
+      "description": "Iridescent holographic border with shimmer effect",
+      "clipPath": "polygon(20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px), 0 20px)",
+      "features": ["corner-brackets", "shimmer-overlay", "iridescent-border"],
+      "animations": {
+        "entrance": "holoFadeIn 0.4s ease-out",
+        "exit": "holoFadeOut 0.25s ease-in",
+        "continuous": "shimmer 3s linear infinite"
+      }
+    },
+    "data-panel": {
+      "name": "Data Panel",
+      "enabled": true,
+      "description": "Technical panel with side status readouts",
+      "clipPath": "polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 32px 100%, 0 calc(100% - 32px))",
+      "features": ["side-panel", "status-leds", "data-readout"],
+      "animations": {
+        "entrance": "slideReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+        "exit": "slideOut 0.25s ease-in",
+        "continuous": "scanVertical 3s linear infinite"
+      }
+    },
+    "circuit-board": {
+      "name": "Circuit Board",
+      "enabled": true,
+      "description": "Circuit trace patterns with animated pulses",
+      "features": ["circuit-pattern", "animated-traces", "corner-nodes"],
+      "animations": {
+        "entrance": "glitchIn 0.4s steps(4)",
+        "exit": "glitchOut 0.2s steps(2)",
+        "continuous": "pulseTraces 2.5s linear infinite"
+      }
+    },
+    "quantum-gate": {
+      "name": "Quantum Gate",
+      "enabled": true,
+      "description": "Quantum computing inspired with wave patterns",
+      "clipPath": "polygon(40px 0, calc(100% - 40px) 0, 100% 40px, 100% calc(100% - 40px), calc(100% - 40px) 100%, 40px 100%, 0 calc(100% - 40px), 0 40px)",
+      "features": ["quantum-particles", "wave-function", "state-indicators"],
+      "animations": {
+        "entrance": "quantumFade 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+        "exit": "quantumCollapse 0.3s ease-in",
+        "continuous": "quantumPulse 3s ease-in-out infinite"
+      }
+    },
+    "tactical-hud": {
+      "name": "Tactical HUD",
+      "enabled": true,
+      "description": "Military HUD with targeting elements",
+      "clipPath": "polygon(0 16px, 16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 16px))",
+      "features": ["radar-sweep", "targeting-reticle", "status-bars"],
+      "animations": {
+        "entrance": "tacticalSlide 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "exit": "tacticalSlideOut 0.2s ease-in",
+        "continuous": "radarSweep 4s linear infinite"
+      }
+    },
+    "energy-shield": {
+      "name": "Energy Shield",
+      "enabled": true,
+      "description": "Hexagonal shield pattern with energy pulses",
+      "features": ["hexagon-pattern", "energy-waves", "shield-status"],
+      "animations": {
+        "entrance": "energyBurst 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "exit": "energyCollapse 0.25s ease-in",
+        "continuous": "energyPulse 3s ease-out infinite"
+      }
+    },
+    "terminal-window": {
+      "name": "Terminal Window",
+      "enabled": true,
+      "description": "Command prompt with CRT effects",
+      "features": ["terminal-header", "status-buttons", "crt-flicker"],
+      "animations": {
+        "entrance": "terminalBoot 0.5s steps(6)",
+        "exit": "terminalShutdown 0.3s steps(3)",
+        "continuous": "scanline 2s linear infinite"
+      }
+    },
+    "matrix-grid": {
+      "name": "Matrix Grid",
+      "enabled": true,
+      "description": "Animated grid with digital rain effect",
+      "clipPath": "polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 16px), 0 16px)",
+      "features": ["animated-grid", "digital-rain", "corner-nodes"],
+      "animations": {
+        "entrance": "matrixLoad 0.6s linear",
+        "exit": "matrixUnload 0.3s linear",
+        "continuous": "digitalRain 2s linear infinite"
+      }
+    },
+    "glass-morphism": {
+      "name": "Glass Morphism",
+      "enabled": true,
+      "description": "Frosted glass with blur backdrop",
+      "features": ["frosted-glass", "blur-backdrop", "gradient-border"],
+      "animations": {
+        "entrance": "glassFadeIn 0.3s ease-out",
+        "exit": "glassFadeOut 0.2s ease-in"
+      }
+    }
+  },
+  
+  "closeButton": {
+    "position": "absolute",
+    "top": "16px",
+    "right": "16px",
+    "size": "32px",
+    "glyph": "×"
+  },
+  
+  "defaults": {
+    "version": "angular-corner",
+    "type": "default",
+    "variant": "neutral",
+    "animated": true,
+    "showClose": true
+  }
+}

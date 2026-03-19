@@ -1,0 +1,233 @@
+{
+  "version": "1.0",
+  "component": "tabs",
+  "description": "Cyber HUD/FUI Tabs System - Futuristic tab components with Electric Blue on Deep Charcoal aesthetic",
+  
+  "types": {
+    "default": {
+      "border": "2px solid",
+      "background": "rgba(0, 163, 255, 0.05)",
+      "backdropFilter": "blur(8px)",
+      "description": "Glass effect with subtle background fill"
+    },
+    "outline": {
+      "border": "2px solid",
+      "background": "transparent",
+      "description": "Border only with transparent background"
+    },
+    "solid": {
+      "border": "none",
+      "background": "rgba(0, 163, 255, 0.9)",
+      "description": "Solid filled background"
+    }
+  },
+  
+  "versions": {
+    "angular-corner": {
+      "name": "Angular Corner",
+      "enabled": true,
+      "description": "Beveled corners with glowing borders and tech-notches",
+      "clipPath": "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)",
+      "features": ["corner-accents", "glow-border", "active-highlight"],
+      "animations": {
+        "entrance": "slide-in",
+        "hover": "glow-intensify",
+        "active": "pulse-glow"
+      }
+    },
+    "holo-frame": {
+      "name": "Holographic Frame",
+      "enabled": true,
+      "description": "Iridescent holographic tabs with animated gradient",
+      "features": ["holo-gradient", "shimmer-effect", "glass-reflection"],
+      "animations": {
+        "entrance": "holo-fade",
+        "hover": "shimmer-sweep",
+        "continuous": "holo-rotate"
+      }
+    },
+    "data-panel": {
+      "name": "Data Panel",
+      "enabled": true,
+      "description": "Technical data panel with status indicators",
+      "clipPath": "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)",
+      "features": ["status-leds", "data-readout", "scan-line"],
+      "animations": {
+        "entrance": "scan-reveal",
+        "continuous": "scan-line"
+      }
+    },
+    "circuit-board": {
+      "name": "Circuit Board",
+      "enabled": true,
+      "description": "Circuit trace patterns with electrical pulses",
+      "features": ["circuit-traces", "pulse-animation", "node-markers"],
+      "animations": {
+        "entrance": "trace-draw",
+        "continuous": "pulse-traces"
+      }
+    },
+    "quantum-gate": {
+      "name": "Quantum Gate",
+      "enabled": true,
+      "description": "Quantum-inspired with particle effects",
+      "features": ["particle-effects", "wave-function", "quantum-glow"],
+      "animations": {
+        "entrance": "quantum-materialize",
+        "continuous": "quantum-pulse"
+      }
+    },
+    "tactical-hud": {
+      "name": "Tactical HUD",
+      "enabled": true,
+      "description": "Military HUD with targeting aesthetics",
+      "clipPath": "polygon(8px 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 8px 100%, 0 50%)",
+      "features": ["bracket-markers", "radar-sweep", "tactical-grid"],
+      "animations": {
+        "entrance": "lock-on",
+        "hover": "target-pulse"
+      }
+    },
+    "energy-shield": {
+      "name": "Energy Shield",
+      "enabled": true,
+      "description": "Hexagonal energy shield pattern",
+      "features": ["hex-pattern", "energy-pulse", "shield-glow"],
+      "animations": {
+        "entrance": "shield-activate",
+        "continuous": "energy-flow"
+      }
+    },
+    "terminal-window": {
+      "name": "Terminal Window",
+      "enabled": true,
+      "description": "Command prompt terminal aesthetic",
+      "features": ["terminal-header", "monospace-font", "cursor-blink"],
+      "animations": {
+        "entrance": "terminal-type",
+        "continuous": "cursor-blink"
+      }
+    },
+    "matrix-grid": {
+      "name": "Matrix Grid",
+      "enabled": true,
+      "description": "Digital matrix grid with code rain",
+      "clipPath": "polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)",
+      "features": ["grid-overlay", "digital-rain", "glitch-effect"],
+      "animations": {
+        "entrance": "matrix-load",
+        "continuous": "digital-rain"
+      }
+    },
+    "neon-outline": {
+      "name": "Neon Outline",
+      "enabled": true,
+      "description": "High-contrast neon glow effect",
+      "features": ["neon-glow", "pulse-brightness", "outer-bloom"],
+      "animations": {
+        "entrance": "neon-flicker",
+        "continuous": "neon-pulse"
+      }
+    }
+  },
+  
+  "animations": {
+    "slide-in": {
+      "duration": "300ms",
+      "easing": "cubic-bezier(0.34, 1.56, 0.64, 1)"
+    },
+    "holo-fade": {
+      "duration": "400ms",
+      "easing": "ease-in-out"
+    },
+    "scan-reveal": {
+      "duration": "500ms",
+      "easing": "linear"
+    },
+    "trace-draw": {
+      "duration": "600ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    "quantum-materialize": {
+      "duration": "500ms",
+      "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+    },
+    "lock-on": {
+      "duration": "400ms",
+      "easing": "steps(4)"
+    },
+    "shield-activate": {
+      "duration": "350ms",
+      "easing": "cubic-bezier(0.34, 1.56, 0.64, 1)"
+    },
+    "terminal-type": {
+      "duration": "300ms",
+      "easing": "steps(1)"
+    },
+    "matrix-load": {
+      "duration": "500ms",
+      "easing": "linear"
+    },
+    "neon-flicker": {
+      "duration": "400ms",
+      "easing": "steps(1)"
+    },
+    "glow-intensify": {
+      "duration": "200ms",
+      "easing": "ease-out"
+    },
+    "pulse-glow": {
+      "duration": "1.5s",
+      "iterationCount": "infinite",
+      "easing": "ease-in-out"
+    },
+    "holo-rotate": {
+      "duration": "4s",
+      "iterationCount": "infinite",
+      "easing": "linear"
+    },
+    "scan-line": {
+      "duration": "2s",
+      "iterationCount": "infinite",
+      "easing": "linear"
+    },
+    "pulse-traces": {
+      "duration": "2s",
+      "iterationCount": "infinite",
+      "easing": "linear"
+    },
+    "quantum-pulse": {
+      "duration": "3s",
+      "iterationCount": "infinite",
+      "easing": "ease-in-out"
+    },
+    "energy-flow": {
+      "duration": "2s",
+      "iterationCount": "infinite",
+      "easing": "linear"
+    },
+    "cursor-blink": {
+      "duration": "1s",
+      "iterationCount": "infinite",
+      "easing": "steps(1)"
+    },
+    "digital-rain": {
+      "duration": "2s",
+      "iterationCount": "infinite",
+      "easing": "linear"
+    },
+    "neon-pulse": {
+      "duration": "2s",
+      "iterationCount": "infinite",
+      "easing": "ease-in-out"
+    }
+  },
+  
+  "defaults": {
+    "version": "angular-corner",
+    "type": "default",
+    "variant": "neutral",
+    "animated": true,
+    "orientation": "horizontal"
+  }
+}

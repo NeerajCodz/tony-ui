@@ -1,109 +1,73 @@
 /**
- * Switch Component
+ * Switch Component - Dynamic Renderer
+ * Refactored to use Compound Component Context Pattern
  */
-import React, { useState } from 'react';
-import type { SwitchProps } from '../../types/components/inputs.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
-import '../../styles/inputs.css';
 
-const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({
-  version = 'default',
-  type: styleType = 'default',
-  variant = 'neutral',
-  colorType = 'primary',
-  animated = true,
-  checked: controlledChecked,
-  defaultChecked = false,
-  onChange,
-  disabled = false,
-  label,
-  className = '',
-  id,
-  name,
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import * as SwitchPrimitive from '@radix-ui/react-switch';
+import { cn } from '../../../lib/utils';
+
+// --- Types ---
+type SwitchVersion = 
+  | 'angular-corner'
+  | 'holo-frame'
+  | 'data-panel'
+  | 'circuit-board'
+  | 'quantum-gate'
+  | 'tactical-hud'
+  | 'energy-shield'
+  | 'terminal-window'
+  | 'matrix-grid'
+  | 'neon-outline';
+
+interface SwitchProps extends React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Root> {
+  version?: SwitchVersion;
+  variant?: 'neutral' | 'primary' | 'success' | 'warning' | 'destructive' | 'info';
+  type?: 'default' | 'outline' | 'solid' | 'ghost';
+}
+
+// --- Dynamic Import Helper ---
+const loadVersionModule = async (version: SwitchVersion) => {
+  switch (version) {
+    case 'angular-corner': return import('./switch-angular-corner.tsx');
+    case 'holo-frame': return import('./switch-holo-frame.tsx');
+    case 'data-panel': return import('./switch-data-panel.tsx');
+    case 'circuit-board': return import('./switch-circuit-board.tsx');
+    case 'quantum-gate': return import('./switch-quantum-gate.tsx');
+    case 'tactical-hud': return import('./switch-tactical-hud.tsx');
+    case 'energy-shield': return import('./switch-energy-shield.tsx');
+    case 'terminal-window': return import('./switch-terminal-window.tsx');
+    case 'matrix-grid': return import('./switch-matrix-grid.tsx');
+    case 'neon-outline': return import('./switch-neon-outline.tsx');
+    default: return import('./switch-angular-corner.tsx');
+  }
+};
+
+// --- Main Component ---
+const Switch = React.forwardRef<React.ElementRef<typeof SwitchPrimitive.Root>, SwitchProps>(({ 
+  version = 'angular-corner', 
+  variant = 'primary', 
+  type = 'default', 
+  className,
+  ...props 
 }, ref) => {
-  const [internalChecked, setInternalChecked] = useState(defaultChecked);
-  const isChecked = controlledChecked !== undefined ? controlledChecked : internalChecked;
-  const activeColor = resolveColorType(variant, colorType);
+  const [versionModule, setVersionModule] = useState<any>(null);
 
-  const sizeMap: Record<string, { width: number; height: number; thumb: number }> = {
-    default: { width: 44, height: 24, thumb: 18 },
-    large: { width: 56, height: 30, thumb: 24 },
-    compact: { width: 34, height: 18, thumb: 14 },
-  };
-  const dims = sizeMap[version] || sizeMap.default;
+  useEffect(() => {
+    loadVersionModule(version).then(setVersionModule);
+  }, [version]);
 
-  const handleClick = () => {
-    if (disabled) return;
-    const newVal = !isChecked;
-    setInternalChecked(newVal);
-    onChange?.(newVal);
-  };
+  if (!versionModule) {
+    return <div className={cn("peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input", className)} />;
+  }
 
-  const trackStyle: React.CSSProperties = {
-    position: 'relative',
-    width: dims.width,
-    height: dims.height,
-    borderRadius: dims.height,
-    backgroundColor: isChecked ? getColorVar(activeColor, 'base') : getColorVar(activeColor, 'border'),
-    transition: animated ? 'all 200ms ease-in-out' : 'none',
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    opacity: disabled ? 0.5 : 1,
-    border: 'none',
-    outline: 'none',
-    padding: 0,
-    flexShrink: 0,
-  };
-
-  const thumbStyle: React.CSSProperties = {
-    position: 'absolute',
-    top: (dims.height - dims.thumb) / 2,
-    left: isChecked ? dims.width - dims.thumb - 3 : 3,
-    width: dims.thumb,
-    height: dims.thumb,
-    borderRadius: '50%',
-    backgroundColor: isChecked ? getColorVar(activeColor, 'foreground') : getColorVar(activeColor, 'foreground'),
-    transition: animated ? 'left 200ms ease-in-out' : 'none',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
-  };
-
+  const Component = versionModule.default;
   return (
-    <label
-      className={`ui-switch ui-switch-${version} ${className}`}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '8px',
-        cursor: disabled ? 'not-allowed' : 'pointer',
-        userSelect: 'none',
-      }}
-      data-version={version}
-      data-variant={variant}
-    >
-      <button
-        ref={ref}
-        id={id}
-        role="switch"
-        type="button"
-        aria-checked={isChecked}
-        onClick={handleClick}
-        disabled={disabled}
-        style={trackStyle}
-      >
-        <div style={thumbStyle} />
-      </button>
-      {label && (
-        <span style={{
-          fontSize: '14px',
-          color: getColorVar(activeColor, 'foreground'),
-          opacity: disabled ? 0.5 : 1,
-        }}>
-          {label}
-        </span>
-      )}
-    </label>
+    <Component ref={ref} className={className} variant={variant} type={type} {...props} />
   );
 });
+Switch.displayName = SwitchPrimitive.Root.displayName;
 
-Switch.displayName = 'Switch';
 export { Switch };
 export default Switch;
+

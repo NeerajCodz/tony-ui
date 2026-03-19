@@ -1,63 +1,92 @@
-/**
- * Pagination Component
- */
-import React from 'react';
-import type { PaginationProps } from '../../types/components/navigation.js';
-import { getColorVar, resolveColorType } from '../../utils/component-helpers.js';
+import React, { lazy, Suspense, createContext, useContext, useMemo } from 'react';
 
-const Pagination: React.FC<PaginationProps> = ({
-  version = 'default', type: styleType = 'default', variant = 'primary',
-  colorType = 'primary', animated = true, currentPage, totalPages,
-  onPageChange, siblingCount = 1, className = '',
-}) => {
-  const activeColor = resolveColorType(variant, colorType);
+// Context to share version between compound components
+const PaginationVersionContext = createContext('angular-corner');
 
-  const range = (start: number, end: number) =>
-    Array.from({ length: end - start + 1 }, (_, i) => start + i);
+// Helper for lazy loading subcomponents
+const createLazySubcomponent = (componentName) => {
+  return React.forwardRef((props, ref) => {
+    const version = useContext(PaginationVersionContext);
+    
+    const LazyComponent = useMemo(() => lazy(async () => {
+      try {
+        const module = await import(`./pagination-${version}.tsx`);
+        return { default: module[componentName] };
+      } catch (e) {
+        // Fallback for missing components
+        return { 
+          default: ({ children, className = '', ...p }) => (
+            <div className={`ui-pagination-${componentName.toLowerCase()} ${className}`} {...p}>{children}</div>
+          ) 
+        };
+      }
+    }), [version]);
 
-  let pages: (number | string)[];
-  if (version === 'simple') {
-    pages = [];
-  } else {
-    const start = Math.max(1, currentPage - siblingCount);
-    const end = Math.min(totalPages, currentPage + siblingCount);
-    pages = [];
-    if (start > 1) { pages.push(1); if (start > 2) pages.push('...'); }
-    pages.push(...range(start, end));
-    if (end < totalPages) { if (end < totalPages - 1) pages.push('...'); pages.push(totalPages); }
-  }
-
-  const btnStyle = (active = false, disabled = false): React.CSSProperties => ({
-    minWidth: '32px', height: '32px', padding: '0 8px', fontSize: '13px', fontWeight: active ? '600' : '400',
-    border: `1px solid ${getColorVar(activeColor, active ? 'base' : 'border')}`,
-    backgroundColor: active ? getColorVar(activeColor, 'base') : 'transparent',
-    color: getColorVar(activeColor, 'foreground'), borderRadius: '6px',
-    cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.4 : 1,
-    transition: animated ? 'all 150ms ease-in-out' : 'none', outline: 'none', fontFamily: 'inherit',
-    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+    return (
+      <Suspense fallback={<div className="animate-pulse bg-muted/10 h-8 rounded" />}>
+        <LazyComponent ref={ref} {...props} />
+      </Suspense>
+    );
   });
-
-  return (
-    <nav className={`ui-pagination ui-pagination-${version} ${className}`} aria-label="pagination"
-      style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-      <button type="button" onClick={() => onPageChange(currentPage - 1)} disabled={currentPage <= 1} style={btnStyle(false, currentPage <= 1)}>‹</button>
-      {version === 'simple' ? (
-        <span style={{ padding: '0 12px', fontSize: '13px', color: getColorVar(activeColor, 'foreground') }}>
-          {currentPage} / {totalPages}
-        </span>
-      ) : (
-        pages.map((p, i) =>
-          typeof p === 'string' ? (
-            <span key={`e${i}`} style={{ padding: '0 4px', color: getColorVar(activeColor, 'border') }}>{p}</span>
-          ) : (
-            <button key={p} type="button" onClick={() => onPageChange(p)} style={btnStyle(p === currentPage)}>{p}</button>
-          )
-        )
-      )}
-      <button type="button" onClick={() => onPageChange(currentPage + 1)} disabled={currentPage >= totalPages} style={btnStyle(false, currentPage >= totalPages)}>›</button>
-    </nav>
-  );
 };
 
-export { Pagination };
+// Main Component (Root)
+const PaginationRoot = React.forwardRef(({ 
+  version = 'angular-corner',
+  children,
+  ...props 
+}, ref) => {
+  
+  const LazyRoot = useMemo(() => lazy(async () => {
+    try {
+      const module = await import(`./pagination-${version}.tsx`);
+      return { default: module.Pagination }; 
+    } catch (e) {
+      return { 
+        default: ({ children }) => <>{children}</>
+      };
+    }
+  }), [version]);
+
+  return (
+    <PaginationVersionContext.Provider value={version}>
+      <Suspense fallback={null}>
+        <LazyRoot {...props}>
+          {children}
+        </LazyRoot>
+      </Suspense>
+    </PaginationVersionContext.Provider>
+  );
+});
+PaginationRoot.displayName = 'Pagination';
+
+// Subcomponents
+export const PaginationContent = createLazySubcomponent('PaginationContent');
+PaginationContent.displayName = 'PaginationContent';
+
+export const PaginationItem = createLazySubcomponent('PaginationItem');
+PaginationItem.displayName = 'PaginationItem';
+
+export const PaginationLink = createLazySubcomponent('PaginationLink');
+PaginationLink.displayName = 'PaginationLink';
+
+export const PaginationNext = createLazySubcomponent('PaginationNext');
+PaginationNext.displayName = 'PaginationNext';
+
+export const PaginationPrevious = createLazySubcomponent('PaginationPrevious');
+PaginationPrevious.displayName = 'PaginationPrevious';
+
+export const PaginationEllipsis = createLazySubcomponent('PaginationEllipsis');
+PaginationEllipsis.displayName = 'PaginationEllipsis';
+
+export const Pagination = Object.assign(PaginationRoot, {
+  Content: PaginationContent,
+  Item: PaginationItem,
+  Link: PaginationLink,
+  Next: PaginationNext,
+  Previous: PaginationPrevious,
+  Ellipsis: PaginationEllipsis,
+});
+
 export default Pagination;
+
