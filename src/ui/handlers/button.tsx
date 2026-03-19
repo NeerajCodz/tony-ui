@@ -1,95 +1,84 @@
-import React, { forwardRef } from 'react';
-import { ButtonProps } from '../types/components/button';
-import { DefaultButton } from '../components/default/button';
-import { AngularCornerButton } from '../components/angular-corner/button';
-import { buttonConfig as defaultButtonConfig } from '../config/components/default/button';
-import { buttonConfig as angularCornerButtonConfig } from '../config/components/angular-corner/button';
-import defaultVariant from '../config/variants/default.json';
-import primaryVariant from '../config/variants/primary.json';
-import infoVariant from '../config/variants/info.json';
-import successVariant from '../config/variants/success.json';
-import warningVariant from '../config/variants/warning.json';
-import { NeonOutlineButton } from '../components/neon-outline/button';
-import { buttonConfig as neonOutlineButtonConfig } from '../config/components/neon-outline/button';
-import destructiveVariant from '../config/variants/destructive.json';
-import secondaryVariant from '../config/variants/secondary.json';
-import accentVariant from '../config/variants/accent.json';
-import neutralVariant from '../config/variants/neutral.json';
-import inverseVariant from '../config/variants/inverse.json';
-import dangerSoftVariant from '../config/variants/danger-soft.json';
-import warningSoftVariant from '../config/variants/warning-soft.json';
-import successSoftVariant from '../config/variants/success-soft.json';
+/**
+ * Button Component Handler - Version-First Architecture
+ * Routes to version-specific implementations with lazy loading
+ */
 
-// Variant Map
-const variants: Record<string, any> = {
-  default: defaultVariant,
-  primary: primaryVariant,
-  info: infoVariant,
-  success: successVariant,
-  warning: warningVariant,
-  destructive: destructiveVariant,
-  secondary: secondaryVariant,
-  accent: accentVariant,
-  neutral: neutralVariant,
-  inverse: inverseVariant,
-  'danger-soft': dangerSoftVariant,
-  'warning-soft': warningSoftVariant,
-  'success-soft': successSoftVariant,
+import React, { lazy, Suspense } from 'react';
+import type { Version, Variant } from '../types/common';
+
+// Types
+export type ButtonVersion = Version;
+export type ButtonVariant = Variant;
+
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  version?: ButtonVersion;
+  variant?: ButtonVariant;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  type?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+}
+
+// Dynamic imports for all button versions
+const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
+  'angular-corner': lazy(() => import('../components/angular-corner/button.tsx')),
+  'holo-frame': lazy(() => import('../components/holo-frame/button.tsx')),
+  'circuit-board': lazy(() => import('../components/circuit-board/button.tsx')),
+  'compact': lazy(() => import('../components/compact/button.tsx')),
+  'data-panel': lazy(() => import('../components/data-panel/button.tsx')),
+  'default': lazy(() => import('../components/default/button.tsx')),
+  'energy-shield': lazy(() => import('../components/energy-shield/button.tsx')),
+  'ghost': lazy(() => import('../components/ghost/button.tsx')),
+  'large': lazy(() => import('../components/large/button.tsx')),
+  'matrix-grid': lazy(() => import('../components/matrix-grid/button.tsx')),
+  'neon-outline': lazy(() => import('../components/neon-outline/button.tsx')),
+  'pill': lazy(() => import('../components/pill/button.tsx')),
+  'quantum-gate': lazy(() => import('../components/quantum-gate/button.tsx')),
+  'raised': lazy(() => import('../components/raised/button.tsx')),
+  'tactical-hud': lazy(() => import('../components/tactical-hud/button.tsx')),
+  'tech-panel': lazy(() => import('../components/tech-panel/button.tsx')),
+  'terminal-window': lazy(() => import('../components/terminal-window/button.tsx')),
 };
 
-// Component Map (Version -> Component)
-const components: Record<string, React.ComponentType<any>> = {
-  default: DefaultButton,
-  'angular-corner': AngularCornerButton,
-  'neon-outline': NeonOutlineButton,
-  // Add other versions here as they are implemented
-};
+// Fallback button
+const FallbackButton: React.FC<ButtonProps> = ({
+  children,
+  className = '',
+  ...props
+}) => (
+  <button
+    className={`px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 ${className}`}
+    {...props}
+  >
+    {children}
+  </button>
+);
 
-// Config Map (Version -> Config)
-const configs: Record<string, any> = {
-  default: defaultButtonConfig,
-  'angular-corner': angularCornerButtonConfig,
-  'neon-outline': neonOutlineButtonConfig,
-  // Add other version configs here
-};
+// Loading skeleton
+const LoadingSkeleton: React.FC = () => (
+  <div className="inline-block w-24 h-10 bg-muted/20 animate-pulse rounded" />
+);
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ version = 'default', variant = 'default', type = 'default', size = 'md', style, ...props }, ref) => {
-    // 1. Resolve Component
-    const Component = components[version] || components.default;
+// Main Button Component
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({
+    version = 'default',
+    variant = 'default',
+    ...props
+  }, ref) => {
+    const LazyComponent = versionComponents[version];
 
-    // 2. Resolve Config
-    const config = configs[version] || configs.default;
-
-    // 3. Resolve Variant Data
-    const variantData = variants[variant] || variants.default;
-
-    // 4. Resolve Styles
-    const baseStyles = config.base || {};
-    const sizeStyles = config.sizes?.[size] || {};
-    const typeStylesFn = config.types?.[type] || config.types?.default;
-    const typeStyles = typeStylesFn ? typeStylesFn(variantData.colors) : {};
-
-    // Combine Styles
-    const finalStyles = {
-      ...baseStyles,
-      ...sizeStyles,
-      ...typeStyles,
-      ...style, // Allow user override
-    };
+    if (!LazyComponent) {
+      return <FallbackButton ref={ref} {...props} />;
+    }
 
     return (
-      <Component
-        ref={ref}
-        version={version}
-        variant={variant}
-        type={type}
-        size={size}
-        styles={finalStyles}
-        {...props}
-      />
+      <Suspense fallback={<LoadingSkeleton />}>
+        <LazyComponent ref={ref} variant={variant} {...props} />
+      </Suspense>
     );
   }
 );
 
 Button.displayName = 'Button';
+
+export default Button;
+

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { HoverCard } from '../../ui';
-import { Button } from '../../ui/components/button'; // Assuming Button component exists
-import { Avatar, AvatarImage, AvatarFallback } from '../../ui/components/avatar'; // Assuming Avatar component exists
+import { HoverCard, Button, Avatar, AvatarImage, AvatarFallback } from '../../ui';
 import { cn } from '../../lib/utils';
 import { CalendarDays } from 'lucide-react';
 

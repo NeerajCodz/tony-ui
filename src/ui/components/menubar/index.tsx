@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, createContext, useContext, useMemo } from 'react';
 import { MenubarProps } from '@radix-ui/react-menubar';
-import { Skeleton } from '../skeleton';
+import { Skeleton } from '../../handlers/skeleton';
 import * as MenubarPrimitive from '@radix-ui/react-menubar';
 
 // Context to share version across subcomponents
@@ -13,7 +13,7 @@ export const Menubar = ({
   children,
   ...props 
 }: any) => {
-  const Component = useMemo(() => lazy(() => import(`./menubar-${version}.tsx`).then(module => ({ default: module.MenubarRoot }))), [version]);
+  const Component = useMemo(() => lazy(() => import(`../../components/${version}/menubar.tsx`).then(module => ({ default: module.MenubarRoot }))), [version]);
 
   return (
     <VersionContext.Provider value={version}>
@@ -28,7 +28,7 @@ export const Menubar = ({
 const createSubComponent = (name: string, exportName: string) => {
   return ({ children, ...props }: any) => {
     const version = useContext(VersionContext);
-    const Component = useMemo(() => lazy(() => import(`./menubar-${version}.tsx`).then(module => ({ default: module[exportName] }))), [version]);
+    const Component = useMemo(() => lazy(() => import(`../../components/${version}/menubar.tsx`).then(module => ({ default: module[exportName] }))), [version]);
 
     return (
       <Suspense fallback={name === 'Content' ? null : <span className="opacity-50">{children}</span>}>

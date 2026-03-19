@@ -18,16 +18,19 @@ export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
 
 // Dynamic imports
 const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
-  'angular-corner': lazy(() => import('../components/skeleton/skeleton-angular-corner.tsx')),
-  'holo-frame': lazy(() => import('../components/skeleton/skeleton-holo-frame.tsx')),
-  'data-panel': lazy(() => import('../components/skeleton/skeleton-data-panel.tsx')),
-  'circuit-board': lazy(() => import('../components/skeleton/skeleton-circuit-board.tsx')),
-  'quantum-gate': lazy(() => import('../components/skeleton/skeleton-quantum-gate.tsx')),
-  'tactical-hud': lazy(() => import('../components/skeleton/skeleton-tactical-hud.tsx')),
-  'energy-shield': lazy(() => import('../components/skeleton/skeleton-energy-shield.tsx')),
-  'terminal-window': lazy(() => import('../components/skeleton/skeleton-terminal-window.tsx')),
-  'matrix-grid': lazy(() => import('../components/skeleton/skeleton-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('../components/skeleton/skeleton-neon-outline.tsx')),
+  'angular-corner': lazy(() => import('../components/angular-corner/skeleton.tsx')),
+  'holo-frame': lazy(() => import('../components/holo-frame/skeleton.tsx')),
+  'data-panel': lazy(() => import('../components/data-panel/skeleton.tsx')),
+  'circuit-board': lazy(() => import('../components/circuit-board/skeleton.tsx')),
+  'quantum-gate': lazy(() => import('../components/quantum-gate/skeleton.tsx')),
+  'tactical-hud': lazy(() => import('../components/tactical-hud/skeleton.tsx')),
+  'energy-shield': lazy(() => import('../components/energy-shield/skeleton.tsx')),
+  'terminal-window': lazy(() => import('../components/terminal-window/skeleton.tsx')),
+  'matrix-grid': lazy(() => import('../components/matrix-grid/skeleton.tsx')),
+  'neon-outline': lazy(() => import('../components/neon-outline/skeleton.tsx')),
+  'compact': lazy(() => import('../components/compact/skeleton.tsx')),
+  'default': lazy(() => import('../components/default/skeleton.tsx')),
+  'ghost': lazy(() => import('../components/ghost/skeleton.tsx')),
 };
 
 // Fallback

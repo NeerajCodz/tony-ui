@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, createContext, useContext, useMemo } from 'react';
 import { NavigationMenuProps } from '@radix-ui/react-navigation-menu';
-import { Skeleton } from '../skeleton';
+import { Skeleton } from '../../handlers/skeleton';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 
 // Context to share version across subcomponents
@@ -13,7 +13,7 @@ export const NavigationMenu = ({
   children,
   ...props 
 }: any) => {
-  const Component = useMemo(() => lazy(() => import(`./navigation-menu-${version}.tsx`).then(module => ({ default: module.NavigationMenuRoot }))), [version]);
+  const Component = useMemo(() => lazy(() => import(`../../components/${version}/navigation-menu.tsx`).then(module => ({ default: module.NavigationMenuRoot }))), [version]);
 
   return (
     <VersionContext.Provider value={version}>
@@ -28,7 +28,7 @@ export const NavigationMenu = ({
 const createSubComponent = (name: string, exportName: string) => {
   return ({ children, ...props }: any) => {
     const version = useContext(VersionContext);
-    const Component = useMemo(() => lazy(() => import(`./navigation-menu-${version}.tsx`).then(module => ({ default: module[exportName] }))), [version]);
+    const Component = useMemo(() => lazy(() => import(`../../components/${version}/navigation-menu.tsx`).then(module => ({ default: module[exportName] }))), [version]);
 
     return (
       <Suspense fallback={name === 'Content' ? null : <span className="opacity-50">{children}</span>}>

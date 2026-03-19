@@ -11,13 +11,12 @@ export { ThemeProvider, ThemeContext } from './providers/ThemeProvider';
 export { useColors, useTheme, useCSSVariable, useColorValue } from './hooks/useColorTheme';
 
 // ===== CORE COMPONENTS =====
-export * from './components/card';
-export * from './components/button';
-export * from './components/icon-button';
+export { default as Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './handlers/card';
+export { default as Button } from './handlers/button';
 export { CyberBorder } from './components/CyberBorder';
 
 // ===== FORM INPUTS =====
-export * from './components/input';
+export { default as Input } from './handlers/input';
 export * from './components/input-group';
 export * from './components/input-otp';
 export * from './components/item';
@@ -26,70 +25,71 @@ export * from './components/native-select';
 export * from './components/navigation-menu';
 export * from './components/resizable';
 export * from './components/sidebar';
-export * from './components/sonner';
+export { default as Sonner } from './handlers/sonner';
 export * from './components/typography';
 export * from './components/textarea';
-export * from './components/checkbox';
-export * from './components/calendar';
+export { default as Checkbox } from './handlers/checkbox';
+export { default as Calendar } from './handlers/calendar';
 export * from './components/switch';
-export * from './components/radio-group';
-export * from './components/select';
+export { default as RadioGroup } from './handlers/radio-group';
+export { default as Select } from './handlers/select';
 export * from './components/combobox';
 export * from './components/slider';
 export * from './components/field';
-export * from './components/label';
+export { default as Label } from './handlers/label';
 
 // ===== FEEDBACK =====
-export * from './components/alert';
-export * from './components/badge';
-export * from './components/progress';
+export { default as Alert } from './handlers/alert';
+export { default as Badge } from './handlers/badge';
+export { default as Progress } from './handlers/progress';
 export * from './components/spinner';
-export * from './components/skeleton';
+export { default as Skeleton } from './handlers/skeleton';
 export * from './components/empty';
 export * from './components/toast';
 
 // ===== OVERLAYS =====
-export * from './components/dialog';
-export * from './components/alert-dialog';
+export { default as Dialog } from './handlers/dialog';
+export { default as AlertDialog } from './handlers/alert-dialog';
 export * from './components/command';
-export * from './components/sheet';
+export { default as Sheet } from './handlers/sheet';
 export * from './components/tooltip';
-export * from './components/popover';
+export { default as Popover } from './handlers/popover';
 export * from './components/context-menu';
 
 // ===== NAVIGATION =====
 export * from './components/tabs';
-export * from './components/breadcrumb';
+export { default as Breadcrumb } from './handlers/breadcrumb';
 export * from './components/pagination';
 
 // ===== DATA DISPLAY =====
-export * from './components/avatar';
+export { default as Avatar } from './handlers/avatar';
 export * from './components/chart';
 export * from './components/table';
 export * from './components/data-table';
 export * from './components/date-picker';
 export * from './components/direction';
-export * from './components/drawer';
-export * from './components/dropdown-menu';
+export { default as Drawer } from './handlers/drawer';
+export { default as DropdownMenu } from './handlers/dropdown-menu';
 export * from './components/hover-card';
 export * from './components/aspect-ratio';
 export * from './components/carousel';
 
 // ===== LAYOUT =====
-export * from './components/accordion';
-export * from './components/separator';
+export { default as Accordion } from './handlers/accordion';
+export { default as Separator } from './handlers/separator';
 export * from './components/collapsible';
 export * from './components/scroll-area';
 
 // ===== MISC =====
 export * from './components/toggle';
 export * from './components/toggle-group';
-export * from './components/button-group';
+export { default as ButtonGroup } from './handlers/button-group';
 export * from './components/kbd';
 
 // ===== TYPES =====
 export * from './types/colors.d';
 export * from './types/themes.d';
+export * from './types/common';
 export * from './types/components/card';
 export * from './types/components/button';
 export * from './types/components/inputs';
@@ -103,3 +103,5 @@ export * from './types/components/misc';
 // ===== UTILS =====
 export * from './utils/component-helpers';
 export * from './utils/clip-paths';
+export * from './utils/version-loader';
+
