@@ -9,7 +9,7 @@ export async function loadVersionComponent(
   version: Version
 ): Promise<VersionComponent> {
   try {
-    const component = await import(`../components/${version}/${componentName}.vue`);
+    const component = await import(`../components/${version}/${componentName}.tsx`);
     return component;
   } catch (error) {
     console.error(`Failed to load ${componentName} for version ${version}:`, error);
@@ -35,7 +35,7 @@ export async function getAvailableVersions(componentName: string): Promise<Versi
   
   for (const version of versions) {
     try {
-      await import(`../components/${version}/${componentName}.vue`);
+      await import(`../components/${version}/${componentName}.tsx`);
       available.push(version);
     } catch {
       // Component not available in this version
