@@ -1,9 +1,19 @@
 {
-  "name": "default",
   "colors": {
-    "base": "#64748b",
-    "foreground": "#ffffff",
-    "border": "#475569",
-    "glow": "#94a3b8"
+    "background": "var(--slate-800)",
+    "backgroundHover": "var(--slate-700)",
+    "border": "var(--slate-600)",
+    "borderHover": "var(--slate-500)",
+    "text": "var(--slate-200)",
+    "textHover": "var(--slate-100)"
+  },
+  "icon": {
+    "color": "var(--slate-400)",
+    "colorHover": "var(--slate-300)"
+  },
+  "accent": {
+    "primary": "var(--slate-500)",
+    "secondary": "var(--slate-600)",
+    "glow": "var(--slate-400)"
   }
 }

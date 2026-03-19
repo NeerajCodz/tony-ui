@@ -1,9 +1,19 @@
 {
-  "name": "warning",
   "colors": {
-    "base": "#f59e0b",
-    "foreground": "#ffffff",
-    "border": "#d97706",
-    "glow": "#fbbf24"
+    "background": "var(--amber-900)",
+    "backgroundHover": "var(--amber-800)",
+    "border": "var(--yellow-600)",
+    "borderHover": "var(--yellow-500)",
+    "text": "var(--yellow-100)",
+    "textHover": "var(--yellow-50)"
+  },
+  "icon": {
+    "color": "var(--yellow-400)",
+    "colorHover": "var(--yellow-300)"
+  },
+  "accent": {
+    "primary": "var(--yellow-500)",
+    "secondary": "var(--amber-600)",
+    "glow": "var(--yellow-400)"
   }
 }

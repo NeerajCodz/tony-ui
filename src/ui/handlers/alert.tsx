@@ -1,10 +1,13 @@
+'use client';
+
 /**
- * Alert Component Handler - Version-First Architecture
- * Routes to version-specific implementations with lazy loading
+ * Alert Component Handler - Dynamic Loading
+ * NO hardcoded colors, styles, or variants
  */
 
-import React, { lazy, Suspense } from 'react';
-import type { Version, Variant } from '../types/common';
+import React, { lazy, Suspense, useMemo, useState, useEffect } from 'react';
+import type { Version, Variant, VariantColors } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
 
 // Types
 export type AlertVersion = Version;
@@ -26,69 +29,78 @@ export interface AlertDescriptionProps extends React.HTMLAttributes<HTMLParagrap
   variant?: AlertVariant;
 }
 
-// Dynamic imports - Version-First Architecture
-const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
-  'angular-corner': lazy(() => import('../components/angular-corner/alert.tsx')),
-  'holo-frame': lazy(() => import('../components/holo-frame/alert.tsx')),
-  'data-panel': lazy(() => import('../components/data-panel/alert.tsx')),
-  'circuit-board': lazy(() => import('../components/circuit-board/alert.tsx')),
-  'quantum-gate': lazy(() => import('../components/quantum-gate/alert.tsx')),
-  'tactical-hud': lazy(() => import('../components/tactical-hud/alert.tsx')),
-  'energy-shield': lazy(() => import('../components/energy-shield/alert.tsx')),
-  'terminal-window': lazy(() => import('../components/terminal-window/alert.tsx')),
-  'matrix-grid': lazy(() => import('../components/matrix-grid/alert.tsx')),
-  'neon-outline': lazy(() => import('../components/neon-outline/alert.tsx')),
-  'glass-morphism': lazy(() => import('../components/glass-morphism/alert.tsx')),
-  'tech-panel': lazy(() => import('../components/tech-panel/alert.tsx')),
-  'default': lazy(() => import('../components/default/alert.tsx')),
-  'border': lazy(() => import('../components/border/alert.tsx')),
-  'compact': lazy(() => import('../components/compact/alert.tsx')),
-  'ghost': lazy(() => import('../components/ghost/alert.tsx')),
-  'large': lazy(() => import('../components/large/alert.tsx')),
-  'padding': lazy(() => import('../components/padding/alert.tsx')),
-  'raised': lazy(() => import('../components/raised/alert.tsx')),
+// Dynamic component loader - NO hardcoded versions
+const loadAlertComponent = (version: Version) => {
+  return lazy(() =>
+    import(`../components/${version}/alert.tsx`)
+      .catch(() => import(`../components/default/alert.tsx`))
+      .catch(() => ({
+        default: React.forwardRef<HTMLDivElement, any>(({ children, className = '' }, ref) => (
+          <div ref={ref} role="alert" className={className}>{children}</div>
+        ))
+      }))
+  );
 };
+
+// Dynamic config loader
+const loadAlertConfig = async (version: Version) => {
+  try {
+    const module = await import(`../config/components/${version}/alert.tsx`);
+    return module.alertConfig || module.default;
+  } catch {
+    try {
+      const module = await import(`../config/components/default/alert.tsx`);
+      return module.alertConfig || module.default;
+    } catch {
+      return null;
+    }
+  }
+};
+
+// Component cache for performance
+const componentCache = new Map<string, React.LazyExoticComponent<any>>();
 
 // Loading skeleton
 const LoadingSkeleton: React.FC = () => (
-  <div className="animate-pulse bg-gray-800/20 rounded p-4 h-20" />
+  <div className="animate-pulse bg-muted/20 rounded p-4 h-20" />
 );
-
-// Fallback
-const FallbackAlert = React.forwardRef<HTMLDivElement, AlertProps>(
-  ({ children, className = '', variant = 'default', ...props }, ref) => (
-    <div
-      ref={ref}
-      role="alert"
-      className={`relative w-full rounded-lg border p-4 ${className}`}
-      style={{
-        borderColor: 'hsl(var(--border-base))',
-        backgroundColor: 'hsl(var(--background-secondary) / 0.5)',
-      }}
-      {...props}
-    >
-      {children}
-    </div>
-  )
-);
-FallbackAlert.displayName = 'FallbackAlert';
 
 // Main Alert Component
 const AlertBase = React.forwardRef<HTMLDivElement, AlertProps>(({
-  version = 'angular-corner',
+  version = 'default',
   variant = 'default',
   children,
   ...props
 }, ref) => {
-  const LazyComponent = versionComponents[version];
-
-  if (!LazyComponent) {
-    return <FallbackAlert ref={ref} variant={variant} {...props}>{children}</FallbackAlert>;
-  }
+  const [config, setConfig] = useState<any>(null);
+  
+  // Dynamically load config
+  useEffect(() => {
+    loadAlertConfig(version).then(setConfig);
+  }, [version]);
+  
+  // Get variant colors dynamically - NO hardcoding
+  const colors = useMemo(() => getVariantColors(variant), [variant]);
+  
+  // Get or create lazy component
+  const LazyComponent = useMemo(() => {
+    const cacheKey = `${version}/alert`;
+    if (!componentCache.has(cacheKey)) {
+      componentCache.set(cacheKey, loadAlertComponent(version));
+    }
+    return componentCache.get(cacheKey)!;
+  }, [version]);
 
   return (
     <Suspense fallback={<LoadingSkeleton />}>
-      <LazyComponent ref={ref} variant={variant} {...props}>
+      <LazyComponent 
+        ref={ref} 
+        version={version}
+        variant={variant}
+        colors={colors}
+        config={config}
+        {...props}
+      >
         {children}
       </LazyComponent>
     </Suspense>

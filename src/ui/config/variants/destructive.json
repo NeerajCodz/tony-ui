@@ -1,9 +1,19 @@
 {
-  "name": "destructive",
   "colors": {
-    "base": "#ef4444",
-    "foreground": "#ffffff",
-    "border": "#dc2626",
-    "glow": "#f87171"
+    "background": "var(--red-900)",
+    "backgroundHover": "var(--red-800)",
+    "border": "var(--red-600)",
+    "borderHover": "var(--red-500)",
+    "text": "var(--red-100)",
+    "textHover": "var(--red-50)"
+  },
+  "icon": {
+    "color": "var(--red-400)",
+    "colorHover": "var(--red-300)"
+  },
+  "accent": {
+    "primary": "var(--red-500)",
+    "secondary": "var(--red-700)",
+    "glow": "var(--red-400)"
   }
 }

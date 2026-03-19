@@ -1,9 +1,11 @@
+'use client';
+
 /**
- * Card Component Handler - Version-First Architecture
- * Routes to version-specific implementations with lazy loading
+ * Card Component Handler - Dynamic Loading
+ * NO hardcoded colors, styles, or variants
  */
 
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useMemo, useState, useEffect } from 'react';
 import type { 
   CardProps, 
   CardVersion,
@@ -12,43 +14,44 @@ import type {
   CardFooterProps,
   CardComponent
 } from '../types/components/card.js';
-import cardConfig from '../config/components/card.json';
+import type { Version, Variant, VariantColors } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
 
-// Dynamic imports for all card versions
-const versionComponents: Record<CardVersion, any> = {
-  'angular-corner': lazy(() => import('../components/angular-corner/card.tsx')),
-  'holo-frame': lazy(() => import('../components/holo-frame/card.tsx')),
-  'data-panel': lazy(() => import('../components/data-panel/card.tsx')),
-  'circuit-board': lazy(() => import('../components/circuit-board/card.tsx')),
-  'quantum-gate': lazy(() => import('../components/quantum-gate/card.tsx')),
-  'tactical-hud': lazy(() => import('../components/tactical-hud/card.tsx')),
-  'energy-shield': lazy(() => import('../components/energy-shield/card.tsx')),
-  'terminal-window': lazy(() => import('../components/terminal-window/card.tsx')),
-  'matrix-grid': lazy(() => import('../components/matrix-grid/card.tsx')),
-  'glass-morphism': lazy(() => import('../components/glass-morphism/card.tsx')),
-  'tech-panel': lazy(() => import('../components/tech-panel/card.tsx')),
-  'neon-outline': lazy(() => import('../components/neon-outline/card.tsx')),
+// Dynamic component loader - NO hardcoded versions
+const loadCardComponent = (version: Version) => {
+  return lazy(() =>
+    import(`../components/${version}/card.tsx`)
+      .catch(() => import(`../components/default/card.tsx`))
+      .catch(() => ({
+        default: React.forwardRef<HTMLDivElement, any>(({ children, className = '' }, ref) => (
+          <div ref={ref} className={className}>{children}</div>
+        ))
+      }))
+  );
 };
+
+// Dynamic config loader
+const loadCardConfig = async (version: Version) => {
+  try {
+    const module = await import(`../config/components/${version}/card.tsx`);
+    return module.cardConfig || module.default;
+  } catch {
+    try {
+      const module = await import(`../config/components/default/card.tsx`);
+      return module.cardConfig || module.default;
+    } catch {
+      return null;
+    }
+  }
+};
+
+// Component cache for performance
+const componentCache = new Map<string, React.LazyExoticComponent<any>>();
 
 // Minimal loading skeleton
 const LoadingSkeleton: React.FC = () => (
-  <div className="animate-pulse bg-gray-800/20 rounded h-32" />
+  <div className="animate-pulse bg-muted/20 rounded h-32" />
 );
-
-// Fallback for disabled versions
-const FallbackCard = React.forwardRef<HTMLDivElement, CardProps>(({ 
-  children, 
-  className = '',
-  ...props 
-}, ref) => (
-  <div ref={ref} className={`relative p-6 ${className}`} style={{
-    border: '2px dashed hsl(var(--border-base))',
-    backgroundColor: 'rgba(var(--card-bg-rgb), 0.3)',
-  }}>
-    {children}
-  </div>
-));
-FallbackCard.displayName = 'FallbackCard';
 
 // ============ COMPOUND COMPONENTS ============
 
@@ -119,24 +122,39 @@ CardFooter.displayName = 'CardFooter';
 // ============ MAIN CARD COMPONENT ============
 
 const CardBase = React.forwardRef<HTMLDivElement, CardProps>(({ 
-  version = 'angular-corner',
+  version = 'default',
+  variant = 'default',
   ...props 
 }, ref) => {
-  const versions = cardConfig.versions as any;
-  const versionConfig = versions[version];
-
-  if (!versionConfig?.enabled) {
-    return <FallbackCard ref={ref} version={version} {...props} />;
-  }
-
-  const VersionComponent = versionComponents[version];
-  if (!VersionComponent) {
-    return <FallbackCard ref={ref} version={version} {...props} />;
-  }
+  const [config, setConfig] = useState<any>(null);
+  
+  // Dynamically load config
+  useEffect(() => {
+    loadCardConfig(version).then(setConfig);
+  }, [version]);
+  
+  // Get variant colors dynamically - NO hardcoding
+  const colors = useMemo(() => getVariantColors(variant), [variant]);
+  
+  // Get or create lazy component
+  const LazyComponent = useMemo(() => {
+    const cacheKey = `${version}/card`;
+    if (!componentCache.has(cacheKey)) {
+      componentCache.set(cacheKey, loadCardComponent(version));
+    }
+    return componentCache.get(cacheKey)!;
+  }, [version]);
 
   return (
     <Suspense fallback={<LoadingSkeleton />}>
-      <VersionComponent ref={ref} {...props} />
+      <LazyComponent 
+        ref={ref} 
+        version={version}
+        variant={variant}
+        colors={colors}
+        config={config}
+        {...props} 
+      />
     </Suspense>
   );
 });

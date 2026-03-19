@@ -1,9 +1,19 @@
 {
-  "name": "success",
   "colors": {
-    "base": "#10b981",
-    "foreground": "#ffffff",
-    "border": "#059669",
-    "glow": "#34d399"
+    "background": "var(--emerald-900)",
+    "backgroundHover": "var(--emerald-800)",
+    "border": "var(--green-600)",
+    "borderHover": "var(--green-500)",
+    "text": "var(--green-100)",
+    "textHover": "var(--green-50)"
+  },
+  "icon": {
+    "color": "var(--green-400)",
+    "colorHover": "var(--green-300)"
+  },
+  "accent": {
+    "primary": "var(--green-500)",
+    "secondary": "var(--emerald-600)",
+    "glow": "var(--green-400)"
   }
 }

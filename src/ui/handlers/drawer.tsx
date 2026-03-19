@@ -1,43 +1,65 @@
+'use client';
+
 /**
- * Drawer Component Handler - Version-First Architecture
- * Routes to version-specific implementations with lazy loading
+ * Drawer Component Handler - Dynamic Loading
+ * NO hardcoded colors, styles, or variants
  */
 
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useMemo, useState, useEffect } from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';
 import type { DrawerProps, DrawerVersion, VersionDrawerComponents } from '../types/components/drawer.js';
+import type { Version, Variant, VariantColors } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
 
-// Dynamic imports for all drawer versions
-const versionComponents: Record<DrawerVersion, any> = {
-  'angular-corner': lazy(() => import('../components/angular-corner/drawer.tsx')),
-  'holo-frame': lazy(() => import('../components/holo-frame/drawer.tsx')),
-  'data-panel': lazy(() => import('../components/data-panel/drawer.tsx')),
-  'circuit-board': lazy(() => import('../components/circuit-board/drawer.tsx')),
-  'quantum-gate': lazy(() => import('../components/quantum-gate/drawer.tsx')),
-  'tactical-hud': lazy(() => import('../components/tactical-hud/drawer.tsx')),
-  'energy-shield': lazy(() => import('../components/energy-shield/drawer.tsx')),
-  'terminal-window': lazy(() => import('../components/terminal-window/drawer.tsx')),
-  'matrix-grid': lazy(() => import('../components/matrix-grid/drawer.tsx')),
-  'neon-outline': lazy(() => import('../components/neon-outline/drawer.tsx')),
+// Dynamic component loader - NO hardcoded versions
+const loadDrawerComponent = (version: Version) => {
+  return lazy(() =>
+    import(`../components/${version}/drawer.tsx`)
+      .catch(() => import(`../components/default/drawer.tsx`))
+      .catch(() => ({
+        default: {
+          Overlay: () => <div className="fixed inset-0 bg-black/40" />,
+          Content: React.forwardRef<HTMLDivElement, any>(({ children, className = '' }, ref) => (
+            <div ref={ref} className={className}>{children}</div>
+          )),
+          Title: React.forwardRef<HTMLHeadingElement, any>(({ children, className = '' }, ref) => (
+            <h2 ref={ref} className={className}>{children}</h2>
+          )),
+          Description: React.forwardRef<HTMLParagraphElement, any>(({ children, className = '' }, ref) => (
+            <p ref={ref} className={className}>{children}</p>
+          )),
+        }
+      }))
+  );
 };
+
+// Dynamic config loader
+const loadDrawerConfig = async (version: Version) => {
+  try {
+    const module = await import(`../config/components/${version}/drawer.tsx`);
+    return module.drawerConfig || module.default;
+  } catch {
+    try {
+      const module = await import(`../config/components/default/drawer.tsx`);
+      return module.drawerConfig || module.default;
+    } catch {
+      return null;
+    }
+  }
+};
+
+// Component cache for performance
+const componentCache = new Map<string, React.LazyExoticComponent<any>>();
 
 // Minimal loading skeleton
 const LoadingSkeleton: React.FC = () => (
-  <div className="animate-pulse bg-gray-800/20 h-32" />
+  <div className="animate-pulse bg-muted/20 h-32" />
 );
-
-// Fallback for disabled versions
-const FallbackDrawer = React.forwardRef<HTMLDivElement, any>(({ children, className = '', ...props }, ref) => (
-  <div ref={ref} className={`fixed bottom-0 left-0 right-0 bg-gray-950 border-t border-cyan-500 p-6 ${className}`}>
-    {children}
-  </div>
-));
-FallbackDrawer.displayName = 'FallbackDrawer';
 
 // ============ MAIN DRAWER COMPONENT ============
 
 export const Drawer: React.FC<DrawerProps> = ({
-  version = 'angular-corner',
+  version = 'default',
   variant = 'primary',
   open,
   onOpenChange,
@@ -52,13 +74,36 @@ export const Drawer: React.FC<DrawerProps> = ({
   setActiveSnapPoint,
   ...props
 }) => {
-  const VersionComponent = versionComponents[version];
+  const [config, setConfig] = useState<any>(null);
+  const [VersionComponent, setVersionComponent] = useState<any>(null);
+  
+  // Dynamically load config
+  useEffect(() => {
+    loadDrawerConfig(version).then(setConfig);
+  }, [version]);
+  
+  // Get variant colors dynamically - NO hardcoding
+  const colors = useMemo(() => getVariantColors(variant), [variant]);
+  
+  // Get or create lazy component
+  useEffect(() => {
+    const cacheKey = `${version}/drawer`;
+    if (!componentCache.has(cacheKey)) {
+      componentCache.set(cacheKey, loadDrawerComponent(version));
+    }
+    const LazyComponent = componentCache.get(cacheKey)!;
+    
+    // Load the component to get its exports
+    import(`../components/${version}/drawer.tsx`)
+      .catch(() => import(`../components/default/drawer.tsx`))
+      .then(module => setVersionComponent(module))
+      .catch(() => setVersionComponent(null));
+  }, [version]);
 
   if (!VersionComponent) {
-    console.warn(`Drawer version "${version}" not found, using fallback`);
     return (
       <DrawerPrimitive.Root open={open} onOpenChange={onOpenChange}>
-        <FallbackDrawer className={className}>{children}</FallbackDrawer>
+        <LoadingSkeleton />
       </DrawerPrimitive.Root>
     );
   }
@@ -73,19 +118,19 @@ export const Drawer: React.FC<DrawerProps> = ({
       setActiveSnapPoint={setActiveSnapPoint}
     >
       <Suspense fallback={<LoadingSkeleton />}>
-        <VersionComponent.Overlay />
+        <VersionComponent.Overlay colors={colors} />
         <DrawerPrimitive.Portal>
-          <VersionComponent.Content variant={variant} className={className} {...props}>
+          <VersionComponent.Content variant={variant} colors={colors} config={config} className={className} {...props}>
             {(title || description) && (
               <div className="px-4 pt-6 pb-4">
                 {title && (
-                  <VersionComponent.Title variant={variant}>
+                  <VersionComponent.Title variant={variant} colors={colors}>
                     {icon && <span className="mr-2">{icon}</span>}
                     {title}
                   </VersionComponent.Title>
                 )}
                 {description && (
-                  <VersionComponent.Description variant={variant} className="mt-2">
+                  <VersionComponent.Description variant={variant} colors={colors} className="mt-2">
                     {description}
                   </VersionComponent.Description>
                 )}

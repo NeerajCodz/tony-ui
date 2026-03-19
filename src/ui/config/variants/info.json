@@ -1,9 +1,19 @@
 {
-  "name": "info",
   "colors": {
-    "base": "#3b82f6",
-    "foreground": "#ffffff",
-    "border": "#2563eb",
-    "glow": "#60a5fa"
+    "background": "var(--blue-900)",
+    "backgroundHover": "var(--blue-800)",
+    "border": "var(--cyan-600)",
+    "borderHover": "var(--cyan-500)",
+    "text": "var(--cyan-100)",
+    "textHover": "var(--cyan-50)"
+  },
+  "icon": {
+    "color": "var(--cyan-400)",
+    "colorHover": "var(--cyan-300)"
+  },
+  "accent": {
+    "primary": "var(--cyan-500)",
+    "secondary": "var(--blue-600)",
+    "glow": "var(--cyan-400)"
   }
 }
