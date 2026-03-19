@@ -1,95 +1,70 @@
-import React, { forwardRef } from 'react';
-import { ButtonProps } from '../types/components/button';
-import { DefaultButton } from '../components/default/button';
-import { AngularCornerButton } from '../components/angular-corner/button';
-import { buttonConfig as defaultButtonConfig } from '../config/components/default/button';
-import { buttonConfig as angularCornerButtonConfig } from '../config/components/angular-corner/button';
-import defaultVariant from '../config/variants/default.json';
-import primaryVariant from '../config/variants/primary.json';
-import infoVariant from '../config/variants/info.json';
-import successVariant from '../config/variants/success.json';
-import warningVariant from '../config/variants/warning.json';
-import { NeonOutlineButton } from '../components/neon-outline/button';
-import { buttonConfig as neonOutlineButtonConfig } from '../config/components/neon-outline/button';
-import destructiveVariant from '../config/variants/destructive.json';
-import secondaryVariant from '../config/variants/secondary.json';
-import accentVariant from '../config/variants/accent.json';
-import neutralVariant from '../config/variants/neutral.json';
-import inverseVariant from '../config/variants/inverse.json';
-import dangerSoftVariant from '../config/variants/danger-soft.json';
-import warningSoftVariant from '../config/variants/warning-soft.json';
-import successSoftVariant from '../config/variants/success-soft.json';
+'use client';
 
-// Variant Map
-const variants: Record<string, any> = {
-  default: defaultVariant,
-  primary: primaryVariant,
-  info: infoVariant,
-  success: successVariant,
-  warning: warningVariant,
-  destructive: destructiveVariant,
-  secondary: secondaryVariant,
-  accent: accentVariant,
-  neutral: neutralVariant,
-  inverse: inverseVariant,
-  'danger-soft': dangerSoftVariant,
-  'warning-soft': warningSoftVariant,
-  'success-soft': successSoftVariant,
-};
+/**
+ * Button Handler
+ * 
+ * Dynamically loads button component based on version, variant, and type.
+ * Uses the Universal Handler Factory for consistent behavior.
+ */
 
-// Component Map (Version -> Component)
-const components: Record<string, React.ComponentType<any>> = {
-  default: DefaultButton,
-  'angular-corner': AngularCornerButton,
-  'neon-outline': NeonOutlineButton,
-  // Add other versions here as they are implemented
-};
+import React from 'react';
+import { UniversalHandler } from '../core/handler-factory';
+import type { Version, Variant, Size, ButtonComponentType } from '../types/common';
 
-// Config Map (Version -> Config)
-const configs: Record<string, any> = {
-  default: defaultButtonConfig,
-  'angular-corner': angularCornerButtonConfig,
-  'neon-outline': neonOutlineButtonConfig,
-  // Add other version configs here
-};
+// ============================================================================
+// TYPES
+// ============================================================================
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ version = 'default', variant = 'default', type = 'default', size = 'md', style, ...props }, ref) => {
-    // 1. Resolve Component
-    const Component = components[version] || components.default;
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  version?: Version;
+  variant?: Variant;
+  type?: ButtonComponentType;
+  size?: Size;
+  loading?: boolean;
+  fullWidth?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+}
 
-    // 2. Resolve Config
-    const config = configs[version] || configs.default;
+// ============================================================================
+// HANDLER
+// ============================================================================
 
-    // 3. Resolve Variant Data
-    const variantData = variants[variant] || variants.default;
-
-    // 4. Resolve Styles
-    const baseStyles = config.base || {};
-    const sizeStyles = config.sizes?.[size] || {};
-    const typeStylesFn = config.types?.[type] || config.types?.default;
-    const typeStyles = typeStylesFn ? typeStylesFn(variantData.colors) : {};
-
-    // Combine Styles
-    const finalStyles = {
-      ...baseStyles,
-      ...sizeStyles,
-      ...typeStyles,
-      ...style, // Allow user override
-    };
-
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ 
+    version = 'default',
+    variant = 'default',
+    type = 'default',
+    size = 'md',
+    loading = false,
+    fullWidth = false,
+    leftIcon,
+    rightIcon,
+    children,
+    disabled,
+    ...props 
+  }, ref) => {
     return (
-      <Component
+      <UniversalHandler
         ref={ref}
+        component="button"
         version={version}
         variant={variant}
         type={type}
         size={size}
-        styles={finalStyles}
+        loading={loading}
+        fullWidth={fullWidth}
+        leftIcon={leftIcon}
+        rightIcon={rightIcon}
+        disabled={disabled || loading}
         {...props}
-      />
+      >
+        {children}
+      </UniversalHandler>
     );
   }
 );
 
 Button.displayName = 'Button';
+
+export default Button;

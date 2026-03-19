@@ -12,11 +12,21 @@ import React, { forwardRef, useMemo } from 'react';
 import { Toaster as SonnerToaster } from 'sonner';
 import { SonnerProps, SonnerVersion, SonnerType, SONNER_VERSION_CONFIGS } from '../types/components/sonner';
 
-// Dynamic component imports
+// Dynamic component imports - Version-First Architecture
 const versionComponents: Record<string, React.ComponentType<any>> = {
-  'default': React.lazy(() => import('../components/default/sonner')),
-  'angular-corner': React.lazy(() => import('../components/angular-corner/sonner')),
-  'neon-outline': React.lazy(() => import('../components/neon-outline/sonner')),
+  'default': React.lazy(() => import('../components/default/sonner.tsx')),
+  'angular-corner': React.lazy(() => import('../components/angular-corner/sonner.tsx')),
+  'neon-outline': React.lazy(() => import('../components/neon-outline/sonner.tsx')),
+  'holo-frame': React.lazy(() => import('../components/holo-frame/sonner.tsx')),
+  'data-panel': React.lazy(() => import('../components/data-panel/sonner.tsx')),
+  'circuit-board': React.lazy(() => import('../components/circuit-board/sonner.tsx')),
+  'quantum-gate': React.lazy(() => import('../components/quantum-gate/sonner.tsx')),
+  'tactical-hud': React.lazy(() => import('../components/tactical-hud/sonner.tsx')),
+  'energy-shield': React.lazy(() => import('../components/energy-shield/sonner.tsx')),
+  'terminal-window': React.lazy(() => import('../components/terminal-window/sonner.tsx')),
+  'matrix-grid': React.lazy(() => import('../components/matrix-grid/sonner.tsx')),
+  'glass-morphism': React.lazy(() => import('../components/glass-morphism/sonner.tsx')),
+  'tech-panel': React.lazy(() => import('../components/tech-panel/sonner.tsx')),
 };
 
 // Fallback loader
