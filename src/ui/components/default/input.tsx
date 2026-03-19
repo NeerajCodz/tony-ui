@@ -1,71 +1,47 @@
-'use client';
+import React from 'react';
+import { cn } from '@/lib/utils';
+import type { InputProps } from '@/ui/types/components/input';
 
-import React, { forwardRef } from 'react';
-import type { VariantColors } from '../../types/common';
+export default function Input({
+  className,
+  variant = 'default',
+  type = 'default',
+  colors,
+  ...props
+}: InputProps) {
+  const baseStyles = "relative transition-all duration-200 rounded-md flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
+  
+  const typeStyles = {
+    default: {
+      backgroundColor: colors.background,
+      color: colors.text,
+      border: `1px solid ${colors.border}`
+    },
+    solid: {
+      backgroundColor: colors.accent.primary,
+      color: colors.text,
+      boxShadow: `0 0 10px ${colors.accent.glow}`
+    },
+    outline: {
+      backgroundColor: 'transparent',
+      color: colors.accent.primary,
+      border: `1px solid ${colors.accent.primary}`
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: colors.textHover
+    }
+  };
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  version?: string;
-  variant?: string;
-  type?: string;
-  size?: string;
-  colors?: VariantColors;
-  styles?: React.CSSProperties;
-  config?: any;
-  error?: boolean;
-  icon?: React.ReactNode;
-  iconPosition?: 'left' | 'right';
+
+  return (
+    <div className="relative w-full">
+      <input 
+        className={cn(baseStyles, className)}
+        style={typeStyles[type as keyof typeof typeStyles]}
+        {...props}
+      />
+      
+    </div>
+  );
 }
-
-export const DefaultInput = forwardRef<HTMLInputElement, InputProps>(
-  ({ 
-    styles = {}, 
-    colors,
-    className = '',
-    error,
-    icon,
-    iconPosition = 'left',
-    ...props 
-  }, ref) => {
-    const border = colors?.border || '#475569';
-    const glow = colors?.glow || '#94a3b8';
-
-    return (
-      <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-        {icon && iconPosition === 'left' && (
-          <span style={{ position: 'absolute', left: '0.75rem', pointerEvents: 'none' }}>
-            {icon}
-          </span>
-        )}
-        <input
-          ref={ref}
-          className={`default-input ${error ? 'error' : ''} ${className}`}
-          style={{
-            ...styles,
-            width: '100%',
-            height: '2.5rem',
-            padding: icon ? (iconPosition === 'left' ? '0 0.75rem 0 2.5rem' : '0 2.5rem 0 0.75rem') : '0 0.75rem',
-            fontSize: '0.875rem',
-            backgroundColor: 'transparent',
-            color: 'inherit',
-            borderColor: error ? '#ef4444' : border,
-            borderWidth: '1px',
-            borderStyle: 'solid',
-            borderRadius: '0.375rem',
-            outline: 'none',
-            transition: 'all 0.2s ease-in-out',
-          }}
-          {...props}
-        />
-        {icon && iconPosition === 'right' && (
-          <span style={{ position: 'absolute', right: '0.75rem', pointerEvents: 'none' }}>
-            {icon}
-          </span>
-        )}
-      </div>
-    );
-  }
-);
-
-DefaultInput.displayName = 'DefaultInput';
-
-export default DefaultInput;

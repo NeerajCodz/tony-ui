@@ -1,143 +1,50 @@
-'use client';
+import React from 'react';
+import { cn } from '@/lib/utils';
+import type { InputProps } from '@/ui/types/components/input';
 
-import React, { forwardRef, useState } from 'react';
-import type { VariantColors } from '../../types/common';
+export default function Input({
+  className,
+  variant = 'default',
+  type = 'default',
+  colors,
+  ...props
+}: InputProps) {
+  const baseStyles = "relative font-mono uppercase tracking-wider transition-all duration-200 clip-path-angular flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
+  
+  const typeStyles = {
+    default: {
+      backgroundColor: colors.background,
+      color: colors.text,
+      border: `1px solid ${colors.border}`
+    },
+    solid: {
+      backgroundColor: colors.accent.primary,
+      color: colors.text,
+      boxShadow: `0 0 10px ${colors.accent.glow}`
+    },
+    outline: {
+      backgroundColor: 'transparent',
+      color: colors.accent.primary,
+      border: `1px solid ${colors.accent.primary}`
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: colors.textHover
+    }
+  };
 
-const CLIP_PATH = 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  version?: string;
-  variant?: string;
-  type?: string;
-  size?: string;
-  colors?: VariantColors;
-  styles?: React.CSSProperties;
-  config?: any;
-  error?: boolean;
-  icon?: React.ReactNode;
-  iconPosition?: 'left' | 'right';
+  return (
+    <div className="relative w-full">
+      <input 
+        className={cn(baseStyles, className)}
+        style={typeStyles[type as keyof typeof typeStyles]}
+        {...props}
+      />
+      
+      <span className="absolute top-0 left-0 w-2 h-2 border-t border-l" style={{ borderColor: colors.accent.secondary }} />
+      <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r" style={{ borderColor: colors.accent.secondary }} />
+        
+    </div>
+  );
 }
-
-export const AngularCornerInput = forwardRef<HTMLInputElement, InputProps>(
-  ({ 
-    styles = {}, 
-    colors,
-    className = '',
-    error,
-    icon,
-    iconPosition = 'left',
-    size = 'md',
-    ...props 
-  }, ref) => {
-    const [focused, setFocused] = useState(false);
-    
-    const bg = colors?.base || '#06b6d4';
-    const fg = colors?.foreground || '#ffffff';
-    const border = colors?.border || '#0891b2';
-    const glow = colors?.glow || '#22d3ee';
-
-    const sizeStyles = {
-      sm: { height: '2rem', fontSize: '0.75rem', padding: '0 0.75rem' },
-      md: { height: '2.5rem', fontSize: '0.875rem', padding: '0 1rem' },
-      lg: { height: '3rem', fontSize: '1rem', padding: '0 1.25rem' },
-    };
-
-    const currentSize = sizeStyles[size as keyof typeof sizeStyles] || sizeStyles.md;
-
-    return (
-      <div
-        className={`angular-corner-input-wrapper ${className}`}
-        style={{
-          ...styles,
-          position: 'relative',
-          ...currentSize,
-        }}
-      >
-        {/* Border Layer */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            clipPath: CLIP_PATH,
-            backgroundColor: error ? '#ef4444' : (focused ? glow : border),
-            boxShadow: focused ? `0 0 15px ${error ? '#ef444460' : `${glow}60`}` : 'none',
-            transition: 'all 0.2s ease-in-out',
-          }}
-        />
-        
-        {/* Input Container */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: '1px',
-            clipPath: CLIP_PATH,
-            backgroundColor: '#0a0a0f',
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          {icon && iconPosition === 'left' && (
-            <span style={{ paddingLeft: '0.75rem', color: bg, flexShrink: 0 }}>
-              {icon}
-            </span>
-          )}
-          <input
-            ref={ref}
-            className="angular-corner-input"
-            onFocus={(e) => { setFocused(true); props.onFocus?.(e); }}
-            onBlur={(e) => { setFocused(false); props.onBlur?.(e); }}
-            style={{
-              width: '100%',
-              height: '100%',
-              padding: currentSize.padding,
-              paddingLeft: icon && iconPosition === 'left' ? '0.5rem' : currentSize.padding,
-              paddingRight: icon && iconPosition === 'right' ? '0.5rem' : currentSize.padding,
-              fontSize: currentSize.fontSize,
-              backgroundColor: 'transparent',
-              color: fg,
-              border: 'none',
-              outline: 'none',
-              fontFamily: 'inherit',
-            }}
-            {...props}
-          />
-          {icon && iconPosition === 'right' && (
-            <span style={{ paddingRight: '0.75rem', color: bg, flexShrink: 0 }}>
-              {icon}
-            </span>
-          )}
-        </div>
-        
-        {/* Corner Accents */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '-1px',
-            left: '-1px',
-            width: '8px',
-            height: '8px',
-            borderLeft: `2px solid ${focused ? glow : border}`,
-            borderTop: `2px solid ${focused ? glow : border}`,
-            transition: 'all 0.2s ease-in-out',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '-1px',
-            right: '-1px',
-            width: '8px',
-            height: '8px',
-            borderRight: `2px solid ${focused ? glow : border}`,
-            borderBottom: `2px solid ${focused ? glow : border}`,
-            transition: 'all 0.2s ease-in-out',
-          }}
-        />
-      </div>
-    );
-  }
-);
-
-AngularCornerInput.displayName = 'AngularCornerInput';
-
-export default AngularCornerInput;

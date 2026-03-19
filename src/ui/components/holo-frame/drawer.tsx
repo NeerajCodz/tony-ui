@@ -1,116 +1,37 @@
-/**
- * Holo Frame Drawer - Holographic glowing edges from bottom
- */
 import React from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';
 import { cn } from '../../../lib/utils';
-import { getVariantColor, getVariantIcon } from '../../utils/variant-icons.js';
-import type { DrawerContentProps, DrawerHeaderProps, DrawerTitleProps, DrawerDescriptionProps } from '../../types/components/drawer';
-
-export const Overlay = React.forwardRef<HTMLDivElement, any>(({ className, ...props }, ref) => {
+import { X, Info, AlertTriangle, CheckCircle, AlertOctagon, Terminal } from 'lucide-react';
+const variantIcons = { default: Terminal, neutral: Terminal, primary: Info, success: CheckCircle, warning: AlertTriangle, destructive: AlertOctagon, info: Info };
+const variantColors = { default: 'cyan', neutral: 'slate', primary: 'cyan', success: 'emerald', warning: 'amber', destructive: 'red', info: 'blue' };
+const styles = { overlay: "fixed inset-0 bg-black/80", content: "fixed bottom-0 left-0 right-0 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background", title: "text-lg font-semibold leading-none tracking-tight", description: "text-sm text-muted-foreground"  };
+export const Overlay = React.forwardRef(({ className, version = 'holo-frame', ...props }: any, ref: any) => (
+  <DrawerPrimitive.Overlay ref={ref} className={cn(styles.overlay, className)} {...props} />
+));
+Overlay.displayName = DrawerPrimitive.Overlay.displayName;
+export const Content = React.forwardRef(({ className, children, version = 'holo-frame', variant = 'primary', ...props }: any, ref: any) => {
+  const color = variantColors[variant as keyof typeof variantColors] || 'cyan';
+  const Icon = variantIcons[variant as keyof typeof variantIcons] || variantIcons.default;
+  const dynamicStyle = { borderColor: `var(--${color}-500, ${color})`, '--tw-shadow-color': `var(--${color}-500, ${color})` };
+  const colorClasses = `border-${color}-500 text-${color}-50`;
   return (
-    <DrawerPrimitive.Overlay
-      ref={ref}
-      className={cn('fixed inset-0 z-50 bg-cyan-900/20 backdrop-blur-md', className)}
-      {...props}
-    />
+    <DrawerPrimitive.Content ref={ref} className={cn(styles.content, colorClasses, className)} style={dynamicStyle} {...props}>
+        <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted/20" />
+        <div className="absolute top-6 right-6 p-2 rounded-full border bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center" style={{ borderColor: `var(--${color}-500)`, color: `var(--${color}-400)` }}>
+             <Icon className="w-5 h-5" />
+        </div>
+        {children}
+    </DrawerPrimitive.Content>
   );
 });
-Overlay.displayName = 'Overlay';
-
-export const Content = React.forwardRef<HTMLDivElement, DrawerContentProps>(
-  ({ className, children, variant = 'primary', ...props }, ref) => {
-    const color = getVariantColor(variant);
-    const VariantIcon = getVariantIcon(variant);
-
-    const dynamicStyle = {
-      borderColor: `var(--${color}-400)`,
-      backgroundColor: `rgba(var(--${color}-rgb, 6, 182, 212), 0.05)`,
-      boxShadow: `
-        inset 0 0 60px rgba(var(--${color}-rgb, 6, 182, 212), 0.15),
-        0 -10px 40px rgba(var(--${color}-rgb, 6, 182, 212), 0.3)
-      `,
-    } as React.CSSProperties;
-
-    return (
-      <DrawerPrimitive.Content
-        ref={ref}
-        className={cn(
-          'fixed bottom-0 left-0 right-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border-t-2 backdrop-blur-xl',
-          `text-${color}-100`,
-          className
-        )}
-        style={dynamicStyle}
-        {...props}
-      >
-        <div className="mx-auto mt-4 h-2 w-[100px] rounded-full" style={{ backgroundColor: `var(--${color}-500)`, opacity: 0.5 }} />
-
-        {/* Holographic glow lines */}
-        <div 
-          className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
-          style={{
-            background: `linear-gradient(90deg, transparent 0%, var(--${color}-400) 50%, transparent 100%)`,
-            boxShadow: `0 0 20px var(--${color}-400)`,
-          }}
-        />
-
-        {/* Variant Icon Badge with glow */}
-        <div 
-          className="absolute top-6 right-6 p-2 rounded-full border backdrop-blur-md z-50 flex items-center justify-center animate-pulse"
-          style={{ 
-            borderColor: `var(--${color}-400)`,
-            backgroundColor: `rgba(var(--${color}-rgb, 6, 182, 212), 0.1)`,
-            color: `var(--${color}-300)`,
-            boxShadow: `0 0 20px rgba(var(--${color}-rgb, 6, 182, 212), 0.6)`,
-          }}
-        >
-          <VariantIcon className="w-5 h-5" />
-        </div>
-
-        {children}
-      </DrawerPrimitive.Content>
-    );
-  }
-);
-Content.displayName = 'Content';
-
-export const Title = React.forwardRef<HTMLHeadingElement, DrawerTitleProps>(
-  ({ className, variant = 'primary', ...props }, ref) => {
-    const color = getVariantColor(variant);
-    return (
-      <DrawerPrimitive.Title
-        ref={ref}
-        className={cn(
-          'text-lg font-bold tracking-wide',
-          `text-${color}-100`,
-          className
-        )}
-        style={{ 
-          color: `var(--${color}-100)`,
-          textShadow: `0 0 15px var(--${color}-400)`,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-Title.displayName = 'Title';
-
-export const Description = React.forwardRef<HTMLParagraphElement, DrawerDescriptionProps>(
-  ({ className, variant = 'primary', ...props }, ref) => {
-    const color = getVariantColor(variant);
-    return (
-      <DrawerPrimitive.Description
-        ref={ref}
-        className={cn(
-          'text-sm opacity-80',
-          `text-${color}-200`,
-          className
-        )}
-        style={{ color: `var(--${color}-200)` }}
-        {...props}
-      />
-    );
-  }
-);
-Description.displayName = 'Description';
+Content.displayName = DrawerPrimitive.Content.displayName;
+export const Title = React.forwardRef(({ className, version = 'holo-frame', variant = 'primary', ...props }: any, ref: any) => {
+  const color = variantColors[variant as keyof typeof variantColors] || 'cyan';
+  return <DrawerPrimitive.Title ref={ref} className={cn(styles.title, `text-${color}-100`, className)} {...props} />;
+});
+Title.displayName = DrawerPrimitive.Title.displayName;
+export const Description = React.forwardRef(({ className, version = 'holo-frame', variant = 'primary', ...props }: any, ref: any) => {
+  const color = variantColors[variant as keyof typeof variantColors] || 'cyan';
+  return <DrawerPrimitive.Description ref={ref} className={cn(styles.description, `text-${color}-400/70`, className)} {...props} />;
+});
+Description.displayName = DrawerPrimitive.Description.displayName;

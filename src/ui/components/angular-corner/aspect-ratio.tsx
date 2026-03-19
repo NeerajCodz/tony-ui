@@ -1,0 +1,41 @@
+import React from 'react';
+import { cn } from '@/lib/utils';
+import type { AspectRatioProps } from '@/ui/types/components/data-display';
+import * as AspectRatioPrimitive from "@radix-ui/react-aspect-ratio"
+
+export function AspectRatio({ className, variant = 'default', type = 'default', colors, ...props }: AspectRatioProps) {
+  const baseStyles = "relative font-mono uppercase tracking-wider transition-all duration-200 clip-path-angular";
+  
+  const typeStyles = {
+    default: {
+      backgroundColor: colors.background,
+      color: colors.text,
+      border: `1px solid ${colors.border}`
+    },
+    solid: {
+      backgroundColor: colors.accent.primary,
+      color: colors.text,
+      boxShadow: `0 0 10px ${colors.accent.glow}`
+    },
+    outline: {
+      backgroundColor: 'transparent',
+      color: colors.accent.primary,
+      border: `1px solid ${colors.accent.primary}`
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: colors.textHover
+    }
+  };
+
+
+  return (
+    <div className="relative" style={typeStyles[type as keyof typeof typeStyles]}>
+      <AspectRatioPrimitive.Root className={cn(baseStyles, className)} {...props} />
+      
+      <span className="absolute top-0 left-0 w-2 h-2 border-t border-l" style={{ borderColor: colors.accent.secondary }} />
+      <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r" style={{ borderColor: colors.accent.secondary }} />
+        
+    </div>
+  )
+}

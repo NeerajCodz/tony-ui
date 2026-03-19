@@ -1,21 +1,24 @@
+'use client';
+
 import React, { lazy, Suspense, createContext, useContext, useMemo } from 'react';
+import { VariantColors } from '@/ui/types/common';
 
 // Context to share version between compound components
 const PaginationVersionContext = createContext('angular-corner');
 
 // Helper for lazy loading subcomponents
-const createLazySubcomponent = (componentName) => {
-  return React.forwardRef((props, ref) => {
+const createLazySubcomponent = (componentName: string) => {
+  return React.forwardRef<HTMLElement, any>((props, ref) => {
     const version = useContext(PaginationVersionContext);
     
     const LazyComponent = useMemo(() => lazy(async () => {
       try {
-        const module = await import(`./pagination-${version}.tsx`);
+        const module = await import(`../../components/${version}/pagination.tsx`);
         return { default: module[componentName] };
       } catch (e) {
         // Fallback for missing components
         return { 
-          default: ({ children, className = '', ...p }) => (
+          default: ({ children, className = '', ...p }: any) => (
             <div className={`ui-pagination-${componentName.toLowerCase()} ${className}`} {...p}>{children}</div>
           ) 
         };
@@ -31,7 +34,7 @@ const createLazySubcomponent = (componentName) => {
 };
 
 // Main Component (Root)
-const PaginationRoot = React.forwardRef(({ 
+const PaginationRoot = React.forwardRef<HTMLElement, any>(({ 
   version = 'angular-corner',
   children,
   ...props 
@@ -39,11 +42,11 @@ const PaginationRoot = React.forwardRef(({
   
   const LazyRoot = useMemo(() => lazy(async () => {
     try {
-      const module = await import(`./pagination-${version}.tsx`);
+      const module = await import(`../../components/${version}/pagination.tsx`);
       return { default: module.Pagination }; 
     } catch (e) {
       return { 
-        default: ({ children }) => <>{children}</>
+        default: ({ children }: any) => <>{children}</>
       };
     }
   }), [version]);
@@ -51,7 +54,7 @@ const PaginationRoot = React.forwardRef(({
   return (
     <PaginationVersionContext.Provider value={version}>
       <Suspense fallback={null}>
-        <LazyRoot {...props}>
+        <LazyRoot ref={ref} {...props}>
           {children}
         </LazyRoot>
       </Suspense>
@@ -89,4 +92,3 @@ export const Pagination = Object.assign(PaginationRoot, {
 });
 
 export default Pagination;
-

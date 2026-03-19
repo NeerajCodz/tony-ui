@@ -1,59 +1,67 @@
-'use client';
+import React from 'react';
+import { cn } from '@/lib/utils';
+import type { AlertProps, AlertTitleProps, AlertDescriptionProps } from '@/ui/types/components/alert';
 
-import React, { forwardRef } from 'react';
-import type { VariantColors } from '../../types/common';
+export function Alert({
+  className,
+  variant = 'default',
+  type = 'default',
+  colors,
+  children,
+  ...props
+}: AlertProps) {
+  const baseStyles = "relative transition-all duration-200 rounded-md w-full rounded-lg border px-4 py-3 text-sm";
+  
+  const typeStyles = {
+    default: {
+      backgroundColor: colors.background,
+      color: colors.text,
+      border: `1px solid ${colors.border}`
+    },
+    solid: {
+      backgroundColor: colors.accent.primary,
+      color: colors.text,
+      boxShadow: `0 0 10px ${colors.accent.glow}`
+    },
+    outline: {
+      backgroundColor: 'transparent',
+      color: colors.accent.primary,
+      border: `1px solid ${colors.accent.primary}`
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: colors.textHover
+    }
+  };
 
-export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
-  version?: string;
-  variant?: string;
-  type?: string;
-  size?: string;
-  colors?: VariantColors;
-  styles?: React.CSSProperties;
-  config?: any;
-  icon?: React.ReactNode;
+
+  return (
+    <div 
+      role="alert"
+      className={cn(baseStyles, className)}
+      style={typeStyles[type as keyof typeof typeStyles]}
+      {...props}
+    >
+      {children}
+      
+    </div>
+  );
 }
 
-export const DefaultAlert = forwardRef<HTMLDivElement, AlertProps>(
-  ({ 
-    children, 
-    styles = {}, 
-    colors,
-    className = '',
-    icon,
-    ...props 
-  }, ref) => {
-    const bg = colors?.base || '#64748b';
-    const fg = colors?.foreground || '#ffffff';
-    const border = colors?.border || '#475569';
+export function AlertTitle({ className, ...props }: AlertTitleProps) {
+  return (
+    <h5
+      className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+      {...props}
+    />
+  )
+}
 
-    return (
-      <div
-        ref={ref}
-        role="alert"
-        className={`default-alert ${className}`}
-        style={{
-          ...styles,
-          display: 'flex',
-          alignItems: 'flex-start',
-          gap: '0.75rem',
-          padding: '1rem',
-          backgroundColor: `${bg}15`,
-          color: fg,
-          borderColor: border,
-          borderWidth: '1px',
-          borderStyle: 'solid',
-          borderRadius: '0.5rem',
-        }}
-        {...props}
-      >
-        {icon && <span className="flex-shrink-0">{icon}</span>}
-        <div className="flex-1">{children}</div>
-      </div>
-    );
-  }
-);
-
-DefaultAlert.displayName = 'DefaultAlert';
-
-export default DefaultAlert;
+export function AlertDescription({ className, ...props }: AlertDescriptionProps) {
+  return (
+    <div
+      className={cn("text-sm [&_p]:leading-relaxed", className)}
+      {...props}
+    />
+  )
+}

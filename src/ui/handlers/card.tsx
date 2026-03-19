@@ -65,30 +65,28 @@ export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
 );
 CardHeader.displayName = 'CardHeader';
 
-// CardTitle - bold futuristic title
+// CardTitle - loaded from config per version
 export const CardTitle = React.forwardRef<HTMLHeadingElement, {
   children?: React.ReactNode;
   className?: string;
 }>(({ children, className = '' }, ref) => (
   <h3 
     ref={ref} 
-    className={`text-xl font-black font-mono tracking-wider uppercase leading-none ${className}`}
-    style={{ color: 'inherit' }}
+    className={className}
   >
     {children}
   </h3>
 ));
 CardTitle.displayName = 'CardTitle';
 
-// CardDescription - muted description text
+// CardDescription - loaded from config per version
 export const CardDescription = React.forwardRef<HTMLParagraphElement, {
   children?: React.ReactNode;
   className?: string;
 }>(({ children, className = '' }, ref) => (
   <p 
     ref={ref} 
-    className={`text-sm font-mono ${className}`}
-    style={{ color: 'hsl(var(--text-muted))' }}
+    className={className}
   >
     {children}
   </p>
@@ -111,7 +109,6 @@ export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
     <div 
       ref={ref} 
       className={`flex items-center gap-2 mt-4 pt-4 ${className}`}
-      style={{ borderTop: '1px solid hsl(var(--border-base) / 0.3)' }}
     >
       {children}
     </div>

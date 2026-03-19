@@ -108,7 +108,7 @@ const AlertBase = React.forwardRef<HTMLDivElement, AlertProps>(({
 });
 AlertBase.displayName = 'Alert';
 
-// Alert Title
+// Alert Title - styles loaded from config
 const AlertTitle = React.forwardRef<HTMLHeadingElement, AlertTitleProps>(({
   className = '',
   children,
@@ -116,7 +116,7 @@ const AlertTitle = React.forwardRef<HTMLHeadingElement, AlertTitleProps>(({
 }, ref) => (
   <h5
     ref={ref}
-    className={`mb-1 font-medium leading-none tracking-tight ${className}`}
+    className={className}
     {...props}
   >
     {children}
@@ -124,7 +124,7 @@ const AlertTitle = React.forwardRef<HTMLHeadingElement, AlertTitleProps>(({
 ));
 AlertTitle.displayName = 'AlertTitle';
 
-// Alert Description
+// Alert Description - styles loaded from config
 const AlertDescription = React.forwardRef<HTMLParagraphElement, AlertDescriptionProps>(({
   className = '',
   children,
@@ -132,7 +132,7 @@ const AlertDescription = React.forwardRef<HTMLParagraphElement, AlertDescription
 }, ref) => (
   <p
     ref={ref}
-    className={`text-sm opacity-90 ${className}`}
+    className={className}
     {...props}
   >
     {children}

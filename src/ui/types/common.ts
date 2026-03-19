@@ -9,6 +9,7 @@
 
 /**
  * All available UI versions (design system layers)
+ * Total: 19 versions
  */
 export type Version =
   | 'angular-corner'
@@ -25,7 +26,6 @@ export type Version =
   | 'matrix-grid'
   | 'neon-outline'
   | 'padding'
-  | 'pill'
   | 'quantum-gate'
   | 'raised'
   | 'tactical-hud'
@@ -67,7 +67,7 @@ export type Variant =
   | 'warning-soft'
   | 'success-soft';
 
-export type CoreVariant = 'default' | 'info' | 'success' | 'warning' | 'destructive';
+export type CoreVariant = 'default' | 'info' | 'success' | 'warning' | 'destructive' | 'neutral' | 'inverse';
 
 // ============================================================================
 // COMPONENT TYPES
@@ -134,7 +134,7 @@ export interface BaseUIProps {
 export const VERSIONS: readonly Version[] = [
   'angular-corner', 'border', 'circuit-board', 'compact', 'data-panel',
   'default', 'energy-shield', 'ghost', 'glass-morphism', 'holo-frame',
-  'large', 'matrix-grid', 'neon-outline', 'padding', 'pill',
+  'large', 'matrix-grid', 'neon-outline', 'padding',
   'quantum-gate', 'raised', 'tactical-hud', 'tech-panel', 'terminal-window',
 ] as const;
 

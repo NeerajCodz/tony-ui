@@ -1,140 +1,72 @@
-'use client';
+import React from 'react';
+import { cn } from '@/lib/utils';
+import type { AvatarProps, AvatarImageProps, AvatarFallbackProps } from '@/ui/types/components/avatar';
 
-import React, { forwardRef } from 'react';
-import * as AvatarPrimitive from '@radix-ui/react-avatar';
-import type { VariantColors } from '../../types/common';
+export function Avatar({
+  className,
+  variant = 'default',
+  type = 'default',
+  colors,
+  children,
+  ...props
+}: AvatarProps) {
+  const baseStyles = "relative font-mono uppercase tracking-wider transition-all duration-200 clip-path-angular relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full";
+  
+  const typeStyles = {
+    default: {
+      backgroundColor: colors.background,
+      color: colors.text,
+      border: `1px solid ${colors.border}`
+    },
+    solid: {
+      backgroundColor: colors.accent.primary,
+      color: colors.text,
+      boxShadow: `0 0 10px ${colors.accent.glow}`
+    },
+    outline: {
+      backgroundColor: 'transparent',
+      color: colors.accent.primary,
+      border: `1px solid ${colors.accent.primary}`
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: colors.textHover
+    }
+  };
 
-const CLIP_PATH = 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)';
 
-export interface AvatarProps extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> {
-  version?: string;
-  variant?: string;
-  type?: string;
-  size?: string;
-  colors?: VariantColors;
-  styles?: React.CSSProperties;
-  config?: any;
-  src?: string;
-  alt?: string;
-  fallback?: string;
+  return (
+    <div 
+      className={cn(baseStyles, className)}
+      style={typeStyles[type as keyof typeof typeStyles]}
+      {...props}
+    >
+      {children}
+      
+      <span className="absolute top-0 left-0 w-2 h-2 border-t border-l" style={{ borderColor: colors.accent.secondary }} />
+      <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r" style={{ borderColor: colors.accent.secondary }} />
+        
+    </div>
+  );
 }
 
-export const AngularCornerAvatar = forwardRef<HTMLSpanElement, AvatarProps>(
-  ({ 
-    styles = {}, 
-    colors,
-    className = '',
-    size = 'md',
-    src,
-    alt,
-    fallback,
-    children,
-    ...props 
-  }, ref) => {
-    const bg = colors?.base || '#06b6d4';
-    const fg = colors?.foreground || '#ffffff';
-    const border = colors?.border || '#0891b2';
-    const glow = colors?.glow || '#22d3ee';
+export function AvatarImage({ className, ...props }: AvatarImageProps) {
+  return (
+    <img
+      className={cn("aspect-square h-full w-full", className)}
+      {...props}
+    />
+  )
+}
 
-    const sizeStyles = {
-      xs: { width: '1.5rem', height: '1.5rem', fontSize: '0.5rem' },
-      sm: { width: '2rem', height: '2rem', fontSize: '0.625rem' },
-      md: { width: '2.5rem', height: '2.5rem', fontSize: '0.875rem' },
-      lg: { width: '3rem', height: '3rem', fontSize: '1rem' },
-      xl: { width: '4rem', height: '4rem', fontSize: '1.25rem' },
-    };
-
-    const currentSize = sizeStyles[size as keyof typeof sizeStyles] || sizeStyles.md;
-
-    return (
-      <div
-        className={`angular-corner-avatar ${className}`}
-        style={{
-          ...styles,
-          position: 'relative',
-          ...currentSize,
-        }}
-      >
-        {/* Border Layer */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            clipPath: CLIP_PATH,
-            backgroundColor: border,
-            boxShadow: `0 0 10px ${glow}40`,
-          }}
-        />
-        
-        {/* Avatar Content */}
-        <AvatarPrimitive.Root
-          ref={ref}
-          style={{
-            position: 'absolute',
-            inset: '2px',
-            clipPath: CLIP_PATH,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'hidden',
-          }}
-          {...props}
-        >
-          <AvatarPrimitive.Image
-            src={src}
-            alt={alt}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-          />
-          <AvatarPrimitive.Fallback
-            style={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: '#0a0a0f',
-              color: glow,
-              fontWeight: 700,
-              fontSize: currentSize.fontSize,
-              textShadow: `0 0 5px ${glow}`,
-            }}
-          >
-            {fallback || children}
-          </AvatarPrimitive.Fallback>
-        </AvatarPrimitive.Root>
-        
-        {/* Corner Accents */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '-1px',
-            left: '-1px',
-            width: '8px',
-            height: '8px',
-            borderLeft: `2px solid ${glow}`,
-            borderTop: `2px solid ${glow}`,
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '-1px',
-            right: '-1px',
-            width: '8px',
-            height: '8px',
-            borderRight: `2px solid ${glow}`,
-            borderBottom: `2px solid ${glow}`,
-          }}
-        />
-      </div>
-    );
-  }
-);
-
-AngularCornerAvatar.displayName = 'AngularCornerAvatar';
-
-export default AngularCornerAvatar;
+export function AvatarFallback({ className, ...props }: AvatarFallbackProps) {
+  return (
+    <div
+      className={cn(
+        "flex h-full w-full items-center justify-center rounded-full bg-muted",
+        className
+      )}
+      {...props}
+    />
+  )
+}

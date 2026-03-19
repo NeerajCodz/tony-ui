@@ -37,6 +37,7 @@ const DefaultSonner = forwardRef<HTMLDivElement, SonnerProps>(
     const bg = colors?.base || '#1f2937';
     const fg = colors?.foreground || '#ffffff';
     const border = colors?.border || '#374151';
+    const glow = colors?.glow || 'rgba(0,0,0,0)';
 
     return (
       <div ref={ref} className={`sonner-container-default ${className}`}>
@@ -53,7 +54,12 @@ const DefaultSonner = forwardRef<HTMLDivElement, SonnerProps>(
               color: fg,
               border: `1px solid ${border}`,
               borderRadius: '0.5rem',
+              fontFamily: 'inherit',
+              boxShadow: `none`,
+              clipPath: 'none',
+              backdropFilter: 'none',
               padding: '1rem',
+              
             },
             classNames: {
               toast: 'sonner-toast-default',
@@ -63,29 +69,6 @@ const DefaultSonner = forwardRef<HTMLDivElement, SonnerProps>(
           }}
           {...props}
         />
-        
-        {type === 'loader' && showLoader && (
-          <style>{`
-            .sonner-toast-default {
-              position: relative;
-              overflow: hidden;
-            }
-            .sonner-toast-default::before {
-              content: '';
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              height: 2px;
-              background: linear-gradient(90deg, ${colors?.glow || '#60a5fa'}, transparent);
-              animation: sonner-progress ${duration / 1000}s linear forwards;
-            }
-            @keyframes sonner-progress {
-              from { right: 0; }
-              to { right: 100%; }
-            }
-          `}</style>
-        )}
       </div>
     );
   }

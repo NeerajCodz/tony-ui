@@ -1,19 +1,53 @@
-import React, { forwardRef } from 'react';
-import { ButtonProps } from '../../types/components/button';
+import React from 'react';
+import { cn } from '@/lib/utils';
+import type { ButtonProps } from '@/ui/types/components/button';
 
-export const TacticalHudButton = forwardRef<HTMLButtonElement, ButtonProps & { styles: React.CSSProperties }>(
-  ({ children, styles, className, ...props }, ref) => {
-    return (
-      <button
-        ref={ref}
-        className={className}
-        style={styles}
-        {...props}
-      >
-        {children}
-      </button>
-    );
-  }
-);
+export default function Button({
+  className,
+  variant = 'default',
+  type = 'default',
+  colors,
+  children,
+  ...props
+}: ButtonProps) {
+  const baseStyles = "relative font-mono tracking-tight transition-all duration-200 border-x px-6 py-2";
+  
+  const typeStyles = {
+    default: {
+      backgroundColor: colors.background,
+      color: colors.text,
+      border: `1px solid ${colors.border}`
+    },
+    solid: {
+      backgroundColor: colors.accent.primary,
+      color: colors.text,
+      boxShadow: `0 0 10px ${colors.accent.glow}`
+    },
+    outline: {
+      backgroundColor: 'transparent',
+      color: colors.accent.primary,
+      border: `1px solid ${colors.accent.primary}`
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: colors.textHover
+    }
+  };
 
-TacticalHudButton.displayName = 'TacticalHudButton';
+
+  return (
+    <button 
+      className={cn(baseStyles, className)}
+      style={typeStyles[type as keyof typeof typeStyles]}
+      {...props}
+    >
+      {children}
+      
+      <span className="absolute top-0 left-0 w-1 h-1 bg-current" />
+      <span className="absolute top-0 right-0 w-1 h-1 bg-current" />
+      <span className="absolute bottom-0 left-0 w-1 h-1 bg-current" />
+      <span className="absolute bottom-0 right-0 w-1 h-1 bg-current" />
+        
+    </button>
+  );
+}

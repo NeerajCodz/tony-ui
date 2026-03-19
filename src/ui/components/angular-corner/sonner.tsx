@@ -26,7 +26,7 @@ const AngularCornerSonner = forwardRef<HTMLDivElement, SonnerProps>(
     colors,
     position = 'bottom-right',
     expand = true,
-    richColors = false,
+    richColors = true,
     closeButton = true,
     duration = 4000,
     type = 'default',
@@ -34,88 +34,37 @@ const AngularCornerSonner = forwardRef<HTMLDivElement, SonnerProps>(
     className = '',
     ...props 
   }, ref) => {
-    const bg = colors?.base || '#06b6d4';
+    const bg = colors?.base || '#1f2937';
     const fg = colors?.foreground || '#ffffff';
-    const border = colors?.border || '#0891b2';
-    const glow = colors?.glow || '#22d3ee';
+    const border = colors?.border || '#374151';
+    const glow = colors?.glow || 'rgba(0,0,0,0)';
 
     return (
       <div ref={ref} className={`sonner-container-angular-corner ${className}`}>
-        <style>{`
-          .sonner-toast-angular-corner {
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);
-            position: relative;
-            overflow: hidden;
-          }
-
-          .sonner-toast-angular-corner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: -2px;
-            width: 12px;
-            height: 12px;
-            background: linear-gradient(135deg, ${glow}, transparent);
-            clip-path: polygon(100% 0, 100% 100%, 0 0);
-          }
-
-          .sonner-toast-angular-corner::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: -2px;
-            width: 12px;
-            height: 12px;
-            background: linear-gradient(45deg, ${glow}, transparent);
-            clip-path: polygon(100% 100%, 100% 0, 0 100%);
-          }
-
-          ${type === 'loader' ? `
-            .sonner-toast-angular-corner.sonner-loader::before {
-              content: '';
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              height: 3px;
-              background: linear-gradient(90deg, ${glow}, ${glow}80, transparent);
-              animation: sonner-angular-progress ${duration / 1000}s linear forwards;
-              z-index: 10;
-            }
-            
-            @keyframes sonner-angular-progress {
-              from { right: 0; opacity: 1; }
-              to { right: 100%; opacity: 0; }
-            }
-          ` : ''}
-
-          .sonner-toaster-angular-corner {
-            --sonner-border-radius: 0;
-          }
-        `}</style>
-
         <SonnerToaster
           position={position}
           expand={expand}
           richColors={richColors}
           closeButton={closeButton}
           theme="dark"
-          className="sonner-toaster-angular-corner"
           toastOptions={{
             duration: duration,
-            classNames: {
-              toast: `sonner-toast-angular-corner ${type === 'loader' ? 'sonner-loader' : ''}`,
-              title: 'font-bold text-sm uppercase tracking-wider',
-              description: 'text-xs opacity-80',
-            },
             style: {
-              backgroundColor: '#0a0a0f',
+              backgroundColor: bg,
               color: fg,
-              border: `1px solid ${border}`,
-              boxShadow: `0 0 15px ${glow}40`,
-              minWidth: '320px',
-              maxWidth: '450px',
-              padding: '1rem 1.25rem',
+              border: `0 solid ${border}`,
+              borderRadius: '0',
+              fontFamily: 'inherit',
+              boxShadow: `none`,
+              clipPath: 'polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%)',
+              backdropFilter: 'none',
+              padding: '1rem',
+              
+            },
+            classNames: {
+              toast: 'sonner-toast-angular-corner',
+              title: 'font-semibold text-sm',
+              description: 'text-sm opacity-80',
             },
           }}
           {...props}

@@ -1,139 +1,75 @@
-'use client';
+import React from 'react';
+import { cn } from '@/lib/utils';
+import type { AccordionProps, AccordionItemProps, AccordionTriggerProps, AccordionContentProps } from '@/ui/types/components/layout';
+import * as AccordionPrimitive from "@radix-ui/react-accordion"
+import { ChevronDown } from "lucide-react"
 
-import React, { forwardRef } from 'react';
-import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import { ChevronDown } from 'lucide-react';
-import type { VariantColors } from '../../types/common';
-
-export interface AccordionProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> {
-  version?: string;
-  variant?: string;
-  type?: 'single' | 'multiple';
-  size?: string;
-  colors?: VariantColors;
-  styles?: React.CSSProperties;
-  config?: any;
+export function Accordion({ className, ...props }: AccordionProps) {
+  return <AccordionPrimitive.Root className={cn("w-full", className)} {...props} />
 }
 
-export const DefaultAccordion = forwardRef<HTMLDivElement, AccordionProps>(
-  ({ 
-    styles = {}, 
-    colors,
-    className = '',
-    children,
-    type = 'single',
-    ...props 
-  }, ref) => {
-    const border = colors?.border || '#475569';
+export function AccordionItem({ className, colors, type = 'default', ...props }: AccordionItemProps) {
+  const baseStyles = "relative transition-all duration-200 rounded-md border-b";
+  
+  const typeStyles = {
+    default: {
+      backgroundColor: colors.background,
+      color: colors.text,
+      border: `1px solid ${colors.border}`
+    },
+    solid: {
+      backgroundColor: colors.accent.primary,
+      color: colors.text,
+      boxShadow: `0 0 10px ${colors.accent.glow}`
+    },
+    outline: {
+      backgroundColor: 'transparent',
+      color: colors.accent.primary,
+      border: `1px solid ${colors.accent.primary}`
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: colors.textHover
+    }
+  };
 
-    return (
-      <AccordionPrimitive.Root
-        ref={ref}
-        className={`default-accordion ${className}`}
-        type={type as any}
-        style={{
-          ...styles,
-          width: '100%',
-          borderRadius: '0.5rem',
-          border: `1px solid ${border}`,
-          overflow: 'hidden',
-        }}
-        {...props}
-      >
-        {children}
-      </AccordionPrimitive.Root>
-    );
-  }
-);
-
-DefaultAccordion.displayName = 'DefaultAccordion';
-
-// Accordion Item
-export const DefaultAccordionItem = forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item> & { colors?: VariantColors }
->(({ className = '', colors, ...props }, ref) => {
-  const border = colors?.border || '#475569';
   
   return (
-    <AccordionPrimitive.Item
-      ref={ref}
-      className={`default-accordion-item ${className}`}
-      style={{
-        borderBottom: `1px solid ${border}`,
-      }}
-      {...props}
+    <AccordionPrimitive.Item 
+      className={cn(baseStyles, className)} 
+      style={typeStyles[type as keyof typeof typeStyles]}
+      {...props} 
     />
-  );
-});
-DefaultAccordionItem.displayName = 'DefaultAccordionItem';
+  )
+}
 
-// Accordion Trigger
-export const DefaultAccordionTrigger = forwardRef<
-  HTMLButtonElement,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & { colors?: VariantColors }
->(({ className = '', children, colors, ...props }, ref) => {
-  const fg = colors?.foreground || '#ffffff';
-  
+export function AccordionTrigger({ className, children, colors, ...props }: AccordionTriggerProps) {
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
-        ref={ref}
-        className={`default-accordion-trigger ${className}`}
-        style={{
-          flex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '1rem',
-          fontSize: '0.875rem',
-          fontWeight: 500,
-          color: fg,
-          backgroundColor: 'transparent',
-          border: 'none',
-          cursor: 'pointer',
-          transition: 'all 0.2s',
-        }}
+        className={cn(
+          "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
+          className
+        )}
         {...props}
       >
         {children}
-        <ChevronDown
-          style={{
-            width: '1rem',
-            height: '1rem',
-            transition: 'transform 0.2s',
-          }}
-          className="accordion-chevron"
-        />
+        <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
-  );
-});
-DefaultAccordionTrigger.displayName = 'DefaultAccordionTrigger';
+  )
+}
 
-// Accordion Content
-export const DefaultAccordionContent = forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content> & { colors?: VariantColors }
->(({ className = '', children, colors, ...props }, ref) => {
-  const fg = colors?.foreground || '#ffffff';
-  
+export function AccordionContent({ className, children, ...props }: AccordionContentProps) {
   return (
     <AccordionPrimitive.Content
-      ref={ref}
-      className={`default-accordion-content ${className}`}
-      style={{
-        overflow: 'hidden',
-        fontSize: '0.875rem',
-        color: fg,
-        opacity: 0.8,
-      }}
+      className={cn(
+        "overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
+        className
+      )}
       {...props}
     >
-      <div style={{ padding: '0 1rem 1rem' }}>{children}</div>
+      <div className="pb-4 pt-0">{children}</div>
     </AccordionPrimitive.Content>
-  );
-});
-DefaultAccordionContent.displayName = 'DefaultAccordionContent';
-
-export default DefaultAccordion;
+  )
+}

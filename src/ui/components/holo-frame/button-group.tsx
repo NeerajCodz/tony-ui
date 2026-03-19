@@ -1,0 +1,52 @@
+import React from 'react';
+import { cn } from '@/lib/utils';
+import type { ButtonGroupProps } from '@/ui/types/components/misc';
+
+export default function ButtonGroup({
+  className,
+  variant = 'default',
+  type = 'default',
+  colors,
+  children,
+  ...props
+}: ButtonGroupProps) {
+  const baseStyles = "relative border transition-all duration-200 shadow-[0_0_5px_rgba(0,0,0,0.2)] inline-flex -space-x-px rounded-md shadow-sm";
+  
+  const typeStyles = {
+    default: {
+      backgroundColor: colors.background,
+      color: colors.text,
+      border: `1px solid ${colors.border}`
+    },
+    solid: {
+      backgroundColor: colors.accent.primary,
+      color: colors.text,
+      boxShadow: `0 0 10px ${colors.accent.glow}`
+    },
+    outline: {
+      backgroundColor: 'transparent',
+      color: colors.accent.primary,
+      border: `1px solid ${colors.accent.primary}`
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: colors.textHover
+    }
+  };
+
+
+  return (
+    <div 
+      className={cn(baseStyles, className)}
+      style={typeStyles[type as keyof typeof typeStyles]}
+      role="group"
+      {...props}
+    >
+      {children}
+      
+      <span className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-current to-transparent opacity-50" />
+      <span className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-current to-transparent opacity-50" />
+        
+    </div>
+  );
+}

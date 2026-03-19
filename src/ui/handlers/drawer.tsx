@@ -18,7 +18,7 @@ const loadDrawerComponent = (version: Version) => {
       .catch(() => import(`../components/default/drawer.tsx`))
       .catch(() => ({
         default: {
-          Overlay: () => <div className="fixed inset-0 bg-black/40" />,
+          Overlay: () => <div />,
           Content: React.forwardRef<HTMLDivElement, any>(({ children, className = '' }, ref) => (
             <div ref={ref} className={className}>{children}</div>
           )),
