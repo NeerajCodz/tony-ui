@@ -29,7 +29,7 @@ const loadDialogModule = async (version: Version) => {
     return await import(`../components/dialog/dialog-${version}.tsx`);
   } catch {
     try {
-      return await import(`../components/dialog/dialog-default.tsx`);
+      return await import(`../components/default/dialog.tsx`);
     } catch {
       return null;
     }
@@ -121,8 +121,8 @@ const DialogOverlay = React.forwardRef<
 >(({ className = '', ...props }, ref) => {
   const { versionModule, variant, colors } = useDialogContext();
 
-  if (versionModule?.DialogOverlay) {
-    const Component = versionModule.DialogOverlay;
+  if (versionModule?.DialogOverlay || versionModule?.Overlay) {
+    const Component = versionModule.DialogOverlay || versionModule.Overlay;
     return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
   }
 
@@ -142,8 +142,8 @@ const DialogContent = React.forwardRef<
 >(({ className = '', children, ...props }, ref) => {
   const { versionModule, variant, colors, config } = useDialogContext();
 
-  if (versionModule?.DialogContent) {
-    const Component = versionModule.DialogContent;
+  if (versionModule?.DialogContent || versionModule?.Content) {
+    const Component = versionModule.DialogContent || versionModule.Content;
     return (
       <DialogPortal>
         <DialogOverlay />
@@ -177,8 +177,8 @@ const DialogHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
   ({ className = '', ...props }, ref) => {
     const { versionModule, variant, colors } = useDialogContext();
 
-    if (versionModule?.DialogHeader) {
-      const Component = versionModule.DialogHeader;
+    if (versionModule?.DialogHeader || versionModule?.Header) {
+      const Component = versionModule.DialogHeader || versionModule.Header;
       return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
     }
 
@@ -197,8 +197,8 @@ const DialogFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
   ({ className = '', ...props }, ref) => {
     const { versionModule, variant, colors } = useDialogContext();
 
-    if (versionModule?.DialogFooter) {
-      const Component = versionModule.DialogFooter;
+    if (versionModule?.DialogFooter || versionModule?.Footer) {
+      const Component = versionModule.DialogFooter || versionModule.Footer;
       return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
     }
 
@@ -219,8 +219,8 @@ const DialogTitle = React.forwardRef<
 >(({ className = '', ...props }, ref) => {
   const { versionModule, variant, colors } = useDialogContext();
 
-  if (versionModule?.DialogTitle) {
-    const Component = versionModule.DialogTitle;
+  if (versionModule?.DialogTitle || versionModule?.Title) {
+    const Component = versionModule.DialogTitle || versionModule.Title;
     return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
   }
 
@@ -240,8 +240,8 @@ const DialogDescription = React.forwardRef<
 >(({ className = '', ...props }, ref) => {
   const { versionModule, variant, colors } = useDialogContext();
 
-  if (versionModule?.DialogDescription) {
-    const Component = versionModule.DialogDescription;
+  if (versionModule?.DialogDescription || versionModule?.Description) {
+    const Component = versionModule.DialogDescription || versionModule.Description;
     return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
   }
 

@@ -20,7 +20,7 @@ type ToastVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface ToastProps extends React.ComponentPropsWithoutRef<typeof ToastPrimitive.Root> {
   version?: ToastVersion;
@@ -52,7 +52,7 @@ const versionComponents = {
   'energy-shield': lazy(() => import('./toast-energy-shield.tsx')),
   'terminal-window': lazy(() => import('./toast-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('./toast-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('./toast-neon-outline.tsx')),
+  'neon': lazy(() => import('./toast-neon.tsx')),
 };
 
 // --- Main Component ---

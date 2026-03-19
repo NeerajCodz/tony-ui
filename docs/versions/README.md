@@ -63,7 +63,7 @@ The Cyber UI system includes 19 distinct visual versions, each with a unique aes
     - Digital/matrix aesthetic
     - Systematic grid layout
 
-13. **[neon-outline](./neon-outline.md)** - Glowing neon borders
+13. **[neon](./neon.md)** - Glowing neon borders
     - High-contrast vibrant neon tubes
     - Thick multi-colored glow effects
     - Intense outer glow on variant colors
@@ -109,8 +109,8 @@ Each version can be applied to any component via the `version` prop:
 // Using glass-morphism version
 <CyberButton version="glass-morphism">Click me</CyberButton>
 
-// Using neon-outline version
-<CyberButton version="neon-outline">Click me</CyberButton>
+// Using neon version
+<CyberButton version="neon">Click me</CyberButton>
 
 // Using terminal-window version
 <CyberButton version="terminal-window">Click me</CyberButton>
@@ -137,10 +137,10 @@ Each version can be applied to any component via the `version` prop:
 - Each version can support all types
 
 ```tsx
-// Version = neon-outline (overall aesthetic)
+// Version = neon (overall aesthetic)
 // Type = solid (rendering style)
 // Variant = destructive (color)
-<CyberButton version="neon-outline" type="solid" variant="destructive">
+<CyberButton version="neon" type="solid" variant="destructive">
   Delete
 </CyberButton>
 ```

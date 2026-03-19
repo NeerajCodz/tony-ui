@@ -30,7 +30,7 @@ const versionStyles = {
   'matrix-grid': {
     root: "flex min-h-[80px] w-full border border-lime-500/40 bg-black/90 px-3 py-2 text-sm text-lime-400 ring-offset-background placeholder:text-lime-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 rounded-sm",
   },
-  'neon-outline': {
+  'neon': {
     root: "flex min-h-[80px] w-full border-2 border-fuchsia-500/60 bg-transparent px-3 py-2 text-sm text-fuchsia-300 ring-offset-background placeholder:text-fuchsia-800/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 rounded-md shadow-[0_0_5px_rgba(217,70,239,0.2)] focus:shadow-[0_0_15px_rgba(217,70,239,0.5)] transition-all",
   },
   // Default fallback

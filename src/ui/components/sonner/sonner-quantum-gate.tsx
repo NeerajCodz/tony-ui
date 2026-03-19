@@ -26,7 +26,7 @@ const Component = React.forwardRef<HTMLElement, ToasterProps>(({
                  actionButton: "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
                  cancelButton: "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
              }
-         case 'neon-outline':
+         case 'neon':
              return {
                  toast: "group toast group-[.toaster]:bg-black group-[.toaster]:text-foreground group-[.toaster]:border group-[.toaster]:border-[hsl(var(--primary-base))] group-[.toaster]:shadow-[0_0_10px_hsl(var(--primary-base)/0.5)]",
                  description: "group-[.toast]:text-muted-foreground",

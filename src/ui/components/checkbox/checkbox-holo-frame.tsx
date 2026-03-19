@@ -50,7 +50,7 @@ const versionStyles = {
     indicator: "flex items-center justify-center text-current",
     icon: "h-3 w-3",
   },
-  'neon-outline': {
+  'neon': {
     root: "peer h-4 w-4 shrink-0 border-2 border-fuchsia-500/70 bg-transparent shadow-[0_0_5px_rgba(217,70,239,0.3)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-fuchsia-500/20 data-[state=checked]:text-fuchsia-300 rounded-md transition-all hover:shadow-[0_0_10px_rgba(217,70,239,0.5)]",
     indicator: "flex items-center justify-center text-current drop-shadow-[0_0_2px_rgba(217,70,239,0.8)]",
     icon: "h-3 w-3",
@@ -66,13 +66,24 @@ const versionStyles = {
 const getStyles = (v) => versionStyles[v] || versionStyles['default'];
 const styles = getStyles('holo-frame' in versionStyles ? 'holo-frame' : 'default');
 
-const Checkbox = React.forwardRef(({ className, ...props }: any, ref: any) => (
+
+const getTypeStyles = (type: string | undefined) => {
+  if (!type) return '';
+  switch (type) {
+    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
+    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
+    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
+    default: return '';
+  }
+};
+
+const Checkbox = React.forwardRef(({type,  className, ...props }: any, ref: any) => (
   <CheckboxRoot
     ref={ref}
-    className={cn(styles.root, className)}
+    className={cn(styles.root, className, getTypeStyles(type))}
     {...props}
   >
-    <CheckboxIndicator className={cn(styles.indicator)}>
+    <CheckboxIndicator className={cn(styles.indicator, getTypeStyles(type))}>
       <Check className={styles.icon} />
     </CheckboxIndicator>
   </CheckboxRoot>

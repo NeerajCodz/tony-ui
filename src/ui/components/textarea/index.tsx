@@ -18,7 +18,7 @@ type TextareaVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   version?: TextareaVersion;
@@ -38,7 +38,7 @@ const loadVersionModule = async (version: TextareaVersion) => {
     case 'energy-shield': return import('./textarea-energy-shield.tsx');
     case 'terminal-window': return import('./textarea-terminal-window.tsx');
     case 'matrix-grid': return import('./textarea-matrix-grid.tsx');
-    case 'neon-outline': return import('./textarea-neon-outline.tsx');
+    case 'neon': return import('./textarea-neon.tsx');
     default: return import('./textarea-angular-corner.tsx');
   }
 };

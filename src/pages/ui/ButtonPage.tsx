@@ -12,7 +12,7 @@ export function ButtonPage() {
     'energy-shield',
     'terminal-window',
     'matrix-grid',
-    'neon-outline',
+    'neon',
   ];
 
   const variants = ['default', 'outline', 'secondary', 'ghost', 'destructive', 'link'];

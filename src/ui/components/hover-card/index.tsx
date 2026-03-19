@@ -18,7 +18,7 @@ type HoverCardVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface HoverCardProps extends React.ComponentProps<typeof HoverCardPrimitive.Root> {
   version?: HoverCardVersion;
@@ -52,7 +52,7 @@ const versionComponents = {
   'energy-shield': lazy(() => import('./hover-card-energy-shield.tsx')),
   'terminal-window': lazy(() => import('./hover-card-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('./hover-card-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('./hover-card-neon-outline.tsx')),
+  'neon': lazy(() => import('./hover-card-neon.tsx')),
 };
 
 // --- Main Component ---

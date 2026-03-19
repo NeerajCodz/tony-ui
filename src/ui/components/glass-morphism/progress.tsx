@@ -5,6 +5,35 @@ import * as ProgressPrimitive from '@radix-ui/react-progress';
 import { cn } from '@/lib/utils';
 import { VariantColors } from '@/ui/types/common';
 
+const getStyles = (type?: string, colors?: VariantColors) => {
+  if (!type || !colors) return {};
+  
+  switch (type) {
+    case 'inverse':
+      return {
+        backgroundColor: colors.text,
+        color: colors.background,
+        border: `1px solid ${colors.text}`
+      };
+    case 'contrast':
+      return {
+        backgroundColor: colors.accent?.primary || colors.text,
+        color: '#000000',
+        fontWeight: 'bold',
+        border: `1px solid ${colors.text}`
+      };
+    case 'soft':
+      return {
+        backgroundColor: colors.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
+        color: colors.accent?.primary || colors.text,
+        border: 'none'
+      };
+    default:
+      return {};
+  }
+};
+
+
 interface ProgressProps extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> {
   version?: string;
   variant?: string;
@@ -21,7 +50,7 @@ const Progress = forwardRef<React.ElementRef<typeof ProgressPrimitive.Root>, Pro
         "relative h-4 w-full overflow-hidden rounded-full bg-secondary",
         className
       )}
-      {...props}
+      {...props} style={{ ...getStyles(type, colors), ...(props.style as any) }}
     >
       <ProgressPrimitive.Indicator
         className="h-full w-full flex-1 bg-primary transition-all"

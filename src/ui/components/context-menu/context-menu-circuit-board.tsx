@@ -17,7 +17,7 @@ const getContentStyles = (version: string) => {
     'energy-shield': "bg-cyan-950/80 border border-cyan-400/30 text-cyan-200 shadow-[0_0_10px_rgba(6,182,212,0.1)] rounded-lg",
     'terminal-window': "bg-black border border-green-500/50 text-green-500 font-mono text-xs p-0",
     'matrix-grid': "bg-black border border-green-900 text-green-400 font-mono",
-    'neon-outline': "bg-black border border-cyan-400 text-cyan-400 shadow-[0_0_5px_cyan] rounded-md",
+    'neon': "bg-black border border-cyan-400 text-cyan-400 shadow-[0_0_5px_cyan] rounded-md",
   };
   return cn(base, styles[version as keyof typeof styles]);
 };
@@ -36,42 +36,53 @@ const getItemStyles = (version: string) => {
     'energy-shield': "focus:bg-cyan-500/20 focus:text-cyan-200",
     'terminal-window': "focus:bg-green-500 focus:text-black rounded-none",
     'matrix-grid': "focus:bg-green-900/30 focus:text-green-300 rounded-none border border-transparent focus:border-green-500/50",
-    'neon-outline': "focus:bg-cyan-500/10 focus:text-cyan-300 focus:shadow-[inset_0_0_5px_cyan]",
+    'neon': "focus:bg-cyan-500/10 focus:text-cyan-300 focus:shadow-[inset_0_0_5px_cyan]",
   };
   return cn(base, styles[version as keyof typeof styles]);
 };
 
-export const ContextMenuContent = ({ className, ...props }: any) => {
+
+const getTypeStyles = (type: string | undefined) => {
+  if (!type) return '';
+  switch (type) {
+    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
+    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
+    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
+    default: return '';
+  }
+};
+
+export const ContextMenuContent = ({type,  className, ...props }: any) => {
   return (
     <ContextMenuPrimitive.Portal>
       <ContextMenuPrimitive.Content
-        className={cn(getContentStyles('circuit-board'), className)}
+        className={cn(getContentStyles('circuit-board'), className, getTypeStyles(type))}
         {...props}
       />
     </ContextMenuPrimitive.Portal>
   );
 };
 
-export const ContextMenuItem = ({ className, inset, ...props }: any) => {
+export const ContextMenuItem = ({type,  className, inset, ...props }: any) => {
   return (
     <ContextMenuPrimitive.Item
       className={cn(
         getItemStyles('circuit-board'),
         inset && "pl-8",
-        className
+        className, getTypeStyles(type)
       )}
       {...props}
     />
   );
 };
 
-export const ContextMenuCheckboxItem = ({ className, children, checked, ...props }: any) => {
+export const ContextMenuCheckboxItem = ({type,  className, children, checked, ...props }: any) => {
   return (
     <ContextMenuPrimitive.CheckboxItem
       className={cn(
         getItemStyles('circuit-board'),
         "pl-8",
-        className
+        className, getTypeStyles(type)
       )}
       checked={checked}
       {...props}
@@ -86,13 +97,13 @@ export const ContextMenuCheckboxItem = ({ className, children, checked, ...props
   );
 };
 
-export const ContextMenuRadioItem = ({ className, children, ...props }: any) => {
+export const ContextMenuRadioItem = ({type,  className, children, ...props }: any) => {
   return (
     <ContextMenuPrimitive.RadioItem
       className={cn(
         getItemStyles('circuit-board'),
         "pl-8",
-        className
+        className, getTypeStyles(type)
       )}
       {...props}
     >
@@ -106,45 +117,45 @@ export const ContextMenuRadioItem = ({ className, children, ...props }: any) => 
   );
 };
 
-export const ContextMenuLabel = ({ className, inset, ...props }: any) => {
+export const ContextMenuLabel = ({type,  className, inset, ...props }: any) => {
   return (
     <ContextMenuPrimitive.Label
       className={cn(
         "px-2 py-1.5 text-sm font-semibold",
         inset && "pl-8",
         className
-      )}
+      , getTypeStyles(type))}
       {...props}
     />
   );
 };
 
-export const ContextMenuSeparator = ({ className, ...props }: any) => {
+export const ContextMenuSeparator = ({type,  className, ...props }: any) => {
   return (
     <ContextMenuPrimitive.Separator
-      className={cn("-mx-1 my-1 h-px bg-muted", className)}
+      className={cn("-mx-1 my-1 h-px bg-muted", className, getTypeStyles(type))}
       {...props}
     />
   );
 };
 
-export const ContextMenuShortcut = ({ className, ...props }: any) => {
+export const ContextMenuShortcut = ({type,  className, ...props }: any) => {
   return (
     <span
-      className={cn("ml-auto text-xs tracking-widest opacity-60", className)}
+      className={cn("ml-auto text-xs tracking-widest opacity-60", className, getTypeStyles(type))}
       {...props}
     />
   );
 };
 
-export const ContextMenuSubTrigger = ({ className, inset, children, ...props }: any) => {
+export const ContextMenuSubTrigger = ({type,  className, inset, children, ...props }: any) => {
   return (
     <ContextMenuPrimitive.SubTrigger
       className={cn(
         "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent",
         inset && "pl-8",
         className
-      )}
+      , getTypeStyles(type))}
       {...props}
     >
       {children}
@@ -153,7 +164,7 @@ export const ContextMenuSubTrigger = ({ className, inset, children, ...props }: 
   );
 };
 
-export const ContextMenuSubContent = ({ className, ...props }: any) => {
+export const ContextMenuSubContent = ({type,  className, ...props }: any) => {
   return (
     <ContextMenuPrimitive.SubContent
       className={cn(

@@ -25,10 +25,21 @@ const versionStyles = {
 const getStyles = (v) => versionStyles[v] || versionStyles['default'];
 const styles = getStyles('energy-shield' in versionStyles ? 'energy-shield' : 'default');
 
-export const Content = React.forwardRef(({ className, ...props }: any, ref: any) => (
+
+const getTypeStyles = (type: string | undefined) => {
+  if (!type) return '';
+  switch (type) {
+    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
+    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
+    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
+    default: return '';
+  }
+};
+
+export const Content = React.forwardRef(({type,  className, ...props }: any, ref: any) => (
   <CollapsiblePrimitive.Content
     ref={ref}
-    className={cn(styles.content, className)}
+    className={cn(styles.content, className, getTypeStyles(type))}
     {...props}
   />
 ));

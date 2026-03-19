@@ -81,7 +81,7 @@
       "clipPath": "polygon(3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px), 0 3px)",
       "features": ["grid-bg"]
     },
-    "neon-outline": {
+    "neon": {
       "name": "Neon Outline",
       "enabled": true,
       "description": "High-contrast neon micro glow",

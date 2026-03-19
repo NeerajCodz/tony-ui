@@ -11,10 +11,24 @@ const MatrixGridTooltip = TooltipPrimitives.Root;
 const MatrixGridTooltipTrigger = TooltipPrimitives.Trigger;
 
 const MatrixGridTooltipContent = forwardRef<React.ElementRef<typeof TooltipPrimitives.Content>, React.ComponentPropsWithoutRef<typeof TooltipPrimitives.Content> & { colors?: VariantColors; version?: string }>(
-  ({ className, colors, style, sideOffset = 4, ...props }, ref) => {
-    const bg = colors?.base || '#1f2937';
-    const fg = colors?.foreground || '#ffffff';
-    const border = colors?.border || '#374151';
+  ({ className, colors, type, style, sideOffset = 4, ...props }, ref) => {
+    let bg = colors?.base || '#1f2937';
+
+    if (type === 'inverse') {
+      const temp = bg;
+      bg = fg;
+      fg = temp;
+      border = bg;
+    } else if (type === 'contrast') {
+      border = fg;
+      bg = colors?.base || '#000000';
+      fg = colors?.foreground || '#ffffff';
+    } else if (type === 'soft') {
+      bg = colors?.muted || bg;
+      border = colors?.border ? `${colors.border}40` : border;
+    }
+    let fg = colors?.foreground || '#ffffff';
+    let border = colors?.border || '#374151';
     const glow = colors?.glow || 'transparent';
 
     return (

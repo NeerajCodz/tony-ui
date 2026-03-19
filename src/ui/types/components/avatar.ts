@@ -14,7 +14,7 @@ export type AvatarVersion =
   | 'energy-shield' 
   | 'terminal-window' 
   | 'matrix-grid' 
-  | 'neon-outline'
+  | 'neon'
   // Standard versions
   | 'default' 
   | 'compact' 
@@ -181,11 +181,11 @@ export const AVATAR_VERSION_CONFIGS: Record<AvatarVersion, AvatarVersionConfig> 
     supportsStatus: true,
     defaultSize: 'md',
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'avatar-neon-outline',
+    classPrefix: 'avatar-neon',
     description: 'Intense neon glow',
     supportsStatus: true,
     defaultSize: 'md',

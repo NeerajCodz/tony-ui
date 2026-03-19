@@ -17,7 +17,7 @@ const getRootStyles = (version: string) => {
     'energy-shield': "",
     'terminal-window': "",
     'matrix-grid': "",
-    'neon-outline': "",
+    'neon': "",
   };
   return cn(base, styles[version as keyof typeof styles]);
 };
@@ -36,7 +36,7 @@ const getListStyles = (version: string) => {
     'energy-shield': "bg-cyan-950/20 border border-cyan-400/30 rounded-lg p-1",
     'terminal-window': "bg-black border-b border-green-500/50 w-full justify-start",
     'matrix-grid': "bg-black border-b border-green-900 w-full justify-start",
-    'neon-outline': "bg-black border border-cyan-400 shadow-[0_0_5px_cyan] rounded-md p-1",
+    'neon': "bg-black border border-cyan-400 shadow-[0_0_5px_cyan] rounded-md p-1",
   };
   return cn(base, styles[version as keyof typeof styles]);
 };
@@ -55,7 +55,7 @@ const getTriggerStyles = (version: string) => {
     'energy-shield': "bg-transparent hover:bg-cyan-500/10 text-cyan-200",
     'terminal-window': "bg-transparent font-mono hover:text-green-400 hover:bg-green-900/20 rounded-none",
     'matrix-grid': "bg-transparent font-mono text-green-600 hover:text-green-300 rounded-none",
-    'neon-outline': "bg-transparent hover:text-cyan-400 hover:drop-shadow-[0_0_5px_cyan]",
+    'neon': "bg-transparent hover:text-cyan-400 hover:drop-shadow-[0_0_5px_cyan]",
   };
   return cn(base, styles[version as keyof typeof styles]);
 };
@@ -74,7 +74,7 @@ const getContentStyles = (version: string) => {
     'energy-shield': "bg-cyan-950/90 border border-cyan-400/40 shadow-[0_0_15px_rgba(6,182,212,0.2)] rounded-lg",
     'terminal-window': "bg-black border border-green-500/50 shadow-[0_0_10px_rgba(34,197,94,0.1)]",
     'matrix-grid': "bg-black border border-green-900 shadow-[inset_0_0_10px_rgba(0,50,0,0.5)]",
-    'neon-outline': "bg-black border border-cyan-400 shadow-[0_0_10px_cyan] rounded-lg",
+    'neon': "bg-black border border-cyan-400 shadow-[0_0_10px_cyan] rounded-lg",
   };
   return cn(base, styles[version as keyof typeof styles]);
 };
@@ -93,7 +93,7 @@ const getViewportStyles = (version: string) => {
     'energy-shield': "rounded-lg border-cyan-400/30 bg-cyan-950/90",
     'terminal-window': "rounded-none border-none bg-transparent",
     'matrix-grid': "rounded-none border-none bg-transparent",
-    'neon-outline': "rounded-lg border-cyan-400 bg-black shadow-[0_0_10px_cyan]",
+    'neon': "rounded-lg border-cyan-400 bg-black shadow-[0_0_10px_cyan]",
   };
   // Note: Viewport is the container. If we style Content, we might not need to style Viewport heavily, 
   // OR we style Viewport and leave Content transparent.

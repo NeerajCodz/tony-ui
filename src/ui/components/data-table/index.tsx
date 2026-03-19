@@ -19,7 +19,7 @@ const versionComponents: Record<string, any> = {
   'energy-shield': lazy(() => import('./data-table-energy-shield.tsx')),
   'terminal-window': lazy(() => import('./data-table-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('./data-table-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('./data-table-neon-outline.tsx')),
+  'neon': lazy(() => import('./data-table-neon.tsx')),
 };
 
 export interface DataTableProps<TData, TValue> {

@@ -50,7 +50,7 @@ const versionStyles = {
     item: "aspect-square h-5 w-5 rounded-sm border border-lime-500/40 bg-black/90 text-lime-400 ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-lime-400",
     indicator: "h-3 w-3 fill-current text-lime-400"
   },
-  'neon-outline': {
+  'neon': {
     root: "grid gap-2",
     item: "aspect-square h-5 w-5 rounded-full border-2 border-fuchsia-500/60 bg-transparent text-fuchsia-300 ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:shadow-[0_0_10px_rgba(217,70,239,0.6)]",
     indicator: "h-3 w-3 fill-current text-fuchsia-300"

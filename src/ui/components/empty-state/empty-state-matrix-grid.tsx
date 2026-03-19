@@ -67,7 +67,7 @@ const versionStyles = {
     title: "text-lg font-medium text-lime-400",
     description: "text-sm text-lime-600 mt-2 mb-6 max-w-xs mx-auto"
   },
-  'neon-outline': {
+  'neon': {
     root: "flex flex-col items-center justify-center p-8 text-center border-2 border-dashed border-fuchsia-500/30 bg-transparent rounded-xl",
     icon: SearchX,
     iconClass: "h-12 w-12 text-fuchsia-400 mb-4 drop-shadow-[0_0_5px_rgba(232,121,249,0.5)]",

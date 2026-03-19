@@ -31,7 +31,7 @@ const loadVersionModule = async (version: AlertDialogVersion) => {
     case 'energy-shield': return import('../components/alert-dialog/alert-dialog-energy-shield.tsx');
     case 'terminal-window': return import('../components/alert-dialog/alert-dialog-terminal-window.tsx');
     case 'matrix-grid': return import('../components/alert-dialog/alert-dialog-matrix-grid.tsx');
-    case 'neon-outline': return import('../components/alert-dialog/alert-dialog-neon-outline.tsx');
+    case 'neon': return import('../components/alert-dialog/alert-dialog-neon.tsx');
     default: return import('../components/alert-dialog/alert-dialog-angular-corner.tsx');
   }
 };

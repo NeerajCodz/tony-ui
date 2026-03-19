@@ -26,7 +26,7 @@ export type ToggleVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 /**
  * Toggle Type - Border and fill style
@@ -127,11 +127,11 @@ export const TOGGLE_VERSION_CONFIGS: Record<ToggleVersion, ToggleVersionConfig> 
     description: 'Digital matrix toggle with code effect',
     features: ['grid-overlay', 'digital-pulse', 'glitch-effect']
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'toggle-neon-outline',
+    classPrefix: 'toggle-neon',
     description: 'High-contrast neon toggle with bloom',
     features: ['neon-glow', 'press-pulse', 'outer-bloom']
   }
@@ -162,7 +162,7 @@ export interface ToggleProps {
  */
 export type ToggleGroupVersion = 
   | 'angular-corner' 
-  | 'neon-outline' 
+  | 'neon' 
   | 'glass-morphism' 
   | 'circuit-board' 
   | 'holo-frame'
@@ -228,11 +228,11 @@ export const TOGGLE_GROUP_VERSION_CONFIGS: Record<ToggleGroupVersion, ToggleGrou
     classPrefix: 'toggle-group-angular-corner',
     description: 'Beveled corners with glowing borders and connected items',
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'toggle-group-neon-outline',
+    classPrefix: 'toggle-group-neon',
     description: 'High-contrast neon glow with pulsing active states',
   },
   'glass-morphism': {
@@ -300,7 +300,7 @@ export const TOGGLE_GROUP_VERSION_CONFIGS: Record<ToggleGroupVersion, ToggleGrou
  */
 export type ButtonGroupVersion = 
   | 'angular-corner' 
-  | 'neon-outline' 
+  | 'neon' 
   | 'glass-morphism' 
   | 'circuit-board' 
   | 'holo-frame'
@@ -351,11 +351,11 @@ export const BUTTON_GROUP_VERSION_CONFIGS: Record<ButtonGroupVersion, ButtonGrou
     classPrefix: 'button-group-angular-corner',
     description: 'Beveled corners with connected button segments',
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'button-group-neon-outline',
+    classPrefix: 'button-group-neon',
     description: 'High-contrast neon glow with seamless connections',
   },
   'glass-morphism': {

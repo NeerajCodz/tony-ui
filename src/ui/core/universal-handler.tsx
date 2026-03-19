@@ -56,7 +56,7 @@ function useDynamicComponent(
   const AVAILABLE_VERSIONS = [
     'angular-corner', 'border', 'circuit-board', 'compact', 'data-panel',
     'default', 'energy-shield', 'ghost', 'glass-morphism', 'holo-frame',
-    'large', 'matrix-grid', 'neon-outline', 'padding', 'quantum-gate',
+    'large', 'matrix-grid', 'neon', 'padding', 'quantum-gate',
     'raised', 'tactical-hud', 'tech-panel', 'terminal-window',
   ];
 

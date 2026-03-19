@@ -131,7 +131,7 @@
         "entrance": "matrix-load"
       }
     },
-    "neon-outline": {
+    "neon": {
       "name": "Neon Outline",
       "enabled": true,
       "description": "High-contrast neon glow with thick outer bloom",

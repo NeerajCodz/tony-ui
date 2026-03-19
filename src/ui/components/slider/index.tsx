@@ -18,7 +18,7 @@ type SliderVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface SliderProps extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {
   version?: SliderVersion;
@@ -38,7 +38,7 @@ const loadVersionModule = async (version: SliderVersion) => {
     case 'energy-shield': return import('./slider-energy-shield.tsx');
     case 'terminal-window': return import('./slider-terminal-window.tsx');
     case 'matrix-grid': return import('./slider-matrix-grid.tsx');
-    case 'neon-outline': return import('./slider-neon-outline.tsx');
+    case 'neon': return import('./slider-neon.tsx');
     default: return import('./slider-angular-corner.tsx');
   }
 };

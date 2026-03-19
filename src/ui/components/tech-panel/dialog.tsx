@@ -9,12 +9,17 @@ export const Overlay = React.forwardRef(({ className, ...props }: any, ref: any)
   <DialogPrimitive.Overlay ref={ref} className={cn(styles.overlay, className)} {...props} />
 ));
 Overlay.displayName = DialogPrimitive.Overlay.displayName;
-export const Content = React.forwardRef(({ className, children, variant = 'primary', ...props }: any, ref: any) => {    
+export const Content = React.forwardRef(({ className, children, type = 'default', variant = 'primary', ...props }: any, ref: any) => {    
   const color = variantColors[variant] || 'cyan';
+  let typeClasses = "";
+  if (type === 'inverse') typeClasses = `bg-${color}-500 text-${color}-950 border-${color}-950`;
+  else if (type === 'contrast') typeClasses = `bg-black text-white border-white border-4`;
+  else if (type === 'soft') typeClasses = `bg-${color}-100/50 border-${color}-200`;
+
   const Icon = variantIcons[variant] || variantIcons.default;
   const dynamicClasses = `shadow-[0_0_30px_-5px_theme(colors.${color}.500/30)] border-l-4 border-${color}-500 bg-black/90`;
   return (
-    <DialogPrimitive.Content ref={ref} className={cn(styles.content, dynamicClasses, className)} {...props}>
+    <DialogPrimitive.Content ref={ref} className={cn(styles.content, dynamicClasses, typeClasses, className)} {...props}>
       <div className={`absolute -top-3 -left-3 p-1.5 bg-gray-950 border border-${color}-500/50 rounded-none z-50 shadow-lg`}>
          <Icon className={`w-5 h-5 text-${color}-400`} />
       </div>
@@ -26,13 +31,23 @@ export const Content = React.forwardRef(({ className, children, variant = 'prima
   );
 });
 Content.displayName = DialogPrimitive.Content.displayName;
-export const Title = React.forwardRef(({ className, variant = 'primary', ...props }: any, ref: any) => {
+export const Title = React.forwardRef(({ className, type = 'default', variant = 'primary', ...props }: any, ref: any) => {
    const color = variantColors[variant] || 'cyan';
+  let typeClasses = "";
+  if (type === 'inverse') typeClasses = `bg-${color}-500 text-${color}-950 border-${color}-950`;
+  else if (type === 'contrast') typeClasses = `bg-black text-white border-white border-4`;
+  else if (type === 'soft') typeClasses = `bg-${color}-100/50 border-${color}-200`;
+
    return <DialogPrimitive.Title ref={ref} className={cn(styles.title, `text-${color}-100`, className)} {...props} />;
 });
 Title.displayName = DialogPrimitive.Title.displayName;
-export const Description = React.forwardRef(({ className, variant = 'primary', ...props }: any, ref: any) => {
+export const Description = React.forwardRef(({ className, type = 'default', variant = 'primary', ...props }: any, ref: any) => {
    const color = variantColors[variant] || 'cyan';
+  let typeClasses = "";
+  if (type === 'inverse') typeClasses = `bg-${color}-500 text-${color}-950 border-${color}-950`;
+  else if (type === 'contrast') typeClasses = `bg-black text-white border-white border-4`;
+  else if (type === 'soft') typeClasses = `bg-${color}-100/50 border-${color}-200`;
+
    return <DialogPrimitive.Description ref={ref} className={cn(styles.description, `text-${color}-300/70`, className)} {...props} />;
 });
 Description.displayName = DialogPrimitive.Description.displayName;

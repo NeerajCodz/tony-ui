@@ -18,7 +18,7 @@ type SwitchVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface SwitchProps extends React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Root> {
   version?: SwitchVersion;
@@ -38,7 +38,7 @@ const loadVersionModule = async (version: SwitchVersion) => {
     case 'energy-shield': return import('./switch-energy-shield.tsx');
     case 'terminal-window': return import('./switch-terminal-window.tsx');
     case 'matrix-grid': return import('./switch-matrix-grid.tsx');
-    case 'neon-outline': return import('./switch-neon-outline.tsx');
+    case 'neon': return import('./switch-neon.tsx');
     default: return import('./switch-angular-corner.tsx');
   }
 };

@@ -27,7 +27,7 @@ import type { ColorType, SemanticColorId } from '../colors.d.js';
  * - energy-shield: Force field effect
  * - terminal-window: Command line aesthetic
  * - matrix-grid: Digital grid pattern
- * - neon-outline: Intense neon glow
+ * - neon: Intense neon glow
  * 
  * Specialized Versions (6):
  * - tech-panel: Modern tech dashboard
@@ -50,7 +50,7 @@ export type SonnerVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline'
+  | 'neon'
   | 'tech-panel'
   | 'glass-morphism'
   | 'minimalist'
@@ -299,11 +299,11 @@ export const SONNER_VERSION_CONFIGS: Record<SonnerVersion, SonnerVersionConfig> 
     description: 'Digital grid pattern with data flow',
   },
 
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'toast-neon-outline',
+    classPrefix: 'toast-neon',
     border: { style: 'solid', width: 'medium' },
     borderRadius: 'sharp',
     shadow: 'lg',

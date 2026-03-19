@@ -5,7 +5,7 @@ import * as ToggleGroupPrimitives from '@radix-ui/react-toggle-group';
 import type { VariantColors } from '../../types/common';
 
 const RaisedToggleGroup = forwardRef<React.ElementRef<typeof ToggleGroupPrimitives.Root>, React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitives.Root> & { colors?: VariantColors; version?: string }>(
-  ({ className, colors, style, ...props }, ref) => (
+  ({ className, colors, type, style, ...props }, ref) => (
     <ToggleGroupPrimitives.Root
       ref={ref}
       className={`flex items-center justify-center gap-1 ${className}`}
@@ -17,10 +17,24 @@ const RaisedToggleGroup = forwardRef<React.ElementRef<typeof ToggleGroupPrimitiv
 RaisedToggleGroup.displayName = 'RaisedToggleGroup';
 
 const RaisedToggleGroupItem = forwardRef<React.ElementRef<typeof ToggleGroupPrimitives.Item>, React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitives.Item> & { colors?: VariantColors; version?: string }>(
-  ({ className, colors, style, ...props }, ref) => {
-    const bg = colors?.base || 'transparent';
-    const fg = colors?.foreground || 'currentColor';
-    const border = colors?.border || 'transparent';
+  ({ className, colors, type, style, ...props }, ref) => {
+    let bg = colors?.base || 'transparent';
+    let fg = colors?.foreground || 'currentColor';
+    let border = colors?.border || 'transparent';
+
+    if (type === 'inverse') {
+      const temp = bg;
+      bg = fg;
+      fg = temp;
+      border = bg;
+    } else if (type === 'contrast') {
+      border = fg;
+      bg = colors?.base || '#000000';
+      fg = colors?.foreground || '#ffffff';
+    } else if (type === 'soft') {
+      bg = colors?.muted || bg;
+      border = colors?.border ? `${colors.border}40` : border;
+    }
     const accent = colors?.accent || colors?.base || 'currentColor';
 
     return (

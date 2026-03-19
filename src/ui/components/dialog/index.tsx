@@ -19,7 +19,7 @@ type DialogVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface DialogProps extends React.ComponentProps<typeof DialogPrimitive.Root> {
   version?: DialogVersion;
@@ -56,7 +56,7 @@ const loadVersionModule = async (version: DialogVersion) => {
     case 'energy-shield': return import('./dialog-energy-shield.tsx');
     case 'terminal-window': return import('./dialog-terminal-window.tsx');
     case 'matrix-grid': return import('./dialog-matrix-grid.tsx');
-    case 'neon-outline': return import('./dialog-neon-outline.tsx');
+    case 'neon': return import('./dialog-neon.tsx');
     default: return import('./dialog-angular-corner.tsx');
   }
 };

@@ -30,7 +30,7 @@ const loadVersionModule = async (version: AvatarVersion) => {
     case 'energy-shield': return import('../components/energy-shield/avatar.tsx');
     case 'terminal-window': return import('../components/terminal-window/avatar.tsx');
     case 'matrix-grid': return import('../components/matrix-grid/avatar.tsx');
-    case 'neon-outline': return import('../components/neon-outline/avatar.tsx');
+    case 'neon': return import('../components/neon/avatar.tsx');
     case 'glass-morphism': return import('../components/glass-morphism/avatar.tsx');
     case 'tech-panel': return import('../components/tech-panel/avatar.tsx');
     case 'default': return import('../components/default/avatar.tsx');

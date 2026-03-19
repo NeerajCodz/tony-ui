@@ -28,7 +28,7 @@ const loadVersionModule = async (version: CollapsibleVersion) => {
     case 'energy-shield': return import('../components/collapsible/collapsible-energy-shield.tsx');
     case 'terminal-window': return import('../components/collapsible/collapsible-terminal-window.tsx');
     case 'matrix-grid': return import('../components/collapsible/collapsible-matrix-grid.tsx');
-    case 'neon-outline': return import('../components/collapsible/collapsible-neon-outline.tsx');
+    case 'neon': return import('../components/collapsible/collapsible-neon.tsx');
     default: return import('../components/collapsible/collapsible-angular-corner.tsx');
   }
 };

@@ -19,7 +19,7 @@ type CheckboxVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface CheckboxProps extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
   version?: CheckboxVersion;
@@ -39,7 +39,7 @@ const loadVersionModule = async (version: CheckboxVersion) => {
     case 'energy-shield': return import('./checkbox-energy-shield.tsx');
     case 'terminal-window': return import('./checkbox-terminal-window.tsx');
     case 'matrix-grid': return import('./checkbox-matrix-grid.tsx');
-    case 'neon-outline': return import('./checkbox-neon-outline.tsx');
+    case 'neon': return import('./checkbox-neon.tsx');
     default: return import('./checkbox-angular-corner.tsx');
   }
 };

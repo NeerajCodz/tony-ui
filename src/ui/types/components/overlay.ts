@@ -5,7 +5,7 @@
 import React from 'react';
 import type { ColorType } from '../colors.d.js';
 
-export type OverlayType = 'default' | 'outline' | 'solid' | 'glass';
+export type OverlayType = 'default' | 'outline' | 'solid' | 'glass' | 'inverse' | 'contrast' | 'soft';
 export type OverlayVariant = 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
 
 // ============ TOOLTIP VERSION SYSTEM ============

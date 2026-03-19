@@ -135,7 +135,7 @@ export function mergeStyles(
 export async function getAvailableVersions(componentName: string): Promise<Version[]> {
   const versions: Version[] = [
     'angular-corner', 'circuit-board', 'data-panel', 'default',
-    'energy-shield', 'holo-frame', 'matrix-grid', 'neon-outline',
+    'energy-shield', 'holo-frame', 'matrix-grid', 'neon',
     'quantum-gate', 'tactical-hud', 'tech-panel', 'terminal-window',
   ];
 

@@ -19,7 +19,7 @@ type CollapsibleVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface CollapsibleProps extends React.ComponentProps<typeof CollapsiblePrimitive.Root> {
   version?: CollapsibleVersion;
@@ -53,7 +53,7 @@ const versionComponents = {
   'energy-shield': lazy(() => import('./collapsible-energy-shield.tsx')),
   'terminal-window': lazy(() => import('./collapsible-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('./collapsible-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('./collapsible-neon-outline.tsx')),
+  'neon': lazy(() => import('./collapsible-neon.tsx')),
 };
 
 // --- Main Component ---

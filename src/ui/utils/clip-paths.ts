@@ -43,7 +43,7 @@ export const CLIP_PATHS = {
     default: 'polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px)',
     avatar: 'polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px)',
   },
-  'neon-outline': {
+  'neon': {
     default: 'polygon(4px 0, 100% 0, 100% 100%, 0 100%)',
     avatar: 'polygon(4px 0, 100% 0, 100% 100%, 0 100%)',
   },
@@ -137,7 +137,7 @@ export const SVG_PATHS = {
     avatar: (w: number, h: number) => 
       `M 6 0 L ${w - 6} 0 L ${w} 6 L ${w} ${h - 6} L ${w - 6} ${h} L 6 ${h} L 0 ${h - 6} L 0 6 Z`,
   },
-  'neon-outline': {
+  'neon': {
     default: (w: number, h: number) => 
       `M 4 0 L ${w} 0 L ${w} ${h} L 0 ${h} Z`,
     avatar: (w: number, h: number) => 

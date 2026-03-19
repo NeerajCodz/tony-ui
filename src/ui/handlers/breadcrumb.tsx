@@ -28,7 +28,7 @@ const loadVersionModule = async (version: BreadcrumbVersion) => {
     case 'energy-shield': return import('../components/breadcrumb/breadcrumb-energy-shield.tsx');
     case 'terminal-window': return import('../components/breadcrumb/breadcrumb-terminal-window.tsx');
     case 'matrix-grid': return import('../components/breadcrumb/breadcrumb-matrix-grid.tsx');
-    case 'neon-outline': return import('../components/breadcrumb/breadcrumb-neon-outline.tsx');
+    case 'neon': return import('../components/breadcrumb/breadcrumb-neon.tsx');
     default: return import('../components/breadcrumb/breadcrumb-angular-corner.tsx');
   }
 };

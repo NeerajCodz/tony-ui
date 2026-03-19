@@ -19,7 +19,7 @@ type RadioGroupVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface RadioGroupProps extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> {
   version?: RadioGroupVersion;
@@ -39,7 +39,7 @@ const loadVersionModule = async (version: RadioGroupVersion) => {
     case 'energy-shield': return import('./radio-group-energy-shield.tsx');
     case 'terminal-window': return import('./radio-group-terminal-window.tsx');
     case 'matrix-grid': return import('./radio-group-matrix-grid.tsx');
-    case 'neon-outline': return import('./radio-group-neon-outline.tsx');
+    case 'neon': return import('./radio-group-neon.tsx');
     default: return import('./radio-group-angular-corner.tsx');
   }
 };

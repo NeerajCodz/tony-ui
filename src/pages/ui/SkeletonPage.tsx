@@ -12,7 +12,7 @@ export function SkeletonPage() {
     'energy-shield',
     'terminal-window',
     'matrix-grid',
-    'neon-outline',
+    'neon',
   ];
 
   return (

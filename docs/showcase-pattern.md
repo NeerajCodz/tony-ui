@@ -75,7 +75,7 @@ const versions = [
   { value: 'energy-shield', label: 'Energy Shield' },
   { value: 'terminal-window', label: 'Terminal Window' },
   { value: 'matrix-grid', label: 'Matrix Grid' },
-  { value: 'neon-outline', label: 'Neon Outline' },
+  { value: 'neon', label: 'Neon Outline' },
 ];
 
 function VersionSelector({ value, onChange }) {

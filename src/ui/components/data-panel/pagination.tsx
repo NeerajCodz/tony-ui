@@ -4,6 +4,35 @@ import React, { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 import { VariantColors } from '@/ui/types/common';
 
+const getStyles = (type?: string, colors?: VariantColors) => {
+  if (!type || !colors) return {};
+  
+  switch (type) {
+    case 'inverse':
+      return {
+        backgroundColor: colors.text,
+        color: colors.background,
+        border: `1px solid ${colors.text}`
+      };
+    case 'contrast':
+      return {
+        backgroundColor: colors.accent?.primary || colors.text,
+        color: '#000000',
+        fontWeight: 'bold',
+        border: `1px solid ${colors.text}`
+      };
+    case 'soft':
+      return {
+        backgroundColor: colors.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
+        color: colors.accent?.primary || colors.text,
+        border: 'none'
+      };
+    default:
+      return {};
+  }
+};
+
+
 interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
   version?: string;
   variant?: string;
@@ -11,13 +40,13 @@ interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
   colors?: VariantColors;
 }
 
-const Pagination = forwardRef<HTMLElement, PaginationProps>(({ className, ...props }, ref) => (
+const Pagination = forwardRef<HTMLElement, PaginationProps>(({ className, type, colors, ...props }, ref) => (
   <nav
     role="navigation"
     aria-label="pagination"
     className={cn("mx-auto flex w-full justify-center", className)}
     ref={ref}
-    {...props}
+    {...props} style={{ ...getStyles(type, colors), ...(props.style as any) }}
   />
 ));
 Pagination.displayName = "Pagination";

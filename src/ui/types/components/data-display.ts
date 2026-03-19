@@ -5,7 +5,7 @@
 import React from 'react';
 import type { ColorType } from '../colors.d.js';
 
-export type DataType = 'default' | 'outline' | 'solid';
+export type DataType = 'default' | 'outline' | 'solid' | 'inverse' | 'contrast' | 'soft';
 export type DataVariant = 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
 
 // =============================================================================
@@ -498,9 +498,9 @@ export interface CarouselProps {
  * - holo-frame: Holographic iridescent borders
  * - data-panel: Side technical panel with status indicators
  * - circuit-board: Circuit trace patterns with pulses
- * - neon-outline: High-contrast neon glow
+ * - neon: High-contrast neon glow
  */
-export type AspectRatioVersion = 'angular-corner' | 'holo-frame' | 'data-panel' | 'circuit-board' | 'neon-outline';
+export type AspectRatioVersion = 'angular-corner' | 'holo-frame' | 'data-panel' | 'circuit-board' | 'neon';
 
 /**
  * AspectRatio Type - Border and fill style (default, outline, solid)
@@ -572,8 +572,8 @@ export const ASPECT_RATIO_VERSION_CONFIGS: Record<AspectRatioVersion, AspectRati
     features: ['circuit-pattern', 'animated-traces', 'corner-nodes']
   },
   
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
     description: 'High-contrast neon glow with intense outer bloom',

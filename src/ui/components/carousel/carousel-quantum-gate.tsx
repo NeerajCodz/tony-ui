@@ -49,7 +49,7 @@ const getRootStyles = (version: string) => {
     'energy-shield': "p-4 bg-cyan-950/20 border border-cyan-400/30 shadow-[inset_0_0_10px_rgba(6,182,212,0.1)] rounded-lg",
     'terminal-window': "p-4 bg-black border border-green-500/50",
     'matrix-grid': "p-4 bg-black border border-green-900",
-    'neon-outline': "p-6 bg-black border-2 border-cyan-400 shadow-[0_0_10px_cyan] rounded-lg",
+    'neon': "p-6 bg-black border-2 border-cyan-400 shadow-[0_0_10px_cyan] rounded-lg",
   };
   return cn(base, styles[version as keyof typeof styles]);
 };
@@ -66,13 +66,24 @@ const getButtonStyles = (version: string) => {
     'energy-shield': "bg-cyan-500/10 text-cyan-200 border border-cyan-500/30 hover:bg-cyan-500/20",
     'terminal-window': "bg-green-900/30 text-green-500 border border-green-500/50 hover:bg-green-900/50 rounded-none",
     'matrix-grid': "bg-black text-green-500 border border-green-700 hover:border-green-500 rounded-none",
-    'neon-outline': "border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black shadow-[0_0_5px_cyan]",
+    'neon': "border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black shadow-[0_0_5px_cyan]",
   };
   return cn(base, styles[version as keyof typeof styles]);
 };
 
+
+const getTypeStyles = (type: string | undefined) => {
+  if (!type) return '';
+  switch (type) {
+    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
+    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
+    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
+    default: return '';
+  }
+};
+
 export const CarouselRoot = React.forwardRef<HTMLDivElement, CarouselProps>(
-  ({ orientation = "horizontal", opts, setApi, plugins, className, children, ...props }, ref) => {
+  ({type,  orientation = "horizontal", opts, setApi, plugins, className, children, ...props }, ref) => {
     const [carouselRef, api] = useEmblaCarousel(
       {
         ...opts,
@@ -166,7 +177,7 @@ export const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttrib
             "flex",
             orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
             className
-          )}
+          , getTypeStyles(type))}
           {...props}
         />
       </div>
@@ -187,7 +198,7 @@ export const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttribute
           "min-w-0 shrink-0 grow-0 basis-full",
           orientation === "horizontal" ? "pl-4" : "pt-4",
           className
-        )}
+        , getTypeStyles(type))}
         {...props}
       />
     );

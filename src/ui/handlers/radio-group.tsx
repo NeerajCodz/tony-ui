@@ -34,7 +34,7 @@ const loadVersionModule = async (version: RadioGroupVersion) => {
     case 'energy-shield': return import('../components/radio-group/radio-group-energy-shield.tsx');
     case 'terminal-window': return import('../components/radio-group/radio-group-terminal-window.tsx');
     case 'matrix-grid': return import('../components/radio-group/radio-group-matrix-grid.tsx');
-    case 'neon-outline': return import('../components/radio-group/radio-group-neon-outline.tsx');
+    case 'neon': return import('../components/radio-group/radio-group-neon.tsx');
     default: return import('../components/radio-group/radio-group-angular-corner.tsx');
   }
 };

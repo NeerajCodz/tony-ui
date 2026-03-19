@@ -35,7 +35,7 @@ const versionComponents: Record<string, any> = {
   'energy-shield': lazy(() => import('./input-group-energy-shield.tsx')),
   'terminal-window': lazy(() => import('./input-group-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('./input-group-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('./input-group-neon-outline.tsx')),
+  'neon': lazy(() => import('./input-group-neon.tsx')),
 };
 
 // Loading Skeleton

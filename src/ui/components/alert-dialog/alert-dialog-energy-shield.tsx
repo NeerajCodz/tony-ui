@@ -77,7 +77,7 @@ const versionStyles = {
     action: "bg-lime-600 text-black hover:bg-lime-500",
     cancel: "text-lime-600 hover:text-lime-400",
   },
-  'neon-outline': {
+  'neon': {
     overlay: "fixed inset-0 z-50 bg-fuchsia-950/70 backdrop-blur-sm",
     content: "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border-2 border-fuchsia-500 bg-gray-950 p-6 shadow-[0_0_30px_rgba(217,70,239,0.4)] duration-200 rounded-xl",
     title: "text-lg font-bold text-fuchsia-200 drop-shadow-[0_0_10px_rgba(217,70,239,0.8)]",

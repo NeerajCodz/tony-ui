@@ -78,7 +78,7 @@ const versionStyles = {
        destructive: "group destructive border-red-500/40 bg-black/90 text-red-400",
     }
   },
-  'neon-outline': {
+  'neon': {
     root: "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden border-2 p-6 pr-8 shadow-lg transition-all border-fuchsia-500/60 bg-black/80 text-fuchsia-300 rounded-lg shadow-[0_0_10px_rgba(217,70,239,0.3)]",
     close: "text-fuchsia-500 hover:text-fuchsia-300",
     variants: {

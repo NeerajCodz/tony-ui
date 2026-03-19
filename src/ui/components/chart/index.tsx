@@ -11,7 +11,7 @@ type ChartVersion = string;
 interface ChartProps extends React.HTMLAttributes<HTMLElement> {
   version?: ChartVersion;
   variant?: 'neutral' | 'primary' | 'success' | 'warning' | 'destructive' | 'info';
-  type?: 'default' | 'outline' | 'solid' | 'ghost';
+  type?: 'default' | 'outline' | 'solid' | 'ghost' | 'inverse' | 'contrast' | 'soft';
   [key: string]: any;
 }
 
@@ -35,7 +35,7 @@ const versionComponents: Record<string, any> = {
   'energy-shield': lazy(() => import('./chart-energy-shield.tsx')),
   'terminal-window': lazy(() => import('./chart-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('./chart-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('./chart-neon-outline.tsx')),
+  'neon': lazy(() => import('./chart-neon.tsx')),
 };
 
 // Loading Skeleton

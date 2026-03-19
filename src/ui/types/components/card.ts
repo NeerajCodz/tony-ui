@@ -2,7 +2,7 @@
  * Card Component Type Definitions
  */
 
-import type { Version, CoreVariant, Size } from '../common';
+import { type Version, type CoreVariant, type Size, VERSIONS } from '../common';
 import type React from 'react';
 
 /**
@@ -18,7 +18,7 @@ export type CardVariant = CoreVariant;
 /**
  * Card-specific types (visual treatment)
  */
-export type CardType = 'default' | 'solid' | 'outline' | 'ghost' | 'elevated' | 'flat';
+export type CardType = 'default' | 'solid' | 'outline' | 'ghost' | 'elevated' | 'flat' | 'inverse' | 'contrast' | 'soft';
 
 
 
@@ -106,6 +106,23 @@ export type CardRef = HTMLDivElement;
 /**
  * Card component type with ref forwarding
  */
-export type CardComponent = React.ForwardRefExoticComponent<
-  CardProps & React.RefAttributes<CardRef>
->;
+export interface CardVersionConfig {
+  version: CardVersion;
+  name: string;
+  enabled: boolean;
+  description: string;
+  features: string[];
+}
+
+export const CARD_VERSION_CONFIGS: Record<CardVersion, CardVersionConfig> = {} as any;
+
+VERSIONS.forEach(v => {
+  CARD_VERSION_CONFIGS[v] = {
+    version: v,
+    name: v.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
+    enabled: true,
+    description: `${v} style card`,
+    features: ['responsive', 'thematic']
+  };
+});
+

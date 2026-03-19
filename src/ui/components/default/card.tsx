@@ -18,21 +18,76 @@ export const DefaultCard = forwardRef<HTMLDivElement, CardProps>(
     children, 
     styles = {}, 
     colors,
+    type = 'default',
     className = '',
     ...props 
   }, ref) => {
     const border = colors?.border || '#475569';
+    const base = colors?.base || '#06b6d4';
+
+    const getTypeStyles = (): React.CSSProperties => {
+      const baseStyles: React.CSSProperties = {
+        borderRadius: '0.5rem',
+        backgroundColor: '#0f0f14',
+        overflow: 'hidden',
+      };
+
+      switch (type) {
+        case 'outline':
+          return {
+            ...baseStyles,
+            border: `2px solid ${border}`,
+          };
+        case 'solid':
+          return {
+            ...baseStyles,
+            border: `1px solid ${border}`,
+            backgroundColor: 'rgba(10, 14, 20, 0.95)',
+          };
+        case 'ghost':
+          return {
+            ...baseStyles,
+            backgroundColor: 'transparent',
+            border: `1px solid ${border}40`,
+          };
+        case 'inverse':
+          return {
+            ...baseStyles,
+            backgroundColor: 'white',
+            color: 'black',
+            border: '1px solid black',
+          };
+        case 'contrast':
+          return {
+            ...baseStyles,
+            backgroundColor: 'black',
+            border: '2px solid white',
+            color: 'white',
+            boxShadow: '4px 4px 0px white',
+          };
+        case 'soft':
+          return {
+            ...baseStyles,
+            backgroundColor: `${base}20`,
+            border: `1px solid ${base}30`,
+            boxShadow: 'none',
+          };
+        case 'default':
+        default:
+          return {
+            ...baseStyles,
+            border: `1px solid ${border}`,
+          };
+      }
+    };
 
     return (
       <div
         ref={ref}
         className={`default-card ${className}`}
         style={{
+          ...getTypeStyles(),
           ...styles,
-          borderRadius: '0.5rem',
-          border: `1px solid ${border}`,
-          backgroundColor: '#0f0f14',
-          overflow: 'hidden',
         }}
         {...props}
       >

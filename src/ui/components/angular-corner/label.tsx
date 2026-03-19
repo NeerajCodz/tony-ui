@@ -11,19 +11,40 @@ export default function Label({
   children,
   ...props
 }: LabelProps & { type?: string; colors?: any }) {
+
+  const getTypeStyles = (type: string | undefined, colors: any) => {
+    if (!type || type === 'default') return {};
+    if (type === 'inverse') return { 
+      backgroundColor: colors?.text || '#000000', 
+      color: colors?.background || '#ffffff',
+      borderColor: colors?.background || '#ffffff'
+    };
+    if (type === 'contrast') return { 
+      backgroundColor: colors?.background || '#ffffff', 
+      color: colors?.text || '#000000', 
+      border: `2px solid ${colors?.text || '#000000'}`, 
+      fontWeight: 'bold' 
+    };
+    if (type === 'soft') return { 
+      backgroundColor: colors?.accent?.primary ? `${colors.accent.primary}20` : '#00000020', 
+      color: colors?.text || '#000000' 
+    };
+    return {};
+  };
+
   const baseStyles = "relative font-mono uppercase tracking-wider transition-all duration-200 clip-path-angular text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
   // Label usually doesn't have solid/outline types, mostly just color
   
   return (
     <LabelPrimitive.Root 
       className={cn(baseStyles, className)}
-      style={{ color: colors?.text }}
+      style={{  color: colors?.text , ...getTypeStyles(type, colors) }}
       {...props}
     >
       {children}
       
-      <span className="absolute top-0 left-0 w-2 h-2 border-t border-l" style={{ borderColor: colors.accent.secondary }} />
-      <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r" style={{ borderColor: colors.accent.secondary }} />
+      <span className="absolute top-0 left-0 w-2 h-2 border-t border-l" style={{  borderColor: colors.accent.secondary , ...getTypeStyles(type, colors) }} />
+      <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r" style={{  borderColor: colors.accent.secondary , ...getTypeStyles(type, colors) }} />
         
     </LabelPrimitive.Root>
   );

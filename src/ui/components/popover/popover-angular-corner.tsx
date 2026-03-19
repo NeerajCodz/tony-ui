@@ -16,7 +16,7 @@ const getContentStyles = (version: string) => {
     'energy-shield': "bg-cyan-950/90 border border-cyan-400/50 text-cyan-200 shadow-[0_0_15px_rgba(6,182,212,0.3)] rounded-lg backdrop-blur-sm",
     'terminal-window': "bg-black border border-green-500/50 text-green-500 font-mono text-sm p-2 shadow-[0_0_10px_rgba(34,197,94,0.2)]",
     'matrix-grid': "bg-black border border-green-900 text-green-400 font-mono shadow-[inset_0_0_10px_rgba(0,50,0,0.5)]",
-    'neon-outline': "bg-black border-2 border-cyan-400 text-cyan-400 shadow-[0_0_10px_cyan] rounded-lg",
+    'neon': "bg-black border-2 border-cyan-400 text-cyan-400 shadow-[0_0_10px_cyan] rounded-lg",
   };
 
   return cn(base, styles[version as keyof typeof styles]);

@@ -28,7 +28,7 @@ const loadVersionModule = async (version: PopoverVersion) => {
     case 'energy-shield': return import('../components/popover/popover-energy-shield.tsx');
     case 'terminal-window': return import('../components/popover/popover-terminal-window.tsx');
     case 'matrix-grid': return import('../components/popover/popover-matrix-grid.tsx');
-    case 'neon-outline': return import('../components/popover/popover-neon-outline.tsx');
+    case 'neon': return import('../components/popover/popover-neon.tsx');
     default: return import('../components/popover/popover-angular-corner.tsx');
   }
 };

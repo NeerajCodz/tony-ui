@@ -7,9 +7,20 @@ import type { VariantColors } from '../../types/common';
 const CompactTabs = TabsPrimitives.Root;
 
 const CompactTabsList = forwardRef<React.ElementRef<typeof TabsPrimitives.List>, React.ComponentPropsWithoutRef<typeof TabsPrimitives.List> & { colors?: VariantColors; version?: string }>(
-  ({ className, colors, style, ...props }, ref) => {
-    const bg = colors?.base || '#e5e7eb';
-    const border = colors?.border || 'transparent';
+  ({ className, colors, type, style, ...props }, ref) => {
+    let bg = colors?.base || '#e5e7eb';
+    let border = colors?.border || 'transparent';
+    if (type === 'inverse') {
+      const temp = bg;
+      bg = border;
+      border = temp;
+    } else if (type === 'contrast') {
+      bg = colors?.base || '#000000';
+      border = colors?.foreground || '#ffffff';
+    } else if (type === 'soft') {
+      bg = colors?.muted || bg;
+      border = colors?.border ? `${colors.border}40` : border;
+    }
     return (
         <TabsPrimitives.List
             ref={ref}
@@ -30,9 +41,15 @@ const CompactTabsList = forwardRef<React.ElementRef<typeof TabsPrimitives.List>,
 CompactTabsList.displayName = 'CompactTabsList';
 
 const CompactTabsTrigger = forwardRef<React.ElementRef<typeof TabsPrimitives.Trigger>, React.ComponentPropsWithoutRef<typeof TabsPrimitives.Trigger> & { colors?: VariantColors; version?: string }>(
-  ({ className, colors, style, ...props }, ref) => {
-    const fg = colors?.foreground || 'currentColor';
-    const accent = colors?.accent || colors?.base || 'currentColor';
+  ({ className, colors, type, style, ...props }, ref) => {
+    let fg = colors?.foreground || 'currentColor';
+    let accent = colors?.accent || colors?.base || 'currentColor';
+    if (type === 'inverse') {
+      fg = colors?.base || 'currentColor';
+    } else if (type === 'contrast') {
+      fg = colors?.foreground || '#ffffff';
+      accent = fg;
+    }
     return (
         <TabsPrimitives.Trigger
             ref={ref}
@@ -51,7 +68,7 @@ const CompactTabsTrigger = forwardRef<React.ElementRef<typeof TabsPrimitives.Tri
 CompactTabsTrigger.displayName = 'CompactTabsTrigger';
 
 const CompactTabsContent = forwardRef<React.ElementRef<typeof TabsPrimitives.Content>, React.ComponentPropsWithoutRef<typeof TabsPrimitives.Content> & { colors?: VariantColors; version?: string }>(
-  ({ className, colors, style, ...props }, ref) => (
+  ({ className, colors, type, style, ...props }, ref) => (
     <TabsPrimitives.Content
       ref={ref}
       className={`mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${className}`}

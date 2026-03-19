@@ -6,17 +6,34 @@ import type { VariantColors } from '../../types/common';
 
 export interface SwitchProps extends React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> {
   version?: string;
+  type?: string;
   variant?: string;
   colors?: VariantColors;
 }
 
 const HoloFrameSwitch = forwardRef<React.ElementRef<typeof SwitchPrimitives.Root>, SwitchProps>(
-  ({ className, colors, style, ...props }, ref) => {
-    const bg = colors?.base || '#e2e8f0';
-    const fg = colors?.foreground || '#ffffff';
-    const accent = colors?.accent || colors?.base || '#3b82f6';
-    const border = colors?.border || 'transparent';
+  ({ className, colors, type, style, ...props }, ref) => {
+    let bg = colors?.base || '#e2e8f0';
+    let fg = colors?.foreground || '#ffffff';
+    let accent = colors?.accent || colors?.base || '#3b82f6';
+    let border = colors?.border || 'transparent';
     const glow = colors?.glow || 'transparent';
+
+    if (type === 'inverse') {
+      const temp = bg;
+      bg = fg;
+      fg = temp;
+      accent = fg;
+      border = bg;
+    } else if (type === 'contrast') {
+      bg = colors?.base || '#000000';
+      fg = colors?.foreground || '#ffffff';
+      border = fg;
+      accent = fg;
+    } else if (type === 'soft') {
+      bg = colors?.muted || bg;
+      accent = colors?.muted || accent;
+    }
 
     return (
       <SwitchPrimitives.Root

@@ -8,7 +8,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 interface CalendarProps {
   version?: string;
   variant?: 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
-  type?: 'default' | 'outline' | 'solid';
+  type?: 'default' | 'outline' | 'solid' | 'inverse' | 'contrast' | 'soft';
   animated?: boolean;
   className?: string;
   mode?: 'single' | 'multiple' | 'range';
@@ -41,6 +41,7 @@ const Component = React.forwardRef<HTMLDivElement, CalendarProps>(({
   const color = colorMap[variant] || 'primary';
 
   const getTypeStyles = (): React.CSSProperties => {
+    const base: React.CSSProperties = {};
     switch (type) {
       case 'outline':
         return {
@@ -52,7 +53,30 @@ const Component = React.forwardRef<HTMLDivElement, CalendarProps>(({
           backgroundColor: `hsl(var(--${color}-base) / 0.15)`,
           border: `1px solid hsl(var(--${color}-base) / 0.5)`,
         };
-      case 'default':
+      
+      case 'inverse':
+        return {
+          ...base,
+          backgroundColor: 'white',
+          color: 'black',
+          border: '1px solid black',
+        };
+      case 'contrast':
+        return {
+          ...base,
+          backgroundColor: 'black',
+          border: '2px solid white',
+          color: 'white',
+          boxShadow: '4px 4px 0px white',
+        };
+      case 'soft':
+        return {
+          ...base,
+          backgroundColor: `hsl(var(--${color}-base) / 0.1)`,
+          border: `1px solid hsl(var(--${color}-base) / 0.3)`,
+          boxShadow: 'none',
+        };
+case 'default':
       default:
         return {
           backgroundColor: `hsl(var(--${color}-base) / 0.05)`,

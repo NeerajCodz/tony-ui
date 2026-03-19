@@ -8,7 +8,7 @@ import { Command as CommandPrimitive } from 'cmdk';
 interface ComboboxProps {
   version?: string;
   variant?: 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
-  type?: 'default' | 'outline' | 'solid';
+  type?: 'default' | 'outline' | 'solid' | 'inverse' | 'contrast' | 'soft';
   animated?: boolean;
   className?: string;
   options?: { value: string; label: string }[];
@@ -65,6 +65,7 @@ const Component = React.forwardRef<HTMLButtonElement, ComboboxProps>(({
 
   // Use drop-shadow to create a border that follows the clip-path
   const getTypeStyles = (): React.CSSProperties => {
+    const base: React.CSSProperties = {};
     const colorVar = `var(--${color})`;
     switch (type) {
       case 'outline':
@@ -77,7 +78,30 @@ const Component = React.forwardRef<HTMLButtonElement, ComboboxProps>(({
           backgroundColor: `rgba(var(--${color}-rgb), 0.15)`,
           filter: `drop-shadow(1px 0 0 ${colorVar}) drop-shadow(-1px 0 0 ${colorVar}) drop-shadow(0 1px 0 ${colorVar}) drop-shadow(0 -1px 0 ${colorVar})`,
         };
-      case 'default':
+      
+      case 'inverse':
+        return {
+          ...base,
+          backgroundColor: 'white',
+          color: 'black',
+          border: '1px solid black',
+        };
+      case 'contrast':
+        return {
+          ...base,
+          backgroundColor: 'black',
+          border: '2px solid white',
+          color: 'white',
+          boxShadow: '4px 4px 0px white',
+        };
+      case 'soft':
+        return {
+          ...base,
+          backgroundColor: 'rgba(var(--primary-rgb), 0.1)',
+          border: '1px solid rgba(var(--primary-rgb), 0.2)',
+          boxShadow: 'none',
+        };
+case 'default':
       default:
         return {
           backgroundColor: `rgba(var(--${color}-rgb), 0.05)`,

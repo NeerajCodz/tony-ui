@@ -18,7 +18,7 @@ type ScrollAreaVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface ScrollAreaProps extends React.ComponentProps<typeof ScrollAreaPrimitive.Root> {
   version?: ScrollAreaVersion;
@@ -59,7 +59,7 @@ const loadVersionModule = async (version: ScrollAreaVersion) => {
     case 'energy-shield': return import('./scroll-area-energy-shield.tsx');
     case 'terminal-window': return import('./scroll-area-terminal-window.tsx');
     case 'matrix-grid': return import('./scroll-area-matrix-grid.tsx');
-    case 'neon-outline': return import('./scroll-area-neon-outline.tsx');
+    case 'neon': return import('./scroll-area-neon.tsx');
     default: return import('./scroll-area-angular-corner.tsx');
   }
 };

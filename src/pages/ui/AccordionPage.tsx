@@ -13,7 +13,7 @@ export function AccordionPage() {
     'energy-shield',
     'terminal-window',
     'matrix-grid',
-    'neon-outline',
+    'neon',
   ];
 
   const variants = ['neutral', 'primary', 'success', 'warning', 'info', 'destructive'];

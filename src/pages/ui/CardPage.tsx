@@ -24,7 +24,7 @@ export function UICardPage() {
     'matrix-grid',
     'glass-morphism',
     'tech-panel',
-    'neon-outline'
+    'neon'
   ];
 
   // State from URL params or defaults

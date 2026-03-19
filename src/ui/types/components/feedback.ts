@@ -23,7 +23,7 @@ export type AlertVersion =
   | 'energy-shield' 
   | 'terminal-window' 
   | 'matrix-grid' 
-  | 'neon-outline';
+  | 'neon';
 
 export type AlertType = 'default' | 'outline' | 'solid';
 export type AlertVariant = 'neutral' | 'success' | 'warning' | 'info' | 'destructive';
@@ -103,11 +103,11 @@ export const ALERT_VERSION_CONFIGS: Record<AlertVersion, AlertVersionConfig> = {
     classPrefix: 'alert-matrix-grid',
     description: 'Animated grid overlay with digital effect'
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'alert-neon-outline',
+    classPrefix: 'alert-neon',
     description: 'High-contrast neon glow with thick outer bloom'
   }
 };
@@ -145,7 +145,7 @@ export type BadgeVersion =
   | 'energy-shield' 
   | 'terminal-window' 
   | 'matrix-grid' 
-  | 'neon-outline';
+  | 'neon';
 
 export type BadgeType = 'default' | 'outline' | 'solid';
 export type BadgeVariant = 'neutral' | 'success' | 'warning' | 'info' | 'destructive';
@@ -225,11 +225,11 @@ export const BADGE_VERSION_CONFIGS: Record<BadgeVersion, BadgeVersionConfig> = {
     classPrefix: 'badge-matrix-grid',
     description: 'Compact grid-style badge'
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'badge-neon-outline',
+    classPrefix: 'badge-neon',
     description: 'High-contrast neon micro glow'
   }
 };
@@ -262,7 +262,7 @@ export type ToastVersion =
   | 'energy-shield' 
   | 'terminal-window' 
   | 'matrix-grid' 
-  | 'neon-outline';
+  | 'neon';
 
 export type ToastType = 'default' | 'outline' | 'solid';
 export type ToastVariant = 'neutral' | 'success' | 'warning' | 'info' | 'destructive';
@@ -342,11 +342,11 @@ export const TOAST_VERSION_CONFIGS: Record<ToastVersion, ToastVersionConfig> = {
     classPrefix: 'toast-matrix-grid',
     description: 'Animated grid overlay with digital effect'
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'toast-neon-outline',
+    classPrefix: 'toast-neon',
     description: 'High-contrast neon glow with thick outer bloom'
   }
 };
@@ -689,7 +689,7 @@ export type SkeletonVersion =
   | 'energy-shield' 
   | 'terminal-window' 
   | 'matrix-grid' 
-  | 'neon-outline';
+  | 'neon';
 
 export type SkeletonType = 'default' | 'outline' | 'solid';
 export type SkeletonVariant = 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
@@ -769,11 +769,11 @@ export const SKELETON_VERSION_CONFIGS: Record<SkeletonVersion, SkeletonVersionCo
     classPrefix: 'skeleton-matrix-grid',
     description: 'Animated grid with digital rain shimmer'
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'skeleton-neon-outline',
+    classPrefix: 'skeleton-neon',
     description: 'High-contrast neon glow with pulsing shimmer'
   }
 };
@@ -808,7 +808,7 @@ export type EmptyVersion =
   | 'energy-shield' 
   | 'terminal-window' 
   | 'matrix-grid' 
-  | 'neon-outline';
+  | 'neon';
 
 export type EmptyType = 'default' | 'outline' | 'solid';
 export type EmptyVariant = 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
@@ -888,11 +888,11 @@ export const EMPTY_VERSION_CONFIGS: Record<EmptyVersion, EmptyVersionConfig> = {
     classPrefix: 'empty-matrix-grid',
     description: 'Grid overlay empty state with digital effect'
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'empty-neon-outline',
+    classPrefix: 'empty-neon',
     description: 'High-contrast neon glow empty container'
   }
 };

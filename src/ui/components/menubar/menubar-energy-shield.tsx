@@ -17,7 +17,7 @@ const getRootStyles = (version: string) => {
     'energy-shield': "bg-cyan-950/20 border border-cyan-400/30 shadow-[inset_0_0_10px_rgba(6,182,212,0.1)] rounded-lg",
     'terminal-window': "bg-black border-b border-green-500/50 rounded-none h-8",
     'matrix-grid': "bg-black border-b border-green-900 rounded-none h-10",
-    'neon-outline': "bg-black border border-cyan-400 shadow-[0_0_5px_cyan] rounded-md",
+    'neon': "bg-black border border-cyan-400 shadow-[0_0_5px_cyan] rounded-md",
   };
   return cn(base, styles[version as keyof typeof styles]);
 };
@@ -36,7 +36,7 @@ const getTriggerStyles = (version: string) => {
     'energy-shield': "focus:bg-cyan-500/20 focus:text-cyan-200 data-[state=open]:bg-cyan-500/20 data-[state=open]:text-cyan-200",
     'terminal-window': "font-mono focus:bg-green-500 focus:text-black data-[state=open]:bg-green-500 data-[state=open]:text-black rounded-none",
     'matrix-grid': "font-mono text-green-600 focus:text-green-300 data-[state=open]:text-green-300 rounded-none",
-    'neon-outline': "focus:text-cyan-400 focus:drop-shadow-[0_0_5px_cyan] data-[state=open]:text-cyan-400",
+    'neon': "focus:text-cyan-400 focus:drop-shadow-[0_0_5px_cyan] data-[state=open]:text-cyan-400",
   };
   return cn(base, styles[version as keyof typeof styles]);
 };
@@ -55,7 +55,7 @@ const getContentStyles = (version: string) => {
     'energy-shield': "bg-cyan-950/80 border border-cyan-400/30 text-cyan-200 shadow-[0_0_10px_rgba(6,182,212,0.1)] rounded-lg",
     'terminal-window': "bg-black border border-green-500/50 text-green-500 font-mono text-xs p-0",
     'matrix-grid': "bg-black border border-green-900 text-green-400 font-mono",
-    'neon-outline': "bg-black border border-cyan-400 text-cyan-400 shadow-[0_0_5px_cyan] rounded-md",
+    'neon': "bg-black border border-cyan-400 text-cyan-400 shadow-[0_0_5px_cyan] rounded-md",
   };
   return cn(base, styles[version as keyof typeof styles]);
 };
@@ -74,7 +74,7 @@ const getItemStyles = (version: string) => {
     'energy-shield': "focus:bg-cyan-500/20 focus:text-cyan-200",
     'terminal-window': "focus:bg-green-500 focus:text-black rounded-none",
     'matrix-grid': "focus:bg-green-900/30 focus:text-green-300 rounded-none border border-transparent focus:border-green-500/50",
-    'neon-outline': "focus:bg-cyan-500/10 focus:text-cyan-300 focus:shadow-[inset_0_0_5px_cyan]",
+    'neon': "focus:bg-cyan-500/10 focus:text-cyan-300 focus:shadow-[inset_0_0_5px_cyan]",
   };
   return cn(base, styles[version as keyof typeof styles]);
 };

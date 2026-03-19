@@ -103,7 +103,7 @@ const DataTable = <TData, TValue>({
       header: `border-bottom: 1px solid hsl(var(--${color}-base)); text-shadow: 0 0 5px hsl(var(--${color}-base));`,
       row: `border-bottom: 1px solid hsl(var(--${color}-base) / 0.3);`,
     },
-    'neon-outline': {
+    'neon': {
       wrapper: `border: 2px solid hsl(var(--${color}-base)); box-shadow: 0 0 10px hsl(var(--${color}-base)), inset 0 0 5px hsl(var(--${color}-base)); background: transparent;`,
       header: `border-bottom: 2px solid hsl(var(--${color}-base)); background: hsl(var(--${color}-base) / 0.1);`,
       row: `border-bottom: 1px solid hsl(var(--${color}-base) / 0.5);`,

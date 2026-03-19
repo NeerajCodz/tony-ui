@@ -30,7 +30,7 @@ const loadVersionModule = async (version: DropdownMenuVersion) => {
     case 'energy-shield': return import('../components/dropdown-menu/dropdown-menu-energy-shield.tsx');
     case 'terminal-window': return import('../components/dropdown-menu/dropdown-menu-terminal-window.tsx');
     case 'matrix-grid': return import('../components/dropdown-menu/dropdown-menu-matrix-grid.tsx');
-    case 'neon-outline': return import('../components/dropdown-menu/dropdown-menu-neon-outline.tsx');
+    case 'neon': return import('../components/dropdown-menu/dropdown-menu-neon.tsx');
     default: return import('../components/dropdown-menu/dropdown-menu-angular-corner.tsx');
   }
 };

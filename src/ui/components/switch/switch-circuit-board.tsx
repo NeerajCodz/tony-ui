@@ -40,7 +40,7 @@ const versionStyles = {
     root: "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center border border-lime-500/40 bg-black/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-lime-900/40 data-[state=unchecked]:bg-black rounded-sm",
     thumb: "pointer-events-none block h-4 w-4 bg-lime-400 ring-0 transition-transform data-[state=checked]:translate-x-6 data-[state=unchecked]:translate-x-1 rounded-sm shadow-[0_0_5px_rgba(163,230,53,0.5)]",
   },
-  'neon-outline': {
+  'neon': {
     root: "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center border-2 border-fuchsia-500/70 bg-transparent shadow-[0_0_5px_rgba(217,70,239,0.3)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-fuchsia-500/20 data-[state=unchecked]:bg-transparent rounded-full",
     thumb: "pointer-events-none block h-4 w-4 bg-fuchsia-300 ring-0 transition-transform data-[state=checked]:translate-x-6 data-[state=unchecked]:translate-x-1 rounded-full drop-shadow-[0_0_5px_rgba(217,70,239,0.8)]",
   },

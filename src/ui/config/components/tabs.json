@@ -119,7 +119,7 @@
         "continuous": "digital-rain"
       }
     },
-    "neon-outline": {
+    "neon": {
       "name": "Neon Outline",
       "enabled": true,
       "description": "High-contrast neon glow effect",

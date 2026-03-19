@@ -48,6 +48,21 @@ export function InputOTPSlot({
     backgroundColor: isActive ? colors?.accent?.secondary : 'transparent',
     color: colors?.text
   };
+  if (type === 'inverse') {
+    style.backgroundColor = colors?.text || '#000000';
+    style.color = colors?.background || '#ffffff';
+    style.borderColor = colors?.background || '#ffffff';
+  } else if (type === 'contrast') {
+    style.backgroundColor = colors?.background || '#ffffff';
+    style.color = colors?.text || '#000000';
+    style.border = `2px solid ${colors?.text || '#000000'}`;
+    style.fontWeight = 'bold';
+  } else if (type === 'soft') {
+    style.backgroundColor = colors?.accent?.primary ? `${colors.accent.primary}20` : '#00000020';
+    style.color = colors?.text || '#000000';
+    style.borderColor = colors?.accent?.primary ? `${colors.accent.primary}30` : 'transparent';
+  }
+
 
   return (
     <div

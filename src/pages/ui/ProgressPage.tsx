@@ -12,7 +12,7 @@ export function ProgressPage() {
     'energy-shield',
     'terminal-window',
     'matrix-grid',
-    'neon-outline',
+    'neon',
   ];
 
   const [progress, setProgress] = useState(13);

@@ -19,7 +19,7 @@ type ResizableVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface ResizablePanelGroupProps extends React.ComponentProps<typeof PanelGroup> {
   version?: ResizableVersion;
@@ -53,7 +53,7 @@ const versionComponents = {
   'energy-shield': lazy(() => import('./resizable-energy-shield.tsx')),
   'terminal-window': lazy(() => import('./resizable-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('./resizable-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('./resizable-neon-outline.tsx')),
+  'neon': lazy(() => import('./resizable-neon.tsx')),
 };
 
 // --- Main Component ---

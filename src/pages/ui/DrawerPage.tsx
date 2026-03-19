@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Drawer } from '../../ui';
-import { Button } from '../../ui/components/button'; // Assuming Button component exists
+import { Drawer } from '../../ui/handlers/drawer';
+import { Button } from '../../ui/handlers/button'; // Assuming Button component exists
 import { cn } from '../../lib/utils';
 import { Minus, Plus, BarChart3, TrendingUp, TrendingDown, Target } from 'lucide-react';
 
@@ -15,7 +15,7 @@ export function DrawerPage() {
     'energy-shield',
     'terminal-window',
     'matrix-grid',
-    'neon-outline',
+    'neon',
   ];
 
   const variants = ['neutral', 'primary', 'success', 'warning', 'info', 'destructive'];

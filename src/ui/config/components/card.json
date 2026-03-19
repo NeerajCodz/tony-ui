@@ -107,7 +107,7 @@
         "hover": "pixel-rain scale-[1.01]"
       }
     },
-    "neon-outline": {
+    "neon": {
       "name": "Neon Outline",
       "description": "High-contrast glowing perimeter",
       "enabled": true,

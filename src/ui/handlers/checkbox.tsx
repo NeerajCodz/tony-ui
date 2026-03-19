@@ -28,7 +28,7 @@ const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
   'energy-shield': lazy(() => import('../components/checkbox/checkbox-energy-shield.tsx')),
   'terminal-window': lazy(() => import('../components/checkbox/checkbox-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('../components/checkbox/checkbox-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('../components/checkbox/checkbox-neon-outline.tsx')),
+  'neon': lazy(() => import('../components/checkbox/checkbox-neon.tsx')),
 };
 
 // Loading skeleton

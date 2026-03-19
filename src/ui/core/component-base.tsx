@@ -91,7 +91,7 @@ export const CLIP_PATHS: Record<string, string> = {
   'holo-frame': 'polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px)',
   'large': 'none',
   'matrix-grid': 'none',
-  'neon-outline': 'none',
+  'neon': 'none',
   'padding': 'none',
   'pill': 'none',
   'quantum-gate': 'polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px)',
@@ -112,7 +112,7 @@ export function getVersionBorderStyle(version: Version, colors: VariantColors): 
   switch (version) {
     case 'angular-corner':
       return { border: `2px solid ${base}`, boxShadow: `0 0 10px ${glow}40` };
-    case 'neon-outline':
+    case 'neon':
       return { border: `2px solid ${base}`, boxShadow: `0 0 15px ${glow}, inset 0 0 10px ${glow}20` };
     case 'holo-frame':
       return { border: `1px solid ${base}80`, boxShadow: `0 0 20px ${glow}30, inset 0 0 15px ${glow}10` };
@@ -156,7 +156,7 @@ export function getVersionBackground(version: Version, colors: VariantColors): R
     case 'tactical-hud':
     case 'tech-panel':
       return { background: `linear-gradient(135deg, ${base}15 0%, ${base}05 100%)` };
-    case 'neon-outline':
+    case 'neon':
       return { background: `radial-gradient(ellipse at center, ${base}10 0%, transparent 70%)` };
     case 'holo-frame':
       return { background: `linear-gradient(180deg, ${base}10 0%, transparent 50%, ${base}05 100%)` };
@@ -188,7 +188,7 @@ export function getVersionBackground(version: Version, colors: VariantColors): R
 
 export const HOVER_ANIMATIONS: Record<string, React.CSSProperties> = {
   'angular-corner': { filter: 'brightness(1.1)', transform: 'translateY(-1px)' },
-  'neon-outline': { filter: 'brightness(1.3) drop-shadow(0 0 10px currentColor)' },
+  'neon': { filter: 'brightness(1.3) drop-shadow(0 0 10px currentColor)' },
   'holo-frame': { filter: 'brightness(1.15)', transform: 'scale(1.01)' },
   'energy-shield': { filter: 'brightness(1.2)', transform: 'scale(1.02)' },
   'circuit-board': { filter: 'brightness(1.05)' },
@@ -198,7 +198,7 @@ export const HOVER_ANIMATIONS: Record<string, React.CSSProperties> = {
 
 export const ACTIVE_ANIMATIONS: Record<string, React.CSSProperties> = {
   'angular-corner': { transform: 'scale(0.98)' },
-  'neon-outline': { transform: 'scale(0.97)', filter: 'brightness(0.9)' },
+  'neon': { transform: 'scale(0.97)', filter: 'brightness(0.9)' },
   'holo-frame': { transform: 'scale(0.99)' },
   'energy-shield': { transform: 'scale(0.97)' },
   'default': { transform: 'scale(0.98)' },

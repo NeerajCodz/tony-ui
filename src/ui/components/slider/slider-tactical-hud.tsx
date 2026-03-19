@@ -58,7 +58,7 @@ const versionStyles = {
     range: "absolute h-full bg-lime-600",
     thumb: "block h-3 w-3 bg-lime-400 ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 rounded-sm shadow-[0_0_5px_rgba(163,230,53,0.8)]",
   },
-  'neon-outline': {
+  'neon': {
     root: "relative flex w-full touch-none select-none items-center",
     track: "relative h-1.5 w-full grow overflow-hidden bg-gray-900/50 rounded-full border border-fuchsia-900/50",
     range: "absolute h-full bg-fuchsia-500 shadow-[0_0_8px_rgba(217,70,239,0.5)]",

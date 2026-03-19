@@ -49,7 +49,30 @@ const Component = React.forwardRef<HTMLDivElement, CardProps>(({
           border: `1px solid rgba(var(--${color}-rgb), 0.35)`,
           boxShadow: `0 8px 24px -6px rgba(var(--${color}-rgb), 0.2)`,
         };
-      case 'default':
+      
+      case 'inverse':
+        return {
+          ...base,
+          backgroundColor: 'white',
+          color: 'black',
+          border: '1px solid black',
+        };
+      case 'contrast':
+        return {
+          ...base,
+          backgroundColor: 'black',
+          border: '2px solid white',
+          color: 'white',
+          boxShadow: '4px 4px 0px white',
+        };
+      case 'soft':
+        return {
+          ...base,
+          backgroundColor: 'rgba(var(--primary-rgb), 0.1)',
+          border: '1px solid rgba(var(--primary-rgb), 0.2)',
+          boxShadow: 'none',
+        };
+case 'default':
       default:
         return {
           ...base,

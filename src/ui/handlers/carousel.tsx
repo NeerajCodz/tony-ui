@@ -36,7 +36,7 @@ const loadVersionModule = async (version: CarouselVersion) => {
     case 'energy-shield': return import('../components/carousel/carousel-energy-shield.tsx');
     case 'terminal-window': return import('../components/carousel/carousel-terminal-window.tsx');
     case 'matrix-grid': return import('../components/carousel/carousel-matrix-grid.tsx');
-    case 'neon-outline': return import('../components/carousel/carousel-neon-outline.tsx');
+    case 'neon': return import('../components/carousel/carousel-neon.tsx');
     default: return import('../components/carousel/carousel-angular-corner.tsx');
   }
 };

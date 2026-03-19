@@ -13,7 +13,7 @@ export function ToastPage() {
     'energy-shield',
     'terminal-window',
     'matrix-grid',
-    'neon-outline',
+    'neon',
   ];
 
   // We need to manage state for each toast version individually for the showcase

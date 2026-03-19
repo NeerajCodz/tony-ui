@@ -18,7 +18,7 @@ const versionComponents: Record<SheetVersion, any> = {
   'energy-shield': lazy(() => import('../components/energy-shield/sheet.tsx')),
   'terminal-window': lazy(() => import('../components/terminal-window/sheet.tsx')),
   'matrix-grid': lazy(() => import('../components/matrix-grid/sheet.tsx')),
-  'neon-outline': lazy(() => import('../components/neon-outline/sheet.tsx')),
+  'neon': lazy(() => import('../components/neon/sheet.tsx')),
 };
 
 // Minimal loading skeleton

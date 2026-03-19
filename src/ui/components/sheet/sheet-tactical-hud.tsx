@@ -51,7 +51,7 @@ const versionStyles = {
     overlay: "fixed inset-0 z-50 bg-black/90 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
     close: "text-lime-500 hover:text-lime-300"
   },
-  'neon-outline': {
+  'neon': {
     root: "fixed z-50 gap-4 p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 bg-black/80 backdrop-blur-xl border-l-2 border-fuchsia-500 text-fuchsia-300",
     overlay: "fixed inset-0 z-50 bg-fuchsia-950/20 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
     close: "text-fuchsia-500 hover:text-fuchsia-300"

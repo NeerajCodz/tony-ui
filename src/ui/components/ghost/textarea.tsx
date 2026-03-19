@@ -5,16 +5,31 @@ import type { VariantColors } from '../../types/common';
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   version?: string;
+  type?: string;
   variant?: string;
   colors?: VariantColors;
 }
 
 const GhostTextarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, colors, style, ...props }, ref) => {
-    const bg = colors?.base || 'transparent';
-    const fg = colors?.foreground || 'currentColor';
-    const border = colors?.border || '#e5e7eb';
+  ({ className, colors, type, style, ...props }, ref) => {
+    let bg = colors?.base || 'transparent';
+    let fg = colors?.foreground || 'currentColor';
+    let border = colors?.border || '#e5e7eb';
     const glow = colors?.glow || 'transparent';
+
+    if (type === 'inverse') {
+      const temp = bg;
+      bg = fg;
+      fg = temp;
+      border = bg;
+    } else if (type === 'contrast') {
+      border = fg;
+      bg = colors?.base || '#000000';
+      fg = colors?.foreground || '#ffffff';
+    } else if (type === 'soft') {
+      bg = colors?.muted || bg;
+      border = colors?.border ? `${colors.border}40` : border;
+    }
 
     return (
       <textarea

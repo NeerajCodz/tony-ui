@@ -5,6 +5,35 @@ import * as MenubarPrimitive from '@radix-ui/react-menubar';
 import { cn } from '@/lib/utils';
 import { VariantColors } from '@/ui/types/common';
 
+const getStyles = (type?: string, colors?: VariantColors) => {
+  if (!type || !colors) return {};
+  
+  switch (type) {
+    case 'inverse':
+      return {
+        backgroundColor: colors.text,
+        color: colors.background,
+        border: `1px solid ${colors.text}`
+      };
+    case 'contrast':
+      return {
+        backgroundColor: colors.accent?.primary || colors.text,
+        color: '#000000',
+        fontWeight: 'bold',
+        border: `1px solid ${colors.text}`
+      };
+    case 'soft':
+      return {
+        backgroundColor: colors.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
+        color: colors.accent?.primary || colors.text,
+        border: 'none'
+      };
+    default:
+      return {};
+  }
+};
+
+
 // Interfaces (simplified for generation)
 interface MenubarProps extends React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Root> {
   version?: string;
@@ -21,7 +50,7 @@ const MenubarRoot = forwardRef<React.ElementRef<typeof MenubarPrimitive.Root>, M
         "flex h-10 items-center space-x-1 rounded-md border p-1",
         className
       )}
-      {...props}
+      {...props} style={{ ...getStyles(type, colors), ...(props.style as any) }}
     />
   )
 );

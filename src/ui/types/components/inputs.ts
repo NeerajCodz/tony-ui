@@ -28,15 +28,15 @@ import type { ColorType } from '../colors.d.js';
  * - energy-shield: Hexagonal shield with energy waves
  * - terminal-window: Command prompt aesthetic
  * - matrix-grid: Animated grid with digital rain
- * - neon-outline: High-contrast neon glow
+ * - neon: High-contrast neon glow
  */
-export type InputVersion = 'angular-corner' | 'holo-frame' | 'data-panel' | 'circuit-board' | 'quantum-gate' | 'tactical-hud' | 'energy-shield' | 'terminal-window' | 'matrix-grid' | 'neon-outline';
+export type InputVersion = 'angular-corner' | 'holo-frame' | 'data-panel' | 'circuit-board' | 'quantum-gate' | 'tactical-hud' | 'energy-shield' | 'terminal-window' | 'matrix-grid' | 'neon';
 
 /**
  * Input Type - Border and fill style (default, outline, solid)
  * Determines how the input border and background are rendered
  */
-export type InputType = 'default' | 'outline' | 'solid';
+export type InputType = 'default' | 'outline' | 'solid' | 'inverse' | 'contrast' | 'soft';
 
 /**
  * Input Variant - Built-in style variants for any version
@@ -190,11 +190,11 @@ export const INPUT_VERSION_CONFIGS: Record<InputVersion, InputVersionConfig> = {
     features: ['animated-grid', 'digital-rain', 'corner-nodes']
   },
   
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'input-neon-outline',
+    classPrefix: 'input-neon',
     clipPath: 'polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)',
     colorType: 'primary',
     supportsVariants: true,
@@ -307,7 +307,7 @@ export type CheckboxVersion =
   | 'matrix-cell'       // Digital matrix cell
   | 'neon-pulse';       // Neon glow pulse
 
-export type CheckboxType = 'default' | 'outline' | 'solid';
+export type CheckboxType = 'default' | 'outline' | 'solid' | 'inverse' | 'contrast' | 'soft';
 export type CheckboxVariant = 'neutral' | 'success' | 'warning' | 'info' | 'destructive';
 
 /**
@@ -656,7 +656,7 @@ export type FieldVersion =
   | 'energy-shield'     // Hexagonal shield pattern
   | 'terminal-window'   // Command terminal style
   | 'matrix-grid'       // Digital matrix grid
-  | 'neon-outline';     // Intense neon glow
+  | 'neon';     // Intense neon glow
 
 export type FieldType = 'default' | 'outline' | 'solid';
 
@@ -738,8 +738,8 @@ export const FIELD_VERSION_CONFIGS: Record<FieldVersion, FieldVersionConfig> = {
     description: 'Animated grid overlay with digital rain effect',
     features: ['animated-grid', 'digital-rain', 'corner-nodes']
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
     description: 'High-contrast neon glow with thick outer bloom',

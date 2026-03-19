@@ -10,7 +10,7 @@ const CLIP_PATH = CLIP_PATHS['angular-corner']?.card || 'polygon(16px 0, 100% 0,
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   version?: string;
   variant?: string;
-  type?: string;
+  type?: string | 'inverse' | 'contrast' | 'soft';
   size?: string;
   colors?: VariantColors;
   styles?: React.CSSProperties;
@@ -62,7 +62,30 @@ const AngularCornerCard = React.forwardRef<HTMLDivElement, CardProps>(({
           backgroundColor: 'transparent',
           border: `1px solid ${borderColor}40`,
         };
-      case 'default':
+      
+      case 'inverse':
+        return {
+          ...base,
+          backgroundColor: 'white',
+          color: 'black',
+          border: '1px solid black',
+        };
+      case 'contrast':
+        return {
+          ...base,
+          backgroundColor: 'black',
+          border: '2px solid white',
+          color: 'white',
+          boxShadow: '4px 4px 0px white',
+        };
+      case 'soft':
+        return {
+          ...base,
+          backgroundColor: `${colors?.base || '#000000'}20`,
+          border: `1px solid ${colors?.base || '#000000'}30`,
+          boxShadow: 'none',
+        };
+case 'default':
       default:
         return {
           ...base,

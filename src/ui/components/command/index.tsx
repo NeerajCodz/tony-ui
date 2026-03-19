@@ -21,7 +21,7 @@ type CommandVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface CommandProps extends React.ComponentPropsWithoutRef<typeof CommandPrimitive> {
   version?: CommandVersion;
@@ -64,7 +64,7 @@ const loadVersionModule = async (version: CommandVersion) => {
     case 'energy-shield': return import('./command-energy-shield.tsx');
     case 'terminal-window': return import('./command-terminal-window.tsx');
     case 'matrix-grid': return import('./command-matrix-grid.tsx');
-    case 'neon-outline': return import('./command-neon-outline.tsx');
+    case 'neon': return import('./command-neon.tsx');
     default: return import('./command-angular-corner.tsx');
   }
 };

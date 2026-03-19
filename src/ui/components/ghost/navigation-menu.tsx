@@ -5,6 +5,35 @@ import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { cn } from '@/lib/utils';
 import { VariantColors } from '@/ui/types/common';
 
+const getStyles = (type?: string, colors?: VariantColors) => {
+  if (!type || !colors) return {};
+  
+  switch (type) {
+    case 'inverse':
+      return {
+        backgroundColor: colors.text,
+        color: colors.background,
+        border: `1px solid ${colors.text}`
+      };
+    case 'contrast':
+      return {
+        backgroundColor: colors.accent?.primary || colors.text,
+        color: '#000000',
+        fontWeight: 'bold',
+        border: `1px solid ${colors.text}`
+      };
+    case 'soft':
+      return {
+        backgroundColor: colors.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
+        color: colors.accent?.primary || colors.text,
+        border: 'none'
+      };
+    default:
+      return {};
+  }
+};
+
+
 const NavigationMenuRoot = forwardRef<React.ElementRef<typeof NavigationMenuPrimitive.Root>, React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root> & { version?: string, variant?: string, type?: string, colors?: VariantColors }>(
   ({ className, children, version, variant, type, colors, ...props }, ref) => (
     <NavigationMenuPrimitive.Root
@@ -13,7 +42,7 @@ const NavigationMenuRoot = forwardRef<React.ElementRef<typeof NavigationMenuPrim
         "relative z-10 flex max-w-max flex-1 items-center justify-center",
         className
       )}
-      {...props}
+      {...props} style={{ ...getStyles(type, colors), ...(props.style as any) }}
     >
       {children}
       <NavigationMenuViewport />

@@ -26,7 +26,7 @@ export type AccordionVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 /**
  * Accordion Type - Border and fill style
@@ -127,11 +127,11 @@ export const ACCORDION_VERSION_CONFIGS: Record<AccordionVersion, AccordionVersio
     description: 'Digital matrix grid with code reveal',
     features: ['grid-overlay', 'digital-reveal', 'glitch-effect']
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'accordion-neon-outline',
+    classPrefix: 'accordion-neon',
     description: 'High-contrast neon glow with expand animation',
     features: ['neon-glow', 'pulse-expand', 'outer-bloom']
   }
@@ -219,12 +219,12 @@ export type CollapsibleVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 /**
  * Collapsible Type - Border and fill style
  */
-export type CollapsibleType = 'default' | 'outline' | 'solid';
+export type CollapsibleType = 'default' | 'outline' | 'solid' | 'inverse' | 'contrast' | 'soft';
 
 /**
  * Collapsible Variant - Color variants
@@ -320,11 +320,11 @@ export const COLLAPSIBLE_VERSION_CONFIGS: Record<CollapsibleVersion, Collapsible
     description: 'Digital matrix grid with code reveal',
     features: ['grid-overlay', 'digital-reveal', 'glitch-effect']
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'collapsible-neon-outline',
+    classPrefix: 'collapsible-neon',
     description: 'High-contrast neon glow with expand animation',
     features: ['neon-glow', 'pulse-expand', 'outer-bloom']
   }
@@ -391,7 +391,7 @@ export type SeparatorVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 /**
  * Separator Type - Border and fill style
@@ -492,11 +492,11 @@ export const SEPARATOR_VERSION_CONFIGS: Record<SeparatorVersion, SeparatorVersio
     description: 'Digital matrix grid with code rain effect',
     features: ['grid-dots', 'digital-rain', 'glitch-effect']
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'separator-neon-outline',
+    classPrefix: 'separator-neon',
     description: 'High-contrast neon glow with intense outer bloom',
     features: ['neon-glow', 'pulse-brightness', 'outer-bloom']
   }

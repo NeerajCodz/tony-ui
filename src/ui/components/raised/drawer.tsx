@@ -9,10 +9,21 @@ export const Overlay = React.forwardRef(({ className, version = 'raised', ...pro
   <DrawerPrimitive.Overlay ref={ref} className={cn(styles.overlay, className)} {...props} />
 ));
 Overlay.displayName = DrawerPrimitive.Overlay.displayName;
-export const Content = React.forwardRef(({ className, children, version = 'raised', variant = 'primary', ...props }: any, ref: any) => {
+export const Content = React.forwardRef(({ className, children, version = 'raised', type = 'default', variant = 'primary', ...props }: any, ref: any) => {
   const color = variantColors[variant as keyof typeof variantColors] || 'cyan';
   const Icon = variantIcons[variant as keyof typeof variantIcons] || variantIcons.default;
   const dynamicStyle = { borderColor: `var(--${color}-500, ${color})`, '--tw-shadow-color': `var(--${color}-500, ${color})` };
+  if (type === 'inverse') {
+    dynamicStyle.backgroundColor = `var(--${color}-500)`;
+    dynamicStyle.color = `var(--${color}-50)`;
+  } else if (type === 'contrast') {
+    dynamicStyle.backgroundColor = 'black';
+    dynamicStyle.color = 'white';
+    dynamicStyle.border = '2px solid white';
+  } else if (type === 'soft') {
+    dynamicStyle.backgroundColor = `var(--${color}-100)`;
+  }
+
   const colorClasses = `border-${color}-500 text-${color}-50`;
   return (
     <DrawerPrimitive.Content ref={ref} className={cn(styles.content, colorClasses, className)} style={dynamicStyle} {...props}>
@@ -25,12 +36,12 @@ export const Content = React.forwardRef(({ className, children, version = 'raise
   );
 });
 Content.displayName = DrawerPrimitive.Content.displayName;
-export const Title = React.forwardRef(({ className, version = 'raised', variant = 'primary', ...props }: any, ref: any) => {
+export const Title = React.forwardRef(({ className, version = 'raised', type = 'default', variant = 'primary', ...props }: any, ref: any) => {
   const color = variantColors[variant as keyof typeof variantColors] || 'cyan';
   return <DrawerPrimitive.Title ref={ref} className={cn(styles.title, `text-${color}-100`, className)} {...props} />;
 });
 Title.displayName = DrawerPrimitive.Title.displayName;
-export const Description = React.forwardRef(({ className, version = 'raised', variant = 'primary', ...props }: any, ref: any) => {
+export const Description = React.forwardRef(({ className, version = 'raised', type = 'default', variant = 'primary', ...props }: any, ref: any) => {
   const color = variantColors[variant as keyof typeof variantColors] || 'cyan';
   return <DrawerPrimitive.Description ref={ref} className={cn(styles.description, `text-${color}-400/70`, className)} {...props} />;
 });

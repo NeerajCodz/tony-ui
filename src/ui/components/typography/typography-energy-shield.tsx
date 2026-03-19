@@ -38,7 +38,7 @@ const Component = React.forwardRef<HTMLElement, TypographyProps>(({
            small: "text-sm font-medium leading-none font-mono opacity-70",
            muted: "text-sm text-muted-foreground font-mono"
          }[variant]
-       case 'neon-outline':
+       case 'neon':
           return {
            h1: "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400 drop-shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]",
            h2: "scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0 text-primary drop-shadow-[0_0_5px_rgba(var(--primary-rgb),0.5)]",

@@ -8,7 +8,7 @@ import { X } from 'lucide-react';
 const PaddingToastProvider = ToastPrimitives.Provider;
 
 const PaddingToastViewport = forwardRef<React.ElementRef<typeof ToastPrimitives.Viewport>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport> & { colors?: VariantColors }>(
-  ({ className, colors, style, ...props }, ref) => (
+  ({ className, colors, type, style, ...props }, ref) => (
     <ToastPrimitives.Viewport
       ref={ref}
       className={`fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px] ${className}`}
@@ -20,10 +20,24 @@ const PaddingToastViewport = forwardRef<React.ElementRef<typeof ToastPrimitives.
 PaddingToastViewport.displayName = 'PaddingToastViewport';
 
 const PaddingToast = forwardRef<React.ElementRef<typeof ToastPrimitives.Root>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> & { colors?: VariantColors; version?: string }>(
-  ({ className, colors, style, ...props }, ref) => {
-    const bg = colors?.base || '#1f2937';
-    const fg = colors?.foreground || '#ffffff';
-    const border = colors?.border || '#374151';
+  ({ className, colors, type, style, ...props }, ref) => {
+    let bg = colors?.base || '#1f2937';
+
+    if (type === 'inverse') {
+      const temp = bg;
+      bg = fg;
+      fg = temp;
+      border = bg;
+    } else if (type === 'contrast') {
+      border = fg;
+      bg = colors?.base || '#000000';
+      fg = colors?.foreground || '#ffffff';
+    } else if (type === 'soft') {
+      bg = colors?.muted || bg;
+      border = colors?.border ? `${colors.border}40` : border;
+    }
+    let fg = colors?.foreground || '#ffffff';
+    let border = colors?.border || '#374151';
     const glow = colors?.glow || 'transparent';
 
     return (
@@ -50,7 +64,7 @@ const PaddingToast = forwardRef<React.ElementRef<typeof ToastPrimitives.Root>, R
 PaddingToast.displayName = 'PaddingToast';
 
 const PaddingToastAction = forwardRef<React.ElementRef<typeof ToastPrimitives.Action>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Action> & { colors?: VariantColors }>(
-  ({ className, colors, style, ...props }, ref) => (
+  ({ className, colors, type, style, ...props }, ref) => (
     <ToastPrimitives.Action
       ref={ref}
       className={`inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive ${className}`}
@@ -62,7 +76,7 @@ const PaddingToastAction = forwardRef<React.ElementRef<typeof ToastPrimitives.Ac
 PaddingToastAction.displayName = 'PaddingToastAction';
 
 const PaddingToastClose = forwardRef<React.ElementRef<typeof ToastPrimitives.Close>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close> & { colors?: VariantColors }>(
-  ({ className, colors, style, ...props }, ref) => (
+  ({ className, colors, type, style, ...props }, ref) => (
     <ToastPrimitives.Close
       ref={ref}
       className={`absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600 ${className}`}
@@ -77,7 +91,7 @@ const PaddingToastClose = forwardRef<React.ElementRef<typeof ToastPrimitives.Clo
 PaddingToastClose.displayName = 'PaddingToastClose';
 
 const PaddingToastTitle = forwardRef<React.ElementRef<typeof ToastPrimitives.Title>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title> & { colors?: VariantColors }>(
-  ({ className, colors, style, ...props }, ref) => (
+  ({ className, colors, type, style, ...props }, ref) => (
     <ToastPrimitives.Title
       ref={ref}
       className={`text-sm font-semibold ${className}`}
@@ -89,7 +103,7 @@ const PaddingToastTitle = forwardRef<React.ElementRef<typeof ToastPrimitives.Tit
 PaddingToastTitle.displayName = 'PaddingToastTitle';
 
 const PaddingToastDescription = forwardRef<React.ElementRef<typeof ToastPrimitives.Description>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description> & { colors?: VariantColors }>(
-  ({ className, colors, style, ...props }, ref) => (
+  ({ className, colors, type, style, ...props }, ref) => (
     <ToastPrimitives.Description
       ref={ref}
       className={`text-sm opacity-90 ${className}`}

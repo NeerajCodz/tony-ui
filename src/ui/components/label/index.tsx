@@ -19,7 +19,7 @@ type LabelVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface LabelProps extends React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> {
   version?: LabelVersion;
@@ -38,7 +38,7 @@ const versionComponents = {
   'energy-shield': lazy(() => import('./label-energy-shield.tsx')),
   'terminal-window': lazy(() => import('./label-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('./label-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('./label-neon-outline.tsx')),
+  'neon': lazy(() => import('./label-neon.tsx')),
 };
 
 // --- Main Component ---

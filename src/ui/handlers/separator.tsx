@@ -27,7 +27,7 @@ const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
   'energy-shield': lazy(() => import('../components/separator/separator-energy-shield.tsx')),
   'terminal-window': lazy(() => import('../components/separator/separator-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('../components/separator/separator-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('../components/separator/separator-neon-outline.tsx')),
+  'neon': lazy(() => import('../components/separator/separator-neon.tsx')),
 };
 
 // Fallback

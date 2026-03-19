@@ -6,7 +6,7 @@ import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tool
 interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   version?: string;
   variant?: 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
-  type?: 'default' | 'outline' | 'solid';
+  type?: 'default' | 'outline' | 'solid' | 'inverse' | 'contrast' | 'soft';
   animated?: boolean;
   data?: any[];
   height?: number | string;
@@ -46,6 +46,7 @@ const Component = React.forwardRef<HTMLDivElement, ChartProps>(({
   const color = colorMap[variant] || 'primary';
 
   const getTypeStyles = (): React.CSSProperties => {
+    const base: React.CSSProperties = {};
     switch (type) {
       case 'outline':
         return {
@@ -57,7 +58,30 @@ const Component = React.forwardRef<HTMLDivElement, ChartProps>(({
           backgroundColor: `rgba(var(--${color}-rgb), 0.1)`,
           border: `1px solid rgba(var(--${color}-rgb), 0.5)`,
         };
-      case 'default':
+      
+      case 'inverse':
+        return {
+          ...base,
+          backgroundColor: 'white',
+          color: 'black',
+          border: '1px solid black',
+        };
+      case 'contrast':
+        return {
+          ...base,
+          backgroundColor: 'black',
+          border: '2px solid white',
+          color: 'white',
+          boxShadow: '4px 4px 0px white',
+        };
+      case 'soft':
+        return {
+          ...base,
+          backgroundColor: 'rgba(var(--primary-rgb), 0.1)',
+          border: '1px solid rgba(var(--primary-rgb), 0.2)',
+          boxShadow: 'none',
+        };
+case 'default':
       default:
         return {
           backgroundColor: `rgba(var(--${color}-rgb), 0.05)`,

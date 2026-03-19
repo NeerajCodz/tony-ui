@@ -44,7 +44,7 @@ const loadVersionModule = async (version: AccordionVersion) => {
     case 'energy-shield': return import('../components/energy-shield/accordion.tsx');
     case 'terminal-window': return import('../components/terminal-window/accordion.tsx');
     case 'matrix-grid': return import('../components/matrix-grid/accordion.tsx');
-    case 'neon-outline': return import('../components/neon-outline/accordion.tsx');
+    case 'neon': return import('../components/neon/accordion.tsx');
     case 'glass-morphism': return import('../components/glass-morphism/accordion.tsx');
     case 'tech-panel': return import('../components/tech-panel/accordion.tsx');
     case 'default': return import('../components/default/accordion.tsx');

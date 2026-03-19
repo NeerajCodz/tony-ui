@@ -18,7 +18,7 @@ type SeparatorVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface SeparatorProps extends React.ComponentProps<typeof SeparatorPrimitive.Root> {
   version?: SeparatorVersion;
@@ -37,7 +37,7 @@ const versionComponents: Record<string, any> = {
   'energy-shield': lazy(() => import('./separator-energy-shield.tsx')),
   'terminal-window': lazy(() => import('./separator-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('./separator-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('./separator-neon-outline.tsx')),
+  'neon': lazy(() => import('./separator-neon.tsx')),
 };
 
 // --- Main Component ---

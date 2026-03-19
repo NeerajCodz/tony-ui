@@ -28,7 +28,7 @@ const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
   'energy-shield': lazy(() => import('../components/button-group/button-group-energy-shield.tsx')),
   'terminal-window': lazy(() => import('../components/button-group/button-group-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('../components/button-group/button-group-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('../components/button-group/button-group-neon-outline.tsx')),
+  'neon': lazy(() => import('../components/button-group/button-group-neon.tsx')),
 };
 
 // Loading skeleton

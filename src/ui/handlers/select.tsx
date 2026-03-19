@@ -29,7 +29,7 @@ const loadVersionModule = async (version: SelectVersion) => {
     case 'energy-shield': return import('../components/select/select-energy-shield.tsx');
     case 'terminal-window': return import('../components/select/select-terminal-window.tsx');
     case 'matrix-grid': return import('../components/select/select-matrix-grid.tsx');
-    case 'neon-outline': return import('../components/select/select-neon-outline.tsx');
+    case 'neon': return import('../components/select/select-neon.tsx');
     default: return import('../components/select/select-angular-corner.tsx');
   }
 };

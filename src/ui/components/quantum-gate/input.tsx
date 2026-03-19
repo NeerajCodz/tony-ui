@@ -31,7 +31,24 @@ export default function Input({
       backgroundColor: 'transparent',
       color: colors.textHover
     }
-  };
+ ,
+    inverse: {
+      backgroundColor: colors?.text || colors?.foreground || '#000000',
+      color: colors?.background || '#ffffff',
+      border: `1px solid ${colors?.background || '#ffffff'}`
+    },
+    contrast: {
+      backgroundColor: colors?.background || '#ffffff',
+      color: colors?.text || colors?.foreground || '#000000',
+      border: `2px solid ${colors?.text || colors?.foreground || '#000000'}`,
+      fontWeight: 'bold'
+    },
+    soft: {
+      backgroundColor: colors?.accent?.primary ? `${colors.accent.primary}20` : '#00000020',
+      color: colors?.text || '#000000',
+      border: colors?.accent?.primary ? `1px solid ${colors.accent.primary}30` : 'none'
+    }
+   };
 
 
   return (

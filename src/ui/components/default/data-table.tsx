@@ -18,7 +18,7 @@ interface DataTableProps<TData, TValue> {
 const DataTable = <TData, TValue>({
   columns = [],
   data = [],
-  variant = 'neutral',
+  type = 'default', variant = 'neutral',
   className,
   ...props
 }: DataTableProps<TData, TValue>) => {
@@ -34,6 +34,16 @@ const DataTable = <TData, TValue>({
     primary: 'primary'
   };
   const color = colorMap[variant] || 'primary';
+  const getTypeStyles = () => {
+    switch (type) {
+      case 'inverse': return { border: `1px solid hsl(var(--${color}-foreground))`, background: `hsl(var(--${color}-base))` };
+      case 'contrast': return { border: `2px solid hsl(var(--${color}-foreground))`, background: `hsl(var(--${color}-base))` };
+      case 'soft': return { border: 'none', background: `hsl(var(--${color}-base) / 0.15)` };
+      default: return {};
+    }
+  };
+  const typeStyles = getTypeStyles();
+
 
   const handleSort = (key: string) => {
     if (sortColumn === key) {
@@ -58,17 +68,17 @@ const DataTable = <TData, TValue>({
   return (
     <div className={cn("w-full overflow-hidden", className)} style={{
       border: '1px solid hsl(var(--border))', borderRadius: '0.5rem', background: 'hsl(var(--background))'
-    }}>
+    , ...typeStyles}}>
       <div 
         className="w-full overflow-auto"
         style={{
              borderRadius: '0.5rem'
-        }}
+        , ...typeStyles}}
       >
         <table className="w-full caption-bottom text-sm">
           <thead style={{
              background: 'hsl(var(--muted))', borderBottom: '1px solid hsl(var(--border))'
-          }}>
+          , ...typeStyles}}>
             <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
               {columns.map((col, i) => (
                 <th 
@@ -93,7 +103,7 @@ const DataTable = <TData, TValue>({
                 <tr 
                   key={i} 
                   className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
-                  style={{ borderBottom: '1px solid hsl(var(--border))' }}
+                  style={{ borderBottom: '1px solid hsl(var(--border))' , ...typeStyles}}
                 >
                   {columns.map((col, j) => (
                     <td key={j} className="p-4 align-middle [&:has([role=checkbox])]:pr-0">

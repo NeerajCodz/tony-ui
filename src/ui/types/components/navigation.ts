@@ -5,7 +5,7 @@
 import React from 'react';
 import type { ColorType } from '../colors.d.js';
 
-export type NavType = 'default' | 'outline' | 'solid';
+export type NavType = 'default' | 'outline' | 'solid' | 'inverse' | 'contrast' | 'soft';
 export type NavVariant = 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
 
 // ============================================================================
@@ -25,7 +25,7 @@ export type BreadcrumbVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 /**
  * Breadcrumb Type - Visual style
@@ -136,11 +136,11 @@ export const BREADCRUMB_VERSION_CONFIGS: Record<BreadcrumbVersion, BreadcrumbVer
     features: ['grid-overlay', 'digital-rain', 'glitch-separator'],
     separator: '::'
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'breadcrumb-neon-outline',
+    classPrefix: 'breadcrumb-neon',
     description: 'High-contrast neon glow effect',
     features: ['neon-glow', 'pulse-brightness', 'glow-separator'],
     separator: '⟫'
@@ -241,7 +241,7 @@ export type PaginationVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 /**
  * Pagination Type - Visual style
@@ -342,11 +342,11 @@ export const PAGINATION_VERSION_CONFIGS: Record<PaginationVersion, PaginationVer
     description: 'Digital matrix grid page buttons',
     features: ['grid-overlay', 'digital-rain', 'glitch-effect']
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'pagination-neon-outline',
+    classPrefix: 'pagination-neon',
     description: 'High-contrast neon glow effect',
     features: ['neon-glow', 'pulse-brightness', 'outer-bloom']
   }
@@ -452,7 +452,7 @@ export type TabsVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 /**
  * Tabs Type - Border and fill style
@@ -553,11 +553,11 @@ export const TABS_VERSION_CONFIGS: Record<TabsVersion, TabsVersionConfig> = {
     description: 'Digital matrix grid with code rain',
     features: ['grid-overlay', 'digital-rain', 'glitch-effect']
   },
-  'neon-outline': {
-    version: 'neon-outline',
+  'neon': {
+    version: 'neon',
     name: 'Neon Outline',
     enabled: true,
-    classPrefix: 'tabs-neon-outline',
+    classPrefix: 'tabs-neon',
     description: 'High-contrast neon glow effect',
     features: ['neon-glow', 'pulse-brightness', 'outer-bloom']
   }

@@ -5,10 +5,24 @@ import * as TogglePrimitives from '@radix-ui/react-toggle';
 import type { VariantColors } from '../../types/common';
 
 const GhostToggle = forwardRef<React.ElementRef<typeof TogglePrimitives.Root>, React.ComponentPropsWithoutRef<typeof TogglePrimitives.Root> & { colors?: VariantColors; version?: string }>(
-  ({ className, colors, style, ...props }, ref) => {
-    const bg = colors?.base || 'transparent';
-    const fg = colors?.foreground || 'currentColor';
-    const border = colors?.border || 'transparent';
+  ({ className, colors, type, style, ...props }, ref) => {
+    let bg = colors?.base || 'transparent';
+    let fg = colors?.foreground || 'currentColor';
+    let border = colors?.border || 'transparent';
+
+    if (type === 'inverse') {
+      const temp = bg;
+      bg = fg;
+      fg = temp;
+      border = bg;
+    } else if (type === 'contrast') {
+      border = fg;
+      bg = colors?.base || '#000000';
+      fg = colors?.foreground || '#ffffff';
+    } else if (type === 'soft') {
+      bg = colors?.muted || bg;
+      border = colors?.border ? `${colors.border}40` : border;
+    }
     
     return (
       <TogglePrimitives.Root

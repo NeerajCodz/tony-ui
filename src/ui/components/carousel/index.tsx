@@ -12,22 +12,22 @@ type CarouselVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 // --- Dynamic Import Helper ---
 const loadVersionModule = async (version: CarouselVersion) => {
   switch (version) {
-    case 'angular-corner': return import('../../components/angular-corner/carousel.tsx');
-    case 'holo-frame': return import('../../components/holo-frame/carousel.tsx');
-    case 'data-panel': return import('../../components/data-panel/carousel.tsx');
-    case 'circuit-board': return import('../../components/circuit-board/carousel.tsx');
-    case 'quantum-gate': return import('../../components/quantum-gate/carousel.tsx');
-    case 'tactical-hud': return import('../../components/tactical-hud/carousel.tsx');
-    case 'energy-shield': return import('../../components/energy-shield/carousel.tsx');
-    case 'terminal-window': return import('../../components/terminal-window/carousel.tsx');
-    case 'matrix-grid': return import('../../components/matrix-grid/carousel.tsx');
-    case 'neon-outline': return import('../../components/neon-outline/carousel.tsx');
-    default: return import('../../components/angular-corner/carousel.tsx');
+    case 'angular-corner': return import('./carousel-angular-corner.tsx');
+    case 'holo-frame': return import('./carousel-holo-frame.tsx');
+    case 'data-panel': return import('./carousel-data-panel.tsx');
+    case 'circuit-board': return import('./carousel-circuit-board.tsx');
+    case 'quantum-gate': return import('./carousel-quantum-gate.tsx');
+    case 'tactical-hud': return import('./carousel-tactical-hud.tsx');
+    case 'energy-shield': return import('./carousel-energy-shield.tsx');
+    case 'terminal-window': return import('./carousel-terminal-window.tsx');
+    case 'matrix-grid': return import('./carousel-matrix-grid.tsx');
+    case 'neon': return import('./carousel-neon.tsx');
+    default: return import('./carousel-angular-corner.tsx');
   }
 };
 

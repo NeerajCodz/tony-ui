@@ -34,10 +34,25 @@ const CompactSonner = forwardRef<HTMLDivElement, SonnerProps>(
     className = '',
     ...props 
   }, ref) => {
-    const bg = colors?.base || '#1f2937';
-    const fg = colors?.foreground || '#ffffff';
-    const border = colors?.border || '#374151';
+    let bg = colors?.base || '#1f2937';
+    let fg = colors?.foreground || '#ffffff';
+    let border = colors?.border || '#374151';
     const glow = colors?.glow || 'rgba(0,0,0,0)';
+
+    // Handle new types
+    if (type === 'inverse') {
+      const temp = bg;
+      bg = fg;
+      fg = temp;
+      border = bg;
+    } else if (type === 'contrast') {
+      border = fg;
+      bg = colors?.base || '#000000';
+      fg = colors?.foreground || '#ffffff';
+    } else if (type === 'soft') {
+      bg = colors?.muted || bg;
+      border = colors?.border ? `${colors.border}40` : border;
+    }
 
     return (
       <div ref={ref} className={`sonner-container-compact ${className}`}>

@@ -16,7 +16,7 @@ import { SonnerProps, SonnerVersion, SonnerType, SONNER_VERSION_CONFIGS } from '
 const versionComponents: Record<string, React.ComponentType<any>> = {
   'default': React.lazy(() => import('../components/default/sonner.tsx')),
   'angular-corner': React.lazy(() => import('../components/angular-corner/sonner.tsx')),
-  'neon-outline': React.lazy(() => import('../components/neon-outline/sonner.tsx')),
+  'neon': React.lazy(() => import('../components/neon/sonner.tsx')),
   'holo-frame': React.lazy(() => import('../components/holo-frame/sonner.tsx')),
   'data-panel': React.lazy(() => import('../components/data-panel/sonner.tsx')),
   'circuit-board': React.lazy(() => import('../components/circuit-board/sonner.tsx')),

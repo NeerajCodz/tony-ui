@@ -6,15 +6,24 @@ import { Loader2 } from 'lucide-react';
 
 export interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
   version?: string;
+  type?: string;
   variant?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   colors?: VariantColors;
 }
 
 const CircuitBoardSpinner = forwardRef<HTMLDivElement, SpinnerProps>(
-  ({ size = 'md', colors, className = '', style, ...props }, ref) => {
-    const fg = colors?.foreground || 'currentColor';
+  ({ size = 'md', colors, type, className = '', style, ...props }, ref) => {
+    let fg = colors?.foreground || 'currentColor';
     const glow = colors?.glow || 'transparent';
+
+    if (type === 'inverse') {
+      fg = colors?.base || 'currentColor';
+    } else if (type === 'contrast') {
+      fg = colors?.foreground || '#ffffff';
+    } else if (type === 'soft') {
+      fg = colors?.muted || fg;
+    }
 
     const sizeMap = {
       sm: 16,

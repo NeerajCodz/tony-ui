@@ -18,7 +18,7 @@ type EmptyStateVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface EmptyStateProps extends React.HTMLAttributes<HTMLDivElement> {
   version?: EmptyStateVersion;
@@ -39,7 +39,7 @@ const versionComponents = {
   'energy-shield': lazy(() => import('./empty-state-energy-shield.tsx')),
   'terminal-window': lazy(() => import('./empty-state-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('./empty-state-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('./empty-state-neon-outline.tsx')),
+  'neon': lazy(() => import('./empty-state-neon.tsx')),
 };
 
 // --- Main Component ---

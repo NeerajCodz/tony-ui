@@ -18,7 +18,7 @@ export type ButtonVariant = CoreVariant;
 /**
  * Button-specific types (visual treatment)
  */
-export type ButtonType = 'default' | 'solid' | 'outline' | 'ghost' | 'link' | 'disabled';
+export type ButtonType = 'default' | 'solid' | 'outline' | 'ghost' | 'link' | 'disabled' | 'inverse' | 'contrast' | 'soft';
 
 
 

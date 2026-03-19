@@ -36,7 +36,7 @@ const versionComponents: Record<string, any> = {
   'energy-shield': lazy(() => import('./date-picker-energy-shield.tsx')),
   'terminal-window': lazy(() => import('./date-picker-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('./date-picker-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('./date-picker-neon-outline.tsx')),
+  'neon': lazy(() => import('./date-picker-neon.tsx')),
 };
 
 // Loading Skeleton

@@ -33,7 +33,24 @@ export function AlertDialogContent({ className, colors, type = 'default', ...pro
     ghost: {
       backgroundColor: 'transparent',
       color: colors.textHover
-    }
+    },
+    inverse: {
+      backgroundColor: colors.text,
+      color: colors.background,
+      border: `1px solid ${colors.text}`
+    },
+    contrast: {
+      backgroundColor: colors.accent?.primary || colors.text,
+      color: '#000000',
+      fontWeight: 'bold',
+      border: `1px solid ${colors.text}`
+    },
+    soft: {
+      backgroundColor: colors.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
+      color: colors.accent?.primary || colors.text,
+      border: 'none'
+    },
+
   };
 
 

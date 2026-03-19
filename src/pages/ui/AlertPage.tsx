@@ -13,7 +13,7 @@ export function AlertPage() {
     'energy-shield',
     'terminal-window',
     'matrix-grid',
-    'neon-outline',
+    'neon',
   ];
 
   return (

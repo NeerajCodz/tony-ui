@@ -43,6 +43,22 @@ export const buttonConfig = {
       color: colors.secondaryForeground,
       border: 'none',
     }),
+    inverse: (colors: any) => ({
+      backgroundColor: colors.foreground,
+      color: colors.base,
+      border: `1px solid ${colors.foreground}`,
+    }),
+    contrast: (colors: any) => ({
+      backgroundColor: colors.accent?.primary || colors.foreground,
+      color: '#000000',
+      fontWeight: 'bold',
+      border: `1px solid ${colors.foreground}`,
+    }),
+    soft: (colors: any) => ({
+      backgroundColor: colors.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
+      color: colors.accent?.primary || colors.foreground,
+      border: 'none',
+    }),
   } as Record<string, (colors: any) => CSSProperties>,
 
   animations: {

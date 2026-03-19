@@ -4,8 +4,53 @@ import type { BreadcrumbProps, BreadcrumbItemProps, BreadcrumbLinkProps, Breadcr
 import { Slot } from "@radix-ui/react-slot"
 import { ChevronRight, MoreHorizontal } from "lucide-react"
 
-export function Breadcrumb({ ...props }: BreadcrumbProps) {
-  return <nav aria-label="breadcrumb" {...props} />
+export function Breadcrumb({ className, type = 'default', colors, ...props }: BreadcrumbProps & { colors?: any }) {
+  const typeStyles = {
+    default: {
+      backgroundColor: colors?.background,
+      color: colors?.text,
+      border: colors?.border ? `1px solid ${colors.border}` : undefined
+    },
+    solid: {
+      backgroundColor: colors?.accent?.primary,
+      color: colors?.text,
+      boxShadow: colors?.accent?.glow ? `0 0 10px ${colors.accent.glow}` : undefined
+    },
+    outline: {
+      backgroundColor: 'transparent',
+      color: colors?.accent?.primary,
+      border: colors?.accent?.primary ? `1px solid ${colors.accent.primary}` : undefined
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: colors?.textHover
+    },
+    inverse: {
+      backgroundColor: colors?.text,
+      color: colors?.background,
+      border: colors?.text ? `1px solid ${colors.text}` : undefined
+    },
+    contrast: {
+      backgroundColor: colors?.accent?.primary || colors?.text,
+      color: '#000000',
+      fontWeight: 'bold',
+      border: colors?.text ? `1px solid ${colors.text}` : undefined
+    },
+    soft: {
+      backgroundColor: colors?.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors?.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
+      color: colors?.accent?.primary || colors?.text,
+      border: 'none'
+    }
+  };
+
+  return (
+    <nav 
+      aria-label="breadcrumb" 
+      className={className} 
+      style={typeStyles[type as keyof typeof typeStyles]} 
+      {...props} 
+    />
+  )
 }
 
 export function BreadcrumbList({ className, ...props }: BreadcrumbListProps) {

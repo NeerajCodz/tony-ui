@@ -32,7 +32,7 @@ const versionStyles = {
   'matrix-grid': {
     root: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-lime-400 font-mono",
   },
-  'neon-outline': {
+  'neon': {
     root: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-fuchsia-400 drop-shadow-[0_0_2px_rgba(232,121,249,0.8)] uppercase",
   },
   // Default fallback

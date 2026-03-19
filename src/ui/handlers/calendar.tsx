@@ -27,7 +27,7 @@ const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
   'energy-shield': lazy(() => import('../components/calendar/calendar-energy-shield.tsx')),
   'terminal-window': lazy(() => import('../components/calendar/calendar-terminal-window.tsx')),
   'matrix-grid': lazy(() => import('../components/calendar/calendar-matrix-grid.tsx')),
-  'neon-outline': lazy(() => import('../components/calendar/calendar-neon-outline.tsx')),
+  'neon': lazy(() => import('../components/calendar/calendar-neon.tsx')),
 };
 
 // Loading skeleton

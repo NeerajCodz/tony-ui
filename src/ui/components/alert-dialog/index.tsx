@@ -19,7 +19,7 @@ type AlertDialogVersion =
   | 'energy-shield'
   | 'terminal-window'
   | 'matrix-grid'
-  | 'neon-outline';
+  | 'neon';
 
 interface AlertDialogProps extends React.ComponentProps<typeof AlertDialogPrimitive.Root> {
   version?: AlertDialogVersion;
@@ -56,7 +56,7 @@ const loadVersionModule = async (version: AlertDialogVersion) => {
     case 'energy-shield': return import('./alert-dialog-energy-shield.tsx');
     case 'terminal-window': return import('./alert-dialog-terminal-window.tsx');
     case 'matrix-grid': return import('./alert-dialog-matrix-grid.tsx');
-    case 'neon-outline': return import('./alert-dialog-neon-outline.tsx');
+    case 'neon': return import('./alert-dialog-neon.tsx');
     default: return import('./alert-dialog-angular-corner.tsx');
   }
 };

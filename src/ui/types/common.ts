@@ -24,7 +24,7 @@ export type Version =
   | 'holo-frame'
   | 'large'
   | 'matrix-grid'
-  | 'neon-outline'
+  | 'neon'
   | 'padding'
   | 'quantum-gate'
   | 'raised'
@@ -42,7 +42,7 @@ export type CyberVersion =
   | 'energy-shield'
   | 'holo-frame'
   | 'matrix-grid'
-  | 'neon-outline'
+  | 'neon'
   | 'quantum-gate'
   | 'tactical-hud'
   | 'tech-panel'
@@ -134,13 +134,13 @@ export interface BaseUIProps {
 export const VERSIONS: readonly Version[] = [
   'angular-corner', 'border', 'circuit-board', 'compact', 'data-panel',
   'default', 'energy-shield', 'ghost', 'glass-morphism', 'holo-frame',
-  'large', 'matrix-grid', 'neon-outline', 'padding',
+  'large', 'matrix-grid', 'neon', 'padding',
   'quantum-gate', 'raised', 'tactical-hud', 'tech-panel', 'terminal-window',
 ] as const;
 
 export const CYBER_VERSIONS: readonly CyberVersion[] = [
   'angular-corner', 'circuit-board', 'data-panel', 'energy-shield',
-  'holo-frame', 'matrix-grid', 'neon-outline', 'quantum-gate',
+  'holo-frame', 'matrix-grid', 'neon', 'quantum-gate',
   'tactical-hud', 'tech-panel', 'terminal-window',
 ] as const;
 

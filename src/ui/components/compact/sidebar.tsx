@@ -1,11 +1,23 @@
 import React from 'react';
 import { cn } from '../../utils/component-helpers';
 
+const getTypeStyles = (type: string | undefined) => {
+  if (!type) return '';
+  switch (type) {
+    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
+    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
+    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
+    default: return '';
+  }
+};
+
+
 interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
+  type?: 'inverse' | 'contrast' | 'soft';
   variant?: 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
 }
 
-const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(({ className, variant = 'primary', ...props }, ref) => {
+const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(({ type, className, variant = 'primary', ...props }, ref) => {
   const colorMap: Record<string, string> = {
     neutral: 'primary', success: 'success', warning: 'warning', info: 'info', destructive: 'destructive', primary: 'primary'
   };
@@ -14,7 +26,7 @@ const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(({ className, varian
   return (
     <aside
       ref={ref}
-      className={cn("flex flex-col h-screen w-64 border-r bg-background", className)}
+      className={cn("flex flex-col h-screen w-64 border-r bg-background", className, getTypeStyles(type))}
       style={{
         border: `1px solid hsl(var(--border))`, padding: '2px'
       }}

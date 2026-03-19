@@ -37,20 +37,31 @@ const versionStyles = {
 const getStyles = (v) => versionStyles[v] || versionStyles['default'];
 const styles = getStyles('tactical-hud' in versionStyles ? 'tactical-hud' : 'default');
 
-export const Root = React.forwardRef(({ className, ...props }: any, ref: any) => (
+
+const getTypeStyles = (type: string | undefined) => {
+  if (!type) return '';
+  switch (type) {
+    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
+    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
+    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
+    default: return '';
+  }
+};
+
+export const Root = React.forwardRef(({type,  className, ...props }: any, ref: any) => (
   <CommandPrimitive
     ref={ref}
     className={cn(
       "flex h-full w-full flex-col overflow-hidden text-popover-foreground",
       styles.root,
       className
-    )}
+    , getTypeStyles(type))}
     {...props}
   />
 ));
 Root.displayName = CommandPrimitive.displayName;
 
-export const Input = React.forwardRef(({ className, ...props }: any, ref: any) => (
+export const Input = React.forwardRef(({ type,  className, ...props }: any, ref: any) => (
   <div className="flex items-center px-3" cmdk-input-wrapper="">
     <Search className="mr-2 h-4 w-4 shrink-0 opacity-50 text-cyan-500" />
     <CommandPrimitive.Input
@@ -59,17 +70,17 @@ export const Input = React.forwardRef(({ className, ...props }: any, ref: any) =
         "flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50",
         styles.input,
         className
-      )}
+      , getTypeStyles(type))}
       {...props}
     />
   </div>
 ));
 Input.displayName = CommandPrimitive.Input.displayName;
 
-export const List = React.forwardRef(({ className, ...props }: any, ref: any) => (
+export const List = React.forwardRef(({ type,  className, ...props }: any, ref: any) => (
   <CommandPrimitive.List
     ref={ref}
-    className={cn("max-h-[300px] overflow-y-auto overflow-x-hidden", className)}
+    className={cn("max-h-[300px] overflow-y-auto overflow-x-hidden", className, getTypeStyles(type))}
     {...props}
   />
 ));
@@ -84,35 +95,35 @@ export const Empty = React.forwardRef((props: any, ref: any) => (
 ));
 Empty.displayName = CommandPrimitive.Empty.displayName;
 
-export const Group = React.forwardRef(({ className, ...props }: any, ref: any) => (
+export const Group = React.forwardRef(({ type,  className, ...props }: any, ref: any) => (
   <CommandPrimitive.Group
     ref={ref}
     className={cn(
       "overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground",
       className
-    )}
+    , getTypeStyles(type))}
     {...props}
   />
 ));
 Group.displayName = CommandPrimitive.Group.displayName;
 
-export const Separator = React.forwardRef(({ className, ...props }: any, ref: any) => (
+export const Separator = React.forwardRef(({ type,  className, ...props }: any, ref: any) => (
   <CommandPrimitive.Separator
     ref={ref}
-    className={cn("-mx-1 h-px bg-border", className)}
+    className={cn("-mx-1 h-px bg-border", className, getTypeStyles(type))}
     {...props}
   />
 ));
 Separator.displayName = CommandPrimitive.Separator.displayName;
 
-export const Item = React.forwardRef(({ className, ...props }: any, ref: any) => (
+export const Item = React.forwardRef(({ type,  className, ...props }: any, ref: any) => (
   <CommandPrimitive.Item
     ref={ref}
     className={cn(
       "relative flex cursor-default gap-2 select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
       styles.item,
       className
-    )}
+    , getTypeStyles(type))}
     {...props}
   />
 ));
