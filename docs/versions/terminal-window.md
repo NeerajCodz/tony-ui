@@ -1,12 +1,19 @@
-# Version: Terminal Window
+# Terminal Window
 
-## Primary Shape: Retro Window (Sharp)
-A sharp rectangle with a distinct header bar (title bar) section.
+## Description
+Classic retro-computing aesthetic with monospaced fonts and command-line interfaces.
 
-## Geometry Specs
-- **Corner Style**: Sharp (90 degrees).
-- **Header**: Top 24px distinct background color.
-- **Border**: Solid, chunky (2px).
+## Key Visual Characteristics
+- **Shape:** Simple rectangle with a distinct "title bar".
+- **Borders:** Thin, single-line borders in a high-contrast phosphor color.
+- **Glow/Lighting:** CRT-style flicker and soft scanline overlay.
+- **Animations:** Character-by-character "typing" effect for text content.
 
-## Design Philosophy
-Retro-computing. Nostalgic command-line interface look.
+## CSS Variables / Tokens
+- `--scanline-opacity`: `0.1`
+- `--crt-curvature`: `2%`
+
+## Best Use Cases
+- Developer consoles
+- In-game terminal relays
+- Retro-themed UI sections

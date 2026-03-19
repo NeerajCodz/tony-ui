@@ -1,12 +1,19 @@
-# Version: Neon Outline
+# Neon Outline
 
-## Primary Shape: Sharp Glowing Rectangle
-A sharp rectangle defined entirely by its light-emitting border.
+## Description
+High-contrast, vibrant neon tubes that define the component's boundaries.
 
-## Geometry Specs
-- **Corner Style**: Sharp (90 degrees).
-- **Border**: 2px solid + Box Shadow Bloom.
-- **Fill**: Transparent.
+## Key Visual Characteristics
+- **Shape:** Standard or rounded corner rectangles.
+- **Borders:** Thick, multi-colored neon "tubes".
+- **Glow/Lighting:** Intense, broad outer glow in the variant color.
+- **Animations:** Warm-up flicker effect when the component mounts.
 
-## Design Philosophy
-High contrast cyberpunk. Style > Function. Draws the eye immediately.
+## CSS Variables / Tokens
+- `--neon-brightness`: `1.2`
+- `--tube-radius`: `4px`
+
+## Best Use Cases
+- High-priority notifications
+- Interactive buttons
+- Storefront items

@@ -1,16 +1,19 @@
-# Version: Angular Corner
+# Angular Corner
 
-## Primary Shape: Chamfered Rectangle
-A rectangle with 45-degree cuts (chamfers) on all four corners.
+## Description
+A sharp, aggressive aesthetic featuring clipped corners and non-rectangular geometries. Inspired by military hardware and stealth technology.
 
-## Geometry Specs
-- **Corner Style**: Chamfered (Angled cut).
-- **Cut Size**: Fixed `10px` or `12px` cuts.
-- **Clip Path**: `polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)`
+## Key Visual Characteristics
+- **Shape:** Octagonal or hex-clipped corners using `clip-path`.
+- **Borders:** Thick, multi-layered borders that follow the clipped path.
+- **Glow/Lighting:** Sharp, directional highlights on the angled edges.
+- **Animations:** Slide-in transitions with high easing (back-out effect).
 
-## Design Philosophy
-Industrial, rugged, and military-inspired. Removes soft curves to suggest durability and precision.
+## CSS Variables / Tokens
+- `--corner-size`: `12px`
+- `--border-width`: `2px`
 
-## Animation
-- **Hover**: Corners may extend outward or glow intensity increases at the vertices.
-- **Active**: Inner content depresses.
+## Best Use Cases
+- Combat HUD elements
+- Tactical maps
+- High-security overlays

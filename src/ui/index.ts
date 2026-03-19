@@ -14,6 +14,7 @@ export { useColors, useTheme, useCSSVariable, useColorValue } from './hooks/useC
 export * from './components/card';
 export * from './components/button';
 export * from './components/icon-button';
+export { CyberBorder } from './components/CyberBorder';
 
 // ===== FORM INPUTS =====
 export * from './components/input';
@@ -101,3 +102,4 @@ export * from './types/components/misc';
 
 // ===== UTILS =====
 export * from './utils/component-helpers';
+export * from './utils/clip-paths';

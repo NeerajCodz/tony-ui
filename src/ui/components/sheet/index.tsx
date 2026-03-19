@@ -1,114 +1,88 @@
-/**
- * Sheet Component - Dynamic Renderer
- * Refactored to use Compound Component Context Pattern
- */
+"use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import * as SheetPrimitive from "@radix-ui/react-dialog"
-import { cva, type VariantProps } from "class-variance-authority"
-import { X } from "lucide-react"
-import { cn } from '../../../lib/utils';
+import * as React from "react";
+import * as SheetPrimitive from "@radix-ui/react-dialog";
+import { X } from "lucide-react";
+import { cn } from "../../utils/component-helpers";
 
-// --- Types ---
-type SheetVersion = 
-  | 'angular-corner'
-  | 'holo-frame'
-  | 'data-panel'
-  | 'circuit-board'
-  | 'quantum-gate'
-  | 'tactical-hud'
-  | 'energy-shield'
-  | 'terminal-window'
-  | 'matrix-grid'
-  | 'neon-outline';
+const Sheet = SheetPrimitive.Root;
+const SheetTrigger = SheetPrimitive.Trigger;
+const SheetClose = SheetPrimitive.Close;
+const SheetPortal = SheetPrimitive.Portal;
 
-interface SheetContentProps extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content> {
-  version?: SheetVersion;
-  side?: "top" | "bottom" | "left" | "right";
-}
-
-// --- Context ---
-interface SheetContextValue {
-  version: SheetVersion;
-  versionModule: any;
-}
-
-const SheetContext = createContext<SheetContextValue>({
-  version: 'angular-corner',
-  versionModule: null,
-});
-
-const useSheetContext = () => useContext(SheetContext);
-
-const Sheet = SheetPrimitive.Root
-const SheetTrigger = SheetPrimitive.Trigger
-const SheetClose = SheetPrimitive.Close
-const SheetPortal = SheetPrimitive.Portal
-
-const SheetOverlay = React.forwardRef<React.ElementRef<typeof SheetPrimitive.Overlay>, React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>>(({ className, ...props }, ref) => (
+const SheetOverlay = React.forwardRef<
+  React.ElementRef<typeof SheetPrimitive.Overlay>,
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
+>(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(
-      "fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-50 bg-black/80 backdrop-blur-sm",
+      "data-[state=open]:animate-in data-[state=closed]:animate-out",
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
     ref={ref}
   />
-))
-SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
+));
+SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
-// --- Dynamic Import Helper ---
-const loadVersionModule = async (version: SheetVersion) => {
-  switch (version) {
-    case 'angular-corner': return import('./sheet-angular-corner.tsx');
-    case 'holo-frame': return import('./sheet-holo-frame.tsx');
-    case 'data-panel': return import('./sheet-data-panel.tsx');
-    case 'circuit-board': return import('./sheet-circuit-board.tsx');
-    case 'quantum-gate': return import('./sheet-quantum-gate.tsx');
-    case 'tactical-hud': return import('./sheet-tactical-hud.tsx');
-    case 'energy-shield': return import('./sheet-energy-shield.tsx');
-    case 'terminal-window': return import('./sheet-terminal-window.tsx');
-    case 'matrix-grid': return import('./sheet-matrix-grid.tsx');
-    case 'neon-outline': return import('./sheet-neon-outline.tsx');
-    default: return import('./sheet-angular-corner.tsx');
-  }
+interface SheetContentProps
+  extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content> {
+  side?: "top" | "bottom" | "left" | "right";
+  variant?: "primary" | "info" | "success" | "warning" | "destructive";
+}
+
+const variantColors = {
+  primary: { border: "#0891b2", glow: "#22d3ee" },
+  info: { border: "#2563eb", glow: "#60a5fa" },
+  success: { border: "#059669", glow: "#34d399" },
+  warning: { border: "#d97706", glow: "#fbbf24" },
+  destructive: { border: "#dc2626", glow: "#f87171" },
 };
 
-// --- Main Component ---
-const SheetContent = React.forwardRef<React.ElementRef<typeof SheetPrimitive.Content>, SheetContentProps>(({ 
-  version = 'angular-corner', 
-  side = "right",
-  className,
-  children,
-  ...props 
-}, ref) => {
-  const [versionModule, setVersionModule] = useState<any>(null);
+const sheetVariants = {
+  top: "inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",
+  bottom: "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
+  left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm",
+  right: "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
+};
 
-  useEffect(() => {
-    loadVersionModule(version).then(setVersionModule);
-  }, [version]);
+const SheetContent = React.forwardRef<
+  React.ElementRef<typeof SheetPrimitive.Content>,
+  SheetContentProps
+>(({ side = "right", variant = "primary", className, children, ...props }, ref) => {
+  const colors = variantColors[variant];
   
-  if (!versionModule) {
-    return (
-      <SheetPortal>
-        <SheetOverlay />
-        <SheetPrimitive.Content className={cn("fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500", className)} {...props}>
-          {children}
-        </SheetPrimitive.Content>
-      </SheetPortal>
-    );
-  }
-
-  const Component = versionModule.default;
-
   return (
-    <SheetContext.Provider value={{ version, versionModule }}>
-      <SheetPortal>
-        <Component ref={ref} side={side} className={className} {...props}>
-          {children}
-        </Component>
-      </SheetPortal>
-    </SheetContext.Provider>
+    <SheetPortal>
+      <SheetOverlay />
+      <SheetPrimitive.Content
+        ref={ref}
+        className={cn(
+          "fixed z-50 gap-4 p-6 shadow-lg transition ease-in-out",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+          "bg-black/95 backdrop-blur-md",
+          sheetVariants[side],
+          className
+        )}
+        style={{
+          borderColor: colors.border,
+          boxShadow: `0 0 20px ${colors.glow}40`,
+          clipPath: "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))",
+        }}
+        {...props}
+      >
+        {children}
+        <SheetPrimitive.Close 
+          className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary"
+          style={{ color: colors.border }}
+        >
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </SheetPrimitive.Close>
+      </SheetPrimitive.Content>
+    </SheetPortal>
   );
 });
 SheetContent.displayName = SheetPrimitive.Content.displayName;
@@ -124,8 +98,8 @@ const SheetHeader = ({
     )}
     {...props}
   />
-)
-SheetHeader.displayName = "SheetHeader"
+);
+SheetHeader.displayName = "SheetHeader";
 
 const SheetFooter = ({
   className,
@@ -138,26 +112,32 @@ const SheetFooter = ({
     )}
     {...props}
   />
-)
-SheetFooter.displayName = "SheetFooter"
+);
+SheetFooter.displayName = "SheetFooter";
 
-const SheetTitle = React.forwardRef<React.ElementRef<typeof SheetPrimitive.Title>, React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>>(({ className, ...props }, ref) => (
+const SheetTitle = React.forwardRef<
+  React.ElementRef<typeof SheetPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
+>(({ className, ...props }, ref) => (
   <SheetPrimitive.Title
     ref={ref}
-    className={cn("text-lg font-semibold text-foreground", className)}
+    className={cn("text-lg font-semibold text-foreground font-mono tracking-wider uppercase", className)}
     {...props}
   />
-))
-SheetTitle.displayName = SheetPrimitive.Title.displayName
+));
+SheetTitle.displayName = SheetPrimitive.Title.displayName;
 
-const SheetDescription = React.forwardRef<React.ElementRef<typeof SheetPrimitive.Description>, React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>>(({ className, ...props }, ref) => (
+const SheetDescription = React.forwardRef<
+  React.ElementRef<typeof SheetPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
+>(({ className, ...props }, ref) => (
   <SheetPrimitive.Description
     ref={ref}
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
-))
-SheetDescription.displayName = SheetPrimitive.Description.displayName
+));
+SheetDescription.displayName = SheetPrimitive.Description.displayName;
 
 export {
   Sheet,
@@ -170,6 +150,4 @@ export {
   SheetFooter,
   SheetTitle,
   SheetDescription,
-}
-export default Sheet;
-
+};

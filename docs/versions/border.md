@@ -1,15 +1,19 @@
-# Version: Border
+# Border
 
-## Primary Shape: Sharp Rectangle
-A perfectly sharp rectangle with no border radius, emphasizing a double-line or thick border aesthetic.
+## Description
+A focused, minimalist version where the border is the primary visual element. Clean and structured.
 
-## Geometry Specs
-- **Corner Style**: Sharp (90 degrees).
-- **Radius**: `0px`.
-- **Border**: Double-line (3px total width) or thick single line (2px).
+## Key Visual Characteristics
+- **Shape:** Standard rectangular with small radius (2px).
+- **Borders:** Double-lined or segmented borders with varying opacity.
+- **Glow/Lighting:** Subtle edge-glow confined to the border segments.
+- **Animations:** Pulsing border segments on hover.
 
-## Design Philosophy
-Minimalist structuralism. Focuses on boundaries and containment rather than the content itself.
+## CSS Variables / Tokens
+- `--border-segment-length`: `20px`
+- `--border-gap`: `10px`
 
-## Animation
-- **Hover**: Border color shifts or animates (dashes moving).
+## Best Use Cases
+- Data tables
+- Subtle section dividers
+- Input fields

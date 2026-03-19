@@ -1,0 +1,197 @@
+/**
+ * Cyber clip-path styles with matching borders
+ * 
+ * These classes provide clipped shapes WITH proper borders by using
+ * pseudo-elements that follow the same clip-path.
+ */
+
+/* Angular Corner - Symmetric (for avatars and balanced elements) */
+.cyber-shape-angular-symmetric {
+  --cyber-border-color: currentColor;
+  --cyber-border-width: 1px;
+  position: relative;
+  clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
+}
+
+.cyber-shape-angular-symmetric::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
+  border: var(--cyber-border-width) solid var(--cyber-border-color);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Angular Corner - Card size */
+.cyber-shape-angular-card {
+  --cyber-border-color: currentColor;
+  --cyber-border-width: 1px;
+  position: relative;
+  clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 20px);
+}
+
+.cyber-shape-angular-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 20px);
+  border: var(--cyber-border-width) solid var(--cyber-border-color);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Angular Corner - Small */
+.cyber-shape-angular-small {
+  --cyber-border-color: currentColor;
+  --cyber-border-width: 1px;
+  position: relative;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.cyber-shape-angular-small::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  border: var(--cyber-border-width) solid var(--cyber-border-color);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Angular Corner - Avatar (8px symmetric) */
+.cyber-shape-angular-avatar {
+  --cyber-border-color: currentColor;
+  --cyber-border-width: 1px;
+  position: relative;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+}
+
+.cyber-shape-angular-avatar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+  border: var(--cyber-border-width) solid var(--cyber-border-color);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Bevel shape */
+.cyber-shape-bevel {
+  --cyber-border-color: currentColor;
+  --cyber-border-width: 1px;
+  position: relative;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.cyber-shape-bevel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  border: var(--cyber-border-width) solid var(--cyber-border-color);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Notch shape */
+.cyber-shape-notch {
+  --cyber-border-color: currentColor;
+  --cyber-border-width: 1px;
+  position: relative;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+}
+
+.cyber-shape-notch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  border: var(--cyber-border-width) solid var(--cyber-border-color);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Circuit Board shape */
+.cyber-shape-circuit {
+  --cyber-border-color: currentColor;
+  --cyber-border-width: 1px;
+  position: relative;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+
+.cyber-shape-circuit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  border: var(--cyber-border-width) solid var(--cyber-border-color);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Holo Frame shape */
+.cyber-shape-holo {
+  --cyber-border-color: currentColor;
+  --cyber-border-width: 1px;
+  position: relative;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 8px), 0 8px);
+}
+
+.cyber-shape-holo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 8px), 0 8px);
+  border: var(--cyber-border-width) solid var(--cyber-border-color);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Tag shape */
+.cyber-shape-tag {
+  --cyber-border-color: currentColor;
+  --cyber-border-width: 1px;
+  position: relative;
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
+}
+
+.cyber-shape-tag::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
+  border: var(--cyber-border-width) solid var(--cyber-border-color);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Utility classes for border customization */
+.cyber-border-glow {
+  --cyber-glow-color: var(--cyber-border-color);
+}
+
+.cyber-border-glow::before {
+  filter: drop-shadow(0 0 4px var(--cyber-glow-color)) drop-shadow(0 0 8px var(--cyber-glow-color));
+}
+
+/* Border width variants */
+.cyber-border-thin { --cyber-border-width: 1px; }
+.cyber-border-medium { --cyber-border-width: 2px; }
+.cyber-border-thick { --cyber-border-width: 3px; }
+
+/* Color presets using CSS variables */
+.cyber-border-primary { --cyber-border-color: hsl(var(--primary-base)); }
+.cyber-border-success { --cyber-border-color: hsl(var(--success-base)); }
+.cyber-border-warning { --cyber-border-color: hsl(var(--warning-base)); }
+.cyber-border-destructive { --cyber-border-color: hsl(var(--destructive-base)); }
+.cyber-border-info { --cyber-border-color: hsl(var(--info-base)); }
+
+/* Cyan/Neon variants */
+.cyber-border-cyan { --cyber-border-color: var(--cyan-500, #06b6d4); }
+.cyber-border-emerald { --cyber-border-color: var(--emerald-500, #10b981); }
+.cyber-border-amber { --cyber-border-color: var(--amber-500, #f59e0b); }
+.cyber-border-red { --cyber-border-color: var(--red-500, #ef4444); }
+.cyber-border-blue { --cyber-border-color: var(--blue-500, #3b82f6); }
+.cyber-border-violet { --cyber-border-color: var(--violet-500, #8b5cf6); }

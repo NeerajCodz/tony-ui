@@ -424,7 +424,7 @@ export const ICON_BUTTON_VERSION_CONFIGS: Record<IconButtonVersion, IconButtonVe
 /**
  * Button Component Props
  */
-export interface ButtonProps {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Button version */
   version?: ButtonVersion;
   
@@ -443,23 +443,20 @@ export interface ButtonProps {
   /** Enable animations */
   animated?: boolean;
   
+  /** Loading state */
+  loading?: boolean;
+  
+  /** Icon element */
+  icon?: React.ReactNode;
+  
+  /** Icon position */
+  iconPosition?: 'left' | 'right';
+  
   /** Button content */
   children?: React.ReactNode;
   
-  /** Click handler */
-  onClick?: () => void;
-  
-  /** Disabled state */
-  disabled?: boolean;
-  
-  /** Form type */
-  htmlType?: 'button' | 'submit' | 'reset';
-  
   /** CSS class */
   className?: string;
-  
-  /** Aria label */
-  ['aria-label']?: string;
 }
 
 /**

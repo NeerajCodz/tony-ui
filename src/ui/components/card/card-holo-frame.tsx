@@ -6,8 +6,6 @@ import React from 'react';
 import type { CardProps } from '../../types/components/card.js';
 import { cn } from '../../utils/component-helpers.js';
 
-const CLIP_PATH = 'polygon(0 12px, 12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px))';
-
 const Component = React.forwardRef<HTMLDivElement, CardProps>(({
   variant = 'neutral',
   type = 'default',
@@ -30,8 +28,7 @@ const Component = React.forwardRef<HTMLDivElement, CardProps>(({
 
   const getTypeStyles = (): React.CSSProperties => {
     const base: React.CSSProperties = {
-      clipPath: CLIP_PATH,
-      
+      borderRadius: '8px'
     };
 
     switch (type) {
@@ -40,23 +37,23 @@ const Component = React.forwardRef<HTMLDivElement, CardProps>(({
           ...base,
           backgroundColor: 'transparent',
           border: `2px solid var(--${color})`,
-          boxShadow: `inset 0 0 15px rgba(var(--${color}-rgb), 0.1), 0 0 8px rgba(var(--${color}-rgb), 0.1)`,
+          boxShadow: `0 0 20px rgba(var(--${color}-rgb), 0.3)`,
         };
       case 'solid':
         return {
           ...base,
           backgroundColor: `rgba(var(--card-bg-rgb), 0.92)`,
-          border: `1px solid rgba(var(--${color}-rgb), 0.35)`,
-          boxShadow: `0 8px 24px -6px rgba(var(--${color}-rgb), 0.2)`,
+          border: `1px solid rgba(var(--${color}-rgb), 0.5)`,
+          boxShadow: `0 8px 32px rgba(var(--${color}-rgb), 0.2)`,
         };
       case 'default':
       default:
         return {
           ...base,
-          backgroundColor: `rgba(var(--primary-rgb), 0.06)`,
-          backdropFilter: 'blur(10px)',
-          border: `1px solid rgba(var(--${color}-rgb), 0.25)`,
-          boxShadow: `0 4px 20px -4px rgba(var(--${color}-rgb), 0.12)`,
+          backgroundColor: `rgba(var(--primary-rgb), 0.08)`,
+          backdropFilter: 'blur(12px)',
+          border: `1px solid rgba(var(--${color}-rgb), 0.3)`,
+          boxShadow: `0 4px 24px rgba(var(--${color}-rgb), 0.15)`,
         };
     }
   };
@@ -77,34 +74,14 @@ const Component = React.forwardRef<HTMLDivElement, CardProps>(({
       {/* Hover glow */}
       <div 
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-        style={{ background: `radial-gradient(ellipse at center, rgba(var(--${color}-rgb), 0.1), transparent 70%)` }}
+        style={{ 
+          background: `radial-gradient(ellipse at center, rgba(var(--${color}-rgb), 0.15), transparent 70%)`,
+          borderRadius: '8px'
+        }}
       />
 
-      {/* Border accent lines */}
-      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 10 }}>
-        <div className="absolute top-0 left-0 w-1/4 h-[2px] transition-all duration-300 group-hover:w-1/2"
-             style={{ background: `linear-gradient(90deg, var(--${color}), transparent)` }} />
-        <div className="absolute bottom-0 right-0 w-1/4 h-[2px] transition-all duration-300 group-hover:w-1/2"
-             style={{ background: `linear-gradient(270deg, var(--${color}), transparent)` }} />
-      </div>
-
-      {/* Version decorators */}
-      
-      {/* Holographic scan line */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20 group-hover:opacity-40 transition-opacity">
-        <div className="absolute inset-0" style={{ 
-          background: `repeating-linear-gradient(0deg, transparent 0px, rgba(var(--${color}-rgb), 0.1) 2px, transparent 4px)`,
-        }} />
-      </div>
-      {/* Corner notches */}
-      <div className="absolute top-0 left-4 w-6 h-[1px]" style={{ background: `var(--${color})` }} />
-      <div className="absolute top-0 right-4 w-6 h-[1px]" style={{ background: `var(--${color})` }} />
-      <div className="absolute bottom-0 left-4 w-6 h-[1px]" style={{ background: `var(--${color})` }} />
-      <div className="absolute bottom-0 right-4 w-6 h-[1px]" style={{ background: `var(--${color})` }} />
-    
-
       {/* Content */}
-      <div className={cn("relative z-10 p-6 h-full flex flex-col", "")} style={{ color: `var(--foreground)` }}>
+      <div className="relative z-10 p-6 h-full flex flex-col" style={{ color: `var(--foreground)` }}>
         {children}
       </div>
     </div>
@@ -113,4 +90,3 @@ const Component = React.forwardRef<HTMLDivElement, CardProps>(({
 
 Component.displayName = 'Card-holo-frame';
 export default Component;
-

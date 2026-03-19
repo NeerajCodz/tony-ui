@@ -1,5 +1,9 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { CLIP_PATHS } from '../../utils/clip-paths.js';
+
+// Get the notch clip-path from centralized definitions
+const NOTCH_CLIP_PATH = CLIP_PATHS['notch'].small;
 
 // Variant colors map for dynamic styling
 const variantColors = {
@@ -13,7 +17,7 @@ const variantColors = {
 // Styles configuration
 const versionStyles = {
   'angular-corner': {
-    root: "relative w-full border-0 p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 clip-path-notch-sm bg-black/40 backdrop-blur-sm",
+    root: "relative w-full border-0 p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 bg-black/40 backdrop-blur-sm",
   },
   'default': {
     root: "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4",
@@ -28,10 +32,11 @@ const Alert = React.forwardRef(({ className, variant = 'default', version = 'ang
     const styles = versionStyles['angular-corner'];
 
     // Dynamic styles for the cyber look
-    const dynamicStyle = {
+    const dynamicStyle: React.CSSProperties = {
         '--tw-shadow-color': `var(--${color}-500, ${color})`,
-        borderLeft: `4px solid var(--${color}-500, ${color})` // Thick accent on the left
-    };
+        borderLeft: `4px solid var(--${color}-500, ${color})`,
+        clipPath: NOTCH_CLIP_PATH, // Apply clip-path via inline style for consistency
+    } as React.CSSProperties;
     
     // Glow effect filter
     const glowStyle = {

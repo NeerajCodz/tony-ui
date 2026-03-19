@@ -1,12 +1,19 @@
-# Version: Tech Panel
+# Tech Panel
 
-## Primary Shape: Single Cut Corner (Ticket)
-A rectangle with exactly one corner cut (usually top-right or bottom-right).
+## Description
+Mechanical, industrial, and heavy-duty. Inspired by server racks and control consoles.
 
-## Geometry Specs
-- **Corner Style**: 3 Sharp, 1 Chamfered.
-- **Cut Size**: `15px`.
-- **Clip Path**: `polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)` (Bottom-right cut).
+## Key Visual Characteristics
+- **Shape:** Rectangular with recessed areas and "vent" decorative elements.
+- **Borders:** Inset borders creating a depth effect (layered look).
+- **Glow/Lighting:** Internal "power" lights (small glowing dots).
+- **Animations:** Hydraulic-style sliding transitions.
 
-## Design Philosophy
-Asymmetric utility. Suggests a modular component that slides into a specific slot.
+## CSS Variables / Tokens
+- `--vent-count`: `5`
+- `--inset-depth`: `4px`
+
+## Best Use Cases
+- System settings
+- Hardware diagnostics
+- Industrial control panels

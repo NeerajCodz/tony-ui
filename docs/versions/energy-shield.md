@@ -1,16 +1,19 @@
-# Version: Energy Shield
+# Energy Shield
 
-## Primary Shape: Pill / Oval
-A fully rounded shape (stadium) that focuses on soft, glowing edges.
+## Description
+A high-energy, ethereal look featuring hexagonal patterns and shimmering gradients.
 
-## Geometry Specs
-- **Corner Style**: Full Radius (Pill).
-- **Radius**: `9999px` (Full height).
-- **Border**: Soft, blurred bloom rather than a hard line.
+## Key Visual Characteristics
+- **Shape:** Soft-cornered rectangles or organic-feeling hex grids.
+- **Borders:** Blurred "plasma" edges rather than sharp lines.
+- **Glow/Lighting:** Dynamic inner glow that reacts to cursor position.
+- **Animations:** Shimmering "ripple" effect across the surface.
 
-## Design Philosophy
-Protective and ethereal. Represents a force field or energy barrier.
+## CSS Variables / Tokens
+- `--shield-intensity`: `0.5`
+- `--pattern-size`: `30px`
 
-## Animation
-- **Idle**: Gentle breathing (opacity/glow pulse).
-- **Hover**: Shield "hardens" (opacity increases, blur decreases).
+## Best Use Cases
+- Defensive status indicators
+- Magical/High-tech protection UI
+- Rare item highlights

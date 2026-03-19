@@ -1,7 +1,9 @@
 import React from 'react';
 import type { AvatarProps } from '../../types/components/data-display.js';
+import { CLIP_PATHS } from '../../utils/clip-paths.js';
 
-const CLIP_PATH = 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)';
+// Use symmetric clip-path for avatars (balanced look with all corners clipped)
+const CLIP_PATH = CLIP_PATHS['angular-corner'].avatar;
 
 const Component = React.forwardRef<HTMLDivElement, AvatarProps>(({
   variant = 'neutral',

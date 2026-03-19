@@ -1,12 +1,19 @@
-# Version: Tactical HUD
+# Tactical HUD
 
-## Primary Shape: Bracketed Polygon
-A complex shape resembling a camera viewfinder or targeting system.
+## Description
+Functional, minimal, and high-visibility. Designed for rapid information processing.
 
-## Geometry Specs
-- **Corner Style**: "Notched" or "Bracketed".
-- **Visuals**: Corners are thickened, sides are thin or missing.
-- **Clip Path**: Complex polygon with notches at corners.
+## Key Visual Characteristics
+- **Shape:** Corner "brackets" rather than full borders.
+- **Borders:** Minimal, high-contrast markers.
+- **Glow/Lighting:** Zero ambient glow, only high-visibility pips.
+- **Animations:** Snap-to-position transitions.
 
-## Design Philosophy
-Military precision. Focuses attention on the center of the element.
+## CSS Variables / Tokens
+- `--bracket-size`: `15px`
+- `--pip-count`: `4`
+
+## Best Use Cases
+- Combat feedback
+- Target indicators
+- Micro-interactions

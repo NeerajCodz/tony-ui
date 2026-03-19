@@ -33,7 +33,26 @@ import type { ColorType, SemanticColorId } from '../colors.d.js';
  * - tech-panel: Industrial panel with warning stripes
  * - neon-outline: High-contrast neon glow
  */
-export type CardVersion = 'angular-corner' | 'holo-frame' | 'data-panel' | 'circuit-board' | 'quantum-gate' | 'tactical-hud' | 'energy-shield' | 'terminal-window' | 'matrix-grid' | 'glass-morphism' | 'tech-panel' | 'neon-outline';
+export type CardVersion = 
+  | 'angular-corner' 
+  | 'border'
+  | 'circuit-board' 
+  | 'compact'
+  | 'data-panel' 
+  | 'default'
+  | 'energy-shield' 
+  | 'ghost'
+  | 'glass-morphism' 
+  | 'holo-frame' 
+  | 'large'
+  | 'matrix-grid' 
+  | 'neon-outline'
+  | 'padding'
+  | 'quantum-gate' 
+  | 'raised'
+  | 'tactical-hud' 
+  | 'tech-panel' 
+  | 'terminal-window';
 
 /**
  * Card Type - Border and fill style (default, outline, solid)
@@ -108,21 +127,49 @@ export const CARD_VERSION_CONFIGS: Record<CardVersion, CardVersionConfig> = {
     shadow: 'md',
     colorType: 'primary',
     supportsVariants: true,
-    description: 'Beveled corners with glowing cyan borders and tech-notches'
+    description: 'Beveled corners (45-degree cuts) with glowing borders'
   },
   
-  'holo-frame': {
-    version: 'holo-frame',
-    name: 'Holographic Frame',
+  'border': {
+    version: 'border',
+    name: 'Border',
     enabled: true,
-    classPrefix: 'card-holo-frame',
+    classPrefix: 'card-border',
     spacing: 'normal',
-    border: { style: 'solid', width: 'thin' },
-    background: 'subtle',
-    shadow: 'lg',
+    border: { style: 'solid', width: 'thick' },
+    background: 'transparent',
+    shadow: 'none',
     colorType: 'primary',
     supportsVariants: true,
-    description: 'Iridescent holographic border with animated rainbow gradient'
+    description: 'Sharp rectangle with heavy, double-line structural borders'
+  },
+
+  'circuit-board': {
+    version: 'circuit-board',
+    name: 'Circuit Board',
+    enabled: true,
+    classPrefix: 'card-circuit-board',
+    spacing: 'normal',
+    border: { style: 'solid', width: 'medium' },
+    background: 'subtle',
+    shadow: 'sm',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Tech rectangle with external circuit traces and connection nodes'
+  },
+
+  'compact': {
+    version: 'compact',
+    name: 'Compact',
+    enabled: true,
+    classPrefix: 'card-compact',
+    spacing: 'compact',
+    border: { style: 'solid', width: 'thin' },
+    background: 'solid',
+    shadow: 'sm',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Tight, high-density sharp block for data grids'
   },
   
   'data-panel': {
@@ -136,49 +183,21 @@ export const CARD_VERSION_CONFIGS: Record<CardVersion, CardVersionConfig> = {
     shadow: 'md',
     colorType: 'primary',
     supportsVariants: true,
-    description: 'Side technical panel with status indicators and readouts'
+    description: 'Asymmetric trapezium with top-right cut corner (folder tab style)'
   },
-  
-  'circuit-board': {
-    version: 'circuit-board',
-    name: 'Circuit Board',
+
+  'default': {
+    version: 'default',
+    name: 'Default',
     enabled: true,
-    classPrefix: 'card-circuit-board',
+    classPrefix: 'card-default',
     spacing: 'normal',
-    border: { style: 'solid', width: 'medium' },
-    background: 'subtle',
+    border: { style: 'solid', width: 'thin' },
+    background: 'solid',
     shadow: 'sm',
     colorType: 'primary',
     supportsVariants: true,
-    description: 'Circuit trace patterns with animated electrical pulses'
-  },
-  
-  'quantum-gate': {
-    version: 'quantum-gate',
-    name: 'Quantum Gate',
-    enabled: true,
-    classPrefix: 'card-quantum-gate',
-    spacing: 'expanded',
-    border: { style: 'solid', width: 'medium' },
-    background: 'subtle',
-    shadow: 'lg',
-    colorType: 'primary',
-    supportsVariants: true,
-    description: 'Quantum-inspired with particle effects and wave visualization'
-  },
-  
-  'tactical-hud': {
-    version: 'tactical-hud',
-    name: 'Tactical HUD',
-    enabled: true,
-    classPrefix: 'card-tactical-hud',
-    spacing: 'normal',
-    border: { style: 'solid', width: 'medium' },
-    background: 'subtle',
-    shadow: 'md',
-    colorType: 'primary',
-    supportsVariants: true,
-    description: 'Military HUD aesthetic with targeting reticle and radar sweep'
+    description: 'Standard block with minimal styling'
   },
   
   'energy-shield': {
@@ -192,35 +211,21 @@ export const CARD_VERSION_CONFIGS: Record<CardVersion, CardVersionConfig> = {
     shadow: 'lg',
     colorType: 'primary',
     supportsVariants: true,
-    description: 'Hexagonal shield pattern with pulsating energy waves'
+    description: 'Curved stadium/pill shape with soft force-field edges'
   },
-  
-  'terminal-window': {
-    version: 'terminal-window',
-    name: 'Terminal Window',
+
+  'ghost': {
+    version: 'ghost',
+    name: 'Ghost',
     enabled: true,
-    classPrefix: 'card-terminal-window',
-    spacing: 'expanded',
-    border: { style: 'solid', width: 'medium' },
-    background: 'solid',
-    shadow: 'md',
-    colorType: 'surface',
-    supportsVariants: true,
-    description: 'Terminal-style with command prompt aesthetic and CRT effects'
-  },
-  
-  'matrix-grid': {
-    version: 'matrix-grid',
-    name: 'Matrix Grid',
-    enabled: true,
-    classPrefix: 'card-matrix-grid',
+    classPrefix: 'card-ghost',
     spacing: 'normal',
-    border: { style: 'solid', width: 'medium' },
-    background: 'subtle',
-    shadow: 'md',
+    border: { style: 'none', width: 'thin' },
+    background: 'transparent',
+    shadow: 'none',
     colorType: 'primary',
     supportsVariants: true,
-    description: 'Animated grid overlay with digital rain effect'
+    description: 'Invisible container that reveals sharp edges on hover'
   },
   
   'glass-morphism': {
@@ -234,21 +239,49 @@ export const CARD_VERSION_CONFIGS: Record<CardVersion, CardVersionConfig> = {
     shadow: 'lg',
     colorType: 'primary',
     supportsVariants: true,
-    description: 'Semi-transparent frosted glass with subtle blur backdrop'
+    description: 'Frosted glass panel with semi-transparent backdrop'
   },
   
-  'tech-panel': {
-    version: 'tech-panel',
-    name: 'Tech Panel',
+  'holo-frame': {
+    version: 'holo-frame',
+    name: 'Holographic Frame',
     enabled: true,
-    classPrefix: 'card-tech-panel',
+    classPrefix: 'card-holo-frame',
+    spacing: 'normal',
+    border: { style: 'solid', width: 'thin' },
+    background: 'subtle',
+    shadow: 'lg',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Floating disconnected corners creating an open frame'
+  },
+
+  'large': {
+    version: 'large',
+    name: 'Large',
+    enabled: true,
+    classPrefix: 'card-large',
     spacing: 'expanded',
+    border: { style: 'solid', width: 'medium' },
+    background: 'solid',
+    shadow: 'md',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Oversized block for hero sections'
+  },
+  
+  'matrix-grid': {
+    version: 'matrix-grid',
+    name: 'Matrix Grid',
+    enabled: true,
+    classPrefix: 'card-matrix-grid',
+    spacing: 'normal',
     border: { style: 'solid', width: 'medium' },
     background: 'subtle',
     shadow: 'md',
     colorType: 'primary',
     supportsVariants: true,
-    description: 'Industrial panel design with rivets and warning stripes'
+    description: 'Sharp rectangle aligned to a strict digital background grid'
   },
   
   'neon-outline': {
@@ -262,7 +295,91 @@ export const CARD_VERSION_CONFIGS: Record<CardVersion, CardVersionConfig> = {
     shadow: 'none',
     colorType: 'primary',
     supportsVariants: true,
-    description: 'High-contrast neon glow with thick outer bloom'
+    description: 'High-contrast sharp box with intense outer glow'
+  },
+
+  'padding': {
+    version: 'padding',
+    name: 'Padding',
+    enabled: true,
+    classPrefix: 'card-padding',
+    spacing: 'expanded',
+    border: { style: 'none', width: 'thin' },
+    background: 'transparent',
+    shadow: 'none',
+    colorType: 'primary',
+    supportsVariants: false,
+    description: 'Invisible layout spacer'
+  },
+  
+  'quantum-gate': {
+    version: 'quantum-gate',
+    name: 'Quantum Gate',
+    enabled: true,
+    classPrefix: 'card-quantum-gate',
+    spacing: 'expanded',
+    border: { style: 'solid', width: 'medium' },
+    background: 'subtle',
+    shadow: 'lg',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Hexagonal aperture shape'
+  },
+
+  'raised': {
+    version: 'raised',
+    name: 'Raised',
+    enabled: true,
+    classPrefix: 'card-raised',
+    spacing: 'normal',
+    border: { style: 'solid', width: 'thin' },
+    background: 'solid',
+    shadow: 'md',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Extruded 3D block with hard shadow'
+  },
+  
+  'tactical-hud': {
+    version: 'tactical-hud',
+    name: 'Tactical HUD',
+    enabled: true,
+    classPrefix: 'card-tactical-hud',
+    spacing: 'normal',
+    border: { style: 'solid', width: 'medium' },
+    background: 'subtle',
+    shadow: 'md',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Bracketed corners [ ] enclosing the content'
+  },
+  
+  'tech-panel': {
+    version: 'tech-panel',
+    name: 'Tech Panel',
+    enabled: true,
+    classPrefix: 'card-tech-panel',
+    spacing: 'expanded',
+    border: { style: 'solid', width: 'medium' },
+    background: 'subtle',
+    shadow: 'md',
+    colorType: 'primary',
+    supportsVariants: true,
+    description: 'Industrial panel with 45-degree chamfered bottom-right corner'
+  },
+  
+  'terminal-window': {
+    version: 'terminal-window',
+    name: 'Terminal Window',
+    enabled: true,
+    classPrefix: 'card-terminal-window',
+    spacing: 'expanded',
+    border: { style: 'solid', width: 'medium' },
+    background: 'solid',
+    shadow: 'md',
+    colorType: 'surface',
+    supportsVariants: true,
+    description: 'Sharp retro window with distinct top title bar'
   }
 };
 

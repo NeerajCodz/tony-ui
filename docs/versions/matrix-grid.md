@@ -1,12 +1,19 @@
-# Version: Matrix Grid
+# Matrix Grid
 
-## Primary Shape: Grid-Aligned Rectangle
-A sharp rectangle that aligns perfectly with a background grid system.
+## Description
+Inspired by digital rain and grid-based data structures. Structured and rhythmic.
 
-## Geometry Specs
-- **Corner Style**: Sharp (90 degrees).
-- **Background**: Dot grid or mesh pattern.
-- **Border**: Thin, technical (1px).
+## Key Visual Characteristics
+- **Shape:** Strict rectangular with internal background grid.
+- **Borders:** Defined by the grid intersections.
+- **Glow/Lighting:** Highlights on individual grid cells.
+- **Animations:** Code-like vertical scrolling in the background.
 
-## Design Philosophy
-Systemic and ordered. Represents raw data or infrastructure.
+## CSS Variables / Tokens
+- `--grid-spacing`: `20px`
+- `--matrix-speed`: `1.5s`
+
+## Best Use Cases
+- Loading screens
+- Encryption/Decryption UI
+- Database browsers

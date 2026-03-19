@@ -1,12 +1,19 @@
-# Version: Quantum Gate
+# Quantum Gate
 
-## Primary Shape: Hexagon
-A distinct hexagonal shape (honeycomb).
+## Description
+Abstract, shifting geometry that suggests advanced physics and dimensional warping.
 
-## Geometry Specs
-- **Corner Style**: Angled (6 sides).
-- **Orientation**: Flat top or Pointy top (usually Flat top for UI).
-- **Clip Path**: `polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)` (Aspect ratio dependent).
+## Key Visual Characteristics
+- **Shape:** "Folded" corners and overlapping translucent planes.
+- **Borders:** Non-linear, shifting paths.
+- **Glow/Lighting:** Shifting color spectrum (iridescent effect).
+- **Animations:** "Folding" transition when opening or closing.
 
-## Design Philosophy
-Advanced science. Suggests lattice structures, nanotechnology, or portals.
+## CSS Variables / Tokens
+- `--warp-factor`: `0.2`
+- `--plane-offset`: `8px`
+
+## Best Use Cases
+- Fast-travel menus
+- Legenday item displays
+- Core system settings

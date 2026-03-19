@@ -1,12 +1,19 @@
-# Version: Holo Frame
+# Holo Frame
 
-## Primary Shape: Octagon / Gem
-A geometric shape with 8 sides (cut corners), often with a separated outer frame.
+## Description
+A lightweight, translucent frame that appears as a 3D hologram projection.
 
-## Geometry Specs
-- **Corner Style**: Chamfered (Large cuts).
-- **Shape**: Octagon.
-- **Frame**: Offset from the content by `4px`.
+## Key Visual Characteristics
+- **Shape:** Rectangular with "projector" nodes at the base.
+- **Borders:** "Scanning" horizontal lines and slight chromatic aberration.
+- **Glow/Lighting:** Strong bottom-up glow as if projected from below.
+- **Animations:** Subtle flicker and vertical "glitch" distortion.
 
-## Design Philosophy
-Projection-based. Looks like a floating hologram. High-tech and sophisticated.
+## CSS Variables / Tokens
+- `--flicker-rate`: `0.05s`
+- `--projection-angle`: `15deg`
+
+## Best Use Cases
+- Character stats
+- Floating help menus
+- Quest objectives
