@@ -1,0 +1,9 @@
+{
+  "name": "accent",
+  "colors": {
+    "base": "#8b5cf6",
+    "foreground": "#ffffff",
+    "border": "#7c3aed",
+    "glow": "#a78bfa"
+  }
+}

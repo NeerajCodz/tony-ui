@@ -1,0 +1,9 @@
+{
+  "name": "destructive",
+  "colors": {
+    "base": "#ef4444",
+    "foreground": "#ffffff",
+    "border": "#dc2626",
+    "glow": "#f87171"
+  }
+}

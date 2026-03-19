@@ -1,0 +1,9 @@
+{
+  "name": "success-soft",
+  "colors": {
+    "base": "rgba(34, 197, 94, 0.1)",
+    "foreground": "#22c55e",
+    "border": "rgba(34, 197, 94, 0.2)",
+    "glow": "rgba(34, 197, 94, 0.3)"
+  }
+}

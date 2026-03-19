@@ -1,0 +1,9 @@
+{
+  "name": "danger-soft",
+  "colors": {
+    "base": "rgba(239, 68, 68, 0.1)",
+    "foreground": "#ef4444",
+    "border": "rgba(239, 68, 68, 0.2)",
+    "glow": "rgba(239, 68, 68, 0.3)"
+  }
+}

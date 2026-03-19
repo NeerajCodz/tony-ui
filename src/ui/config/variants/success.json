@@ -1,0 +1,9 @@
+{
+  "name": "success",
+  "colors": {
+    "base": "#10b981",
+    "foreground": "#ffffff",
+    "border": "#059669",
+    "glow": "#34d399"
+  }
+}

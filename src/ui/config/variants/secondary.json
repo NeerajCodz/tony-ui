@@ -1,0 +1,9 @@
+{
+  "name": "secondary",
+  "colors": {
+    "base": "#475569",
+    "foreground": "#e2e8f0",
+    "border": "#334155",
+    "glow": "#64748b"
+  }
+}

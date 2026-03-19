@@ -1,0 +1,9 @@
+{
+  "name": "warning",
+  "colors": {
+    "base": "#f59e0b",
+    "foreground": "#ffffff",
+    "border": "#d97706",
+    "glow": "#fbbf24"
+  }
+}

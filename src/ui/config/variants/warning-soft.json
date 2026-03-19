@@ -1,0 +1,9 @@
+{
+  "name": "warning-soft",
+  "colors": {
+    "base": "rgba(245, 158, 11, 0.1)",
+    "foreground": "#f59e0b",
+    "border": "rgba(245, 158, 11, 0.2)",
+    "glow": "rgba(245, 158, 11, 0.3)"
+  }
+}

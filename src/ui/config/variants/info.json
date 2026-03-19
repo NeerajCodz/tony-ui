@@ -1,0 +1,9 @@
+{
+  "name": "info",
+  "colors": {
+    "base": "#3b82f6",
+    "foreground": "#ffffff",
+    "border": "#2563eb",
+    "glow": "#60a5fa"
+  }
+}

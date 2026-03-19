@@ -1,0 +1,9 @@
+{
+  "name": "inverse",
+  "colors": {
+    "base": "#f8fafc",
+    "foreground": "#0f172a",
+    "border": "#e2e8f0",
+    "glow": "#cbd5e1"
+  }
+}

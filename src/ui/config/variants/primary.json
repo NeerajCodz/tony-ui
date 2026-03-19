@@ -1,0 +1,9 @@
+{
+  "name": "primary",
+  "colors": {
+    "base": "#06b6d4",
+    "foreground": "#ffffff",
+    "border": "#0891b2",
+    "glow": "#22d3ee"
+  }
+}
