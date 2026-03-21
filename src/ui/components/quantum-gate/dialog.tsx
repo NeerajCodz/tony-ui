@@ -1,53 +1,170 @@
-import React from 'react';import { X, Info, AlertTriangle, CheckCircle, AlertOctagon, Terminal } from 'lucide-react';
-import { cn } from '../../utils/component-helpers';
-import { DialogCloseBase, DialogContentBase, DialogDescriptionBase, DialogOverlayBase, DialogTitleBase } from '../_base/dialog';
+'use client';
 
-const variantIcons = { default: Terminal, neutral: Terminal, primary: Info, success: CheckCircle, warning: AlertTriangle, destructive: AlertOctagon, info: Info };
-const variantColors = { default: 'cyan', neutral: 'slate', primary: 'cyan', success: 'emerald', warning: 'amber', destructive: 'red', info: 'blue' };
-const styles = { overlay: "fixed inset-0 z-50 bg-background/80 backdrop-blur-sm", content: "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg", title: "text-lg font-semibold", description: "text-sm text-muted-foreground", close: "absolute right-4 top-4 rounded-sm opacity-70 hover:opacity-100"  };
-export const Overlay = React.forwardRef(({ className, ...props }: any, ref: any) => (
-  <DialogOverlayBase ref={ref} className={cn(styles.overlay, className)} {...props} />
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+import {
+  DialogOverlayBase,
+  DialogContentBase,
+  DialogTitleBase,
+  DialogDescriptionBase,
+} from '../_base/dialog';
+import type { VariantColors } from '../../types/common';
+import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
+
+type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
+
+interface StyledProps {
+  type?: ComponentType;
+  uiType?: ComponentType;
+  colors?: VariantColors;
+}
+
+const versionKey = 'quantum-gate';
+
+const DIALOG_CLIP_PATH = 'polygon(24px 0, calc(100% - 24px) 0, 100% 24px, 100% calc(100% - 24px), calc(100% - 24px) 100%, 24px 100%, 0 calc(100% - 24px), 0 24px)';
+
+export const Overlay = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <DialogOverlayBase
+    ref={ref}
+    className={cn(
+      'fixed inset-0 z-50 bg-black/70 backdrop-blur-sm',
+      className
+    )}
+    style={{
+      background: 'radial-gradient(ellipse at center, rgba(60,60,120,0.3) 0%, rgba(0,0,0,0.8) 100%)',
+    }}
+    {...props}
+  />
 ));
-Overlay.displayName = DialogOverlayBase.displayName;
-export const Content = React.forwardRef(({ className, children, type = 'default', variant = 'primary', ...props }: any, ref: any) => {    
-  const color = variantColors[variant] || 'cyan';
-  let typeClasses = "";
-  if (type === 'inverse') typeClasses = `bg-${color}-500 text-${color}-950 border-${color}-950`;
-  else if (type === 'contrast') typeClasses = `bg-black text-white border-white border-4`;
-  else if (type === 'soft') typeClasses = `bg-${color}-100/50 border-${color}-200`;
+Overlay.displayName = 'DialogOverlay';
 
-  const Icon = variantIcons[variant] || variantIcons.default;
-  const dynamicClasses = `shadow-[0_0_30px_-5px_theme(colors.${color}.500/30)] border-l-4 border-${color}-500 bg-black/90`;
+export const Content = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & StyledProps
+>(({ className, children, type, uiType, colors, style, ...props }, ref) => {
+  const resolvedType = uiType ?? type ?? 'default';
+  const palette = normalizeColors(colors);
+  const typeStyles = getCoreTypeStyles(resolvedType, colors);
+
+  const backgroundColor =
+    resolvedType === 'solid'
+      ? palette.accentPrimary ?? palette.base
+      : resolvedType === 'soft' && palette.accentRgb
+        ? 'rgba(' + palette.accentRgb + ', 0.95)'
+        : resolvedType === 'inverse'
+          ? palette.foreground
+          : (typeStyles.backgroundColor as string | undefined) ?? palette.base ?? '#0a0a12';
+
+  const borderColor = palette.accentPrimary ?? palette.border ?? '#3a3a5a';
+
+  const textColor =
+    resolvedType === 'solid'
+      ? palette.base ?? '#fff'
+      : resolvedType === 'inverse'
+        ? palette.base ?? '#000'
+        : (typeStyles.color as string | undefined) ?? palette.foreground ?? '#e0e0ff';
+
   return (
-    <DialogContentBase ref={ref} className={cn(styles.content, dynamicClasses, typeClasses, className)} {...props}>
-      <div className={`absolute -top-3 -left-3 p-1.5 bg-gray-950 border border-${color}-500/50 rounded-none z-50 shadow-lg`}>
-         <Icon className={`w-5 h-5 text-${color}-400`} />
-      </div>
-      {children}
-      <DialogCloseBase className={cn(styles.close, `text-${color}-400 hover:text-${color}-200`)}>
-        <X className="h-4 w-4" /> <span className="sr-only">Close</span>
-      </DialogCloseBase>
+    <DialogContentBase
+      ref={ref}
+      className={cn(
+        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 p-6 shadow-lg duration-200',
+        className
+      )}
+      style={{
+        clipPath: DIALOG_CLIP_PATH,
+        backgroundColor,
+        border: '2px solid ' + borderColor,
+        color: textColor,
+        boxShadow: '0 0 30px ' + (palette.glow ?? 'rgba(100,100,255,0.4)') + ', inset 0 0 40px rgba(100,100,255,0.05)',
+        ...style,
+      }}
+      data-version={versionKey}
+      data-type={resolvedType}
+      {...props}
+    >
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none opacity-10"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        <pattern id="dialog-honeycomb" x="0" y="0" width="15" height="13" patternUnits="userSpaceOnUse">
+          <polygon
+            points="7.5,0 15,4.33 15,8.66 7.5,13 0,8.66 0,4.33"
+            fill="none"
+            stroke={palette.accentPrimary ?? '#6060ff'}
+            strokeWidth="0.3"
+          />
+        </pattern>
+        <rect x="0" y="0" width="100" height="100" fill="url(#dialog-honeycomb)" />
+      </svg>
+      <div className="relative z-[1]">{children}</div>
     </DialogContentBase>
   );
 });
-Content.displayName = DialogContentBase.displayName;
-export const Title = React.forwardRef(({ className, type = 'default', variant = 'primary', ...props }: any, ref: any) => {
-   const color = variantColors[variant] || 'cyan';
-  let typeClasses = "";
-  if (type === 'inverse') typeClasses = `bg-${color}-500 text-${color}-950 border-${color}-950`;
-  else if (type === 'contrast') typeClasses = `bg-black text-white border-white border-4`;
-  else if (type === 'soft') typeClasses = `bg-${color}-100/50 border-${color}-200`;
+Content.displayName = 'DialogContent';
 
-   return <DialogTitleBase ref={ref} className={cn(styles.title, `text-${color}-100`, className)} {...props} />;
-});
-Title.displayName = DialogTitleBase.displayName;
-export const Description = React.forwardRef(({ className, type = 'default', variant = 'primary', ...props }: any, ref: any) => {
-   const color = variantColors[variant] || 'cyan';
-  let typeClasses = "";
-  if (type === 'inverse') typeClasses = `bg-${color}-500 text-${color}-950 border-${color}-950`;
-  else if (type === 'contrast') typeClasses = `bg-black text-white border-white border-4`;
-  else if (type === 'soft') typeClasses = `bg-${color}-100/50 border-${color}-200`;
+export const Title = React.forwardRef<
+  HTMLHeadingElement,
+  React.HTMLAttributes<HTMLHeadingElement> & StyledProps
+>(({ className, type, uiType, colors, style, ...props }, ref) => {
+  const resolvedType = uiType ?? type ?? 'default';
+  const palette = normalizeColors(colors);
 
-   return <DialogDescriptionBase ref={ref} className={cn(styles.description, `text-${color}-300/70`, className)} {...props} />;
+  const textColor =
+    resolvedType === 'solid'
+      ? palette.base ?? '#fff'
+      : resolvedType === 'inverse'
+        ? palette.base ?? '#000'
+        : palette.accentPrimary ?? palette.foreground ?? '#a0a0ff';
+
+  return (
+    <DialogTitleBase
+      ref={ref}
+      className={cn('text-lg font-semibold leading-none tracking-wider', className)}
+      style={{
+        color: textColor,
+        letterSpacing: '0.04em',
+        textShadow: '0 0 8px ' + (palette.glow ?? 'rgba(100,100,255,0.5)'),
+        ...style,
+      }}
+      {...props}
+    />
+  );
 });
-Description.displayName = DialogDescriptionBase.displayName;
+Title.displayName = 'DialogTitle';
+
+export const Description = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement> & StyledProps
+>(({ className, type, uiType, colors, style, ...props }, ref) => {
+  const resolvedType = uiType ?? type ?? 'default';
+  const palette = normalizeColors(colors);
+
+  const textColor =
+    resolvedType === 'solid'
+      ? palette.base ?? '#fff'
+      : resolvedType === 'inverse'
+        ? palette.base ?? '#000'
+        : palette.foreground ?? '#c0c0e0';
+
+  return (
+    <DialogDescriptionBase
+      ref={ref}
+      className={cn('text-sm', className)}
+      style={{
+        color: textColor,
+        opacity: 0.85,
+        ...style,
+      }}
+      {...props}
+    />
+  );
+});
+Description.displayName = 'DialogDescription';
+
+const Dialog = { Overlay, Content, Title, Description };
+export default Dialog;

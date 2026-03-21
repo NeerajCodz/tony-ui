@@ -1,45 +1,77 @@
-import React from 'react';import { cn } from '../../utils/component-helpers';
+'use client';
 
-import { SliderBase, SliderRangeBase, SliderThumbBase, SliderTrackBase } from '../_base/slider';
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+import { SliderBase } from '../_base/slider';
+import type { VariantColors } from '../../types/common';
+import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
 
-const getTypeStyles = (type: string | undefined) => {
-  if (!type) return '';
-  switch (type) {
-    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
-    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
-    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
-    default: return '';
-  }
-};
+type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
 
-
-interface SliderProps extends React.ComponentPropsWithoutRef<typeof SliderBase> {
-  type?: 'inverse' | 'contrast' | 'soft';
-  variant?: 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
+interface SliderProps extends Omit<React.ComponentPropsWithoutRef<typeof SliderBase>, 'type'> {
+  type?: ComponentType;
+  uiType?: ComponentType;
+  colors?: VariantColors;
 }
 
-const Slider = React.forwardRef<React.ElementRef<typeof SliderBase>, SliderProps>(({ type, className, variant = 'primary', ...props }, ref) => {
-  const colorMap: Record<string, string> = {
-    neutral: 'primary', success: 'success', warning: 'warning', info: 'info', destructive: 'destructive', primary: 'primary'
-  };
-  const color = colorMap[variant] || 'primary';
+const versionKey = 'quantum-gate';
+
+const TRACK_CLIP_PATH = 'polygon(4px 0, calc(100% - 4px) 0, 100% 50%, calc(100% - 4px) 100%, 4px 100%, 0 50%)';
+const THUMB_CLIP_PATH = 'polygon(25% 6%, 75% 6%, 98% 50%, 75% 94%, 25% 94%, 2% 50%)';
+
+const Slider = React.forwardRef<
+  React.ElementRef<typeof SliderBase>,
+  SliderProps
+>(({ className, type, uiType, colors, style, ...props }, ref) => {
+  const resolvedType = uiType ?? type ?? 'default';
+  const palette = normalizeColors(colors);
+  const typeStyles = getCoreTypeStyles(resolvedType, colors);
+
+  const trackColor = 'rgba(' + (palette.accentRgb ?? '100,100,255') + ', 0.2)';
+  const rangeColor = palette.accentPrimary ?? '#8080ff';
+  const thumbColor =
+    resolvedType === 'solid'
+      ? palette.base ?? '#fff'
+      : palette.accentPrimary ?? '#8080ff';
 
   return (
     <SliderBase
       ref={ref}
-      className={cn("relative flex w-full touch-none select-none items-center", className, getTypeStyles(type))}
+      className={cn('relative flex w-full touch-none select-none items-center', className)}
+      style={style}
+      data-version={versionKey}
+      data-type={resolvedType}
       {...props}
     >
-      <SliderTrackBase className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary" style={{  }}>
-        <SliderRangeBase className="absolute h-full bg-primary" style={{ backgroundColor: `hsl(var(--${color}-base))` }} />
-      </SliderTrackBase>
-      <SliderThumbBase
-        className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-        style={{ borderColor: `hsl(var(--${color}-base))` }}
+      <span
+        className="relative h-2 w-full grow overflow-hidden"
+        style={{
+          clipPath: TRACK_CLIP_PATH,
+          backgroundColor: trackColor,
+        }}
+      >
+        <span
+          className="absolute h-full"
+          style={{
+            backgroundColor: rangeColor,
+            boxShadow: '0 0 8px ' + rangeColor,
+          }}
+        />
+      </span>
+      <span
+        className="block h-5 w-5 transition-transform focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+        style={{
+          clipPath: THUMB_CLIP_PATH,
+          backgroundColor: thumbColor,
+          border: '2px solid ' + (palette.border ?? '#3a3a5a'),
+          boxShadow: '0 0 10px ' + (palette.glow ?? 'rgba(100,100,255,0.5)'),
+        }}
       />
     </SliderBase>
-  )
-})
-Slider.displayName = SliderBase.displayName
+  );
+});
 
-export { Slider }
+Slider.displayName = 'Slider';
+
+export { Slider };
+export default Slider;

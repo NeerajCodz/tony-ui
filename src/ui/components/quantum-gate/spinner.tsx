@@ -4,79 +4,84 @@ import React, { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 import type { VariantColors } from '../../types/common';
 import { SpinnerBase } from '../_base/spinner';
-import { getSpinnerVisual, getVersionStyleProfile } from '../_shared/version-styles';
+import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
 
 type SpinnerSize = 'sm' | 'md' | 'lg' | 'xl';
+type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
 
 export interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
-  version?: string;
-  type?: string;
-  variant?: string;
+  type?: ComponentType;
+  uiType?: ComponentType;
   size?: SpinnerSize;
   colors?: VariantColors;
 }
 
 const versionKey = 'quantum-gate';
 
-const shapeClipPaths: Record<string, string | undefined> = {
-  hex: 'polygon(25% 8%, 75% 8%, 96% 50%, 75% 92%, 25% 92%, 4% 50%)',
-  clipped: 'polygon(8% 0, 100% 0, 100% 92%, 92% 100%, 0 100%, 0 8%)',
-  bracket: 'polygon(0 0, 92% 0, 100% 8%, 100% 100%, 8% 100%, 0 92%)',
-};
+const HEX_CLIP_PATH = 'polygon(25% 6%, 75% 6%, 98% 50%, 75% 94%, 25% 94%, 2% 50%)';
 
 const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
-  ({ size = 'md', colors, type = 'default', version, className = '', style, ...props }, ref) => {
-    const profile = getVersionStyleProfile(version ?? versionKey);
-    const visual = getSpinnerVisual(type, colors);
+  ({ size = 'md', colors, type, uiType, className = '', style, ...props }, ref) => {
+    const resolvedType = uiType ?? type ?? 'default';
+    const palette = normalizeColors(colors);
+    const typeStyles = getCoreTypeStyles(resolvedType, colors);
 
     const sizeMap: Record<SpinnerSize, number> = {
-      sm: 16,
-      md: 24,
-      lg: 32,
-      xl: 48,
+      sm: 20,
+      md: 32,
+      lg: 48,
+      xl: 64,
     };
 
-    const pxSize = sizeMap[size] ?? 24;
-    const clipPath = shapeClipPaths[profile.shape];
+    const pxSize = sizeMap[size] ?? 32;
+
+    const spinnerColor =
+      resolvedType === 'solid'
+        ? palette.base ?? '#fff'
+        : resolvedType === 'inverse'
+          ? palette.base ?? '#000'
+          : (typeStyles.color as string | undefined) ?? palette.accentPrimary ?? '#8080ff';
+
+    const glowColor = palette.glow ?? 'rgba(100,100,255,0.6)';
 
     return (
       <SpinnerBase
         ref={ref}
         size={size}
         className={cn('relative inline-flex items-center justify-center', className)}
-        style={{ width: pxSize, height: pxSize, color: visual.color, ...style }}
-        data-version={profile.version}
-        data-type={type}
+        style={{ width: pxSize, height: pxSize, ...style }}
+        data-version={versionKey}
+        data-type={resolvedType}
         {...props}
       >
         <span
-          className="absolute inset-0 animate-spin rounded-full border-2 border-transparent"
+          className="absolute inset-0 animate-spin"
           style={{
-            borderTopColor: visual.color,
-            borderRightColor: visual.color,
-            clipPath,
-            filter: `drop-shadow(0 0 6px ${visual.glow})`,
+            clipPath: HEX_CLIP_PATH,
+            border: '3px solid transparent',
+            borderTopColor: spinnerColor,
+            borderRightColor: spinnerColor,
+            filter: 'drop-shadow(0 0 8px ' + glowColor + ')',
           }}
         />
         <span
-          className="absolute inset-[25%] rounded-full"
+          className="absolute inset-[15%]"
           style={{
-            backgroundColor: `color-mix(in srgb, ${visual.color} 24%, transparent)`,
+            clipPath: HEX_CLIP_PATH,
+            border: '2px solid ' + spinnerColor,
+            opacity: 0.4,
+            animation: 'spin 2s linear infinite reverse',
           }}
         />
-        {(profile.shape === 'hex' || profile.hasHoneycomb) ? (
-          <span
-            className="absolute inset-[12%] border"
-            style={{
-              borderColor: visual.color,
-              clipPath: shapeClipPaths.hex,
-              opacity: 0.7,
-            }}
-          />
-        ) : null}
-        {profile.hasTerminalBar ? (
-          <span className="absolute -top-1 left-0 right-0 h-[2px] opacity-70" style={{ backgroundColor: visual.color }} />
-        ) : null}
+        <span
+          className="absolute inset-[35%]"
+          style={{
+            clipPath: HEX_CLIP_PATH,
+            backgroundColor: spinnerColor,
+            opacity: 0.8,
+            animation: 'pulse 1.5s ease-in-out infinite',
+          }}
+        />
       </SpinnerBase>
     );
   }

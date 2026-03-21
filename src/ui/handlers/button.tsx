@@ -66,13 +66,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   htmlType = 'button',
   ...props
 }, ref) => {
-  const shouldLog = process.env.NODE_ENV !== 'production';
   // Get variant colors dynamically - NO hardcoding
   const colors = useMemo(() => getVariantColors(variant), [variant]);
-
-  if (shouldLog) {
-    console.log('[UI:button]', { version, variant, type, size, loading });
-  }
   
   // Get or create lazy component
   const LazyComponent = useMemo(() => {

@@ -28,15 +28,30 @@ export default function Button({
   const resolvedType = (uiType ?? type ?? 'default') as string;
   const typeStyles = getCoreTypeStyles(resolvedType, colors);
 
+  const baseBackground =
+    resolvedType === 'soft' && normalized.accentRgb
+      ? `rgba(${normalized.accentRgb}, 0.14)`
+      : (typeStyles.backgroundColor as string | undefined) ?? normalized.base;
+
   const buttonStyles: React.CSSProperties = {
     ...typeStyles,
+    backgroundColor: baseBackground,
     borderRadius: profile.radius,
     borderWidth: profile.borderWidth,
     borderStyle: 'solid',
-    borderColor: normalized.border,
+    borderColor:
+      resolvedType === 'outline' || resolvedType === 'contrast'
+        ? normalized.accentPrimary
+        : resolvedType === 'ghost'
+          ? 'transparent'
+          : normalized.border,
+    color: (typeStyles.color as string | undefined) ?? normalized.foreground,
     fontFamily: profile.fontFamily,
     letterSpacing: profile.letterSpacing,
-    ...(profile.hasGlow && resolvedType !== 'ghost' ? { boxShadow: `0 0 12px ${normalized.glow}` } : {}),
+    ...(profile.hasGlow && resolvedType !== 'ghost' ? { boxShadow: `${typeStyles.boxShadow ?? ''}${typeStyles.boxShadow ? ', ' : ''}0 0 12px ${normalized.glow}` } : {}),
+    ...(resolvedType === 'ghost'
+      ? { boxShadow: 'none' }
+      : {}),
     ...style,
   };
 

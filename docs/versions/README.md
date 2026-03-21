@@ -78,10 +78,10 @@ The Cyber UI system includes 19 distinct visual versions, each with a unique aes
     - Complex geometric patterns
     - Tech-forward styling
 
-16. **[pill](./pill.md)** - Rounded, capsule-style UI
-    - Strong shadow depth effects
-    - Elevated, floating appearance
-    - 3D layering emphasis
+16. **[honeycomb](./honeycomb.md)** - Rounded, capsule-style UI
+    - Rounded, capsule-like shapes with honeycomb pattern
+    - Soft, approachable aesthetic
+    - Organic, flowing forms with hexagonal motifs
 
 17. **[tactical-hud](./tactical-hud.md)** - Military HUD elements
     - Tactical interface aesthetic

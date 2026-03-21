@@ -45,12 +45,7 @@ const LoadingSkeleton: React.FC = () => (
 
 export const AnalogClock = React.forwardRef<SVGSVGElement, AnalogClockProps>(
   ({ version = 'default', variant = 'default', type = 'default', ...props }, ref) => {
-    const shouldLog = process.env.NODE_ENV !== 'production';
     const colors = useMemo(() => getVariantColors(variant), [variant]);
-
-    if (shouldLog) {
-      console.log('[UI:analog-clock]', { version, variant, type });
-    }
 
     const LazyComponent = useMemo(() => {
       const cacheKey = `${version}/analog-clock`;

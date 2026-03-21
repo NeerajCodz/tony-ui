@@ -77,7 +77,6 @@ function createTypographyPart(part: TypographyPartName) {
     { version = 'default', variant = 'default', type = 'default', ...props },
     ref
   ) {
-    const shouldLog = process.env.NODE_ENV !== 'production';
     const [module, setModule] = useState<TypographyExportModule | null>(() => moduleCache.get(version) ?? null);
     const colors = useMemo(() => getVariantColors(variant), [variant]);
 
@@ -107,10 +106,6 @@ function createTypographyPart(part: TypographyPartName) {
         mounted = false;
       };
     }, [version]);
-
-    if (shouldLog) {
-      console.log('[UI:typography]', { part, version, variant, type });
-    }
 
     if (!module) {
       return <div className="animate-pulse rounded bg-muted/20 px-3 py-2 text-xs">Loading typography…</div>;

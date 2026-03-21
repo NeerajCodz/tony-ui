@@ -1,65 +1,94 @@
 'use client';
 
-import React, { forwardRef } from 'react';import { cn } from '@/lib/utils';
-import { VariantColors } from '@/ui/types/common';
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+import { ProgressBase } from '../_base/progress';
+import type { VariantColors } from '../../types/common';
+import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
 
-import { ProgressBase, ProgressIndicatorBase } from '../_base/progress';
+type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
 
-const getStyles = (type?: string, colors?: VariantColors) => {
-  if (!type || !colors) return {};
-  
-  switch (type) {
-    case 'inverse':
-      return {
-        backgroundColor: colors.text,
-        color: colors.background,
-        border: `1px solid ${colors.text}`
-      };
-    case 'contrast':
-      return {
-        backgroundColor: colors.accent?.primary || colors.text,
-        color: '#000000',
-        fontWeight: 'bold',
-        border: `1px solid ${colors.text}`
-      };
-    case 'soft':
-      return {
-        backgroundColor: colors.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
-        color: colors.accent?.primary || colors.text,
-        border: 'none'
-      };
-    default:
-      return {};
-  }
-};
-
-
-interface ProgressProps extends React.ComponentPropsWithoutRef<typeof ProgressBase> {
-  version?: string;
-  variant?: string;
-  type?: string;
+interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
+  type?: ComponentType;
+  uiType?: ComponentType;
   colors?: VariantColors;
+  value?: number;
+  max?: number;
   showValue?: boolean;
 }
 
-const Progress = forwardRef<React.ElementRef<typeof ProgressBase>, ProgressProps>(
-  ({ className, value, version, variant, type, colors, showValue, ...props }, ref) => (
-    <ProgressBase
-      ref={ref}
-      className={cn(
-        "relative h-4 w-full overflow-hidden rounded-full bg-secondary",
-        className
-      )}
-      {...props} style={{ ...getStyles(type, colors), ...(props.style as any) }}
-    >
-      <ProgressIndicatorBase
-        className="h-full w-full flex-1 bg-primary transition-all"
-        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
-      />
-    </ProgressBase>
-  )
+const versionKey = 'quantum-gate';
+
+const PROGRESS_CLIP_PATH = 'polygon(8px 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 8px 100%, 0 50%)';
+
+const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
+  ({ className, type, uiType, colors, value = 0, max = 100, showValue, style, ...props }, ref) => {
+    const resolvedType = uiType ?? type ?? 'default';
+    const palette = normalizeColors(colors);
+    const typeStyles = getCoreTypeStyles(resolvedType, colors);
+
+    const percentage = Math.min(100, Math.max(0, (value / max) * 100));
+
+    const trackColor =
+      resolvedType === 'inverse'
+        ? palette.base ?? '#fff'
+        : 'rgba(' + (palette.accentRgb ?? '100,100,255') + ', 0.2)';
+
+    const indicatorColor =
+      resolvedType === 'solid'
+        ? palette.base ?? '#fff'
+        : palette.accentPrimary ?? '#8080ff';
+
+    const textColor =
+      resolvedType === 'solid'
+        ? palette.base ?? '#fff'
+        : resolvedType === 'inverse'
+          ? palette.base ?? '#000'
+          : (typeStyles.color as string | undefined) ?? palette.foreground ?? '#e0e0ff';
+
+    return (
+      <div className={cn('relative', className)} style={style}>
+        <ProgressBase
+          ref={ref}
+          value={value}
+          max={max}
+          className="relative h-4 w-full overflow-hidden"
+          style={{
+            clipPath: PROGRESS_CLIP_PATH,
+            backgroundColor: trackColor,
+            boxShadow: 'inset 0 0 8px rgba(0,0,0,0.3)',
+          }}
+          data-version={versionKey}
+          data-type={resolvedType}
+          {...props}
+        >
+          <div
+            className="h-full transition-all duration-300 ease-out"
+            style={{
+              width: percentage + '%',
+              clipPath: PROGRESS_CLIP_PATH,
+              backgroundColor: indicatorColor,
+              boxShadow: '0 0 12px ' + indicatorColor + ', inset 0 0 6px rgba(255,255,255,0.2)',
+            }}
+          />
+        </ProgressBase>
+        {showValue && (
+          <span
+            className="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-medium tabular-nums pr-4"
+            style={{
+              color: textColor,
+              textShadow: '0 0 4px ' + (palette.glow ?? 'rgba(100,100,255,0.5)'),
+            }}
+          >
+            {Math.round(percentage)}%
+          </span>
+        )}
+      </div>
+    );
+  }
 );
-Progress.displayName = ProgressBase.displayName;
+
+Progress.displayName = 'Progress';
 
 export { Progress };
 export default Progress;

@@ -1,12 +1,9 @@
+'use client';
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import type { VariantColors } from '../../types/common';
-import {
-  getTypographyTone,
-  getVersionCardDecor,
-  getVersionCardRootStyles,
-  getVersionStyleProfile,
-} from '../_shared/version-styles';
+import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
 import {
   CardBase,
   CardHeaderBase,
@@ -20,48 +17,79 @@ type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'co
 
 interface StyledProps {
   type?: ComponentType;
+  uiType?: ComponentType;
   colors?: VariantColors;
-  variant?: string;
-  version?: string;
 }
 
-export interface CardProps extends React.ComponentProps<typeof CardBase>, StyledProps {}
-export interface CardHeaderProps extends React.ComponentProps<typeof CardHeaderBase>, StyledProps {}
-export interface CardTitleProps extends React.ComponentProps<typeof CardTitleBase>, StyledProps {}
-export interface CardDescriptionProps extends React.ComponentProps<typeof CardDescriptionBase>, StyledProps {}
-export interface CardContentProps extends React.ComponentProps<typeof CardContentBase>, StyledProps {}
-export interface CardFooterProps extends React.ComponentProps<typeof CardFooterBase>, StyledProps {}
-
-const versionIdentityClass = 'card-quantum-gate';
 const versionKey = 'quantum-gate';
 
-function getSectionStyle(type: ComponentType, colors?: VariantColors, version?: string): React.CSSProperties {
-  const profile = getVersionStyleProfile(version ?? versionKey);
-  const tone = getTypographyTone(type, colors);
+const CARD_CLIP_PATH = 'polygon(24px 0, calc(100% - 24px) 0, 100% 24px, 100% calc(100% - 24px), calc(100% - 24px) 100%, 24px 100%, 0 calc(100% - 24px), 0 24px)';
+const HEADER_CLIP_PATH = 'polygon(16px 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 16px 100%, 0 50%)';
 
-  return {
-    fontFamily: profile.fontFamily,
-    letterSpacing: profile.letterSpacing,
-    color: tone.body,
-    borderColor: tone.border,
-  };
-}
+const CardRoot = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof CardBase> & StyledProps>(
+  ({ className, type, uiType, colors, style, children, ...props }, ref) => {
+    const resolvedType = uiType ?? type ?? 'default';
+    const palette = normalizeColors(colors);
+    const typeStyles = getCoreTypeStyles(resolvedType, colors);
 
-const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, type = 'default', colors, variant, version, style, children, ...props }, ref) => {
-    const profile = getVersionStyleProfile(version ?? versionKey);
+    const backgroundColor =
+      resolvedType === 'solid'
+        ? palette.accentPrimary ?? palette.base
+        : resolvedType === 'soft' && palette.accentRgb
+          ? 'rgba(' + palette.accentRgb + ', 0.12)'
+          : resolvedType === 'inverse'
+            ? palette.foreground
+            : resolvedType === 'ghost'
+              ? 'transparent'
+              : (typeStyles.backgroundColor as string | undefined) ?? palette.base ?? '#0a0a12';
+
+    const borderColor =
+      resolvedType === 'outline' || resolvedType === 'contrast'
+        ? palette.accentPrimary ?? palette.border
+        : resolvedType === 'ghost'
+          ? 'transparent'
+          : palette.border ?? '#3a3a5a';
+
+    const textColor =
+      resolvedType === 'solid'
+        ? palette.base ?? '#fff'
+        : resolvedType === 'inverse'
+          ? palette.base ?? '#000'
+          : (typeStyles.color as string | undefined) ?? palette.foreground ?? '#e0e0ff';
+
+    const glowColor = palette.glow ?? 'rgba(100,100,255,0.3)';
 
     return (
       <CardBase
         ref={ref}
-        className={cn('card-root', versionIdentityClass, className)}
-        style={{ ...getVersionCardRootStyles(profile, type, colors), ...style }}
-        data-version={profile.version}
-        data-variant={variant}
-        data-type={type}
+        className={cn('relative overflow-hidden p-6', className)}
+        style={{
+          clipPath: CARD_CLIP_PATH,
+          backgroundColor,
+          border: '2px solid ' + borderColor,
+          color: textColor,
+          boxShadow: '0 0 20px ' + glowColor + ', inset 0 0 30px rgba(100,100,255,0.05)',
+          ...style,
+        }}
+        data-version={versionKey}
+        data-type={resolvedType}
         {...props}
       >
-        {getVersionCardDecor(profile, colors)}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none opacity-10"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          <pattern id="honeycomb" x="0" y="0" width="20" height="17.32" patternUnits="userSpaceOnUse">
+            <polygon
+              points="10,0 20,5.77 20,11.55 10,17.32 0,11.55 0,5.77"
+              fill="none"
+              stroke={palette.accentPrimary ?? '#6060ff'}
+              strokeWidth="0.5"
+            />
+          </pattern>
+          <rect x="0" y="0" width="100" height="100" fill="url(#honeycomb)" />
+        </svg>
         <div className="relative z-[1]">{children}</div>
       </CardBase>
     );
@@ -69,88 +97,144 @@ const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
 );
 CardRoot.displayName = 'Card';
 
-const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
-    <CardHeaderBase
-      ref={ref}
-      className={cn('card-header', `${versionIdentityClass}__header`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        borderBottom: `1px solid ${getTypographyTone(type, colors).border}`,
-        paddingBottom: '0.5rem',
-        marginBottom: '0.25rem',
-        ...style,
-      }}
-      {...props}
-    />
-  )
+const CardHeader = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof CardHeaderBase> & StyledProps>(
+  ({ className, type, uiType, colors, style, ...props }, ref) => {
+    const resolvedType = uiType ?? type ?? 'default';
+    const palette = normalizeColors(colors);
+
+    const textColor =
+      resolvedType === 'solid'
+        ? palette.base ?? '#fff'
+        : resolvedType === 'inverse'
+          ? palette.base ?? '#000'
+          : palette.foreground ?? '#e0e0ff';
+
+    return (
+      <CardHeaderBase
+        ref={ref}
+        className={cn('mb-4', className)}
+        style={{
+          color: textColor,
+          borderBottom: '1px solid ' + (palette.border ?? '#3a3a5a'),
+          paddingBottom: '1rem',
+          ...style,
+        }}
+        {...props}
+      />
+    );
+  }
 );
 CardHeader.displayName = 'CardHeader';
 
-const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
-    <CardTitleBase
-      ref={ref}
-      className={cn('card-title', `${versionIdentityClass}__title`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        color: getTypographyTone(type, colors).heading,
-        fontWeight: 700,
-        lineHeight: 1.2,
-        ...style,
-      }}
-      {...props}
-    />
-  )
+const CardTitle = React.forwardRef<HTMLHeadingElement, React.ComponentProps<typeof CardTitleBase> & StyledProps>(
+  ({ className, type, uiType, colors, style, ...props }, ref) => {
+    const resolvedType = uiType ?? type ?? 'default';
+    const palette = normalizeColors(colors);
+
+    const textColor =
+      resolvedType === 'solid'
+        ? palette.base ?? '#fff'
+        : resolvedType === 'inverse'
+          ? palette.base ?? '#000'
+          : palette.accentPrimary ?? palette.foreground ?? '#a0a0ff';
+
+    return (
+      <CardTitleBase
+        ref={ref}
+        className={cn('text-lg font-bold', className)}
+        style={{
+          color: textColor,
+          letterSpacing: '0.04em',
+          textShadow: '0 0 8px ' + (palette.glow ?? 'rgba(100,100,255,0.5)'),
+          ...style,
+        }}
+        {...props}
+      />
+    );
+  }
 );
 CardTitle.displayName = 'CardTitle';
 
-const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
-    <CardDescriptionBase
-      ref={ref}
-      className={cn('card-description', `${versionIdentityClass}__description`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        opacity: 0.88,
-        ...style,
-      }}
-      {...props}
-    />
-  )
+const CardDescription = React.forwardRef<HTMLParagraphElement, React.ComponentProps<typeof CardDescriptionBase> & StyledProps>(
+  ({ className, type, uiType, colors, style, ...props }, ref) => {
+    const resolvedType = uiType ?? type ?? 'default';
+    const palette = normalizeColors(colors);
+
+    const textColor =
+      resolvedType === 'solid'
+        ? palette.base ?? '#fff'
+        : resolvedType === 'inverse'
+          ? palette.base ?? '#000'
+          : palette.foreground ?? '#c0c0e0';
+
+    return (
+      <CardDescriptionBase
+        ref={ref}
+        className={cn('text-sm mt-1', className)}
+        style={{
+          color: textColor,
+          opacity: 0.8,
+          ...style,
+        }}
+        {...props}
+      />
+    );
+  }
 );
 CardDescription.displayName = 'CardDescription';
 
-const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
-    <CardContentBase
-      ref={ref}
-      className={cn('card-content', `${versionIdentityClass}__content`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        ...style,
-      }}
-      {...props}
-    />
-  )
+const CardContent = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof CardContentBase> & StyledProps>(
+  ({ className, type, uiType, colors, style, ...props }, ref) => {
+    const resolvedType = uiType ?? type ?? 'default';
+    const palette = normalizeColors(colors);
+
+    const textColor =
+      resolvedType === 'solid'
+        ? palette.base ?? '#fff'
+        : resolvedType === 'inverse'
+          ? palette.base ?? '#000'
+          : palette.foreground ?? '#e0e0ff';
+
+    return (
+      <CardContentBase
+        ref={ref}
+        className={cn('py-4', className)}
+        style={{
+          color: textColor,
+          ...style,
+        }}
+        {...props}
+      />
+    );
+  }
 );
 CardContent.displayName = 'CardContent';
 
-const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
-    <CardFooterBase
-      ref={ref}
-      className={cn('card-footer', `${versionIdentityClass}__footer`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        borderTop: `1px solid ${getTypographyTone(type, colors).border}`,
-        paddingTop: '0.5rem',
-        marginTop: '0.5rem',
-        ...style,
-      }}
-      {...props}
-    />
-  )
+const CardFooter = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof CardFooterBase> & StyledProps>(
+  ({ className, type, uiType, colors, style, ...props }, ref) => {
+    const resolvedType = uiType ?? type ?? 'default';
+    const palette = normalizeColors(colors);
+
+    const textColor =
+      resolvedType === 'solid'
+        ? palette.base ?? '#fff'
+        : resolvedType === 'inverse'
+          ? palette.base ?? '#000'
+          : palette.foreground ?? '#e0e0ff';
+
+    return (
+      <CardFooterBase
+        ref={ref}
+        className={cn('flex items-center gap-4 pt-4', className)}
+        style={{
+          color: textColor,
+          borderTop: '1px solid ' + (palette.border ?? '#3a3a5a'),
+          ...style,
+        }}
+        {...props}
+      />
+    );
+  }
 );
 CardFooter.displayName = 'CardFooter';
 

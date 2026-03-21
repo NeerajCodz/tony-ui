@@ -85,11 +85,30 @@ Object.entries(preloadedVariants).forEach(([key, value]) => {
  */
 export function getVariantColors(variant: Variant): VariantColors {
   const config = variantCache.get(variant) || variantCache.get('default')!;
+  const baseColors = config.colors ?? {};
+  const accent = config.accent || (baseColors as any).accent;
+  const icon = config.icon || (baseColors as any).icon;
+  const base = (baseColors as any).base ?? (baseColors as any).background;
+  const foreground = (baseColors as any).foreground ?? (baseColors as any).text;
+  const border = (baseColors as any).border;
+  const glow = (baseColors as any).glow ?? accent?.glow;
+  const muted = (baseColors as any).muted ?? (baseColors as any).backgroundHover;
+
   // Merge accent from top-level config into colors object
   return {
-    ...config.colors,
-    accent: config.accent || config.colors.accent,
-    icon: config.icon || config.colors.icon,
+    ...baseColors,
+    base,
+    foreground,
+    border,
+    glow,
+    muted,
+    text: (baseColors as any).text ?? foreground,
+    textHover: (baseColors as any).textHover ?? foreground,
+    background: (baseColors as any).background ?? base,
+    backgroundHover: (baseColors as any).backgroundHover ?? muted ?? base,
+    borderHover: (baseColors as any).borderHover ?? border,
+    accent: accent ?? (base || foreground ? { primary: base ?? foreground, secondary: border, glow } : undefined),
+    icon,
   };
 }
 

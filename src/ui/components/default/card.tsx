@@ -2,6 +2,8 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import type { VariantColors } from '../../types/common';
 import {
+  getCoreTypeStyles,
+  normalizeColors,
   getTypographyTone,
   getVersionCardDecor,
   getVersionCardRootStyles,
@@ -50,12 +52,29 @@ function getSectionStyle(type: ComponentType, colors?: VariantColors, version?: 
 const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, type = 'default', colors, variant, version, style, children, ...props }, ref) => {
     const profile = getVersionStyleProfile(version ?? versionKey);
+    const palette = normalizeColors(colors);
+    const typeStyles = getCoreTypeStyles(type, colors);
+    const backgroundColor =
+      type === 'soft' && palette.accentRgb
+        ? `rgba(${palette.accentRgb}, 0.12)`
+        : (typeStyles.backgroundColor as string | undefined) ?? palette.base;
 
     return (
       <CardBase
         ref={ref}
         className={cn('card-root', versionIdentityClass, className)}
-        style={{ ...getVersionCardRootStyles(profile, type, colors), ...style }}
+        style={{
+          ...getVersionCardRootStyles(profile, type, colors),
+          backgroundColor,
+          borderColor:
+            type === 'outline' || type === 'contrast'
+              ? palette.accentPrimary
+              : type === 'ghost'
+                ? 'transparent'
+                : palette.border,
+          color: (typeStyles.color as string | undefined) ?? palette.foreground,
+          ...style,
+        }}
         data-version={profile.version}
         data-variant={variant}
         data-type={type}

@@ -131,7 +131,6 @@ const CardBase = React.forwardRef<HTMLDivElement, CardProps>(({
   ...props 
 }, ref) => {
   const [config, setConfig] = useState<unknown>(null);
-  const shouldLog = process.env.NODE_ENV !== 'production';
   
   // Dynamically load config
   useEffect(() => {
@@ -140,10 +139,6 @@ const CardBase = React.forwardRef<HTMLDivElement, CardProps>(({
   
   // Get variant colors dynamically - NO hardcoding
   const colors = useMemo(() => getVariantColors(variant), [variant]);
-
-  if (shouldLog) {
-    console.log('[UI:card]', { version, variant, type });
-  }
   
   // Get or create lazy component
   const LazyComponent = useMemo(() => {

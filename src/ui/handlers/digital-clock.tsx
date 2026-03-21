@@ -36,12 +36,7 @@ const LoadingSkeleton: React.FC = () => (
 
 export const DigitalClock = React.forwardRef<HTMLDivElement, DigitalClockProps>(
   ({ version = 'default', variant = 'default', type = 'default', ...props }, ref) => {
-    const shouldLog = process.env.NODE_ENV !== 'production';
     const colors = useMemo(() => getVariantColors(variant), [variant]);
-
-    if (shouldLog) {
-      console.log('[UI:digital-clock]', { version, variant, type });
-    }
 
     const LazyComponent = useMemo(() => {
       const cacheKey = `${version}/digital-clock`;

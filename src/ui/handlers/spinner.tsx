@@ -31,12 +31,7 @@ const LoadingSkeleton: React.FC = () => (
 
 export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(
   ({ version = 'default', variant = 'default', type = 'default', size = 'md', ...props }, ref) => {
-    const shouldLog = process.env.NODE_ENV !== 'production';
     const colors = useMemo(() => getVariantColors(variant), [variant]);
-
-    if (shouldLog) {
-      console.log('[UI:spinner]', { version, variant, type, size });
-    }
 
     const LazyComponent = useMemo(() => {
       const cacheKey = `${version}/spinner`;

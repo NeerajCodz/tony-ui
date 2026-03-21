@@ -82,16 +82,11 @@ const ScrollAreaRoot = React.forwardRef<React.ElementRef<typeof ScrollAreaPrimit
     ...props
   }, ref) => {
     const [versionModule, setVersionModule] = useState<any>(null);
-    const shouldLog = process.env.NODE_ENV !== 'production';
     const colors = useMemo(() => getVariantColors(variant), [variant]);
 
     useEffect(() => {
       loadVersionModule(version, 'scroll-area', true).then(setVersionModule).catch(() => setVersionModule(null));
     }, [version]);
-
-    if (shouldLog) {
-      console.log('[UI:scroll-area]', { version, variant, type: uiType });
-    }
 
     const Component = versionModule?.ScrollArea;
 

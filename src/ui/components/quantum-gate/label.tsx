@@ -1,39 +1,55 @@
 'use client';
 
 import * as React from 'react';
+import { cn } from '@/lib/utils';
 import { LabelBase } from '../_base/label';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import type { VariantColors } from '../../types/common';
+import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
 
-export type LabelProps = Omit<React.ComponentPropsWithoutRef<typeof LabelBase>, 'type'> &
-  StyledProps & {
-    required?: boolean;
-    error?: boolean;
-  };
+type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
 
-export const Label = React.forwardRef<React.ElementRef<typeof LabelBase>, LabelProps>(
-  ({ className, version, type, uiType, colors, style, required, error, children, ...props }, ref) => {
-    const palette = getPalette(colors);
+interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
+  type?: ComponentType;
+  uiType?: ComponentType;
+  colors?: VariantColors;
+}
+
+const versionKey = 'quantum-gate';
+
+const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
+  ({ className, type, uiType, colors, style, ...props }, ref) => {
+    const resolvedType = uiType ?? type ?? 'default';
+    const palette = normalizeColors(colors);
+
+    const textColor =
+      resolvedType === 'solid'
+        ? palette.base ?? '#fff'
+        : resolvedType === 'inverse'
+          ? palette.base ?? '#000'
+          : palette.foreground ?? '#c0c0e0';
+
     return (
       <LabelBase
         ref={ref}
-        className={cx('text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70', className)}
+        className={cn(
+          'text-sm font-medium leading-none tracking-wide peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+          className
+        )}
         style={{
-          ...getSurfaceStyle(version ?? 'quantum-gate', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: error ? palette.accentPrimary : palette.foreground,
+          color: textColor,
+          letterSpacing: '0.04em',
+          textShadow: '0 0 4px ' + (palette.glow ?? 'rgba(100,100,255,0.3)'),
+          ...style,
         }}
+        data-version={versionKey}
+        data-type={resolvedType}
         {...props}
-      >
-        {children}
-        {required ? <span className="ml-1 text-red-400">*</span> : null}
-      </LabelBase>
+      />
     );
   }
 );
 
 Label.displayName = 'Label';
 
+export { Label };
 export default Label;
