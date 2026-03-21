@@ -1,61 +1,87 @@
 'use client';
 
 import React, { forwardRef } from 'react';
+import { cn } from '@/lib/utils';
 import type { VariantColors } from '../../types/common';
-import { Loader2 } from 'lucide-react';
+import { SpinnerBase } from '../_base/spinner';
+import { getSpinnerVisual, getVersionStyleProfile } from '../_shared/version-styles';
+
+type SpinnerSize = 'sm' | 'md' | 'lg' | 'xl';
 
 export interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
   version?: string;
   type?: string;
   variant?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: SpinnerSize;
   colors?: VariantColors;
 }
 
-const TacticalHudSpinner = forwardRef<HTMLDivElement, SpinnerProps>(
-  ({ size = 'md', colors, type, className = '', style, ...props }, ref) => {
-    let fg = colors?.foreground || 'currentColor';
-    const glow = colors?.glow || 'transparent';
+const versionKey = 'tactical-hud';
 
-    if (type === 'inverse') {
-      fg = colors?.base || 'currentColor';
-    } else if (type === 'contrast') {
-      fg = colors?.foreground || '#ffffff';
-    } else if (type === 'soft') {
-      fg = colors?.muted || fg;
-    }
+const shapeClipPaths: Record<string, string | undefined> = {
+  hex: 'polygon(25% 8%, 75% 8%, 96% 50%, 75% 92%, 25% 92%, 4% 50%)',
+  clipped: 'polygon(8% 0, 100% 0, 100% 92%, 92% 100%, 0 100%, 0 8%)',
+  bracket: 'polygon(0 0, 92% 0, 100% 8%, 100% 100%, 8% 100%, 0 92%)',
+};
 
-    const sizeMap = {
+const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
+  ({ size = 'md', colors, type = 'default', version, className = '', style, ...props }, ref) => {
+    const profile = getVersionStyleProfile(version ?? versionKey);
+    const visual = getSpinnerVisual(type, colors);
+
+    const sizeMap: Record<SpinnerSize, number> = {
       sm: 16,
       md: 24,
       lg: 32,
       xl: 48,
     };
 
-    const pxSize = sizeMap[size] || 24;
+    const pxSize = sizeMap[size] ?? 24;
+    const clipPath = shapeClipPaths[profile.shape];
 
     return (
-      <div
+      <SpinnerBase
         ref={ref}
-        className={`spinner-tactical-hud relative inline-flex items-center justify-center ${className}`}
-        style={{
-          color: fg,
-          ...style,
-        }}
+        size={size}
+        className={cn('relative inline-flex items-center justify-center', className)}
+        style={{ width: pxSize, height: pxSize, color: visual.color, ...style }}
+        data-version={profile.version}
+        data-type={type}
         {...props}
       >
-        <Loader2 
-            size={pxSize} 
-            className="animate-spin" 
-            style={{
-                filter: `drop-shadow(0 0 2px ${glow})`
-            }}
+        <span
+          className="absolute inset-0 animate-spin rounded-full border-2 border-transparent"
+          style={{
+            borderTopColor: visual.color,
+            borderRightColor: visual.color,
+            clipPath,
+            filter: `drop-shadow(0 0 6px ${visual.glow})`,
+          }}
         />
-      </div>
+        <span
+          className="absolute inset-[25%] rounded-full"
+          style={{
+            backgroundColor: `color-mix(in srgb, ${visual.color} 24%, transparent)`,
+          }}
+        />
+        {(profile.shape === 'hex' || profile.hasHoneycomb) ? (
+          <span
+            className="absolute inset-[12%] border"
+            style={{
+              borderColor: visual.color,
+              clipPath: shapeClipPaths.hex,
+              opacity: 0.7,
+            }}
+          />
+        ) : null}
+        {profile.hasTerminalBar ? (
+          <span className="absolute -top-1 left-0 right-0 h-[2px] opacity-70" style={{ backgroundColor: visual.color }} />
+        ) : null}
+      </SpinnerBase>
     );
   }
 );
 
-TacticalHudSpinner.displayName = 'TacticalHudSpinner';
+Spinner.displayName = 'Spinner';
 
-export default TacticalHudSpinner;
+export default Spinner;

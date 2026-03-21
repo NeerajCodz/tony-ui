@@ -3,6 +3,7 @@
 import React, { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 import { VariantColors } from '@/ui/types/common';
+import { NativeSelectBase } from '../_base/native-select';
 
 const getStyles = (type?: string, colors?: VariantColors) => {
   if (!type || !colors) return {};
@@ -23,7 +24,7 @@ const getStyles = (type?: string, colors?: VariantColors) => {
       };
     case 'soft':
       return {
-        backgroundColor: colors.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
+        backgroundColor: colors.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
         color: colors.accent?.primary || colors.text,
         border: 'none'
       };

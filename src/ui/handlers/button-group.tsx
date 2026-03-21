@@ -4,7 +4,9 @@
  */
 
 import React, { lazy, Suspense } from 'react';
-import type { Version, Variant } from '../types/common';
+import type { Version, Variant, StyleComponentType } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Types
 export type ButtonGroupVersion = Version;
@@ -13,23 +15,10 @@ export type ButtonGroupVariant = Variant;
 export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   version?: ButtonGroupVersion;
   variant?: ButtonGroupVariant;
+  type?: StyleComponentType;
   orientation?: 'horizontal' | 'vertical';
   size?: 'sm' | 'md' | 'lg';
 }
-
-// Dynamic imports
-const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
-  'angular-corner': lazy(() => import('../components/button-group/button-group-angular-corner.tsx')),
-  'holo-frame': lazy(() => import('../components/button-group/button-group-holo-frame.tsx')),
-  'data-panel': lazy(() => import('../components/button-group/button-group-data-panel.tsx')),
-  'circuit-board': lazy(() => import('../components/button-group/button-group-circuit-board.tsx')),
-  'quantum-gate': lazy(() => import('../components/button-group/button-group-quantum-gate.tsx')),
-  'tactical-hud': lazy(() => import('../components/button-group/button-group-tactical-hud.tsx')),
-  'energy-shield': lazy(() => import('../components/button-group/button-group-energy-shield.tsx')),
-  'terminal-window': lazy(() => import('../components/button-group/button-group-terminal-window.tsx')),
-  'matrix-grid': lazy(() => import('../components/button-group/button-group-matrix-grid.tsx')),
-  'neon': lazy(() => import('../components/button-group/button-group-neon.tsx')),
-};
 
 // Loading skeleton
 const LoadingSkeleton: React.FC = () => (
@@ -55,26 +44,30 @@ FallbackButtonGroup.displayName = 'FallbackButtonGroup';
 export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
   version = 'angular-corner',
   variant = 'default',
+  type = 'default',
   orientation = 'horizontal',
   size = 'md',
   children,
   ...props
 }, ref) => {
-  const LazyComponent = versionComponents[version];
-
-  if (!LazyComponent) {
-    return (
-      <FallbackButtonGroup ref={ref} orientation={orientation} {...props}>
-        {children}
-      </FallbackButtonGroup>
-    );
-  }
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
+  const LazyComponent = React.useMemo(
+    () =>
+      lazy(() =>
+        loadVersionModule(version, 'button-group', true).catch(() => ({
+          default: FallbackButtonGroup,
+        }))
+      ),
+    [version]
+  );
 
   return (
     <Suspense fallback={<LoadingSkeleton />}>
       <LazyComponent
         ref={ref}
         variant={variant}
+        type={type}
+        colors={colors}
         orientation={orientation}
         size={size}
         {...props}

@@ -10,6 +10,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
 import type { Version, Variant, VariantColors } from '../types/common';
 import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule as loadByVersion } from './load-version-module';
 
 // Types
 export type DialogVersion = Version;
@@ -23,28 +24,32 @@ export interface DialogProps {
   children?: React.ReactNode;
 }
 
-// Dynamic module loader - NO hardcoded versions
 const loadDialogModule = async (version: Version) => {
   try {
-    return await import(`../components/dialog/dialog-${version}.tsx`);
+    return await loadByVersion(version, 'dialog');
   } catch {
-    try {
-      return await import(`../components/default/dialog.tsx`);
-    } catch {
-      return null;
-    }
+    return null;
   }
+};
+
+const resolveDialogConfigModule = (module: unknown) => {
+  if (!module || typeof module !== 'object') {
+    return null;
+  }
+
+  const maybeModule = module as { dialogConfig?: unknown; default?: unknown };
+  return maybeModule.dialogConfig ?? maybeModule.default ?? null;
 };
 
 // Dynamic config loader
 const loadDialogConfig = async (version: Version) => {
   try {
     const module = await import(`../config/components/${version}/dialog.tsx`);
-    return module.dialogConfig || module.default;
+    return resolveDialogConfigModule(module);
   } catch {
     try {
       const module = await import(`../config/components/default/dialog.tsx`);
-      return module.dialogConfig || module.default;
+      return resolveDialogConfigModule(module);
     } catch {
       return null;
     }

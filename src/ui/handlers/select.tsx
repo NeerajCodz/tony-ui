@@ -7,6 +7,8 @@ import React, { lazy, Suspense, createContext, useContext, useState, useEffect }
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 import type { Version, Variant } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Types
 export type SelectVersion = Version;
@@ -17,33 +19,18 @@ export interface SelectProps extends React.ComponentPropsWithoutRef<typeof Selec
   variant?: SelectVariant;
 }
 
-// Loading helper
-const loadVersionModule = async (version: SelectVersion) => {
-  switch (version) {
-    case 'angular-corner': return import('../components/select/select-angular-corner.tsx');
-    case 'holo-frame': return import('../components/select/select-holo-frame.tsx');
-    case 'data-panel': return import('../components/select/select-data-panel.tsx');
-    case 'circuit-board': return import('../components/select/select-circuit-board.tsx');
-    case 'quantum-gate': return import('../components/select/select-quantum-gate.tsx');
-    case 'tactical-hud': return import('../components/select/select-tactical-hud.tsx');
-    case 'energy-shield': return import('../components/select/select-energy-shield.tsx');
-    case 'terminal-window': return import('../components/select/select-terminal-window.tsx');
-    case 'matrix-grid': return import('../components/select/select-matrix-grid.tsx');
-    case 'neon': return import('../components/select/select-neon.tsx');
-    default: return import('../components/select/select-angular-corner.tsx');
-  }
-};
-
 // Context
 interface SelectContextValue {
   version: SelectVersion;
   variant: SelectVariant;
+  colors: ReturnType<typeof getVariantColors>;
   versionModule: any;
 }
 
 const SelectContext = createContext<SelectContextValue>({
   version: 'angular-corner',
   variant: 'default',
+  colors: getVariantColors('default'),
   versionModule: null,
 });
 
@@ -57,13 +44,14 @@ const SelectRoot: React.FC<SelectProps> = ({
   ...props
 }) => {
   const [versionModule, setVersionModule] = useState<any>(null);
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
 
   useEffect(() => {
-    loadVersionModule(version).then(setVersionModule);
+    loadVersionModule(version, 'select', true).then(setVersionModule).catch(() => setVersionModule(null));
   }, [version]);
 
   return (
-    <SelectContext.Provider value={{ version, variant, versionModule }}>
+    <SelectContext.Provider value={{ version, variant, colors, versionModule }}>
       <SelectPrimitive.Root {...props}>
         {children}
       </SelectPrimitive.Root>
@@ -79,11 +67,11 @@ const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
 >(({ className = '', children, ...props }, ref) => {
-  const { versionModule, variant } = useSelectContext();
+  const { versionModule, variant, colors } = useSelectContext();
 
   if (versionModule?.SelectTrigger) {
     const Component = versionModule.SelectTrigger;
-    return <Component ref={ref} variant={variant} className={className} {...props}>{children}</Component>;
+    return <Component ref={ref} variant={variant} colors={colors} className={className} {...props}>{children}</Component>;
   }
 
   return (
@@ -133,13 +121,13 @@ const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className = '', children, position = 'popper', ...props }, ref) => {
-  const { versionModule, variant } = useSelectContext();
+  const { versionModule, variant, colors } = useSelectContext();
 
   if (versionModule?.SelectContent) {
     const Component = versionModule.SelectContent;
     return (
       <SelectPrimitive.Portal>
-        <Component ref={ref} variant={variant} className={className} position={position} {...props}>
+          <Component ref={ref} variant={variant} colors={colors} className={className} position={position} {...props}>
           {children}
         </Component>
       </SelectPrimitive.Portal>
@@ -171,11 +159,11 @@ const SelectLabel = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Label>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
 >(({ className = '', ...props }, ref) => {
-  const { versionModule, variant } = useSelectContext();
+  const { versionModule, variant, colors } = useSelectContext();
 
   if (versionModule?.SelectLabel) {
     const Component = versionModule.SelectLabel;
-    return <Component ref={ref} variant={variant} className={className} {...props} />;
+    return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
   }
 
   return (
@@ -192,11 +180,11 @@ const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
 >(({ className = '', children, ...props }, ref) => {
-  const { versionModule, variant } = useSelectContext();
+  const { versionModule, variant, colors } = useSelectContext();
 
   if (versionModule?.SelectItem) {
     const Component = versionModule.SelectItem;
-    return <Component ref={ref} variant={variant} className={className} {...props}>{children}</Component>;
+    return <Component ref={ref} variant={variant} colors={colors} className={className} {...props}>{children}</Component>;
   }
 
   return (
@@ -220,11 +208,11 @@ const SelectSeparator = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Separator>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
 >(({ className = '', ...props }, ref) => {
-  const { versionModule, variant } = useSelectContext();
+  const { versionModule, variant, colors } = useSelectContext();
 
   if (versionModule?.SelectSeparator) {
     const Component = versionModule.SelectSeparator;
-    return <Component ref={ref} variant={variant} className={className} {...props} />;
+    return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
   }
 
   return (

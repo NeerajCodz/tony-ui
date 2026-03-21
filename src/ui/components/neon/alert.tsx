@@ -1,89 +1,67 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import type { AlertProps, AlertTitleProps, AlertDescriptionProps } from '@/ui/types/components/alert';
+'use client';
 
-export function Alert({
-  className,
-  variant = 'default',
-  type = 'default',
-  colors,
-  children,
-  ...props
-}: AlertProps) {
-  const baseStyles = "relative transition-all duration-200 border shadow-[0_0_10px_var(--tw-shadow-color)] w-full rounded-lg border px-4 py-3 text-sm";
-  
-  const typeStyles = {
-    default: {
-      backgroundColor: colors.accent.primary,
-      color: colors.background === '#ffffff' ? '#000000' : '#ffffff',
-      boxShadow: `0 0 15px ${colors.accent.glow}`,
-      border: 'none'
-    },
-    outline: {
-      backgroundColor: 'transparent',
-      color: colors.accent.primary,
-      border: `1px solid ${colors.accent.primary}`,
-      boxShadow: `inset 0 0 5px ${colors.accent.glow}`
-    },
-    ghost: {
-      backgroundColor: 'transparent',
-      color: colors.accent.primary,
-      border: 'none',
-      boxShadow: 'none',
-      textShadow: `0 0 5px ${colors.accent.glow}`
-    },
-    soft: {
-      backgroundColor: colors.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.15)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 15%, transparent)` : 'rgba(0,0,0,0.1)'),
-      color: colors.accent.primary,
-      boxShadow: `0 0 5px ${colors.accent.glow}`,
-      border: 'none'
-    },
-    inverse: {
-      backgroundColor: colors.text,
-      color: colors.background,
-      border: `1px solid ${colors.text}`
-    },
-    solid: {
-      backgroundColor: colors.accent.primary,
-      color: colors.text,
-      boxShadow: `0 0 10px ${colors.accent.glow}`
-    },
-    contrast: {
-      backgroundColor: colors.accent?.primary || colors.text,
-      color: '#000000',
-      fontWeight: 'bold',
-      border: `1px solid ${colors.text}`
-    },
-  };
+import * as React from 'react';
+import { AlertBase, AlertDescriptionBase, AlertTitleBase } from '../_base/alert';
+import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
 
+export type AlertProps = Omit<React.ComponentPropsWithoutRef<typeof AlertBase>, 'type'> & StyledProps;
+export type AlertTitleProps = React.ComponentPropsWithoutRef<typeof AlertTitleBase> & StyledProps;
+export type AlertDescriptionProps = React.ComponentPropsWithoutRef<typeof AlertDescriptionBase> & StyledProps;
 
-  return (
-    <div 
-      role="alert"
-      className={cn(baseStyles, className)}
-      style={typeStyles[type as keyof typeof typeStyles]}
-      {...props}
-    >
-      {children}
-      
-    </div>
-  );
-}
-
-export function AlertTitle({ className, ...props }: AlertTitleProps) {
-  return (
-    <h5
-      className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+export const Alert = React.forwardRef<React.ElementRef<typeof AlertBase>, AlertProps>(
+  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
+    <AlertBase
+      ref={ref}
+      className={cx('relative w-full p-4 text-sm', className)}
+      style={getSurfaceStyle(version ?? 'neon', type, uiType, colors, style)}
       {...props}
     />
   )
-}
+);
+Alert.displayName = 'Alert';
 
-export function AlertDescription({ className, ...props }: AlertDescriptionProps) {
-  return (
-    <div
-      className={cn("text-sm [&_p]:leading-relaxed", className)}
-      {...props}
-    />
-  )
-}
+export const AlertTitle = React.forwardRef<React.ElementRef<typeof AlertTitleBase>, AlertTitleProps>(
+  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
+    const palette = getPalette(colors);
+    return (
+      <AlertTitleBase
+        ref={ref}
+        className={cx('mb-1 font-semibold leading-none tracking-tight', className)}
+        style={{
+          ...getSurfaceStyle(version ?? 'neon', type, uiType, colors, style, {
+            borderless: true,
+            disableClip: true,
+            disableGlow: true,
+          }),
+          color: palette.foreground,
+        }}
+        {...props}
+      />
+    );
+  }
+);
+AlertTitle.displayName = 'AlertTitle';
+
+export const AlertDescription = React.forwardRef<React.ElementRef<typeof AlertDescriptionBase>, AlertDescriptionProps>(
+  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
+    const palette = getPalette(colors);
+    return (
+      <AlertDescriptionBase
+        ref={ref}
+        className={cx('text-sm [&_p]:leading-relaxed', className)}
+        style={{
+          ...getSurfaceStyle(version ?? 'neon', type, uiType, colors, style, {
+            borderless: true,
+            disableClip: true,
+            disableGlow: true,
+          }),
+          color: palette.muted,
+        }}
+        {...props}
+      />
+    );
+  }
+);
+AlertDescription.displayName = 'AlertDescription';
+
+export default Alert;

@@ -1,65 +1,43 @@
-/**
- * Calendar Component Handler - Version-First Architecture
- * Routes to version-specific implementations with lazy loading
- */
+'use client';
 
 import React, { lazy, Suspense } from 'react';
-import type { Version, Variant } from '../types/common';
-import { DayPicker } from 'react-day-picker';
+import type { StyleComponentType, Variant, Version } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
-// Types
-export type CalendarVersion = Version;
-export type CalendarVariant = Variant;
-
-export interface CalendarProps extends React.ComponentProps<typeof DayPicker> {
-  version?: CalendarVersion;
-  variant?: CalendarVariant;
+export interface CalendarProps extends React.HTMLAttributes<HTMLDivElement> {
+  version?: Version;
+  variant?: Variant;
+  type?: StyleComponentType;
 }
 
-// Dynamic imports
-const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
-  'angular-corner': lazy(() => import('../components/calendar/calendar-angular-corner.tsx')),
-  'holo-frame': lazy(() => import('../components/calendar/calendar-holo-frame.tsx')),
-  'data-panel': lazy(() => import('../components/calendar/calendar-data-panel.tsx')),
-  'circuit-board': lazy(() => import('../components/calendar/calendar-circuit-board.tsx')),
-  'quantum-gate': lazy(() => import('../components/calendar/calendar-quantum-gate.tsx')),
-  'tactical-hud': lazy(() => import('../components/calendar/calendar-tactical-hud.tsx')),
-  'energy-shield': lazy(() => import('../components/calendar/calendar-energy-shield.tsx')),
-  'terminal-window': lazy(() => import('../components/calendar/calendar-terminal-window.tsx')),
-  'matrix-grid': lazy(() => import('../components/calendar/calendar-matrix-grid.tsx')),
-  'neon': lazy(() => import('../components/calendar/calendar-neon.tsx')),
-};
+const LoadingSkeleton: React.FC = () => <div className="h-[300px] w-[280px] animate-pulse rounded bg-gray-800/20" />;
 
-// Loading skeleton
-const LoadingSkeleton: React.FC = () => (
-  <div className="animate-pulse bg-gray-800/20 rounded w-[280px] h-[300px]" />
-);
+const FallbackCalendar = React.forwardRef<HTMLDivElement, CalendarProps>(({ className = '', ...props }, ref) => (
+  <div ref={ref} className={`rounded border border-dashed border-gray-600 p-4 ${className}`} {...props} />
+));
+FallbackCalendar.displayName = 'FallbackCalendar';
 
-// Fallback
-const FallbackCalendar: React.FC<CalendarProps> = ({ className = '', ...props }) => (
-  <div className={`p-4 border border-dashed border-gray-600 rounded ${className}`}>
-    <DayPicker {...props} />
-  </div>
-);
+export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(({ version = 'default', variant = 'default', type = 'default', ...props }, ref) => {
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
+  const LazyComponent = React.useMemo(
+    () =>
+      lazy(() =>
+        loadVersionModule(version, 'calendar').catch(() => ({
+          default: FallbackCalendar,
+        }))
+      ),
+    [version]
+  );
 
-// Main Calendar Component
-export const Calendar: React.FC<CalendarProps> = ({
-  version = 'angular-corner',
-  variant = 'default',
-  ...props
-}) => {
-  const LazyComponent = versionComponents[version];
-
-  if (!LazyComponent) {
-    return <FallbackCalendar variant={variant} {...props} />;
-  }
+  const ResolvedComponent = LazyComponent as React.ComponentType<any>;
 
   return (
     <Suspense fallback={<LoadingSkeleton />}>
-      <LazyComponent variant={variant} {...props} />
+      <ResolvedComponent ref={ref} version={version} variant={variant} type={type} colors={colors} {...props} />
     </Suspense>
   );
-};
+});
 
 Calendar.displayName = 'Calendar';
 

@@ -6,6 +6,8 @@
 import React, { lazy, Suspense, createContext, useContext, useState, useEffect } from 'react';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import type { Version, Variant } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Types
 export type AvatarVersion = Version;
@@ -18,31 +20,12 @@ export interface AvatarProps extends React.ComponentPropsWithoutRef<typeof Avata
   size?: AvatarSize;
 }
 
-// Loading helper - Version-First Architecture
-const loadVersionModule = async (version: AvatarVersion) => {
-  switch (version) {
-    case 'angular-corner': return import('../components/angular-corner/avatar.tsx');
-    case 'holo-frame': return import('../components/holo-frame/avatar.tsx');
-    case 'data-panel': return import('../components/data-panel/avatar.tsx');
-    case 'circuit-board': return import('../components/circuit-board/avatar.tsx');
-    case 'quantum-gate': return import('../components/quantum-gate/avatar.tsx');
-    case 'tactical-hud': return import('../components/tactical-hud/avatar.tsx');
-    case 'energy-shield': return import('../components/energy-shield/avatar.tsx');
-    case 'terminal-window': return import('../components/terminal-window/avatar.tsx');
-    case 'matrix-grid': return import('../components/matrix-grid/avatar.tsx');
-    case 'neon': return import('../components/neon/avatar.tsx');
-    case 'glass-morphism': return import('../components/glass-morphism/avatar.tsx');
-    case 'tech-panel': return import('../components/tech-panel/avatar.tsx');
-    case 'default': return import('../components/default/avatar.tsx');
-    default: return import('../components/angular-corner/avatar.tsx');
-  }
-};
-
 // Context
 interface AvatarContextValue {
   version: AvatarVersion;
   variant: AvatarVariant;
   size: AvatarSize;
+  colors: ReturnType<typeof getVariantColors>;
   versionModule: any;
 }
 
@@ -50,6 +33,7 @@ const AvatarContext = createContext<AvatarContextValue>({
   version: 'angular-corner',
   variant: 'default',
   size: 'md',
+  colors: getVariantColors('default'),
   versionModule: null,
 });
 
@@ -73,9 +57,10 @@ const AvatarRoot = React.forwardRef<
   ...props
 }, ref) => {
   const [versionModule, setVersionModule] = useState<any>(null);
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
 
   useEffect(() => {
-    loadVersionModule(version).then(setVersionModule);
+    loadVersionModule(version, 'avatar', true).then(setVersionModule).catch(() => setVersionModule(null));
   }, [version]);
 
   if (!versionModule) {
@@ -85,7 +70,7 @@ const AvatarRoot = React.forwardRef<
   const Component = versionModule.AvatarRoot || versionModule.Avatar || versionModule.default;
 
   return (
-    <AvatarContext.Provider value={{ version, variant, size, versionModule }}>
+    <AvatarContext.Provider value={{ version, variant, size, colors, versionModule }}>
       <Component ref={ref} variant={variant} size={size} {...props}>
         {children}
       </Component>
@@ -99,11 +84,11 @@ const AvatarImage = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Image>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
 >((props, ref) => {
-  const { versionModule, variant, size } = useAvatarContext();
+  const { versionModule, variant, size, colors } = useAvatarContext();
 
   if (versionModule?.AvatarImage) {
     const Component = versionModule.AvatarImage;
-    return <Component ref={ref} variant={variant} size={size} {...props} />;
+    return <Component ref={ref} variant={variant} size={size} colors={colors} {...props} />;
   }
 
   return (
@@ -121,11 +106,11 @@ const AvatarFallback = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Fallback>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
 >((props, ref) => {
-  const { versionModule, variant, size } = useAvatarContext();
+  const { versionModule, variant, size, colors } = useAvatarContext();
 
   if (versionModule?.AvatarFallback) {
     const Component = versionModule.AvatarFallback;
-    return <Component ref={ref} variant={variant} size={size} {...props} />;
+    return <Component ref={ref} variant={variant} size={size} colors={colors} {...props} />;
   }
 
   return (

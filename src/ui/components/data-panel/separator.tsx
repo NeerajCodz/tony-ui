@@ -1,48 +1,34 @@
-import React from 'react';
-import * as SeparatorPrimitive from "@radix-ui/react-separator";
-import { cn } from '../../utils/component-helpers';
+'use client';
 
-const getTypeStyles = (type: string | undefined) => {
-  if (!type) return '';
-  switch (type) {
-    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
-    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
-    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
-    default: return '';
-  }
-};
+import * as React from 'react';
+import { SeparatorBase } from '../_base/separator';
+import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
 
+export type SeparatorProps = Omit<React.ComponentPropsWithoutRef<typeof SeparatorBase>, 'type'> & StyledProps;
 
-interface SeparatorProps extends React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> {
-  type?: 'inverse' | 'contrast' | 'soft';
-  variant?: 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
-}
-
-const Separator = React.forwardRef<React.ElementRef<typeof SeparatorPrimitive.Root>, SeparatorProps>(
-  ({ type, className, orientation = "horizontal", variant = "neutral", decorative = true, ...props }, ref) => {
-    const colorMap: Record<string, string> = {
-        neutral: 'primary', success: 'success', warning: 'warning', info: 'info', destructive: 'destructive', primary: 'primary'
-    };
-    const color = colorMap[variant] || 'primary';
-
+export const Separator = React.forwardRef<React.ElementRef<typeof SeparatorBase>, SeparatorProps>(
+  ({ className, orientation = 'horizontal', decorative = true, version, type, uiType, colors, style, ...props }, ref) => {
+    const palette = getPalette(colors);
     return (
-      <SeparatorPrimitive.Root
+      <SeparatorBase
         ref={ref}
         decorative={decorative}
         orientation={orientation}
-        className={cn(
-          "shrink-0",
-          orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
-          className, getTypeStyles(type)
-        )}
+        className={cx('shrink-0', orientation === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]', className)}
         style={{
-            borderTop: `1px dashed hsl(var(--${color}-base))`
+          ...getSurfaceStyle(version ?? 'data-panel', type, uiType, colors, style, {
+            borderless: true,
+            disableClip: true,
+            disableGlow: true,
+          }),
+          backgroundColor: palette.border,
         }}
         {...props}
       />
-    )
+    );
   }
-)
-Separator.displayName = SeparatorPrimitive.Root.displayName
+);
 
-export { Separator }
+Separator.displayName = 'Separator';
+
+export default Separator;

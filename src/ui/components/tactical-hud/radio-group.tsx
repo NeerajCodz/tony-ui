@@ -1,56 +1,42 @@
-import React from 'react';
-import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
-import { Circle } from "lucide-react";
-import { cn } from '../../utils/component-helpers';
+'use client';
 
-const getTypeStyles = (type: string | undefined) => {
-  if (!type) return '';
-  switch (type) {
-    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
-    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
-    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
-    default: return '';
-  }
-};
+import * as React from 'react';
+import { Circle } from 'lucide-react';
+import { RadioGroupBase, RadioGroupIndicatorBase, RadioGroupItemBase } from '../_base/radio-group';
+import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
 
-
-interface RadioGroupProps extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> {
-  type?: 'inverse' | 'contrast' | 'soft';
-  variant?: 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
-}
-
-const RadioGroup = React.forwardRef<React.ElementRef<typeof RadioGroupPrimitive.Root>, RadioGroupProps>(({ type, className, variant = 'primary', ...props }, ref) => {
-  return (
-    <RadioGroupPrimitive.Root
-      className={cn("grid gap-2", className, getTypeStyles(type))}
-      {...props}
-      ref={ref}
-    />
-  );
-});
-RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
-
-const RadioGroupItem = React.forwardRef<React.ElementRef<typeof RadioGroupPrimitive.Item>, React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item> & { variant?: string }>(({ type, className, variant = 'primary', ...props }, ref) => {
-  const colorMap: Record<string, string> = {
-    neutral: 'primary', success: 'success', warning: 'warning', info: 'info', destructive: 'destructive', primary: 'primary'
+export type RadioGroupProps = Omit<React.ComponentPropsWithoutRef<typeof RadioGroupBase>, 'type'> & StyledProps;
+export type RadioGroupItemProps = Omit<React.ComponentPropsWithoutRef<typeof RadioGroupItemBase>, 'type'> &
+  StyledProps & {
+    htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   };
-  const color = colorMap[variant] || 'primary';
 
-  return (
-    <RadioGroupPrimitive.Item
+const RadioGroupRoot = React.forwardRef<React.ElementRef<typeof RadioGroupBase>, RadioGroupProps>(
+  ({ className, ...props }, ref) => <RadioGroupBase ref={ref} className={cx('grid gap-2', className)} {...props} />
+);
+RadioGroupRoot.displayName = 'RadioGroup';
+
+const RadioGroupItem = React.forwardRef<React.ElementRef<typeof RadioGroupItemBase>, RadioGroupItemProps>(
+  ({ className, version, type, uiType, colors, style, htmlType = 'button', children, ...props }, ref) => (
+    <RadioGroupItemBase
       ref={ref}
-      className={cn("aspect-square h-4 w-4 rounded-full border text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className, getTypeStyles(type))}
-      style={{
-        border: `2px solid hsl(var(--${color}-base))`, borderRadius: '0', clipPath: 'polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%)'
-      }}
+      type={htmlType}
+      className={cx('aspect-square h-4 w-4 rounded-full', className)}
+      style={getSurfaceStyle(version ?? 'tactical-hud', type, uiType, colors, style)}
       {...props}
     >
-      <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
-        <Circle className="h-2.5 w-2.5 fill-current text-current" />
-      </RadioGroupPrimitive.Indicator>
-    </RadioGroupPrimitive.Item>
-  );
-});
-RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName;
+      <RadioGroupIndicatorBase className="flex items-center justify-center">
+        {children ?? <Circle className="h-2.5 w-2.5 fill-current text-current" />}
+      </RadioGroupIndicatorBase>
+    </RadioGroupItemBase>
+  )
+);
+RadioGroupItem.displayName = 'RadioGroupItem';
 
-export { RadioGroup, RadioGroupItem };
+export const RadioGroup = Object.assign(RadioGroupRoot, {
+  Item: RadioGroupItem,
+});
+
+export { RadioGroupItem };
+
+export default RadioGroup;

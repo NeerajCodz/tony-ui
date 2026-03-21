@@ -5,7 +5,9 @@
 
 import React, { lazy, Suspense, createContext, useContext, useState, useEffect } from 'react';
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
-import type { Version, Variant } from '../types/common';
+import type { Version, Variant, StyleComponentType } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Types
 export type AlertDialogVersion = Version;
@@ -14,38 +16,26 @@ export type AlertDialogVariant = Variant;
 export interface AlertDialogProps {
   version?: AlertDialogVersion;
   variant?: AlertDialogVariant;
+  type?: StyleComponentType;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   children?: React.ReactNode;
 }
 
-// Loading helper
-const loadVersionModule = async (version: AlertDialogVersion) => {
-  switch (version) {
-    case 'angular-corner': return import('../components/alert-dialog/alert-dialog-angular-corner.tsx');
-    case 'holo-frame': return import('../components/alert-dialog/alert-dialog-holo-frame.tsx');
-    case 'data-panel': return import('../components/alert-dialog/alert-dialog-data-panel.tsx');
-    case 'circuit-board': return import('../components/alert-dialog/alert-dialog-circuit-board.tsx');
-    case 'quantum-gate': return import('../components/alert-dialog/alert-dialog-quantum-gate.tsx');
-    case 'tactical-hud': return import('../components/alert-dialog/alert-dialog-tactical-hud.tsx');
-    case 'energy-shield': return import('../components/alert-dialog/alert-dialog-energy-shield.tsx');
-    case 'terminal-window': return import('../components/alert-dialog/alert-dialog-terminal-window.tsx');
-    case 'matrix-grid': return import('../components/alert-dialog/alert-dialog-matrix-grid.tsx');
-    case 'neon': return import('../components/alert-dialog/alert-dialog-neon.tsx');
-    default: return import('../components/alert-dialog/alert-dialog-angular-corner.tsx');
-  }
-};
-
 // Context
 interface AlertDialogContextValue {
   version: AlertDialogVersion;
   variant: AlertDialogVariant;
+  type: StyleComponentType;
+  colors: ReturnType<typeof getVariantColors>;
   versionModule: any;
 }
 
 const AlertDialogContext = createContext<AlertDialogContextValue>({
   version: 'angular-corner',
   variant: 'default',
+  type: 'default',
+  colors: getVariantColors('default'),
   versionModule: null,
 });
 
@@ -62,18 +52,20 @@ const LoadingSkeleton: React.FC = () => (
 const AlertDialogRoot: React.FC<AlertDialogProps> = ({
   version = 'angular-corner',
   variant = 'default',
+  type = 'default',
   open,
   onOpenChange,
   children,
 }) => {
   const [versionModule, setVersionModule] = useState<any>(null);
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
 
   useEffect(() => {
-    loadVersionModule(version).then(setVersionModule);
+    loadVersionModule(version, 'alert-dialog', true).then(setVersionModule).catch(() => setVersionModule(null));
   }, [version]);
 
   return (
-    <AlertDialogContext.Provider value={{ version, variant, versionModule }}>
+    <AlertDialogContext.Provider value={{ version, variant, type, colors, versionModule }}>
       <AlertDialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
         {children}
       </AlertDialogPrimitive.Root>
@@ -90,7 +82,7 @@ const AlertDialogOverlay = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
 >((props, ref) => {
-  const { versionModule, variant } = useAlertDialogContext();
+  const { versionModule, variant, type, colors } = useAlertDialogContext();
   
   if (!versionModule) {
     return (
@@ -103,7 +95,7 @@ const AlertDialogOverlay = React.forwardRef<
   }
 
   const Component = versionModule.AlertDialogOverlay || versionModule.Overlay;
-  return <Component ref={ref} variant={variant} {...props} />;
+  return <Component ref={ref} variant={variant} type={type} colors={colors} {...props} />;
 });
 AlertDialogOverlay.displayName = 'AlertDialogOverlay';
 
@@ -111,7 +103,7 @@ const AlertDialogContent = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
 >((props, ref) => {
-  const { versionModule, variant } = useAlertDialogContext();
+  const { versionModule, variant, type, colors } = useAlertDialogContext();
 
   if (!versionModule) {
     return <LoadingSkeleton />;
@@ -121,7 +113,7 @@ const AlertDialogContent = React.forwardRef<
   return (
     <AlertDialogPortal>
       <AlertDialogOverlay />
-      <Component ref={ref} variant={variant} {...props} />
+      <Component ref={ref} variant={variant} type={type} colors={colors} {...props} />
     </AlertDialogPortal>
   );
 });
@@ -131,11 +123,11 @@ const AlertDialogHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className = '', ...props }, ref) => {
-  const { versionModule, variant } = useAlertDialogContext();
+  const { versionModule, variant, type, colors } = useAlertDialogContext();
 
   if (versionModule?.AlertDialogHeader) {
     const Component = versionModule.AlertDialogHeader;
-    return <Component ref={ref} variant={variant} className={className} {...props} />;
+    return <Component ref={ref} variant={variant} type={type} colors={colors} className={className} {...props} />;
   }
 
   return (
@@ -152,11 +144,11 @@ const AlertDialogFooter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className = '', ...props }, ref) => {
-  const { versionModule, variant } = useAlertDialogContext();
+  const { versionModule, variant, type, colors } = useAlertDialogContext();
 
   if (versionModule?.AlertDialogFooter) {
     const Component = versionModule.AlertDialogFooter;
-    return <Component ref={ref} variant={variant} className={className} {...props} />;
+    return <Component ref={ref} variant={variant} type={type} colors={colors} className={className} {...props} />;
   }
 
   return (
@@ -173,11 +165,11 @@ const AlertDialogTitle = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
 >((props, ref) => {
-  const { versionModule, variant } = useAlertDialogContext();
+  const { versionModule, variant, type, colors } = useAlertDialogContext();
 
   if (versionModule?.AlertDialogTitle) {
     const Component = versionModule.AlertDialogTitle;
-    return <Component ref={ref} variant={variant} {...props} />;
+    return <Component ref={ref} variant={variant} type={type} colors={colors} {...props} />;
   }
 
   return (
@@ -194,11 +186,11 @@ const AlertDialogDescription = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
 >((props, ref) => {
-  const { versionModule, variant } = useAlertDialogContext();
+  const { versionModule, variant, type, colors } = useAlertDialogContext();
 
   if (versionModule?.AlertDialogDescription) {
     const Component = versionModule.AlertDialogDescription;
-    return <Component ref={ref} variant={variant} {...props} />;
+    return <Component ref={ref} variant={variant} type={type} colors={colors} {...props} />;
   }
 
   return (
@@ -215,11 +207,11 @@ const AlertDialogAction = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Action>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>
 >((props, ref) => {
-  const { versionModule, variant } = useAlertDialogContext();
+  const { versionModule, variant, type, colors } = useAlertDialogContext();
 
   if (versionModule?.AlertDialogAction) {
     const Component = versionModule.AlertDialogAction;
-    return <Component ref={ref} variant={variant} {...props} />;
+    return <Component ref={ref} variant={variant} type={type} colors={colors} {...props} />;
   }
 
   return (
@@ -236,11 +228,11 @@ const AlertDialogCancel = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Cancel>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>
 >((props, ref) => {
-  const { versionModule, variant } = useAlertDialogContext();
+  const { versionModule, variant, type, colors } = useAlertDialogContext();
 
   if (versionModule?.AlertDialogCancel) {
     const Component = versionModule.AlertDialogCancel;
-    return <Component ref={ref} variant={variant} {...props} />;
+    return <Component ref={ref} variant={variant} type={type} colors={colors} {...props} />;
   }
 
   return (

@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import type { ColorType } from '../colors.d.js';
+import type { VariantColors } from '../common';
 
 export type OverlayType = 'default' | 'outline' | 'solid' | 'glass' | 'inverse' | 'contrast' | 'soft';
 export type OverlayVariant = 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
@@ -539,7 +540,51 @@ export interface AlertDialogProps {
   confirmLabel?: string;
   cancelLabel?: string;
   className?: string;
+  children?: React.ReactNode;
 }
+
+interface AlertDialogStyledProps {
+  version?: string;
+  variant?: OverlayVariant | string;
+  uiType?: OverlayType;
+  colors?: VariantColors;
+  className?: string;
+  children?: React.ReactNode;
+}
+
+export interface AlertDialogTriggerProps
+  extends React.ComponentPropsWithoutRef<'button'>,
+    Pick<AlertDialogStyledProps, 'className' | 'children'> {
+  asChild?: boolean;
+}
+
+export interface AlertDialogContentProps
+  extends React.ComponentPropsWithoutRef<'div'>,
+    AlertDialogStyledProps {}
+
+export interface AlertDialogHeaderProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    AlertDialogStyledProps {}
+
+export interface AlertDialogFooterProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    AlertDialogStyledProps {}
+
+export interface AlertDialogTitleProps
+  extends React.HTMLAttributes<HTMLHeadingElement>,
+    AlertDialogStyledProps {}
+
+export interface AlertDialogDescriptionProps
+  extends React.HTMLAttributes<HTMLParagraphElement>,
+    AlertDialogStyledProps {}
+
+export interface AlertDialogActionProps
+  extends React.ComponentPropsWithoutRef<'button'>,
+    AlertDialogStyledProps {}
+
+export interface AlertDialogCancelProps
+  extends React.ComponentPropsWithoutRef<'button'>,
+    AlertDialogStyledProps {}
 
 // ============ SHEET SYSTEM ============
 

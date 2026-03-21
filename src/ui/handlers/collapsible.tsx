@@ -6,6 +6,8 @@
 import React, { lazy, Suspense, createContext, useContext, useState, useEffect } from 'react';
 import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
 import type { Version, Variant } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Types
 export type CollapsibleVersion = Version;
@@ -16,33 +18,18 @@ export interface CollapsibleProps extends React.ComponentPropsWithoutRef<typeof 
   variant?: CollapsibleVariant;
 }
 
-// Loading helper
-const loadVersionModule = async (version: CollapsibleVersion) => {
-  switch (version) {
-    case 'angular-corner': return import('../components/collapsible/collapsible-angular-corner.tsx');
-    case 'holo-frame': return import('../components/collapsible/collapsible-holo-frame.tsx');
-    case 'data-panel': return import('../components/collapsible/collapsible-data-panel.tsx');
-    case 'circuit-board': return import('../components/collapsible/collapsible-circuit-board.tsx');
-    case 'quantum-gate': return import('../components/collapsible/collapsible-quantum-gate.tsx');
-    case 'tactical-hud': return import('../components/collapsible/collapsible-tactical-hud.tsx');
-    case 'energy-shield': return import('../components/collapsible/collapsible-energy-shield.tsx');
-    case 'terminal-window': return import('../components/collapsible/collapsible-terminal-window.tsx');
-    case 'matrix-grid': return import('../components/collapsible/collapsible-matrix-grid.tsx');
-    case 'neon': return import('../components/collapsible/collapsible-neon.tsx');
-    default: return import('../components/collapsible/collapsible-angular-corner.tsx');
-  }
-};
-
 // Context
 interface CollapsibleContextValue {
   version: CollapsibleVersion;
   variant: CollapsibleVariant;
+  colors: ReturnType<typeof getVariantColors>;
   versionModule: any;
 }
 
 const CollapsibleContext = createContext<CollapsibleContextValue>({
-  version: 'angular-corner',
+  version: 'default',
   variant: 'default',
+  colors: getVariantColors('default'),
   versionModule: null,
 });
 
@@ -53,19 +40,20 @@ const CollapsibleRoot = React.forwardRef<
   React.ElementRef<typeof CollapsiblePrimitive.Root>,
   CollapsibleProps
 >(({
-  version = 'angular-corner',
+  version = 'default',
   variant = 'default',
   children,
   ...props
 }, ref) => {
   const [versionModule, setVersionModule] = useState<any>(null);
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
 
   useEffect(() => {
-    loadVersionModule(version).then(setVersionModule);
+    loadVersionModule(version, 'collapsible').then(setVersionModule).catch(() => setVersionModule(null));
   }, [version]);
 
   return (
-    <CollapsibleContext.Provider value={{ version, variant, versionModule }}>
+    <CollapsibleContext.Provider value={{ version, variant, colors, versionModule }}>
       <CollapsiblePrimitive.Root ref={ref} {...props}>
         {children}
       </CollapsiblePrimitive.Root>
@@ -79,11 +67,11 @@ const CollapsibleTrigger = React.forwardRef<
   React.ElementRef<typeof CollapsiblePrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof CollapsiblePrimitive.Trigger>
 >((props, ref) => {
-  const { versionModule, variant } = useCollapsibleContext();
+  const { versionModule, variant, colors } = useCollapsibleContext();
 
   if (versionModule?.CollapsibleTrigger) {
     const Component = versionModule.CollapsibleTrigger;
-    return <Component ref={ref} variant={variant} {...props} />;
+    return <Component ref={ref} variant={variant} colors={colors} {...props} />;
   }
 
   return <CollapsiblePrimitive.Trigger ref={ref} {...props} />;
@@ -95,11 +83,11 @@ const CollapsibleContent = React.forwardRef<
   React.ElementRef<typeof CollapsiblePrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof CollapsiblePrimitive.Content>
 >((props, ref) => {
-  const { versionModule, variant } = useCollapsibleContext();
+  const { versionModule, variant, colors } = useCollapsibleContext();
 
   if (versionModule?.CollapsibleContent) {
     const Component = versionModule.CollapsibleContent;
-    return <Component ref={ref} variant={variant} {...props} />;
+    return <Component ref={ref} variant={variant} colors={colors} {...props} />;
   }
 
   return <CollapsiblePrimitive.Content ref={ref} {...props} />;

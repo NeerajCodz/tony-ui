@@ -17,6 +17,7 @@
 
 import React, { lazy, Suspense, useMemo, useEffect, useState, ComponentType, createContext, useContext } from 'react';
 import type { Version, Variant, Size, VariantConfig, VariantColors, ComponentConfig } from '../types/common';
+import { ComponentRenderer } from './renderer';
 
 // ============================================================================
 // CACHES - For performance
@@ -84,7 +85,12 @@ Object.entries(preloadedVariants).forEach(([key, value]) => {
  */
 export function getVariantColors(variant: Variant): VariantColors {
   const config = variantCache.get(variant) || variantCache.get('default')!;
-  return config.colors;
+  // Merge accent from top-level config into colors object
+  return {
+    ...config.colors,
+    accent: config.accent || config.colors.accent,
+    icon: config.icon || config.colors.icon,
+  };
 }
 
 /**
@@ -236,9 +242,16 @@ export function UniversalHandler({
 }: UniversalHandlerProps) {
   const [config, setConfig] = useState<ComponentConfig<any> | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const shouldLog = process.env.NODE_ENV !== 'production';
   
   // Get variant colors (instant from cache)
   const colors = useMemo(() => getVariantColors(variant), [variant]);
+
+  useEffect(() => {
+    if (shouldLog) {
+      console.log('[UI] render', { component, version, variant, type, size });
+    }
+  }, [shouldLog, component, version, variant, type, size]);
   
   // Load config on mount
   useEffect(() => {
@@ -282,23 +295,32 @@ export function UniversalHandler({
       }} 
     />
   );
+
+  const renderedProps = useMemo(
+    () => ({
+      version,
+      variant,
+      type,
+      size,
+      colors,
+      styles,
+      config,
+      ...props,
+    }),
+    [version, variant, type, size, colors, styles, config, props]
+  );
   
   return (
     <HandlerContext.Provider value={contextValue}>
-      <Suspense fallback={skeleton || defaultSkeleton}>
-        <LazyComponent
-          version={version}
-          variant={variant}
-          type={type}
-          size={size}
-          colors={colors}
-          styles={styles}
-          config={config}
-          {...props}
-        >
-          {children}
-        </LazyComponent>
-      </Suspense>
+      <ComponentRenderer
+        component={LazyComponent}
+        props={renderedProps}
+        wrapInSuspense
+        suspenseFallback={skeleton || defaultSkeleton}
+        filterDomProps={false}
+      >
+        {children}
+      </ComponentRenderer>
     </HandlerContext.Provider>
   );
 }

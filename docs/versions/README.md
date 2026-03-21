@@ -78,7 +78,7 @@ The Cyber UI system includes 19 distinct visual versions, each with a unique aes
     - Complex geometric patterns
     - Tech-forward styling
 
-16. **[raised](./raised.md)** - Elevated with shadows
+16. **[pill](./pill.md)** - Rounded, capsule-style UI
     - Strong shadow depth effects
     - Elevated, floating appearance
     - 3D layering emphasis

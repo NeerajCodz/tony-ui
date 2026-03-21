@@ -671,7 +671,7 @@ export interface NavigationMenuProps {
 /**
  * Pagination Props
  */
-export interface PaginationProps {
+export interface LegacyPaginationProps {
   version?: 'default' | 'compact' | 'simple';
   type?: NavType;
   variant?: NavVariant;

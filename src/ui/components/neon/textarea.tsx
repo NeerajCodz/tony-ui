@@ -2,6 +2,7 @@
 
 import React, { forwardRef } from 'react';
 import type { VariantColors } from '../../types/common';
+import { TextareaBase } from '../_base/textarea';
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   version?: string;
@@ -31,13 +32,13 @@ const NeonOutlineTextarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       border = colors?.border ? `${colors.border}40` : border;
     } else if (type === 'outline') {
       bg = 'transparent';
-      border = colors?.accent || border;
+      border = colors?.accent?.primary || border;
     } else if (type === 'ghost') {
       bg = 'transparent';
       border = 'transparent';
     } else if (!type || type === 'default') {
        // Full Neon Default
-       border = colors?.accent || border;
+       border = colors?.accent?.primary || border;
        // bg remains base
     }
 

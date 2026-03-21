@@ -1,66 +1,23 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import type { ButtonGroupProps } from '@/ui/types/components/misc';
+'use client';
 
-export default function ButtonGroup({
-  className,
-  variant = 'default',
-  type = 'default',
-  colors,
-  children,
-  ...props
-}: ButtonGroupProps) {
-  const baseStyles = "relative transition-all duration-200 opacity-80 hover:opacity-100 inline-flex -space-x-px rounded-md shadow-sm";
-  
-  const typeStyles = {
-    default: {
-      backgroundColor: colors.background,
-      color: colors.text,
-      border: `1px solid ${colors.border}`
-    },
-    solid: {
-      backgroundColor: colors.accent.primary,
-      color: colors.text,
-      boxShadow: `0 0 10px ${colors.accent.glow}`
-    },
-    outline: {
-      backgroundColor: 'transparent',
-      color: colors.accent.primary,
-      border: `1px solid ${colors.accent.primary}`
-    },
-    ghost: {
-      backgroundColor: 'transparent',
-      color: colors.textHover
-    },
-    inverse: {
-      backgroundColor: colors.text,
-      color: colors.background,
-      border: `1px solid ${colors.text}`
-    },
-    contrast: {
-      backgroundColor: colors.accent?.primary || colors.text,
-      color: '#000000',
-      fontWeight: 'bold',
-      border: `1px solid ${colors.text}`
-    },
-    soft: {
-      backgroundColor: colors.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
-      color: colors.accent?.primary || colors.text,
-      border: 'none'
-    },
+import * as React from 'react';
+import { ButtonGroupBase } from '../_base/button-group';
+import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
 
-  };
+export type ButtonGroupProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonGroupBase>, 'type'> & StyledProps;
 
-
-  return (
-    <div 
-      className={cn(baseStyles, className)}
-      style={typeStyles[type as keyof typeof typeStyles]}
-      role="group"
+export const ButtonGroup = React.forwardRef<React.ElementRef<typeof ButtonGroupBase>, ButtonGroupProps>(
+  ({ className, version, type, uiType, colors, style, orientation = 'horizontal', ...props }, ref) => (
+    <ButtonGroupBase
+      ref={ref}
+      orientation={orientation}
+      className={cx('inline-flex gap-1', orientation === 'vertical' && 'flex-col', className)}
+      style={getSurfaceStyle(version ?? 'ghost', type, uiType, colors, style)}
       {...props}
-    >
-      {children}
-      
-    </div>
-  );
-}
+    />
+  )
+);
+
+ButtonGroup.displayName = 'ButtonGroup';
+
+export default ButtonGroup;

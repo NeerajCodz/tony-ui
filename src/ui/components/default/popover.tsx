@@ -5,6 +5,8 @@ import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { cn } from '@/lib/utils';
 import { VariantColors } from '@/ui/types/common';
 
+import { PopoverBase, PopoverContentBase, PopoverTriggerBase } from '../_base/popover';
+
 const getStyles = (type?: string, colors?: VariantColors) => {
   if (!type || !colors) return {};
   
@@ -24,7 +26,7 @@ const getStyles = (type?: string, colors?: VariantColors) => {
       };
     case 'soft':
       return {
-        backgroundColor: colors.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
+        backgroundColor: colors.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
         color: colors.accent?.primary || colors.text,
         border: 'none'
       };
@@ -34,14 +36,14 @@ const getStyles = (type?: string, colors?: VariantColors) => {
 };
 
 
-const PopoverRoot = PopoverPrimitive.Root;
+const PopoverRoot = PopoverBase;
 
-const PopoverTrigger = PopoverPrimitive.Trigger;
+const PopoverTrigger = PopoverTriggerBase;
 
-const PopoverContent = forwardRef<React.ElementRef<typeof PopoverPrimitive.Content>, React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> & { version?: string, variant?: string, type?: string, colors?: VariantColors }>(
+const PopoverContent = forwardRef<React.ElementRef<typeof PopoverContentBase>, React.ComponentPropsWithoutRef<typeof PopoverContentBase> & { version?: string, variant?: string, type?: string, colors?: VariantColors }>(
   ({ className, align = "center", sideOffset = 4, version, variant, type, colors, ...props }, ref) => (
     <PopoverPrimitive.Portal>
-      <PopoverPrimitive.Content
+      <PopoverContentBase
         ref={ref}
         align={align}
         sideOffset={sideOffset}
@@ -54,6 +56,6 @@ const PopoverContent = forwardRef<React.ElementRef<typeof PopoverPrimitive.Conte
     </PopoverPrimitive.Portal>
   )
 );
-PopoverContent.displayName = PopoverPrimitive.Content.displayName;
+PopoverContent.displayName = PopoverContentBase.displayName;
 
 export { PopoverRoot, PopoverTrigger, PopoverContent };

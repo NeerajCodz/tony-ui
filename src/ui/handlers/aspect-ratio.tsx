@@ -1,64 +1,44 @@
 'use client';
 
-/**
- * AspectRatio Handler - Dynamic Loading
- */
-
 import React, { lazy, Suspense, useMemo } from 'react';
-import type { AspectRatioProps, AspectRatioVersion } from '../types/components/data-display';
-import { getVariantColors } from '../core/handler-factory';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
+import { getVariantColors } from '../core/handler-factory';
+import type { Variant, Version } from '../types/common';
 
-// Dynamic component loader
-const loadAspectRatioComponent = (version: string) => {
-  return lazy(() =>
+export interface AspectRatioProps extends React.ComponentPropsWithoutRef<typeof AspectRatioPrimitive.Root> {
+  version?: Version;
+  variant?: Variant;
+}
+
+const loadAspectRatioComponent = (version: string) =>
+  lazy(() =>
     import(`../components/${version}/aspect-ratio.tsx`)
       .catch(() => import(`../components/default/aspect-ratio.tsx`))
-      .catch(() => ({
-        default: AspectRatioPrimitive.Root
-      }))
+      .catch(() => ({ default: AspectRatioPrimitive.Root }))
   );
-};
 
-// Component cache
 const componentCache = new Map<string, React.LazyExoticComponent<any>>();
 
-// Loading skeleton
-const LoadingSkeleton: React.FC = () => (
-  <div className="animate-pulse bg-muted/20 w-full h-full rounded" />
-);
+const LoadingSkeleton: React.FC = () => <div className="h-full w-full animate-pulse rounded bg-muted/20" />;
 
-const AspectRatio = React.forwardRef<HTMLDivElement, any>(({
-  version = 'default',
-  variant = 'primary',
-  children,
-  ...props
-}, ref) => {
-  
-  // Get variant colors dynamically
+const AspectRatio = React.forwardRef<HTMLDivElement, AspectRatioProps>(({ version = 'default', variant = 'primary', children, ...props }, ref) => {
   const colors = useMemo(() => getVariantColors(variant), [variant]);
-  
-  // Get or create lazy component
+
   const LazyComponent = useMemo(() => {
-    const v = version as string;
-    const cacheKey = `${v}/aspect-ratio`;
+    const cacheKey = `${version}/aspect-ratio`;
     if (!componentCache.has(cacheKey)) {
-      componentCache.set(cacheKey, loadAspectRatioComponent(v));
+      componentCache.set(cacheKey, loadAspectRatioComponent(version));
     }
     return componentCache.get(cacheKey)!;
   }, [version]);
 
+  const ResolvedComponent = LazyComponent as React.ComponentType<any>;
+
   return (
     <Suspense fallback={<LoadingSkeleton />}>
-      <LazyComponent 
-        ref={ref} 
-        version={version}
-        variant={variant}
-        colors={colors}
-        {...props}
-      >
+      <ResolvedComponent ref={ref} version={version} variant={variant} colors={colors} {...props}>
         {children}
-      </LazyComponent>
+      </ResolvedComponent>
     </Suspense>
   );
 });

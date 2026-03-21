@@ -6,6 +6,8 @@
 import React, { lazy, Suspense } from 'react';
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 import type { Version, Variant } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Types
 export type ProgressVersion = Version;
@@ -20,23 +22,6 @@ export interface ProgressProps extends React.ComponentPropsWithoutRef<typeof Pro
   size?: 'sm' | 'md' | 'lg';
   animated?: boolean;
 }
-
-// Dynamic imports - Version-First Architecture
-const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
-  'angular-corner': lazy(() => import('../components/angular-corner/progress.tsx')),
-  'holo-frame': lazy(() => import('../components/holo-frame/progress.tsx')),
-  'data-panel': lazy(() => import('../components/data-panel/progress.tsx')),
-  'circuit-board': lazy(() => import('../components/circuit-board/progress.tsx')),
-  'quantum-gate': lazy(() => import('../components/quantum-gate/progress.tsx')),
-  'tactical-hud': lazy(() => import('../components/tactical-hud/progress.tsx')),
-  'energy-shield': lazy(() => import('../components/energy-shield/progress.tsx')),
-  'terminal-window': lazy(() => import('../components/terminal-window/progress.tsx')),
-  'matrix-grid': lazy(() => import('../components/matrix-grid/progress.tsx')),
-  'neon': lazy(() => import('../components/neon/progress.tsx')),
-  'glass-morphism': lazy(() => import('../components/glass-morphism/progress.tsx')),
-  'tech-panel': lazy(() => import('../components/tech-panel/progress.tsx')),
-  'default': lazy(() => import('../components/default/progress.tsx')),
-};
 
 // Loading skeleton
 const LoadingSkeleton: React.FC = () => (
@@ -70,15 +55,20 @@ export const Progress = React.forwardRef<
   variant = 'default',
   ...props
 }, ref) => {
-  const LazyComponent = versionComponents[version];
-
-  if (!LazyComponent) {
-    return <FallbackProgress ref={ref} {...props} />;
-  }
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
+  const LazyComponent = React.useMemo(
+    () =>
+      lazy(() =>
+        loadVersionModule(version, 'progress', true).catch(() => ({
+          default: FallbackProgress,
+        }))
+      ),
+    [version]
+  );
 
   return (
     <Suspense fallback={<LoadingSkeleton />}>
-      <LazyComponent ref={ref} variant={variant} {...props} />
+      <LazyComponent ref={ref} variant={variant} colors={colors} {...props} />
     </Suspense>
   );
 });

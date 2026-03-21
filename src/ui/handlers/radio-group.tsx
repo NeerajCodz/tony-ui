@@ -7,6 +7,8 @@ import React, { lazy, Suspense, createContext, useContext, useState, useEffect }
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import { Circle } from 'lucide-react';
 import type { Version, Variant } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Types
 export type RadioGroupVersion = Version;
@@ -22,33 +24,18 @@ export interface RadioGroupItemProps extends React.ComponentPropsWithoutRef<type
   variant?: RadioGroupVariant;
 }
 
-// Loading helper
-const loadVersionModule = async (version: RadioGroupVersion) => {
-  switch (version) {
-    case 'angular-corner': return import('../components/radio-group/radio-group-angular-corner.tsx');
-    case 'holo-frame': return import('../components/radio-group/radio-group-holo-frame.tsx');
-    case 'data-panel': return import('../components/radio-group/radio-group-data-panel.tsx');
-    case 'circuit-board': return import('../components/radio-group/radio-group-circuit-board.tsx');
-    case 'quantum-gate': return import('../components/radio-group/radio-group-quantum-gate.tsx');
-    case 'tactical-hud': return import('../components/radio-group/radio-group-tactical-hud.tsx');
-    case 'energy-shield': return import('../components/radio-group/radio-group-energy-shield.tsx');
-    case 'terminal-window': return import('../components/radio-group/radio-group-terminal-window.tsx');
-    case 'matrix-grid': return import('../components/radio-group/radio-group-matrix-grid.tsx');
-    case 'neon': return import('../components/radio-group/radio-group-neon.tsx');
-    default: return import('../components/radio-group/radio-group-angular-corner.tsx');
-  }
-};
-
 // Context
 interface RadioGroupContextValue {
   version: RadioGroupVersion;
   variant: RadioGroupVariant;
+  colors: ReturnType<typeof getVariantColors>;
   versionModule: any;
 }
 
 const RadioGroupContext = createContext<RadioGroupContextValue>({
   version: 'angular-corner',
   variant: 'default',
+  colors: getVariantColors('default'),
   versionModule: null,
 });
 
@@ -66,13 +53,14 @@ const RadioGroupRoot = React.forwardRef<
   ...props
 }, ref) => {
   const [versionModule, setVersionModule] = useState<any>(null);
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
 
   useEffect(() => {
-    loadVersionModule(version).then(setVersionModule);
+    loadVersionModule(version, 'radio-group', true).then(setVersionModule).catch(() => setVersionModule(null));
   }, [version]);
 
   return (
-    <RadioGroupContext.Provider value={{ version, variant, versionModule }}>
+    <RadioGroupContext.Provider value={{ version, variant, colors, versionModule }}>
       <RadioGroupPrimitive.Root
         ref={ref}
         className={`grid gap-2 ${className}`}
@@ -90,11 +78,11 @@ const RadioGroupItem = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Item>,
   RadioGroupItemProps
 >(({ className = '', ...props }, ref) => {
-  const { versionModule, variant } = useRadioGroupContext();
+  const { versionModule, variant, colors } = useRadioGroupContext();
 
   if (versionModule?.RadioGroupItem) {
     const Component = versionModule.RadioGroupItem;
-    return <Component ref={ref} variant={variant} className={className} {...props} />;
+    return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
   }
 
   return (

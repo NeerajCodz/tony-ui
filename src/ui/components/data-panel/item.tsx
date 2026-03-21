@@ -1,73 +1,22 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-// import type { ItemProps } from '@/ui/types/components/misc'; 
-// Temporarily using any/local interface as misc.ts has restrictive version types
-export interface ItemProps extends React.HTMLAttributes<HTMLDivElement> {
-  type?: string;
-  variant?: any;
-  type?: any;
-  colors?: any;
-  version?: any;
-}
+'use client';
 
-export default function Item({
-  className,
-  variant = 'default',
-  type = 'default',
-  colors,
-  children,
-  ...props
-}: ItemProps) {
-  const baseStyles = "relative font-mono transition-all duration-200 border-l-4 flex items-center gap-2 p-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors";
-  
-  const typeStyles = {
-    default: {
-      backgroundColor: colors.background,
-      color: colors.text,
-      border: `1px solid ${colors.border}`
-    },
-    solid: {
-      backgroundColor: colors.accent.primary,
-      color: colors.text,
-      boxShadow: `0 0 10px ${colors.accent.glow}`
-    },
-    outline: {
-      backgroundColor: 'transparent',
-      color: colors.accent.primary,
-      border: `1px solid ${colors.accent.primary}`
-    },
-    ghost: {
-      backgroundColor: 'transparent',
-      color: colors.textHover
-    }
- ,
-    inverse: {
-      backgroundColor: colors?.text || colors?.foreground || '#000000',
-      color: colors?.background || '#ffffff',
-      border: `1px solid ${colors?.background || '#ffffff'}`
-    },
-    contrast: {
-      backgroundColor: colors?.background || '#ffffff',
-      color: colors?.text || colors?.foreground || '#000000',
-      border: `2px solid ${colors?.text || colors?.foreground || '#000000'}`,
-      fontWeight: 'bold'
-    },
-    soft: {
-      backgroundColor: colors?.accent?.primary ? `${colors.accent.primary}20` : '#00000020',
-      color: colors?.text || '#000000',
-      border: colors?.accent?.primary ? `1px solid ${colors.accent.primary}30` : 'none'
-    }
-   };
+import * as React from 'react';
+import { ItemBase } from '../_base/item';
+import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
 
+export type ItemProps = Omit<React.ComponentPropsWithoutRef<typeof ItemBase>, 'type'> & StyledProps;
 
-  return (
-    <div 
-      className={cn(baseStyles, className)}
-      style={typeStyles[type as keyof typeof typeStyles]}
+export const Item = React.forwardRef<React.ElementRef<typeof ItemBase>, ItemProps>(
+  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
+    <ItemBase
+      ref={ref}
+      className={cx('flex items-center gap-2 rounded px-2 py-1.5 text-sm', className)}
+      style={getSurfaceStyle(version ?? 'data-panel', type, uiType, colors, style)}
       {...props}
-    >
-      {children}
-      
-    </div>
-  );
-}
+    />
+  )
+);
+
+Item.displayName = 'Item';
+
+export default Item;

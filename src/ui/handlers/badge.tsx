@@ -5,6 +5,8 @@
 
 import React, { lazy, Suspense } from 'react';
 import type { Version, Variant } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Types
 export type BadgeVersion = Version;
@@ -19,29 +21,6 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   removable?: boolean;
   onRemove?: () => void;
 }
-
-// Dynamic imports - Version-First Architecture
-const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
-  'angular-corner': lazy(() => import('../components/angular-corner/badge.tsx')),
-  'holo-frame': lazy(() => import('../components/holo-frame/badge.tsx')),
-  'data-panel': lazy(() => import('../components/data-panel/badge.tsx')),
-  'circuit-board': lazy(() => import('../components/circuit-board/badge.tsx')),
-  'quantum-gate': lazy(() => import('../components/quantum-gate/badge.tsx')),
-  'tactical-hud': lazy(() => import('../components/tactical-hud/badge.tsx')),
-  'energy-shield': lazy(() => import('../components/energy-shield/badge.tsx')),
-  'terminal-window': lazy(() => import('../components/terminal-window/badge.tsx')),
-  'matrix-grid': lazy(() => import('../components/matrix-grid/badge.tsx')),
-  'neon': lazy(() => import('../components/neon/badge.tsx')),
-  'glass-morphism': lazy(() => import('../components/glass-morphism/badge.tsx')),
-  'tech-panel': lazy(() => import('../components/tech-panel/badge.tsx')),
-  'default': lazy(() => import('../components/default/badge.tsx')),
-  'border': lazy(() => import('../components/border/badge.tsx')),
-  'compact': lazy(() => import('../components/compact/badge.tsx')),
-  'ghost': lazy(() => import('../components/ghost/badge.tsx')),
-  'large': lazy(() => import('../components/large/badge.tsx')),
-  'padding': lazy(() => import('../components/padding/badge.tsx')),
-  'raised': lazy(() => import('../components/raised/badge.tsx')),
-};
 
 // Loading skeleton
 const LoadingSkeleton: React.FC = () => (
@@ -74,15 +53,20 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(({
   children,
   ...props
 }, ref) => {
-  const LazyComponent = versionComponents[version];
-
-  if (!LazyComponent) {
-    return <FallbackBadge ref={ref} variant={variant} size={size} {...props}>{children}</FallbackBadge>;
-  }
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
+  const LazyComponent = React.useMemo(
+    () =>
+      lazy(() =>
+        loadVersionModule(version, 'badge', true).catch(() => ({
+          default: FallbackBadge,
+        }))
+      ),
+    [version]
+  );
 
   return (
     <Suspense fallback={<LoadingSkeleton />}>
-      <LazyComponent ref={ref} variant={variant} size={size} {...props}>
+      <LazyComponent ref={ref} variant={variant} colors={colors} size={size} {...props}>
         {children}
       </LazyComponent>
     </Suspense>

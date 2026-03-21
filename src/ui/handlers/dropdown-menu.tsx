@@ -7,6 +7,8 @@ import React, { lazy, Suspense, createContext, useContext, useState, useEffect }
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { Check, ChevronRight, Circle } from 'lucide-react';
 import type { Version, Variant } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Types
 export type DropdownMenuVersion = Version;
@@ -18,33 +20,18 @@ export interface DropdownMenuProps {
   children?: React.ReactNode;
 }
 
-// Loading helper
-const loadVersionModule = async (version: DropdownMenuVersion) => {
-  switch (version) {
-    case 'angular-corner': return import('../components/dropdown-menu/dropdown-menu-angular-corner.tsx');
-    case 'holo-frame': return import('../components/dropdown-menu/dropdown-menu-holo-frame.tsx');
-    case 'data-panel': return import('../components/dropdown-menu/dropdown-menu-data-panel.tsx');
-    case 'circuit-board': return import('../components/dropdown-menu/dropdown-menu-circuit-board.tsx');
-    case 'quantum-gate': return import('../components/dropdown-menu/dropdown-menu-quantum-gate.tsx');
-    case 'tactical-hud': return import('../components/dropdown-menu/dropdown-menu-tactical-hud.tsx');
-    case 'energy-shield': return import('../components/dropdown-menu/dropdown-menu-energy-shield.tsx');
-    case 'terminal-window': return import('../components/dropdown-menu/dropdown-menu-terminal-window.tsx');
-    case 'matrix-grid': return import('../components/dropdown-menu/dropdown-menu-matrix-grid.tsx');
-    case 'neon': return import('../components/dropdown-menu/dropdown-menu-neon.tsx');
-    default: return import('../components/dropdown-menu/dropdown-menu-angular-corner.tsx');
-  }
-};
-
 // Context
 interface DropdownMenuContextValue {
   version: DropdownMenuVersion;
   variant: DropdownMenuVariant;
+  colors: ReturnType<typeof getVariantColors>;
   versionModule: any;
 }
 
 const DropdownMenuContext = createContext<DropdownMenuContextValue>({
   version: 'angular-corner',
   variant: 'default',
+  colors: getVariantColors('default'),
   versionModule: null,
 });
 
@@ -58,13 +45,14 @@ const DropdownMenuRoot: React.FC<DropdownMenuProps & React.ComponentPropsWithout
   ...props
 }) => {
   const [versionModule, setVersionModule] = useState<any>(null);
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
 
   useEffect(() => {
-    loadVersionModule(version).then(setVersionModule);
+    loadVersionModule(version, 'dropdown-menu', true).then(setVersionModule).catch(() => setVersionModule(null));
   }, [version]);
 
   return (
-    <DropdownMenuContext.Provider value={{ version, variant, versionModule }}>
+    <DropdownMenuContext.Provider value={{ version, variant, colors, versionModule }}>
       <DropdownMenuPrimitive.Root {...props}>
         {children}
       </DropdownMenuPrimitive.Root>
@@ -83,11 +71,11 @@ const DropdownMenuSubTrigger = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & { inset?: boolean }
 >(({ className = '', inset, children, ...props }, ref) => {
-  const { versionModule, variant } = useDropdownMenuContext();
+  const { versionModule, variant, colors } = useDropdownMenuContext();
 
   if (versionModule?.DropdownMenuSubTrigger) {
     const Component = versionModule.DropdownMenuSubTrigger;
-    return <Component ref={ref} variant={variant} className={className} inset={inset} {...props}>{children}</Component>;
+    return <Component ref={ref} variant={variant} colors={colors} className={className} inset={inset} {...props}>{children}</Component>;
   }
 
   return (
@@ -107,11 +95,11 @@ const DropdownMenuSubContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
 >(({ className = '', ...props }, ref) => {
-  const { versionModule, variant } = useDropdownMenuContext();
+  const { versionModule, variant, colors } = useDropdownMenuContext();
 
   if (versionModule?.DropdownMenuSubContent) {
     const Component = versionModule.DropdownMenuSubContent;
-    return <Component ref={ref} variant={variant} className={className} {...props} />;
+    return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
   }
 
   return (
@@ -128,13 +116,13 @@ const DropdownMenuContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
 >(({ className = '', sideOffset = 4, ...props }, ref) => {
-  const { versionModule, variant } = useDropdownMenuContext();
+  const { versionModule, variant, colors } = useDropdownMenuContext();
 
   if (versionModule?.DropdownMenuContent) {
     const Component = versionModule.DropdownMenuContent;
     return (
       <DropdownMenuPortal>
-        <Component ref={ref} variant={variant} className={className} sideOffset={sideOffset} {...props} />
+        <Component ref={ref} variant={variant} colors={colors} className={className} sideOffset={sideOffset} {...props} />
       </DropdownMenuPortal>
     );
   }
@@ -156,11 +144,11 @@ const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & { inset?: boolean }
 >(({ className = '', inset, ...props }, ref) => {
-  const { versionModule, variant } = useDropdownMenuContext();
+  const { versionModule, variant, colors } = useDropdownMenuContext();
 
   if (versionModule?.DropdownMenuItem) {
     const Component = versionModule.DropdownMenuItem;
-    return <Component ref={ref} variant={variant} className={className} inset={inset} {...props} />;
+    return <Component ref={ref} variant={variant} colors={colors} className={className} inset={inset} {...props} />;
   }
 
   return (
@@ -177,11 +165,11 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>
 >(({ className = '', children, checked, ...props }, ref) => {
-  const { versionModule, variant } = useDropdownMenuContext();
+  const { versionModule, variant, colors } = useDropdownMenuContext();
 
   if (versionModule?.DropdownMenuCheckboxItem) {
     const Component = versionModule.DropdownMenuCheckboxItem;
-    return <Component ref={ref} variant={variant} className={className} checked={checked} {...props}>{children}</Component>;
+    return <Component ref={ref} variant={variant} colors={colors} className={className} checked={checked} {...props}>{children}</Component>;
   }
 
   return (
@@ -206,11 +194,11 @@ const DropdownMenuRadioItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>
 >(({ className = '', children, ...props }, ref) => {
-  const { versionModule, variant } = useDropdownMenuContext();
+  const { versionModule, variant, colors } = useDropdownMenuContext();
 
   if (versionModule?.DropdownMenuRadioItem) {
     const Component = versionModule.DropdownMenuRadioItem;
-    return <Component ref={ref} variant={variant} className={className} {...props}>{children}</Component>;
+    return <Component ref={ref} variant={variant} colors={colors} className={className} {...props}>{children}</Component>;
   }
 
   return (
@@ -234,11 +222,11 @@ const DropdownMenuLabel = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Label>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & { inset?: boolean }
 >(({ className = '', inset, ...props }, ref) => {
-  const { versionModule, variant } = useDropdownMenuContext();
+  const { versionModule, variant, colors } = useDropdownMenuContext();
 
   if (versionModule?.DropdownMenuLabel) {
     const Component = versionModule.DropdownMenuLabel;
-    return <Component ref={ref} variant={variant} className={className} inset={inset} {...props} />;
+    return <Component ref={ref} variant={variant} colors={colors} className={className} inset={inset} {...props} />;
   }
 
   return (
@@ -255,11 +243,11 @@ const DropdownMenuSeparator = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
 >(({ className = '', ...props }, ref) => {
-  const { versionModule, variant } = useDropdownMenuContext();
+  const { versionModule, variant, colors } = useDropdownMenuContext();
 
   if (versionModule?.DropdownMenuSeparator) {
     const Component = versionModule.DropdownMenuSeparator;
-    return <Component ref={ref} variant={variant} className={className} {...props} />;
+    return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
   }
 
   return (

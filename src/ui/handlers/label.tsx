@@ -6,6 +6,8 @@
 import React, { lazy, Suspense } from 'react';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import type { Version, Variant } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Types
 export type LabelVersion = Version;
@@ -17,20 +19,6 @@ export interface LabelProps extends React.ComponentPropsWithoutRef<typeof LabelP
   required?: boolean;
   error?: boolean;
 }
-
-// Dynamic imports
-const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
-  'angular-corner': lazy(() => import('../components/label/label-angular-corner.tsx')),
-  'holo-frame': lazy(() => import('../components/label/label-holo-frame.tsx')),
-  'data-panel': lazy(() => import('../components/label/label-data-panel.tsx')),
-  'circuit-board': lazy(() => import('../components/label/label-circuit-board.tsx')),
-  'quantum-gate': lazy(() => import('../components/label/label-quantum-gate.tsx')),
-  'tactical-hud': lazy(() => import('../components/label/label-tactical-hud.tsx')),
-  'energy-shield': lazy(() => import('../components/label/label-energy-shield.tsx')),
-  'terminal-window': lazy(() => import('../components/label/label-terminal-window.tsx')),
-  'matrix-grid': lazy(() => import('../components/label/label-matrix-grid.tsx')),
-  'neon': lazy(() => import('../components/label/label-neon.tsx')),
-};
 
 // Fallback
 const FallbackLabel = React.forwardRef<
@@ -57,15 +45,20 @@ export const Label = React.forwardRef<
   variant = 'default',
   ...props
 }, ref) => {
-  const LazyComponent = versionComponents[version];
-
-  if (!LazyComponent) {
-    return <FallbackLabel ref={ref} {...props} />;
-  }
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
+  const LazyComponent = React.useMemo(
+    () =>
+      lazy(() =>
+        loadVersionModule(version, 'label', true).catch(() => ({
+          default: FallbackLabel,
+        }))
+      ),
+    [version]
+  );
 
   return (
     <Suspense fallback={null}>
-      <LazyComponent ref={ref} variant={variant} {...props} />
+      <LazyComponent ref={ref} variant={variant} colors={colors} {...props} />
     </Suspense>
   );
 });

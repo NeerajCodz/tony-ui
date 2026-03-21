@@ -6,6 +6,8 @@
 import React, { lazy, Suspense, createContext, useContext, useState, useEffect, useCallback } from 'react';
 import type { Version, Variant } from '../types/common';
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Types
 export type CarouselVersion = Version;
@@ -24,27 +26,11 @@ export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   setApi?: (api: CarouselApi) => void;
 }
 
-// Loading helper
-const loadVersionModule = async (version: CarouselVersion) => {
-  switch (version) {
-    case 'angular-corner': return import('../components/carousel/carousel-angular-corner.tsx');
-    case 'holo-frame': return import('../components/carousel/carousel-holo-frame.tsx');
-    case 'data-panel': return import('../components/carousel/carousel-data-panel.tsx');
-    case 'circuit-board': return import('../components/carousel/carousel-circuit-board.tsx');
-    case 'quantum-gate': return import('../components/carousel/carousel-quantum-gate.tsx');
-    case 'tactical-hud': return import('../components/carousel/carousel-tactical-hud.tsx');
-    case 'energy-shield': return import('../components/carousel/carousel-energy-shield.tsx');
-    case 'terminal-window': return import('../components/carousel/carousel-terminal-window.tsx');
-    case 'matrix-grid': return import('../components/carousel/carousel-matrix-grid.tsx');
-    case 'neon': return import('../components/carousel/carousel-neon.tsx');
-    default: return import('../components/carousel/carousel-angular-corner.tsx');
-  }
-};
-
 // Context
 interface CarouselContextValue {
   version: CarouselVersion;
   variant: CarouselVariant;
+  colors: ReturnType<typeof getVariantColors>;
   versionModule: any;
   carouselRef: ReturnType<typeof useEmblaCarousel>[0];
   api: CarouselApi;
@@ -83,6 +69,7 @@ const CarouselRoot = React.forwardRef<HTMLDivElement, CarouselProps>(({
   ...props
 }, ref) => {
   const [versionModule, setVersionModule] = useState<any>(null);
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
   const [carouselRef, api] = useEmblaCarousel(
     { ...opts, axis: orientation === 'horizontal' ? 'x' : 'y' },
     plugins
@@ -91,7 +78,7 @@ const CarouselRoot = React.forwardRef<HTMLDivElement, CarouselProps>(({
   const [canScrollNext, setCanScrollNext] = useState(false);
 
   useEffect(() => {
-    loadVersionModule(version).then(setVersionModule);
+    loadVersionModule(version, 'carousel', true).then(setVersionModule).catch(() => setVersionModule(null));
   }, [version]);
 
   const onSelect = useCallback((api: CarouselApi) => {
@@ -136,6 +123,7 @@ const CarouselRoot = React.forwardRef<HTMLDivElement, CarouselProps>(({
       value={{
         version,
         variant,
+        colors,
         versionModule,
         carouselRef,
         api,
@@ -165,11 +153,11 @@ CarouselRoot.displayName = 'Carousel';
 // Content
 const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className = '', ...props }, ref) => {
-    const { carouselRef, orientation, versionModule, variant } = useCarousel();
+    const { carouselRef, orientation, versionModule, variant, colors } = useCarousel();
 
     if (versionModule?.CarouselContent) {
       const Component = versionModule.CarouselContent;
-      return <Component ref={ref} variant={variant} className={className} {...props} />;
+      return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
     }
 
     return (
@@ -188,11 +176,11 @@ CarouselContent.displayName = 'CarouselContent';
 // Item
 const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className = '', ...props }, ref) => {
-    const { orientation, versionModule, variant } = useCarousel();
+    const { orientation, versionModule, variant, colors } = useCarousel();
 
     if (versionModule?.CarouselItem) {
       const Component = versionModule.CarouselItem;
-      return <Component ref={ref} variant={variant} className={className} {...props} />;
+      return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
     }
 
     return (
@@ -211,11 +199,11 @@ CarouselItem.displayName = 'CarouselItem';
 // Previous Button
 const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProps<'button'>>(
   ({ className = '', ...props }, ref) => {
-    const { scrollPrev, canScrollPrev, versionModule, variant } = useCarousel();
+    const { scrollPrev, canScrollPrev, versionModule, variant, colors } = useCarousel();
 
     if (versionModule?.CarouselPrevious) {
       const Component = versionModule.CarouselPrevious;
-      return <Component ref={ref} variant={variant} className={className} {...props} />;
+      return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
     }
 
     return (
@@ -237,11 +225,11 @@ CarouselPrevious.displayName = 'CarouselPrevious';
 // Next Button
 const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<'button'>>(
   ({ className = '', ...props }, ref) => {
-    const { scrollNext, canScrollNext, versionModule, variant } = useCarousel();
+    const { scrollNext, canScrollNext, versionModule, variant, colors } = useCarousel();
 
     if (versionModule?.CarouselNext) {
       const Component = versionModule.CarouselNext;
-      return <Component ref={ref} variant={variant} className={className} {...props} />;
+      return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
     }
 
     return (

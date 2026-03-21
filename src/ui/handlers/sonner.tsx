@@ -11,23 +11,12 @@
 import React, { forwardRef, useMemo } from 'react';
 import { Toaster as SonnerToaster } from 'sonner';
 import { SonnerProps, SonnerVersion, SonnerType, SONNER_VERSION_CONFIGS } from '../types/components/sonner';
+import { loadVersionModule } from './load-version-module';
 
-// Dynamic component imports - Version-First Architecture
-const versionComponents: Record<string, React.ComponentType<any>> = {
-  'default': React.lazy(() => import('../components/default/sonner.tsx')),
-  'angular-corner': React.lazy(() => import('../components/angular-corner/sonner.tsx')),
-  'neon': React.lazy(() => import('../components/neon/sonner.tsx')),
-  'holo-frame': React.lazy(() => import('../components/holo-frame/sonner.tsx')),
-  'data-panel': React.lazy(() => import('../components/data-panel/sonner.tsx')),
-  'circuit-board': React.lazy(() => import('../components/circuit-board/sonner.tsx')),
-  'quantum-gate': React.lazy(() => import('../components/quantum-gate/sonner.tsx')),
-  'tactical-hud': React.lazy(() => import('../components/tactical-hud/sonner.tsx')),
-  'energy-shield': React.lazy(() => import('../components/energy-shield/sonner.tsx')),
-  'terminal-window': React.lazy(() => import('../components/terminal-window/sonner.tsx')),
-  'matrix-grid': React.lazy(() => import('../components/matrix-grid/sonner.tsx')),
-  'glass-morphism': React.lazy(() => import('../components/glass-morphism/sonner.tsx')),
-  'tech-panel': React.lazy(() => import('../components/tech-panel/sonner.tsx')),
-};
+const createVersionComponent = (version: string) =>
+  React.lazy(() =>
+    loadVersionModule(version, 'sonner').catch(() => loadVersionModule('default', 'sonner'))
+  );
 
 // Fallback loader
 const LoadingSkeleton: React.FC = () => (
@@ -118,33 +107,9 @@ export const SonnerHandler = forwardRef<HTMLDivElement, SonnerProps>(
     }, [type, variant, duration]);
 
     // Get the version-specific component
-    const VersionComponent = versionComponents[version as SonnerVersion];
+    const VersionComponent = useMemo(() => createVersionComponent(version as SonnerVersion), [version]);
 
     // Fallback if version component not found
-    if (!VersionComponent) {
-      return (
-        <SonnerToaster
-          ref={ref}
-          position={position as any}
-          theme="dark"
-          className={`sonner-toaster ${className}`}
-          toastOptions={{
-            ...toastOptions,
-            classNames: {
-              toast: 'sonner-toast-fallback',
-              title: 'sonner-title',
-              description: 'sonner-description',
-              actionButton: 'sonner-action-button',
-              cancelButton: 'sonner-cancel-button',
-              closeButton: 'sonner-close-button',
-            },
-          }}
-          {...props}
-        />
-      );
-    }
-
-    // Render version-specific component with configuration
     return (
       <React.Suspense fallback={<LoadingSkeleton />}>
         <VersionComponent

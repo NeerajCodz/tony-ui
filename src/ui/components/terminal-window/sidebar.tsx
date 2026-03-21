@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '../../utils/component-helpers';
+import { SidebarBase, SidebarHeaderBase, SidebarContentBase, SidebarFooterBase, SidebarItemBase } from '../_base/sidebar';
 
 const getTypeStyles = (type: string | undefined) => {
   if (!type) return '';

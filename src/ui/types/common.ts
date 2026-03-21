@@ -27,10 +27,11 @@ export type Version =
   | 'neon'
   | 'padding'
   | 'quantum-gate'
-  | 'raised'
+  | 'pill'
   | 'tactical-hud'
   | 'tech-panel'
-  | 'terminal-window';
+  | 'terminal-window'
+  | (string & {});
 
 /**
  * Cyber-futuristic versions (primary design system)
@@ -65,16 +66,33 @@ export type Variant =
   | 'inverse'
   | 'danger-soft'
   | 'warning-soft'
-  | 'success-soft';
+  | 'success-soft'
+  | (string & {});
 
 export type CoreVariant = 'default' | 'info' | 'success' | 'warning' | 'destructive' | 'neutral' | 'inverse';
+
+export interface VariantAccent {
+  primary?: string;
+  secondary?: string;
+  glow?: string;
+  rgb?: string;
+}
 
 // ============================================================================
 // COMPONENT TYPES
 // ============================================================================
 
-export type CoreComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'soft' | 'disabled';
-export type ButtonComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'link' | 'icon';
+export type StyleComponentType =
+  | 'default'
+  | 'solid'
+  | 'outline'
+  | 'ghost'
+  | 'inverse'
+  | 'contrast'
+  | 'soft'
+  | (string & {});
+export type CoreComponentType = StyleComponentType | 'disabled';
+export type ButtonComponentType = StyleComponentType | 'link' | 'icon';
 export type OverlayComponentType = 'modal' | 'non-modal' | 'fullscreen' | 'side-panel' | 'floating';
 export type FeedbackComponentType = 'default' | 'filled' | 'outline' | 'minimal' | 'loader';
 export type InputComponentType = 'default' | 'filled' | 'outline' | 'underlined' | 'ghost';
@@ -83,24 +101,43 @@ export type InputComponentType = 'default' | 'filled' | 'outline' | 'underlined'
 // SIZES
 // ============================================================================
 
-export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | (string & {});
 
 // ============================================================================
 // CONFIG INTERFACES
 // ============================================================================
 
 export interface VariantColors {
-  base: string;
-  foreground: string;
-  border: string;
-  glow: string;
-  accent?: string;
+  base?: string;
+  foreground?: string;
+  border?: string;
+  glow?: string;
+  accent?: VariantAccent;
   muted?: string;
+  background?: string;
+  backgroundHover?: string;
+  borderHover?: string;
+  text?: string;
+  textHover?: string;
+  icon?: {
+    color?: string;
+    colorHover?: string;
+  };
 }
 
 export interface VariantConfig {
-  name: string;
+  name?: string;
   colors: VariantColors;
+  icon?: {
+    color?: string;
+    colorHover?: string;
+  };
+  accent?: {
+    primary?: string;
+    secondary?: string;
+    glow?: string;
+    rgb?: string;
+  };
 }
 
 export interface ComponentConfig<TTypes extends string = string> {
@@ -135,7 +172,7 @@ export const VERSIONS: readonly Version[] = [
   'angular-corner', 'border', 'circuit-board', 'compact', 'data-panel',
   'default', 'energy-shield', 'ghost', 'glass-morphism', 'holo-frame',
   'large', 'matrix-grid', 'neon', 'padding',
-  'quantum-gate', 'raised', 'tactical-hud', 'tech-panel', 'terminal-window',
+  'quantum-gate', 'pill', 'tactical-hud', 'tech-panel', 'terminal-window',
 ] as const;
 
 export const CYBER_VERSIONS: readonly CyberVersion[] = [

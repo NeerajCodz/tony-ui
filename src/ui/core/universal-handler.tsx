@@ -57,7 +57,7 @@ function useDynamicComponent(
     'angular-corner', 'border', 'circuit-board', 'compact', 'data-panel',
     'default', 'energy-shield', 'ghost', 'glass-morphism', 'holo-frame',
     'large', 'matrix-grid', 'neon', 'padding', 'quantum-gate',
-    'raised', 'tactical-hud', 'tech-panel', 'terminal-window',
+    'pill', 'tactical-hud', 'tech-panel', 'terminal-window',
   ];
 
   const validVersion = AVAILABLE_VERSIONS.includes(version) ? version : 'default';

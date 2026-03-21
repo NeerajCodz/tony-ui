@@ -1,90 +1,12 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import type { InputOTPProps } from '@/ui/types/components/inputs';
-import { OTPInput, OTPInputContext } from "input-otp"
-import { Dot } from "lucide-react"
+'use client';
 
-export function InputOTP({
-  className,
-  variant = 'default',
-  type = 'default',
-  colors,
-  containerClassName,
-  ...props
-}: InputOTPProps) {
-  return (
-    <OTPInput
-      containerClassName={cn("flex items-center gap-2 has-[:disabled]:opacity-50", containerClassName)}
-      className={cn("disabled:cursor-not-allowed", className)}
-      {...props}
-    />
-  )
-}
+import { createInputOtpFoundation } from '../_shared/family-foundations';
 
-export function InputOTPGroup({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
-  return (
-    <div className={cn("flex items-center", className)} {...props} />
-  )
-}
+const foundation = createInputOtpFoundation('ghost');
 
-export function InputOTPSlot({
-  index,
-  className,
-  colors, // Received from parent usually, but here we might need to rely on context or pass explicit
-  variant = 'default',
-  type = 'default',
-  ...props
-}: React.ComponentPropsWithoutRef<"div"> & { index: number; colors?: any; variant?: any; type?: any }) {
-  const inputOTPContext = React.useContext(OTPInputContext)
-  const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index]
-  const baseStyles = "relative transition-all duration-200 opacity-80 hover:opacity-100 relative flex h-10 w-10 items-center justify-center border-y border-r border-input text-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md";
-  
-  // Custom styles based on version/colors
-  const style = {
-    borderColor: colors?.border,
-    backgroundColor: isActive ? colors?.accent?.secondary : 'transparent',
-    color: colors?.text
-  };
-  if (type === 'inverse') {
-    style.backgroundColor = colors?.text || '#000000';
-    style.color = colors?.background || '#ffffff';
-    style.borderColor = colors?.background || '#ffffff';
-  } else if (type === 'contrast') {
-    style.backgroundColor = colors?.background || '#ffffff';
-    style.color = colors?.text || '#000000';
-    style.border = `2px solid ${colors?.text || '#000000'}`;
-    style.fontWeight = 'bold';
-  } else if (type === 'soft') {
-    style.backgroundColor = colors?.accent?.primary ? `${colors.accent.primary}20` : '#00000020';
-    style.color = colors?.text || '#000000';
-    style.borderColor = colors?.accent?.primary ? `${colors.accent.primary}30` : 'transparent';
-  }
+export const InputOTP = foundation.InputOTP;
+export const InputOTPGroup = foundation.InputOTPGroup;
+export const InputOTPSlot = foundation.InputOTPSlot;
+export const InputOTPSeparator = foundation.InputOTPSeparator;
 
-
-  return (
-    <div
-      className={cn(baseStyles, isActive && "z-10 ring-2 ring-ring ring-offset-background", className)}
-      style={style}
-      {...props}
-    >
-      {char}
-      {hasFakeCaret && (
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="h-4 w-px animate-caret-blink bg-foreground duration-1000" />
-        </div>
-      )}
-      
-    </div>
-  )
-}
-
-export function InputOTPSeparator({ ...props }: React.ComponentPropsWithoutRef<"div">) {
-  return (
-    <div role="separator" {...props}>
-      <Dot />
-    </div>
-  )
-}
+export default InputOTP;

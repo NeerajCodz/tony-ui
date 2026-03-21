@@ -3,6 +3,7 @@
 import React, { forwardRef } from 'react';
 import { Toaster as SonnerToaster } from 'sonner';
 import type { VariantColors } from '../../types/common';
+import { SonnerBase } from '../_base/sonner';
 
 export interface SonnerProps {
   version?: string;

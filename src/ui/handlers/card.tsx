@@ -8,37 +8,49 @@
 import React, { lazy, Suspense, useMemo, useState, useEffect } from 'react';
 import type { 
   CardProps, 
-  CardVersion,
   CardHeaderProps,
+  CardTitleProps,
+  CardDescriptionProps,
   CardContentProps,
-  CardFooterProps,
-  CardComponent
+  CardFooterProps
 } from '../types/components/card.js';
-import type { Version, Variant, VariantColors } from '../types/common';
+import type { Version } from '../types/common';
 import { getVariantColors } from '../core/handler-factory';
 
 // Dynamic component loader - NO hardcoded versions
-const loadCardComponent = (version: Version) => {
+const loadCardComponent = (version: Version): React.LazyExoticComponent<React.ComponentType<Record<string, unknown>>> => {
   return lazy(() =>
     import(`../components/${version}/card.tsx`)
       .catch(() => import(`../components/default/card.tsx`))
       .catch(() => ({
-        default: React.forwardRef<HTMLDivElement, any>(({ children, className = '' }, ref) => (
+        default: React.forwardRef<HTMLDivElement, { children?: React.ReactNode; className?: string }>(
+          ({ children, className = '' }, ref) => (
           <div ref={ref} className={className}>{children}</div>
-        ))
+          )
+        )
       }))
-  );
+  ) as React.LazyExoticComponent<React.ComponentType<Record<string, unknown>>>;
 };
 
 // Dynamic config loader
+const resolveCardConfig = (module: Record<string, unknown>) => {
+  if ('cardConfig' in module) {
+    return module.cardConfig;
+  }
+  if ('default' in module) {
+    return module.default;
+  }
+  return null;
+};
+
 const loadCardConfig = async (version: Version) => {
   try {
     const module = await import(`../config/components/${version}/card.tsx`);
-    return module.cardConfig || module.default;
+    return resolveCardConfig(module as Record<string, unknown>);
   } catch {
     try {
       const module = await import(`../config/components/default/card.tsx`);
-      return module.cardConfig || module.default;
+      return resolveCardConfig(module as Record<string, unknown>);
     } catch {
       return null;
     }
@@ -46,7 +58,7 @@ const loadCardConfig = async (version: Version) => {
 };
 
 // Component cache for performance
-const componentCache = new Map<string, React.LazyExoticComponent<any>>();
+const componentCache = new Map<string, React.LazyExoticComponent<React.ComponentType<Record<string, unknown>>>>();
 
 // Minimal loading skeleton
 const LoadingSkeleton: React.FC = () => (
@@ -66,10 +78,7 @@ export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
 CardHeader.displayName = 'CardHeader';
 
 // CardTitle - loaded from config per version
-export const CardTitle = React.forwardRef<HTMLHeadingElement, {
-  children?: React.ReactNode;
-  className?: string;
-}>(({ children, className = '' }, ref) => (
+export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(({ children, className = '' }, ref) => (
   <h3 
     ref={ref} 
     className={className}
@@ -80,10 +89,7 @@ export const CardTitle = React.forwardRef<HTMLHeadingElement, {
 CardTitle.displayName = 'CardTitle';
 
 // CardDescription - loaded from config per version
-export const CardDescription = React.forwardRef<HTMLParagraphElement, {
-  children?: React.ReactNode;
-  className?: string;
-}>(({ children, className = '' }, ref) => (
+export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(({ children, className = '' }, ref) => (
   <p 
     ref={ref} 
     className={className}
@@ -121,9 +127,11 @@ CardFooter.displayName = 'CardFooter';
 const CardBase = React.forwardRef<HTMLDivElement, CardProps>(({ 
   version = 'default',
   variant = 'default',
+  type = 'default',
   ...props 
 }, ref) => {
-  const [config, setConfig] = useState<any>(null);
+  const [config, setConfig] = useState<unknown>(null);
+  const shouldLog = process.env.NODE_ENV !== 'production';
   
   // Dynamically load config
   useEffect(() => {
@@ -132,6 +140,10 @@ const CardBase = React.forwardRef<HTMLDivElement, CardProps>(({
   
   // Get variant colors dynamically - NO hardcoding
   const colors = useMemo(() => getVariantColors(variant), [variant]);
+
+  if (shouldLog) {
+    console.log('[UI:card]', { version, variant, type });
+  }
   
   // Get or create lazy component
   const LazyComponent = useMemo(() => {
@@ -141,13 +153,15 @@ const CardBase = React.forwardRef<HTMLDivElement, CardProps>(({
     }
     return componentCache.get(cacheKey)!;
   }, [version]);
+  const DynamicCard = LazyComponent as React.ComponentType<Record<string, unknown>>;
 
   return (
     <Suspense fallback={<LoadingSkeleton />}>
-      <LazyComponent 
+      <DynamicCard 
         ref={ref} 
         version={version}
         variant={variant}
+        type={type}
         colors={colors}
         config={config}
         {...props} 
@@ -158,12 +172,20 @@ const CardBase = React.forwardRef<HTMLDivElement, CardProps>(({
 CardBase.displayName = 'Card';
 
 // Composite Card with attached subcomponents
+type CardCompound = typeof CardBase & {
+  Header: typeof CardHeader;
+  Title: typeof CardTitle;
+  Description: typeof CardDescription;
+  Content: typeof CardContent;
+  Footer: typeof CardFooter;
+};
+
 export const Card = Object.assign(CardBase, {
   Header: CardHeader,
   Title: CardTitle,
   Description: CardDescription,
   Content: CardContent,
   Footer: CardFooter,
-}) as CardComponent;
+}) as CardCompound;
 
 export default Card;

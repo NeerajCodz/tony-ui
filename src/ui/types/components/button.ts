@@ -2,7 +2,7 @@
  * Button Component Type Definitions
  */
 
-import type { Version, CoreVariant, Size } from '../common';
+import type { Version, Variant, VariantColors, Size } from '../common';
 import type React from 'react';
 
 /**
@@ -13,7 +13,7 @@ export type ButtonVersion = Version;
 /**
  * Button variants (color/semantic layer)
  */
-export type ButtonVariant = CoreVariant;
+export type ButtonVariant = Variant;
 
 /**
  * Button-specific types (visual treatment)
@@ -25,15 +25,19 @@ export type ButtonType = 'default' | 'solid' | 'outline' | 'ghost' | 'link' | 'd
 /**
  * Button component props
  */
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
   /** Design system version to use */
   version?: ButtonVersion;
   /** Color/semantic variant */
   variant?: ButtonVariant;
   /** Visual treatment type */
   type?: ButtonType;
+  /** Native HTML button type */
+  htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   /** Size of the button */
   size?: Size;
+  /** Variant color tokens injected by handlers */
+  colors?: VariantColors;
   /** Whether button is in loading state */
   loading?: boolean;
   /** Icon to display before text */

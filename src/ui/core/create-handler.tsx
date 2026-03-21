@@ -184,7 +184,15 @@ export function createHandler<P extends object = {}>(config: HandlerConfig) {
     loadingComponent: LoadingComponent = DefaultLoading,
   } = config;
 
-  const Handler = forwardRef<any, P & HandlerParams & { className?: string; style?: React.CSSProperties; children?: React.ReactNode }>(
+  type HandlerPublicProps = P & HandlerParams & { className?: string; style?: React.CSSProperties; children?: React.ReactNode };
+  type HandlerResolvedProps = HandlerPublicProps & {
+    version: Version;
+    variant: Variant;
+    type: string;
+    size: Size;
+  };
+
+  const Handler = forwardRef<any, HandlerPublicProps>(
     (props, ref) => {
       const {
         version = defaultVersion,
@@ -193,18 +201,19 @@ export function createHandler<P extends object = {}>(config: HandlerConfig) {
         size = defaultSize,
         style,
         ...restProps
-      } = props;
+      } = props as HandlerResolvedProps;
 
       // Get lazy component
       const LazyComponent = useMemo(
         () => getComponent(version, componentName),
         [version]
       );
+      const ResolvedComponent = LazyComponent as React.ComponentType<any>;
 
       // Load config and variant in parallel (handled by the component internally)
       return (
         <Suspense fallback={<LoadingComponent />}>
-          <LazyComponent
+          <ResolvedComponent
             ref={ref}
             version={version}
             variant={variant}

@@ -33,15 +33,24 @@ const loadDrawerComponent = (version: Version) => {
   );
 };
 
+const resolveDrawerConfigModule = (module: unknown) => {
+  if (!module || typeof module !== 'object') {
+    return null;
+  }
+
+  const maybeModule = module as { drawerConfig?: unknown; default?: unknown };
+  return maybeModule.drawerConfig ?? maybeModule.default ?? null;
+};
+
 // Dynamic config loader
 const loadDrawerConfig = async (version: Version) => {
   try {
     const module = await import(`../config/components/${version}/drawer.tsx`);
-    return module.drawerConfig || module.default;
+    return resolveDrawerConfigModule(module);
   } catch {
     try {
       const module = await import(`../config/components/default/drawer.tsx`);
-      return module.drawerConfig || module.default;
+      return resolveDrawerConfigModule(module);
     } catch {
       return null;
     }

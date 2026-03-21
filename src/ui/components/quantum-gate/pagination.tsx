@@ -3,6 +3,7 @@
 import React, { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 import { VariantColors } from '@/ui/types/common';
+import { PaginationBase, PaginationContentBase, PaginationItemBase, PaginationLinkBase, PaginationPreviousBase, PaginationNextBase, PaginationEllipsisBase } from '../_base/pagination';
 
 const getStyles = (type?: string, colors?: VariantColors) => {
   if (!type || !colors) return {};
@@ -23,7 +24,7 @@ const getStyles = (type?: string, colors?: VariantColors) => {
       };
     case 'soft':
       return {
-        backgroundColor: colors.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
+        backgroundColor: colors.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
         color: colors.accent?.primary || colors.text,
         border: 'none'
       };
@@ -94,15 +95,14 @@ const PaginationPrevious = ({
   className,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
-    aria-label="Go to previous page"
+  <PaginationLinkBase    aria-label="Go to previous page"
     size="default"
     className={cn("gap-1 pl-2.5", className)}
     {...props}
   >
     <span>&laquo;</span>
     <span>Previous</span>
-  </PaginationLink>
+  </PaginationLinkBase>
 );
 PaginationPrevious.displayName = "PaginationPrevious";
 
@@ -110,15 +110,14 @@ const PaginationNext = ({
   className,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
-    aria-label="Go to next page"
+  <PaginationLinkBase    aria-label="Go to next page"
     size="default"
     className={cn("gap-1 pr-2.5", className)}
     {...props}
   >
     <span>Next</span>
     <span>&raquo;</span>
-  </PaginationLink>
+  </PaginationLinkBase>
 );
 PaginationNext.displayName = "PaginationNext";
 

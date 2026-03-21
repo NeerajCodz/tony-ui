@@ -1,65 +1,39 @@
-/**
- * Skeleton Component Handler - Version-First Architecture
- * Routes to version-specific implementations with lazy loading
- */
+'use client';
 
 import React, { lazy, Suspense } from 'react';
-import type { Version, Variant } from '../types/common';
-
-// Types
-export type SkeletonVersion = Version;
-export type SkeletonVariant = Variant;
+import type { Variant, Version } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
-  version?: SkeletonVersion;
-  variant?: SkeletonVariant;
+  version?: Version;
+  variant?: Variant;
   animated?: boolean;
 }
 
-// Dynamic imports
-const versionComponents: Record<string, React.LazyExoticComponent<any>> = {
-  'angular-corner': lazy(() => import('../components/angular-corner/skeleton.tsx')),
-  'holo-frame': lazy(() => import('../components/holo-frame/skeleton.tsx')),
-  'data-panel': lazy(() => import('../components/data-panel/skeleton.tsx')),
-  'circuit-board': lazy(() => import('../components/circuit-board/skeleton.tsx')),
-  'quantum-gate': lazy(() => import('../components/quantum-gate/skeleton.tsx')),
-  'tactical-hud': lazy(() => import('../components/tactical-hud/skeleton.tsx')),
-  'energy-shield': lazy(() => import('../components/energy-shield/skeleton.tsx')),
-  'terminal-window': lazy(() => import('../components/terminal-window/skeleton.tsx')),
-  'matrix-grid': lazy(() => import('../components/matrix-grid/skeleton.tsx')),
-  'neon': lazy(() => import('../components/neon/skeleton.tsx')),
-  'compact': lazy(() => import('../components/compact/skeleton.tsx')),
-  'default': lazy(() => import('../components/default/skeleton.tsx')),
-  'ghost': lazy(() => import('../components/ghost/skeleton.tsx')),
-};
-
-// Fallback
-const FallbackSkeleton: React.FC<SkeletonProps> = ({
-  className = '',
-  animated = true,
-  ...props
-}) => (
-  <div
-    className={`${animated ? 'animate-pulse' : ''} rounded-md bg-muted ${className}`}
-    {...props}
-  />
+const FallbackSkeleton: React.FC<SkeletonProps> = ({ className = '', animated = true, ...props }) => (
+  <div className={`${animated ? 'animate-pulse' : ''} rounded-md bg-muted ${className}`} {...props} />
 );
 
-// Main Skeleton Component
-export const Skeleton: React.FC<SkeletonProps> = ({
-  version = 'angular-corner',
-  variant = 'default',
-  ...props
-}) => {
-  const LazyComponent = versionComponents[version];
+export const Skeleton: React.FC<SkeletonProps> = ({ version = 'default', variant = 'default', ...props }) => {
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
+  const LazyComponent = React.useMemo(
+    () =>
+      lazy(() =>
+        loadVersionModule(version, 'skeleton', true)
+          .then((module) => ({
+            default: module.default ?? module.Skeleton ?? FallbackSkeleton,
+          }))
+          .catch(() => ({ default: FallbackSkeleton }))
+      ),
+    [version]
+  );
 
-  if (!LazyComponent) {
-    return <FallbackSkeleton {...props} />;
-  }
+  const ResolvedComponent = LazyComponent as React.ComponentType<any>;
 
   return (
     <Suspense fallback={<FallbackSkeleton {...props} />}>
-      <LazyComponent variant={variant} {...props} />
+      <ResolvedComponent variant={variant} colors={colors} {...props} />
     </Suspense>
   );
 };

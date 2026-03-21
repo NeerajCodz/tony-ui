@@ -2,7 +2,7 @@
  * Card Component Type Definitions
  */
 
-import { type Version, type CoreVariant, type Size, VERSIONS } from '../common';
+import { type Version, type Variant, type VariantColors, type Size, VERSIONS } from '../common';
 import type React from 'react';
 
 /**
@@ -13,7 +13,7 @@ export type CardVersion = Version;
 /**
  * Card variants (color/semantic layer)
  */
-export type CardVariant = CoreVariant;
+export type CardVariant = Variant;
 
 /**
  * Card-specific types (visual treatment)
@@ -32,6 +32,8 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: CardVariant;
   /** Visual treatment type */
   type?: CardType;
+  /** Variant color tokens injected by handlers */
+  colors?: VariantColors;
   /** Size of the card */
   size?: Size;
   /** Whether card is hoverable */
@@ -54,6 +56,8 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   version?: CardVersion;
   variant?: CardVariant;
+  type?: CardType;
+  colors?: VariantColors;
   className?: string;
   children?: React.ReactNode;
 }
@@ -64,6 +68,8 @@ export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
 export interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
   version?: CardVersion;
   variant?: CardVariant;
+  type?: CardType;
+  colors?: VariantColors;
   className?: string;
   children?: React.ReactNode;
 }
@@ -74,6 +80,8 @@ export interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
 export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   version?: CardVersion;
   variant?: CardVariant;
+  type?: CardType;
+  colors?: VariantColors;
   className?: string;
   children?: React.ReactNode;
 }
@@ -84,6 +92,8 @@ export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {
 export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
   version?: CardVersion;
   variant?: CardVariant;
+  type?: CardType;
+  colors?: VariantColors;
   className?: string;
   children?: React.ReactNode;
 }
@@ -94,6 +104,8 @@ export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement>
 export interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {
   version?: CardVersion;
   variant?: CardVariant;
+  type?: CardType;
+  colors?: VariantColors;
   className?: string;
   children?: React.ReactNode;
 }

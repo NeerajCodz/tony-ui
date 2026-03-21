@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import type { BreadcrumbProps, BreadcrumbItemProps, BreadcrumbLinkProps, BreadcrumbListProps, BreadcrumbPageProps, BreadcrumbSeparatorProps } from '@/ui/types/components/navigation';
 import { Slot } from "@radix-ui/react-slot"
 import { ChevronRight, MoreHorizontal } from "lucide-react"
+import { BreadcrumbBase, BreadcrumbListBase, BreadcrumbItemBase, BreadcrumbLinkBase, BreadcrumbPageBase, BreadcrumbSeparatorBase, BreadcrumbEllipsisBase } from '../_base/breadcrumb';
 
 export function Breadcrumb({ className, type = 'default', colors, ...props }: BreadcrumbProps & { colors?: any }) {
   const typeStyles = {
@@ -14,12 +15,12 @@ export function Breadcrumb({ className, type = 'default', colors, ...props }: Br
     solid: {
       backgroundColor: colors?.accent?.primary,
       color: colors?.text,
-      boxShadow: colors?.accent?.glow ? `0 0 10px ${colors.accent.glow}` : undefined
+      boxShadow: colors?.accent?.glow ? `0 0 10px ${colors?.accent?.glow}` : undefined
     },
     outline: {
       backgroundColor: 'transparent',
       color: colors?.accent?.primary,
-      border: colors?.accent?.primary ? `1px solid ${colors.accent.primary}` : undefined
+      border: colors?.accent?.primary ? `1px solid ${colors?.accent?.primary}` : undefined
     },
     ghost: {
       backgroundColor: 'transparent',
@@ -37,7 +38,7 @@ export function Breadcrumb({ className, type = 'default', colors, ...props }: Br
       border: colors?.text ? `1px solid ${colors.text}` : undefined
     },
     soft: {
-      backgroundColor: colors?.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors?.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
+      backgroundColor: colors?.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors?.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
       color: colors?.accent?.primary || colors?.text,
       border: 'none'
     }
@@ -47,7 +48,7 @@ export function Breadcrumb({ className, type = 'default', colors, ...props }: Br
     <nav 
       aria-label="breadcrumb" 
       className={className} 
-      style={typeStyles[type as keyof typeof typeStyles]} 
+      style={typeStyles[type as keyof typeof typeStyles] || typeStyles.default} 
       {...props} 
     />
   )

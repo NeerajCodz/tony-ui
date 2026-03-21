@@ -1,4 +1,4 @@
-import type { Version, Variant, ComponentType } from '../common.js';
+import type { Version, Variant, StyleComponentType } from '../common.js';
 import type * as SheetPrimitive from '@radix-ui/react-dialog';
 
 export type SheetVersion = Version;
@@ -6,7 +6,7 @@ export type SheetVersion = Version;
 export interface SheetProps {
   version?: SheetVersion;
   variant?: Variant;
-  type?: ComponentType;
+  type?: StyleComponentType;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   title?: string;

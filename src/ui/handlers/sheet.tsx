@@ -6,20 +6,8 @@
 import React, { lazy, Suspense } from 'react';
 import * as SheetPrimitive from '@radix-ui/react-dialog';
 import type { SheetProps, SheetVersion, VersionSheetComponents } from '../types/components/sheet.js';
-
-// Dynamic imports for all sheet versions
-const versionComponents: Record<SheetVersion, any> = {
-  'angular-corner': lazy(() => import('../components/angular-corner/sheet.tsx')),
-  'holo-frame': lazy(() => import('../components/holo-frame/sheet.tsx')),
-  'data-panel': lazy(() => import('../components/data-panel/sheet.tsx')),
-  'circuit-board': lazy(() => import('../components/circuit-board/sheet.tsx')),
-  'quantum-gate': lazy(() => import('../components/quantum-gate/sheet.tsx')),
-  'tactical-hud': lazy(() => import('../components/tactical-hud/sheet.tsx')),
-  'energy-shield': lazy(() => import('../components/energy-shield/sheet.tsx')),
-  'terminal-window': lazy(() => import('../components/terminal-window/sheet.tsx')),
-  'matrix-grid': lazy(() => import('../components/matrix-grid/sheet.tsx')),
-  'neon': lazy(() => import('../components/neon/sheet.tsx')),
-};
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Minimal loading skeleton
 const LoadingSkeleton: React.FC = () => (
@@ -51,43 +39,44 @@ export const Sheet: React.FC<SheetProps> = ({
   className,
   ...props
 }) => {
-  const VersionComponent = versionComponents[version];
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
+  const [versionModule, setVersionModule] = React.useState<any>(null);
 
-  if (!VersionComponent) {
-    console.warn(`Sheet version "${version}" not found, using fallback`);
-    return (
-      <SheetPrimitive.Root open={open} onOpenChange={onOpenChange}>
-        <FallbackSheet className={className}>{children}</FallbackSheet>
-      </SheetPrimitive.Root>
-    );
-  }
+  React.useEffect(() => {
+    loadVersionModule(version, 'sheet', true).then(setVersionModule).catch(() => setVersionModule(null));
+  }, [version]);
 
   return (
     <SheetPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <Suspense fallback={<LoadingSkeleton />}>
-        <VersionComponent.SheetContent
-          side={side}
-          variant={variant}
-          className={className}
-          {...props}
-        >
-          {(title || description) && (
-            <VersionComponent.SheetHeader variant={variant}>
-              {title && (
-                <VersionComponent.SheetTitle variant={variant}>
-                  {icon && <span className="mr-2">{icon}</span>}
-                  {title}
-                </VersionComponent.SheetTitle>
-              )}
-              {description && (
-                <VersionComponent.SheetDescription variant={variant}>
-                  {description}
-                </VersionComponent.SheetDescription>
-              )}
-            </VersionComponent.SheetHeader>
-          )}
-          {children}
-        </VersionComponent.SheetContent>
+        {versionModule?.SheetContent ? (
+          <versionModule.SheetContent
+            side={side}
+            variant={variant}
+            colors={colors}
+            className={className}
+            {...props}
+          >
+            {(title || description) && (
+              <versionModule.SheetHeader variant={variant} colors={colors}>
+                {title && (
+                  <versionModule.SheetTitle variant={variant} colors={colors}>
+                    {icon && <span className="mr-2">{icon}</span>}
+                    {title}
+                  </versionModule.SheetTitle>
+                )}
+                {description && (
+                  <versionModule.SheetDescription variant={variant} colors={colors}>
+                    {description}
+                  </versionModule.SheetDescription>
+                )}
+              </versionModule.SheetHeader>
+            )}
+            {children}
+          </versionModule.SheetContent>
+        ) : (
+          <FallbackSheet className={className}>{children}</FallbackSheet>
+        )}
       </Suspense>
     </SheetPrimitive.Root>
   );

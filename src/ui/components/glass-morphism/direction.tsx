@@ -1,34 +1,48 @@
-import * as React from "react"
-import { ArrowRight, ArrowLeft, ArrowUp, ArrowDown, Compass } from "lucide-react"
-import { cn } from "../../utils/component-helpers"
-interface DirectionProps extends React.HTMLAttributes<HTMLDivElement> { direction?: 'up' | 'down' | 'left' | 'right' | 'ne' | 'nw' | 'se' | 'sw'; size?: 'sm' | 'md' | 'lg'; version?: string; variant?: 'neutral' | 'primary' | 'success' | 'warning' | 'destructive' | 'info'; type?: 'default' | 'outline' | 'solid' | 'ghost'; animated?: boolean; }
-const Component = React.forwardRef<HTMLDivElement, DirectionProps>(({ direction = 'right', size = 'md', className, version = 'glass-morphism', variant = 'primary', type = 'default', animated = true, children, ...props }, ref) => {
-  const colorMap: Record<string, string> = { neutral: 'primary', success: 'success', warning: 'warning', info: 'info', destructive: 'destructive', primary: 'primary' };
-  const color = colorMap[variant] || 'primary';
-  const getTypeStyles = () => {
-    const baseColor = `hsl(var(--${color}-base))`;
-    switch(type) {
-      case 'inverse': return { background: `hsl(var(--${color}-foreground))`, color: `hsl(var(--${color}-base))`, border: 'none' };
-      case 'contrast': return { background: `hsl(var(--${color}-base))`, color: `hsl(var(--${color}-foreground))`, border: `2px solid hsl(var(--${color}-foreground))` };
-      case 'soft': return { background: `hsl(var(--${color}-base) / 0.15)`, color: `hsl(var(--${color}-foreground))`, border: 'none' };
+'use client';
 
-      case 'outline': return { border: `1px solid ${baseColor}`, background: 'transparent' };
-      case 'solid': return { background: `hsl(var(--${color}-base) / 0.1)`, border: 'none' };
-      case 'ghost': return { background: 'transparent', border: 'none' };
-      default: return { background: `hsl(var(--${color}-base) / 0.05)`, border: `1px solid hsl(var(--${color}-base) / 0.3)` };
-    }
+import * as React from 'react';
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Compass } from 'lucide-react';
+import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+
+const sizeMap = {
+  sm: 'h-8 w-8',
+  md: 'h-10 w-10',
+  lg: 'h-14 w-14',
+} as const;
+
+export type DirectionProps = React.HTMLAttributes<HTMLDivElement> &
+  StyledProps & {
+    direction?: 'up' | 'down' | 'left' | 'right' | 'ne' | 'nw' | 'se' | 'sw';
+    size?: keyof typeof sizeMap;
+    animated?: boolean;
   };
-  const styles = getTypeStyles();
-  const getIcon = () => { switch(direction) { case 'up': return <ArrowUp className="w-full h-full" />; case 'down': return <ArrowDown className="w-full h-full" />; case 'left': return <ArrowLeft className="w-full h-full" />; case 'right': return <ArrowRight className="w-full h-full" />; default: return <Compass className="w-full h-full" />; } };
-  const sizeMap = { sm: 'w-8 h-8', md: 'w-12 h-12', lg: 'w-16 h-16' };
-  return (
-    <div ref={ref} className={cn("relative flex items-center justify-center transition-all duration-300", sizeMap[size], animated && "hover:scale-110", className)} style={{ ...styles, borderRadius: '50%', color: `hsl(var(--${color}-foreground))` }} {...props}>
-      <div className={cn("transition-transform duration-500", animated && "group-hover:rotate-45")}>
-        {children || getIcon()}
+
+export const Direction = React.forwardRef<HTMLDivElement, DirectionProps>(
+  ({ className, version, type, uiType, colors, style, direction = 'right', size = 'md', animated = true, children, ...props }, ref) => {
+    const Icon =
+      direction === 'up'
+        ? ArrowUp
+        : direction === 'down'
+          ? ArrowDown
+          : direction === 'left'
+            ? ArrowLeft
+            : direction === 'right'
+              ? ArrowRight
+              : Compass;
+
+    return (
+      <div
+        ref={ref}
+        className={cx('inline-flex items-center justify-center transition-transform', animated && 'hover:scale-105', sizeMap[size], className)}
+        style={getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style)}
+        {...props}
+      >
+        {children ?? <Icon className="h-4/5 w-4/5" />}
       </div>
-      
-    </div>
-  )
-})
-Component.displayName = "Direction-glass-morphism"
-export default Component
+    );
+  }
+);
+
+Direction.displayName = 'Direction';
+
+export default Direction;

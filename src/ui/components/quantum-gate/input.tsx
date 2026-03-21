@@ -1,66 +1,49 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import type { InputProps } from '@/ui/types/components/input';
+'use client';
 
-export default function Input({
-  className,
-  variant = 'default',
-  type = 'default',
-  colors,
-  ...props
-}: InputProps) {
-  const baseStyles = "relative transition-all duration-200 clip-path-hexagon flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
-  
-  const typeStyles = {
-    default: {
-      backgroundColor: colors.background,
-      color: colors.text,
-      border: `1px solid ${colors.border}`
-    },
-    solid: {
-      backgroundColor: colors.accent.primary,
-      color: colors.text,
-      boxShadow: `0 0 10px ${colors.accent.glow}`
-    },
-    outline: {
-      backgroundColor: 'transparent',
-      color: colors.accent.primary,
-      border: `1px solid ${colors.accent.primary}`
-    },
-    ghost: {
-      backgroundColor: 'transparent',
-      color: colors.textHover
-    }
- ,
-    inverse: {
-      backgroundColor: colors?.text || colors?.foreground || '#000000',
-      color: colors?.background || '#ffffff',
-      border: `1px solid ${colors?.background || '#ffffff'}`
-    },
-    contrast: {
-      backgroundColor: colors?.background || '#ffffff',
-      color: colors?.text || colors?.foreground || '#000000',
-      border: `2px solid ${colors?.text || colors?.foreground || '#000000'}`,
-      fontWeight: 'bold'
-    },
-    soft: {
-      backgroundColor: colors?.accent?.primary ? `${colors.accent.primary}20` : '#00000020',
-      color: colors?.text || '#000000',
-      border: colors?.accent?.primary ? `1px solid ${colors.accent.primary}30` : 'none'
-    }
-   };
+import * as React from 'react';
+import { InputBase } from '../_base/input';
+import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
 
+export type InputProps = Omit<React.ComponentPropsWithoutRef<typeof InputBase>, 'type' | 'size'> &
+  StyledProps & {
+    htmlType?: React.HTMLInputTypeAttribute;
+    size?: 'sm' | 'md' | 'lg';
+    error?: boolean;
+    icon?: React.ReactNode;
+    iconPosition?: 'left' | 'right';
+  };
 
-  return (
-    <div className="relative w-full">
-      <input 
-        className={cn(baseStyles, className)}
-        style={typeStyles[type as keyof typeof typeStyles]}
-        {...props}
-      />
-      
-      <span className="absolute inset-0 border border-current opacity-20 rotate-45" />
-        
-    </div>
-  );
-}
+const sizeMap = {
+  sm: 'h-8 px-2 text-sm',
+  md: 'h-10 px-3 text-sm',
+  lg: 'h-12 px-4 text-base',
+} as const;
+
+export const Input = React.forwardRef<React.ElementRef<typeof InputBase>, InputProps>(
+  ({
+    className,
+    version,
+    type,
+    uiType,
+    colors,
+    style,
+    htmlType = 'text',
+    size = 'md',
+    error: _error,
+    icon: _icon,
+    iconPosition: _iconPosition,
+    ...props
+  }, ref) => (
+    <InputBase
+      ref={ref}
+      type={htmlType}
+      className={cx('w-full rounded outline-none', sizeMap[size], className)}
+      style={getSurfaceStyle(version ?? 'quantum-gate', type, uiType, colors, style)}
+      {...props}
+    />
+  )
+);
+
+Input.displayName = 'Input';
+
+export default Input;

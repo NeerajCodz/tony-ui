@@ -1,16 +1,6 @@
-import type { Variant } from '../types/common';
+import type { Variant, VariantConfig } from '../types/common';
 
-export interface VariantColors {
-  name: string;
-  colors: {
-    base: string;
-    foreground: string;
-    border: string;
-    glow: string;
-  };
-}
-
-export async function loadVariantColors(variant: Variant): Promise<VariantColors> {
+export async function loadVariantColors(variant: Variant): Promise<VariantConfig> {
   try {
     const colors = await import(`../config/variants/${variant}.json`);
     return colors.default || colors;
@@ -22,7 +12,7 @@ export async function loadVariantColors(variant: Variant): Promise<VariantColors
   }
 }
 
-export function getVariantCSSVariables(colors: VariantColors['colors']): Record<string, string> {
+export function getVariantCSSVariables(colors: VariantConfig['colors']): Record<string, string> {
   return {
     '--variant-base': colors.base,
     '--variant-foreground': colors.foreground,

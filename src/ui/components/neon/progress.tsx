@@ -1,9 +1,9 @@
 'use client';
 
-import React, { forwardRef } from 'react';
-import * as ProgressPrimitive from '@radix-ui/react-progress';
-import { cn } from '@/lib/utils';
+import React, { forwardRef } from 'react';import { cn } from '@/lib/utils';
 import { VariantColors } from '@/ui/types/common';
+
+import { ProgressBase, ProgressIndicatorBase } from '../_base/progress';
 
 const getStyles = (type?: string, colors?: VariantColors) => {
   if (!type || !colors) return {};
@@ -24,7 +24,7 @@ const getStyles = (type?: string, colors?: VariantColors) => {
       };
     case 'soft':
       return {
-        backgroundColor: colors.accent?.rgb ? `rgba(${colors.accent.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors.accent.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
+        backgroundColor: colors.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
         color: colors.accent?.primary || colors.text,
         border: 'none'
       };
@@ -34,7 +34,7 @@ const getStyles = (type?: string, colors?: VariantColors) => {
 };
 
 
-interface ProgressProps extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> {
+interface ProgressProps extends React.ComponentPropsWithoutRef<typeof ProgressBase> {
   version?: string;
   variant?: string;
   type?: string;
@@ -42,9 +42,9 @@ interface ProgressProps extends React.ComponentPropsWithoutRef<typeof ProgressPr
   showValue?: boolean;
 }
 
-const Progress = forwardRef<React.ElementRef<typeof ProgressPrimitive.Root>, ProgressProps>(
+const Progress = forwardRef<React.ElementRef<typeof ProgressBase>, ProgressProps>(
   ({ className, value, version, variant, type, colors, showValue, ...props }, ref) => (
-    <ProgressPrimitive.Root
+    <ProgressBase
       ref={ref}
       className={cn(
         "relative h-4 w-full overflow-hidden rounded-full bg-secondary",
@@ -52,14 +52,14 @@ const Progress = forwardRef<React.ElementRef<typeof ProgressPrimitive.Root>, Pro
       )}
       {...props} style={{ ...getStyles(type, colors), ...(props.style as any) }}
     >
-      <ProgressPrimitive.Indicator
+      <ProgressIndicatorBase
         className="h-full w-full flex-1 bg-primary transition-all"
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
-    </ProgressPrimitive.Root>
+    </ProgressBase>
   )
 );
-Progress.displayName = ProgressPrimitive.Root.displayName;
+Progress.displayName = ProgressBase.displayName;
 
 export { Progress };
 export default Progress;

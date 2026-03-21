@@ -2,6 +2,7 @@
 
 import React, { forwardRef } from 'react';
 import type { VariantColors } from '../../types/common';
+import { TextareaBase } from '../_base/textarea';
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   version?: string;

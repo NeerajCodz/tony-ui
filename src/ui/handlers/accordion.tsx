@@ -1,147 +1,135 @@
-/**
- * Accordion Component Handler - Version-First Architecture
- * Routes to version-specific implementations with lazy loading
- */
+'use client';
 
-import React, { lazy, Suspense, createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import type { Version, Variant } from '../types/common';
+import type { StyleComponentType, Variant, Version } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
-// Types
-export type AccordionVersion = Version;
-export type AccordionVariant = Variant;
-
-export interface AccordionProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> {
-  version?: AccordionVersion;
-  variant?: AccordionVariant;
-  type?: 'default' | 'outline' | 'solid' | 'ghost';
+export interface AccordionProps {
+  version?: Version;
+  variant?: Variant;
+  type?: StyleComponentType;
+  children?: React.ReactNode;
+  className?: string;
+  value?: string | string[];
+  defaultValue?: string | string[];
+  onValueChange?: (value: string | string[]) => void;
+  collapsible?: boolean;
+  disabled?: boolean;
+  dir?: 'ltr' | 'rtl';
+  orientation?: 'horizontal' | 'vertical';
+  asChild?: boolean;
+  accordionType?: 'single' | 'multiple';
 }
 
 export interface AccordionItemProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item> {
-  version?: AccordionVersion;
-  variant?: AccordionVariant;
+  version?: Version;
+  variant?: Variant;
 }
 
 export interface AccordionTriggerProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> {
-  version?: AccordionVersion;
-  variant?: AccordionVariant;
+  version?: Version;
+  variant?: Variant;
 }
 
 export interface AccordionContentProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content> {
-  version?: AccordionVersion;
-  variant?: AccordionVariant;
+  version?: Version;
+  variant?: Variant;
 }
 
-// Loading helper - Version-First Architecture
-const loadVersionModule = async (version: AccordionVersion) => {
-  switch (version) {
-    case 'angular-corner': return import('../components/angular-corner/accordion.tsx');
-    case 'holo-frame': return import('../components/holo-frame/accordion.tsx');
-    case 'data-panel': return import('../components/data-panel/accordion.tsx');
-    case 'circuit-board': return import('../components/circuit-board/accordion.tsx');
-    case 'quantum-gate': return import('../components/quantum-gate/accordion.tsx');
-    case 'tactical-hud': return import('../components/tactical-hud/accordion.tsx');
-    case 'energy-shield': return import('../components/energy-shield/accordion.tsx');
-    case 'terminal-window': return import('../components/terminal-window/accordion.tsx');
-    case 'matrix-grid': return import('../components/matrix-grid/accordion.tsx');
-    case 'neon': return import('../components/neon/accordion.tsx');
-    case 'glass-morphism': return import('../components/glass-morphism/accordion.tsx');
-    case 'tech-panel': return import('../components/tech-panel/accordion.tsx');
-    case 'default': return import('../components/default/accordion.tsx');
-    default: return import('../components/angular-corner/accordion.tsx');
-  }
-};
-
-// Context
 interface AccordionContextValue {
-  version: AccordionVersion;
-  variant: AccordionVariant;
-  type: AccordionProps['type'];
+  version: Version;
+  variant: Variant;
+  type: StyleComponentType;
+  colors: ReturnType<typeof getVariantColors>;
   versionModule: any;
 }
 
 const AccordionContext = createContext<AccordionContextValue>({
-  version: 'angular-corner',
+  version: 'default',
   variant: 'default',
   type: 'default',
+  colors: getVariantColors('default'),
   versionModule: null,
 });
 
 const useAccordionContext = () => useContext(AccordionContext);
 
-// Loading skeleton
-const LoadingSkeleton: React.FC = () => (
-  <div className="animate-pulse bg-gray-800/20 rounded h-16" />
+const LoadingSkeleton: React.FC = () => <div className="h-16 animate-pulse rounded bg-gray-800/20" />;
+
+const AccordionBase = React.forwardRef<HTMLDivElement, AccordionProps>(
+  ({
+    version = 'default',
+    variant = 'default',
+    type = 'default',
+    children,
+    className,
+    value,
+    defaultValue,
+    onValueChange,
+    collapsible,
+    disabled,
+    dir,
+    orientation,
+    asChild,
+    accordionType = 'single',
+  }, ref) => {
+    const [versionModule, setVersionModule] = useState<any>(null);
+    const colors = React.useMemo(() => getVariantColors(variant), [variant]);
+
+    useEffect(() => {
+      loadVersionModule(version, 'accordion', true).then(setVersionModule).catch(() => setVersionModule(null));
+    }, [version]);
+
+    return (
+      <AccordionContext.Provider value={{ version, variant, type, colors, versionModule }}>
+        <AccordionPrimitive.Root
+          ref={ref}
+          className={className}
+          type={accordionType as any}
+          value={value as any}
+          defaultValue={defaultValue as any}
+          onValueChange={onValueChange as any}
+          collapsible={collapsible}
+          disabled={disabled}
+          dir={dir}
+          orientation={orientation}
+          asChild={asChild}
+        >
+          {children}
+        </AccordionPrimitive.Root>
+      </AccordionContext.Provider>
+    );
+  }
 );
-
-// Main Accordion Component
-const AccordionBase = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Root>,
-  AccordionProps
->(({ 
-  version = 'angular-corner', 
-  variant = 'default', 
-  type = 'default', 
-  children, 
-  ...props 
-}, ref) => {
-  const [versionModule, setVersionModule] = useState<any>(null);
-
-  useEffect(() => {
-    loadVersionModule(version).then(setVersionModule);
-  }, [version]);
-
-  return (
-    <AccordionContext.Provider value={{ version, variant, type, versionModule }}>
-      <AccordionPrimitive.Root ref={ref} {...props}>
-        {children}
-      </AccordionPrimitive.Root>
-    </AccordionContext.Provider>
-  );
-});
 AccordionBase.displayName = 'Accordion';
 
-// Subcomponents
-const AccordionItem = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
-  AccordionItemProps
->((props, ref) => {
-  const { versionModule, variant } = useAccordionContext();
-  
+const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Item>, AccordionItemProps>((props, ref) => {
+  const { versionModule, variant, type, colors } = useAccordionContext();
   if (!versionModule) return <LoadingSkeleton />;
-
-  const Component = versionModule.AccordionItem || versionModule.Item;
-  return <Component ref={ref} variant={variant} {...props} />;
+  const Component = (versionModule.AccordionItem || versionModule.Item) as React.ComponentType<any>;
+  if (!Component) return <AccordionPrimitive.Item ref={ref} {...props} />;
+  return <Component ref={ref} variant={variant} type={type} colors={colors} {...props} />;
 });
 AccordionItem.displayName = 'AccordionItem';
 
-const AccordionTrigger = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  AccordionTriggerProps
->((props, ref) => {
-  const { versionModule, variant } = useAccordionContext();
-
-  if (!versionModule) return null;
-
-  const Component = versionModule.AccordionTrigger || versionModule.Trigger;
-  return <Component ref={ref} variant={variant} {...props} />;
+const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Trigger>, AccordionTriggerProps>((props, ref) => {
+  const { versionModule, variant, type, colors } = useAccordionContext();
+  const Component = (versionModule?.AccordionTrigger || versionModule?.Trigger) as React.ComponentType<any> | undefined;
+  if (!Component) return <AccordionPrimitive.Trigger ref={ref} {...props} />;
+  return <Component ref={ref} variant={variant} type={type} colors={colors} {...props} />;
 });
 AccordionTrigger.displayName = 'AccordionTrigger';
 
-const AccordionContent = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Content>,
-  AccordionContentProps
->((props, ref) => {
-  const { versionModule, variant } = useAccordionContext();
-
-  if (!versionModule) return null;
-
-  const Component = versionModule.AccordionContent || versionModule.Content;
-  return <Component ref={ref} variant={variant} {...props} />;
+const AccordionContent = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Content>, AccordionContentProps>((props, ref) => {
+  const { versionModule, variant, type, colors } = useAccordionContext();
+  const Component = (versionModule?.AccordionContent || versionModule?.Content) as React.ComponentType<any> | undefined;
+  if (!Component) return <AccordionPrimitive.Content ref={ref} {...props} />;
+  return <Component ref={ref} variant={variant} type={type} colors={colors} {...props} />;
 });
 AccordionContent.displayName = 'AccordionContent';
 
-// Composite export
 export const Accordion = Object.assign(AccordionBase, {
   Item: AccordionItem,
   Trigger: AccordionTrigger,
@@ -149,4 +137,5 @@ export const Accordion = Object.assign(AccordionBase, {
 });
 
 export { AccordionItem, AccordionTrigger, AccordionContent };
+
 export default Accordion;

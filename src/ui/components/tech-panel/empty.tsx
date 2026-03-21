@@ -1,21 +1,79 @@
-import React from 'react';
-import type { EmptyProps } from '../../types/components/feedback.js';
-const CLIP_PATH = 'none';
-const Component = React.forwardRef<HTMLDivElement, EmptyProps>(({ variant = 'neutral', type = 'default', animated = true, className = '', children, ...props }, ref) => {
-  const colorMap: Record<string, string> = { neutral: 'primary', success: 'success', warning: 'warning', info: 'info', destructive: 'destructive', };
-  const color = colorMap[variant] || 'primary';
-  const getTypeStyles = (): React.CSSProperties => {
-    switch (type) {
-      case 'inverse': return { background: `hsl(var(--${color}-foreground))`, color: `hsl(var(--${color}-base))`, border: 'none' };
-      case 'contrast': return { background: `hsl(var(--${color}-base))`, color: `hsl(var(--${color}-foreground))`, border: `2px solid hsl(var(--${color}-foreground))` };
-      case 'soft': return { background: `hsl(var(--${color}-base) / 0.15)`, color: `hsl(var(--${color}-foreground))`, border: 'none' };
+'use client';
 
-      case 'outline': return { backgroundColor: 'transparent', border: `2px solid hsl(var(--${color}-base))` };
-      case 'solid': return { backgroundColor: `hsl(var(--${color}-base) / 0.15)`, border: 'none' };
-      default: return { backgroundColor: `hsl(var(--${color}-base) / 0.05)`, backdropFilter: 'blur(4px)', border: `1px solid hsl(var(--${color}-base) / 0.3)` };
-    }
-  };
-  return <div ref={ref} className={`relative ${className}`} style={{ clipPath: CLIP_PATH, ...getTypeStyles(), animation: animated ? 'fadeIn 0.5s ease-out' : 'none', padding: '1rem' }} {...props}>{children}</div>;
-});
-Component.displayName = 'Empty-tech-panel';
-export default Component;
+import * as React from 'react';
+import { EmptyActionsBase, EmptyBase, EmptyDescriptionBase, EmptyIconBase, EmptyTitleBase } from '../_base/empty';
+import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+
+export type EmptyProps = Omit<React.ComponentPropsWithoutRef<typeof EmptyBase>, 'type'> & StyledProps;
+export type EmptyIconProps = React.ComponentPropsWithoutRef<typeof EmptyIconBase> & StyledProps;
+export type EmptyTitleProps = React.ComponentPropsWithoutRef<typeof EmptyTitleBase> & StyledProps;
+export type EmptyDescriptionProps = React.ComponentPropsWithoutRef<typeof EmptyDescriptionBase> & StyledProps;
+export type EmptyActionsProps = React.ComponentPropsWithoutRef<typeof EmptyActionsBase> & StyledProps;
+
+export const Empty = React.forwardRef<React.ElementRef<typeof EmptyBase>, EmptyProps>(
+  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
+    <EmptyBase
+      ref={ref}
+      className={cx('flex flex-col items-center justify-center gap-3 rounded p-6 text-center', className)}
+      style={getSurfaceStyle(version ?? 'tech-panel', type, uiType, colors, style)}
+      {...props}
+    />
+  )
+);
+Empty.displayName = 'Empty';
+
+export const EmptyIcon = React.forwardRef<React.ElementRef<typeof EmptyIconBase>, EmptyIconProps>(
+  ({ className, ...props }, ref) => <EmptyIconBase ref={ref} className={cx('text-2xl opacity-80', className)} {...props} />
+);
+EmptyIcon.displayName = 'EmptyIcon';
+
+export const EmptyTitle = React.forwardRef<React.ElementRef<typeof EmptyTitleBase>, EmptyTitleProps>(
+  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
+    const palette = getPalette(colors);
+    return (
+      <EmptyTitleBase
+        ref={ref}
+        className={cx('text-base font-semibold', className)}
+        style={{
+          ...getSurfaceStyle(version ?? 'tech-panel', type, uiType, colors, style, {
+            borderless: true,
+            disableClip: true,
+            disableGlow: true,
+          }),
+          color: palette.foreground,
+        }}
+        {...props}
+      />
+    );
+  }
+);
+EmptyTitle.displayName = 'EmptyTitle';
+
+export const EmptyDescription = React.forwardRef<React.ElementRef<typeof EmptyDescriptionBase>, EmptyDescriptionProps>(
+  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
+    const palette = getPalette(colors);
+    return (
+      <EmptyDescriptionBase
+        ref={ref}
+        className={cx('max-w-md text-sm', className)}
+        style={{
+          ...getSurfaceStyle(version ?? 'tech-panel', type, uiType, colors, style, {
+            borderless: true,
+            disableClip: true,
+            disableGlow: true,
+          }),
+          color: palette.muted,
+        }}
+        {...props}
+      />
+    );
+  }
+);
+EmptyDescription.displayName = 'EmptyDescription';
+
+export const EmptyActions = React.forwardRef<React.ElementRef<typeof EmptyActionsBase>, EmptyActionsProps>(
+  ({ className, ...props }, ref) => <EmptyActionsBase ref={ref} className={cx('mt-2 flex flex-wrap items-center gap-2', className)} {...props} />
+);
+EmptyActions.displayName = 'EmptyActions';
+
+export default Empty;

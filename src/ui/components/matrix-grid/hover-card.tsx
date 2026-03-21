@@ -1,93 +1,32 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import type { HoverCardProps } from '@/ui/types/components/overlay';
-import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
+'use client';
 
-export function HoverCard({
-  children,
-  ...props
-}: HoverCardProps) {
-  return (
-    <HoverCardPrimitive.Root {...props}>
-      {children}
-    </HoverCardPrimitive.Root>
-  )
-}
+import * as React from 'react';
+import { HoverCardBase, HoverCardContentBase, HoverCardTriggerBase } from '../_base/hover-card';
+import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
 
-export function HoverCardTrigger({
-  children,
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Trigger>) {
-  return (
-    <HoverCardPrimitive.Trigger className={className} {...props}>
-      {children}
-    </HoverCardPrimitive.Trigger>
-  )
-}
+export type HoverCardProps = React.ComponentPropsWithoutRef<typeof HoverCardBase> & StyledProps;
+export type HoverCardTriggerProps = React.ComponentPropsWithoutRef<typeof HoverCardTriggerBase> & StyledProps;
+export type HoverCardContentProps = Omit<React.ComponentPropsWithoutRef<typeof HoverCardContentBase>, 'type'> & StyledProps;
 
-export function HoverCardContent({
-  className,
-  variant = 'default',
-  type = 'default',
-  colors,
-  children,
-  align = "center",
-  sideOffset = 4,
-  ...props
-}: HoverCardProps & React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>) {
-  const baseStyles = "relative font-mono transition-all duration-200 bg-grid-pattern z-50 w-64 p-4 outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2";
-  
-  const typeStyles = {
-    default: {
-      backgroundColor: colors.background,
-      color: colors.text,
-      border: `1px solid ${colors.border}`
-    },
-    solid: {
-      backgroundColor: colors.accent.primary,
-      color: colors.text,
-      boxShadow: `0 0 10px ${colors.accent.glow}`
-    },
-    outline: {
-      backgroundColor: 'transparent',
-      color: colors.accent.primary,
-      border: `1px solid ${colors.accent.primary}`
-    },
-    ghost: {
-      backgroundColor: 'transparent',
-      color: colors.textHover
-    }
- ,
-    inverse: {
-      backgroundColor: colors?.text || colors?.foreground || '#000000',
-      color: colors?.background || '#ffffff',
-      border: `1px solid ${colors?.background || '#ffffff'}`
-    },
-    contrast: {
-      backgroundColor: colors?.background || '#ffffff',
-      color: colors?.text || colors?.foreground || '#000000',
-      border: `2px solid ${colors?.text || colors?.foreground || '#000000'}`,
-      fontWeight: 'bold'
-    },
-    soft: {
-      backgroundColor: colors?.accent?.primary ? `${colors.accent.primary}20` : '#00000020',
-      color: colors?.text || '#000000',
-      border: colors?.accent?.primary ? `1px solid ${colors.accent.primary}30` : 'none'
-    }
-   };
+export const HoverCard = HoverCardBase;
 
+export const HoverCardTrigger = React.forwardRef<React.ElementRef<typeof HoverCardTriggerBase>, HoverCardTriggerProps>(
+  ({ className, ...props }, ref) => <HoverCardTriggerBase ref={ref} className={cx(className)} {...props} />
+);
+HoverCardTrigger.displayName = 'HoverCardTrigger';
 
-  return (
-    <HoverCardPrimitive.Content
+export const HoverCardContent = React.forwardRef<React.ElementRef<typeof HoverCardContentBase>, HoverCardContentProps>(
+  ({ className, align = 'center', sideOffset = 4, version, type, uiType, colors, style, ...props }, ref) => (
+    <HoverCardContentBase
+      ref={ref}
       align={align}
       sideOffset={sideOffset}
-      className={cn(baseStyles, className)}
-      style={typeStyles[type as keyof typeof typeStyles]}
+      className={cx('z-50 w-64 rounded p-4 text-sm', className)}
+      style={getSurfaceStyle(version ?? 'matrix-grid', type, uiType, colors, style)}
       {...props}
-    >
-      {children}
-      
-    </HoverCardPrimitive.Content>
-  );
-}
+    />
+  )
+);
+HoverCardContent.displayName = 'HoverCardContent';
+
+export default HoverCard;

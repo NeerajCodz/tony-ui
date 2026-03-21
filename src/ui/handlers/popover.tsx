@@ -6,6 +6,8 @@
 import React, { lazy, Suspense, createContext, useContext, useState, useEffect } from 'react';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import type { Version, Variant } from '../types/common';
+import { getVariantColors } from '../core/handler-factory';
+import { loadVersionModule } from './load-version-module';
 
 // Types
 export type PopoverVersion = Version;
@@ -16,33 +18,18 @@ export interface PopoverProps extends React.ComponentPropsWithoutRef<typeof Popo
   variant?: PopoverVariant;
 }
 
-// Loading helper
-const loadVersionModule = async (version: PopoverVersion) => {
-  switch (version) {
-    case 'angular-corner': return import('../components/popover/popover-angular-corner.tsx');
-    case 'holo-frame': return import('../components/popover/popover-holo-frame.tsx');
-    case 'data-panel': return import('../components/popover/popover-data-panel.tsx');
-    case 'circuit-board': return import('../components/popover/popover-circuit-board.tsx');
-    case 'quantum-gate': return import('../components/popover/popover-quantum-gate.tsx');
-    case 'tactical-hud': return import('../components/popover/popover-tactical-hud.tsx');
-    case 'energy-shield': return import('../components/popover/popover-energy-shield.tsx');
-    case 'terminal-window': return import('../components/popover/popover-terminal-window.tsx');
-    case 'matrix-grid': return import('../components/popover/popover-matrix-grid.tsx');
-    case 'neon': return import('../components/popover/popover-neon.tsx');
-    default: return import('../components/popover/popover-angular-corner.tsx');
-  }
-};
-
 // Context
 interface PopoverContextValue {
   version: PopoverVersion;
   variant: PopoverVariant;
+  colors: ReturnType<typeof getVariantColors>;
   versionModule: any;
 }
 
 const PopoverContext = createContext<PopoverContextValue>({
   version: 'angular-corner',
   variant: 'default',
+  colors: getVariantColors('default'),
   versionModule: null,
 });
 
@@ -56,13 +43,14 @@ const PopoverRoot: React.FC<PopoverProps> = ({
   ...props
 }) => {
   const [versionModule, setVersionModule] = useState<any>(null);
+  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
 
   useEffect(() => {
-    loadVersionModule(version).then(setVersionModule);
+    loadVersionModule(version, 'popover', true).then(setVersionModule).catch(() => setVersionModule(null));
   }, [version]);
 
   return (
-    <PopoverContext.Provider value={{ version, variant, versionModule }}>
+    <PopoverContext.Provider value={{ version, variant, colors, versionModule }}>
       <PopoverPrimitive.Root {...props}>
         {children}
       </PopoverPrimitive.Root>
@@ -78,7 +66,7 @@ const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
 >(({ className = '', align = 'center', sideOffset = 4, ...props }, ref) => {
-  const { versionModule, variant } = usePopoverContext();
+  const { versionModule, variant, colors } = usePopoverContext();
 
   if (versionModule?.PopoverContent) {
     const Component = versionModule.PopoverContent;
@@ -87,6 +75,7 @@ const PopoverContent = React.forwardRef<
         <Component
           ref={ref}
           variant={variant}
+          colors={colors}
           className={className}
           align={align}
           sideOffset={sideOffset}
