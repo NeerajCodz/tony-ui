@@ -1,62 +1,33 @@
-'use client';
-
-import React, { forwardRef } from 'react';
+import * as React from 'react';
+import { NativeSelectBase, NativeSelectOptionBase, NativeSelectOptGroupBase, type NativeSelectBaseProps } from '../_base/native-select';
 import { cn } from '@/lib/utils';
-import { VariantColors } from '@/ui/types/common';
-import { NativeSelectBase } from '../_base/native-select';
+import { ChevronDown } from 'lucide-react';
 
-const getStyles = (type?: string, colors?: VariantColors) => {
-  if (!type || !colors) return {};
-  
-  switch (type) {
-    case 'inverse':
-      return {
-        backgroundColor: colors.text,
-        color: colors.background,
-        border: `1px solid ${colors.text}`
-      };
-    case 'contrast':
-      return {
-        backgroundColor: colors.accent?.primary || colors.text,
-        color: '#000000',
-        fontWeight: 'bold',
-        border: `1px solid ${colors.text}`
-      };
-    case 'soft':
-      return {
-        backgroundColor: colors.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
-        color: colors.accent?.primary || colors.text,
-        border: 'none'
-      };
-    default:
-      return {};
-  }
-};
-
-
-export interface NativeSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  version?: string;
-  variant?: string;
-  type?: string;
-  colors?: VariantColors;
-}
-
-const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
-  ({ className, version, variant, type, colors, children, ...props }, ref) => {
-    return (
-      <select
+export const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectBaseProps>(
+  ({ className, selectSize = 'md', visualType = 'default', children, ...props }, ref) => (
+    <div className='relative'>
+        <NativeSelectBase
         ref={ref}
+        selectSize={selectSize}
+        visualType={visualType}
         className={cn(
-          "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-          className
+            'appearance-none w-full rounded-md border border-[var(--df-border)] bg-[var(--df-surface)] px-3 py-2 text-sm placeholder:text-[var(--df-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--df-accent)] disabled:cursor-not-allowed disabled:opacity-50',
+            {
+                'h-8 px-2 py-1': selectSize === 'sm',
+                'h-10 px-3 py-2': selectSize === 'md',
+                'h-12 px-4 py-3': selectSize === 'lg',
+            },
+            className
         )}
-        {...props} style={{ ...getStyles(type, colors), ...(props.style as any) }}
-      >
+        {...props}
+        >
         {children}
-      </select>
-    );
-  }
+        </NativeSelectBase>
+        <ChevronDown className='absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 pointer-events-none opacity-50' />
+    </div>
+  )
 );
-NativeSelect.displayName = "NativeSelect";
+NativeSelect.displayName = 'NativeSelect';
 
-export { NativeSelect };
+export const NativeSelectOption = NativeSelectOptionBase;
+export const NativeSelectOptGroup = NativeSelectOptGroupBase;

@@ -1,18 +1,114 @@
-'use client';
+import * as React from 'react';
+import { 
+    SheetBase, 
+    SheetPortalBase, 
+    SheetOverlayBase, 
+    SheetContentBase, 
+    SheetHeaderBase, 
+    SheetFooterBase, 
+    SheetTitleBase, 
+    SheetDescriptionBase, 
+    SheetCloseBase, 
+    SheetTriggerBase 
+} from '../_base/sheet';
+import { cn } from '@/lib/utils';
+import { X } from 'lucide-react';
 
-import { createSheetFoundation } from '../_shared/family-foundations';
+export const Sheet = SheetBase;
+export const SheetTrigger = SheetTriggerBase;
+export const SheetClose = SheetCloseBase;
+export const SheetPortal = SheetPortalBase;
 
-const foundation = createSheetFoundation('default');
+export const SheetOverlay = React.forwardRef<React.ElementRef<typeof SheetOverlayBase>, React.ComponentPropsWithoutRef<typeof SheetOverlayBase>>(
+  ({ className, ...props }, ref) => (
+    <SheetOverlayBase
+      ref={ref}
+      className={cn(
+        'fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+        className
+      )}
+      {...props}
+    />
+  )
+);
+SheetOverlay.displayName = 'SheetOverlay';
 
-export const Sheet = foundation.Sheet;
-export const SheetPortal = foundation.SheetPortal;
-export const SheetOverlay = foundation.SheetOverlay;
-export const SheetTrigger = foundation.SheetTrigger;
-export const SheetClose = foundation.SheetClose;
-export const SheetContent = foundation.SheetContent;
-export const SheetHeader = foundation.SheetHeader;
-export const SheetFooter = foundation.SheetFooter;
-export const SheetTitle = foundation.SheetTitle;
-export const SheetDescription = foundation.SheetDescription;
+// Helper for side styles
+const getSideStyles = (side: string = 'right') => {
+    switch(side) {
+        case 'top': return 'inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top';
+        case 'bottom': return 'inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom';
+        case 'left': return 'inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm';
+        case 'right': return 'inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm';
+        default: return 'inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm';
+    }
+}
 
-export default Sheet;
+export const SheetContent = React.forwardRef<React.ElementRef<typeof SheetContentBase>, React.ComponentPropsWithoutRef<typeof SheetContentBase>>(
+  ({ className, children, side = 'right', ...props }, ref) => (
+    <SheetPortal>
+      <SheetOverlay />
+      <SheetContentBase
+        ref={ref}
+        side={side}
+        className={cn(
+          'fixed z-50 gap-4 bg-[var(--df-surface)] p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out duration-300',
+          getSideStyles(side),
+          className
+        )}
+        {...props}
+      >
+        {children}
+        <SheetCloseBase className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-[var(--df-bg)] transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[var(--df-accent)] focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-[var(--df-text)]/10">
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </SheetCloseBase>
+      </SheetContentBase>
+    </SheetPortal>
+  )
+);
+SheetContent.displayName = 'SheetContent';
+
+export const SheetHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <SheetHeaderBase
+      ref={ref}
+      className={cn('flex flex-col space-y-2 text-center sm:text-left', className)}
+      {...props}
+    />
+  )
+);
+SheetHeader.displayName = 'SheetHeader';
+
+export const SheetFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <SheetFooterBase
+      ref={ref}
+      className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)}
+      {...props}
+    />
+  )
+);
+SheetFooter.displayName = 'SheetFooter';
+
+export const SheetTitle = React.forwardRef<React.ElementRef<typeof SheetTitleBase>, React.ComponentPropsWithoutRef<typeof SheetTitleBase>>(
+  ({ className, ...props }, ref) => (
+    <SheetTitleBase
+      ref={ref}
+      className={cn('text-lg font-semibold text-[var(--df-text)]', className)}
+      {...props}
+    />
+  )
+);
+SheetTitle.displayName = 'SheetTitle';
+
+export const SheetDescription = React.forwardRef<React.ElementRef<typeof SheetDescriptionBase>, React.ComponentPropsWithoutRef<typeof SheetDescriptionBase>>(
+  ({ className, ...props }, ref) => (
+    <SheetDescriptionBase
+      ref={ref}
+      className={cn('text-sm text-[var(--df-muted)]', className)}
+      {...props}
+    />
+  )
+);
+SheetDescription.displayName = 'SheetDescription';

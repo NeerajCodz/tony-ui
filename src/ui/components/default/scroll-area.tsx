@@ -1,10 +1,48 @@
-'use client';
+import * as React from 'react';
+import { 
+    ScrollAreaBase, 
+    ScrollAreaViewportBase, 
+    ScrollAreaScrollbarBase, 
+    ScrollAreaThumbBase, 
+    ScrollAreaCornerBase,
+    type ScrollAreaBaseProps
+} from '../_base/scroll-area';
+import { cn } from '@/lib/utils';
 
-import { createScrollAreaFoundation } from '../_shared/family-foundations';
+export interface ScrollAreaProps extends ScrollAreaBaseProps {}
 
-const foundation = createScrollAreaFoundation('default');
+export const ScrollArea = React.forwardRef<React.ElementRef<typeof ScrollAreaBase>, ScrollAreaProps>(
+  ({ className, children, ...props }, ref) => (
+    <ScrollAreaBase
+      ref={ref}
+      className={cn('relative overflow-hidden', className)}
+      {...props}
+    >
+      <ScrollAreaViewportBase className="h-full w-full rounded-[inherit]">
+        {children}
+      </ScrollAreaViewportBase>
+      <ScrollBar />
+      <ScrollAreaCornerBase />
+    </ScrollAreaBase>
+  )
+);
+ScrollArea.displayName = 'ScrollArea';
 
-export const ScrollArea = foundation.ScrollArea;
-export const ScrollBar = foundation.ScrollBar;
-
-export default ScrollArea;
+export const ScrollBar = React.forwardRef<React.ElementRef<typeof ScrollAreaScrollbarBase>, React.ComponentPropsWithoutRef<typeof ScrollAreaScrollbarBase>>(
+  ({ className, orientation = 'vertical', ...props }, ref) => (
+    <ScrollAreaScrollbarBase
+      ref={ref}
+      orientation={orientation}
+      className={cn(
+        'flex touch-none select-none transition-colors',
+        orientation === 'vertical' && 'h-full w-2.5 border-l border-l-transparent p-[1px]',
+        orientation === 'horizontal' && 'h-2.5 border-t border-t-transparent p-[1px]',
+        className
+      )}
+      {...props}
+    >
+      <ScrollAreaThumbBase className="relative flex-1 rounded-full bg-[var(--df-border)]" />
+    </ScrollAreaScrollbarBase>
+  )
+);
+ScrollBar.displayName = 'ScrollBar';

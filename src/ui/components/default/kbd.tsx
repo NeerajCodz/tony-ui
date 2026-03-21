@@ -1,22 +1,47 @@
-'use client';
-
 import * as React from 'react';
-import { KbdBase } from '../_base/kbd';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { KbdBase, type KbdBaseProps } from '@/ui/components/_base/kbd';
+import { cn } from '@/lib/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
 
-export type KbdProps = Omit<React.ComponentPropsWithoutRef<typeof KbdBase>, 'type'> & StyledProps;
-
-export const Kbd = React.forwardRef<React.ElementRef<typeof KbdBase>, KbdProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <KbdBase
-      ref={ref}
-      className={cx('inline-flex min-h-5 items-center rounded px-1.5 text-[10px] font-medium uppercase tracking-wide', className)}
-      style={getSurfaceStyle(version, type, uiType, colors, style)}
-      {...props}
-    />
-  )
+const kbdVariants = cva(
+  "inline-flex items-center justify-center rounded font-mono font-medium text-muted-foreground transition-colors",
+  {
+    variants: {
+      type: {
+        default: "border bg-muted/50 border-b-2",
+        outline: "border bg-transparent",
+        ghost: "bg-transparent",
+        elevated: "bg-background border shadow-sm",
+        unstyled: "",
+      },
+      size: {
+        xs: "h-5 px-1 text-[10px] min-w-[20px]",
+        sm: "h-6 px-1.5 text-xs min-w-[24px]",
+        md: "h-7 px-2 text-sm min-w-[28px]",
+      },
+    },
+    defaultVariants: {
+      type: "default",
+      size: "sm",
+    },
+  }
 );
 
+export interface KbdProps extends KbdBaseProps, VariantProps<typeof kbdVariants> {}
+
+const Kbd = React.forwardRef<HTMLElement, KbdProps>(
+  ({ className, type, size, ...props }, ref) => {
+    return (
+      <KbdBase
+        ref={ref}
+        type={type}
+        size={size}
+        className={cn(kbdVariants({ type, size, className }))}
+        {...props}
+      />
+    );
+  }
+);
 Kbd.displayName = 'Kbd';
 
-export default Kbd;
+export { Kbd };

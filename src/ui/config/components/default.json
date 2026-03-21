@@ -1,0 +1,28 @@
+{
+  "theme": {
+    "--df-bg": "0 0% 100%",
+    "--df-background": "0 0% 100%",
+    "--df-foreground": "240 10% 3.9%",
+    "--df-card": "0 0% 100%",
+    "--df-card-foreground": "240 10% 3.9%",
+    "--df-popover": "0 0% 100%",
+    "--df-popover-foreground": "240 10% 3.9%",
+    "--df-primary": "240 5.9% 10%",
+    "--df-primary-foreground": "0 0% 98%",
+    "--df-secondary": "240 4.8% 95.9%",
+    "--df-secondary-foreground": "240 5.9% 10%",
+    "--df-muted": "240 4.8% 95.9%",
+    "--df-muted-foreground": "240 3.8% 46.1%",
+    "--df-muted-text": "240 3.8% 46.1%",
+    "--df-accent": "240 4.8% 95.9%",
+    "--df-accent-foreground": "240 5.9% 10%",
+    "--df-destructive": "0 84.2% 60.2%",
+    "--df-destructive-foreground": "0 0% 98%",
+    "--df-border": "240 5.9% 90%",
+    "--df-input": "240 5.9% 90%",
+    "--df-ring": "240 10% 3.9%",
+    "--df-radius": "0.5rem",
+    "--df-text": "240 10% 3.9%",
+    "--df-surface": "0 0% 100%"
+  }
+}

@@ -1,19 +1,160 @@
 import * as React from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 
+/**
+ * Select trigger type variants
+ */
+export type SelectType =
+  | 'default'
+  | 'outline'
+  | 'ghost'
+  | 'soft'
+  | 'neutral'
+  | 'subtle'
+  | 'elevated'
+  | 'flat'
+  | 'disabled'
+  | 'unstyled';
+
+/**
+ * Select sizes
+ */
+export type SelectSize = 'sm' | 'md' | 'lg';
+
+// ============================================================================
+// Select Root
+// ============================================================================
+
+export interface SelectBaseProps
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root> {
+  /**
+   * Size variant (applies to trigger)
+   * @default 'md'
+   */
+  size?: SelectSize;
+  
+  /**
+   * Semantic color variant
+   */
+  variant?: string;
+}
+
+/**
+ * SelectBase - Custom dropdown select
+ * 
+ * More visually rich than NativeSelect.
+ * 
+ * Behavior:
+ * - Click trigger → open dropdown, focus selected item
+ * - ↑ ↓ → navigate items
+ * - Enter / Space → select focused item
+ * - Escape → close, return focus to trigger
+ * - Type character → jump to matching item
+ * - Home / End → first/last item
+ */
 export const SelectBase = SelectPrimitive.Root;
+
+// ============================================================================
+// Select Group
+// ============================================================================
+
 export const SelectGroupBase = SelectPrimitive.Group;
+
+// ============================================================================
+// Select Value
+// ============================================================================
+
 export const SelectValueBase = SelectPrimitive.Value;
 
-export interface SelectTriggerBaseProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> {}
+// ============================================================================
+// Select Trigger
+// ============================================================================
 
+export interface SelectTriggerBaseProps
+  extends Omit<React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>, 'type'> {
+  /**
+   * Visual structural type
+   * @default 'default'
+   */
+  visualType?: SelectType;
+  
+  /**
+   * Size variant
+   * @default 'md'
+   */
+  size?: SelectSize;
+  
+  /**
+   * Invalid/error state
+   */
+  invalid?: boolean;
+}
+
+/**
+ * SelectTriggerBase - Button showing selected value
+ * 
+ * Accessibility:
+ * - role="combobox"
+ * - aria-expanded
+ * - aria-haspopup="listbox"
+ */
 export const SelectTriggerBase = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   SelectTriggerBaseProps
->((props, ref) => <SelectPrimitive.Trigger ref={ref} {...props} />);
+>(({ visualType = 'default', size = 'md', invalid = false, ...props }, ref) => (
+  <SelectPrimitive.Trigger
+    ref={ref}
+    data-type={visualType}
+    data-size={size}
+    data-invalid={invalid ? '' : undefined}
+    {...props}
+  />
+));
 SelectTriggerBase.displayName = 'SelectTriggerBase';
 
-export interface SelectScrollUpButtonBaseProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton> {}
+// ============================================================================
+// Select Icon
+// ============================================================================
+
+export const SelectIconBase = SelectPrimitive.Icon;
+
+// ============================================================================
+// Select Portal
+// ============================================================================
+
+export const SelectPortalBase = SelectPrimitive.Portal;
+
+// ============================================================================
+// Select Content
+// ============================================================================
+
+export interface SelectContentBaseProps
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> {}
+
+/**
+ * SelectContentBase - Dropdown content panel
+ * 
+ * Accessibility:
+ * - role="listbox"
+ */
+export const SelectContentBase = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Content>,
+  SelectContentBaseProps
+>((props, ref) => <SelectPrimitive.Content ref={ref} {...props} />);
+SelectContentBase.displayName = 'SelectContentBase';
+
+// ============================================================================
+// Select Viewport
+// ============================================================================
+
+export const SelectViewportBase = SelectPrimitive.Viewport;
+
+// ============================================================================
+// Select Scroll Buttons
+// ============================================================================
+
+export interface SelectScrollUpButtonBaseProps
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton> {}
 
 export const SelectScrollUpButtonBase = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.ScrollUpButton>,
@@ -21,7 +162,8 @@ export const SelectScrollUpButtonBase = React.forwardRef<
 >((props, ref) => <SelectPrimitive.ScrollUpButton ref={ref} {...props} />);
 SelectScrollUpButtonBase.displayName = 'SelectScrollUpButtonBase';
 
-export interface SelectScrollDownButtonBaseProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton> {}
+export interface SelectScrollDownButtonBaseProps
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton> {}
 
 export const SelectScrollDownButtonBase = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.ScrollDownButton>,
@@ -29,39 +171,58 @@ export const SelectScrollDownButtonBase = React.forwardRef<
 >((props, ref) => <SelectPrimitive.ScrollDownButton ref={ref} {...props} />);
 SelectScrollDownButtonBase.displayName = 'SelectScrollDownButtonBase';
 
-export interface SelectContentBaseProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> {}
+// ============================================================================
+// Select Label
+// ============================================================================
 
-export const SelectContentBase = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Content>,
-  SelectContentBaseProps
->((props, ref) => <SelectPrimitive.Content ref={ref} {...props} />);
-SelectContentBase.displayName = 'SelectContentBase';
+export interface SelectLabelBaseProps
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label> {}
 
-export interface SelectLabelBaseProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label> {}
-
+/**
+ * SelectLabelBase - Group header
+ */
 export const SelectLabelBase = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Label>,
   SelectLabelBaseProps
 >((props, ref) => <SelectPrimitive.Label ref={ref} {...props} />);
 SelectLabelBase.displayName = 'SelectLabelBase';
 
-export interface SelectItemBaseProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> {}
+// ============================================================================
+// Select Item
+// ============================================================================
 
+export interface SelectItemBaseProps
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> {}
+
+/**
+ * SelectItemBase - Selectable option
+ * 
+ * Accessibility:
+ * - role="option"
+ * - aria-selected
+ */
 export const SelectItemBase = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
   SelectItemBaseProps
 >((props, ref) => <SelectPrimitive.Item ref={ref} {...props} />);
 SelectItemBase.displayName = 'SelectItemBase';
 
-export interface SelectSeparatorBaseProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator> {}
+// ============================================================================
+// Select Item Text & Indicator
+// ============================================================================
+
+export const SelectItemTextBase = SelectPrimitive.ItemText;
+export const SelectItemIndicatorBase = SelectPrimitive.ItemIndicator;
+
+// ============================================================================
+// Select Separator
+// ============================================================================
+
+export interface SelectSeparatorBaseProps
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator> {}
 
 export const SelectSeparatorBase = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Separator>,
   SelectSeparatorBaseProps
 >((props, ref) => <SelectPrimitive.Separator ref={ref} {...props} />);
 SelectSeparatorBase.displayName = 'SelectSeparatorBase';
-
-export const SelectItemTextBase = SelectPrimitive.ItemText;
-export const SelectItemIndicatorBase = SelectPrimitive.ItemIndicator;
-export const SelectPortalBase = SelectPrimitive.Portal;
-export const SelectViewportBase = SelectPrimitive.Viewport;

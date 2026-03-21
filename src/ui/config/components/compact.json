@@ -1,0 +1,33 @@
+{
+  "theme": {
+    "--cp-bg": "223 30% 5%",
+    "--cp-border": "228 28% 14%",
+    "--cp-accent": "228 100% 65%",
+    "--cp-text": "230 28% 83%",
+    "--cp-muted": "231 16% 35%",
+    "--df-bg": "223 30% 5%",
+    "--df-background": "223 30% 5%",
+    "--df-foreground": "230 28% 83%",
+    "--df-card": "223 30% 5%",
+    "--df-card-foreground": "230 28% 83%",
+    "--df-popover": "223 30% 5%",
+    "--df-popover-foreground": "230 28% 83%",
+    "--df-primary": "228 100% 65%",
+    "--df-primary-foreground": "0 0% 0%",
+    "--df-secondary": "231 16% 35%",
+    "--df-secondary-foreground": "230 28% 83%",
+    "--df-muted": "231 16% 35%",
+    "--df-muted-foreground": "230 28% 83%",
+    "--df-muted-text": "230 28% 83%",
+    "--df-accent": "228 100% 65%",
+    "--df-accent-foreground": "0 0% 0%",
+    "--df-destructive": "0 84.2% 60.2%",
+    "--df-destructive-foreground": "0 0% 98%",
+    "--df-border": "228 28% 14%",
+    "--df-input": "228 28% 14%",
+    "--df-ring": "228 100% 65%",
+    "--df-radius": "0.5rem",
+    "--df-text": "230 28% 83%",
+    "--df-surface": "223 30% 5%"
+  }
+}

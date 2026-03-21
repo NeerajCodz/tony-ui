@@ -1,58 +1,62 @@
-'use client';
+import * as React from 'react';
+import { TextareaBase, type TextareaBaseProps } from '../_base/textarea';
+import { cn } from '@/lib/utils';
 
-import React, { forwardRef } from 'react';
-import type { VariantColors } from '../../types/common';
-import { TextareaBase } from '../_base/textarea';
+export interface TextareaProps extends TextareaBaseProps {}
 
-export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  version?: string;
-  type?: string;
-  variant?: string;
-  colors?: VariantColors;
-}
+const getTypeStyles = (type: string = 'default', invalid: boolean = false) => {
+  if (invalid) {
+    return 'border-red-500/50 text-red-500 placeholder:text-red-500/50 focus:border-red-500 focus:ring-red-500/20 bg-red-500/5';
+  }
 
-const DefaultTextarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, colors, type, style, ...props }, ref) => {
-    let bg = colors?.base || 'transparent';
-    let fg = colors?.foreground || 'currentColor';
-    let border = colors?.border || '#e5e7eb';
-    const glow = colors?.glow || 'transparent';
+  switch (type) {
+    case 'default':
+      return 'bg-[var(--df-surface)] border border-[var(--df-border)] text-[var(--df-text)] placeholder:text-[var(--df-muted)] focus:border-[var(--df-accent)] focus:ring-[var(--df-accent)]/20';
+    case 'outline':
+      return 'bg-transparent border border-[var(--df-border)] text-[var(--df-text)] placeholder:text-[var(--df-muted)] focus:border-[var(--df-accent)] focus:ring-[var(--df-accent)]/20';
+    case 'ghost':
+      return 'bg-transparent border-none text-[var(--df-text)] placeholder:text-[var(--df-muted)] focus:bg-[var(--df-surface)]';
+    case 'soft':
+      return 'bg-[var(--df-accent)]/10 border-none text-[var(--df-accent)] placeholder:text-[var(--df-accent)]/50 focus:bg-[var(--df-accent)]/15';
+    case 'neutral':
+      return 'bg-[var(--df-surface)] border border-[var(--df-border)] text-[var(--df-text)] placeholder:text-[var(--df-muted)] focus:border-gray-500 focus:ring-gray-500/20';
+    case 'tinted':
+        return 'bg-[var(--df-accent)]/5 border border-[var(--df-accent)]/20 text-[var(--df-text)] placeholder:text-[var(--df-muted)] focus:border-[var(--df-accent)]';
+    case 'unstyled':
+      return '';
+    default:
+      return 'bg-[var(--df-surface)] border border-[var(--df-border)] text-[var(--df-text)] placeholder:text-[var(--df-muted)] focus:border-[var(--df-accent)]';
+  }
+};
 
-    if (type === 'inverse') {
-      const temp = bg;
-      bg = fg;
-      fg = temp;
-      border = bg;
-    } else if (type === 'contrast') {
-      border = fg;
-      bg = colors?.base || '#000000';
-      fg = colors?.foreground || '#ffffff';
-    } else if (type === 'soft') {
-      bg = colors?.muted || bg;
-      border = colors?.border ? `${colors.border}40` : border;
-    }
+const getSizeStyles = (size: string = 'md') => {
+  switch (size) {
+    case 'sm': return 'min-h-[60px] p-2 text-xs rounded-md';
+    case 'md': return 'min-h-[80px] p-3 text-sm rounded-md';
+    case 'lg': return 'min-h-[100px] p-4 text-base rounded-md';
+    default: return 'min-h-[80px] p-3 text-sm rounded-md';
+  }
+};
 
+export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className, type = 'default', size = 'md', invalid = false, ...props }, ref) => {
     return (
-      <textarea
-        className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      <TextareaBase
         ref={ref}
-        style={{
-            backgroundColor: bg,
-            color: fg,
-            borderColor: border,
-            borderWidth: '1px',
-            borderStyle: 'solid',
-            borderRadius: '0.5rem',
-            fontFamily: 'inherit',
-            boxShadow: `none`,
-            clipPath: 'none',
-            ...style
-        }}
+        type={type}
+        size={size}
+        invalid={invalid}
+        className={cn(
+          'w-full transition-all duration-150 outline-none',
+          'disabled:opacity-50 disabled:cursor-not-allowed',
+          'focus:ring-2 focus:ring-offset-0 focus:ring-offset-[var(--df-bg)]',
+          getTypeStyles(type, invalid),
+          getSizeStyles(size),
+          className
+        )}
         {...props}
       />
     );
   }
 );
-DefaultTextarea.displayName = 'DefaultTextarea';
-
-export default DefaultTextarea;
+Textarea.displayName = 'Textarea';

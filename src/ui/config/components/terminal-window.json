@@ -1,0 +1,32 @@
+{
+  "theme": {
+    "--tm-phosphor": "135 100% 60%",
+    "--tm-phosphor-dim": "141 68% 16%",
+    "--tm-bg": "160 60% 2%",
+    "--tm-scanline": "0 0% 0%",
+    "--df-bg": "160 60% 2%",
+    "--df-background": "160 60% 2%",
+    "--df-foreground": "135 100% 60%",
+    "--df-card": "160 60% 2%",
+    "--df-card-foreground": "135 100% 60%",
+    "--df-popover": "160 60% 2%",
+    "--df-popover-foreground": "135 100% 60%",
+    "--df-primary": "135 100% 60%",
+    "--df-primary-foreground": "0 0% 0%",
+    "--df-secondary": "141 68% 16%",
+    "--df-secondary-foreground": "135 100% 60%",
+    "--df-muted": "141 68% 16%",
+    "--df-muted-foreground": "135 100% 60%",
+    "--df-muted-text": "135 100% 60%",
+    "--df-accent": "135 100% 60%",
+    "--df-accent-foreground": "0 0% 0%",
+    "--df-destructive": "0 84.2% 60.2%",
+    "--df-destructive-foreground": "0 0% 98%",
+    "--df-border": "141 68% 16%",
+    "--df-input": "141 68% 16%",
+    "--df-ring": "135 100% 60%",
+    "--df-radius": "0.5rem",
+    "--df-text": "135 100% 60%",
+    "--df-surface": "160 60% 2%"
+  }
+}

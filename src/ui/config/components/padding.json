@@ -1,0 +1,32 @@
+{
+  "theme": {
+    "--pd-bg": "231 30% 9%",
+    "--pd-text": "230 24% 80%",
+    "--pd-accent": "230 100% 67%",
+    "--pd-muted": "232 15% 41%",
+    "--df-bg": "231 30% 9%",
+    "--df-background": "231 30% 9%",
+    "--df-foreground": "230 24% 80%",
+    "--df-card": "231 30% 9%",
+    "--df-card-foreground": "230 24% 80%",
+    "--df-popover": "231 30% 9%",
+    "--df-popover-foreground": "230 24% 80%",
+    "--df-primary": "230 100% 67%",
+    "--df-primary-foreground": "0 0% 0%",
+    "--df-secondary": "232 15% 41%",
+    "--df-secondary-foreground": "230 24% 80%",
+    "--df-muted": "232 15% 41%",
+    "--df-muted-foreground": "230 24% 80%",
+    "--df-muted-text": "230 24% 80%",
+    "--df-accent": "230 100% 67%",
+    "--df-accent-foreground": "0 0% 0%",
+    "--df-destructive": "0 84.2% 60.2%",
+    "--df-destructive-foreground": "0 0% 98%",
+    "--df-border": "0 0% 0%",
+    "--df-input": "0 0% 0%",
+    "--df-ring": "230 100% 67%",
+    "--df-radius": "0.5rem",
+    "--df-text": "230 24% 80%",
+    "--df-surface": "231 30% 9%"
+  }
+}

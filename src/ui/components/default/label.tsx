@@ -1,39 +1,37 @@
-'use client';
-
 import * as React from 'react';
-import { LabelBase } from '../_base/label';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { LabelBase, type LabelBaseProps } from '../_base/label';
+import { cn } from '@/lib/utils';
 
-export type LabelProps = Omit<React.ComponentPropsWithoutRef<typeof LabelBase>, 'type'> &
-  StyledProps & {
-    required?: boolean;
-    error?: boolean;
-  };
+export interface LabelProps extends LabelBaseProps {}
+
+const getSizeStyles = (size: string = 'md') => {
+  switch (size) {
+    case 'sm': return 'text-xs';
+    case 'md': return 'text-sm';
+    case 'lg': return 'text-base';
+    default: return 'text-sm';
+  }
+};
 
 export const Label = React.forwardRef<React.ElementRef<typeof LabelBase>, LabelProps>(
-  ({ className, version, type, uiType, colors, style, required, error, children, ...props }, ref) => {
-    const palette = getPalette(colors);
+  ({ className, size = 'md', required, disabled, invalid, ...props }, ref) => {
     return (
       <LabelBase
         ref={ref}
-        className={cx('text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70', className)}
-        style={{
-          ...getSurfaceStyle(version, type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: error ? palette.accentPrimary : palette.foreground,
-        }}
+        size={size}
+        required={required}
+        disabled={disabled}
+        invalid={invalid}
+        className={cn(
+          'text-[var(--df-text)] font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+          disabled && 'opacity-50 cursor-not-allowed',
+          invalid && 'text-red-500',
+          getSizeStyles(size),
+          className
+        )}
         {...props}
-      >
-        {children}
-        {required ? <span className="ml-1 text-red-400">*</span> : null}
-      </LabelBase>
+      />
     );
   }
 );
-
 Label.displayName = 'Label';
-
-export default Label;

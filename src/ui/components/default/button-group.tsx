@@ -1,23 +1,29 @@
-'use client';
-
 import * as React from 'react';
-import { ButtonGroupBase } from '../_base/button-group';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { ButtonGroupBase, type ButtonGroupBaseProps } from '@/ui/components/_base/button-group';
+import { cn } from '@/lib/utils';
 
-export type ButtonGroupProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonGroupBase>, 'type'> & StyledProps;
+export interface ButtonGroupProps extends ButtonGroupBaseProps {}
 
-export const ButtonGroup = React.forwardRef<React.ElementRef<typeof ButtonGroupBase>, ButtonGroupProps>(
-  ({ className, version, type, uiType, colors, style, orientation = 'horizontal', ...props }, ref) => (
-    <ButtonGroupBase
-      ref={ref}
-      orientation={orientation}
-      className={cx('inline-flex gap-1', orientation === 'vertical' && 'flex-col', className)}
-      style={getSurfaceStyle(version, type, uiType, colors, style)}
-      {...props}
-    />
-  )
+const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
+  ({ className, orientation = 'horizontal', attached = true, ...props }, ref) => {
+    return (
+      <ButtonGroupBase
+        ref={ref}
+        orientation={orientation}
+        attached={attached}
+        className={cn(
+          'flex',
+          orientation === 'vertical' ? 'flex-col' : 'flex-row',
+          // Attached styles: remove border radius and borders for inner items
+          attached && orientation === 'horizontal' && '[&>button:not(:first-child):not(:last-child)]:rounded-none [&>button:first-child]:rounded-r-none [&>button:last-child]:rounded-l-none [&>button:not(:first-child)]:-ml-px',
+          attached && orientation === 'vertical' && '[&>button:not(:first-child):not(:last-child)]:rounded-none [&>button:first-child]:rounded-b-none [&>button:last-child]:rounded-t-none [&>button:not(:first-child)]:-mt-px',
+          className
+        )}
+        {...props}
+      />
+    );
+  }
 );
-
 ButtonGroup.displayName = 'ButtonGroup';
 
-export default ButtonGroup;
+export { ButtonGroup };

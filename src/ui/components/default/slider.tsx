@@ -1,45 +1,28 @@
-import React from 'react';import { cn } from '../../utils/component-helpers';
+import * as React from 'react';
+import { 
+    SliderBase, 
+    SliderTrackBase, 
+    SliderRangeBase, 
+    SliderThumbBase,
+    type SliderBaseProps
+} from '../_base/slider';
+import { cn } from '@/lib/utils';
 
-import { SliderBase, SliderRangeBase, SliderThumbBase, SliderTrackBase } from '../_base/slider';
-
-const getTypeStyles = (type: string | undefined) => {
-  if (!type) return '';
-  switch (type) {
-    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
-    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
-    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
-    default: return '';
-  }
-};
-
-
-interface SliderProps extends React.ComponentPropsWithoutRef<typeof SliderBase> {
-  type?: 'inverse' | 'contrast' | 'soft';
-  variant?: 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
-}
-
-const Slider = React.forwardRef<React.ElementRef<typeof SliderBase>, SliderProps>(({ type, className, variant = 'primary', ...props }, ref) => {
-  const colorMap: Record<string, string> = {
-    neutral: 'primary', success: 'success', warning: 'warning', info: 'info', destructive: 'destructive', primary: 'primary'
-  };
-  const color = colorMap[variant] || 'primary';
-
-  return (
+export const Slider = React.forwardRef<React.ElementRef<typeof SliderBase>, SliderBaseProps>(
+  ({ className, ...props }, ref) => (
     <SliderBase
       ref={ref}
-      className={cn("relative flex w-full touch-none select-none items-center", className, getTypeStyles(type))}
+      className={cn(
+        'relative flex w-full touch-none select-none items-center',
+        className
+      )}
       {...props}
     >
-      <SliderTrackBase className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary" style={{  }}>
-        <SliderRangeBase className="absolute h-full bg-primary" style={{ backgroundColor: `hsl(var(--${color}-base))` }} />
+      <SliderTrackBase className='relative h-2 w-full grow overflow-hidden rounded-full bg-[var(--df-secondary)]'>
+        <SliderRangeBase className='absolute h-full bg-[var(--df-accent)]' />
       </SliderTrackBase>
-      <SliderThumbBase
-        className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-        style={{ borderColor: `hsl(var(--${color}-base))` }}
-      />
+      <SliderThumbBase className='block h-5 w-5 rounded-full border-2 border-[var(--df-accent)] bg-[var(--df-surface)] ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--df-ring)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50' />
     </SliderBase>
   )
-})
-Slider.displayName = SliderBase.displayName
-
-export { Slider }
+);
+Slider.displayName = 'Slider';
