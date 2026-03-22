@@ -1,49 +1,60 @@
-'use client';
-
 import * as React from 'react';
-import { InputBase } from '../_base/input';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { InputBase, type InputBaseProps } from '@/ui/components/_base/input';
+import { cn } from '@/lib/utils';
 
-export type InputProps = Omit<React.ComponentPropsWithoutRef<typeof InputBase>, 'type' | 'size'> &
-  StyledProps & {
-    htmlType?: React.HTMLInputTypeAttribute;
-    size?: 'sm' | 'md' | 'lg';
-    error?: boolean;
-    icon?: React.ReactNode;
-    iconPosition?: 'left' | 'right';
-  };
-
-const sizeMap = {
-  sm: 'h-8 px-2 text-sm',
-  md: 'h-10 px-3 text-sm',
-  lg: 'h-12 px-4 text-base',
-} as const;
-
-export const Input = React.forwardRef<React.ElementRef<typeof InputBase>, InputProps>(
-  ({
-    className,
-    version,
-    type,
-    uiType,
-    colors,
-    style,
-    htmlType = 'text',
-    size = 'md',
-    error: _error,
-    icon: _icon,
-    iconPosition: _iconPosition,
-    ...props
-  }, ref) => (
-    <InputBase
-      ref={ref}
-      type={htmlType}
-      className={cx('w-full rounded outline-none', sizeMap[size], className)}
-      style={getSurfaceStyle(version ?? 'circuit-board', type, uiType, colors, style)}
-      {...props}
-    />
-  )
+const inputVariants = cva(
+  'flex w-full rounded-none border px-3 py-1 text-sm shadow-sm transition-all file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cb-trace-lit)] focus-visible:shadow-[0_0_8px_var(--cb-trace-lit)] disabled:cursor-not-allowed disabled:opacity-50 font-mono placeholder:text-[var(--cb-trace-dim)] uppercase tracking-[0.1em]',
+  {
+    variants: {
+      visualType: {
+        default: 'bg-[var(--cb-soldermask)] border-[var(--cb-trace)] text-[var(--cb-trace-lit)] focus-visible:border-[var(--cb-trace-lit)]',
+        outline: 'bg-transparent border-[var(--cb-trace-lit)] text-[var(--cb-trace-lit)] focus-visible:bg-[var(--cb-trace-dim)]',
+        ghost: 'bg-transparent border-transparent text-[var(--cb-trace-lit)] focus-visible:bg-[var(--cb-soldermask)]',
+        soft: 'bg-[rgba(0,255,136,0.04)] border-[var(--cb-trace)] text-[var(--cb-trace-lit)]',
+        subtle: 'bg-[var(--cb-soldermask)] border-transparent text-[var(--cb-trace-lit)]',
+        flat: 'bg-transparent border-0 text-[var(--cb-trace-lit)] p-0',
+        neutral: 'bg-[var(--cb-soldermask)] border-[var(--cb-trace-dim)] text-[var(--cb-trace-lit)]',
+        elevated: 'bg-[var(--cb-soldermask)] border-[var(--cb-trace)] text-[var(--cb-trace-lit)] shadow-[0_0_10px_var(--cb-trace)]',
+        unstyled: '',
+      },
+      inputSize: {
+        sm: 'h-7 text-xs',
+        md: 'h-9',
+        lg: 'h-11 text-base',
+      },
+      invalid: {
+        true: 'border-red-500 text-red-500 focus-visible:ring-red-500 focus-visible:shadow-[0_0_8px_red]',
+        false: '',
+      }
+    },
+    defaultVariants: {
+      visualType: 'default',
+      inputSize: 'md',
+      invalid: false,
+    },
+  }
 );
 
+export interface InputProps extends Omit<InputBaseProps, 'visualType' | 'inputSize'>, VariantProps<typeof inputVariants> {
+  visualType?: InputBaseProps['visualType'];
+  inputSize?: InputBaseProps['inputSize'];
+}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, visualType, inputSize, invalid, ...props }, ref) => {
+    return (
+      <InputBase
+        ref={ref}
+        visualType={visualType}
+        inputSize={inputSize}
+        invalid={invalid}
+        className={cn(inputVariants({ visualType, inputSize, invalid: !!invalid, className }))}
+        {...props}
+      />
+    );
+  }
+);
 Input.displayName = 'Input';
 
-export default Input;
+export { Input };

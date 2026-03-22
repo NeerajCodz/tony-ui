@@ -1,32 +1,24 @@
-'use client';
-
 import * as React from 'react';
-import { HoverCardBase, HoverCardContentBase, HoverCardTriggerBase } from '../_base/hover-card';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { HoverCardBase, HoverCardTriggerBase, HoverCardContentBase, type HoverCardContentBaseProps } from '@/ui/components/_base/hover-card';
+import { cn } from '@/lib/utils';
 
-export type HoverCardProps = React.ComponentPropsWithoutRef<typeof HoverCardBase> & StyledProps;
-export type HoverCardTriggerProps = React.ComponentPropsWithoutRef<typeof HoverCardTriggerBase> & StyledProps;
-export type HoverCardContentProps = Omit<React.ComponentPropsWithoutRef<typeof HoverCardContentBase>, 'type'> & StyledProps;
+const HoverCard = HoverCardBase;
+const HoverCardTrigger = HoverCardTriggerBase;
 
-export const HoverCard = HoverCardBase;
-
-export const HoverCardTrigger = React.forwardRef<React.ElementRef<typeof HoverCardTriggerBase>, HoverCardTriggerProps>(
-  ({ className, ...props }, ref) => <HoverCardTriggerBase ref={ref} className={cx(className)} {...props} />
-);
-HoverCardTrigger.displayName = 'HoverCardTrigger';
-
-export const HoverCardContent = React.forwardRef<React.ElementRef<typeof HoverCardContentBase>, HoverCardContentProps>(
-  ({ className, align = 'center', sideOffset = 4, version, type, uiType, colors, style, ...props }, ref) => (
+const HoverCardContent = React.forwardRef<React.ElementRef<typeof HoverCardContentBase>, HoverCardContentBaseProps>(
+  ({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
     <HoverCardContentBase
       ref={ref}
       align={align}
       sideOffset={sideOffset}
-      className={cx('z-50 w-64 rounded p-4 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'circuit-board', type, uiType, colors, style)}
+      className={cn(
+        'z-50 w-64 rounded-none border border-[var(--cb-trace)] bg-[var(--cb-soldermask)] p-4 text-[var(--cb-trace-lit)] shadow-[0_0_10px_var(--cb-trace)] outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 uppercase tracking-wide',
+        className
+      )}
       {...props}
     />
   )
 );
 HoverCardContent.displayName = 'HoverCardContent';
 
-export default HoverCard;
+export { HoverCard, HoverCardTrigger, HoverCardContent };

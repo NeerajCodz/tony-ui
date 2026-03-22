@@ -104,12 +104,11 @@ export const MenubarContent = React.forwardRef<HTMLDivElement, React.ComponentPr
 MenubarContent.displayName = 'MenubarContent';
 
 export const MenubarItem = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<typeof MenubarItemBase>>(
-  ({ className, inset, ...props }, ref) => (
+  ({ className, ...props }, ref) => (
     <MenubarItemBase
       ref={ref}
       className={cn(
         'relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-[var(--df-accent)]/10 focus:text-[var(--df-accent)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
-        inset && 'pl-8',
         className
       )}
       {...props}

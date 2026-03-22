@@ -1,39 +1,24 @@
-'use client';
-
 import * as React from 'react';
-import { LabelBase } from '../_base/label';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import * as LabelPrimitive from '@radix-ui/react-label';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
+import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 
-export type LabelProps = Omit<React.ComponentPropsWithoutRef<typeof LabelBase>, 'type'> &
-  StyledProps & {
-    required?: boolean;
-    error?: boolean;
-  };
-
-export const Label = React.forwardRef<React.ElementRef<typeof LabelBase>, LabelProps>(
-  ({ className, version, type, uiType, colors, style, required, error, children, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <LabelBase
-        ref={ref}
-        className={cx('text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'holo-frame', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: error ? palette.accentPrimary : palette.foreground,
-        }}
-        {...props}
-      >
-        {children}
-        {required ? <span className="ml-1 text-red-400">*</span> : null}
-      </LabelBase>
-    );
-  }
+const labelVariants = cva(
+  'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 font-sans uppercase tracking-wide'
 );
 
-Label.displayName = 'Label';
+const Label = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & { effects?: HoloFrameEffects } &
+    VariantProps<typeof labelVariants>
+>(({ className, effects = 'on', ...props }, ref) => (
+  <LabelPrimitive.Root
+    ref={ref}
+    className={cn(holoFrameEffectsClass(effects), labelVariants(), className)}
+    {...props}
+  />
+));
+Label.displayName = LabelPrimitive.Root.displayName;
 
-export default Label;
+export { Label };

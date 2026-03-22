@@ -10,13 +10,11 @@ export const Toggle = React.forwardRef<React.ElementRef<typeof ToggleBase>, Togg
       size={size}
       className={cn(
         'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-[var(--df-muted)]/50 hover:text-[var(--df-muted-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--df-ring)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-[var(--df-accent)] data-[state=on]:text-[var(--df-accent-foreground)]',
-        {
-            'bg-transparent': visualType === 'ghost',
-            'border border-[var(--df-border)] bg-transparent': visualType === 'outline',
-            'h-9 px-3': size === 'sm',
-            'h-10 px-3': size === 'md',
-            'h-11 px-5': size === 'lg',
-        },
+        visualType === 'ghost' && 'bg-transparent',
+        visualType === 'outline' && 'border border-[var(--df-border)] bg-transparent',
+        size === 'sm' && 'h-9 px-3',
+        size === 'md' && 'h-10 px-3',
+        size === 'lg' && 'h-11 px-5',
         className
       )}
       {...props}

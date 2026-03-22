@@ -1,48 +1,16 @@
-'use client';
-
 import * as React from 'react';
+import * as ToastPrimitives from '@radix-ui/react-toast';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import {
-  ToastBase,
-  ToastTitleBase,
-  ToastDescriptionBase,
-  ToastActionBase,
-  ToastCloseBase,
-  ToastViewportBase,
-  ToastProviderBase,
-} from '../_base/toast';
-import type { VariantColors } from '../../types/common';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
-type ToastVariant = 'default' | 'success' | 'error' | 'warning' | 'info';
+const ToastProvider = ToastPrimitives.Provider;
 
-interface StyledProps {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  colors?: VariantColors;
-}
-
-const versionKey = 'angular-corner';
-
-const TOAST_CLIP_PATH = 'polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px)';
-const BUTTON_CLIP_PATH = 'polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)';
-
-const variantAccentColors: Record<ToastVariant, string> = {
-  default: '#888',
-  success: '#22c55e',
-  error: '#ef4444',
-  warning: '#f59e0b',
-  info: '#3b82f6',
-};
-
-export const ToastProvider = ToastProviderBase;
-
-export const ToastViewport = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+const ToastViewport = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Viewport>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport>
 >(({ className, ...props }, ref) => (
-  <ToastViewportBase
+  <ToastPrimitives.Viewport
     ref={ref}
     className={cn(
       'fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]',
@@ -51,176 +19,112 @@ export const ToastViewport = React.forwardRef<
     {...props}
   />
 ));
-ToastViewport.displayName = 'ToastViewport';
+ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
-export const Toast = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & StyledProps & { variant?: ToastVariant }
->(({ className, variant = 'default', type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
+const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
-  const accentColor = variantAccentColors[variant] || palette.accentPrimary || '#888';
+const toastVariants = cva(
+  'group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full border-[var(--ac-border)] [--corner:6px]',
+  {
+    variants: {
+      variant: {
+        default: 'bg-[var(--ac-surface)] text-[var(--text-primary)]',
+        destructive:
+          'destructive group border-[var(--ac-destructive)] bg-[var(--ac-destructive)]/10 text-[var(--ac-destructive)]',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  }
+);
 
-  const backgroundColor =
-    resolvedType === 'solid'
-      ? accentColor
-      : resolvedType === 'soft'
-        ? 'rgba(' + (palette.accentRgb ?? '50,50,50') + ', 0.95)'
-        : resolvedType === 'inverse'
-          ? palette.foreground ?? '#fff'
-          : (typeStyles.backgroundColor as string | undefined) ?? palette.base ?? '#0a0a0a';
-
-  const borderColor =
-    resolvedType === 'outline' || resolvedType === 'contrast'
-      ? accentColor
-      : resolvedType === 'ghost'
-        ? 'transparent'
-        : accentColor;
-
-  const textColor =
-    resolvedType === 'solid'
-      ? '#fff'
-      : resolvedType === 'inverse'
-        ? palette.base ?? '#000'
-        : (typeStyles.color as string | undefined) ?? palette.foreground ?? '#fff';
-
+const Toast = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Root>,
+  Omit<React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root>, 'type'> & {
+    type?: 'foreground' | 'background' | string;
+  } & VariantProps<typeof toastVariants>
+>(({ className, variant, type, ...props }, ref) => {
   return (
-    <ToastBase
+    <ToastPrimitives.Root
       ref={ref}
-      variant={variant}
-      className={cn(
-        'group pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden p-4 pr-6 shadow-lg',
-        className
-      )}
-      style={{
-        clipPath: TOAST_CLIP_PATH,
-        backgroundColor,
-        border: '2px solid ' + borderColor,
-        color: textColor,
-        boxShadow: '0 0 12px ' + accentColor + '40',
-        ...style,
-      }}
-      data-version={versionKey}
-      data-type={resolvedType}
+      type={(type as 'foreground' | 'background') || 'foreground'}
+      className={cn(toastVariants({ variant }), className)}
+      style={{ clipPath: AC_CLIP_PATH } as React.CSSProperties}
       {...props}
     />
   );
 });
-Toast.displayName = 'Toast';
+Toast.displayName = ToastPrimitives.Root.displayName;
 
-export const ToastTitle = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
+const ToastAction = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Action>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Action>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Action
+    ref={ref}
+    className={cn(
+      'inline-flex h-8 shrink-0 items-center justify-center border border-[var(--ac-border)] bg-transparent px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-[var(--ac-accent)] hover:text-[var(--ac-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--ac-accent)] focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive font-mono uppercase tracking-wider',
+      className
+    )}
+    {...props}
+  />
+));
+ToastAction.displayName = ToastPrimitives.Action.displayName;
 
-  const textColor =
-    resolvedType === 'solid'
-      ? '#fff'
-      : resolvedType === 'inverse'
-        ? palette.base ?? '#000'
-        : (typeStyles.color as string | undefined) ?? palette.foreground ?? '#fff';
+const ToastClose = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Close>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Close
+    ref={ref}
+    className={cn(
+      'absolute right-2 top-2 p-1 text-[var(--text-muted)] opacity-0 transition-opacity hover:text-[var(--text-primary)] focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600',
+      className
+    )}
+    toast-close=""
+    {...props}
+  >
+    <X className="h-4 w-4" />
+  </ToastPrimitives.Close>
+));
+ToastClose.displayName = ToastPrimitives.Close.displayName;
 
-  return (
-    <ToastTitleBase
-      ref={ref}
-      className={cn('text-sm font-bold uppercase tracking-wider', className)}
-      style={{
-        color: textColor,
-        letterSpacing: '0.06em',
-        ...style,
-      }}
-      {...props}
-    />
-  );
-});
-ToastTitle.displayName = 'ToastTitle';
+const ToastTitle = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Title>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Title
+    ref={ref}
+    className={cn('text-sm font-bold font-mono uppercase', className)}
+    {...props}
+  />
+));
+ToastTitle.displayName = ToastPrimitives.Title.displayName;
 
-export const ToastDescription = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
+const ToastDescription = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Description>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Description
+    ref={ref}
+    className={cn('text-sm opacity-90 font-mono', className)}
+    {...props}
+  />
+));
+ToastDescription.displayName = ToastPrimitives.Description.displayName;
 
-  const textColor =
-    resolvedType === 'solid'
-      ? 'rgba(255,255,255,0.85)'
-      : resolvedType === 'inverse'
-        ? 'rgba(0,0,0,0.75)'
-        : palette.foreground ?? '#ccc';
+type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>;
+type ToastActionElement = React.ReactElement<typeof ToastAction>;
 
-  return (
-    <ToastDescriptionBase
-      ref={ref}
-      className={cn('text-sm', className)}
-      style={{
-        color: textColor,
-        opacity: 0.85,
-        ...style,
-      }}
-      {...props}
-    />
-  );
-});
-ToastDescription.displayName = 'ToastDescription';
-
-export const ToastAction = React.forwardRef<
-  HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const palette = normalizeColors(colors);
-
-  return (
-    <ToastActionBase
-      ref={ref}
-      className={cn(
-        'inline-flex h-8 shrink-0 items-center justify-center px-3 text-sm font-bold uppercase tracking-wider transition-colors focus:outline-none disabled:pointer-events-none disabled:opacity-50',
-        className
-      )}
-      style={{
-        clipPath: BUTTON_CLIP_PATH,
-        backgroundColor: palette.accentPrimary ?? '#333',
-        color: '#fff',
-        border: '1px solid ' + (palette.border ?? '#555'),
-        letterSpacing: '0.06em',
-        ...style,
-      }}
-      {...props}
-    />
-  );
-});
-ToastAction.displayName = 'ToastAction';
-
-export const ToastClose = React.forwardRef<
-  HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement> & StyledProps
->(({ className, colors, style, ...props }, ref) => {
-  const palette = normalizeColors(colors);
-
-  return (
-    <ToastCloseBase
-      ref={ref}
-      className={cn(
-        'absolute right-1 top-1 p-1 opacity-70 transition-opacity hover:opacity-100 focus:outline-none',
-        className
-      )}
-      style={{
-        color: palette.foreground ?? '#fff',
-        ...style,
-      }}
-      {...props}
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M18 6L6 18M6 6l12 12" />
-      </svg>
-    </ToastCloseBase>
-  );
-});
-ToastClose.displayName = 'ToastClose';
-
-export default Toast;
+export {
+  ToastProvider,
+  ToastViewport,
+  Toast,
+  ToastTitle,
+  ToastDescription,
+  ToastClose,
+  ToastAction,
+  type ToastProps,
+  type ToastActionElement,
+};

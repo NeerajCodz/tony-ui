@@ -13,7 +13,7 @@ import {
     AlertDialogCancelBase,
 } from '../_base/alert-dialog';
 import { cn } from '@/lib/utils';
-import { buttonVariants } from './button';
+import { Button } from './button';
 
 const AlertDialog = AlertDialogBase;
 const AlertDialogTrigger = AlertDialogTriggerBase;
@@ -110,11 +110,9 @@ const AlertDialogAction = React.forwardRef<
   React.ElementRef<typeof AlertDialogActionBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogActionBase>
 >(({ className, ...props }, ref) => (
-  <AlertDialogActionBase
-    ref={ref}
-    className={cn(buttonVariants(), className)}
-    {...props}
-  />
+  <AlertDialogActionBase ref={ref} asChild>
+    <Button className={className} {...props} />
+  </AlertDialogActionBase>
 ))
 AlertDialogAction.displayName = 'AlertDialogAction'
 
@@ -122,15 +120,13 @@ const AlertDialogCancel = React.forwardRef<
   React.ElementRef<typeof AlertDialogCancelBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogCancelBase>
 >(({ className, ...props }, ref) => (
-  <AlertDialogCancelBase
-    ref={ref}
-    className={cn(
-      buttonVariants({ variant: 'outline' }),
-      'mt-2 sm:mt-0',
-      className
-    )}
-    {...props}
-  />
+  <AlertDialogCancelBase ref={ref} asChild>
+    <Button
+      visualType="outline"
+      className={cn('mt-2 sm:mt-0', className)}
+      {...props}
+    />
+  </AlertDialogCancelBase>
 ))
 AlertDialogCancel.displayName = 'AlertDialogCancel'
 

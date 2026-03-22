@@ -1,34 +1,22 @@
-'use client';
-
 import * as React from 'react';
-import { SeparatorBase } from '../_base/separator';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { SeparatorBase, type SeparatorBaseProps } from '@/ui/components/_base/separator';
+import { cn } from '@/lib/utils';
 
-export type SeparatorProps = Omit<React.ComponentPropsWithoutRef<typeof SeparatorBase>, 'type'> & StyledProps;
-
-export const Separator = React.forwardRef<React.ElementRef<typeof SeparatorBase>, SeparatorProps>(
-  ({ className, orientation = 'horizontal', decorative = true, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <SeparatorBase
-        ref={ref}
-        decorative={decorative}
-        orientation={orientation}
-        className={cx('shrink-0', orientation === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'circuit-board', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          backgroundColor: palette.border,
-        }}
-        {...props}
-      />
-    );
-  }
+const Separator = React.forwardRef<React.ElementRef<typeof SeparatorBase>, SeparatorBaseProps>(
+  ({ className, orientation = 'horizontal', decorative = true, ...props }, ref) => (
+    <SeparatorBase
+      ref={ref}
+      orientation={orientation}
+      decorative={decorative}
+      className={cn(
+        'shrink-0 bg-[var(--cb-trace)] shadow-[0_0_2px_var(--cb-trace)] transition-colors',
+        orientation === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]',
+        className
+      )}
+      {...props}
+    />
+  )
 );
-
 Separator.displayName = 'Separator';
 
-export default Separator;
+export { Separator };

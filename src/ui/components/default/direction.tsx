@@ -3,7 +3,7 @@ import {
   DirectionBase,
   DirectionProviderBase,
   useDirectionBase,
-  type Direction,
+  type Direction as DirectionType,
 } from '@/ui/components/_base/direction';
 
 // Re-export without changes as Direction is a logic provider, not a visual component
@@ -14,4 +14,4 @@ export {
   DirectionProviderBase as DirectionProvider,
   useDirectionBase as useDirection,
 };
-export type { Direction };
+export type { DirectionType };

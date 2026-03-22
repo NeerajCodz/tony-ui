@@ -1,80 +1,103 @@
-'use client';
-
 import * as React from 'react';
-import { ChevronDown } from 'lucide-react';
-import { ComboboxBase, ComboboxContentBase, ComboboxItemBase, ComboboxTriggerBase } from '../_base/combobox';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from '@/lib/utils';
+import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from './_effects';
+import { Check, ChevronsUpDown } from 'lucide-react';
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from './command';
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from './popover';
 
-export type ComboboxProps = Omit<React.ComponentPropsWithoutRef<typeof ComboboxBase>, 'type'> & StyledProps;
-export type ComboboxTriggerProps = Omit<React.ComponentPropsWithoutRef<typeof ComboboxTriggerBase>, 'type'> &
-  StyledProps & {
-    htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  };
-export type ComboboxContentProps = Omit<React.ComponentPropsWithoutRef<typeof ComboboxContentBase>, 'type'> & StyledProps;
-export type ComboboxItemProps = Omit<React.ComponentPropsWithoutRef<typeof ComboboxItemBase>, 'type'> & StyledProps;
+interface ComboboxProps {
+    options: { value: string; label: string }[];
+    value?: string;
+    onValueChange?: (value: string) => void;
+    placeholder?: string;
+    emptyText?: string;
+    className?: string;
+    visualType?: string; // Kept for compatibility, though mainly styles popover trigger
+    effects?: TacticalHudEffects;
+}
 
-const ComboboxRoot = React.forwardRef<React.ElementRef<typeof ComboboxBase>, ComboboxProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <ComboboxBase
-      ref={ref}
-      className={cx('relative flex w-full flex-col gap-1', className)}
-      style={getSurfaceStyle(version ?? 'tactical-hud', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-ComboboxRoot.displayName = 'Combobox';
 
-const ComboboxTrigger = React.forwardRef<React.ElementRef<typeof ComboboxTriggerBase>, ComboboxTriggerProps>(
-  ({ className, version, type, uiType, colors, style, htmlType = 'button', children, ...props }, ref) => (
-    <ComboboxTriggerBase
-      ref={ref}
-      type={htmlType}
-      className={cx('flex w-full items-center justify-between rounded px-3 py-2 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'tactical-hud', type, uiType, colors, style)}
-      {...props}
-    >
-      <span className="truncate">{children}</span>
-      <ChevronDown className="h-4 w-4 shrink-0" />
-    </ComboboxTriggerBase>
-  )
+export function Combobox({ 
+    options, 
+    value, 
+    onValueChange, 
+    placeholder = 'Select option...', 
+    emptyText = 'No option found.',
+    className,
+    visualType,
+    effects = 'on'
+}: ComboboxProps) {
+    const [open, setOpen] = React.useState(false)
+   
+    return (
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <ComboboxTrigger className={className} effects={effects}>
+            {value
+              ? options.find((option) => option.value === value)?.label
+              : placeholder}
+          </ComboboxTrigger>
+        </PopoverTrigger>
+        <PopoverContent className='w-[200px] p-0 border-none bg-transparent shadow-none' style={{ backgroundImage: 'none' }}>
+           <div className="w-full">
+              <Command className="border-none">
+                <CommandInput placeholder={placeholder} />
+                <CommandList>
+                  <CommandEmpty>{emptyText}</CommandEmpty>
+                  <CommandGroup>
+                    {options.map((option) => (
+                      <CommandItem
+                        key={option.value}
+                        value={option.value}
+                        onSelect={(currentValue) => {
+                            onValueChange?.(currentValue === value ? '' : currentValue)
+                            setOpen(false)
+                        }}
+                      >
+                        <Check
+                          className={cn(tacticalHudEffectsClass(effects), 
+                            'mr-2 h-4 w-4 text-[var(--th-primary)]',
+                            value === option.value ? 'opacity-100' : 'opacity-0'
+                          )}
+                        />
+                        {option.label}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+           </div>
+        </PopoverContent>
+      </Popover>
+    )
+}
+
+// Also export parts if needed for custom composition, but adhering to the design
+export const ComboboxTrigger = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement> & { effects?: TacticalHudEffects }>(
+    ({ className, effects = 'on', children, style, ...props }, ref) => (
+        <button
+            ref={ref}
+            className={cn(tacticalHudEffectsClass(effects), 
+                'flex h-10 w-full items-center justify-between bg-[var(--th-surface)]/80 px-3 py-2 text-sm placeholder:text-[var(--th-muted)] focus:outline-none focus:ring-1 focus:ring-[var(--th-primary)] disabled:cursor-not-allowed disabled:opacity-50 font-sans text-[var(--th-primary)] transition-colors hover:bg-[var(--th-primary)]/10',
+                className
+            )}
+            style={{ ...bracketsStyle, ...style }}
+            {...props}
+        >
+            {children}
+            <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+        </button>
+    )
 );
 ComboboxTrigger.displayName = 'ComboboxTrigger';
-
-const ComboboxContent = React.forwardRef<React.ElementRef<typeof ComboboxContentBase>, ComboboxContentProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <ComboboxContentBase
-      ref={ref}
-      className={cx('z-50 max-h-56 overflow-y-auto rounded p-1 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'tactical-hud', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-ComboboxContent.displayName = 'ComboboxContent';
-
-const ComboboxItem = React.forwardRef<React.ElementRef<typeof ComboboxItemBase>, ComboboxItemProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <ComboboxItemBase
-      ref={ref}
-      className={cx('cursor-default rounded px-2 py-1.5 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'tactical-hud', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    />
-  )
-);
-ComboboxItem.displayName = 'ComboboxItem';
-
-export const Combobox = Object.assign(ComboboxRoot, {
-  Trigger: ComboboxTrigger,
-  Content: ComboboxContent,
-  Item: ComboboxItem,
-});
-
-export { ComboboxTrigger, ComboboxContent, ComboboxItem };
-
-export default Combobox;

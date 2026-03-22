@@ -1,45 +1,41 @@
-import React from 'react';import { cn } from '../../utils/component-helpers';
+import * as React from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { SliderBase, SliderTrackBase, SliderRangeBase, SliderThumbBase, type SliderBaseProps } from '@/ui/components/_base/slider';
+import { cn } from '@/lib/utils';
 
-import { SliderBase, SliderRangeBase, SliderThumbBase, SliderTrackBase } from '../_base/slider';
-
-const getTypeStyles = (type: string | undefined) => {
-  if (!type) return '';
-  switch (type) {
-    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
-    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
-    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
-    default: return '';
+const sliderVariants = cva(
+  'relative flex w-full touch-none select-none items-center',
+  {
+    variants: {
+      size: {
+        sm: 'h-4',
+        md: 'h-5',
+        lg: 'h-6',
+      }
+    },
+    defaultVariants: {
+      size: 'md',
+    },
   }
-};
+);
 
+export interface SliderProps extends SliderBaseProps, VariantProps<typeof sliderVariants> {}
 
-interface SliderProps extends React.ComponentPropsWithoutRef<typeof SliderBase> {
-  type?: 'inverse' | 'contrast' | 'soft';
-  variant?: 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
-}
-
-const Slider = React.forwardRef<React.ElementRef<typeof SliderBase>, SliderProps>(({ type, className, variant = 'primary', ...props }, ref) => {
-  const colorMap: Record<string, string> = {
-    neutral: 'primary', success: 'success', warning: 'warning', info: 'info', destructive: 'destructive', primary: 'primary'
-  };
-  const color = colorMap[variant] || 'primary';
-
-  return (
+const Slider = React.forwardRef<React.ElementRef<typeof SliderBase>, SliderProps>(
+  ({ className, size, ...props }, ref) => (
     <SliderBase
       ref={ref}
-      className={cn("relative flex w-full touch-none select-none items-center", className, getTypeStyles(type))}
+      size={size}
+      className={cn(sliderVariants({ size, className }))}
       {...props}
     >
-      <SliderTrackBase className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary" style={{  }}>
-        <SliderRangeBase className="absolute h-full bg-primary" style={{ backgroundColor: `hsl(var(--${color}-base))` }} />
+      <SliderTrackBase className="relative h-1 w-full grow overflow-hidden rounded-none bg-[var(--cb-trace-dim)]/20 border border-[var(--cb-trace-dim)]/50">
+        <SliderRangeBase className="absolute h-full bg-[var(--cb-trace-lit)] shadow-[0_0_5px_var(--cb-trace-lit)]" />
       </SliderTrackBase>
-      <SliderThumbBase
-        className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-        style={{ borderColor: `hsl(var(--${color}-base))` }}
-      />
+      <SliderThumbBase className="block h-4 w-4 rounded-none bg-[var(--cb-trace-lit)] shadow-[0_0_8px_var(--cb-trace-lit)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cb-trace-lit)] disabled:pointer-events-none disabled:opacity-50 hover:scale-110 transition-transform" />
     </SliderBase>
   )
-})
-Slider.displayName = SliderBase.displayName
+);
+Slider.displayName = 'Slider';
 
-export { Slider }
+export { Slider };

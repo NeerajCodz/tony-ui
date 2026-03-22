@@ -1,40 +1,36 @@
-import React from 'react';
-import { cn } from '../../utils/component-helpers';
-import { SidebarBase, SidebarHeaderBase, SidebarContentBase, SidebarFooterBase, SidebarItemBase } from '../_base/sidebar';
+import { SidebarBase, SidebarProvider, SidebarTriggerBase, SidebarContentBase, SidebarHeaderBase, SidebarFooterBase, SidebarRailBase, SidebarGroupBase, SidebarGroupLabelBase, SidebarGroupContentBase, SidebarMenuBase, SidebarMenuItemBase, SidebarMenuButtonBase, SidebarMenuSubBase, SidebarMenuSubButtonBase, SidebarMenuSubItemBase } from '@/ui/components/_base/sidebar';
 
-const getTypeStyles = (type: string | undefined) => {
-  if (!type) return '';
-  switch (type) {
-    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
-    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
-    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
-    default: return '';
-  }
+const Sidebar = SidebarBase;
+const SidebarTrigger = SidebarTriggerBase;
+const SidebarContent = SidebarContentBase;
+const SidebarHeader = SidebarHeaderBase;
+const SidebarFooter = SidebarFooterBase;
+const SidebarRail = SidebarRailBase;
+const SidebarGroup = SidebarGroupBase;
+const SidebarGroupLabel = SidebarGroupLabelBase;
+const SidebarGroupContent = SidebarGroupContentBase;
+const SidebarMenu = SidebarMenuBase;
+const SidebarMenuItem = SidebarMenuItemBase;
+const SidebarMenuButton = SidebarMenuButtonBase;
+const SidebarMenuSub = SidebarMenuSubBase;
+const SidebarMenuSubButton = SidebarMenuSubButtonBase;
+const SidebarMenuSubItem = SidebarMenuSubItemBase;
+
+export {
+  Sidebar,
+  SidebarProvider,
+  SidebarTrigger,
+  SidebarContent,
+  SidebarHeader,
+  SidebarFooter,
+  SidebarRail,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
 };
-
-
-interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
-  type?: 'inverse' | 'contrast' | 'soft';
-  variant?: 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
-}
-
-const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(({ type, className, variant = 'primary', ...props }, ref) => {
-  const colorMap: Record<string, string> = {
-    neutral: 'primary', success: 'success', warning: 'warning', info: 'info', destructive: 'destructive', primary: 'primary'
-  };
-  const color = colorMap[variant] || 'primary';
-
-  return (
-    <aside
-      ref={ref}
-      className={cn("flex flex-col h-screen w-64 border-r bg-background", className, getTypeStyles(type))}
-      style={{
-        border: `2px solid hsl(var(--${color}-base))`, borderRadius: '6px'
-      }}
-      {...props}
-    />
-  )
-})
-Sidebar.displayName = "Sidebar"
-
-export { Sidebar }

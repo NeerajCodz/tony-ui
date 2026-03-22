@@ -79,6 +79,12 @@ export interface SelectTriggerBaseProps
   visualType?: SelectType;
   
   /**
+   * HTML type attribute
+   * @default 'button'
+   */
+  htmlType?: 'button' | 'submit' | 'reset';
+  
+  /**
    * Size variant
    * @default 'md'
    */
@@ -101,9 +107,10 @@ export interface SelectTriggerBaseProps
 export const SelectTriggerBase = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   SelectTriggerBaseProps
->(({ visualType = 'default', size = 'md', invalid = false, ...props }, ref) => (
+>(({ visualType = 'default', htmlType = 'button', size = 'md', invalid = false, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
+    type={htmlType}
     data-type={visualType}
     data-size={size}
     data-invalid={invalid ? '' : undefined}

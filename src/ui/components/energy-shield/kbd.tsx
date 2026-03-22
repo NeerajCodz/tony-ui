@@ -1,22 +1,26 @@
-'use client';
-
 import * as React from 'react';
-import { KbdBase } from '../_base/kbd';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from '@/lib/utils';
+import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
-export type KbdProps = Omit<React.ComponentPropsWithoutRef<typeof KbdBase>, 'type'> & StyledProps;
+export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
+  effects?: EnergyShieldEffects;
+}
 
-export const Kbd = React.forwardRef<React.ElementRef<typeof KbdBase>, KbdProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <KbdBase
-      ref={ref}
-      className={cx('inline-flex min-h-5 items-center rounded px-1.5 text-[10px] font-medium uppercase tracking-wide', className)}
-      style={getSurfaceStyle(version ?? 'energy-shield', type, uiType, colors, style)}
-      {...props}
-    />
-  )
+const Kbd = React.forwardRef<HTMLElement, KbdProps>(
+  ({ className, effects = 'on', ...props }, ref) => {
+    return (
+      <kbd
+        className={cn(energyShieldEffectsClass(effects), 
+          'pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-[var(--es-hex-line)] bg-[var(--es-surface)] px-1.5 font-mono text-[10px] font-medium text-[var(--text-muted)] opacity-100',
+          className
+        )}
+        style={{ clipPath: 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))', '--corner': '2px' } as React.CSSProperties}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
 );
-
 Kbd.displayName = 'Kbd';
 
-export default Kbd;
+export { Kbd };

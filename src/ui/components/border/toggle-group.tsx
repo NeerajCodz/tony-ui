@@ -1,10 +1,31 @@
-'use client';
+import * as React from 'react';
+import { ToggleGroupBase, ToggleGroupItemBase, type ToggleGroupBaseProps, type ToggleGroupItemBaseProps } from '@/ui/components/_base/toggle-group';
+import { cn } from '@/lib/utils';
+import { toggleVariants } from './toggle';
+import { VariantProps } from 'class-variance-authority';
 
-import { createToggleGroupFoundation } from '../_shared/family-foundations';
+const ToggleGroup = React.forwardRef<React.ElementRef<typeof ToggleGroupBase>, ToggleGroupBaseProps>(
+  ({ className, ...props }, ref) => (
+    <ToggleGroupBase
+      ref={ref}
+      className={cn('flex items-center justify-center gap-1', className)}
+      {...props}
+    />
+  )
+);
+ToggleGroup.displayName = 'ToggleGroup';
 
-const foundation = createToggleGroupFoundation('border');
+export interface ToggleGroupItemProps extends ToggleGroupItemBaseProps, VariantProps<typeof toggleVariants> {}
 
-export const ToggleGroup = foundation.ToggleGroup;
-export const ToggleGroupItem = foundation.ToggleGroupItem;
+const ToggleGroupItem = React.forwardRef<React.ElementRef<typeof ToggleGroupItemBase>, ToggleGroupItemProps>(
+  ({ className, visualType, size, ...props }, ref) => (
+    <ToggleGroupItemBase
+      ref={ref}
+      className={cn(toggleVariants({ visualType, size, className }))}
+      {...props}
+    />
+  )
+);
+ToggleGroupItem.displayName = 'ToggleGroupItem';
 
-export default ToggleGroup;
+export { ToggleGroup, ToggleGroupItem };

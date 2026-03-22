@@ -1,67 +1,50 @@
-'use client';
-
 import * as React from 'react';
+import { 
+  AvatarBase, 
+  AvatarImageBase, 
+  AvatarFallbackBase, 
+  type AvatarBaseProps 
+} from '../_base/avatar';
 import { cn } from '@/lib/utils';
-import { AvatarBase, AvatarImageBase, AvatarFallbackBase } from '../_base/avatar';
-import type { VariantColors } from '../../types/common';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
+export interface AvatarProps extends AvatarBaseProps {}
 
-interface StyledProps {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  colors?: VariantColors;
-}
+const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
-const versionKey = 'angular-corner';
+const getSizeStyles = (size: string = 'md') => {
+  switch (size) {
+    case 'xs': return 'h-5 w-5 [--corner:4px] text-[8px]';
+    case 'sm': return 'h-7 w-7 [--corner:6px] text-[10px]';
+    case 'md': return 'h-9 w-9 [--corner:8px] text-xs';
+    case 'lg': return 'h-12 w-12 [--corner:10px] text-sm';
+    case 'xl': return 'h-16 w-16 [--corner:12px] text-base';
+    case '2xl': return 'h-24 w-24 [--corner:16px] text-lg';
+    default: return 'h-9 w-9 [--corner:8px] text-xs';
+  }
+};
 
-const AVATAR_CLIP_PATH = 'polygon(15% 0, 85% 0, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0 85%, 0 15%)';
+const Avatar = React.forwardRef<React.ElementRef<typeof AvatarBase>, AvatarProps>(
+  ({ className, size = 'md', shape = 'circle', style, ...props }, ref) => {
+    return (
+      <AvatarBase
+        ref={ref}
+        size={size}
+        shape={shape}
+        style={{ clipPath: AC_CLIP_PATH, ...style }}
+        className={cn(
+          'relative flex shrink-0 overflow-hidden bg-[var(--ac-surface)] border-2 border-[var(--ac-border)]',
+          getSizeStyles(size),
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+Avatar.displayName = 'Avatar';
 
-export const AvatarRoot = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof AvatarBase> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
-
-  const backgroundColor =
-    resolvedType === 'solid'
-      ? palette.accentPrimary ?? palette.base
-      : resolvedType === 'soft' && palette.accentRgb
-        ? 'rgba(' + palette.accentRgb + ', 0.15)'
-        : resolvedType === 'inverse'
-          ? palette.foreground
-          : (typeStyles.backgroundColor as string | undefined) ?? palette.base ?? '#1a1a1a';
-
-  const borderColor =
-    resolvedType === 'outline' || resolvedType === 'contrast'
-      ? palette.accentPrimary ?? palette.border
-      : resolvedType === 'ghost'
-        ? 'transparent'
-        : palette.border;
-
-  return (
-    <AvatarBase
-      ref={ref}
-      className={cn('relative flex h-10 w-10 shrink-0 overflow-hidden', className)}
-      style={{
-        clipPath: AVATAR_CLIP_PATH,
-        backgroundColor,
-        border: '2px solid ' + borderColor,
-        ...style,
-      }}
-      data-version={versionKey}
-      data-type={resolvedType}
-      {...props}
-    />
-  );
-});
-AvatarRoot.displayName = 'Avatar';
-
-export const AvatarImage = React.forwardRef<
-  HTMLImageElement,
+const AvatarImage = React.forwardRef<
+  React.ElementRef<typeof AvatarImageBase>,
   React.ComponentPropsWithoutRef<typeof AvatarImageBase>
 >(({ className, ...props }, ref) => (
   <AvatarImageBase
@@ -72,42 +55,19 @@ export const AvatarImage = React.forwardRef<
 ));
 AvatarImage.displayName = 'AvatarImage';
 
-export const AvatarFallback = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof AvatarFallbackBase> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
-
-  const textColor =
-    resolvedType === 'solid'
-      ? palette.base ?? '#fff'
-      : resolvedType === 'inverse'
-        ? palette.base ?? '#000'
-        : (typeStyles.color as string | undefined) ?? palette.foreground;
-
-  return (
-    <AvatarFallbackBase
-      ref={ref}
-      className={cn(
-        'flex h-full w-full items-center justify-center font-bold uppercase tracking-wider',
-        className
-      )}
-      style={{
-        color: textColor,
-        letterSpacing: '0.06em',
-        ...style,
-      }}
-      {...props}
-    />
-  );
-});
+const AvatarFallback = React.forwardRef<
+  React.ElementRef<typeof AvatarFallbackBase>,
+  React.ComponentPropsWithoutRef<typeof AvatarFallbackBase>
+>(({ className, ...props }, ref) => (
+  <AvatarFallbackBase
+    ref={ref}
+    className={cn(
+      'flex h-full w-full items-center justify-center bg-[var(--ac-surface)] text-[var(--text-secondary)] font-mono font-bold',
+      className
+    )}
+    {...props}
+  />
+));
 AvatarFallback.displayName = 'AvatarFallback';
 
-export const Avatar = Object.assign(AvatarRoot, {
-  Image: AvatarImage,
-  Fallback: AvatarFallback,
-});
-
-export default Avatar;
+export { Avatar, AvatarImage, AvatarFallback };

@@ -1,96 +1,47 @@
-'use client';
-
-import React, { forwardRef } from 'react';
+import * as React from 'react';
+import { SpinnerBase, type SpinnerBaseProps } from '../_base/spinner';
 import { cn } from '@/lib/utils';
-import type { VariantColors } from '../../types/common';
-import { SpinnerBase } from '../_base/spinner';
-import { normalizeColors } from '../_shared/version-styles';
 
-type SpinnerSize = 'sm' | 'md' | 'lg' | 'xl';
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
+export interface SpinnerProps extends SpinnerBaseProps {}
 
-export interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
-  version?: string;
-  type?: ComponentType;
-  variant?: string;
-  size?: SpinnerSize;
-  colors?: VariantColors;
-}
+const getSizeStyles = (size: string = 'md') => {
+  switch (size) {
+    case 'xs': return 'h-3 w-3 border-[1.5px]';
+    case 'sm': return 'h-4 w-4 border-2';
+    case 'md': return 'h-6 w-6 border-2';
+    case 'lg': return 'h-9 w-9 border-[3px]';
+    case 'xl': return 'h-12 w-12 border-4';
+    default: return 'h-6 w-6 border-2';
+  }
+};
 
-const versionKey = 'angular-corner';
+const getVariantStyles = (variant: string = 'default') => {
+  switch (variant) {
+    case 'primary': return 'border-[var(--ac-accent)]/30 border-t-[var(--ac-accent)]';
+    case 'secondary': return 'border-[var(--text-secondary)]/30 border-t-[var(--text-secondary)]';
+    case 'accent': return 'border-[var(--ac-accent)]/30 border-t-[var(--ac-accent)]';
+    case 'destructive': return 'border-[var(--ac-destructive)]/30 border-t-[var(--ac-destructive)]';
+    case 'ghost': return 'border-[var(--text-muted)]/30 border-t-[var(--text-muted)]';
+    default: return 'border-[var(--ac-accent)]/30 border-t-[var(--ac-accent)]';
+  }
+};
 
-// Angular clipped octagon path for spinner
-const ANGULAR_CLIP_PATH = 'polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%)';
-
-const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
-  ({ size = 'md', colors, type = 'default', className = '', style, ...props }, ref) => {
-    const palette = normalizeColors(colors);
-    
-    // Compute spinner color based on type
-    const spinnerColor =
-      type === 'solid'
-        ? palette.base ?? '#fff'
-        : type === 'inverse'
-          ? palette.base ?? '#000'
-          : palette.accentPrimary ?? palette.foreground ?? '#60a5fa';
-    
-    const glowColor = palette.glow ?? spinnerColor;
-
-    const sizeMap: Record<SpinnerSize, number> = {
-      sm: 16,
-      md: 24,
-      lg: 32,
-      xl: 48,
-    };
-
-    const pxSize = sizeMap[size] ?? 24;
-    const borderWidth = size === 'sm' ? 2 : size === 'xl' ? 4 : 3;
-
+export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(
+  ({ className, size = 'md', variant = 'default', ...props }, ref) => {
     return (
       <SpinnerBase
         ref={ref}
         size={size}
-        className={cn('relative inline-flex items-center justify-center', className)}
-        style={{ width: pxSize, height: pxSize, color: spinnerColor, ...style }}
-        data-version={versionKey}
-        data-type={type}
+        variant={variant}
+        className={cn(
+          'animate-spin rounded-full border-t-transparent',
+          getSizeStyles(size),
+          getVariantStyles(variant),
+          className
+        )}
         {...props}
-      >
-        {/* Outer rotating clipped ring */}
-        <span
-          className="absolute inset-0 animate-spin"
-          style={{
-            clipPath: ANGULAR_CLIP_PATH,
-            border: `${borderWidth}px solid transparent`,
-            borderTopColor: spinnerColor,
-            borderRightColor: spinnerColor,
-            filter: `drop-shadow(0 0 6px ${glowColor})`,
-          }}
-        />
-        {/* Inner static clipped shape */}
-        <span
-          className="absolute inset-[20%]"
-          style={{
-            clipPath: ANGULAR_CLIP_PATH,
-            backgroundColor: `color-mix(in srgb, ${spinnerColor} 20%, transparent)`,
-            border: `1px solid ${spinnerColor}`,
-            opacity: 0.6,
-          }}
-        />
-        {/* Center glow dot */}
-        <span
-          className="absolute inset-[40%] rounded-full"
-          style={{
-            backgroundColor: spinnerColor,
-            boxShadow: `0 0 8px ${glowColor}`,
-            opacity: 0.8,
-          }}
-        />
-      </SpinnerBase>
+      />
     );
   }
 );
-
 Spinner.displayName = 'Spinner';
-
-export default Spinner;

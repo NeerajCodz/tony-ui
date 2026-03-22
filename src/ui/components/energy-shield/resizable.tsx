@@ -1,57 +1,49 @@
-'use client';
-
 import * as React from 'react';
 import { GripVertical } from 'lucide-react';
-import { ResizableHandleBase, ResizablePanelBase, ResizablePanelGroupBase } from '../_base/resizable';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { Group, Panel, Separator } from 'react-resizable-panels';
+import { cn } from '@/lib/utils';
+import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
-export type ResizablePanelGroupProps = Omit<React.ComponentPropsWithoutRef<typeof ResizablePanelGroupBase>, 'type'> & StyledProps;
-export type ResizablePanelProps = Omit<React.ComponentPropsWithoutRef<typeof ResizablePanelBase>, 'type'> & StyledProps;
-export type ResizableHandleProps = Omit<React.ComponentPropsWithoutRef<typeof ResizableHandleBase>, 'type'> &
-  StyledProps & {
-    withHandle?: boolean;
-  };
-
-const ResizablePanelGroup = React.forwardRef<React.ElementRef<typeof ResizablePanelGroupBase>, ResizablePanelGroupProps>(
-  ({ className, direction = 'horizontal', version, type, uiType, colors, style, ...props }, ref) => (
-    <ResizablePanelGroupBase
-      ref={ref}
-      direction={direction}
-      className={cx('flex h-full w-full data-[direction=vertical]:flex-col', className)}
-      style={getSurfaceStyle(version ?? 'energy-shield', type, uiType, colors, style)}
-      {...props}
-    />
-  )
+const ResizablePanelGroup = ({
+  className,
+  effects = 'on',
+  ...props
+}: React.ComponentProps<typeof Group> & { effects?: EnergyShieldEffects }) => (
+  <Group
+    className={cn(
+      energyShieldEffectsClass(effects),
+      'flex h-full w-full data-[panel-group-direction=vertical]:flex-col',
+      className
+    )}
+    {...props}
+  />
 );
-ResizablePanelGroup.displayName = 'ResizablePanelGroup';
 
-const ResizablePanel = React.forwardRef<React.ElementRef<typeof ResizablePanelBase>, ResizablePanelProps>(
-  ({ className, ...props }, ref) => <ResizablePanelBase ref={ref} className={cx(className)} {...props} />
-);
-ResizablePanel.displayName = 'ResizablePanel';
+const ResizablePanel = Panel;
 
-const ResizableHandle = React.forwardRef<React.ElementRef<typeof ResizableHandleBase>, ResizableHandleProps>(
-  ({ className, withHandle, version, type, uiType, colors, style, ...props }, ref) => (
-    <ResizableHandleBase
-      ref={ref}
-      className={cx('relative flex w-px items-center justify-center', className)}
-      style={getSurfaceStyle(version ?? 'energy-shield', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    >
-      {withHandle ? (
-        <div className="z-10 flex h-4 w-3 items-center justify-center rounded-sm border">
-          <GripVertical className="h-2.5 w-2.5" />
-        </div>
-      ) : null}
-    </ResizableHandleBase>
-  )
+const ResizableHandle = ({
+  withHandle,
+  className,
+  effects = 'on',
+  ...props
+}: React.ComponentProps<typeof Separator> & {
+  withHandle?: boolean;
+  effects?: EnergyShieldEffects;
+}) => (
+  <Separator
+    className={cn(
+      energyShieldEffectsClass(effects),
+      'relative flex w-px items-center justify-center bg-[var(--es-hex-line)] after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--es-plasma-1)] focus-visible:ring-offset-1 data-[panel-group-direction=vertical]:h-px data-[panel-group-direction=vertical]:w-full data-[panel-group-direction=vertical]:after:left-0 data-[panel-group-direction=vertical]:after:h-1 data-[panel-group-direction=vertical]:after:w-full data-[panel-group-direction=vertical]:after:-translate-y-1/2 data-[panel-group-direction=vertical]:after:translate-x-0 [&[data-panel-group-direction=vertical]>div]:rotate-90',
+      className
+    )}
+    {...props}
+  >
+    {withHandle && (
+      <div className="z-10 flex h-4 w-3 items-center justify-center rounded-sm border border-[var(--es-hex-line)] bg-[var(--es-bg)]">
+        <GripVertical className="h-2.5 w-2.5" />
+      </div>
+    )}
+  </Separator>
 );
-ResizableHandle.displayName = 'ResizableHandle';
 
 export { ResizablePanelGroup, ResizablePanel, ResizableHandle };
-
-export default ResizablePanelGroup;

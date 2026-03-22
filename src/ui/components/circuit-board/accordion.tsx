@@ -1,15 +1,49 @@
-'use client';
+import * as React from 'react';
+import { AccordionBase, AccordionItemBase, AccordionTriggerBase, AccordionContentBase } from '@/ui/components/_base/accordion';
+import { cn } from '@/lib/utils';
+import { ChevronDown } from 'lucide-react';
 
-import { createAccordionFoundation } from '../_shared/family-foundations';
+const Accordion = AccordionBase;
 
-const foundation = createAccordionFoundation('circuit-board');
+const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionItemBase>, React.ComponentPropsWithoutRef<typeof AccordionItemBase>>(
+  ({ className, ...props }, ref) => (
+    <AccordionItemBase
+      ref={ref}
+      className={cn('border-b border-[var(--cb-trace)]', className)}
+      {...props}
+    />
+  )
+);
+AccordionItem.displayName = 'AccordionItem';
 
-export const Accordion = foundation.Accordion;
-export const AccordionItem = foundation.AccordionItem;
-export const AccordionTrigger = foundation.AccordionTrigger;
-export const AccordionContent = foundation.AccordionContent;
-export const Item = foundation.Item;
-export const Trigger = foundation.Trigger;
-export const Content = foundation.Content;
+const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionTriggerBase>, React.ComponentPropsWithoutRef<typeof AccordionTriggerBase>>(
+  ({ className, children, ...props }, ref) => (
+    <AccordionTriggerBase
+      ref={ref}
+      className={cn(
+        'flex flex-1 items-center justify-between py-4 font-medium transition-all hover:text-[var(--cb-trace-lit)] [&[data-state=open]>svg]:rotate-180 font-mono uppercase tracking-widest text-[var(--cb-trace-dim)] data-[state=open]:text-[var(--cb-trace-lit)] data-[state=open]:drop-shadow-[0_0_5px_var(--cb-trace-lit)]',
+        className
+      )}
+      {...props}
+    >
+      {children}
+      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+    </AccordionTriggerBase>
+  )
+);
+AccordionTrigger.displayName = 'AccordionTrigger';
 
-export default Accordion;
+const AccordionContent = React.forwardRef<React.ElementRef<typeof AccordionContentBase>, React.ComponentPropsWithoutRef<typeof AccordionContentBase>>(
+  ({ className, children, ...props }, ref) => (
+    <AccordionContentBase
+      ref={ref}
+      className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+      {...props}
+    >
+      <div className={cn('pb-4 pt-0 font-mono text-[var(--cb-trace-dim)] uppercase tracking-wide', className)}>{children}</div>
+    </AccordionContentBase>
+  )
+);
+AccordionContent.displayName = 'AccordionContent';
+
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };

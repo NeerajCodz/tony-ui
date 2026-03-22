@@ -4,17 +4,14 @@ import { Circle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export interface RadioGroupProps extends RadioGroupBaseProps {}
-export interface RadioGroupItemProps extends RadioGroupItemBaseProps {
-    type?: string; // To match parent or override
-    size?: string;
-}
+export interface RadioGroupItemProps extends RadioGroupItemBaseProps {}
 
-const getItemStyles = (type: string = 'default', size: string = 'md') => {
+const getItemStyles = (visualType: string = 'default', size: string = 'md') => {
     // Base styles
     let styles = 'aspect-square rounded-full border shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--df-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--df-bg)] disabled:cursor-not-allowed disabled:opacity-50';
     
     // Type styles
-    switch (type) {
+    switch (visualType) {
         case 'default':
         case 'solid':
             styles += ' border-[var(--df-border)] bg-[var(--df-surface)] text-[var(--df-accent)] data-[state=checked]:border-[var(--df-accent)] data-[state=checked]:text-[var(--df-accent)]';
@@ -59,21 +56,12 @@ RadioGroup.displayName = 'RadioGroup';
 
 export const RadioGroupItem = React.forwardRef<React.ElementRef<typeof RadioGroupItemBase>, RadioGroupItemProps>(
   ({ className, ...props }, ref) => {
-    // We need to infer type/size from context or props?
-    // RadioGroupBase passes data-type and data-size to itself (the root), but not implicitly to children unless we use Context.
-    // However, the items are usually direct children.
-    // For now, let's assume props or default.
-    // The user didn't ask for Context implementation in version layer, so we rely on manual props or just defaults.
-    // Or we can use CSS variables set on the group? No, that's complex.
-    // I'll default to 'default'/'md' here. Ideally, RadioGroupContext would handle this.
-    // Base implementation doesn't seem to have a context for type/size propagation to items.
-    
     return (
-      <RadioGroupItemBase
-        ref={ref}
-        className={cn(
-          getItemStyles('default', 'md'), // Hardcoded default for now, can be overridden by className or explicit props if we add them to interface
-          className
+        <RadioGroupItemBase
+          ref={ref}
+          className={cn(
+            getItemStyles('default', 'md'),
+            className
         )}
         {...props}
       >

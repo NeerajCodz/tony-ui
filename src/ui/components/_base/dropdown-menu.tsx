@@ -143,6 +143,11 @@ export interface DropdownMenuSubTriggerBaseProps
    * @default true
    */
   showIndicator?: boolean;
+
+  /**
+   * Inset content for alignment
+   */
+  inset?: boolean;
 }
 
 /**
@@ -263,7 +268,12 @@ DropdownMenuItemBase.displayName = 'DropdownMenuItemBase';
 // ============================================================================
 
 export interface DropdownMenuCheckboxItemBaseProps
-  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem> {}
+  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem> {
+    /**
+     * Whether the item is checked
+     */
+    checked?: boolean | 'indeterminate';
+  }
 
 /**
  * DropdownMenuCheckboxItemBase - Item with checkbox state
@@ -315,7 +325,12 @@ DropdownMenuItemIndicatorBase.displayName = 'DropdownMenuItemIndicatorBase';
 // ============================================================================
 
 export interface DropdownMenuLabelBaseProps
-  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> {}
+  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> {
+  /**
+   * Inset content for alignment
+   */
+  inset?: boolean;
+}
 
 /**
  * DropdownMenuLabelBase - Non-interactive label for grouping

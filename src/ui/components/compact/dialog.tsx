@@ -1,53 +1,119 @@
-import React from 'react';import { X, Info, AlertTriangle, CheckCircle, AlertOctagon, Terminal } from 'lucide-react';
-import { cn } from '../../utils/component-helpers';
-import { DialogCloseBase, DialogContentBase, DialogDescriptionBase, DialogOverlayBase, DialogTitleBase } from '../_base/dialog';
+import * as React from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { X } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-const variantIcons = { default: Terminal, neutral: Terminal, primary: Info, success: CheckCircle, warning: AlertTriangle, destructive: AlertOctagon, info: Info };
-const variantColors = { default: 'cyan', neutral: 'slate', primary: 'cyan', success: 'emerald', warning: 'amber', destructive: 'red', info: 'blue' };
-const styles = { overlay: "fixed inset-0 z-50 bg-background/80 backdrop-blur-sm", content: "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg", title: "text-lg font-semibold", description: "text-sm text-muted-foreground", close: "absolute right-4 top-4 rounded-sm opacity-70 hover:opacity-100"  };
-export const Overlay = React.forwardRef(({ className, ...props }: any, ref: any) => (
-  <DialogOverlayBase ref={ref} className={cn(styles.overlay, className)} {...props} />
+const Dialog = DialogPrimitive.Root;
+
+const DialogTrigger = DialogPrimitive.Trigger;
+
+const DialogPortal = DialogPrimitive.Portal;
+
+const DialogClose = DialogPrimitive.Close;
+
+const DialogOverlay = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Overlay>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Overlay
+    ref={ref}
+    className={cn(
+      'fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+      className
+    )}
+    {...props}
+  />
 ));
-Overlay.displayName = DialogOverlayBase.displayName;
-export const Content = React.forwardRef(({ className, children, type = 'default', variant = 'primary', ...props }: any, ref: any) => {    
-  const color = variantColors[variant] || 'cyan';
-  let typeClasses = "";
-  if (type === 'inverse') typeClasses = `bg-${color}-500 text-${color}-950 border-${color}-950`;
-  else if (type === 'contrast') typeClasses = `bg-black text-white border-white border-4`;
-  else if (type === 'soft') typeClasses = `bg-${color}-100/50 border-${color}-200`;
+DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
-  const Icon = variantIcons[variant] || variantIcons.default;
-  const dynamicClasses = `shadow-[0_0_30px_-5px_theme(colors.${color}.500/30)] border-l-4 border-${color}-500 bg-black/90`;
-  return (
-    <DialogContentBase ref={ref} className={cn(styles.content, dynamicClasses, typeClasses, className)} {...props}>
-      <div className={`absolute -top-3 -left-3 p-1.5 bg-gray-950 border border-${color}-500/50 rounded-none z-50 shadow-lg`}>
-         <Icon className={`w-5 h-5 text-${color}-400`} />
-      </div>
+const DialogContent = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
+>(({ className, children, ...props }, ref) => (
+  <DialogPortal>
+    <DialogOverlay />
+    <DialogPrimitive.Content
+      ref={ref}
+      className={cn(
+        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-[var(--cp-border)] bg-[var(--cp-bg)] p-6 shadow-lg duration-75 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] text-[var(--text-primary)]',
+        className
+      )}
+      {...props}
+    >
       {children}
-      <DialogCloseBase className={cn(styles.close, `text-${color}-400 hover:text-${color}-200`)}>
-        <X className="h-4 w-4" /> <span className="sr-only">Close</span>
-      </DialogCloseBase>
-    </DialogContentBase>
-  );
-});
-Content.displayName = DialogContentBase.displayName;
-export const Title = React.forwardRef(({ className, type = 'default', variant = 'primary', ...props }: any, ref: any) => {
-   const color = variantColors[variant] || 'cyan';
-  let typeClasses = "";
-  if (type === 'inverse') typeClasses = `bg-${color}-500 text-${color}-950 border-${color}-950`;
-  else if (type === 'contrast') typeClasses = `bg-black text-white border-white border-4`;
-  else if (type === 'soft') typeClasses = `bg-${color}-100/50 border-${color}-200`;
+      <DialogPrimitive.Close className="absolute right-4 top-4 opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground text-[var(--text-muted)] hover:text-[var(--cp-accent)]">
+        <X className="h-4 w-4" />
+        <span className="sr-only">Close</span>
+      </DialogPrimitive.Close>
+    </DialogPrimitive.Content>
+  </DialogPortal>
+));
+DialogContent.displayName = DialogPrimitive.Content.displayName;
 
-   return <DialogTitleBase ref={ref} className={cn(styles.title, `text-${color}-100`, className)} {...props} />;
-});
-Title.displayName = DialogTitleBase.displayName;
-export const Description = React.forwardRef(({ className, type = 'default', variant = 'primary', ...props }: any, ref: any) => {
-   const color = variantColors[variant] || 'cyan';
-  let typeClasses = "";
-  if (type === 'inverse') typeClasses = `bg-${color}-500 text-${color}-950 border-${color}-950`;
-  else if (type === 'contrast') typeClasses = `bg-black text-white border-white border-4`;
-  else if (type === 'soft') typeClasses = `bg-${color}-100/50 border-${color}-200`;
+const DialogHeader = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn(
+      'flex flex-col space-y-1.5 text-center sm:text-left',
+      className
+    )}
+    {...props}
+  />
+);
+DialogHeader.displayName = 'DialogHeader';
 
-   return <DialogDescriptionBase ref={ref} className={cn(styles.description, `text-${color}-300/70`, className)} {...props} />;
-});
-Description.displayName = DialogDescriptionBase.displayName;
+const DialogFooter = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn(
+      'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
+      className
+    )}
+    {...props}
+  />
+);
+DialogFooter.displayName = 'DialogFooter';
+
+const DialogTitle = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Title
+    ref={ref}
+    className={cn(
+      'text-lg font-bold leading-none tracking-tight font-mono  text-[var(--cp-accent)]',
+      className
+    )}
+    {...props}
+  />
+));
+DialogTitle.displayName = DialogPrimitive.Title.displayName;
+
+const DialogDescription = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Description
+    ref={ref}
+    className={cn('text-sm text-[var(--text-muted)] font-mono', className)}
+    {...props}
+  />
+));
+DialogDescription.displayName = DialogPrimitive.Description.displayName;
+
+export {
+  Dialog,
+  DialogPortal,
+  DialogOverlay,
+  DialogClose,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+};

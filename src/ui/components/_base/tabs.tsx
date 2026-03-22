@@ -109,6 +109,12 @@ export interface TabsTriggerBaseProps
    * @default 'default'
    */
   visualType?: TabsType;
+
+  /**
+   * HTML type attribute
+   * @default 'button'
+   */
+  htmlType?: 'button' | 'submit' | 'reset';
 }
 
 /**
@@ -133,8 +139,8 @@ export interface TabsTriggerBaseProps
 export const TabsTriggerBase = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   TabsTriggerBaseProps
->(({ visualType = 'default', ...props }, ref) => (
-  <TabsPrimitive.Trigger ref={ref} data-type={visualType} {...props} />
+>(({ visualType = 'default', htmlType = 'button', ...props }, ref) => (
+  <TabsPrimitive.Trigger ref={ref} type={htmlType} data-type={visualType} {...props} />
 ));
 TabsTriggerBase.displayName = 'TabsTriggerBase';
 

@@ -11,7 +11,8 @@ export type ChartType =
   | 'donut'
   | 'radar'
   | 'scatter'
-  | 'radial';
+  | 'radial'
+  | 'composed';
 
 /**
  * Chart sizes
@@ -238,6 +239,12 @@ export interface ChartLegendBaseProps extends React.HTMLAttributes<HTMLDivElemen
    * Custom name key in payload
    */
   nameKey?: string;
+  
+  /**
+   * Vertical alignment of legend items
+   * @default 'bottom'
+   */
+  verticalAlign?: 'top' | 'middle' | 'bottom';
   
   /**
    * Whether to hide the icon

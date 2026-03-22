@@ -280,3 +280,6 @@ export const ToastCloseBase = React.forwardRef<HTMLButtonElement, ToastCloseBase
   )
 );
 ToastCloseBase.displayName = 'ToastCloseBase';
+
+export type ToastProps = ToastBaseProps;
+export type ToastActionElement = React.ReactElement<typeof ToastActionBase>;

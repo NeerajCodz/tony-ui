@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/ui/components/angular-corner/**/*",
+    "src/ui/components/border/**/*",
+    "src/ui/components/circuit-board/**/*",
+    "src/ui/components/compact/**/*",
+    "src/ui/components/data-panel/**/*",
+    "src/ui/components/default/**/*",
+    "src/ui/components/energy-shield/**/*",
+    "src/ui/components/holo-frame/**/*",
+    "src/ui/components/quantum-gate/**/*",
+    "src/ui/components/tactical-hud/**/*",
+    "src/ui/components/_base/**/*",
+    "src/ui/config/**/*",
+    "src/ui/types/**/*",
+    "src/lib/**/*",
+    "src/types/**/*"
+  ],
+  "exclude": ["reference"]
+}

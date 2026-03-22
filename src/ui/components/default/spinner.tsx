@@ -15,7 +15,7 @@ const getSizeStyles = (size: string = 'md') => {
   }
 };
 
-export const Spinner = React.forwardRef<HTMLSpanElement, SpinnerProps>(
+export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(
   ({ className, size = 'md', ...props }, ref) => {
     return (
       <SpinnerBase

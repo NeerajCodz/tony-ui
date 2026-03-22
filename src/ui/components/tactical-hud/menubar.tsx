@@ -1,234 +1,226 @@
-'use client';
+import * as React from 'react';
+import * as MenubarPrimitive from '@radix-ui/react-menubar';
+import {
+  CheckIcon,
+  ChevronRightIcon,
+  DotFilledIcon,
+} from '@radix-ui/react-icons';
+import { cn } from '@/lib/utils';
+import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from './_effects';
 
-import React, { forwardRef } from 'react';import { cn } from '@/lib/utils';
-import { VariantColors } from '@/ui/types/common';
 
-import { MenubarBase, MenubarCheckboxItemBase, MenubarContentBase, MenubarGroupBase, MenubarItemBase, MenubarItemIndicatorBase, MenubarLabelBase, MenubarMenuBase, MenubarPortalBase, MenubarRadioGroupBase, MenubarRadioItemBase, MenubarSeparatorBase, MenubarSubBase, MenubarSubContentBase, MenubarSubTriggerBase, MenubarTriggerBase } from '../_base/menubar';
+const Menubar = React.forwardRef<
+  React.ElementRef<typeof MenubarPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Root> & { effects?: TacticalHudEffects }
+>(({ className, effects = 'on', style, ...props }, ref) => (
+  <MenubarPrimitive.Root
+    ref={ref}
+    className={cn(tacticalHudEffectsClass(effects), 
+      'flex h-12 items-center space-x-1 bg-[var(--th-surface)] p-1 border-0',
+      className
+    )}
+    style={{ ...bracketsStyle, ...style }}
+    {...props}
+  />
+));
+Menubar.displayName = MenubarPrimitive.Root.displayName;
 
-const getStyles = (type?: string, colors?: VariantColors) => {
-  if (!type || !colors) return {};
-  
-  switch (type) {
-    case 'inverse':
-      return {
-        backgroundColor: colors.text,
-        color: colors.background,
-        border: `1px solid ${colors.text}`
-      };
-    case 'contrast':
-      return {
-        backgroundColor: colors.accent?.primary || colors.text,
-        color: '#000000',
-        fontWeight: 'bold',
-        border: `1px solid ${colors.text}`
-      };
-    case 'soft':
-      return {
-        backgroundColor: colors.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
-        color: colors.accent?.primary || colors.text,
-        border: 'none'
-      };
-    default:
-      return {};
+const MenubarMenu = MenubarPrimitive.Menu;
+
+const MenubarGroup = MenubarPrimitive.Group;
+
+const MenubarPortal = MenubarPrimitive.Portal;
+
+const MenubarSub = MenubarPrimitive.Sub;
+
+const MenubarRadioGroup = MenubarPrimitive.RadioGroup;
+
+const MenubarTrigger = React.forwardRef<
+  React.ElementRef<typeof MenubarPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Trigger> & { effects?: TacticalHudEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <MenubarPrimitive.Trigger
+    ref={ref}
+    className={cn(tacticalHudEffectsClass(effects), 
+      'flex cursor-default select-none items-center px-3 py-1 text-sm font-sans font-medium outline-none focus:bg-[var(--th-primary)]/10 focus:text-[var(--th-active)] data-[state=open]:bg-[var(--th-primary)]/10 data-[state=open]:text-[var(--th-active)] transition-colors',
+      className
+    )}
+    {...props}
+  />
+));
+MenubarTrigger.displayName = MenubarPrimitive.Trigger.displayName;
+
+const MenubarSubTrigger = React.forwardRef<
+  React.ElementRef<typeof MenubarPrimitive.SubTrigger>,
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubTrigger> & { effects?: TacticalHudEffects } & {
+    inset?: boolean;
   }
-};
+>(({ className, effects = 'on', inset, children, ...props }, ref) => (
+  <MenubarPrimitive.SubTrigger
+    ref={ref}
+    className={cn(tacticalHudEffectsClass(effects), 
+      'flex cursor-default select-none items-center px-2 py-1.5 text-sm font-sans outline-none focus:bg-[var(--th-primary)]/10 focus:text-[var(--th-active)] data-[state=open]:bg-[var(--th-primary)]/10 data-[state=open]:text-[var(--th-active)] transition-colors',
+      inset && 'pl-8',
+      className
+    )}
+    {...props}
+  >
+    {children}
+    <ChevronRightIcon className="ml-auto h-4 w-4" />
+  </MenubarPrimitive.SubTrigger>
+));
+MenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName;
 
+const MenubarSubContent = React.forwardRef<
+  React.ElementRef<typeof MenubarPrimitive.SubContent>,
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubContent> & { effects?: TacticalHudEffects }
+>(({ className, effects = 'on', style, ...props }, ref) => (
+  <MenubarPrimitive.SubContent
+    ref={ref}
+    className={cn(tacticalHudEffectsClass(effects), 
+      'z-50 min-w-[8rem] overflow-hidden bg-[var(--th-surface)]/95 p-1 text-[var(--th-primary)] shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ',
+      className
+    )}
+    style={{ ...bracketsStyle, ...style }}
+    {...props}
+  />
+));
+MenubarSubContent.displayName = MenubarPrimitive.SubContent.displayName;
 
-// Interfaces (simplified for generation)
-interface MenubarProps extends React.ComponentPropsWithoutRef<typeof MenubarBase> {
-  version?: string;
-  variant?: string;
-  type?: string;
-  colors?: VariantColors;
-}
-
-const MenubarRoot = forwardRef<React.ElementRef<typeof MenubarBase>, MenubarProps>(
-  ({ className, version, variant, type, colors, ...props }, ref) => (
-    <MenubarBase
-      ref={ref}
-      className={cn(
-        "flex h-10 items-center space-x-1 rounded-md border p-1",
-        className
-      )}
-      {...props} style={{ ...getStyles(type, colors), ...(props.style as any) }}
-    />
-  )
-);
-MenubarRoot.displayName = MenubarBase.displayName;
-
-const MenubarMenu = MenubarMenuBase;
-const MenubarGroup = MenubarGroupBase;
-const MenubarPortal = MenubarPortalBase;
-const MenubarSub = MenubarSubBase;
-const MenubarRadioGroup = MenubarRadioGroupBase;
-
-const MenubarTrigger = forwardRef<React.ElementRef<typeof MenubarTriggerBase>, React.ComponentPropsWithoutRef<typeof MenubarTriggerBase>>(
-  ({ className, ...props }, ref) => (
-    <MenubarTriggerBase
-      ref={ref}
-      className={cn(
-        "flex cursor-default select-none items-center rounded-sm px-3 py-1.5 text-sm font-medium outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
-        className
-      )}
-      {...props}
-    />
-  )
-);
-MenubarTrigger.displayName = MenubarTriggerBase.displayName;
-
-const MenubarSubTrigger = forwardRef<React.ElementRef<typeof MenubarSubTriggerBase>, React.ComponentPropsWithoutRef<typeof MenubarSubTriggerBase> & { inset?: boolean }>(
-  ({ className, inset, children, ...props }, ref) => (
-    <MenubarSubTriggerBase
-      ref={ref}
-      className={cn(
-        "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
-        inset && "pl-8",
-        className
-      )}
-      {...props}
-    >
-      {children}
-      <span className="ml-auto text-xs tracking-widest text-muted-foreground">▶</span>
-    </MenubarSubTriggerBase>
-  )
-);
-MenubarSubTrigger.displayName = MenubarSubTriggerBase.displayName;
-
-const MenubarSubContent = forwardRef<React.ElementRef<typeof MenubarSubContentBase>, React.ComponentPropsWithoutRef<typeof MenubarSubContentBase>>(
-  ({ className, ...props }, ref) => (
-    <MenubarSubContentBase
-      ref={ref}
-      className={cn(
-        "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-        className
-      )}
-      {...props}
-    />
-  )
-);
-MenubarSubContent.displayName = MenubarSubContentBase.displayName;
-
-const MenubarContent = forwardRef<React.ElementRef<typeof MenubarContentBase>, React.ComponentPropsWithoutRef<typeof MenubarContentBase>>(
-  ({ className, align = "start", alignOffset = -4, sideOffset = 8, ...props }, ref) => (
-    <MenubarPortalBase>
-      <MenubarContentBase
+const MenubarContent = React.forwardRef<
+  React.ElementRef<typeof MenubarPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Content> & { effects?: TacticalHudEffects }
+>(
+  (
+    { className, align = 'start', alignOffset = -4, sideOffset = 8, effects = 'on', style, ...props },
+    ref
+  ) => (
+    <MenubarPrimitive.Portal>
+      <MenubarPrimitive.Content
         ref={ref}
         align={align}
         alignOffset={alignOffset}
         sideOffset={sideOffset}
-        className={cn(
-          "z-50 min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+        className={cn(tacticalHudEffectsClass(effects), 
+          'z-50 min-w-[12rem] overflow-hidden bg-[var(--th-surface)]/95 p-1 text-[var(--th-primary)] shadow-md data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ',
           className
         )}
+        style={{ ...bracketsStyle, ...style }}
         {...props}
       />
-    </MenubarPortalBase>
+    </MenubarPrimitive.Portal>
   )
 );
-MenubarContent.displayName = MenubarContentBase.displayName;
+MenubarContent.displayName = MenubarPrimitive.Content.displayName;
 
-const MenubarItem = forwardRef<React.ElementRef<typeof MenubarItemBase>, React.ComponentPropsWithoutRef<typeof MenubarItemBase> & { inset?: boolean }>(
-  ({ className, inset, ...props }, ref) => (
-    <MenubarItemBase
-      ref={ref}
-      className={cn(
-        "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-        inset && "pl-8",
-        className
-      )}
-      {...props}
-    />
-  )
-);
-MenubarItem.displayName = MenubarItemBase.displayName;
+const MenubarItem = React.forwardRef<
+  React.ElementRef<typeof MenubarPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Item> & { effects?: TacticalHudEffects } & {
+    inset?: boolean;
+  }
+>(({ className, effects = 'on', inset, ...props }, ref) => (
+  <MenubarPrimitive.Item
+    ref={ref}
+    className={cn(tacticalHudEffectsClass(effects), 
+      'relative flex cursor-default select-none items-center px-2 py-1.5 text-sm font-sans outline-none focus:bg-[var(--th-primary)]/10 focus:text-[var(--th-active)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-colors',
+      inset && 'pl-8',
+      className
+    )}
+    {...props}
+  />
+));
+MenubarItem.displayName = MenubarPrimitive.Item.displayName;
 
-const MenubarCheckboxItem = forwardRef<React.ElementRef<typeof MenubarCheckboxItemBase>, React.ComponentPropsWithoutRef<typeof MenubarCheckboxItemBase>>(
-  ({ className, children, checked, ...props }, ref) => (
-    <MenubarCheckboxItemBase
-      ref={ref}
-      className={cn(
-        "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-        className
-      )}
-      checked={checked}
-      {...props}
-    >
-      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-        <MenubarItemIndicatorBase>
-          Check
-        </MenubarItemIndicatorBase>
-      </span>
-      {children}
-    </MenubarCheckboxItemBase>
-  )
-);
-MenubarCheckboxItem.displayName = MenubarCheckboxItemBase.displayName;
+const MenubarCheckboxItem = React.forwardRef<
+  React.ElementRef<typeof MenubarPrimitive.CheckboxItem>,
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.CheckboxItem> & { effects?: TacticalHudEffects }
+>(({ className, effects = 'on', children, checked, ...props }, ref) => (
+  <MenubarPrimitive.CheckboxItem
+    ref={ref}
+    className={cn(tacticalHudEffectsClass(effects), 
+      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm font-sans outline-none focus:bg-[var(--th-primary)]/10 focus:text-[var(--th-active)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-colors',
+      className
+    )}
+    checked={checked}
+    {...props}
+  >
+    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <MenubarPrimitive.ItemIndicator>
+        <CheckIcon className="h-4 w-4" />
+      </MenubarPrimitive.ItemIndicator>
+    </span>
+    {children}
+  </MenubarPrimitive.CheckboxItem>
+));
+MenubarCheckboxItem.displayName = MenubarPrimitive.CheckboxItem.displayName;
 
-const MenubarRadioItem = forwardRef<React.ElementRef<typeof MenubarRadioItemBase>, React.ComponentPropsWithoutRef<typeof MenubarRadioItemBase>>(
-  ({ className, children, ...props }, ref) => (
-    <MenubarRadioItemBase
-      ref={ref}
-      className={cn(
-        "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-        className
-      )}
-      {...props}
-    >
-      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-        <MenubarItemIndicatorBase>
-          Radio
-        </MenubarItemIndicatorBase>
-      </span>
-      {children}
-    </MenubarRadioItemBase>
-  )
-);
-MenubarRadioItem.displayName = MenubarRadioItemBase.displayName;
+const MenubarRadioItem = React.forwardRef<
+  React.ElementRef<typeof MenubarPrimitive.RadioItem>,
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.RadioItem> & { effects?: TacticalHudEffects }
+>(({ className, effects = 'on', children, ...props }, ref) => (
+  <MenubarPrimitive.RadioItem
+    ref={ref}
+    className={cn(tacticalHudEffectsClass(effects), 
+      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm font-sans outline-none focus:bg-[var(--th-primary)]/10 focus:text-[var(--th-active)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-colors',
+      className
+    )}
+    {...props}
+  >
+    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <MenubarPrimitive.ItemIndicator>
+        <DotFilledIcon className="h-4 w-4 fill-current" />
+      </MenubarPrimitive.ItemIndicator>
+    </span>
+    {children}
+  </MenubarPrimitive.RadioItem>
+));
+MenubarRadioItem.displayName = MenubarPrimitive.RadioItem.displayName;
 
-const MenubarLabel = forwardRef<React.ElementRef<typeof MenubarLabelBase>, React.ComponentPropsWithoutRef<typeof MenubarLabelBase> & { inset?: boolean }>(
-  ({ className, inset, ...props }, ref) => (
-    <MenubarLabelBase
-      ref={ref}
-      className={cn(
-        "px-2 py-1.5 text-sm font-semibold",
-        inset && "pl-8",
-        className
-      )}
-      {...props}
-    />
-  )
-);
-MenubarLabel.displayName = MenubarLabelBase.displayName;
+const MenubarLabel = React.forwardRef<
+  React.ElementRef<typeof MenubarPrimitive.Label>,
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Label> & { effects?: TacticalHudEffects } & {
+    inset?: boolean;
+  }
+>(({ className, effects = 'on', inset, ...props }, ref) => (
+  <MenubarPrimitive.Label
+    ref={ref}
+    className={cn(tacticalHudEffectsClass(effects), 
+      'px-2 py-1.5 text-xs font-bold font-sans uppercase tracking-wider text-[var(--th-muted)]',
+      inset && 'pl-8',
+      className
+    )}
+    {...props}
+  />
+));
+MenubarLabel.displayName = MenubarPrimitive.Label.displayName;
 
-const MenubarSeparator = forwardRef<React.ElementRef<typeof MenubarSeparatorBase>, React.ComponentPropsWithoutRef<typeof MenubarSeparatorBase>>(
-  ({ className, ...props }, ref) => (
-    <MenubarSeparatorBase
-      ref={ref}
-      className={cn("-mx-1 my-1 h-px bg-muted", className)}
-      {...props}
-    />
-  )
-);
-MenubarSeparator.displayName = MenubarSeparatorBase.displayName;
+const MenubarSeparator = React.forwardRef<
+  React.ElementRef<typeof MenubarPrimitive.Separator>,
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Separator> & { effects?: TacticalHudEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <MenubarPrimitive.Separator
+    ref={ref}
+    className={cn(tacticalHudEffectsClass(effects), '-mx-1 my-1 h-px bg-[var(--th-muted)]/20', className)}
+    {...props}
+  />
+));
+MenubarSeparator.displayName = MenubarPrimitive.Separator.displayName;
 
-const MenubarShortcut = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLSpanElement>) => {
+const MenubarShortcut = ({ className, effects = 'on', ...props }: React.HTMLAttributes<HTMLSpanElement> & { effects?: TacticalHudEffects }) => {
   return (
     <span
-      className={cn(
-        "ml-auto text-xs tracking-widest text-muted-foreground",
+      className={cn(tacticalHudEffectsClass(effects), 
+        'ml-auto text-xs tracking-widest text-[var(--th-muted)] opacity-60',
         className
       )}
       {...props}
     />
   );
 };
-MenubarShortcut.displayName = "MenubarShortcut";
+MenubarShortcut.displayName = 'MenubarShortcut';
 
 export {
-  MenubarRoot,
+  Menubar,
   MenubarMenu,
   MenubarTrigger,
   MenubarContent,

@@ -1,9 +1,15 @@
-'use client';
+import * as React from 'react';
+import { DigitalClockBase, type DigitalClockBaseProps } from '@/ui/components/_base/digital-clock';
+import { cn } from '@/lib/utils';
 
-import { createDigitalClockFoundation } from '../_shared/family-foundations';
-
-const foundation = createDigitalClockFoundation('border');
-
-export const DigitalClock = foundation.DigitalClock;
-
-export default DigitalClock;
+const DigitalClock = React.forwardRef<HTMLDivElement, DigitalClockBaseProps>(
+  ({ className, ...props }, ref) => (
+    <DigitalClockBase
+      ref={ref}
+      className={cn('font-mono border border-[var(--br-border-dim)] p-2 rounded-none bg-background', className)}
+      {...props}
+    />
+  )
+);
+DigitalClock.displayName = 'DigitalClock';
+export { DigitalClock };

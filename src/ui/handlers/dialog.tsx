@@ -44,11 +44,11 @@ const resolveDialogConfigModule = (module: unknown) => {
 // Dynamic config loader
 const loadDialogConfig = async (version: Version) => {
   try {
-    const module = await import(`../config/components/${version}/dialog.tsx`);
+    const module = await import(`../config/components/${version}.json`);
     return resolveDialogConfigModule(module);
   } catch {
     try {
-      const module = await import(`../config/components/default/dialog.tsx`);
+      const module = await import(`../config/components/default.json`);
       return resolveDialogConfigModule(module);
     } catch {
       return null;

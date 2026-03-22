@@ -1,92 +1,50 @@
-'use client';
-
-import React, { forwardRef } from 'react';
+import * as React from 'react';
+import { SpinnerBase, type SpinnerBaseProps } from '../_base/spinner';
 import { cn } from '@/lib/utils';
-import type { VariantColors } from '../../types/common';
-import { SpinnerBase } from '../_base/spinner';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
+import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 
-type SpinnerSize = 'sm' | 'md' | 'lg' | 'xl';
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
-
-export interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  size?: SpinnerSize;
-  colors?: VariantColors;
+export interface SpinnerProps extends SpinnerBaseProps {
+  effects?: QuantumGateEffects;
 }
 
-const versionKey = 'quantum-gate';
+const getSizeStyles = (size: string = 'md') => {
+  switch (size) {
+    case 'xs': return 'h-3 w-3 border-[1.5px]';
+    case 'sm': return 'h-4 w-4 border-2';
+    case 'md': return 'h-6 w-6 border-2';
+    case 'lg': return 'h-9 w-9 border-[3px]';
+    case 'xl': return 'h-12 w-12 border-4';
+    default: return 'h-6 w-6 border-2';
+  }
+};
 
-const HEX_CLIP_PATH = 'polygon(25% 6%, 75% 6%, 98% 50%, 75% 94%, 25% 94%, 2% 50%)';
+const getVariantStyles = (variant: string = 'default') => {
+  switch (variant) {
+    case 'primary': return 'border-[var(--qg-iris-1)]/30 border-t-[var(--qg-iris-1)]';
+    case 'secondary': return 'border-[var(--text-secondary)]/30 border-t-[var(--text-secondary)]';
+    case 'accent': return 'border-[var(--qg-iris-1)]/30 border-t-[var(--qg-iris-1)]';
+    case 'destructive': return 'border-[var(--qg-iris-3)]/30 border-t-[var(--qg-iris-3)]';
+    case 'ghost': return 'border-[var(--text-muted)]/30 border-t-[var(--text-muted)]';
+    default: return 'border-[var(--qg-iris-1)]/30 border-t-[var(--qg-iris-1)]';
+  }
+};
 
-const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
-  ({ size = 'md', colors, type, uiType, className = '', style, ...props }, ref) => {
-    const resolvedType = uiType ?? type ?? 'default';
-    const palette = normalizeColors(colors);
-    const typeStyles = getCoreTypeStyles(resolvedType, colors);
-
-    const sizeMap: Record<SpinnerSize, number> = {
-      sm: 20,
-      md: 32,
-      lg: 48,
-      xl: 64,
-    };
-
-    const pxSize = sizeMap[size] ?? 32;
-
-    const spinnerColor =
-      resolvedType === 'solid'
-        ? palette.base ?? '#fff'
-        : resolvedType === 'inverse'
-          ? palette.base ?? '#000'
-          : (typeStyles.color as string | undefined) ?? palette.accentPrimary ?? '#8080ff';
-
-    const glowColor = palette.glow ?? 'rgba(100,100,255,0.6)';
-
+export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(
+  ({ className, effects = 'on', size = 'md', variant = 'default', ...props }, ref) => {
     return (
       <SpinnerBase
         ref={ref}
         size={size}
-        className={cn('relative inline-flex items-center justify-center', className)}
-        style={{ width: pxSize, height: pxSize, ...style }}
-        data-version={versionKey}
-        data-type={resolvedType}
+        variant={variant}
+        className={cn(quantumGateEffectsClass(effects), 
+          'animate-spin rounded-full border-t-transparent',
+          getSizeStyles(size),
+          getVariantStyles(variant),
+          className
+        )}
         {...props}
-      >
-        <span
-          className="absolute inset-0 animate-spin"
-          style={{
-            clipPath: HEX_CLIP_PATH,
-            border: '3px solid transparent',
-            borderTopColor: spinnerColor,
-            borderRightColor: spinnerColor,
-            filter: 'drop-shadow(0 0 8px ' + glowColor + ')',
-          }}
-        />
-        <span
-          className="absolute inset-[15%]"
-          style={{
-            clipPath: HEX_CLIP_PATH,
-            border: '2px solid ' + spinnerColor,
-            opacity: 0.4,
-            animation: 'spin 2s linear infinite reverse',
-          }}
-        />
-        <span
-          className="absolute inset-[35%]"
-          style={{
-            clipPath: HEX_CLIP_PATH,
-            backgroundColor: spinnerColor,
-            opacity: 0.8,
-            animation: 'pulse 1.5s ease-in-out infinite',
-          }}
-        />
-      </SpinnerBase>
+      />
     );
   }
 );
-
 Spinner.displayName = 'Spinner';
-
-export default Spinner;

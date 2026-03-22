@@ -2,7 +2,7 @@ import * as React from 'react';
 import { 
     ScrollAreaBase, 
     ScrollAreaViewportBase, 
-    ScrollAreaScrollbarBase, 
+    ScrollBarBase, 
     ScrollAreaThumbBase, 
     ScrollAreaCornerBase,
     type ScrollAreaBaseProps
@@ -28,9 +28,9 @@ export const ScrollArea = React.forwardRef<React.ElementRef<typeof ScrollAreaBas
 );
 ScrollArea.displayName = 'ScrollArea';
 
-export const ScrollBar = React.forwardRef<React.ElementRef<typeof ScrollAreaScrollbarBase>, React.ComponentPropsWithoutRef<typeof ScrollAreaScrollbarBase>>(
+export const ScrollBar = React.forwardRef<React.ElementRef<typeof ScrollBarBase>, React.ComponentPropsWithoutRef<typeof ScrollBarBase>>(
   ({ className, orientation = 'vertical', ...props }, ref) => (
-    <ScrollAreaScrollbarBase
+    <ScrollBarBase
       ref={ref}
       orientation={orientation}
       className={cn(
@@ -42,7 +42,7 @@ export const ScrollBar = React.forwardRef<React.ElementRef<typeof ScrollAreaScro
       {...props}
     >
       <ScrollAreaThumbBase className="relative flex-1 rounded-full bg-[var(--df-border)]" />
-    </ScrollAreaScrollbarBase>
+    </ScrollBarBase>
   )
 );
 ScrollBar.displayName = 'ScrollBar';

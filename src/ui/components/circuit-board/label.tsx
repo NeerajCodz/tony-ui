@@ -1,39 +1,42 @@
-'use client';
-
 import * as React from 'react';
-import { LabelBase } from '../_base/label';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { LabelBase, type LabelBaseProps } from '@/ui/components/_base/label';
+import { cn } from '@/lib/utils';
 
-export type LabelProps = Omit<React.ComponentPropsWithoutRef<typeof LabelBase>, 'type'> &
-  StyledProps & {
-    required?: boolean;
-    error?: boolean;
-  };
-
-export const Label = React.forwardRef<React.ElementRef<typeof LabelBase>, LabelProps>(
-  ({ className, version, type, uiType, colors, style, required, error, children, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <LabelBase
-        ref={ref}
-        className={cx('text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'circuit-board', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: error ? palette.accentPrimary : palette.foreground,
-        }}
-        {...props}
-      >
-        {children}
-        {required ? <span className="ml-1 text-red-400">*</span> : null}
-      </LabelBase>
-    );
+const labelVariants = cva(
+  'font-mono text-sm font-bold uppercase tracking-wider peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+  {
+    variants: {
+      size: {
+        sm: 'text-xs',
+        md: 'text-sm',
+        lg: 'text-base',
+      },
+      invalid: {
+        true: 'text-red-500 shadow-[0_0_2px_red]',
+        false: 'text-[var(--cb-trace-lit)]',
+      }
+    },
+    defaultVariants: {
+      size: 'md',
+      invalid: false,
+    }
   }
 );
 
+export interface LabelProps extends LabelBaseProps, VariantProps<typeof labelVariants> {}
+
+const Label = React.forwardRef<React.ElementRef<typeof LabelBase>, LabelProps>(
+  ({ className, size, invalid, ...props }, ref) => (
+    <LabelBase
+      ref={ref}
+      size={size}
+      invalid={invalid}
+      className={cn(labelVariants({ size, invalid: !!invalid, className }))}
+      {...props}
+    />
+  )
+);
 Label.displayName = 'Label';
 
-export default Label;
+export { Label };

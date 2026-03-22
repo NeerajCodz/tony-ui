@@ -1,162 +1,91 @@
-import React from 'react';
+import * as React from 'react';
+import { ContextMenuBase, ContextMenuTriggerBase, ContextMenuContentBase, ContextMenuItemBase, ContextMenuCheckboxItemBase, ContextMenuRadioItemBase, ContextMenuLabelBase, ContextMenuSeparatorBase, ContextMenuShortcutBase, ContextMenuGroupBase, ContextMenuPortalBase, ContextMenuSubBase, ContextMenuSubContentBase, ContextMenuSubTriggerBase, ContextMenuRadioGroupBase } from '@/ui/components/_base/context-menu';
 import { cn } from '@/lib/utils';
-import type { VariantColors } from '../../types/common';
+import { Check, ChevronRight, Circle } from 'lucide-react';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
+const ContextMenu = ContextMenuBase;
+const ContextMenuTrigger = ContextMenuTriggerBase;
+const ContextMenuGroup = ContextMenuGroupBase;
+const ContextMenuPortal = ContextMenuPortalBase;
+const ContextMenuSub = ContextMenuSubBase;
+const ContextMenuRadioGroup = ContextMenuRadioGroupBase;
 
-interface StyledProps {
-  type?: ComponentType;
-  colors?: VariantColors;
-  variant?: string;
-  version?: string;
-}
-
-const getTypeStyles = (type: ComponentType, colors?: VariantColors): React.CSSProperties => {
-  if (!colors) return {};
-
-  const base = colors.base;
-  const foreground = colors.foreground;
-  const border = colors.border;
-  const glow = colors.glow;
-  const accent = colors.accent?.primary ?? colors.base;
-  const muted = colors.muted ?? colors.border;
-
-  switch (type) {
-    case 'solid':
-      return {
-        backgroundColor: accent,
-        color: foreground,
-        border: border ? `1px solid ${border}` : undefined,
-        boxShadow: glow ? `0 0 12px ${glow}` : undefined,
-      };
-    case 'outline':
-      return {
-        backgroundColor: 'transparent',
-        color: accent ?? foreground,
-        border: border ? `1px solid ${border}` : (accent ? `1px solid ${accent}` : undefined),
-      };
-    case 'ghost':
-      return {
-        backgroundColor: 'transparent',
-        color: foreground,
-        border: 'none',
-      };
-    case 'inverse':
-      return {
-        backgroundColor: foreground,
-        color: base ?? accent,
-        border: foreground ? `1px solid ${foreground}` : undefined,
-      };
-    case 'contrast':
-      return {
-        backgroundColor: border ?? accent,
-        color: foreground,
-        border: accent ? `2px solid ${accent}` : undefined,
-        fontWeight: 700,
-      };
-    case 'soft':
-      return {
-        backgroundColor: base ? `color-mix(in srgb, ${base} 12%, transparent)` : undefined,
-        color: foreground,
-        border: muted ? `1px solid ${muted}` : undefined,
-      };
-    case 'default':
-    default:
-      return {
-        backgroundColor: base,
-        color: foreground,
-        border: border ? `1px solid ${border}` : undefined,
-      };
-  }
-};
-
-import {
-  ContextMenuBase,
-  ContextMenuTriggerBase,
-  ContextMenuGroupBase,
-  ContextMenuPortalBase,
-  ContextMenuSubBase,
-  ContextMenuRadioGroupBase,
-  ContextMenuSubTriggerBase,
-  ContextMenuSubContentBase,
-  ContextMenuContentBase,
-  ContextMenuItemBase,
-  ContextMenuCheckboxItemBase,
-  ContextMenuRadioItemBase,
-  ContextMenuLabelBase,
-  ContextMenuSeparatorBase,
-  ContextMenuItemIndicatorBase,
-} from '../_base/context-menu';
-
-export interface ContextMenuContentProps extends React.ComponentPropsWithoutRef<typeof ContextMenuContentBase>, StyledProps {}
-export interface ContextMenuSubContentProps extends React.ComponentPropsWithoutRef<typeof ContextMenuSubContentBase>, StyledProps {}
-export interface ContextMenuSubTriggerProps extends React.ComponentPropsWithoutRef<typeof ContextMenuSubTriggerBase>, StyledProps {}
-export interface ContextMenuItemProps extends React.ComponentPropsWithoutRef<typeof ContextMenuItemBase>, StyledProps {}
-export interface ContextMenuCheckboxItemProps extends React.ComponentPropsWithoutRef<typeof ContextMenuCheckboxItemBase>, StyledProps {}
-export interface ContextMenuRadioItemProps extends React.ComponentPropsWithoutRef<typeof ContextMenuRadioItemBase>, StyledProps {}
-export interface ContextMenuLabelProps extends React.ComponentPropsWithoutRef<typeof ContextMenuLabelBase>, StyledProps {}
-export interface ContextMenuSeparatorProps extends React.ComponentPropsWithoutRef<typeof ContextMenuSeparatorBase>, StyledProps {}
-
-const versionIdentityClass = 'context-menu-circuit-board';
-
-const ContextMenuContent = React.forwardRef<React.ElementRef<typeof ContextMenuContentBase>, ContextMenuContentProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
-    <ContextMenuContentBase
+const ContextMenuSubTrigger = React.forwardRef<React.ElementRef<typeof ContextMenuSubTriggerBase>, React.ComponentPropsWithoutRef<typeof ContextMenuSubTriggerBase> & { inset?: boolean }>(
+  ({ className, inset, children, ...props }, ref) => (
+    <ContextMenuSubTriggerBase
       ref={ref}
-      className={cn('context-menu-content', versionIdentityClass, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
+      className={cn(
+        'flex cursor-default select-none items-center rounded-none px-2 py-1.5 text-sm outline-none focus:bg-[var(--cb-trace-dim)]/20 focus:text-[var(--cb-trace-lit)] data-[state=open]:bg-[var(--cb-trace-dim)]/20 data-[state=open]:text-[var(--cb-trace-lit)] text-[var(--cb-trace-dim)] transition-colors',
+        inset && 'pl-8',
+        className
+      )}
       {...props}
-    />
+    >
+      {children}
+      <ChevronRight className="ml-auto h-4 w-4" />
+    </ContextMenuSubTriggerBase>
   )
 );
-ContextMenuContent.displayName = 'ContextMenuContent';
+ContextMenuSubTrigger.displayName = 'ContextMenuSubTrigger';
 
-const ContextMenuSubContent = React.forwardRef<React.ElementRef<typeof ContextMenuSubContentBase>, ContextMenuSubContentProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
+const ContextMenuSubContent = React.forwardRef<React.ElementRef<typeof ContextMenuSubContentBase>, React.ComponentPropsWithoutRef<typeof ContextMenuSubContentBase>>(
+  ({ className, ...props }, ref) => (
     <ContextMenuSubContentBase
       ref={ref}
-      className={cn('context-menu-sub-content', `${versionIdentityClass}__sub-content`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
+      className={cn(
+        'z-50 min-w-[8rem] overflow-hidden rounded-none border border-[var(--cb-trace)] bg-[var(--cb-soldermask)] p-1 text-[var(--cb-trace-dim)] shadow-[0_0_15px_var(--cb-trace)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 font-mono uppercase tracking-widest',
+        className
+      )}
       {...props}
     />
   )
 );
 ContextMenuSubContent.displayName = 'ContextMenuSubContent';
 
-const ContextMenuSubTrigger = React.forwardRef<React.ElementRef<typeof ContextMenuSubTriggerBase>, ContextMenuSubTriggerProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
-    <ContextMenuSubTriggerBase
+const ContextMenuContent = React.forwardRef<React.ElementRef<typeof ContextMenuContentBase>, React.ComponentPropsWithoutRef<typeof ContextMenuContentBase>>(
+  ({ className, ...props }, ref) => (
+    <ContextMenuContentBase
       ref={ref}
-      className={cn('context-menu-sub-trigger', `${versionIdentityClass}__sub-trigger`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
+      className={cn(
+        'z-50 min-w-[8rem] overflow-hidden rounded-none border border-[var(--cb-trace)] bg-[var(--cb-soldermask)] p-1 text-[var(--cb-trace-dim)] shadow-[0_0_15px_var(--cb-trace)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 font-mono uppercase tracking-widest',
+        className
+      )}
       {...props}
     />
   )
 );
-ContextMenuSubTrigger.displayName = 'ContextMenuSubTrigger';
+ContextMenuContent.displayName = 'ContextMenuContent';
 
-const ContextMenuItem = React.forwardRef<React.ElementRef<typeof ContextMenuItemBase>, ContextMenuItemProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
+const ContextMenuItem = React.forwardRef<React.ElementRef<typeof ContextMenuItemBase>, React.ComponentPropsWithoutRef<typeof ContextMenuItemBase> & { inset?: boolean }>(
+  ({ className, inset, ...props }, ref) => (
     <ContextMenuItemBase
       ref={ref}
-      className={cn('context-menu-item', `${versionIdentityClass}__item`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
+      className={cn(
+        'relative flex cursor-default select-none items-center rounded-none px-2 py-1.5 text-sm outline-none transition-colors focus:bg-[var(--cb-trace-dim)]/20 focus:text-[var(--cb-trace-lit)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:text-[var(--cb-trace-lit)]',
+        inset && 'pl-8',
+        className
+      )}
       {...props}
     />
   )
 );
 ContextMenuItem.displayName = 'ContextMenuItem';
 
-const ContextMenuCheckboxItem = React.forwardRef<React.ElementRef<typeof ContextMenuCheckboxItemBase>, ContextMenuCheckboxItemProps>(
-  ({ className, type = 'default', colors, style, children, ...props }, ref) => (
+const ContextMenuCheckboxItem = React.forwardRef<React.ElementRef<typeof ContextMenuCheckboxItemBase>, React.ComponentPropsWithoutRef<typeof ContextMenuCheckboxItemBase>>(
+  ({ className, children, checked, ...props }, ref) => (
     <ContextMenuCheckboxItemBase
       ref={ref}
-      className={cn('context-menu-checkbox-item', `${versionIdentityClass}__checkbox-item`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
+      className={cn(
+        'relative flex cursor-default select-none items-center rounded-none py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--cb-trace-dim)]/20 focus:text-[var(--cb-trace-lit)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        className
+      )}
+      checked={checked}
       {...props}
     >
-      <span className={cn('context-menu-item-indicator', `${versionIdentityClass}__item-indicator`)}>
-        <ContextMenuItemIndicatorBase />
+      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+        <ContextMenuItemBase asChild>
+          <Check className="h-4 w-4" />
+        </ContextMenuItemBase>
       </span>
       {children}
     </ContextMenuCheckboxItemBase>
@@ -164,16 +93,20 @@ const ContextMenuCheckboxItem = React.forwardRef<React.ElementRef<typeof Context
 );
 ContextMenuCheckboxItem.displayName = 'ContextMenuCheckboxItem';
 
-const ContextMenuRadioItem = React.forwardRef<React.ElementRef<typeof ContextMenuRadioItemBase>, ContextMenuRadioItemProps>(
-  ({ className, type = 'default', colors, style, children, ...props }, ref) => (
+const ContextMenuRadioItem = React.forwardRef<React.ElementRef<typeof ContextMenuRadioItemBase>, React.ComponentPropsWithoutRef<typeof ContextMenuRadioItemBase>>(
+  ({ className, children, ...props }, ref) => (
     <ContextMenuRadioItemBase
       ref={ref}
-      className={cn('context-menu-radio-item', `${versionIdentityClass}__radio-item`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
+      className={cn(
+        'relative flex cursor-default select-none items-center rounded-none py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--cb-trace-dim)]/20 focus:text-[var(--cb-trace-lit)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        className
+      )}
       {...props}
     >
-      <span className={cn('context-menu-item-indicator', `${versionIdentityClass}__item-indicator`)}>
-        <ContextMenuItemIndicatorBase />
+      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+        <ContextMenuItemBase asChild>
+          <Circle className="h-2 w-2 fill-current" />
+        </ContextMenuItemBase>
       </span>
       {children}
     </ContextMenuRadioItemBase>
@@ -181,39 +114,43 @@ const ContextMenuRadioItem = React.forwardRef<React.ElementRef<typeof ContextMen
 );
 ContextMenuRadioItem.displayName = 'ContextMenuRadioItem';
 
-const ContextMenuLabel = React.forwardRef<React.ElementRef<typeof ContextMenuLabelBase>, ContextMenuLabelProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
+const ContextMenuLabel = React.forwardRef<React.ElementRef<typeof ContextMenuLabelBase>, React.ComponentPropsWithoutRef<typeof ContextMenuLabelBase> & { inset?: boolean }>(
+  ({ className, inset, ...props }, ref) => (
     <ContextMenuLabelBase
       ref={ref}
-      className={cn('context-menu-label', `${versionIdentityClass}__label`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
+      className={cn('px-2 py-1.5 text-sm font-semibold text-[var(--cb-trace-lit)]', inset && 'pl-8', className)}
       {...props}
     />
   )
 );
 ContextMenuLabel.displayName = 'ContextMenuLabel';
 
-const ContextMenuSeparator = React.forwardRef<React.ElementRef<typeof ContextMenuSeparatorBase>, ContextMenuSeparatorProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
+const ContextMenuSeparator = React.forwardRef<React.ElementRef<typeof ContextMenuSeparatorBase>, React.ComponentPropsWithoutRef<typeof ContextMenuSeparatorBase>>(
+  ({ className, ...props }, ref) => (
     <ContextMenuSeparatorBase
       ref={ref}
-      className={cn('context-menu-separator', `${versionIdentityClass}__separator`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
+      className={cn('-mx-1 my-1 h-px bg-[var(--cb-trace-dim)]/30', className)}
       {...props}
     />
   )
 );
 ContextMenuSeparator.displayName = 'ContextMenuSeparator';
 
-const ContextMenuTrigger = ContextMenuTriggerBase;
-const ContextMenuGroup = ContextMenuGroupBase;
-const ContextMenuPortal = ContextMenuPortalBase;
-const ContextMenuSub = ContextMenuSubBase;
-const ContextMenuRadioGroup = ContextMenuRadioGroupBase;
-
-export const ContextMenu = ContextMenuBase;
+const ContextMenuShortcut = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement>) => {
+  return (
+    <ContextMenuShortcutBase
+      className={cn('ml-auto text-xs tracking-widest text-[var(--cb-trace-dim)] opacity-50', className)}
+      {...props}
+    />
+  );
+};
+ContextMenuShortcut.displayName = 'ContextMenuShortcut';
 
 export {
+  ContextMenu,
   ContextMenuTrigger,
   ContextMenuContent,
   ContextMenuItem,
@@ -229,9 +166,3 @@ export {
   ContextMenuSubTrigger,
   ContextMenuRadioGroup,
 };
-
-function ContextMenuShortcut(props: React.HTMLAttributes<HTMLSpanElement>) {
-  return <span className={cn('context-menu-shortcut', `${versionIdentityClass}__shortcut`, props.className)} {...props} />;
-}
-
-export default ContextMenu;

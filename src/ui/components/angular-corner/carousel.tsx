@@ -1,206 +1,214 @@
-'use client';
-
 import * as React from 'react';
+import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { CarouselContext } from '../_base/carousel';
 import { cn } from '@/lib/utils';
-import {
-  CarouselBase,
-  CarouselContentBase,
-  CarouselItemBase,
-  CarouselPreviousBase,
-  CarouselNextBase,
-} from '../_base/carousel';
-import type { VariantColors } from '../../types/common';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
+import { Button } from './button';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
+type CarouselApi = UseEmblaCarouselType[1];
+type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
+type CarouselOptions = UseCarouselParameters[0];
+type CarouselPlugin = UseCarouselParameters[1];
 
-interface StyledProps {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  colors?: VariantColors;
+export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
+  opts?: CarouselOptions;
+  plugins?: CarouselPlugin;
+  orientation?: 'horizontal' | 'vertical';
+  setApi?: (api: CarouselApi) => void;
 }
 
-const versionKey = 'angular-corner';
+const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
-const CAROUSEL_CLIP_PATH = 'polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 16px), 0 16px)';
-const ITEM_CLIP_PATH = 'polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px)';
-const BUTTON_CLIP_PATH = 'polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px)';
+const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
+  ({ orientation = 'horizontal', opts, setApi, plugins, className, children, ...props }, ref) => {
+    const [emblaRef, api] = useEmblaCarousel(
+      {
+        ...opts,
+        axis: orientation === 'horizontal' ? 'x' : 'y',
+      },
+      plugins
+    );
+    const [canScrollPrev, setCanScrollPrev] = React.useState(false);
+    const [canScrollNext, setCanScrollNext] = React.useState(false);
+    const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-export const Carousel = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof CarouselBase> & StyledProps
->(({ className, orientation = 'horizontal', type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
+    const onSelect = React.useCallback((api: CarouselApi) => {
+      if (!api) return;
+      setCanScrollPrev(api.canScrollPrev());
+      setCanScrollNext(api.canScrollNext());
+      setSelectedIndex(api.selectedScrollSnap());
+    }, []);
 
-  const backgroundColor =
-    resolvedType === 'solid'
-      ? palette.accentPrimary ?? palette.base
-      : resolvedType === 'soft' && palette.accentRgb
-        ? 'rgba(' + palette.accentRgb + ', 0.1)'
-        : resolvedType === 'inverse'
-          ? palette.foreground
-          : resolvedType === 'ghost'
-            ? 'transparent'
-            : (typeStyles.backgroundColor as string | undefined) ?? palette.base ?? '#0a0a0a';
+    const scrollTo = React.useCallback((index: number) => {
+      api?.scrollTo(index);
+    }, [api]);
 
-  const borderColor =
-    resolvedType === 'outline' || resolvedType === 'contrast'
-      ? palette.accentPrimary ?? palette.border
-      : resolvedType === 'ghost'
-        ? 'transparent'
-        : palette.border ?? '#333';
+    const scrollPrev = React.useCallback(() => {
+      api?.scrollPrev();
+    }, [api]);
 
-  return (
-    <CarouselBase
-      ref={ref}
-      orientation={orientation}
-      className={cn('relative', className)}
-      style={{
-        clipPath: CAROUSEL_CLIP_PATH,
-        backgroundColor,
-        border: '2px solid ' + borderColor,
-        boxShadow: '0 0 12px ' + (palette.glow ?? 'rgba(0,0,0,0.3)'),
-        ...style,
-      }}
-      data-version={versionKey}
-      data-type={resolvedType}
-      {...props}
-    />
-  );
-});
+    const scrollNext = React.useCallback(() => {
+      api?.scrollNext();
+    }, [api]);
+
+    const handleKeyDown = React.useCallback(
+      (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          scrollPrev();
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          scrollNext();
+        }
+      },
+      [scrollPrev, scrollNext]
+    );
+
+    React.useEffect(() => {
+      if (!api || !setApi) return;
+      setApi(api);
+    }, [api, setApi]);
+
+    React.useEffect(() => {
+      if (!api) return;
+      onSelect(api);
+      api.on('reInit', onSelect);
+      api.on('select', onSelect);
+
+      return () => {
+        api?.off('select', onSelect);
+      };
+    }, [api, onSelect]);
+
+    return (
+      <CarouselContext.Provider
+        value={{
+          orientation: orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
+          scrollPrev,
+          scrollNext,
+          canScrollPrev,
+          canScrollNext,
+          selectedIndex,
+          scrollTo,
+        }}
+      >
+        <div
+          ref={ref}
+          onKeyDown={handleKeyDown}
+          className={cn('relative', className)}
+          role="region"
+          aria-roledescription="carousel"
+          {...props}
+        >
+          {children}
+        </div>
+      </CarouselContext.Provider>
+    );
+  }
+);
 Carousel.displayName = 'Carousel';
 
-export const CarouselContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { orientation?: 'horizontal' | 'vertical' }
->(({ className, orientation = 'horizontal', ...props }, ref) => (
-  <CarouselContentBase
-    ref={ref}
-    className={cn(
-      'flex',
-      orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col',
-      className
-    )}
-    {...props}
-  />
-));
+const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => {
+    const { orientation } = React.useContext(CarouselContext)!;
+
+    return (
+      <div ref={ref} className="overflow-hidden" style={{ clipPath: AC_CLIP_PATH, '--corner': '16px' } as React.CSSProperties}>
+        <div
+          className={cn(
+            'flex',
+            orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col',
+            className
+          )}
+          {...props}
+        />
+      </div>
+    );
+  }
+);
 CarouselContent.displayName = 'CarouselContent';
 
-export const CarouselItem = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & StyledProps & { orientation?: 'horizontal' | 'vertical' }
->(({ className, orientation = 'horizontal', type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
+const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => {
+    const { orientation } = React.useContext(CarouselContext)!;
 
-  const itemBg =
-    resolvedType === 'ghost'
-      ? 'transparent'
-      : 'rgba(' + (palette.accentRgb ?? '50,50,50') + ', 0.05)';
-
-  return (
-    <CarouselItemBase
-      ref={ref}
-      className={cn(
-        'min-w-0 shrink-0 grow-0 basis-full p-1',
-        orientation === 'horizontal' ? 'pl-4' : 'pt-4',
-        className
-      )}
-      style={{
-        clipPath: ITEM_CLIP_PATH,
-        backgroundColor: itemBg,
-        ...style,
-      }}
-      {...props}
-    />
-  );
-});
+    return (
+      <div
+        ref={ref}
+        role="group"
+        aria-roledescription="slide"
+        className={cn(
+          'min-w-0 shrink-0 grow-0 basis-full',
+          orientation === 'horizontal' ? 'pl-4' : 'pt-4',
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
 CarouselItem.displayName = 'CarouselItem';
 
-export const CarouselPrevious = React.forwardRef<
-  HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
+const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
+  ({ className, visualType = 'outline', size = 'md', ...props }, ref) => {
+    const { orientation, scrollPrev, canScrollPrev } = React.useContext(CarouselContext)!;
 
-  const backgroundColor =
-    resolvedType === 'solid'
-      ? palette.accentPrimary ?? '#333'
-      : resolvedType === 'ghost'
-        ? 'transparent'
-        : palette.base ?? '#0a0a0a';
-
-  const borderColor = palette.accentPrimary ?? palette.border ?? '#555';
-  const textColor = palette.foreground ?? '#fff';
-
-  return (
-    <CarouselPreviousBase
-      ref={ref}
-      className={cn(
-        'absolute left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-50',
-        className
-      )}
-      style={{
-        clipPath: BUTTON_CLIP_PATH,
-        backgroundColor,
-        border: '2px solid ' + borderColor,
-        color: textColor,
-        boxShadow: '0 0 8px ' + (palette.glow ?? 'rgba(0,0,0,0.3)'),
-        ...style,
-      }}
-      {...props}
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M15 18l-6-6 6-6" />
-      </svg>
-    </CarouselPreviousBase>
-  );
-});
+    return (
+      <Button
+        ref={ref}
+        visualType={visualType}
+        size={size}
+        className={cn(
+          'absolute h-8 w-8 rounded-none p-0',
+          orientation === 'horizontal'
+            ? '-left-12 top-1/2 -translate-y-1/2'
+            : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
+          className
+        )}
+        disabled={!canScrollPrev}
+        onClick={scrollPrev}
+        {...props}
+      >
+        <ArrowLeft className="h-4 w-4" />
+        <span className="sr-only">Previous slide</span>
+      </Button>
+    );
+  }
+);
 CarouselPrevious.displayName = 'CarouselPrevious';
 
-export const CarouselNext = React.forwardRef<
-  HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
+const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
+  ({ className, visualType = 'outline', size = 'md', ...props }, ref) => {
+    const { orientation, scrollNext, canScrollNext } = React.useContext(CarouselContext)!;
 
-  const backgroundColor =
-    resolvedType === 'solid'
-      ? palette.accentPrimary ?? '#333'
-      : resolvedType === 'ghost'
-        ? 'transparent'
-        : palette.base ?? '#0a0a0a';
-
-  const borderColor = palette.accentPrimary ?? palette.border ?? '#555';
-  const textColor = palette.foreground ?? '#fff';
-
-  return (
-    <CarouselNextBase
-      ref={ref}
-      className={cn(
-        'absolute right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-50',
-        className
-      )}
-      style={{
-        clipPath: BUTTON_CLIP_PATH,
-        backgroundColor,
-        border: '2px solid ' + borderColor,
-        color: textColor,
-        boxShadow: '0 0 8px ' + (palette.glow ?? 'rgba(0,0,0,0.3)'),
-        ...style,
-      }}
-      {...props}
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M9 18l6-6-6-6" />
-      </svg>
-    </CarouselNextBase>
-  );
-});
+    return (
+      <Button
+        ref={ref}
+        visualType={visualType}
+        size={size}
+        className={cn(
+          'absolute h-8 w-8 rounded-none p-0',
+          orientation === 'horizontal'
+            ? '-right-12 top-1/2 -translate-y-1/2'
+            : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
+          className
+        )}
+        disabled={!canScrollNext}
+        onClick={scrollNext}
+        {...props}
+      >
+        <ArrowRight className="h-4 w-4" />
+        <span className="sr-only">Next slide</span>
+      </Button>
+    );
+  }
+);
 CarouselNext.displayName = 'CarouselNext';
 
-export default Carousel;
+export {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+};

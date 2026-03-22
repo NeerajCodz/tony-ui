@@ -1,10 +1,58 @@
-'use client';
+import * as React from 'react';
+import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
+import { type VariantProps } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
+import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
+import { toggleVariants } from './toggle';
 
-import { createToggleGroupFoundation } from '../_shared/family-foundations';
+const ToggleGroupContext = React.createContext<
+  VariantProps<typeof toggleVariants>
+>({
+  size: 'default',
+  variant: 'default',
+});
 
-const foundation = createToggleGroupFoundation('holo-frame');
+const ToggleGroup = React.forwardRef<
+  React.ElementRef<typeof ToggleGroupPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> & { effects?: HoloFrameEffects } &
+    VariantProps<typeof toggleVariants>
+>(({ className, effects = 'on', variant, size, children, ...props }, ref) => (
+  <ToggleGroupPrimitive.Root
+    ref={ref}
+    className={cn(holoFrameEffectsClass(effects), 'flex items-center justify-center gap-1', className)}
+    {...props}
+  >
+    <ToggleGroupContext.Provider value={{ variant, size }}>
+      {children}
+    </ToggleGroupContext.Provider>
+  </ToggleGroupPrimitive.Root>
+));
 
-export const ToggleGroup = foundation.ToggleGroup;
-export const ToggleGroupItem = foundation.ToggleGroupItem;
+const ToggleGroupItem = React.forwardRef<
+  React.ElementRef<typeof ToggleGroupPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> & { effects?: HoloFrameEffects } &
+    VariantProps<typeof toggleVariants>
+>(({ className, effects = 'on', children, variant, size, ...props }, ref) => {
+  const context = React.useContext(ToggleGroupContext);
 
-export default ToggleGroup;
+  return (
+    <ToggleGroupPrimitive.Item
+      ref={ref}
+      className={cn(holoFrameEffectsClass(effects), 
+        toggleVariants({
+          variant: context.variant || variant,
+          size: context.size || size,
+        }),
+        className
+      )}
+      style={{ } as React.CSSProperties}
+      {...props}
+    >
+      {children}
+    </ToggleGroupPrimitive.Item>
+  );
+});
+
+ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName;
+
+export { ToggleGroup, ToggleGroupItem };

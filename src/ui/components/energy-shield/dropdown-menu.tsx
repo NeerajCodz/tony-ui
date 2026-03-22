@@ -1,220 +1,198 @@
-'use client';
-
 import * as React from 'react';
+import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { Check, ChevronRight, Circle } from 'lucide-react';
-import {
-  DropdownMenuBase,
-  DropdownMenuCheckboxItemBase,
-  DropdownMenuContentBase,
-  DropdownMenuGroupBase,
-  DropdownMenuItemBase,
-  DropdownMenuItemIndicatorBase,
-  DropdownMenuLabelBase,
-  DropdownMenuPortalBase,
-  DropdownMenuRadioGroupBase,
-  DropdownMenuRadioItemBase,
-  DropdownMenuSeparatorBase,
-  DropdownMenuShortcutBase,
-  DropdownMenuSubBase,
-  DropdownMenuSubContentBase,
-  DropdownMenuSubTriggerBase,
-  DropdownMenuTriggerBase,
-} from '../_base/dropdown-menu';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from '@/lib/utils';
+import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
-const contentClassName =
-  'z-50 min-w-[8rem] overflow-hidden rounded p-1 text-sm data-[state=open]:animate-in data-[state=closed]:animate-out';
-const itemClassName =
-  'relative flex cursor-default select-none items-center rounded px-2 py-1.5 text-sm outline-none';
+const DropdownMenu = DropdownMenuPrimitive.Root;
 
-export type DropdownMenuProps = React.ComponentPropsWithoutRef<typeof DropdownMenuBase>;
-export type DropdownMenuContentProps = Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuContentBase>, 'type'> & StyledProps;
-export type DropdownMenuItemProps = Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuItemBase>, 'type'> &
-  StyledProps & {
+const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
+
+const DropdownMenuGroup = DropdownMenuPrimitive.Group;
+
+const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
+
+const DropdownMenuSub = DropdownMenuPrimitive.Sub;
+
+const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
+
+
+const DropdownMenuSubTrigger = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & { effects?: EnergyShieldEffects } & {
     inset?: boolean;
-  };
-export type DropdownMenuSubTriggerProps = Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuSubTriggerBase>, 'type'> &
-  StyledProps & {
+  }
+>(({ className, effects = 'on', inset, children, ...props }, ref) => (
+  <DropdownMenuPrimitive.SubTrigger
+    ref={ref}
+    className={cn(energyShieldEffectsClass(effects), 
+      'flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none focus:bg-[var(--es-plasma-1)] focus:text-[var(--es-bg)] data-[state=open]:bg-[var(--es-plasma-1)] data-[state=open]:text-[var(--es-bg)] font-mono',
+      inset && 'pl-8',
+      className
+    )}
+    {...props}
+  >
+    {children}
+    <ChevronRight className="ml-auto h-4 w-4" />
+  </DropdownMenuPrimitive.SubTrigger>
+));
+DropdownMenuSubTrigger.displayName =
+  DropdownMenuPrimitive.SubTrigger.displayName;
+
+const DropdownMenuSubContent = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.SubContent>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent> & { effects?: EnergyShieldEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <DropdownMenuPrimitive.SubContent
+    ref={ref}
+    className={cn(energyShieldEffectsClass(effects), 
+      'z-50 min-w-[8rem] overflow-hidden border border-[var(--es-hex-line)] bg-[var(--es-surface)] p-1 text-[var(--text-primary)] shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+      className
+    )}
+    style={{ '--corner': '8px' } as React.CSSProperties}
+    {...props}
+  />
+));
+DropdownMenuSubContent.displayName =
+  DropdownMenuPrimitive.SubContent.displayName;
+
+const DropdownMenuContent = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content> & { effects?: EnergyShieldEffects }
+>(({ className, effects = 'on', sideOffset = 4, ...props }, ref) => (
+  <DropdownMenuPrimitive.Portal>
+    <DropdownMenuPrimitive.Content
+      ref={ref}
+      sideOffset={sideOffset}
+      className={cn(energyShieldEffectsClass(effects), 
+        'z-50 min-w-[8rem] overflow-hidden border border-[var(--es-hex-line)] bg-[var(--es-surface)] p-1 text-[var(--text-primary)] shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        className
+      )}
+      style={{ '--corner': '8px' } as React.CSSProperties}
+      {...props}
+    />
+  </DropdownMenuPrimitive.Portal>
+));
+DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
+
+const DropdownMenuItem = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & { effects?: EnergyShieldEffects } & {
     inset?: boolean;
-  };
-export type DropdownMenuSubContentProps = Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuSubContentBase>, 'type'> & StyledProps;
-export type DropdownMenuCheckboxItemProps = Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuCheckboxItemBase>, 'type'> & StyledProps;
-export type DropdownMenuRadioItemProps = Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuRadioItemBase>, 'type'> & StyledProps;
-export type DropdownMenuLabelProps = Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuLabelBase>, 'type'> &
-  StyledProps & {
+  }
+>(({ className, effects = 'on', inset, ...props }, ref) => (
+  <DropdownMenuPrimitive.Item
+    ref={ref}
+    className={cn(energyShieldEffectsClass(effects), 
+      'relative flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none transition-colors focus:bg-[var(--es-plasma-1)] focus:text-[var(--es-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-mono',
+      inset && 'pl-8',
+      className
+    )}
+    {...props}
+  />
+));
+DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName;
+
+const DropdownMenuCheckboxItem = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem> & { effects?: EnergyShieldEffects }
+>(({ className, effects = 'on', children, checked, ...props }, ref) => (
+  <DropdownMenuPrimitive.CheckboxItem
+    ref={ref}
+    className={cn(energyShieldEffectsClass(effects), 
+      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--es-plasma-1)] focus:text-[var(--es-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-mono',
+      className
+    )}
+    checked={checked}
+    {...props}
+  >
+    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <DropdownMenuPrimitive.ItemIndicator>
+        <Check className="h-4 w-4" />
+      </DropdownMenuPrimitive.ItemIndicator>
+    </span>
+    {children}
+  </DropdownMenuPrimitive.CheckboxItem>
+));
+DropdownMenuCheckboxItem.displayName =
+  DropdownMenuPrimitive.CheckboxItem.displayName;
+
+const DropdownMenuRadioItem = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem> & { effects?: EnergyShieldEffects }
+>(({ className, effects = 'on', children, ...props }, ref) => (
+  <DropdownMenuPrimitive.RadioItem
+    ref={ref}
+    className={cn(energyShieldEffectsClass(effects), 
+      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--es-plasma-1)] focus:text-[var(--es-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-mono',
+      className
+    )}
+    {...props}
+  >
+    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <DropdownMenuPrimitive.ItemIndicator>
+        <Circle className="h-2 w-2 fill-current" />
+      </DropdownMenuPrimitive.ItemIndicator>
+    </span>
+    {children}
+  </DropdownMenuPrimitive.RadioItem>
+));
+DropdownMenuRadioItem.displayName = DropdownMenuPrimitive.RadioItem.displayName;
+
+const DropdownMenuLabel = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.Label>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & { effects?: EnergyShieldEffects } & {
     inset?: boolean;
-  };
-export type DropdownMenuSeparatorProps = Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuSeparatorBase>, 'type'> & StyledProps;
+  }
+>(({ className, effects = 'on', inset, ...props }, ref) => (
+  <DropdownMenuPrimitive.Label
+    ref={ref}
+    className={cn(energyShieldEffectsClass(effects), 
+      'px-2 py-1.5 text-xs font-bold text-[var(--text-muted)] font-sans uppercase tracking-wider',
+      inset && 'pl-8',
+      className
+    )}
+    {...props}
+  />
+));
+DropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName;
 
-export const DropdownMenuTrigger = DropdownMenuTriggerBase;
-export const DropdownMenuGroup = DropdownMenuGroupBase;
-export const DropdownMenuPortal = DropdownMenuPortalBase;
-export const DropdownMenuSub = DropdownMenuSubBase;
-export const DropdownMenuRadioGroup = DropdownMenuRadioGroupBase;
+const DropdownMenuSeparator = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator> & { effects?: EnergyShieldEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <DropdownMenuPrimitive.Separator
+    ref={ref}
+    className={cn(energyShieldEffectsClass(effects), '-mx-1 my-1 h-px bg-[var(--es-hex-line)]', className)}
+    {...props}
+  />
+));
+DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName;
 
-export const DropdownMenuContent = React.forwardRef<React.ElementRef<typeof DropdownMenuContentBase>, DropdownMenuContentProps>(
-  ({ className, sideOffset = 4, version, type, uiType, colors, style, ...props }, ref) => (
-    <DropdownMenuPortal>
-      <DropdownMenuContentBase
-        ref={ref}
-        sideOffset={sideOffset}
-        className={cx(contentClassName, className)}
-        style={getSurfaceStyle(version ?? 'energy-shield', type, uiType, colors, style)}
-        {...props}
-      />
-    </DropdownMenuPortal>
-  )
-);
-DropdownMenuContent.displayName = 'DropdownMenuContent';
-
-export const DropdownMenuSubTrigger = React.forwardRef<React.ElementRef<typeof DropdownMenuSubTriggerBase>, DropdownMenuSubTriggerProps>(
-  ({ className, inset, children, version, type, uiType, colors, style, ...props }, ref) => (
-    <DropdownMenuSubTriggerBase
-      ref={ref}
-      className={cx(itemClassName, inset && 'pl-8', className)}
-      style={getSurfaceStyle(version ?? 'energy-shield', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    >
-      {children}
-      <ChevronRight className="ml-auto h-4 w-4" />
-    </DropdownMenuSubTriggerBase>
-  )
-);
-DropdownMenuSubTrigger.displayName = 'DropdownMenuSubTrigger';
-
-export const DropdownMenuSubContent = React.forwardRef<React.ElementRef<typeof DropdownMenuSubContentBase>, DropdownMenuSubContentProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <DropdownMenuSubContentBase
-      ref={ref}
-      className={cx(contentClassName, className)}
-      style={getSurfaceStyle(version ?? 'energy-shield', type, uiType, colors, style)}
+const DropdownMenuShortcut = ({ className, effects = 'on', ...props }: React.HTMLAttributes<HTMLSpanElement> & { effects?: EnergyShieldEffects }) => {
+  return (
+    <span
+      className={cn(energyShieldEffectsClass(effects), 'ml-auto text-xs tracking-widest opacity-60', className)}
       {...props}
     />
-  )
-);
-DropdownMenuSubContent.displayName = 'DropdownMenuSubContent';
-
-export const DropdownMenuItem = React.forwardRef<React.ElementRef<typeof DropdownMenuItemBase>, DropdownMenuItemProps>(
-  ({ className, inset, version, type, uiType, colors, style, ...props }, ref) => (
-    <DropdownMenuItemBase
-      ref={ref}
-      className={cx(itemClassName, inset && 'pl-8', className)}
-      style={getSurfaceStyle(version ?? 'energy-shield', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    />
-  )
-);
-DropdownMenuItem.displayName = 'DropdownMenuItem';
-
-export const DropdownMenuCheckboxItem = React.forwardRef<React.ElementRef<typeof DropdownMenuCheckboxItemBase>, DropdownMenuCheckboxItemProps>(
-  ({ className, children, checked, version, type, uiType, colors, style, ...props }, ref) => (
-    <DropdownMenuCheckboxItemBase
-      ref={ref}
-      className={cx(itemClassName, 'pl-8', className)}
-      checked={checked}
-      style={getSurfaceStyle(version ?? 'energy-shield', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    >
-      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-        <DropdownMenuItemIndicatorBase>
-          <Check className="h-4 w-4" />
-        </DropdownMenuItemIndicatorBase>
-      </span>
-      {children}
-    </DropdownMenuCheckboxItemBase>
-  )
-);
-DropdownMenuCheckboxItem.displayName = 'DropdownMenuCheckboxItem';
-
-export const DropdownMenuRadioItem = React.forwardRef<React.ElementRef<typeof DropdownMenuRadioItemBase>, DropdownMenuRadioItemProps>(
-  ({ className, children, version, type, uiType, colors, style, ...props }, ref) => (
-    <DropdownMenuRadioItemBase
-      ref={ref}
-      className={cx(itemClassName, 'pl-8', className)}
-      style={getSurfaceStyle(version ?? 'energy-shield', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    >
-      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-        <DropdownMenuItemIndicatorBase>
-          <Circle className="h-2 w-2 fill-current" />
-        </DropdownMenuItemIndicatorBase>
-      </span>
-      {children}
-    </DropdownMenuRadioItemBase>
-  )
-);
-DropdownMenuRadioItem.displayName = 'DropdownMenuRadioItem';
-
-export const DropdownMenuLabel = React.forwardRef<React.ElementRef<typeof DropdownMenuLabelBase>, DropdownMenuLabelProps>(
-  ({ className, inset, version, type, uiType, colors, style, ...props }, ref) => (
-    <DropdownMenuLabelBase
-      ref={ref}
-      className={cx('px-2 py-1.5 text-sm font-semibold', inset && 'pl-8', className)}
-      style={getSurfaceStyle(version ?? 'energy-shield', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    />
-  )
-);
-DropdownMenuLabel.displayName = 'DropdownMenuLabel';
-
-export const DropdownMenuSeparator = React.forwardRef<React.ElementRef<typeof DropdownMenuSeparatorBase>, DropdownMenuSeparatorProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <DropdownMenuSeparatorBase
-      ref={ref}
-      className={cx('-mx-1 my-1 h-px', className)}
-      style={getSurfaceStyle(version ?? 'energy-shield', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    />
-  )
-);
-DropdownMenuSeparator.displayName = 'DropdownMenuSeparator';
-
-export const DropdownMenuShortcut = ({ className, ...props }: React.ComponentPropsWithoutRef<typeof DropdownMenuShortcutBase>) => (
-  <DropdownMenuShortcutBase className={cx('ml-auto text-xs tracking-widest opacity-60', className)} {...props} />
-);
+  );
+};
 DropdownMenuShortcut.displayName = 'DropdownMenuShortcut';
 
-const DropdownMenuRoot = DropdownMenuBase;
-
-export const DropdownMenu = Object.assign(DropdownMenuRoot, {
-  Trigger: DropdownMenuTrigger,
-  Content: DropdownMenuContent,
-  Item: DropdownMenuItem,
-  CheckboxItem: DropdownMenuCheckboxItem,
-  RadioItem: DropdownMenuRadioItem,
-  Label: DropdownMenuLabel,
-  Separator: DropdownMenuSeparator,
-  Shortcut: DropdownMenuShortcut,
-  Group: DropdownMenuGroup,
-  Portal: DropdownMenuPortal,
-  Sub: DropdownMenuSub,
-  SubContent: DropdownMenuSubContent,
-  SubTrigger: DropdownMenuSubTrigger,
-  RadioGroup: DropdownMenuRadioGroup,
-});
-
-export default DropdownMenu;
+export {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuGroup,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuRadioGroup,
+};

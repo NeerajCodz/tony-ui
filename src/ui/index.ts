@@ -52,7 +52,6 @@ export { default as ContextMenu } from './components/default/context-menu';
 export { default as DatePicker } from './components/default/date-picker';
 export { default as Direction } from './components/default/direction';
 export { default as Empty } from './components/default/empty';
-export { default as EmptyState } from './components/default/empty-state';
 export { default as Field } from './components/default/field';
 export { HoverCard, HoverCardContent, HoverCardTrigger } from './components/default/hover-card';
 export { default as IconButton } from './components/default/icon-button';

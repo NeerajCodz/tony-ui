@@ -1,152 +1,71 @@
-'use client';
-
 import * as React from 'react';
+import { OTPInput, OTPInputContext } from 'input-otp';
+import { Dot } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import {
-  InputOTPBase,
-  InputOTPGroupBase,
-  InputOTPSlotBase,
-  InputOTPSeparatorBase,
-} from '../_base/input-otp';
-import type { VariantColors } from '../../types/common';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
+const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
-interface StyledProps {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  colors?: VariantColors;
-}
-
-const versionKey = 'angular-corner';
-
-const SLOT_CLIP_PATH = 'polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)';
-
-export const InputOTP = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof InputOTPBase> & StyledProps
->(({ className, type, uiType, colors, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-
-  return (
-    <InputOTPBase
-      ref={ref}
-      className={cn('flex items-center gap-2', className)}
-      data-version={versionKey}
-      data-type={resolvedType}
-      {...props}
-    />
-  );
-});
-InputOTP.displayName = 'InputOTP';
-
-export const InputOTPGroup = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <InputOTPGroupBase
+const InputOTP = React.forwardRef<
+  React.ElementRef<typeof OTPInput>,
+  React.ComponentPropsWithoutRef<typeof OTPInput>
+>(({ className, containerClassName, ...props }, ref) => (
+  <OTPInput
     ref={ref}
-    className={cn('flex items-center gap-1', className)}
+    containerClassName={cn(
+      'flex items-center gap-2 has-[:disabled]:opacity-50',
+      containerClassName
+    )}
+    className={cn('disabled:cursor-not-allowed', className)}
     {...props}
   />
 ));
+InputOTP.displayName = 'InputOTP';
+
+const InputOTPGroup = React.forwardRef<
+  React.ElementRef<'div'>,
+  React.ComponentPropsWithoutRef<'div'>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn('flex items-center gap-1', className)} {...props} />
+));
 InputOTPGroup.displayName = 'InputOTPGroup';
 
-export const InputOTPSlot = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof InputOTPSlotBase> & StyledProps & { char?: string; hasFakeCaret?: boolean; isActive?: boolean }
->(({ className, index, char, hasFakeCaret, isActive, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
-
-  const backgroundColor =
-    resolvedType === 'solid'
-      ? palette.accentPrimary ?? palette.base
-      : resolvedType === 'soft' && palette.accentRgb
-        ? 'rgba(' + palette.accentRgb + ', 0.15)'
-        : resolvedType === 'inverse'
-          ? palette.foreground
-          : resolvedType === 'ghost'
-            ? 'transparent'
-            : (typeStyles.backgroundColor as string | undefined) ?? palette.base ?? '#0a0a0a';
-
-  const borderColor =
-    isActive
-      ? palette.accentPrimary ?? '#fff'
-      : resolvedType === 'outline' || resolvedType === 'contrast'
-        ? palette.accentPrimary ?? palette.border
-        : resolvedType === 'ghost'
-          ? 'transparent'
-          : palette.border ?? '#333';
-
-  const textColor =
-    resolvedType === 'solid'
-      ? palette.base ?? '#fff'
-      : resolvedType === 'inverse'
-        ? palette.base ?? '#000'
-        : (typeStyles.color as string | undefined) ?? palette.foreground ?? '#fff';
+const InputOTPSlot = React.forwardRef<
+  React.ElementRef<'div'>,
+  React.ComponentPropsWithoutRef<'div'> & { index: number }
+>(({ index, className, ...props }, ref) => {
+  const inputOTPContext = React.useContext(OTPInputContext);
+  const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index];
 
   return (
-    <InputOTPSlotBase
+    <div
       ref={ref}
-      index={index}
       className={cn(
-        'relative flex h-12 w-10 items-center justify-center text-lg font-bold uppercase transition-all',
+        'relative flex h-10 w-10 items-center justify-center border border-[var(--ac-border)] bg-[var(--ac-surface)] text-sm transition-all font-mono',
+        isActive && 'z-10 ring-1 ring-[var(--ac-accent)] bg-[var(--ac-accent)]/10',
         className
       )}
-      style={{
-        clipPath: SLOT_CLIP_PATH,
-        backgroundColor,
-        border: '2px solid ' + borderColor,
-        color: textColor,
-        letterSpacing: '0.1em',
-        boxShadow: isActive ? '0 0 8px ' + (palette.glow ?? palette.accentPrimary ?? '#fff') : 'none',
-        ...style,
-      }}
+      style={{ clipPath: AC_CLIP_PATH, '--corner': '6px' } as React.CSSProperties}
       {...props}
     >
       {char}
       {hasFakeCaret && (
-        <div
-          className="pointer-events-none absolute inset-0 flex items-center justify-center"
-          style={{ animation: 'caret-blink 1s ease-out infinite' }}
-        >
-          <div
-            className="h-5 w-0.5"
-            style={{ backgroundColor: palette.accentPrimary ?? '#fff' }}
-          />
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div className="h-4 w-px animate-caret-blink bg-[var(--ac-accent)] duration-1000" />
         </div>
       )}
-    </InputOTPSlotBase>
+    </div>
   );
 });
 InputOTPSlot.displayName = 'InputOTPSlot';
 
-export const InputOTPSeparator = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & StyledProps
->(({ className, colors, style, ...props }, ref) => {
-  const palette = normalizeColors(colors);
-
-  return (
-    <InputOTPSeparatorBase
-      ref={ref}
-      className={cn('flex items-center justify-center', className)}
-      style={style}
-      {...props}
-    >
-      <div
-        className="h-1 w-3"
-        style={{
-          clipPath: 'polygon(2px 0, calc(100% - 2px) 0, 100% 50%, calc(100% - 2px) 100%, 2px 100%, 0 50%)',
-          backgroundColor: palette.border ?? '#444',
-        }}
-      />
-    </InputOTPSeparatorBase>
-  );
-});
+const InputOTPSeparator = React.forwardRef<
+  React.ElementRef<'div'>,
+  React.ComponentPropsWithoutRef<'div'>
+>(({ ...props }, ref) => (
+  <div ref={ref} role="separator" {...props}>
+    <Dot className="text-[var(--text-muted)]" />
+  </div>
+));
 InputOTPSeparator.displayName = 'InputOTPSeparator';
 
-export default InputOTP;
+export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };

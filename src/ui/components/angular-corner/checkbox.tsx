@@ -1,83 +1,74 @@
-'use client';
-
 import * as React from 'react';
-import { Check } from 'lucide-react';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import { CheckboxBase, CheckboxIndicatorBase, type CheckboxBaseProps } from '../_base/checkbox';
 import { cn } from '@/lib/utils';
-import { CheckboxBase, CheckboxIndicatorBase } from '../_base/checkbox';
-import type { VariantColors } from '../../types/common';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
+import { Check } from 'lucide-react';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
+export interface CheckboxProps extends CheckboxBaseProps {}
 
-export interface CheckboxProps extends Omit<React.ComponentPropsWithoutRef<typeof CheckboxBase>, 'type'> {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  colors?: VariantColors;
-  version?: string;
-  htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-}
+const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
-const versionKey = 'angular-corner';
+const getVisualTypeStyles = (visualType: string = 'default') => {
+  switch (visualType) {
+    case 'default':
+      return 'border-2 border-[var(--ac-border)] bg-[var(--ac-surface)] data-[state=checked]:bg-[var(--ac-accent)] data-[state=checked]:text-[var(--ac-bg)] data-[state=checked]:border-[var(--ac-accent)]';
+    case 'solid':
+      return 'border-2 border-[var(--ac-accent)] bg-[var(--ac-surface)] data-[state=checked]:bg-[var(--ac-accent)] data-[state=checked]:text-[var(--ac-bg)]';
+    case 'outline':
+      return 'border-2 border-[var(--ac-accent)] bg-transparent data-[state=checked]:bg-[var(--ac-accent)] data-[state=checked]:text-[var(--ac-bg)]';
+    case 'ghost':
+      return 'border-none bg-[var(--ac-surface)]/50 data-[state=checked]:bg-[var(--ac-accent)]/20 data-[state=checked]:text-[var(--ac-accent)]';
+    case 'soft':
+      return 'border-none bg-[var(--ac-accent)]/10 text-[var(--ac-accent)] data-[state=checked]:bg-[var(--ac-accent)]/20';
+    case 'subtle':
+      return 'border-none bg-[var(--ac-surface)]/50 text-[var(--text-secondary)] data-[state=checked]:bg-[var(--ac-surface)] data-[state=checked]:text-[var(--text-primary)]';
+    case 'neutral':
+      return 'border-2 border-[var(--ac-border)] bg-[var(--ac-surface)] data-[state=checked]:bg-[var(--text-secondary)] data-[state=checked]:text-[var(--ac-bg)]';
+    case 'disabled':
+      return 'border-2 border-[var(--ac-border)]/50 bg-[var(--ac-bg)] opacity-50 cursor-not-allowed';
+    case 'unstyled':
+      return '';
+    default:
+      return 'border-2 border-[var(--ac-border)] bg-[var(--ac-surface)] data-[state=checked]:bg-[var(--ac-accent)] data-[state=checked]:text-[var(--ac-bg)]';
+  }
+};
 
-const CHECKBOX_CLIP_PATH = 'polygon(3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px), 0 3px)';
+const getSizeStyles = (size: string = 'md') => {
+  switch (size) {
+    case 'sm': return 'h-4 w-4 [--corner:3px]';
+    case 'md': return 'h-5 w-5 [--corner:4px]';
+    case 'lg': return 'h-6 w-6 [--corner:5px]';
+    default: return 'h-5 w-5 [--corner:4px]';
+  }
+};
 
-export const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxBase>, CheckboxProps>(
-  ({ className, type, uiType, colors, style, htmlType = 'button', children, ...props }, ref) => {
-    const resolvedType = uiType ?? type ?? 'default';
-    const palette = normalizeColors(colors);
-    const typeStyles = getCoreTypeStyles(resolvedType, colors);
-
-    const backgroundColor =
-      resolvedType === 'solid'
-        ? palette.accentPrimary ?? palette.base
-        : resolvedType === 'soft' && palette.accentRgb
-          ? 'rgba(' + palette.accentRgb + ', 0.15)'
-          : resolvedType === 'inverse'
-            ? palette.foreground
-            : resolvedType === 'ghost'
-              ? 'transparent'
-              : (typeStyles.backgroundColor as string | undefined) ?? palette.base;
-
-    const borderColor =
-      resolvedType === 'outline' || resolvedType === 'contrast'
-        ? palette.accentPrimary ?? palette.border
-        : resolvedType === 'ghost'
-          ? 'transparent'
-          : palette.border;
-
-    const checkColor =
-      resolvedType === 'solid'
-        ? palette.base ?? '#fff'
-        : resolvedType === 'inverse'
-          ? palette.base ?? '#000'
-          : palette.accentPrimary ?? palette.foreground;
+export const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(
+  ({ className, visualType = 'default', size = 'md', style, ...props }, ref) => {
+    // Merge custom style with clip-path, unless unstyled
+    const componentStyle = visualType !== 'unstyled'
+      ? { ...style, clipPath: AC_CLIP_PATH } 
+      : style;
 
     return (
       <CheckboxBase
         ref={ref}
-        type={htmlType}
-        className={cn('peer h-5 w-5 shrink-0', className)}
-        style={{
-          clipPath: CHECKBOX_CLIP_PATH,
-          backgroundColor,
-          border: '2px solid ' + borderColor,
-          ...style,
-        }}
-        data-version={versionKey}
-        data-type={resolvedType}
+        visualType={visualType}
+        size={size}
+        style={componentStyle}
+        className={cn(
+          'peer shrink-0 shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ac-accent)] disabled:cursor-not-allowed disabled:opacity-50',
+          'flex items-center justify-center font-bold',
+          getVisualTypeStyles(visualType),
+          getSizeStyles(size),
+          className
+        )}
         {...props}
       >
-        <CheckboxIndicatorBase
-          className="flex items-center justify-center"
-          style={{ color: checkColor }}
-        >
-          {children ?? <Check className="h-3.5 w-3.5" strokeWidth={3} />}
+        <CheckboxIndicatorBase className="flex items-center justify-center text-current">
+          <Check className="h-4 w-4 stroke-[3px]" />
         </CheckboxIndicatorBase>
       </CheckboxBase>
     );
   }
 );
-
 Checkbox.displayName = 'Checkbox';
-
-export default Checkbox;

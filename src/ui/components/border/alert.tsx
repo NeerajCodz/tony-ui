@@ -1,67 +1,59 @@
-'use client';
-
 import * as React from 'react';
-import { AlertBase, AlertDescriptionBase, AlertTitleBase } from '../_base/alert';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { AlertBase, AlertTitleBase, AlertDescriptionBase } from '@/ui/components/_base/alert';
+import { cn } from '@/lib/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
 
-export type AlertProps = Omit<React.ComponentPropsWithoutRef<typeof AlertBase>, 'type'> & StyledProps;
-export type AlertTitleProps = React.ComponentPropsWithoutRef<typeof AlertTitleBase> & StyledProps;
-export type AlertDescriptionProps = React.ComponentPropsWithoutRef<typeof AlertDescriptionBase> & StyledProps;
-
-export const Alert = React.forwardRef<React.ElementRef<typeof AlertBase>, AlertProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <AlertBase
-      ref={ref}
-      className={cx('relative w-full p-4 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'border', type, uiType, colors, style)}
-      {...props}
-    />
-  )
+const alertVariants = cva(
+  'relative w-full rounded-none border px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7 font-mono',
+  {
+    variants: {
+      variant: {
+        default: 'bg-background text-foreground border-[var(--br-border-dim)]',
+        destructive:
+          'border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  }
 );
+
+const Alert = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
+>(({ className, variant, ...props }, ref) => (
+  <AlertBase
+    ref={ref}
+    role="alert"
+    className={cn(alertVariants({ variant }), className)}
+    {...props}
+  />
+));
 Alert.displayName = 'Alert';
 
-export const AlertTitle = React.forwardRef<React.ElementRef<typeof AlertTitleBase>, AlertTitleProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <AlertTitleBase
-        ref={ref}
-        className={cx('mb-1 font-semibold leading-none tracking-tight', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'border', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.foreground,
-        }}
-        {...props}
-      />
-    );
-  }
-);
+const AlertTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <AlertTitleBase
+    ref={ref}
+    className={cn('mb-1 font-medium leading-none tracking-tight font-bold uppercase', className)}
+    {...props}
+  />
+));
 AlertTitle.displayName = 'AlertTitle';
 
-export const AlertDescription = React.forwardRef<React.ElementRef<typeof AlertDescriptionBase>, AlertDescriptionProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <AlertDescriptionBase
-        ref={ref}
-        className={cx('text-sm [&_p]:leading-relaxed', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'border', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.muted,
-        }}
-        {...props}
-      />
-    );
-  }
-);
+const AlertDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <AlertDescriptionBase
+    ref={ref}
+    className={cn('text-sm [&_p]:leading-relaxed', className)}
+    {...props}
+  />
+));
 AlertDescription.displayName = 'AlertDescription';
 
-export default Alert;
+export { Alert, AlertTitle, AlertDescription };

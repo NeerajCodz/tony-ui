@@ -181,6 +181,11 @@ export interface MenubarSubTriggerBaseProps
    * @default true
    */
   showIndicator?: boolean;
+
+  /**
+   * Inset content for alignment
+   */
+  inset?: boolean;
 }
 
 /**
@@ -266,7 +271,12 @@ MenubarItemBase.displayName = 'MenubarItemBase';
 // ============================================================================
 
 export interface MenubarCheckboxItemBaseProps
-  extends React.ComponentPropsWithoutRef<typeof MenubarPrimitive.CheckboxItem> {}
+  extends React.ComponentPropsWithoutRef<typeof MenubarPrimitive.CheckboxItem> {
+    /**
+     * Whether the item is checked
+     */
+    checked?: boolean | 'indeterminate';
+  }
 
 /**
  * MenubarCheckboxItemBase - Item with checkbox state
@@ -314,7 +324,12 @@ MenubarItemIndicatorBase.displayName = 'MenubarItemIndicatorBase';
 // ============================================================================
 
 export interface MenubarLabelBaseProps
-  extends React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Label> {}
+  extends React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Label> {
+  /**
+   * Inset content for alignment
+   */
+  inset?: boolean;
+}
 
 /**
  * MenubarLabelBase - Non-interactive label for grouping

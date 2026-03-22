@@ -1,9 +1,44 @@
-'use client';
+import * as React from 'react';
+import * as TogglePrimitive from '@radix-ui/react-toggle';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
+import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from './_effects';
 
-import { createToggleFoundation } from '../_shared/family-foundations';
 
-const foundation = createToggleFoundation('tactical-hud');
+const toggleVariants = cva(
+  'inline-flex items-center justify-center text-sm font-sans font-medium uppercase tracking-wider transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-[var(--th-primary)]/20 data-[state=on]:text-[var(--th-primary)] text-[var(--th-muted)] hover:text-[var(--th-primary)] hover:bg-[var(--th-primary)]/10',
+  {
+    variants: {
+      variant: {
+        default: 'border-0',
+        outline: 'border-0',
+      },
+      size: {
+        default: 'h-10 px-3',
+        sm: 'h-9 px-2.5',
+        lg: 'h-11 px-5',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  }
+);
 
-export const Toggle = foundation.Toggle;
+const Toggle = React.forwardRef<
+  React.ElementRef<typeof TogglePrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof TogglePrimitive.Root> & { effects?: TacticalHudEffects } &
+    VariantProps<typeof toggleVariants>
+>(({ className, effects = 'on', variant, size, style, ...props }, ref) => (
+  <TogglePrimitive.Root
+    ref={ref}
+    className={cn(tacticalHudEffectsClass(effects), toggleVariants({ variant, size, className }))}
+    style={{ ...bracketsStyle, '--corner': '6px', ...style } as React.CSSProperties}
+    {...props}
+  />
+));
 
-export default Toggle;
+Toggle.displayName = TogglePrimitive.Root.displayName;
+
+export { Toggle, toggleVariants };

@@ -1,120 +1,146 @@
-'use client';
-
 import * as React from 'react';
-import {
-  CommandBase,
-  CommandEmptyBase,
-  CommandGroupBase,
-  CommandInputBase,
-  CommandItemBase,
-  CommandListBase,
-  CommandSeparatorBase,
-} from '../_base/command';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { Command as CommandPrimitive } from 'cmdk';
+import { Search } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
+import { Dialog, DialogContent } from './dialog';
 
-export type CommandProps = Omit<React.ComponentPropsWithoutRef<typeof CommandBase>, 'type'> & StyledProps;
-export type CommandInputProps = Omit<React.ComponentPropsWithoutRef<typeof CommandInputBase>, 'type'> &
-  StyledProps & {
-    htmlType?: React.HTMLInputTypeAttribute;
-  };
-export type CommandListProps = Omit<React.ComponentPropsWithoutRef<typeof CommandListBase>, 'type'> & StyledProps;
-export type CommandEmptyProps = Omit<React.ComponentPropsWithoutRef<typeof CommandEmptyBase>, 'type'> & StyledProps;
-export type CommandGroupProps = Omit<React.ComponentPropsWithoutRef<typeof CommandGroupBase>, 'type'> & StyledProps;
-export type CommandItemProps = Omit<React.ComponentPropsWithoutRef<typeof CommandItemBase>, 'type'> & StyledProps;
-export type CommandSeparatorProps = Omit<React.ComponentPropsWithoutRef<typeof CommandSeparatorBase>, 'type'> & StyledProps;
+const Command = React.forwardRef<
+  React.ElementRef<typeof CommandPrimitive>,
+  React.ComponentPropsWithoutRef<typeof CommandPrimitive> & { effects?: HoloFrameEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <CommandPrimitive
+    ref={ref}
+    className={cn(holoFrameEffectsClass(effects), 
+      'flex h-full w-full flex-col overflow-hidden bg-[var(--hf-surface)] text-[var(--hf-text)] border border-[var(--hf-border-dim)]',
+      className
+    )}
+    style={{ '--corner': '8px' } as React.CSSProperties}
+    {...props}
+  />
+));
+Command.displayName = CommandPrimitive.displayName;
 
-const CommandRoot = React.forwardRef<React.ElementRef<typeof CommandBase>, CommandProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <CommandBase
+interface CommandDialogProps extends React.ComponentPropsWithoutRef<typeof Dialog> {
+  effects?: HoloFrameEffects;}
+
+const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
+  return (
+    <Dialog {...props}>
+      <DialogContent className="overflow-hidden p-0 shadow-lg">
+        <Command className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-[var(--hf-text)] [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+          {children}
+        </Command>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+const CommandInput = React.forwardRef<
+  React.ElementRef<typeof CommandPrimitive.Input>,
+  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input> & { effects?: HoloFrameEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <div className="flex items-center border-b border-[var(--hf-border-dim)] px-3" cmdk-input-wrapper="">
+    <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+    <CommandPrimitive.Input
       ref={ref}
-      className={cx('flex h-full w-full flex-col overflow-hidden rounded', className)}
-      style={getSurfaceStyle(version ?? 'holo-frame', type, uiType, colors, style)}
+      className={cn(holoFrameEffectsClass(effects), 
+        'flex h-11 w-full rounded bg-transparent py-3 text-sm outline-none placeholder:text-[var(--hf-text)] disabled:cursor-not-allowed disabled:opacity-50 font-mono',
+        className
+      )}
       {...props}
     />
-  )
-);
-CommandRoot.displayName = 'Command';
+  </div>
+));
+CommandInput.displayName = CommandPrimitive.Input.displayName;
 
-const CommandInput = React.forwardRef<React.ElementRef<typeof CommandInputBase>, CommandInputProps>(
-  ({ className, version, type, uiType, colors, style, htmlType = 'text', ...props }, ref) => (
-    <CommandInputBase
-      ref={ref}
-      type={htmlType}
-      className={cx('h-10 w-full rounded px-3 text-sm outline-none', className)}
-      style={getSurfaceStyle(version ?? 'holo-frame', type, uiType, colors, style)}
+const CommandList = React.forwardRef<
+  React.ElementRef<typeof CommandPrimitive.List>,
+  React.ComponentPropsWithoutRef<typeof CommandPrimitive.List> & { effects?: HoloFrameEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <CommandPrimitive.List
+    ref={ref}
+    className={cn(holoFrameEffectsClass(effects), 'max-h-[300px] overflow-y-auto overflow-x-hidden', className)}
+    {...props}
+  />
+));
+CommandList.displayName = CommandPrimitive.List.displayName;
+
+const CommandEmpty = React.forwardRef<
+  React.ElementRef<typeof CommandPrimitive.Empty>,
+  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Empty> & { effects?: HoloFrameEffects }
+>((props, ref) => (
+  <CommandPrimitive.Empty
+    ref={ref}
+    className="py-6 text-center text-sm font-mono text-[var(--hf-text)]"
+    {...props}
+  />
+));
+CommandEmpty.displayName = CommandPrimitive.Empty.displayName;
+
+const CommandGroup = React.forwardRef<
+  React.ElementRef<typeof CommandPrimitive.Group>,
+  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Group> & { effects?: HoloFrameEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <CommandPrimitive.Group
+    ref={ref}
+    className={cn(holoFrameEffectsClass(effects), 
+      'overflow-hidden p-1 text-[var(--hf-text)] [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:text-[var(--hf-text)] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider [&_[cmdk-group-heading]]:font-sans',
+      className
+    )}
+    {...props}
+  />
+));
+CommandGroup.displayName = CommandPrimitive.Group.displayName;
+
+const CommandSeparator = React.forwardRef<
+  React.ElementRef<typeof CommandPrimitive.Separator>,
+  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Separator> & { effects?: HoloFrameEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <CommandPrimitive.Separator
+    ref={ref}
+    className={cn(holoFrameEffectsClass(effects), '-mx-1 h-px bg-[var(--hf-border-dim)]', className)}
+    {...props}
+  />
+));
+CommandSeparator.displayName = CommandPrimitive.Separator.displayName;
+
+const CommandItem = React.forwardRef<
+  React.ElementRef<typeof CommandPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Item> & { effects?: HoloFrameEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <CommandPrimitive.Item
+    ref={ref}
+    className={cn(holoFrameEffectsClass(effects), 
+      'relative flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none aria-selected:bg-[var(--hf-border-main)] aria-selected:text-[var(--hf-bg)] data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 font-mono transition-colors',
+      className
+    )}
+    {...props}
+  />
+));
+CommandItem.displayName = CommandPrimitive.Item.displayName;
+
+const CommandShortcut = ({ className, effects = 'on', ...props }: React.HTMLAttributes<HTMLSpanElement> & { effects?: HoloFrameEffects }) => {
+  return (
+    <span
+      className={cn(holoFrameEffectsClass(effects), 
+        'ml-auto text-xs tracking-widest text-[var(--hf-text)] group-aria-selected:text-[var(--hf-bg)]',
+        className
+      )}
       {...props}
     />
-  )
-);
-CommandInput.displayName = 'CommandInput';
+  );
+};
+CommandShortcut.displayName = 'CommandShortcut';
 
-const CommandList = React.forwardRef<React.ElementRef<typeof CommandListBase>, CommandListProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <CommandListBase
-      ref={ref}
-      className={cx('max-h-72 overflow-y-auto p-1', className)}
-      style={getSurfaceStyle(version ?? 'holo-frame', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    />
-  )
-);
-CommandList.displayName = 'CommandList';
-
-const CommandEmpty = React.forwardRef<React.ElementRef<typeof CommandEmptyBase>, CommandEmptyProps>(
-  ({ className, ...props }, ref) => <CommandEmptyBase ref={ref} className={cx('px-3 py-6 text-sm opacity-80', className)} {...props} />
-);
-CommandEmpty.displayName = 'CommandEmpty';
-
-const CommandGroup = React.forwardRef<React.ElementRef<typeof CommandGroupBase>, CommandGroupProps>(
-  ({ className, ...props }, ref) => <CommandGroupBase ref={ref} className={cx('overflow-hidden p-1', className)} {...props} />
-);
-CommandGroup.displayName = 'CommandGroup';
-
-const CommandItem = React.forwardRef<React.ElementRef<typeof CommandItemBase>, CommandItemProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <CommandItemBase
-      ref={ref}
-      className={cx('cursor-default rounded px-2 py-1.5 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'holo-frame', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    />
-  )
-);
-CommandItem.displayName = 'CommandItem';
-
-const CommandSeparator = React.forwardRef<React.ElementRef<typeof CommandSeparatorBase>, CommandSeparatorProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <CommandSeparatorBase
-      ref={ref}
-      className={cx('my-1 h-px', className)}
-      style={getSurfaceStyle(version ?? 'holo-frame', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    />
-  )
-);
-CommandSeparator.displayName = 'CommandSeparator';
-
-export const Command = Object.assign(CommandRoot, {
-  Input: CommandInput,
-  List: CommandList,
-  Empty: CommandEmpty,
-  Group: CommandGroup,
-  Item: CommandItem,
-  Separator: CommandSeparator,
-});
-
-export { CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandSeparator };
-
-export default Command;
+export {
+  Command,
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandShortcut,
+  CommandSeparator,
+};

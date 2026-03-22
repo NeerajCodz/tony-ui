@@ -31,7 +31,7 @@ export type ButtonType =
  * | lg   | 44px   | 20px      | 16px  | 18px  |
  * | xl   | 52px   | 24px      | 18px  | 20px  |
  */
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon';
 
 export interface ButtonBaseProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
   /**

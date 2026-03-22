@@ -1,32 +1,29 @@
-'use client';
-
 import * as React from 'react';
-import { HoverCardBase, HoverCardContentBase, HoverCardTriggerBase } from '../_base/hover-card';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
+import { cn } from '@/lib/utils';
 
-export type HoverCardProps = React.ComponentPropsWithoutRef<typeof HoverCardBase> & StyledProps;
-export type HoverCardTriggerProps = React.ComponentPropsWithoutRef<typeof HoverCardTriggerBase> & StyledProps;
-export type HoverCardContentProps = Omit<React.ComponentPropsWithoutRef<typeof HoverCardContentBase>, 'type'> & StyledProps;
+const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
-export const HoverCard = HoverCardBase;
+const HoverCard = HoverCardPrimitive.Root;
 
-export const HoverCardTrigger = React.forwardRef<React.ElementRef<typeof HoverCardTriggerBase>, HoverCardTriggerProps>(
-  ({ className, ...props }, ref) => <HoverCardTriggerBase ref={ref} className={cx(className)} {...props} />
-);
-HoverCardTrigger.displayName = 'HoverCardTrigger';
+const HoverCardTrigger = HoverCardPrimitive.Trigger;
 
-export const HoverCardContent = React.forwardRef<React.ElementRef<typeof HoverCardContentBase>, HoverCardContentProps>(
-  ({ className, align = 'center', sideOffset = 4, version, type, uiType, colors, style, ...props }, ref) => (
-    <HoverCardContentBase
-      ref={ref}
-      align={align}
-      sideOffset={sideOffset}
-      className={cx('z-50 w-64 rounded p-4 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'angular-corner', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-HoverCardContent.displayName = 'HoverCardContent';
+const HoverCardContent = React.forwardRef<
+  React.ElementRef<typeof HoverCardPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
+>(({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
+  <HoverCardPrimitive.Content
+    ref={ref}
+    align={align}
+    sideOffset={sideOffset}
+    className={cn(
+      'z-50 w-64 border border-[var(--ac-border)] bg-[var(--ac-surface)] p-4 text-[var(--text-primary)] shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 [--corner:10px]',
+      className
+    )}
+    style={{ clipPath: AC_CLIP_PATH } as React.CSSProperties}
+    {...props}
+  />
+));
+HoverCardContent.displayName = HoverCardPrimitive.Content.displayName;
 
-export default HoverCard;
+export { HoverCard, HoverCardTrigger, HoverCardContent };

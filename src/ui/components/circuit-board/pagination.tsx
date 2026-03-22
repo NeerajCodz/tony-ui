@@ -1,146 +1,109 @@
-'use client';
-
-import React, { forwardRef } from 'react';
+import * as React from 'react';
+import { PaginationBase, PaginationContentBase, PaginationItemBase, PaginationEllipsisBase } from '@/ui/components/_base/pagination';
 import { cn } from '@/lib/utils';
-import { VariantColors } from '@/ui/types/common';
-import { PaginationBase, PaginationContentBase, PaginationItemBase, PaginationLinkBase, PaginationPreviousBase, PaginationNextBase, PaginationEllipsisBase } from '../_base/pagination';
+import { Button } from '@/ui/components/circuit-board/button';
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 
-const getStyles = (type?: string, colors?: VariantColors) => {
-  if (!type || !colors) return {};
-  
-  switch (type) {
-    case 'inverse':
-      return {
-        backgroundColor: colors.text,
-        color: colors.background,
-        border: `1px solid ${colors.text}`
-      };
-    case 'contrast':
-      return {
-        backgroundColor: colors.accent?.primary || colors.text,
-        color: '#000000',
-        fontWeight: 'bold',
-        border: `1px solid ${colors.text}`
-      };
-    case 'soft':
-      return {
-        backgroundColor: colors.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
-        color: colors.accent?.primary || colors.text,
-        border: 'none'
-      };
-    default:
-      return {};
-  }
-};
+const Pagination = PaginationBase;
 
+const PaginationContent = React.forwardRef<HTMLUListElement, React.ComponentPropsWithoutRef<typeof PaginationContentBase>>(
+  ({ className, ...props }, ref) => (
+    <PaginationContentBase
+      ref={ref}
+      className={cn('flex flex-row items-center gap-1', className)}
+      {...props}
+    />
+  )
+);
+PaginationContent.displayName = 'PaginationContent';
 
-interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
-  version?: string;
-  variant?: string;
-  type?: string;
-  colors?: VariantColors;
-}
-
-const Pagination = forwardRef<HTMLElement, PaginationProps>(({ className, type, colors, ...props }, ref) => (
-  <nav
-    role="navigation"
-    aria-label="pagination"
-    className={cn("mx-auto flex w-full justify-center", className)}
-    ref={ref}
-    {...props} style={{ ...getStyles(type, colors), ...(props.style as any) }}
-  />
-));
-Pagination.displayName = "Pagination";
-
-const PaginationContent = forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListElement>>(({ className, ...props }, ref) => (
-  <ul
-    ref={ref}
-    className={cn("flex flex-row items-center gap-1", className)}
-    {...props}
-  />
-));
-PaginationContent.displayName = "PaginationContent";
-
-const PaginationItem = forwardRef<HTMLLIElement, React.LiHTMLAttributes<HTMLLIElement>>(({ className, ...props }, ref) => (
-  <li ref={ref} className={cn("", className)} {...props} />
-));
-PaginationItem.displayName = "PaginationItem";
+const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<typeof PaginationItemBase>>(
+  ({ className, ...props }, ref) => (
+    <PaginationItemBase ref={ref} className={cn('', className)} {...props} />
+  )
+);
+PaginationItem.displayName = 'PaginationItem';
 
 type PaginationLinkProps = {
   isActive?: boolean;
-} & React.ComponentProps<"a">;
+} & Pick<React.ComponentProps<typeof Button>, 'size'> &
+  React.ComponentProps<'a'>;
 
 const PaginationLink = ({
   className,
   isActive,
-  size = "icon",
+  size = 'icon',
   ...props
-}: PaginationLinkProps & { size?: "default" | "sm" | "icon" }) => (
-  <a
-    aria-current={isActive ? "page" : undefined}
+}: PaginationLinkProps) => (
+  <Button
+    asChild
+    aria-current={isActive ? 'page' : undefined}
+    visualType={isActive ? 'outline' : 'ghost'}
+    size={size}
     className={cn(
-      "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-      isActive ? "bg-accent text-accent-foreground border" : "hover:bg-accent hover:text-accent-foreground",
-      size === "default" && "h-10 px-4 py-2",
-      size === "sm" && "h-9 rounded-md px-3",
-      size === "icon" && "h-10 w-10",
+      'rounded-none font-mono uppercase tracking-widest',
+      isActive && 'text-[var(--cb-trace-lit)] shadow-[0_0_5px_var(--cb-trace-lit)] border-[var(--cb-trace-lit)] bg-[var(--cb-trace-dim)]/10',
       className
     )}
-    {...props}
-  />
+  >
+    <a {...props} />
+  </Button>
 );
-PaginationLink.displayName = "PaginationLink";
+PaginationLink.displayName = 'PaginationLink';
 
 const PaginationPrevious = ({
   className,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLinkBase    aria-label="Go to previous page"
-    size="default"
-    className={cn("gap-1 pl-2.5", className)}
+  <PaginationLink
+    aria-label="Go to previous page"
+    size="md"
+    className={cn('gap-1 pl-2.5', className)}
     {...props}
   >
-    <span>&laquo;</span>
-    <span>Previous</span>
-  </PaginationLinkBase>
+    <ChevronLeft className="h-4 w-4" />
+    <span className="hidden sm:inline">PREV</span>
+  </PaginationLink>
 );
-PaginationPrevious.displayName = "PaginationPrevious";
+PaginationPrevious.displayName = 'PaginationPrevious';
 
 const PaginationNext = ({
   className,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLinkBase    aria-label="Go to next page"
-    size="default"
-    className={cn("gap-1 pr-2.5", className)}
+  <PaginationLink
+    aria-label="Go to next page"
+    size="md"
+    className={cn('gap-1 pr-2.5', className)}
     {...props}
   >
-    <span>Next</span>
-    <span>&raquo;</span>
-  </PaginationLinkBase>
+    <span className="hidden sm:inline">NEXT</span>
+    <ChevronRight className="h-4 w-4" />
+  </PaginationLink>
 );
-PaginationNext.displayName = "PaginationNext";
+PaginationNext.displayName = 'PaginationNext';
 
 const PaginationEllipsis = ({
   className,
   ...props
-}: React.ComponentProps<"span">) => (
-  <span
+}: React.ComponentProps<typeof PaginationEllipsisBase>) => (
+  <PaginationEllipsisBase
     aria-hidden
-    className={cn("flex h-9 w-9 items-center justify-center", className)}
+    className={cn('flex h-9 w-9 items-center justify-center text-[var(--cb-trace-dim)]', className)}
     {...props}
   >
-    ...
-  </span>
+    <MoreHorizontal className="h-4 w-4" />
+    <span className="sr-only">More pages</span>
+  </PaginationEllipsisBase>
 );
-PaginationEllipsis.displayName = "PaginationEllipsis";
+PaginationEllipsis.displayName = 'PaginationEllipsis';
 
 export {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
   PaginationLink,
-  PaginationNext,
+  PaginationItem,
   PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
 };

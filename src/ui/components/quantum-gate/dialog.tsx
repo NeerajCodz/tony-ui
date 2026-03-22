@@ -1,170 +1,118 @@
-'use client';
-
 import * as React from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import {
-  DialogOverlayBase,
-  DialogContentBase,
-  DialogTitleBase,
-  DialogDescriptionBase,
-} from '../_base/dialog';
-import type { VariantColors } from '../../types/common';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
+import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
+const Dialog = DialogPrimitive.Root;
 
-interface StyledProps {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  colors?: VariantColors;
-}
+const DialogTrigger = DialogPrimitive.Trigger;
 
-const versionKey = 'quantum-gate';
+const DialogPortal = DialogPrimitive.Portal;
 
-const DIALOG_CLIP_PATH = 'polygon(24px 0, calc(100% - 24px) 0, 100% 24px, 100% calc(100% - 24px), calc(100% - 24px) 100%, 24px 100%, 0 calc(100% - 24px), 0 24px)';
+const DialogClose = DialogPrimitive.Close;
 
-export const Overlay = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <DialogOverlayBase
+
+const DialogOverlay = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Overlay>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> & { effects?: QuantumGateEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <DialogPrimitive.Overlay
     ref={ref}
-    className={cn(
-      'fixed inset-0 z-50 bg-black/70 backdrop-blur-sm',
+    className={cn(quantumGateEffectsClass(effects), 
+      'fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       className
     )}
-    style={{
-      background: 'radial-gradient(ellipse at center, rgba(60,60,120,0.3) 0%, rgba(0,0,0,0.8) 100%)',
-    }}
     {...props}
   />
 ));
-Overlay.displayName = 'DialogOverlay';
+DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
-export const Content = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & StyledProps
->(({ className, children, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
-
-  const backgroundColor =
-    resolvedType === 'solid'
-      ? palette.accentPrimary ?? palette.base
-      : resolvedType === 'soft' && palette.accentRgb
-        ? 'rgba(' + palette.accentRgb + ', 0.95)'
-        : resolvedType === 'inverse'
-          ? palette.foreground
-          : (typeStyles.backgroundColor as string | undefined) ?? palette.base ?? '#0a0a12';
-
-  const borderColor = palette.accentPrimary ?? palette.border ?? '#3a3a5a';
-
-  const textColor =
-    resolvedType === 'solid'
-      ? palette.base ?? '#fff'
-      : resolvedType === 'inverse'
-        ? palette.base ?? '#000'
-        : (typeStyles.color as string | undefined) ?? palette.foreground ?? '#e0e0ff';
-
-  return (
-    <DialogContentBase
+const DialogContent = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & { effects?: QuantumGateEffects }
+>(({ className, effects = 'on', children, ...props }, ref) => (
+  <DialogPortal>
+    <DialogOverlay />
+    <DialogPrimitive.Content
       ref={ref}
-      className={cn(
-        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 p-6 shadow-lg duration-200',
+      className={cn(quantumGateEffectsClass(effects), 
+        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-[var(--qg-border)] bg-[var(--qg-surface)] p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] text-[var(--text-primary)]',
+        'relative before:absolute before:inset-0 before:bg-gradient-to-br before:from-[var(--qg-iris-1)]/5 before:to-[var(--qg-iris-2)]/5 before:pointer-events-none',
+        '[clip-path:polygon(var(--fold)_0%,100%_0%,100%_calc(100%-var(--fold)),calc(100%-var(--fold))_100%,0%_100%,0%_var(--fold))]',
         className
       )}
-      style={{
-        clipPath: DIALOG_CLIP_PATH,
-        backgroundColor,
-        border: '2px solid ' + borderColor,
-        color: textColor,
-        boxShadow: '0 0 30px ' + (palette.glow ?? 'rgba(100,100,255,0.4)') + ', inset 0 0 40px rgba(100,100,255,0.05)',
-        ...style,
-      }}
-      data-version={versionKey}
-      data-type={resolvedType}
+      style={{ '--fold': '20px' } as React.CSSProperties}
       {...props}
     >
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none opacity-10"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-      >
-        <pattern id="dialog-honeycomb" x="0" y="0" width="15" height="13" patternUnits="userSpaceOnUse">
-          <polygon
-            points="7.5,0 15,4.33 15,8.66 7.5,13 0,8.66 0,4.33"
-            fill="none"
-            stroke={palette.accentPrimary ?? '#6060ff'}
-            strokeWidth="0.3"
-          />
-        </pattern>
-        <rect x="0" y="0" width="100" height="100" fill="url(#dialog-honeycomb)" />
-      </svg>
-      <div className="relative z-[1]">{children}</div>
-    </DialogContentBase>
-  );
-});
-Content.displayName = 'DialogContent';
+      {children}
+      <DialogPrimitive.Close className="absolute right-4 top-4 opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground text-(--text-muted) hover:text-(--qg-iris-1)">
+        <X className="h-4 w-4" />
+        <span className="sr-only">Close</span>
+      </DialogPrimitive.Close>
+    </DialogPrimitive.Content>
+  </DialogPortal>
+));
+DialogContent.displayName = DialogPrimitive.Content.displayName;
 
-export const Title = React.forwardRef<
-  HTMLHeadingElement,
-  React.HTMLAttributes<HTMLHeadingElement> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
+const DialogHeader = ({ className, effects = 'on', ...props }: React.HTMLAttributes<HTMLDivElement> & { effects?: QuantumGateEffects }) => (
+  <div
+    className={cn(quantumGateEffectsClass(effects), 
+      'flex flex-col space-y-1.5 text-center sm:text-left',
+      className
+    )}
+    {...props}
+  />
+);
+DialogHeader.displayName = 'DialogHeader';
 
-  const textColor =
-    resolvedType === 'solid'
-      ? palette.base ?? '#fff'
-      : resolvedType === 'inverse'
-        ? palette.base ?? '#000'
-        : palette.accentPrimary ?? palette.foreground ?? '#a0a0ff';
+const DialogFooter = ({ className, effects = 'on', ...props }: React.HTMLAttributes<HTMLDivElement> & { effects?: QuantumGateEffects }) => (
+  <div
+    className={cn(quantumGateEffectsClass(effects), 
+      'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
+      className
+    )}
+    {...props}
+  />
+);
+DialogFooter.displayName = 'DialogFooter';
 
-  return (
-    <DialogTitleBase
-      ref={ref}
-      className={cn('text-lg font-semibold leading-none tracking-wider', className)}
-      style={{
-        color: textColor,
-        letterSpacing: '0.04em',
-        textShadow: '0 0 8px ' + (palette.glow ?? 'rgba(100,100,255,0.5)'),
-        ...style,
-      }}
-      {...props}
-    />
-  );
-});
-Title.displayName = 'DialogTitle';
+const DialogTitle = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> & { effects?: QuantumGateEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <DialogPrimitive.Title
+    ref={ref}
+    className={cn(quantumGateEffectsClass(effects), 
+      'text-lg font-bold leading-none tracking-tight font-sans uppercase text-(--qg-iris-1)',
+      className
+    )}
+    {...props}
+  />
+));
+DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
-export const Description = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
+const DialogDescription = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description> & { effects?: QuantumGateEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <DialogPrimitive.Description
+    ref={ref}
+    className={cn(quantumGateEffectsClass(effects), 'text-sm text-(--text-muted) font-sans', className)}
+    {...props}
+  />
+));
+DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
-  const textColor =
-    resolvedType === 'solid'
-      ? palette.base ?? '#fff'
-      : resolvedType === 'inverse'
-        ? palette.base ?? '#000'
-        : palette.foreground ?? '#c0c0e0';
-
-  return (
-    <DialogDescriptionBase
-      ref={ref}
-      className={cn('text-sm', className)}
-      style={{
-        color: textColor,
-        opacity: 0.85,
-        ...style,
-      }}
-      {...props}
-    />
-  );
-});
-Description.displayName = 'DialogDescription';
-
-const Dialog = { Overlay, Content, Title, Description };
-export default Dialog;
+export {
+  Dialog,
+  DialogPortal,
+  DialogOverlay,
+  DialogClose,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+};

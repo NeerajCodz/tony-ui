@@ -45,11 +45,11 @@ const resolveCardConfig = (module: Record<string, unknown>) => {
 
 const loadCardConfig = async (version: Version) => {
   try {
-    const module = await import(`../config/components/${version}/card.tsx`);
+    const module = await import(`../config/components/${version}.json`);
     return resolveCardConfig(module as Record<string, unknown>);
   } catch {
     try {
-      const module = await import(`../config/components/default/card.tsx`);
+      const module = await import(`../config/components/default.json`);
       return resolveCardConfig(module as Record<string, unknown>);
     } catch {
       return null;

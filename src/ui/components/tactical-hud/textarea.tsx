@@ -1,58 +1,35 @@
-'use client';
-
-import React, { forwardRef } from 'react';
-import type { VariantColors } from '../../types/common';
-import { TextareaBase } from '../_base/textarea';
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from './_effects';
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  version?: string;
-  type?: string;
-  variant?: string;
-  colors?: VariantColors;
+  effects?: TacticalHudEffects;
+  visualType?: 'solid' | 'outline' | 'ghost' | 'soft' | 'neon';
 }
 
-const TacticalHudTextarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, colors, type, style, ...props }, ref) => {
-    let bg = colors?.base || 'transparent';
-    let fg = colors?.foreground || 'currentColor';
-    let border = colors?.border || '#e5e7eb';
-    const glow = colors?.glow || 'transparent';
 
-    if (type === 'inverse') {
-      const temp = bg;
-      bg = fg;
-      fg = temp;
-      border = bg;
-    } else if (type === 'contrast') {
-      border = fg;
-      bg = colors?.base || '#000000';
-      fg = colors?.foreground || '#ffffff';
-    } else if (type === 'soft') {
-      bg = colors?.muted || bg;
-      border = colors?.border ? `${colors.border}40` : border;
-    }
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className, effects = 'on', visualType = 'outline', style, ...props }, ref) => {
+    
+    // Default to brackets style for outline/solid
+    const useBrackets = !visualType || ['outline', 'solid'].includes(visualType);
+    const componentStyle = useBrackets ? { ...bracketsStyle, ...style } : style;
 
     return (
       <textarea
-        className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+        className={cn(tacticalHudEffectsClass(effects), 
+          'flex min-h-[80px] w-full bg-[var(--th-surface)]/80 px-3 py-2 text-sm placeholder:text-[var(--th-muted)] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 font-sans text-[var(--th-primary)]',
+          // Remove default border as brackets handle it
+          useBrackets ? 'border-none' : 'border border-[var(--th-hex-line)]',
+          className
+        )}
+        style={{ '--corner': '8px', ...componentStyle } as React.CSSProperties}
         ref={ref}
-        style={{
-            backgroundColor: bg,
-            color: fg,
-            borderColor: border,
-            borderWidth: '1px',
-            borderStyle: 'solid',
-            borderRadius: '0',
-            fontFamily: 'inherit',
-            boxShadow: `none`,
-            clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
-            ...style
-        }}
         {...props}
       />
     );
   }
 );
-TacticalHudTextarea.displayName = 'TacticalHudTextarea';
+Textarea.displayName = 'Textarea';
 
-export default TacticalHudTextarea;
+export { Textarea };

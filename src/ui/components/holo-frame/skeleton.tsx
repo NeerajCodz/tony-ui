@@ -1,25 +1,22 @@
-'use client';
-
 import * as React from 'react';
-import { SkeletonBase } from '../_base/skeleton';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from '@/lib/utils';
+import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 
-export type SkeletonProps = Omit<React.ComponentPropsWithoutRef<typeof SkeletonBase>, 'type'> &
-  StyledProps & {
-    animated?: boolean;
-  };
-
-export const Skeleton = React.forwardRef<React.ElementRef<typeof SkeletonBase>, SkeletonProps>(
-  ({ className, animated = true, version, type, uiType, colors, style, ...props }, ref) => (
-    <SkeletonBase
-      ref={ref}
-      className={cx(animated && 'animate-pulse', 'rounded', className)}
-      style={getSurfaceStyle(version ?? 'holo-frame', type, uiType, colors, style)}
+function Skeleton({
+  className,
+  effects = 'on',
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & { effects?: HoloFrameEffects }) {
+  return (
+    <div
+      className={cn(holoFrameEffectsClass(effects),
+        'animate-pulse bg-[var(--hf-border-dim)]/20',
+        className
+      )}
+      style={{ '--corner': '4px' } as React.CSSProperties}
       {...props}
     />
-  )
-);
+  );
+}
 
-Skeleton.displayName = 'Skeleton';
-
-export default Skeleton;
+export { Skeleton };

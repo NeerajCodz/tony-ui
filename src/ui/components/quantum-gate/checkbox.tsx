@@ -1,87 +1,76 @@
-'use client';
-
 import * as React from 'react';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import { CheckboxBase, CheckboxIndicatorBase, type CheckboxBaseProps } from '../_base/checkbox';
 import { cn } from '@/lib/utils';
-import { CheckboxBase } from '../_base/checkbox';
-import type { VariantColors } from '../../types/common';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
+import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
+import { Check } from 'lucide-react';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
-
-interface CheckboxProps extends React.ComponentPropsWithoutRef<typeof CheckboxBase> {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  colors?: VariantColors;
+export interface CheckboxProps extends CheckboxBaseProps {
+  effects?: QuantumGateEffects;
 }
 
-const versionKey = 'quantum-gate';
 
-const CHECKBOX_CLIP_PATH = 'polygon(4px 0, calc(100% - 4px) 0, 100% 50%, calc(100% - 4px) 100%, 4px 100%, 0 50%)';
+const getVisualTypeStyles = (visualType: string = 'default') => {
+  switch (visualType) {
+    case 'default':
+      return 'border border-(--qg-border) bg-(--qg-surface) data-[state=checked]:bg-(--qg-iris-1) data-[state=checked]:text-(--qg-bg) data-[state=checked]:border-(--qg-iris-1)';
+    case 'solid':
+      return 'border border-(--qg-iris-1) bg-(--qg-surface) data-[state=checked]:bg-(--qg-iris-1) data-[state=checked]:text-(--qg-bg)';
+    case 'outline':
+      return 'border border-(--qg-iris-1) bg-transparent data-[state=checked]:bg-(--qg-iris-1) data-[state=checked]:text-(--qg-bg)';
+    case 'ghost':
+      return 'border-none bg-(--qg-surface)/50 data-[state=checked]:bg-(--qg-iris-1)/20 data-[state=checked]:text-(--qg-iris-1)';
+    case 'soft':
+      return 'border-none bg-(--qg-iris-1)/10 text-(--qg-iris-1) data-[state=checked]:bg-(--qg-iris-1)/20';
+    case 'subtle':
+      return 'border-none bg-(--qg-surface)/50 text-(--text-secondary) data-[state=checked]:bg-(--qg-surface) data-[state=checked]:text-(--text-primary)';
+    case 'neutral':
+      return 'border border-(--qg-border) bg-(--qg-surface) data-[state=checked]:bg-(--text-secondary) data-[state=checked]:text-(--qg-bg)';
+    case 'disabled':
+      return 'border border-(--qg-border)/50 bg-(--qg-bg) opacity-50 cursor-not-allowed';
+    case 'unstyled':
+      return '';
+    default:
+      return 'border border-(--qg-border) bg-(--qg-surface) data-[state=checked]:bg-(--qg-iris-1) data-[state=checked]:text-(--qg-bg)';
+  }
+};
 
-const Checkbox = React.forwardRef<
-  React.ElementRef<typeof CheckboxBase>,
-  CheckboxProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
+const getSizeStyles = (size: string = 'md') => {
+  switch (size) {
+    case 'sm': return 'h-4 w-4 ';
+    case 'md': return 'h-5 w-5 ';
+    case 'lg': return 'h-6 w-6 ';
+    default: return 'h-5 w-5 ';
+  }
+};
 
-  const backgroundColor =
-    resolvedType === 'solid'
-      ? palette.accentPrimary ?? palette.base
-      : resolvedType === 'inverse'
-        ? palette.foreground
-        : resolvedType === 'ghost'
-          ? 'transparent'
-          : (typeStyles.backgroundColor as string | undefined) ?? palette.base ?? '#0a0a12';
+export const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(
+  ({ className, effects = 'on', visualType = 'default', size = 'md', style, ...props }, ref) => {
+    // Merge custom style with clip-path, unless unstyled
+    const componentStyle = visualType !== 'unstyled'
+      ? { ...style } 
+      : style;
 
-  const borderColor =
-    resolvedType === 'outline' || resolvedType === 'contrast'
-      ? palette.accentPrimary ?? palette.border
-      : resolvedType === 'ghost'
-        ? 'transparent'
-        : palette.border ?? '#3a3a5a';
-
-  const checkColor = palette.accentPrimary ?? '#8080ff';
-
-  return (
-    <CheckboxBase
-      ref={ref}
-      className={cn(
-        'peer h-5 w-5 shrink-0 disabled:cursor-not-allowed disabled:opacity-50',
-        'flex items-center justify-center',
-        className
-      )}
-      style={{
-        clipPath: CHECKBOX_CLIP_PATH,
-        backgroundColor,
-        border: '2px solid ' + borderColor,
-        boxShadow: '0 0 6px ' + (palette.glow ?? 'rgba(100,100,255,0.2)'),
-        ...style,
-      }}
-      data-version={versionKey}
-      data-type={resolvedType}
-      {...props}
-    >
-      <svg
-        className="h-3 w-3"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={checkColor}
-        strokeWidth="3"
-        strokeLinecap="square"
-        strokeLinejoin="miter"
-        style={{
-          filter: 'drop-shadow(0 0 4px ' + checkColor + ')',
-        }}
+    return (
+      <CheckboxBase
+        ref={ref}
+        visualType={visualType}
+        size={size}
+        style={componentStyle}
+        className={cn(quantumGateEffectsClass(effects), 
+          'peer shrink-0 shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--qg-iris-1) disabled:cursor-not-allowed disabled:opacity-50',
+          'flex items-center justify-center font-bold',
+          getVisualTypeStyles(visualType),
+          getSizeStyles(size),
+          className
+        )}
+        {...props}
       >
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
-    </CheckboxBase>
-  );
-});
-
+        <CheckboxIndicatorBase className="flex items-center justify-center text-current">
+          <Check className="h-4 w-4 stroke-[3px]" />
+        </CheckboxIndicatorBase>
+      </CheckboxBase>
+    );
+  }
+);
 Checkbox.displayName = 'Checkbox';
-
-export { Checkbox };
-export default Checkbox;

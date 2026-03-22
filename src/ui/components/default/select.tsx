@@ -10,19 +10,13 @@ import {
     SelectSeparatorBase, 
     SelectScrollUpButtonBase,
     SelectScrollDownButtonBase,
-    type SelectBaseProps,
     type SelectTriggerBaseProps
 } from '../_base/select';
 import { cn } from '@/lib/utils';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 
-export const Select = React.forwardRef<React.ElementRef<typeof SelectBase>, SelectBaseProps>(
-    ({ ...props }, ref) => (
-        <SelectBase ref={ref} {...props} />
-    )
-);
-Select.displayName = 'Select';
+export const Select = SelectBase;
 
 export const SelectGroup = SelectGroupBase;
 

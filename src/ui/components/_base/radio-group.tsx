@@ -120,4 +120,7 @@ export const RadioGroupIndicatorBase = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Indicator>,
   RadioGroupIndicatorBaseProps
 >((props, ref) => <RadioGroupPrimitive.Indicator ref={ref} {...props} />);
-RadioGroupIndicatorBase.displayName = 'RadioGroupIndicatorBase';
+export const RadioGroupItem = RadioGroupItemBase;
+export type RadioGroupItemProps = RadioGroupItemBaseProps;
+export const RadioGroup = RadioGroupBase;
+export type RadioGroupProps = RadioGroupBaseProps;

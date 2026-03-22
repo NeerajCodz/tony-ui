@@ -6,9 +6,10 @@ import {
   EmptyIconBase,
   EmptyTitleBase,
   type EmptyBaseProps,
+  type EmptySize,
 } from '@/ui/components/_base/empty';
 import { cn } from '@/lib/utils';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 
 const emptyVariants = cva(
   "flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center animate-in fade-in-50",
@@ -32,7 +33,12 @@ const emptyVariants = cva(
   }
 );
 
-export interface EmptyProps extends EmptyBaseProps, VariantProps<typeof emptyVariants> {}
+type EmptyVisualVariant = 'default' | 'muted' | 'ghost';
+
+export interface EmptyProps extends Omit<EmptyBaseProps, 'variant' | 'size'> {
+  variant?: EmptyVisualVariant;
+  size?: EmptySize;
+}
 
 const Empty = React.forwardRef<HTMLDivElement, EmptyProps>(
   ({ className, size, variant, ...props }, ref) => {

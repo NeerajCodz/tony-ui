@@ -1,68 +1,34 @@
-'use client';
-
 import * as React from 'react';
+import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { cn } from '@/lib/utils';
-import { PopoverContentBase } from '../_base/popover';
-import type { VariantColors } from '../../types/common';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
+import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
 
-interface StyledProps {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  colors?: VariantColors;
-}
+const Popover = PopoverPrimitive.Root;
 
-const versionKey = 'quantum-gate';
+const PopoverTrigger = PopoverPrimitive.Trigger;
 
-const POPOVER_CLIP_PATH = 'polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px)';
+const PopoverAnchor = PopoverPrimitive.Anchor;
 
-export const Content = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof PopoverContentBase> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
-
-  const backgroundColor =
-    resolvedType === 'solid'
-      ? palette.accentPrimary ?? palette.base
-      : resolvedType === 'soft' && palette.accentRgb
-        ? 'rgba(' + palette.accentRgb + ', 0.95)'
-        : resolvedType === 'inverse'
-          ? palette.foreground
-          : (typeStyles.backgroundColor as string | undefined) ?? palette.base ?? '#0a0a12';
-
-  const borderColor = palette.accentPrimary ?? palette.border ?? '#3a3a5a';
-
-  const textColor =
-    resolvedType === 'solid'
-      ? palette.base ?? '#fff'
-      : resolvedType === 'inverse'
-        ? palette.base ?? '#000'
-        : (typeStyles.color as string | undefined) ?? palette.foreground ?? '#e0e0ff';
-
-  return (
-    <PopoverContentBase
+const PopoverContent = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> & { effects?: QuantumGateEffects }
+>(({ className, effects = 'on', align = 'center', sideOffset = 4, ...props }, ref) => (
+  <PopoverPrimitive.Portal>
+    <PopoverPrimitive.Content
       ref={ref}
-      className={cn('z-50 w-72 p-4 text-sm outline-none', className)}
-      style={{
-        clipPath: POPOVER_CLIP_PATH,
-        backgroundColor,
-        border: '2px solid ' + borderColor,
-        color: textColor,
-        boxShadow: '0 0 16px ' + (palette.glow ?? 'rgba(100,100,255,0.3)'),
-        ...style,
-      }}
-      data-version={versionKey}
-      data-type={resolvedType}
+      align={align}
+      sideOffset={sideOffset}
+      className={cn(quantumGateEffectsClass(effects), 
+        'z-50 w-72 border border-(--qg-border) bg-(--qg-surface) p-4 text-(--text-primary) shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        '[clip-path:polygon(var(--fold)_0%,100%_0%,100%_calc(100%-var(--fold)),calc(100%-var(--fold))_100%,0%_100%,0%_var(--fold))]',
+        className
+      )}
+      style={{ '--fold': '12px' } as React.CSSProperties}
       {...props}
     />
-  );
-});
-Content.displayName = 'PopoverContent';
+  </PopoverPrimitive.Portal>
+));
+PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
-const Popover = { Content };
-export default Popover;
+export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor };

@@ -1,58 +1,59 @@
-'use client';
+import * as React from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { TextareaBase, type TextareaBaseProps } from '@/ui/components/_base/textarea';
+import { cn } from '@/lib/utils';
 
-import React, { forwardRef } from 'react';
-import type { VariantColors } from '../../types/common';
-import { TextareaBase } from '../_base/textarea';
+const textareaVariants = cva(
+  'flex w-full rounded-none border font-mono px-3 py-2 text-sm shadow-sm placeholder:text-[var(--cb-trace-dim)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cb-trace-lit)] focus-visible:shadow-[0_0_8px_var(--cb-trace-lit)] disabled:cursor-not-allowed disabled:opacity-50 uppercase tracking-wide',
+  {
+    variants: {
+      type: {
+        default: 'bg-[var(--cb-soldermask)] border-[var(--cb-trace)] text-[var(--cb-trace-lit)] focus-visible:border-[var(--cb-trace-lit)]',
+        outline: 'bg-transparent border-[var(--cb-trace-lit)] text-[var(--cb-trace-lit)] focus-visible:bg-[var(--cb-trace-dim)]',
+        ghost: 'bg-transparent border-transparent text-[var(--cb-trace-lit)] focus-visible:bg-[var(--cb-soldermask)]',
+        soft: 'bg-[rgba(0,255,136,0.04)] border-[var(--cb-trace)] text-[var(--cb-trace-lit)]',
+        subtle: 'bg-[var(--cb-soldermask)] border-transparent text-[var(--cb-trace-lit)]',
+        neutral: 'bg-[var(--cb-soldermask)] border-[var(--cb-trace-dim)] text-[var(--cb-trace-dim)]',
+        tinted: 'bg-[var(--cb-trace)]/10 border-[var(--cb-trace)]/30 text-[var(--cb-trace-lit)]',
+        unstyled: '',
+      },
+      size: {
+        sm: 'min-h-[60px] text-xs',
+        md: 'min-h-[80px] text-sm',
+        lg: 'min-h-[120px] text-base',
+      },
+      invalid: {
+        true: 'border-red-500 text-red-500 focus-visible:ring-red-500 focus-visible:shadow-[0_0_8px_red]',
+        false: '',
+      }
+    },
+    defaultVariants: {
+      type: 'default',
+      size: 'md',
+      invalid: false,
+    },
+  }
+);
 
-export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  version?: string;
-  type?: string;
-  variant?: string;
-  colors?: VariantColors;
+export interface TextareaProps extends Omit<TextareaBaseProps, 'type' | 'size'>, VariantProps<typeof textareaVariants> {
+  type?: TextareaBaseProps['type'];
+  size?: TextareaBaseProps['size'];
 }
 
-const CircuitBoardTextarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, colors, type, style, ...props }, ref) => {
-    let bg = colors?.base || 'transparent';
-    let fg = colors?.foreground || 'currentColor';
-    let border = colors?.border || '#e5e7eb';
-    const glow = colors?.glow || 'transparent';
-
-    if (type === 'inverse') {
-      const temp = bg;
-      bg = fg;
-      fg = temp;
-      border = bg;
-    } else if (type === 'contrast') {
-      border = fg;
-      bg = colors?.base || '#000000';
-      fg = colors?.foreground || '#ffffff';
-    } else if (type === 'soft') {
-      bg = colors?.muted || bg;
-      border = colors?.border ? `${colors.border}40` : border;
-    }
-
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className, type, size, invalid, ...props }, ref) => {
     return (
-      <textarea
-        className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      <TextareaBase
         ref={ref}
-        style={{
-            backgroundColor: bg,
-            color: fg,
-            borderColor: border,
-            borderWidth: '1px',
-            borderStyle: 'solid',
-            borderRadius: '4px',
-            fontFamily: 'inherit',
-            boxShadow: `none`,
-            clipPath: 'none',
-            ...style
-        }}
+        type={type}
+        size={size}
+        invalid={invalid}
+        className={cn(textareaVariants({ type, size, invalid: !!invalid, className }))}
         {...props}
       />
     );
   }
 );
-CircuitBoardTextarea.displayName = 'CircuitBoardTextarea';
+Textarea.displayName = 'Textarea';
 
-export default CircuitBoardTextarea;
+export { Textarea };

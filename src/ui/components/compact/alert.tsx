@@ -1,67 +1,96 @@
-'use client';
-
 import * as React from 'react';
-import { AlertBase, AlertDescriptionBase, AlertTitleBase } from '../_base/alert';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { 
+  AlertBase, 
+  AlertIconBase, 
+  AlertContentBase, 
+  AlertTitleBase, 
+  AlertDescriptionBase, 
+  AlertCloseBase,
+  type AlertBaseProps 
+} from '../_base/alert';
+import { cn } from '@/lib/utils';
+import { X } from 'lucide-react';
 
-export type AlertProps = Omit<React.ComponentPropsWithoutRef<typeof AlertBase>, 'type'> & StyledProps;
-export type AlertTitleProps = React.ComponentPropsWithoutRef<typeof AlertTitleBase> & StyledProps;
-export type AlertDescriptionProps = React.ComponentPropsWithoutRef<typeof AlertDescriptionBase> & StyledProps;
+export interface AlertProps extends AlertBaseProps {}
 
-export const Alert = React.forwardRef<React.ElementRef<typeof AlertBase>, AlertProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <AlertBase
+const getVariantStyles = (variant: string = 'default', type: string = 'default') => {
+  // Base colors for variants
+  let colorClass = '';
+  switch (variant) {
+    case 'destructive': colorClass = 'text-[var(--cp-accent)] border-[var(--cp-accent)]'; break;
+    case 'warning': colorClass = 'text-yellow-500 border-yellow-500'; break; // Need config for warning? Using tailwind default for now or infer
+    case 'success': colorClass = 'text-green-500 border-green-500'; break;
+    case 'info': colorClass = 'text-[var(--cp-accent)] border-[var(--cp-accent)]'; break;
+    default: colorClass = 'text-[var(--text-primary)] border-[var(--cp-border)]'; break;
+  }
+
+  // Type modifications
+  switch (type) {
+    case 'solid':
+      if (variant === 'destructive') return 'bg-[var(--cp-accent)] text-white border-[var(--cp-accent)]';
+      if (variant === 'default') return 'bg-[var(--cp-bg)] text-[var(--text-primary)] border-[var(--cp-border)]';
+      return `bg-[var(--cp-bg)] ${colorClass.replace('text-', 'bg-').replace('border-', 'border-')} text-black`; // Rough approx for solid
+    case 'outline':
+      return `bg-transparent border ${colorClass}`;
+    case 'soft':
+      return `bg-[var(--cp-bg)] border-none ${colorClass} bg-opacity-10`;
+    case 'elevated':
+      return `bg-[var(--cp-bg)] border ${colorClass} shadow-lg`;
+    case 'tinted':
+      return `bg-[var(--cp-bg)]/50 border ${colorClass} bg-opacity-20`;
+    default: // default
+      return `bg-[var(--cp-bg)] border ${colorClass}`;
+  }
+};
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
+  ({ className, variant = 'default', type = 'default', dismissible, style, children, ...props }, ref) => {
+    return (
+      <AlertBase
+        ref={ref}
+        variant={variant}
+        type={type}
+        dismissible={dismissible}
+        style={{ borderRadius: '2px', ...style }}
+        className={cn(
+          'relative w-full p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-[var(--text-primary)] ',
+          getVariantStyles(variant, type),
+          className
+        )}
+        {...props}
+      >
+        {children}
+        {dismissible && (
+          <AlertCloseBase className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-[var(--cp-bg)] transition-opacity hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-[var(--cp-accent)] focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-[var(--cp-bg)]">
+            <X className="h-4 w-4" />
+          </AlertCloseBase>
+        )}
+      </AlertBase>
+    );
+  }
+);
+Alert.displayName = 'Alert';
+
+const AlertTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, ...props }, ref) => (
+    <AlertTitleBase
       ref={ref}
-      className={cx('relative w-full p-4 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'compact', type, uiType, colors, style)}
+      className={cn('mb-1 font-mono font-bold leading-none tracking-tight ', className)}
       {...props}
     />
   )
 );
-Alert.displayName = 'Alert';
-
-export const AlertTitle = React.forwardRef<React.ElementRef<typeof AlertTitleBase>, AlertTitleProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <AlertTitleBase
-        ref={ref}
-        className={cx('mb-1 font-semibold leading-none tracking-tight', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'compact', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.foreground,
-        }}
-        {...props}
-      />
-    );
-  }
-);
 AlertTitle.displayName = 'AlertTitle';
 
-export const AlertDescription = React.forwardRef<React.ElementRef<typeof AlertDescriptionBase>, AlertDescriptionProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <AlertDescriptionBase
-        ref={ref}
-        className={cx('text-sm [&_p]:leading-relaxed', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'compact', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.muted,
-        }}
-        {...props}
-      />
-    );
-  }
+const AlertDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
+  ({ className, ...props }, ref) => (
+    <AlertDescriptionBase
+      ref={ref}
+      className={cn('text-sm [&_p]:leading-relaxed font-mono', className)}
+      {...props}
+    />
+  )
 );
 AlertDescription.displayName = 'AlertDescription';
 
-export default Alert;
+export { Alert, AlertTitle, AlertDescription };

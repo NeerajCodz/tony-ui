@@ -1,9 +1,14 @@
-'use client';
+import * as React from 'react';
+import { DatePickerBase, type DatePickerBaseProps } from '@/ui/components/_base/date-picker';
+import { cn } from '@/lib/utils';
 
-import { createDatePickerFoundation } from '../_shared/family-foundations';
+const DatePicker = ({ className, ...props }: DatePickerBaseProps) => {
+  return (
+    <DatePickerBase
+      className={cn('font-mono uppercase tracking-wide', className)}
+      {...props}
+    />
+  );
+};
 
-const foundation = createDatePickerFoundation('circuit-board');
-
-export const DatePicker = foundation.DatePicker;
-
-export default DatePicker;
+export { DatePicker };

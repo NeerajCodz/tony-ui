@@ -4,13 +4,11 @@ import {
     PaginationContentBase, 
     PaginationItemBase, 
     PaginationLinkBase, 
-    PaginationPreviousBase, 
-    PaginationNextBase, 
     PaginationEllipsisBase,
     type PaginationBaseProps
 } from '../_base/pagination';
 import { cn } from '@/lib/utils';
-import { ButtonProps, Button } from './button'; // Reuse button styles
+import { Button } from './button';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 
 export const Pagination = React.forwardRef<HTMLElement, PaginationBaseProps>(
@@ -48,50 +46,43 @@ PaginationItem.displayName = 'PaginationItem';
 
 type PaginationLinkProps = {
   isActive?: boolean;
-} & ButtonProps; // Use our button props
+} & Pick<React.ComponentProps<typeof Button>, 'size'> &
+  React.ComponentProps<'a'>;
 
 export const PaginationLink = React.forwardRef<HTMLAnchorElement, PaginationLinkProps>(
   ({ className, isActive, size = 'md', ...props }, ref) => (
-    <PaginationLinkBase
-      aria-current={isActive ? 'page' : undefined}
-      className={cn(
-        // Base button styles are applied by Button component if we used it, 
-        // but here we are rendering 'a' likely.
-        // Let's rely on classnames.
-        'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-[var(--df-bg)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--df-accent)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
-        'hover:bg-[var(--df-surface)] hover:text-[var(--df-text)]',
-        isActive ? 'border border-[var(--df-border)] bg-[var(--df-surface)]' : 'border-transparent text-[var(--df-text)]',
-        size === 'sm' && 'h-8 px-3',
-        size === 'md' && 'h-9 px-4',
-        size === 'lg' && 'h-10 px-5',
-        // Icon-only square sizing if needed
-        isActive || props.children ? '' : 'w-9', 
-        className
-      )}
-      {...props}
-    />
+    <Button
+      asChild
+      visualType={isActive ? 'outline' : 'ghost'}
+      size={size}
+      className={cn('font-medium', className)}
+    >
+      <PaginationLinkBase ref={ref} aria-current={isActive ? 'page' : undefined} {...props} />
+    </Button>
   )
 );
 PaginationLink.displayName = 'PaginationLink';
 
 export const PaginationPrevious = React.forwardRef<HTMLAnchorElement, React.ComponentProps<typeof PaginationLink>>(
   ({ className, ...props }, ref) => (
-    <PaginationPreviousBase
+    <PaginationLink
+      ref={ref}
       aria-label="Go to previous page"
-      size="md" // Default size
+      size="md"
       className={cn('gap-1 pl-2.5', className)}
       {...props}
     >
       <ChevronLeft className="h-4 w-4" />
       <span>Previous</span>
-    </PaginationPreviousBase>
+    </PaginationLink>
   )
 );
 PaginationPrevious.displayName = 'PaginationPrevious';
 
 export const PaginationNext = React.forwardRef<HTMLAnchorElement, React.ComponentProps<typeof PaginationLink>>(
   ({ className, ...props }, ref) => (
-    <PaginationNextBase
+    <PaginationLink
+      ref={ref}
       aria-label="Go to next page"
       size="md"
       className={cn('gap-1 pr-2.5', className)}
@@ -99,7 +90,7 @@ export const PaginationNext = React.forwardRef<HTMLAnchorElement, React.Componen
     >
       <span>Next</span>
       <ChevronRight className="h-4 w-4" />
-    </PaginationNextBase>
+    </PaginationLink>
   )
 );
 PaginationNext.displayName = 'PaginationNext';

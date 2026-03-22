@@ -1,89 +1,57 @@
-'use client';
-
 import * as React from 'react';
+import * as SwitchPrimitive from '@radix-ui/react-switch';
+import { SwitchBase, SwitchThumbBase, type SwitchBaseProps } from '../_base/switch';
 import { cn } from '@/lib/utils';
-import { SwitchBase, SwitchThumbBase } from '../_base/switch';
-import type { VariantColors } from '../../types/common';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
+export interface SwitchProps extends SwitchBaseProps {}
 
-export interface SwitchProps extends Omit<React.ComponentPropsWithoutRef<typeof SwitchBase>, 'type'> {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  colors?: VariantColors;
-  version?: string;
-}
+const TRACK_CLIP = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
-const versionKey = 'angular-corner';
+const getSizeStyles = (size: string = 'md') => {
+  switch (size) {
+    case 'sm': return 'h-4 w-8 [--corner:4px]';
+    case 'md': return 'h-6 w-11 [--corner:6px]';
+    case 'lg': return 'h-8 w-14 [--corner:8px]';
+    default: return 'h-6 w-11 [--corner:6px]';
+  }
+};
 
-const SWITCH_CLIP_PATH = 'polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px)';
-const THUMB_CLIP_PATH = 'polygon(3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px), 0 3px)';
+const getThumbSizeStyles = (size: string = 'md') => {
+  switch (size) {
+    case 'sm': return 'h-3 w-3 translate-x-0.5 data-[state=checked]:translate-x-[18px]';
+    case 'md': return 'h-4 w-4 translate-x-1 data-[state=checked]:translate-x-[22px]';
+    case 'lg': return 'h-6 w-6 translate-x-1 data-[state=checked]:translate-x-[26px]';
+    default: return 'h-4 w-4 translate-x-1 data-[state=checked]:translate-x-[22px]';
+  }
+};
 
-export const Switch = React.forwardRef<React.ElementRef<typeof SwitchBase>, SwitchProps>(
-  ({ className, type, uiType, colors, style, ...props }, ref) => {
-    const resolvedType = uiType ?? type ?? 'default';
-    const palette = normalizeColors(colors);
-    const typeStyles = getCoreTypeStyles(resolvedType, colors);
-
-    const trackBgOff =
-      resolvedType === 'soft' && palette.accentRgb
-        ? 'rgba(' + palette.accentRgb + ', 0.2)'
-        : palette.base ?? '#1f1f1f';
-
-    const trackBgOn =
-      resolvedType === 'solid'
-        ? palette.accentPrimary ?? palette.foreground
-        : resolvedType === 'inverse'
-          ? palette.foreground
-          : (typeStyles.backgroundColor as string | undefined) ?? palette.accentPrimary ?? palette.foreground;
-
-    const borderColor =
-      resolvedType === 'outline' || resolvedType === 'contrast'
-        ? palette.accentPrimary ?? palette.border
-        : resolvedType === 'ghost'
-          ? 'transparent'
-          : palette.border;
-
-    const thumbColor =
-      resolvedType === 'solid' || resolvedType === 'inverse'
-        ? palette.base ?? '#fff'
-        : palette.foreground ?? '#fff';
-
+export const Switch = React.forwardRef<React.ElementRef<typeof SwitchPrimitive.Root>, SwitchProps>(
+  ({ className, size = 'md', style, ...props }, ref) => {
     return (
       <SwitchBase
         ref={ref}
+        size={size}
+        style={{
+          clipPath: TRACK_CLIP,
+          ...style
+        }}
         className={cn(
-          'peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center',
-          'transition-colors focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+          'peer inline-flex shrink-0 cursor-pointer items-center border-2 border-[var(--ac-border)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ac-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ac-bg)] disabled:cursor-not-allowed disabled:opacity-50',
+          'data-[state=checked]:bg-[var(--ac-accent)] data-[state=unchecked]:bg-[var(--ac-bg)]',
+          getSizeStyles(size),
           className
         )}
-        style={{
-          clipPath: SWITCH_CLIP_PATH,
-          backgroundColor: trackBgOff,
-          border: '2px solid ' + borderColor,
-          ...style,
-        }}
-        data-version={versionKey}
-        data-type={resolvedType}
         {...props}
       >
         <SwitchThumbBase
           className={cn(
-            'pointer-events-none block h-4 w-4 shadow-lg transition-transform',
-            'data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0.5'
+            'pointer-events-none block bg-[var(--ac-text)] shadow-lg ring-0 transition-transform data-[state=checked]:bg-[var(--ac-bg)]',
+            getThumbSizeStyles(size),
+            '[clip-path:polygon(30%_0%,70%_0%,100%_30%,100%_70%,70%_100%,30%_100%,0%_70%,0%_30%)]' // Octagonal thumb
           )}
-          style={{
-            clipPath: THUMB_CLIP_PATH,
-            backgroundColor: thumbColor,
-            boxShadow: '0 0 6px ' + (palette.glow ?? 'rgba(0,0,0,0.3)'),
-          }}
         />
       </SwitchBase>
     );
   }
 );
-
 Switch.displayName = 'Switch';
-
-export default Switch;

@@ -144,6 +144,11 @@ export interface ContextMenuSubTriggerBaseProps
    * @default true
    */
   showIndicator?: boolean;
+
+  /**
+   * Inset content for alignment
+   */
+  inset?: boolean;
 }
 
 /**
@@ -256,7 +261,12 @@ ContextMenuItemBase.displayName = 'ContextMenuItemBase';
 // ============================================================================
 
 export interface ContextMenuCheckboxItemBaseProps
-  extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.CheckboxItem> {}
+  extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.CheckboxItem> {
+    /**
+     * Whether the item is checked
+     */
+    checked?: boolean | 'indeterminate';
+  }
 
 /**
  * ContextMenuCheckboxItemBase - Item with checkbox state
@@ -304,7 +314,12 @@ ContextMenuItemIndicatorBase.displayName = 'ContextMenuItemIndicatorBase';
 // ============================================================================
 
 export interface ContextMenuLabelBaseProps
-  extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Label> {}
+  extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Label> {
+  /**
+   * Inset content for alignment
+   */
+  inset?: boolean;
+}
 
 /**
  * ContextMenuLabelBase - Non-interactive label for grouping

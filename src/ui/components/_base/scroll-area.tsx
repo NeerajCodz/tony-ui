@@ -150,6 +150,9 @@ export const ScrollBarThumbBase = React.forwardRef<
 >((props, ref) => <ScrollAreaPrimitive.ScrollAreaThumb ref={ref} {...props} />);
 ScrollBarThumbBase.displayName = 'ScrollBarThumbBase';
 
+// Alias for compatibility
+export const ScrollAreaThumbBase = ScrollBarThumbBase;
+
 // ============================================================================
 // ScrollArea Corner
 // ============================================================================

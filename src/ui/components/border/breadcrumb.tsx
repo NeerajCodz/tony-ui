@@ -1,116 +1,95 @@
-import React from 'react';
+import * as React from 'react';
+import { BreadcrumbBase, BreadcrumbListBase, BreadcrumbItemBase, BreadcrumbLinkBase, BreadcrumbPageBase, BreadcrumbSeparatorBase, BreadcrumbEllipsisBase } from '@/ui/components/_base/breadcrumb';
 import { cn } from '@/lib/utils';
-import type { BreadcrumbProps, BreadcrumbItemProps, BreadcrumbLinkProps, BreadcrumbListProps, BreadcrumbPageProps, BreadcrumbSeparatorProps } from '@/ui/types/components/navigation';
-import { Slot } from "@radix-ui/react-slot"
-import { ChevronRight, MoreHorizontal } from "lucide-react"
-import { BreadcrumbBase, BreadcrumbListBase, BreadcrumbItemBase, BreadcrumbLinkBase, BreadcrumbPageBase, BreadcrumbSeparatorBase, BreadcrumbEllipsisBase } from '../_base/breadcrumb';
+import { ChevronRight } from 'lucide-react';
 
-export function Breadcrumb({ className, type = 'default', colors, ...props }: BreadcrumbProps & { colors?: any }) {
-  const typeStyles = {
-    default: {
-      backgroundColor: colors?.background,
-      color: colors?.text,
-      border: colors?.border ? `1px solid ${colors.border}` : undefined
-    },
-    solid: {
-      backgroundColor: colors?.accent?.primary,
-      color: colors?.text,
-      boxShadow: colors?.accent?.glow ? `0 0 10px ${colors?.accent?.glow}` : undefined
-    },
-    outline: {
-      backgroundColor: 'transparent',
-      color: colors?.accent?.primary,
-      border: colors?.accent?.primary ? `1px solid ${colors?.accent?.primary}` : undefined
-    },
-    ghost: {
-      backgroundColor: 'transparent',
-      color: colors?.textHover
-    },
-    inverse: {
-      backgroundColor: colors?.text,
-      color: colors?.background,
-      border: colors?.text ? `1px solid ${colors.text}` : undefined
-    },
-    contrast: {
-      backgroundColor: colors?.accent?.primary || colors?.text,
-      color: '#000000',
-      fontWeight: 'bold',
-      border: colors?.text ? `1px solid ${colors.text}` : undefined
-    },
-    soft: {
-      backgroundColor: colors?.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors?.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
-      color: colors?.accent?.primary || colors?.text,
-      border: 'none'
-    }
-  };
+const Breadcrumb = BreadcrumbBase;
 
-  return (
-    <nav 
-      aria-label="breadcrumb" 
-      className={className} 
-      style={typeStyles[type as keyof typeof typeStyles] || typeStyles.default} 
-      {...props} 
-    />
-  )
-}
-
-export function BreadcrumbList({ className, ...props }: BreadcrumbListProps) {
-  return (
-    <ol
+const BreadcrumbList = React.forwardRef<HTMLOListElement, React.ComponentPropsWithoutRef<typeof BreadcrumbListBase>>(
+  ({ className, ...props }, ref) => (
+    <BreadcrumbListBase
+      ref={ref}
       className={cn(
-        "flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5",
+        'flex flex-wrap items-center break-words text-sm text-muted-foreground sm:gap-2.5 font-mono',
         className
       )}
       {...props}
     />
   )
-}
+);
+BreadcrumbList.displayName = 'BreadcrumbList';
 
-export function BreadcrumbItem({ className, ...props }: BreadcrumbItemProps) {
-  return (
-    <li
-      className={cn("inline-flex items-center gap-1.5", className)}
+const BreadcrumbItem = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<typeof BreadcrumbItemBase>>(
+  ({ className, ...props }, ref) => (
+    <BreadcrumbItemBase
+      ref={ref}
+      className={cn('inline-flex items-center gap-1.5', className)}
       {...props}
     />
   )
-}
+);
+BreadcrumbItem.displayName = 'BreadcrumbItem';
 
-export function BreadcrumbLink({ asChild, className, ...props }: BreadcrumbLinkProps) {
-  const Comp = asChild ? Slot : "a"
-
-  return (
-    <Comp
-      className={cn("transition-colors hover:text-foreground", className)}
+const BreadcrumbLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<typeof BreadcrumbLinkBase>>(
+  ({ className, ...props }, ref) => (
+    <BreadcrumbLinkBase
+      ref={ref}
+      className={cn('transition-colors hover:text-foreground hover:underline decoration-dashed underline-offset-4', className)}
       {...props}
     />
   )
-}
+);
+BreadcrumbLink.displayName = 'BreadcrumbLink';
 
-export function BreadcrumbPage({ className, ...props }: BreadcrumbPageProps) {
-  return (
-    <span
-      role="link"
-      aria-disabled="true"
-      aria-current="page"
-      className={cn("font-normal text-foreground", className)}
+const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<typeof BreadcrumbPageBase>>(
+  ({ className, ...props }, ref) => (
+    <BreadcrumbPageBase
+      ref={ref}
+      className={cn('font-normal text-foreground font-bold', className)}
       {...props}
     />
   )
-}
+);
+BreadcrumbPage.displayName = 'BreadcrumbPage';
 
-export function BreadcrumbSeparator({
+const BreadcrumbSeparator = ({
   children,
   className,
   ...props
-}: BreadcrumbSeparatorProps) {
-  return (
-    <li
-      role="presentation"
-      aria-hidden="true"
-      className={cn("[&>svg]:size-3.5", className)}
-      {...props}
-    >
-      {children ?? <ChevronRight />}
-    </li>
-  )
-}
+}: React.ComponentProps<typeof BreadcrumbSeparatorBase>) => (
+  <BreadcrumbSeparatorBase
+    role="presentation"
+    aria-hidden="true"
+    className={cn('[&>svg]:size-3.5', className)}
+    {...props}
+  >
+    {children ?? <ChevronRight />}
+  </BreadcrumbSeparatorBase>
+);
+BreadcrumbSeparator.displayName = 'BreadcrumbSeparator';
+
+const BreadcrumbEllipsis = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof BreadcrumbEllipsisBase>) => (
+  <BreadcrumbEllipsisBase
+    role="presentation"
+    aria-hidden="true"
+    className={cn('flex h-9 w-9 items-center justify-center', className)}
+    {...props}
+  >
+    <span className="sr-only">More</span>
+    ...
+  </BreadcrumbEllipsisBase>
+);
+BreadcrumbEllipsis.displayName = 'BreadcrumbEllipsis';
+
+export {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis,
+};

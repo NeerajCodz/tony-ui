@@ -1,0 +1,306 @@
+src/ui/components/angular-corner/toaster.tsx(19,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: ToastVariant; type?: ToastType; duration?: number; open?: boolean; onOpenChange?: (open: boolean) => void; ... 275 more ...; key: string; }' is not assignable to type 'Omit<Omit<ToastProps & RefAttributes<HTMLLIElement>, "ref">, "type">'.
+  Types of property 'onPause' are incompatible.
+    Type 'ReactEventHandler<HTMLLIElement>' is not assignable to type '() => void'.
+      Target signature provides too few arguments. Expected 1 or more, but got 0.
+src/ui/components/border/analog-clock.tsx(8,7): error TS2322: Type 'ForwardedRef<HTMLDivElement>' is not assignable to type 'Ref<SVGSVGElement>'.
+  Type 'RefObject<HTMLDivElement>' is not assignable to type 'Ref<SVGSVGElement>'.
+    Type 'RefObject<HTMLDivElement>' is not assignable to type 'RefObject<SVGSVGElement>'.
+      Type 'HTMLDivElement' is missing the following properties from type 'SVGSVGElement': currentScale, currentTranslate, height, width, and 55 more.
+src/ui/components/border/badge.tsx(64,18): error TS2320: Interface 'BadgeProps' cannot simultaneously extend types 'BadgeBaseProps' and 'VariantProps<(props?: ConfigVariants<{ type: { default: string; solid: string; outline: string; ghost: string; soft: string; subtle: string; neutral: string; inverted: string; elevated: string; tinted: string; flat: string; link: string; disabled: string; unstyled: string; }; variant: { ...; }; size: { ...; }; }> & ...'.
+  Named property 'type' of types 'BadgeBaseProps' and 'VariantProps<(props?: ConfigVariants<{ type: { default: string; solid: string; outline: string; ghost: string; soft: string; subtle: string; neutral: string; inverted: string; elevated: string; tinted: string; flat: string; link: string; disabled: string; unstyled: string; }; variant: { ...; }; size: { ...; }; }> & ...' are not identical.
+src/ui/components/border/badge.tsx(74,39): error TS2322: Type 'BadgeType' is not assignable to type '"default" | "ghost" | "soft" | "subtle" | "flat" | "neutral" | "elevated" | "tinted" | "unstyled" | "link" | "disabled" | "solid" | "outline" | "inverted"'.
+  Type '"contrast"' is not assignable to type '"default" | "ghost" | "soft" | "subtle" | "flat" | "neutral" | "elevated" | "tinted" | "unstyled" | "link" | "disabled" | "solid" | "outline" | "inverted"'.
+src/ui/components/border/calendar.tsx(21,28): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/border/calendar.tsx(33,28): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/border/calendar.tsx(49,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/ui/components/border/combobox.tsx(2,29): error TS2724: '"@/ui/components/_base/combobox"' has no exported member named 'ComboboxProps'. Did you mean 'ComboboxBaseProps'?
+src/ui/components/border/date-picker.tsx(2,31): error TS2724: '"@/ui/components/_base/date-picker"' has no exported member named 'DatePickerProps'. Did you mean 'DatePickerBaseProps'?
+src/ui/components/border/dialog.tsx(8,20): error TS2344: Type 'FC<DialogProps>' does not satisfy the constraint 'keyof IntrinsicElements | ForwardRefExoticComponent<any> | (new (props: any, context: any) => Component<any, {}, any>) | ((props: any) => ReactNode)'.
+  Property '$$typeof' is missing in type 'FunctionComponent<DialogProps>' but required in type 'ForwardRefExoticComponent<any>'.
+src/ui/components/border/field.tsx(1,59): error TS2305: Module '"@/ui/components/_base/field"' has no exported member 'FieldMessageBase'.
+src/ui/components/border/icon-button.tsx(11,40): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/border/navigation-menu.tsx(2,213): error TS2724: '"@/ui/components/_base/navigation-menu"' has no exported member named 'navigationMenuTriggerStyleBase'. Did you mean 'NavigationMenuTriggerBase'?
+src/ui/components/border/pagination.tsx(56,5): error TS2322: Type '"default"' is not assignable to type 'ButtonSize'.
+src/ui/components/border/pagination.tsx(72,5): error TS2322: Type '"default"' is not assignable to type 'ButtonSize'.
+src/ui/components/border/radio-group.tsx(40,18): error TS2320: Interface 'RadioGroupItemProps' cannot simultaneously extend types 'RadioGroupItemBaseProps' and 'VariantProps<(props?: ConfigVariants<{ type: { default: string; solid: string; outline: string; tinted: string; soft: string; neutral: string; unstyled: string; }; size: { sm: string; md: string; lg: string; }; }> & ClassProp) => string>'.
+  Named property 'type' of types 'RadioGroupItemBaseProps' and 'VariantProps<(props?: ConfigVariants<{ type: { default: string; solid: string; outline: string; tinted: string; soft: string; neutral: string; unstyled: string; }; size: { sm: string; md: string; lg: string; }; }> & ClassProp) => string>' are not identical.
+src/ui/components/border/radio-group.tsx(47,43): error TS2322: Type '"button" | "submit" | "reset"' is not assignable to type '"default" | "soft" | "neutral" | "tinted" | "unstyled" | "solid" | "outline"'.
+  Type '"button"' is not assignable to type '"default" | "soft" | "neutral" | "tinted" | "unstyled" | "solid" | "outline"'.
+src/ui/components/border/scroll-area.tsx(14,23): error TS2339: Property 'Corner' does not exist on type 'ForwardRefExoticComponent<ScrollAreaBaseProps & RefAttributes<HTMLDivElement>>'.
+src/ui/components/border/scroll-area.tsx(35,22): error TS2339: Property 'Thumb' does not exist on type 'ForwardRefExoticComponent<ScrollBarBaseProps & RefAttributes<HTMLDivElement>>'.
+src/ui/components/border/sidebar.tsx(1,23): error TS2724: '"@/ui/components/_base/sidebar"' has no exported member named 'SidebarProviderBase'. Did you mean 'SidebarProvider'?
+src/ui/components/border/switch.tsx(45,18): error TS2430: Interface 'SwitchProps' incorrectly extends interface 'VariantProps<(props?: ConfigVariants<{ size: { sm: string; md: string; lg: string; }; visualType: { default: string; solid: string; outline: string; tinted: string; soft: string; neutral: string; unstyled: string; }; }> & ClassProp) => string>'.
+  Types of property 'visualType' are incompatible.
+    Type 'string' is not assignable to type '"default" | "soft" | "neutral" | "tinted" | "unstyled" | "solid" | "outline"'.
+src/ui/components/border/toggle.tsx(27,18): error TS2320: Interface 'ToggleProps' cannot simultaneously extend types 'ToggleBaseProps' and 'VariantProps<(props?: ConfigVariants<{ visualType: { default: string; outline: string; }; size: { default: string; sm: string; lg: string; }; }> & ClassProp) => string>'.
+  Named property 'size' of types 'ToggleBaseProps' and 'VariantProps<(props?: ConfigVariants<{ visualType: { default: string; outline: string; }; size: { default: string; sm: string; lg: string; }; }> & ClassProp) => string>' are not identical.
+src/ui/components/border/toggle.tsx(33,38): error TS2322: Type 'ToggleType' is not assignable to type '"default" | "outline"'.
+  Type '"ghost"' is not assignable to type '"default" | "outline"'.
+src/ui/components/border/toggle.tsx(33,50): error TS2322: Type 'ToggleSize' is not assignable to type '"default" | "sm" | "lg"'.
+  Type '"md"' is not assignable to type '"default" | "sm" | "lg"'.
+src/ui/components/circuit-board/analog-clock.tsx(8,7): error TS2322: Type 'ForwardedRef<HTMLDivElement>' is not assignable to type 'Ref<SVGSVGElement>'.
+  Type 'RefObject<HTMLDivElement>' is not assignable to type 'Ref<SVGSVGElement>'.
+    Type 'RefObject<HTMLDivElement>' is not assignable to type 'RefObject<SVGSVGElement>'.
+      Type 'HTMLDivElement' is missing the following properties from type 'SVGSVGElement': currentScale, currentTranslate, height, width, and 55 more.
+src/ui/components/circuit-board/badge.tsx(63,18): error TS2320: Interface 'BadgeProps' cannot simultaneously extend types 'BadgeBaseProps' and 'VariantProps<(props?: ConfigVariants<{ type: { default: string; solid: string; outline: string; ghost: string; soft: string; subtle: string; neutral: string; inverted: string; elevated: string; tinted: string; flat: string; link: string; disabled: string; unstyled: string; }; variant: { ...; }; size: { ...; }; }> & ...'.
+  Named property 'type' of types 'BadgeBaseProps' and 'VariantProps<(props?: ConfigVariants<{ type: { default: string; solid: string; outline: string; ghost: string; soft: string; subtle: string; neutral: string; inverted: string; elevated: string; tinted: string; flat: string; link: string; disabled: string; unstyled: string; }; variant: { ...; }; size: { ...; }; }> & ...' are not identical.
+src/ui/components/circuit-board/badge.tsx(73,39): error TS2322: Type 'BadgeType' is not assignable to type '"default" | "ghost" | "soft" | "subtle" | "flat" | "neutral" | "elevated" | "tinted" | "unstyled" | "link" | "disabled" | "solid" | "outline" | "inverted"'.
+  Type '"contrast"' is not assignable to type '"default" | "ghost" | "soft" | "subtle" | "flat" | "neutral" | "elevated" | "tinted" | "unstyled" | "link" | "disabled" | "solid" | "outline" | "inverted"'.
+src/ui/components/circuit-board/calendar.tsx(21,28): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/circuit-board/calendar.tsx(33,28): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/circuit-board/calendar.tsx(49,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/ui/components/circuit-board/combobox.tsx(2,29): error TS2724: '"@/ui/components/_base/combobox"' has no exported member named 'ComboboxProps'. Did you mean 'ComboboxBaseProps'?
+src/ui/components/circuit-board/date-picker.tsx(2,31): error TS2724: '"@/ui/components/_base/date-picker"' has no exported member named 'DatePickerProps'. Did you mean 'DatePickerBaseProps'?
+src/ui/components/circuit-board/dialog.tsx(8,20): error TS2344: Type 'FC<DialogProps>' does not satisfy the constraint 'keyof IntrinsicElements | ForwardRefExoticComponent<any> | (new (props: any, context: any) => Component<any, {}, any>) | ((props: any) => ReactNode)'.
+  Property '$$typeof' is missing in type 'FunctionComponent<DialogProps>' but required in type 'ForwardRefExoticComponent<any>'.
+src/ui/components/circuit-board/field.tsx(1,59): error TS2305: Module '"@/ui/components/_base/field"' has no exported member 'FieldMessageBase'.
+src/ui/components/circuit-board/icon-button.tsx(11,40): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/circuit-board/navigation-menu.tsx(2,213): error TS2724: '"@/ui/components/_base/navigation-menu"' has no exported member named 'navigationMenuTriggerStyleBase'. Did you mean 'NavigationMenuTriggerBase'?
+src/ui/components/circuit-board/pagination.tsx(60,5): error TS2322: Type '"default"' is not assignable to type 'ButtonSize'.
+src/ui/components/circuit-board/pagination.tsx(76,5): error TS2322: Type '"default"' is not assignable to type 'ButtonSize'.
+src/ui/components/circuit-board/radio-group.tsx(40,18): error TS2320: Interface 'RadioGroupItemProps' cannot simultaneously extend types 'RadioGroupItemBaseProps' and 'VariantProps<(props?: ConfigVariants<{ type: { default: string; solid: string; outline: string; tinted: string; soft: string; neutral: string; unstyled: string; }; size: { sm: string; md: string; lg: string; }; }> & ClassProp) => string>'.
+  Named property 'type' of types 'RadioGroupItemBaseProps' and 'VariantProps<(props?: ConfigVariants<{ type: { default: string; solid: string; outline: string; tinted: string; soft: string; neutral: string; unstyled: string; }; size: { sm: string; md: string; lg: string; }; }> & ClassProp) => string>' are not identical.
+src/ui/components/circuit-board/radio-group.tsx(47,43): error TS2322: Type '"button" | "submit" | "reset"' is not assignable to type '"default" | "soft" | "neutral" | "tinted" | "unstyled" | "solid" | "outline"'.
+  Type '"button"' is not assignable to type '"default" | "soft" | "neutral" | "tinted" | "unstyled" | "solid" | "outline"'.
+src/ui/components/circuit-board/scroll-area.tsx(14,23): error TS2339: Property 'Corner' does not exist on type 'ForwardRefExoticComponent<ScrollAreaBaseProps & RefAttributes<HTMLDivElement>>'.
+src/ui/components/circuit-board/scroll-area.tsx(35,22): error TS2339: Property 'Thumb' does not exist on type 'ForwardRefExoticComponent<ScrollBarBaseProps & RefAttributes<HTMLDivElement>>'.
+src/ui/components/circuit-board/sidebar.tsx(1,23): error TS2724: '"@/ui/components/_base/sidebar"' has no exported member named 'SidebarProviderBase'. Did you mean 'SidebarProvider'?
+src/ui/components/circuit-board/switch.tsx(45,18): error TS2430: Interface 'SwitchProps' incorrectly extends interface 'VariantProps<(props?: ConfigVariants<{ size: { sm: string; md: string; lg: string; }; visualType: { default: string; solid: string; outline: string; tinted: string; soft: string; neutral: string; unstyled: string; }; }> & ClassProp) => string>'.
+  Types of property 'visualType' are incompatible.
+    Type 'string' is not assignable to type '"default" | "soft" | "neutral" | "tinted" | "unstyled" | "solid" | "outline"'.
+src/ui/components/circuit-board/toggle.tsx(27,18): error TS2320: Interface 'ToggleProps' cannot simultaneously extend types 'ToggleBaseProps' and 'VariantProps<(props?: ConfigVariants<{ visualType: { default: string; outline: string; }; size: { default: string; sm: string; lg: string; }; }> & ClassProp) => string>'.
+  Named property 'size' of types 'ToggleBaseProps' and 'VariantProps<(props?: ConfigVariants<{ visualType: { default: string; outline: string; }; size: { default: string; sm: string; lg: string; }; }> & ClassProp) => string>' are not identical.
+src/ui/components/circuit-board/toggle.tsx(33,38): error TS2322: Type 'ToggleType' is not assignable to type '"default" | "outline"'.
+  Type '"ghost"' is not assignable to type '"default" | "outline"'.
+src/ui/components/circuit-board/toggle.tsx(33,50): error TS2322: Type 'ToggleSize' is not assignable to type '"default" | "sm" | "lg"'.
+  Type '"md"' is not assignable to type '"default" | "sm" | "lg"'.
+src/ui/components/compact/toaster.tsx(19,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: ToastVariant; type?: ToastType; duration?: number; open?: boolean; onOpenChange?: (open: boolean) => void; ... 275 more ...; key: string; }' is not assignable to type 'Omit<Omit<ToastProps & RefAttributes<HTMLLIElement>, "ref">, "type">'.
+  Types of property 'onPause' are incompatible.
+    Type 'ReactEventHandler<HTMLLIElement>' is not assignable to type '() => void'.
+      Target signature provides too few arguments. Expected 1 or more, but got 0.
+src/ui/components/data-panel/toaster.tsx(19,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: ToastVariant; type?: ToastType; duration?: number; open?: boolean; onOpenChange?: (open: boolean) => void; ... 275 more ...; key: string; }' is not assignable to type 'Omit<Omit<ToastProps & RefAttributes<HTMLLIElement>, "ref">, "type">'.
+  Types of property 'onPause' are incompatible.
+    Type 'ReactEventHandler<HTMLLIElement>' is not assignable to type '() => void'.
+      Target signature provides too few arguments. Expected 1 or more, but got 0.
+src/ui/components/default/alert-dialog.tsx(16,10): error TS2305: Module '"./button"' has no exported member 'buttonVariants'.
+src/ui/components/default/chart.tsx(35,37): error TS2339: Property 'chartType' does not exist on type '{ slot?: string; style?: CSSProperties; title?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; suppressContentEditableWarning?: boolean; ... 272 more ...; config: ChartConfig; }'.
+src/ui/components/default/chart.tsx(72,15): error TS2339: Property 'labelFormatter' does not exist on type '{ slot?: string; style?: CSSProperties; title?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; suppressContentEditableWarning?: boolean; ... 272 more ...; nameKey?: string; }'.
+src/ui/components/default/chart.tsx(74,49): error TS2339: Property 'labelClassName' does not exist on type '{ slot?: string; style?: CSSProperties; title?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; suppressContentEditableWarning?: boolean; ... 272 more ...; nameKey?: string; }'.
+src/ui/components/default/chart.tsx(75,18): error TS2339: Property 'labelFormatter' does not exist on type '{ slot?: string; style?: CSSProperties; title?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; suppressContentEditableWarning?: boolean; ... 272 more ...; nameKey?: string; }'.
+src/ui/components/default/chart.tsx(84,52): error TS2339: Property 'labelClassName' does not exist on type '{ slot?: string; style?: CSSProperties; title?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; suppressContentEditableWarning?: boolean; ... 272 more ...; nameKey?: string; }'.
+src/ui/components/default/chart.tsx(85,59): error TS2339: Property 'labelFormatter' does not exist on type '{ slot?: string; style?: CSSProperties; title?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; suppressContentEditableWarning?: boolean; ... 272 more ...; nameKey?: string; }'.
+src/ui/components/default/chart.tsx(85,81): error TS2339: Property 'labelClassName' does not exist on type '{ slot?: string; style?: CSSProperties; title?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; suppressContentEditableWarning?: boolean; ... 272 more ...; nameKey?: string; }'.
+src/ui/components/default/chart.tsx(100,47): error TS2339: Property 'fill' does not exist on type 'unknown'.
+src/ui/components/default/chart.tsx(104,15): error TS2322: Type 'unknown' is not assignable to type 'Key'.
+src/ui/components/default/chart.tsx(110,22): error TS2339: Property 'formatter' does not exist on type '{ slot?: string; style?: CSSProperties; title?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; suppressContentEditableWarning?: boolean; ... 272 more ...; nameKey?: string; }'.
+src/ui/components/default/chart.tsx(111,23): error TS2339: Property 'formatter' does not exist on type '{ slot?: string; style?: CSSProperties; title?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; suppressContentEditableWarning?: boolean; ... 272 more ...; nameKey?: string; }'.
+src/ui/components/default/chart.tsx(121,27): error TS2345: Argument of type '{ 'h-2.5 w-2.5': boolean; 'w-1': boolean; 'w-0 border-[1.5px] border-dashed bg-transparent': boolean; 'my-0.5': boolean; }' is not assignable to parameter of type 'string | false'.
+src/ui/components/default/chart.tsx(147,25): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/ui/components/default/chart.tsx(193,40): error TS2339: Property 'dataKey' does not exist on type '{ value: string; color: string; type: string; }'.
+src/ui/components/default/direction.tsx(13,20): error TS2300: Duplicate identifier 'Direction'.
+src/ui/components/default/direction.tsx(17,15): error TS2300: Duplicate identifier 'Direction'.
+src/ui/components/default/empty.tsx(35,18): error TS2320: Interface 'EmptyProps' cannot simultaneously extend types 'EmptyBaseProps' and 'VariantProps<(props?: ConfigVariants<{ size: { sm: string; md: string; lg: string; }; variant: { default: string; muted: string; ghost: string; }; }> & ClassProp) => string>'.
+  Named property 'variant' of types 'EmptyBaseProps' and 'VariantProps<(props?: ConfigVariants<{ size: { sm: string; md: string; lg: string; }; variant: { default: string; muted: string; ghost: string; }; }> & ClassProp) => string>' are not identical.
+src/ui/components/default/empty.tsx(44,45): error TS2322: Type 'string' is not assignable to type '"default" | "ghost" | "muted"'.
+src/ui/components/default/menubar.tsx(107,17): error TS2339: Property 'inset' does not exist on type 'Omit<MenubarItemBaseProps & RefAttributes<HTMLDivElement>, "ref">'.
+src/ui/components/default/native-select.tsx(15,13): error TS2345: Argument of type '{ 'h-8 px-2 py-1': boolean; 'h-10 px-3 py-2': boolean; 'h-12 px-4 py-3': boolean; }' is not assignable to parameter of type 'string | false'.
+src/ui/components/default/pagination.tsx(55,6): error TS2322: Type '{ asChild?: boolean; visualType?: ButtonType; htmlType?: "button" | "submit" | "reset"; variant?: string; loading?: boolean; fullWidth?: boolean; form?: string; slot?: string; style?: CSSProperties; ... 283 more ...; className: string; }' is not assignable to type 'PaginationLinkBaseProps'.
+  Types of property 'onCopy' are incompatible.
+    Type 'ClipboardEventHandler<HTMLButtonElement>' is not assignable to type 'ClipboardEventHandler<HTMLAnchorElement>'.
+      Type 'HTMLButtonElement' is missing the following properties from type 'HTMLAnchorElement': charset, coords, download, hreflang, and 19 more.
+src/ui/components/default/pagination.tsx(79,6): error TS2322: Type '{ children: Element[]; form?: string; slot?: string; style?: CSSProperties; title?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; ... 287 more ...; className: string; }' is not assignable to type 'PaginationPreviousBaseProps'.
+  Types of property 'onCopy' are incompatible.
+    Type 'ClipboardEventHandler<HTMLButtonElement>' is not assignable to type 'ClipboardEventHandler<HTMLAnchorElement>'.
+      Type 'HTMLButtonElement' is missing the following properties from type 'HTMLAnchorElement': charset, coords, download, hreflang, and 19 more.
+src/ui/components/default/pagination.tsx(94,6): error TS2322: Type '{ children: Element[]; form?: string; slot?: string; style?: CSSProperties; title?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; ... 287 more ...; className: string; }' is not assignable to type 'PaginationNextBaseProps'.
+  Types of property 'onCopy' are incompatible.
+    Type 'ClipboardEventHandler<HTMLButtonElement>' is not assignable to type 'ClipboardEventHandler<HTMLAnchorElement>'.
+      Type 'HTMLButtonElement' is missing the following properties from type 'HTMLAnchorElement': charset, coords, download, hreflang, and 19 more.
+src/ui/components/default/radio-group.tsx(7,18): error TS2430: Interface 'RadioGroupItemProps' incorrectly extends interface 'RadioGroupItemBaseProps'.
+  Types of property 'type' are incompatible.
+    Type 'string' is not assignable to type '"button" | "submit" | "reset"'.
+src/ui/components/default/radio-group.tsx(72,8): error TS2322: Type '{ children: Element; type?: string; size?: string; form?: string; slot?: string; style?: CSSProperties; title?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | ... 1 more ... | readonly string[]; ... 282 more ...; className: string; }' is not assignable to type 'RadioGroupItemBaseProps'.
+  Types of property 'type' are incompatible.
+    Type 'string' is not assignable to type '"button" | "submit" | "reset"'.
+src/ui/components/default/scroll-area.tsx(5,5): error TS2724: '"../_base/scroll-area"' has no exported member named 'ScrollAreaScrollbarBase'. Did you mean 'ScrollAreaCornerBase'?
+src/ui/components/default/select.tsx(20,57): error TS2344: Type 'FC<SelectProps>' does not satisfy the constraint 'keyof IntrinsicElements | ForwardRefExoticComponent<any> | (new (props: any, context: any) => Component<any, {}, any>) | ((props: any) => ReactNode)'.
+  Property '$$typeof' is missing in type 'FunctionComponent<SelectProps>' but required in type 'ForwardRefExoticComponent<any>'.
+src/ui/components/default/select.tsx(22,21): error TS2322: Type '{ size?: SelectSize; variant?: string; children?: ReactNode; open?: boolean; defaultOpen?: boolean; onOpenChange?(open: boolean): void; dir?: Direction; name?: string; ... 7 more ...; ref: ForwardedRef<...>; }' is not assignable to type 'IntrinsicAttributes & SelectSharedProps & { value?: string; defaultValue?: string; onValueChange?(value: string): void; }'.
+  Property 'ref' does not exist on type 'IntrinsicAttributes & SelectSharedProps & { value?: string; defaultValue?: string; onValueChange?(value: string): void; }'.
+src/ui/components/default/spinner.tsx(22,9): error TS2322: Type 'ForwardedRef<HTMLSpanElement>' is not assignable to type 'Ref<HTMLDivElement>'.
+  Type 'RefObject<HTMLSpanElement>' is not assignable to type 'Ref<HTMLDivElement>'.
+    Type 'RefObject<HTMLSpanElement>' is not assignable to type 'RefObject<HTMLDivElement>'.
+      Property 'align' is missing in type 'HTMLSpanElement' but required in type 'HTMLDivElement'.
+src/ui/components/default/toggle-group.tsx(46,13): error TS2345: Argument of type '{ 'h-8 px-2': boolean; 'h-9 px-2.5': boolean; 'h-10 px-3': boolean; }' is not assignable to parameter of type 'string | false'.
+src/ui/components/energy-shield/accordion.tsx(20,17): error TS2339: Property 'effects' does not exist on type 'AccordionBaseProps'.
+src/ui/components/energy-shield/accordion.tsx(30,53): error TS2312: An interface can only extend an object type or intersection of object types with statically known members.
+src/ui/components/energy-shield/accordion.tsx(35,17): error TS2339: Property 'effects' does not exist on type 'AccordionItemBaseProps'.
+src/ui/components/energy-shield/accordion.tsx(51,17): error TS2339: Property 'effects' does not exist on type 'AccordionTriggerBaseProps'.
+src/ui/components/energy-shield/accordion.tsx(70,17): error TS2339: Property 'effects' does not exist on type 'AccordionContentBaseProps'.
+src/ui/components/energy-shield/alert-dialog.tsx(43,17): error TS2339: Property 'effects' does not exist on type 'AlertDialogContentBaseProps'.
+src/ui/components/energy-shield/breadcrumb.tsx(76,46): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/carousel.tsx(15,3): error TS2300: Duplicate identifier 'effects'.
+src/ui/components/energy-shield/carousel.tsx(21,3): error TS2300: Duplicate identifier 'effects'.
+src/ui/components/energy-shield/carousel.tsx(101,50): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/combobox.tsx(47,52): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/combobox.tsx(82,66): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/command.tsx(130,46): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/context-menu.tsx(175,46): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/data-table.tsx(73,21): error TS2304: Cannot find name 'cn'.
+src/ui/components/energy-shield/dialog.tsx(61,44): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/dialog.tsx(75,44): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/drawer.tsx(63,44): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/drawer.tsx(74,44): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/dropdown-menu.tsx(178,46): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/input-otp.tsx(14,5): error TS2322: Type '{ multiple?: boolean; form?: string; slot?: string; style?: CSSProperties; title?: string; pattern?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; ... 307 more ...; className: string; } | { ...; }' is not assignable to type 'IntrinsicAttributes & (OTPInputProps & RefAttributes<HTMLInputElement>)'.
+  Type '{ multiple?: boolean; form?: string; slot?: string; style?: CSSProperties; title?: string; pattern?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; ... 307 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & (OTPInputProps & RefAttributes<HTMLInputElement>)'.
+    Property 'containerclassName' does not exist on type 'IntrinsicAttributes & (OTPInputProps & RefAttributes<HTMLInputElement>)'. Did you mean 'containerClassName'?
+src/ui/components/energy-shield/input-otp.tsx(42,46): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/menubar.tsx(106,48): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/menubar.tsx(220,46): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/pagination.tsx(8,34): error TS2339: Property 'effects' does not exist on type 'ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement>'.
+src/ui/components/energy-shield/pagination.tsx(21,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref">'.
+src/ui/components/energy-shield/pagination.tsx(33,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref">'.
+src/ui/components/energy-shield/pagination.tsx(106,3): error TS2339: Property 'effects' does not exist on type 'ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement>'.
+src/ui/components/energy-shield/sidebar.tsx(116,80): error TS2339: Property 'effects' does not exist on type 'SidebarBaseProps'.
+src/ui/components/energy-shield/sidebar.tsx(222,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref">'.
+src/ui/components/energy-shield/sidebar.tsx(248,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, "ref">'.
+src/ui/components/energy-shield/sidebar.tsx(265,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/energy-shield/sidebar.tsx(279,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/energy-shield/sidebar.tsx(293,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/energy-shield/sidebar.tsx(310,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/energy-shield/sidebar.tsx(324,17): error TS2339: Property 'effects' does not exist on type 'Omit<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & { asChild?: boolean; }, "ref">'.
+src/ui/components/energy-shield/sidebar.tsx(347,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/energy-shield/sidebar.tsx(361,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref">'.
+src/ui/components/energy-shield/sidebar.tsx(375,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref">'.
+src/ui/components/energy-shield/sidebar.tsx(418,48): error TS2304: Cannot find name 'effects'.
+src/ui/components/energy-shield/sidebar.tsx(453,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref">'.
+src/ui/components/energy-shield/table.tsx(72,17): error TS2339: Property 'effects' does not exist on type 'ThHTMLAttributes<HTMLTableCellElement>'.
+src/ui/components/energy-shield/table.tsx(87,17): error TS2339: Property 'effects' does not exist on type 'TdHTMLAttributes<HTMLTableCellElement>'.
+src/ui/components/energy-shield/toaster.tsx(25,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: ToastVariant; type?: ToastType; duration?: number; open?: boolean; onOpenChange?: (open: boolean) => void; ... 276 more ...; effects: EnergyShieldEffects; }' is not assignable to type 'Omit<Omit<ToastProps & RefAttributes<HTMLLIElement>, "ref"> & { effects?: EnergyShieldEffects; }, "type">'.
+  Types of property 'onPause' are incompatible.
+    Type 'ReactEventHandler<HTMLLIElement>' is not assignable to type '() => void'.
+      Target signature provides too few arguments. Expected 1 or more, but got 0.
+src/ui/components/holo-frame/accordion.tsx(19,17): error TS2339: Property 'effects' does not exist on type 'AccordionBaseProps'.
+src/ui/components/holo-frame/accordion.tsx(29,53): error TS2312: An interface can only extend an object type or intersection of object types with statically known members.
+src/ui/components/holo-frame/accordion.tsx(34,17): error TS2339: Property 'effects' does not exist on type 'AccordionItemBaseProps'.
+src/ui/components/holo-frame/accordion.tsx(50,17): error TS2339: Property 'effects' does not exist on type 'AccordionTriggerBaseProps'.
+src/ui/components/holo-frame/accordion.tsx(69,17): error TS2339: Property 'effects' does not exist on type 'AccordionContentBaseProps'.
+src/ui/components/holo-frame/breadcrumb.tsx(75,43): error TS2304: Cannot find name 'effects'.
+src/ui/components/holo-frame/carousel.tsx(98,47): error TS2304: Cannot find name 'effects'.
+src/ui/components/holo-frame/command.tsx(129,43): error TS2304: Cannot find name 'effects'.
+src/ui/components/holo-frame/context-menu.tsx(174,43): error TS2304: Cannot find name 'effects'.
+src/ui/components/holo-frame/data-table.tsx(72,21): error TS2304: Cannot find name 'cn'.
+src/ui/components/holo-frame/drawer.tsx(62,41): error TS2304: Cannot find name 'effects'.
+src/ui/components/holo-frame/drawer.tsx(73,41): error TS2304: Cannot find name 'effects'.
+src/ui/components/holo-frame/dropdown-menu.tsx(177,43): error TS2304: Cannot find name 'effects'.
+src/ui/components/holo-frame/input-otp.tsx(13,5): error TS2322: Type '{ multiple?: boolean; form?: string; slot?: string; style?: CSSProperties; title?: string; pattern?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; ... 307 more ...; className: string; } | { ...; }' is not assignable to type 'IntrinsicAttributes & (OTPInputProps & RefAttributes<HTMLInputElement>)'.
+  Type '{ multiple?: boolean; form?: string; slot?: string; style?: CSSProperties; title?: string; pattern?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; ... 307 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & (OTPInputProps & RefAttributes<HTMLInputElement>)'.
+    Property 'containerclassName' does not exist on type 'IntrinsicAttributes & (OTPInputProps & RefAttributes<HTMLInputElement>)'. Did you mean 'containerClassName'?
+src/ui/components/holo-frame/input-otp.tsx(41,43): error TS2304: Cannot find name 'effects'.
+src/ui/components/holo-frame/menubar.tsx(105,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/holo-frame/menubar.tsx(219,43): error TS2304: Cannot find name 'effects'.
+src/ui/components/holo-frame/pagination.tsx(8,34): error TS2339: Property 'effects' does not exist on type 'ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement>'.
+src/ui/components/holo-frame/pagination.tsx(21,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref">'.
+src/ui/components/holo-frame/pagination.tsx(33,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref">'.
+src/ui/components/holo-frame/pagination.tsx(105,3): error TS2339: Property 'effects' does not exist on type 'ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement>'.
+src/ui/components/holo-frame/sidebar.tsx(115,80): error TS2339: Property 'effects' does not exist on type 'SidebarBaseProps'.
+src/ui/components/holo-frame/sidebar.tsx(221,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref">'.
+src/ui/components/holo-frame/sidebar.tsx(247,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, "ref">'.
+src/ui/components/holo-frame/sidebar.tsx(264,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/holo-frame/sidebar.tsx(278,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/holo-frame/sidebar.tsx(292,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/holo-frame/sidebar.tsx(309,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/holo-frame/sidebar.tsx(323,17): error TS2339: Property 'effects' does not exist on type 'Omit<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & { asChild?: boolean; }, "ref">'.
+src/ui/components/holo-frame/sidebar.tsx(346,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/holo-frame/sidebar.tsx(360,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref">'.
+src/ui/components/holo-frame/sidebar.tsx(374,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref">'.
+src/ui/components/holo-frame/sidebar.tsx(417,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/holo-frame/sidebar.tsx(452,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref">'.
+src/ui/components/holo-frame/table.tsx(72,17): error TS2339: Property 'effects' does not exist on type 'ThHTMLAttributes<HTMLTableCellElement>'.
+src/ui/components/holo-frame/table.tsx(87,17): error TS2339: Property 'effects' does not exist on type 'TdHTMLAttributes<HTMLTableCellElement>'.
+src/ui/components/holo-frame/toaster.tsx(25,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: ToastVariant; type?: ToastType; duration?: number; open?: boolean; onOpenChange?: (open: boolean) => void; ... 276 more ...; effects: HoloFrameEffects; }' is not assignable to type 'Omit<Omit<ToastProps & RefAttributes<HTMLLIElement>, "ref"> & { effects?: HoloFrameEffects; }, "type">'.
+  Types of property 'onPause' are incompatible.
+    Type 'ReactEventHandler<HTMLLIElement>' is not assignable to type '() => void'.
+      Target signature provides too few arguments. Expected 1 or more, but got 0.
+src/ui/components/quantum-gate/breadcrumb.tsx(76,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/carousel.tsx(15,3): error TS2300: Duplicate identifier 'effects'.
+src/ui/components/quantum-gate/carousel.tsx(21,3): error TS2300: Duplicate identifier 'effects'.
+src/ui/components/quantum-gate/carousel.tsx(101,49): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/combobox.tsx(47,51): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/combobox.tsx(82,65): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/command.tsx(130,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/context-menu.tsx(175,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/data-table.tsx(73,21): error TS2304: Cannot find name 'cn'.
+src/ui/components/quantum-gate/dialog.tsx(63,43): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/dialog.tsx(77,43): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/drawer.tsx(63,43): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/drawer.tsx(74,43): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/dropdown-menu.tsx(180,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/input-otp.tsx(14,5): error TS2322: Type '{ multiple?: boolean; form?: string; slot?: string; style?: CSSProperties; title?: string; pattern?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; ... 307 more ...; className: string; } | { ...; }' is not assignable to type 'IntrinsicAttributes & (OTPInputProps & RefAttributes<HTMLInputElement>)'.
+  Type '{ multiple?: boolean; form?: string; slot?: string; style?: CSSProperties; title?: string; pattern?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; ... 307 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & (OTPInputProps & RefAttributes<HTMLInputElement>)'.
+    Property 'containerclassName' does not exist on type 'IntrinsicAttributes & (OTPInputProps & RefAttributes<HTMLInputElement>)'. Did you mean 'containerClassName'?
+src/ui/components/quantum-gate/input-otp.tsx(42,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/menubar.tsx(106,47): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/menubar.tsx(220,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/pagination.tsx(8,34): error TS2339: Property 'effects' does not exist on type 'ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement>'.
+src/ui/components/quantum-gate/pagination.tsx(21,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref">'.
+src/ui/components/quantum-gate/pagination.tsx(33,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref">'.
+src/ui/components/quantum-gate/pagination.tsx(106,3): error TS2339: Property 'effects' does not exist on type 'ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement>'.
+src/ui/components/quantum-gate/sidebar.tsx(116,80): error TS2339: Property 'effects' does not exist on type 'SidebarBaseProps'.
+src/ui/components/quantum-gate/sidebar.tsx(222,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref">'.
+src/ui/components/quantum-gate/sidebar.tsx(248,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, "ref">'.
+src/ui/components/quantum-gate/sidebar.tsx(265,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/quantum-gate/sidebar.tsx(279,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/quantum-gate/sidebar.tsx(293,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/quantum-gate/sidebar.tsx(310,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/quantum-gate/sidebar.tsx(324,17): error TS2339: Property 'effects' does not exist on type 'Omit<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & { asChild?: boolean; }, "ref">'.
+src/ui/components/quantum-gate/sidebar.tsx(347,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/quantum-gate/sidebar.tsx(361,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref">'.
+src/ui/components/quantum-gate/sidebar.tsx(375,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref">'.
+src/ui/components/quantum-gate/sidebar.tsx(418,47): error TS2304: Cannot find name 'effects'.
+src/ui/components/quantum-gate/sidebar.tsx(453,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref">'.
+src/ui/components/quantum-gate/table.tsx(72,17): error TS2339: Property 'effects' does not exist on type 'ThHTMLAttributes<HTMLTableCellElement>'.
+src/ui/components/quantum-gate/table.tsx(87,17): error TS2339: Property 'effects' does not exist on type 'TdHTMLAttributes<HTMLTableCellElement>'.
+src/ui/components/quantum-gate/toaster.tsx(25,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: ToastVariant; type?: ToastType; duration?: number; open?: boolean; onOpenChange?: (open: boolean) => void; ... 276 more ...; effects: QuantumGateEffects; }' is not assignable to type 'Omit<Omit<ToastProps & RefAttributes<HTMLLIElement>, "ref"> & { effects?: QuantumGateEffects; }, "type">'.
+  Types of property 'onPause' are incompatible.
+    Type 'ReactEventHandler<HTMLLIElement>' is not assignable to type '() => void'.
+      Target signature provides too few arguments. Expected 1 or more, but got 0.
+src/ui/components/tactical-hud/alert-dialog.tsx(43,17): error TS2339: Property 'effects' does not exist on type 'AlertDialogContentBaseProps'.
+src/ui/components/tactical-hud/breadcrumb.tsx(76,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/tactical-hud/calendar.tsx(29,30): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; destructive: string; secondary: string; link: string; }; size: { xs: string; sm: string; md: string; lg: string; icon: string; }; }> & ClassProp'.
+src/ui/components/tactical-hud/calendar.tsx(41,30): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; destructive: string; secondary: string; link: string; }; size: { xs: string; sm: string; md: string; lg: string; icon: string; }; }> & ClassProp'.
+src/ui/components/tactical-hud/calendar.tsx(57,11): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/ui/components/tactical-hud/carousel.tsx(117,17): error TS2304: Cannot find name 'emblaRef'.
+src/ui/components/tactical-hud/command.tsx(130,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/tactical-hud/context-menu.tsx(175,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/tactical-hud/data-table.tsx(73,21): error TS2304: Cannot find name 'cn'.
+src/ui/components/tactical-hud/dialog.tsx(66,43): error TS2304: Cannot find name 'effects'.
+src/ui/components/tactical-hud/dialog.tsx(80,43): error TS2304: Cannot find name 'effects'.
+src/ui/components/tactical-hud/dropdown-menu.tsx(178,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/tactical-hud/input-otp.tsx(14,5): error TS2322: Type '{ multiple?: boolean; form?: string; slot?: string; style?: CSSProperties; title?: string; pattern?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; ... 307 more ...; className: string; } | { ...; }' is not assignable to type 'IntrinsicAttributes & (OTPInputProps & RefAttributes<HTMLInputElement>)'.
+  Type '{ multiple?: boolean; form?: string; slot?: string; style?: CSSProperties; title?: string; pattern?: string; key?: Key; defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; ... 307 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & (OTPInputProps & RefAttributes<HTMLInputElement>)'.
+    Property 'containerclassName' does not exist on type 'IntrinsicAttributes & (OTPInputProps & RefAttributes<HTMLInputElement>)'. Did you mean 'containerClassName'?
+src/ui/components/tactical-hud/input-otp.tsx(42,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/tactical-hud/menubar.tsx(215,45): error TS2304: Cannot find name 'effects'.
+src/ui/components/tactical-hud/pagination.tsx(7,34): error TS2339: Property 'effects' does not exist on type 'ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement>'.
+src/ui/components/tactical-hud/pagination.tsx(20,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref">'.
+src/ui/components/tactical-hud/pagination.tsx(32,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref">'.
+src/ui/components/tactical-hud/pagination.tsx(105,3): error TS2339: Property 'effects' does not exist on type 'ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement>'.
+src/ui/components/tactical-hud/sidebar.tsx(116,80): error TS2339: Property 'effects' does not exist on type 'SidebarBaseProps'.
+src/ui/components/tactical-hud/sidebar.tsx(222,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref">'.
+src/ui/components/tactical-hud/sidebar.tsx(248,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, "ref">'.
+src/ui/components/tactical-hud/sidebar.tsx(265,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/tactical-hud/sidebar.tsx(279,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/tactical-hud/sidebar.tsx(293,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/tactical-hud/sidebar.tsx(310,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/tactical-hud/sidebar.tsx(324,17): error TS2339: Property 'effects' does not exist on type 'Omit<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & { asChild?: boolean; }, "ref">'.
+src/ui/components/tactical-hud/sidebar.tsx(347,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">'.
+src/ui/components/tactical-hud/sidebar.tsx(361,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref">'.
+src/ui/components/tactical-hud/sidebar.tsx(375,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref">'.
+src/ui/components/tactical-hud/sidebar.tsx(418,47): error TS2304: Cannot find name 'effects'.
+src/ui/components/tactical-hud/sidebar.tsx(453,17): error TS2339: Property 'effects' does not exist on type 'Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref">'.
+src/ui/components/tactical-hud/toaster.tsx(25,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: ToastVariant; type?: ToastType; duration?: number; open?: boolean; onOpenChange?: (open: boolean) => void; ... 276 more ...; effects: TacticalHudEffects; }' is not assignable to type 'Omit<Omit<ToastProps & RefAttributes<HTMLLIElement>, "ref"> & { effects?: TacticalHudEffects; }, "type">'.
+  Types of property 'onPause' are incompatible.
+    Type 'ReactEventHandler<HTMLLIElement>' is not assignable to type '() => void'.
+      Target signature provides too few arguments. Expected 1 or more, but got 0.

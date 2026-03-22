@@ -37,6 +37,12 @@ export interface ToggleBaseProps
   visualType?: ToggleType;
   
   /**
+   * HTML type attribute
+   * @default 'button'
+   */
+  htmlType?: 'button' | 'submit' | 'reset';
+  
+  /**
    * Size variant
    * @default 'md'
    */
@@ -76,9 +82,10 @@ export interface ToggleBaseProps
 export const ToggleBase = React.forwardRef<
   React.ElementRef<typeof TogglePrimitive.Root>,
   ToggleBaseProps
->(({ visualType = 'default', size = 'md', variant, ...props }, ref) => (
+>(({ visualType = 'default', htmlType = 'button', size = 'md', variant, ...props }, ref) => (
   <TogglePrimitive.Root
     ref={ref}
+    type={htmlType}
     data-type={visualType}
     data-size={size}
     data-variant={variant}

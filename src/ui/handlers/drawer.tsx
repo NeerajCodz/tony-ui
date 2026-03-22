@@ -45,11 +45,11 @@ const resolveDrawerConfigModule = (module: unknown) => {
 // Dynamic config loader
 const loadDrawerConfig = async (version: Version) => {
   try {
-    const module = await import(`../config/components/${version}/drawer.tsx`);
+    const module = await import(`../config/components/${version}.json`);
     return resolveDrawerConfigModule(module);
   } catch {
     try {
-      const module = await import(`../config/components/default/drawer.tsx`);
+      const module = await import(`../config/components/default.json`);
       return resolveDrawerConfigModule(module);
     } catch {
       return null;

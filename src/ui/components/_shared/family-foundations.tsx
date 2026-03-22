@@ -633,7 +633,7 @@ export function createIconButtonFoundation(versionKey: string) {
       return (
         <IconButtonBase
           ref={ref}
-          type={htmlType}
+          htmlType={htmlType}
           className={cx('inline-flex items-center justify-center', className)}
           style={{
             ...getSurfaceStyle(versionKey, version, resolveVisualType(type, uiType), colors, style),
@@ -785,7 +785,7 @@ export function createScrollAreaFoundation(versionKey: string) {
     StyledProps & {
       withHorizontalBar?: boolean;
       hideBar?: boolean;
-      scrollType?: React.ComponentPropsWithoutRef<typeof ScrollAreaBase>['type'];
+      scrollType?: React.ComponentPropsWithoutRef<typeof ScrollAreaBase>['scrollbarType'];
     };
   type ScrollBarProps = React.ComponentPropsWithoutRef<typeof ScrollBarBase> & StyledProps;
 
@@ -891,7 +891,7 @@ export function createScrollAreaFoundation(versionKey: string) {
       return (
         <ScrollAreaBase
           ref={ref}
-          type={scrollType}
+          scrollbarType={scrollType}
           className={cx('relative overflow-hidden', className)}
           style={{
             ...getSurfaceStyle(versionKey, version, visualType, colors, style),
@@ -964,7 +964,7 @@ export function createSelectFoundation(versionKey: string) {
     ({ className, version, type, uiType, colors, style, htmlType = 'button', children, ...props }, ref) => (
       <SelectTriggerBase
         ref={ref}
-        type={htmlType}
+        htmlType={htmlType}
         className={cx('flex h-10 w-full items-center justify-between px-3 text-sm outline-none', className)}
         style={getSurfaceStyle(versionKey, version, resolveVisualType(type, uiType), colors, style)}
         {...props}
@@ -1343,7 +1343,7 @@ export function createTabsFoundation(versionKey: string) {
     ({ className, version, type, uiType, colors, style, htmlType = 'button', ...props }, ref) => (
       <TabsTriggerBase
         ref={ref}
-        type={htmlType}
+        htmlType={htmlType}
         className={cx(
           'inline-flex items-center justify-center whitespace-nowrap px-3 py-1.5 text-sm transition-all data-[state=active]:opacity-100 data-[state=inactive]:opacity-70',
           className
@@ -1490,7 +1490,7 @@ export function createToggleFoundation(versionKey: string) {
     ({ className, version, type, uiType, colors, style, htmlType = 'button', ...props }, ref) => (
       <ToggleBase
         ref={ref}
-        type={htmlType}
+        htmlType={htmlType}
         className={cx('inline-flex items-center justify-center px-3 py-1.5 text-sm', className)}
         style={getSurfaceStyle(versionKey, version, resolveVisualType(type, uiType), colors, style)}
         {...props}

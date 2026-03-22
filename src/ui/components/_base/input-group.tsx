@@ -186,3 +186,13 @@ export const InputRightElementBase = React.forwardRef<HTMLDivElement, InputRight
   )
 );
 InputRightElementBase.displayName = 'InputRightElementBase';
+
+// Aliases for compatibility
+export const InputGroupPrependBase = InputLeftAddonBase;
+export const InputGroupAppendBase = InputRightAddonBase;
+
+// Input wrapper
+export const InputGroupInputBase = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
+  (props, ref) => <input ref={ref} {...props} />
+);
+InputGroupInputBase.displayName = 'InputGroupInputBase';

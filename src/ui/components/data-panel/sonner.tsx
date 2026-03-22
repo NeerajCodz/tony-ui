@@ -1,95 +1,25 @@
-'use client';
+import { Toaster as Sonner } from 'sonner';
 
-import React, { forwardRef } from 'react';
-import { Toaster as SonnerToaster } from 'sonner';
-import type { VariantColors } from '../../types/common';
-import { SonnerBase } from '../_base/sonner';
+type ToasterProps = React.ComponentProps<typeof Sonner>;
 
-export interface SonnerProps {
-  version?: string;
-  variant?: string;
-  type?: string;
-  size?: string;
-  colors?: VariantColors;
-  styles?: React.CSSProperties;
-  config?: any;
-  position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
-  expand?: boolean;
-  richColors?: boolean;
-  closeButton?: boolean;
-  duration?: number;
-  showLoader?: boolean;
-  className?: string;
-}
+const Toaster = ({ ...props }: ToasterProps) => {
+  return (
+    <Sonner
+      className="toaster group font-mono"
+      toastOptions={{
+        classNames: {
+          toast:
+            'group toast group-[.toaster]:bg-[var(--dp-surface)] group-[.toaster]:text-[var(--text-primary)] group-[.toaster]:border-[var(--dp-border)] group-[.toaster]:shadow-lg',
+          description: 'group-[.toast]:text-[var(--text-muted)]',
+          actionButton:
+            'group-[.toast]:bg-[var(--dp-accent)] group-[.toast]:text-[var(--dp-bg)]',
+          cancelButton:
+            'group-[.toast]:bg-[var(--dp-surface)] group-[.toast]:text-[var(--text-muted)]',
+        },
+      }}
+      {...props}
+    />
+  );
+};
 
-const DataPanelSonner = forwardRef<HTMLDivElement, SonnerProps>(
-  ({ 
-    colors,
-    position = 'bottom-right',
-    expand = true,
-    richColors = true,
-    closeButton = true,
-    duration = 4000,
-    type = 'default',
-    showLoader = true,
-    className = '',
-    ...props 
-  }, ref) => {
-    let bg = colors?.base || '#1f2937';
-    let fg = colors?.foreground || '#ffffff';
-    let border = colors?.border || '#374151';
-    const glow = colors?.glow || 'rgba(0,0,0,0)';
-
-    // Handle new types
-    if (type === 'inverse') {
-      const temp = bg;
-      bg = fg;
-      fg = temp;
-      border = bg;
-    } else if (type === 'contrast') {
-      border = fg;
-      bg = colors?.base || '#000000';
-      fg = colors?.foreground || '#ffffff';
-    } else if (type === 'soft') {
-      bg = colors?.muted || bg;
-      border = colors?.border ? `${colors.border}40` : border;
-    }
-
-    return (
-      <div ref={ref} className={`sonner-container-data-panel ${className}`}>
-        <SonnerToaster
-          position={position}
-          expand={expand}
-          richColors={richColors}
-          closeButton={closeButton}
-          theme="dark"
-          toastOptions={{
-            duration: duration,
-            style: {
-              backgroundColor: bg,
-              color: fg,
-              border: `1px solid ${border}`,
-              borderRadius: '0',
-              fontFamily: 'inherit',
-              boxShadow: `none`,
-              clipPath: 'none',
-              backdropFilter: 'none',
-              padding: '1rem',
-              borderLeftWidth: '4px'
-            },
-            classNames: {
-              toast: 'sonner-toast-data-panel',
-              title: 'font-semibold text-sm',
-              description: 'text-sm opacity-80',
-            },
-          }}
-          {...props}
-        />
-      </div>
-    );
-  }
-);
-
-DataPanelSonner.displayName = 'DataPanelSonner';
-
-export default DataPanelSonner;
+export { Toaster };

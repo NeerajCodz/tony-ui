@@ -1,7 +1,4 @@
-'use client';
-
-import React, { forwardRef } from 'react';
-import type { VariantColors } from '../../types/common';
+import * as React from 'react';
 import {
   TypographyH1Base,
   TypographyH2Base,
@@ -9,236 +6,230 @@ import {
   TypographyH4Base,
   TypographyPBase,
   TypographyBlockquoteBase,
+  TypographyListBase,
+  TypographyListItemBase,
   TypographyCodeBase,
   TypographyLeadBase,
   TypographyLargeBase,
   TypographySmallBase,
   TypographyMutedBase,
-} from '../_base/typography';
-import { getTypographyTone, getVersionStyleProfile } from '../_shared/version-styles';
+  TypographyOrderedListBase,
+} from '@/ui/components/_base/typography';
+import { cn } from '@/lib/utils';
 
-export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
-  version?: string;
-  type?: string;
-  colors?: VariantColors;
-}
+// Circuit Board Theme Typography
+// Display: VT323/Courier New
+// Body: Source Code Pro
 
-const versionKey = 'circuit-board';
-
-function resolveTypography(type: string | undefined, colors: VariantColors | undefined, version: string | undefined) {
-  const profile = getVersionStyleProfile(version ?? versionKey);
-  const tone = getTypographyTone(type ?? 'default', colors);
-
-  return {
-    profile,
-    tone,
-    shared: {
-      fontFamily: profile.fontFamily,
-      letterSpacing: profile.letterSpacing,
-    } as React.CSSProperties,
-  };
-}
-
-const H1 = forwardRef<HTMLHeadingElement, TypographyProps>(({ className, colors, type, version, style, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
+const TypographyH1 = React.forwardRef<HTMLHeadingElement, React.ComponentPropsWithoutRef<typeof TypographyH1Base>>(
+  ({ className, ...props }, ref) => (
     <TypographyH1Base
       ref={ref}
-      className={`scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl ${className ?? ''}`}
-      style={{ ...shared, color: tone.heading, ...style }}
+      className={cn(
+        'font-mono text-[52px] font-normal tracking-[0.05em] text-[var(--cb-trace-lit)] drop-shadow-[0_0_20px_var(--cb-node)] uppercase',
+        className
+      )}
       {...props}
     />
-  );
-});
-H1.displayName = 'H1';
+  )
+);
+TypographyH1.displayName = 'TypographyH1';
 
-const H2 = forwardRef<HTMLHeadingElement, TypographyProps>(({ className, colors, type, version, style, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
+const TypographyH2 = React.forwardRef<HTMLHeadingElement, React.ComponentPropsWithoutRef<typeof TypographyH2Base>>(
+  ({ className, ...props }, ref) => (
     <TypographyH2Base
       ref={ref}
-      className={`scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 ${className ?? ''}`}
-      style={{ ...shared, color: tone.heading, borderColor: tone.border, ...style }}
+      className={cn(
+        'font-mono text-[38px] font-normal tracking-[0.04em] text-[var(--text-primary)] uppercase',
+        className
+      )}
       {...props}
     />
-  );
-});
-H2.displayName = 'H2';
+  )
+);
+TypographyH2.displayName = 'TypographyH2';
 
-const H3 = forwardRef<HTMLHeadingElement, TypographyProps>(({ className, colors, type, version, style, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
+const TypographyH3 = React.forwardRef<HTMLHeadingElement, React.ComponentPropsWithoutRef<typeof TypographyH3Base>>(
+  ({ className, ...props }, ref) => (
     <TypographyH3Base
       ref={ref}
-      className={`scroll-m-20 text-2xl font-semibold tracking-tight ${className ?? ''}`}
-      style={{ ...shared, color: tone.heading, ...style }}
+      className={cn(
+        'font-mono text-[26px] font-normal tracking-[0.06em] text-[var(--cb-node)] uppercase',
+        className
+      )}
       {...props}
     />
-  );
-});
-H3.displayName = 'H3';
+  )
+);
+TypographyH3.displayName = 'TypographyH3';
 
-const H4 = forwardRef<HTMLHeadingElement, TypographyProps>(({ className, colors, type, version, style, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
+const TypographyH4 = React.forwardRef<HTMLHeadingElement, React.ComponentPropsWithoutRef<typeof TypographyH4Base>>(
+  ({ className, ...props }, ref) => (
     <TypographyH4Base
       ref={ref}
-      className={`scroll-m-20 text-xl font-semibold tracking-tight ${className ?? ''}`}
-      style={{ ...shared, color: tone.heading, ...style }}
+      className={cn(
+        'font-mono text-[18px] font-normal tracking-[0.1em] text-[var(--text-primary)] uppercase',
+        className
+      )}
       {...props}
     />
-  );
-});
-H4.displayName = 'H4';
+  )
+);
+TypographyH4.displayName = 'TypographyH4';
 
-const P = forwardRef<HTMLParagraphElement, TypographyProps>(({ className, colors, type, version, style, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
+const TypographyP = React.forwardRef<HTMLParagraphElement, React.ComponentPropsWithoutRef<typeof TypographyPBase>>(
+  ({ className, ...props }, ref) => (
     <TypographyPBase
       ref={ref}
-      className={`leading-7 [&:not(:first-child)]:mt-6 ${className ?? ''}`}
-      style={{ ...shared, color: tone.body, ...style }}
+      className={cn(
+        'font-mono text-[13px] leading-[1.8] text-[rgba(0,255,136,0.7)]',
+        className
+      )}
       {...props}
     />
-  );
-});
-P.displayName = 'P';
+  )
+);
+TypographyP.displayName = 'TypographyP';
 
-const Blockquote = forwardRef<HTMLQuoteElement, TypographyProps>(({ className, colors, type, version, style, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
+const TypographyBlockquote = React.forwardRef<HTMLQuoteElement, React.ComponentPropsWithoutRef<typeof TypographyBlockquoteBase>>(
+  ({ className, ...props }, ref) => (
     <TypographyBlockquoteBase
       ref={ref}
-      className={`mt-6 border-l-2 pl-6 italic ${className ?? ''}`}
-      style={{ ...shared, color: tone.body, borderColor: tone.border, ...style }}
+      className={cn(
+        'font-mono mt-6 border-l-2 border-[var(--cb-trace-lit)] pl-6 italic text-[var(--cb-node)]',
+        className
+      )}
       {...props}
     />
-  );
-});
-Blockquote.displayName = 'Blockquote';
+  )
+);
+TypographyBlockquote.displayName = 'TypographyBlockquote';
 
-const Code = forwardRef<HTMLElement, TypographyProps>(({ className, colors, type, version, style, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
+const TypographyList = React.forwardRef<HTMLUListElement, React.ComponentPropsWithoutRef<typeof TypographyListBase>>(
+  ({ className, showMarker = true, ...props }, ref) => (
+    <TypographyListBase
+      ref={ref}
+      showMarker={showMarker}
+      className={cn(
+        'font-mono my-6 ml-6 text-[13px] text-[rgba(0,255,136,0.7)] [&>li]:mt-2',
+        showMarker && 'list-disc marker:text-[var(--cb-trace-lit)]',
+        !showMarker && 'list-none ml-0',
+        className
+      )}
+      {...props}
+    />
+  )
+);
+TypographyList.displayName = 'TypographyList';
+
+const TypographyOrderedList = React.forwardRef<HTMLOListElement, React.ComponentPropsWithoutRef<typeof TypographyOrderedListBase>>(
+  ({ className, ...props }, ref) => (
+    <TypographyOrderedListBase
+      ref={ref}
+      className={cn(
+        'font-mono my-6 ml-6 list-decimal text-[13px] text-[rgba(0,255,136,0.7)] [&>li]:mt-2 marker:text-[var(--cb-trace-lit)]',
+        className
+      )}
+      {...props}
+    />
+  )
+);
+TypographyOrderedList.displayName = 'TypographyOrderedList';
+
+const TypographyListItem = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<typeof TypographyListItemBase>>(
+  ({ className, ...props }, ref) => (
+    <TypographyListItemBase
+      ref={ref}
+      className={cn('font-mono', className)}
+      {...props}
+    />
+  )
+);
+TypographyListItem.displayName = 'TypographyListItem';
+
+const TypographyCode = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<typeof TypographyCodeBase>>(
+  ({ className, ...props }, ref) => (
     <TypographyCodeBase
       ref={ref}
-      className={`relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm ${className ?? ''}`}
-      style={{ ...shared, color: tone.codeText, backgroundColor: tone.codeBg, ...style }}
+      className={cn(
+        'font-mono relative rounded-none bg-[var(--cb-soldermask)] px-[0.3rem] py-[0.2rem] text-sm font-semibold text-[var(--cb-trace-lit)] border border-[var(--cb-trace)]',
+        className
+      )}
       {...props}
     />
-  );
-});
-Code.displayName = 'Code';
+  )
+);
+TypographyCode.displayName = 'TypographyCode';
 
-const Lead = forwardRef<HTMLParagraphElement, TypographyProps>(({ className, colors, type, version, style, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
+const TypographyLead = React.forwardRef<HTMLParagraphElement, React.ComponentPropsWithoutRef<typeof TypographyLeadBase>>(
+  ({ className, ...props }, ref) => (
     <TypographyLeadBase
       ref={ref}
-      className={`text-xl text-muted-foreground ${className ?? ''}`}
-      style={{ ...shared, color: tone.body, opacity: 0.9, ...style }}
+      className={cn(
+        'font-mono text-xl text-[var(--cb-node)]',
+        className
+      )}
       {...props}
     />
-  );
-});
-Lead.displayName = 'Lead';
+  )
+);
+TypographyLead.displayName = 'TypographyLead';
 
-const Large = forwardRef<HTMLDivElement, TypographyProps>(({ className, colors, type, version, style, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
+const TypographyLarge = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<typeof TypographyLargeBase>>(
+  ({ className, ...props }, ref) => (
     <TypographyLargeBase
       ref={ref}
-      className={`text-lg font-semibold ${className ?? ''}`}
-      style={{ ...shared, color: tone.heading, ...style }}
+      className={cn(
+        'font-mono text-lg font-semibold text-[var(--cb-node)]',
+        className
+      )}
       {...props}
     />
-  );
-});
-Large.displayName = 'Large';
+  )
+);
+TypographyLarge.displayName = 'TypographyLarge';
 
-const Small = forwardRef<HTMLElement, TypographyProps>(({ className, colors, type, version, style, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
+const TypographySmall = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<typeof TypographySmallBase>>(
+  ({ className, ...props }, ref) => (
     <TypographySmallBase
       ref={ref}
-      className={`text-sm font-medium leading-none ${className ?? ''}`}
-      style={{ ...shared, color: tone.body, ...style }}
+      className={cn(
+        'font-mono text-xs font-medium leading-none text-[rgba(0,255,136,0.7)] uppercase tracking-wider',
+        className
+      )}
       {...props}
     />
-  );
-});
-Small.displayName = 'Small';
+  )
+);
+TypographySmall.displayName = 'TypographySmall';
 
-const Muted = forwardRef<HTMLParagraphElement, TypographyProps>(({ className, colors, type, version, style, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
+const TypographyMuted = React.forwardRef<HTMLParagraphElement, React.ComponentPropsWithoutRef<typeof TypographyMutedBase>>(
+  ({ className, ...props }, ref) => (
     <TypographyMutedBase
       ref={ref}
-      className={`text-sm text-muted-foreground ${className ?? ''}`}
-      style={{ ...shared, color: tone.body, opacity: 0.75, ...style }}
+      className={cn(
+        'font-mono text-xs text-[var(--cb-trace-dim)] uppercase tracking-[0.2em]',
+        className
+      )}
       {...props}
     />
-  );
-});
-Muted.displayName = 'Muted';
-
-const List = forwardRef<HTMLUListElement, TypographyProps>(({ className, colors, type, version, style, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
-    <ul
-      ref={ref}
-      className={`my-6 ml-6 list-disc [&>li]:mt-2 ${className ?? ''}`}
-      style={{ ...shared, color: tone.body, ...style }}
-      {...props}
-    />
-  );
-});
-List.displayName = 'List';
-
-const Callout = forwardRef<HTMLDivElement, TypographyProps>(({ className, colors, type, version, style, children, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
-    <div
-      ref={ref}
-      role="note"
-      className={`my-4 rounded-md border-l-4 p-4 ${className ?? ''}`}
-      style={{ ...shared, color: tone.body, borderColor: tone.border, backgroundColor: tone.codeBg, ...style }}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-});
-Callout.displayName = 'Callout';
-
-const CodeBlock = forwardRef<HTMLPreElement, TypographyProps>(({ className, colors, type, version, style, children, ...props }, ref) => {
-  const { shared, tone } = resolveTypography(type, colors, version);
-  return (
-    <pre
-      ref={ref}
-      className={`my-4 overflow-x-auto rounded-lg border p-4 text-sm ${className ?? ''}`}
-      style={{ ...shared, color: tone.codeText, backgroundColor: tone.codeBg, borderColor: tone.border, ...style }}
-      {...props}
-    >
-      <code>{children}</code>
-    </pre>
-  );
-});
-CodeBlock.displayName = 'CodeBlock';
+  )
+);
+TypographyMuted.displayName = 'TypographyMuted';
 
 export {
-  H1,
-  H2,
-  H3,
-  H4,
-  P,
-  Blockquote,
-  List,
-  Code,
-  Lead,
-  Large,
-  Small,
-  Muted,
-  Callout,
-  CodeBlock,
+  TypographyH1,
+  TypographyH2,
+  TypographyH3,
+  TypographyH4,
+  TypographyP,
+  TypographyBlockquote,
+  TypographyList,
+  TypographyOrderedList,
+  TypographyListItem,
+  TypographyCode,
+  TypographyLead,
+  TypographyLarge,
+  TypographySmall,
+  TypographyMuted,
 };

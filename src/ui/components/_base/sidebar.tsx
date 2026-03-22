@@ -37,9 +37,12 @@ export interface SidebarContextValue {
   open: boolean;
   setOpen: (open: boolean) => void;
   toggle: () => void;
+  toggleSidebar?: () => void;
   side: 'left' | 'right';
   collapsible: SidebarCollapsible;
   isMobile: boolean;
+  openMobile?: boolean;
+  setOpenMobile?: (open: boolean) => void;
 }
 
 export const SidebarContext = React.createContext<SidebarContextValue | null>(null);
@@ -51,6 +54,72 @@ export const useSidebar = () => {
   }
   return context;
 };
+
+export const SidebarProvider = ({
+  defaultOpen = true,
+  open: openProp,
+  onOpenChange: setOpenProp,
+  className,
+  style,
+  children,
+  ...props
+}: React.ComponentProps<"div"> & {
+  defaultOpen?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}) => {
+  const [openState, setOpenState] = React.useState(defaultOpen);
+  const open = openProp ?? openState;
+  const setOpen = React.useCallback(
+    (value: boolean) => {
+      if (setOpenProp) {
+        setOpenProp(value);
+      } else {
+        setOpenState(value);
+      }
+    },
+    [setOpenProp]
+  );
+
+  const toggleSidebar = React.useCallback(() => {
+    return setOpen(!open);
+  }, [open, setOpen]);
+
+  const contextValue = React.useMemo<SidebarContextValue>(
+    () => ({
+      state: open ? 'expanded' : 'collapsed',
+      open,
+      setOpen,
+      isMobile: false,
+      openMobile: false,
+      setOpenMobile: () => {},
+      toggleSidebar,
+      toggle: toggleSidebar,
+      side: 'left',
+      collapsible: 'offcanvas',
+    }),
+    [open, setOpen, toggleSidebar]
+  );
+
+  return (
+    <SidebarContext.Provider value={contextValue}>
+      <div
+        style={
+          {
+            '--sidebar-width': '16rem',
+            '--sidebar-width-icon': '3rem',
+            ...style,
+          } as React.CSSProperties
+        }
+        className={className}
+        {...props}
+      >
+        {children}
+      </div>
+    </SidebarContext.Provider>
+  );
+};
+SidebarProvider.displayName = 'SidebarProvider';
 
 // ============================================================================
 // Sidebar Root
@@ -212,6 +281,20 @@ export const SidebarGroupLabelBase = React.forwardRef<HTMLDivElement, SidebarGro
 SidebarGroupLabelBase.displayName = 'SidebarGroupLabelBase';
 
 // ============================================================================
+// Sidebar Group Action
+// ============================================================================
+
+export interface SidebarGroupActionBaseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
+/**
+ * SidebarGroupActionBase - Action button within a group label (e.g. + Add)
+ */
+export const SidebarGroupActionBase = React.forwardRef<HTMLButtonElement, SidebarGroupActionBaseProps>(
+  (props, ref) => <button ref={ref} {...props} />
+);
+SidebarGroupActionBase.displayName = 'SidebarGroupActionBase';
+
+// ============================================================================
 // Sidebar Group Content
 // ============================================================================
 
@@ -355,6 +438,90 @@ export const SidebarInsetBase = React.forwardRef<HTMLDivElement, SidebarInsetBas
   (props, ref) => <div ref={ref} {...props} />
 );
 SidebarInsetBase.displayName = 'SidebarInsetBase';
+
+// ============================================================================
+// Sidebar Menu Action
+// ============================================================================
+
+export interface SidebarMenuActionBaseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
+/**
+ * SidebarMenuActionBase - Action button within a menu item
+ */
+export const SidebarMenuActionBase = React.forwardRef<HTMLButtonElement, SidebarMenuActionBaseProps>(
+  (props, ref) => <button ref={ref} {...props} />
+);
+SidebarMenuActionBase.displayName = 'SidebarMenuActionBase';
+
+// ============================================================================
+// Sidebar Menu Badge
+// ============================================================================
+
+export interface SidebarMenuBadgeBaseProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+/**
+ * SidebarMenuBadgeBase - Badge/counter within a menu item
+ */
+export const SidebarMenuBadgeBase = React.forwardRef<HTMLDivElement, SidebarMenuBadgeBaseProps>(
+  (props, ref) => <div ref={ref} {...props} />
+);
+SidebarMenuBadgeBase.displayName = 'SidebarMenuBadgeBase';
+
+// ============================================================================
+// Sidebar Menu Sub Item
+// ============================================================================
+
+export interface SidebarMenuSubItemBaseProps extends React.HTMLAttributes<HTMLLIElement> {}
+
+/**
+ * SidebarMenuSubItemBase - Item within a submenu
+ */
+export const SidebarMenuSubItemBase = React.forwardRef<HTMLLIElement, SidebarMenuSubItemBaseProps>(
+  (props, ref) => <li ref={ref} {...props} />
+);
+SidebarMenuSubItemBase.displayName = 'SidebarMenuSubItemBase';
+
+// ============================================================================
+// Sidebar Menu Sub Button
+// ============================================================================
+
+export interface SidebarMenuSubButtonBaseProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {}
+
+/**
+ * SidebarMenuSubButtonBase - Clickable link within a submenu
+ */
+export const SidebarMenuSubButtonBase = React.forwardRef<HTMLAnchorElement, SidebarMenuSubButtonBaseProps>(
+  (props, ref) => <a ref={ref} {...props} />
+);
+SidebarMenuSubButtonBase.displayName = 'SidebarMenuSubButtonBase';
+
+// ============================================================================
+// Sidebar Input
+// ============================================================================
+
+export interface SidebarInputBaseProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+/**
+ * SidebarInputBase - Search/input within sidebar
+ */
+export const SidebarInputBase = React.forwardRef<HTMLInputElement, SidebarInputBaseProps>(
+  (props, ref) => <input ref={ref} {...props} />
+);
+SidebarInputBase.displayName = 'SidebarInputBase';
+
+// ============================================================================
+// Sidebar Separator
+// ============================================================================
+
+export interface SidebarSeparatorBaseProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+/**
+ * SidebarSeparatorBase - Visual separator
+ */
+export const SidebarSeparatorBase = React.forwardRef<HTMLDivElement, SidebarSeparatorBaseProps>(
+  (props, ref) => <div ref={ref} {...props} />
+);
+SidebarSeparatorBase.displayName = 'SidebarSeparatorBase';
 
 // Legacy alias
 export const SidebarItemBase = SidebarMenuItemBase;

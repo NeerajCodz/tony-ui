@@ -1,12 +1,74 @@
-'use client';
+import * as React from 'react';
+import { 
+  AvatarBase, 
+  AvatarImageBase, 
+  AvatarFallbackBase, 
+  type AvatarBaseProps 
+} from '../_base/avatar';
+import { cn } from '@/lib/utils';
+import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 
-import { createAvatarFoundation } from '../_shared/family-foundations';
+export interface AvatarProps extends AvatarBaseProps {
+  effects?: HoloFrameEffects;
+}
 
-const foundation = createAvatarFoundation('holo-frame');
+const getSizeStyles = (size: string = 'md') => {
+  switch (size) {
+    case 'xs': return 'h-5 w-5  text-[8px]';
+    case 'sm': return 'h-7 w-7  text-[10px]';
+    case 'md': return 'h-9 w-9  text-xs';
+    case 'lg': return 'h-12 w-12  text-sm';
+    case 'xl': return 'h-16 w-16  text-base';
+    case '2xl': return 'h-24 w-24  text-lg';
+    default: return 'h-9 w-9  text-xs';
+  }
+};
 
-export const Avatar = foundation.Avatar;
-export const AvatarRoot = foundation.AvatarRoot;
-export const AvatarImage = foundation.AvatarImage;
-export const AvatarFallback = foundation.AvatarFallback;
+const Avatar = React.forwardRef<React.ElementRef<typeof AvatarBase>, AvatarProps>(
+  ({ className, effects = 'on', size = 'md', shape = 'circle', style, ...props }, ref) => {
+    return (
+      <AvatarBase
+        ref={ref}
+        size={size}
+        shape={shape}
+        style={{ ...style }}
+        className={cn(holoFrameEffectsClass(effects), 
+          'relative flex shrink-0 overflow-hidden bg-[var(--hf-surface)] border border-[var(--hf-border-dim)]',
+          getSizeStyles(size),
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+Avatar.displayName = 'Avatar';
 
-export default Avatar;
+const AvatarImage = React.forwardRef<
+  React.ElementRef<typeof AvatarImageBase>,
+  React.ComponentPropsWithoutRef<typeof AvatarImageBase> & { effects?: HoloFrameEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <AvatarImageBase
+    ref={ref}
+    className={cn(holoFrameEffectsClass(effects), 'aspect-square h-full w-full object-cover', className)}
+    {...props}
+  />
+));
+AvatarImage.displayName = 'AvatarImage';
+
+const AvatarFallback = React.forwardRef<
+  React.ElementRef<typeof AvatarFallbackBase>,
+  React.ComponentPropsWithoutRef<typeof AvatarFallbackBase> & { effects?: HoloFrameEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <AvatarFallbackBase
+    ref={ref}
+    className={cn(holoFrameEffectsClass(effects), 
+      'flex h-full w-full items-center justify-center bg-[var(--hf-surface)] text-[var(--hf-text)] font-mono font-bold',
+      className
+    )}
+    {...props}
+  />
+));
+AvatarFallback.displayName = 'AvatarFallback';
+
+export { Avatar, AvatarImage, AvatarFallback };

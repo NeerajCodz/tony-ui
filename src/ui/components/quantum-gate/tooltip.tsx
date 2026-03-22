@@ -1,12 +1,31 @@
-'use client';
+import * as React from 'react';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import { cn } from '@/lib/utils';
+import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 
-import { createTooltipFoundation } from '../_shared/family-foundations';
+const TooltipProvider = TooltipPrimitive.Provider;
 
-const foundation = createTooltipFoundation('quantum-gate');
+const Tooltip = TooltipPrimitive.Root;
 
-export const Tooltip = foundation.Tooltip;
-export const TooltipTrigger = foundation.TooltipTrigger;
-export const TooltipContent = foundation.TooltipContent;
-export const TooltipProvider = foundation.TooltipProvider;
+const TooltipTrigger = TooltipPrimitive.Trigger;
 
-export default Tooltip;
+
+const TooltipContent = React.forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content> & { effects?: QuantumGateEffects }
+>(({ className, effects = 'on', sideOffset = 4, ...props }, ref) => (
+  <TooltipPrimitive.Content
+    ref={ref}
+    sideOffset={sideOffset}
+    className={cn(quantumGateEffectsClass(effects), 
+      'z-50 overflow-hidden border border-(--qg-border) bg-(--qg-surface) px-3 py-1.5 text-xs text-(--text-primary) shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 font-sans',
+      '[clip-path:polygon(var(--fold)_0%,100%_0%,100%_calc(100%-var(--fold)),calc(100%-var(--fold))_100%,0%_100%,0%_var(--fold))]',
+      className
+    )}
+    style={{ '--fold': '8px' } as React.CSSProperties}
+    {...props}
+  />
+));
+TooltipContent.displayName = TooltipPrimitive.Content.displayName;
+
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };

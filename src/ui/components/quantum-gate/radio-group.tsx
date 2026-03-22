@@ -1,95 +1,44 @@
-'use client';
-
 import * as React from 'react';
+import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
+import { Circle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { RadioGroupBase, RadioGroupItemBase } from '../_base/radio-group';
-import type { VariantColors } from '../../types/common';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
+import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
-
-interface StyledProps {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  colors?: VariantColors;
-}
-
-const versionKey = 'quantum-gate';
-
-const RADIO_CLIP_PATH = 'polygon(25% 6%, 75% 6%, 98% 50%, 75% 94%, 25% 94%, 2% 50%)';
-
-export const RadioGroup = React.forwardRef<
-  React.ElementRef<typeof RadioGroupBase>,
-  React.ComponentPropsWithoutRef<typeof RadioGroupBase> & StyledProps
->(({ className, type, uiType, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-
+const RadioGroup = React.forwardRef<
+  React.ElementRef<typeof RadioGroupPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> & { effects?: QuantumGateEffects }
+>(({ className, effects = 'on', ...props }, ref) => {
   return (
-    <RadioGroupBase
-      ref={ref}
-      className={cn('grid gap-2', className)}
-      data-version={versionKey}
-      data-type={resolvedType}
+    <RadioGroupPrimitive.Root
+      className={cn(quantumGateEffectsClass(effects), 'grid gap-2', className)}
       {...props}
+      ref={ref}
     />
   );
 });
-RadioGroup.displayName = 'RadioGroup';
+RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 
-export const RadioGroupItem = React.forwardRef<
-  React.ElementRef<typeof RadioGroupItemBase>,
-  React.ComponentPropsWithoutRef<typeof RadioGroupItemBase> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
 
-  const backgroundColor =
-    resolvedType === 'solid'
-      ? palette.accentPrimary ?? palette.base
-      : resolvedType === 'inverse'
-        ? palette.foreground
-        : resolvedType === 'ghost'
-          ? 'transparent'
-          : (typeStyles.backgroundColor as string | undefined) ?? palette.base ?? '#0a0a12';
-
-  const borderColor =
-    resolvedType === 'outline' || resolvedType === 'contrast'
-      ? palette.accentPrimary ?? palette.border
-      : resolvedType === 'ghost'
-        ? 'transparent'
-        : palette.border ?? '#3a3a5a';
-
-  const indicatorColor = palette.accentPrimary ?? '#8080ff';
-
+const RadioGroupItem = React.forwardRef<
+  React.ElementRef<typeof RadioGroupPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item> & { effects?: QuantumGateEffects }
+>(({ className, effects = 'on', ...props }, ref) => {
   return (
-    <RadioGroupItemBase
+    <RadioGroupPrimitive.Item
       ref={ref}
-      className={cn(
-        'aspect-square h-5 w-5 disabled:cursor-not-allowed disabled:opacity-50',
-        'flex items-center justify-center',
+      className={cn(quantumGateEffectsClass(effects), 
+        'aspect-square h-4 w-4 border border-(--qg-iris-1) text-(--qg-iris-1) ring-offset-(--qg-bg) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--qg-iris-1) focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
-      style={{
-        clipPath: RADIO_CLIP_PATH,
-        backgroundColor,
-        border: '2px solid ' + borderColor,
-        boxShadow: '0 0 6px ' + (palette.glow ?? 'rgba(100,100,255,0.2)'),
-        ...style,
-      }}
+      style={{ '--corner': '3px' } as React.CSSProperties}
       {...props}
     >
-      <span
-        className="h-2 w-2"
-        style={{
-          clipPath: RADIO_CLIP_PATH,
-          backgroundColor: indicatorColor,
-          boxShadow: '0 0 8px ' + indicatorColor,
-        }}
-      />
-    </RadioGroupItemBase>
+      <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
+        <div className="h-2.5 w-2.5 bg-current" style={{ '--corner': '2px' } as React.CSSProperties} />
+      </RadioGroupPrimitive.Indicator>
+    </RadioGroupPrimitive.Item>
   );
 });
-RadioGroupItem.displayName = 'RadioGroupItem';
+RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName;
 
-export default RadioGroup;
+export { RadioGroup, RadioGroupItem };

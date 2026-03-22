@@ -1,12 +1,24 @@
-'use client';
+import * as React from 'react';
+import { TooltipBase, TooltipTriggerBase, TooltipContentBase, TooltipProviderBase, type TooltipContentBaseProps } from '@/ui/components/_base/tooltip';
+import { cn } from '@/lib/utils';
 
-import { createTooltipFoundation } from '../_shared/family-foundations';
+const TooltipProvider = TooltipProviderBase;
+const Tooltip = TooltipBase;
+const TooltipTrigger = TooltipTriggerBase;
 
-const foundation = createTooltipFoundation('border');
+const TooltipContent = React.forwardRef<React.ElementRef<typeof TooltipContentBase>, TooltipContentBaseProps>(
+  ({ className, sideOffset = 4, ...props }, ref) => (
+    <TooltipContentBase
+      ref={ref}
+      sideOffset={sideOffset}
+      className={cn(
+        'z-50 overflow-hidden rounded-none border border-[var(--br-border-dim)] bg-[var(--br-bg)] px-3 py-1.5 text-xs text-[var(--text-primary)] font-mono shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        className
+      )}
+      {...props}
+    />
+  )
+);
+TooltipContent.displayName = 'TooltipContent';
 
-export const Tooltip = foundation.Tooltip;
-export const TooltipTrigger = foundation.TooltipTrigger;
-export const TooltipContent = foundation.TooltipContent;
-export const TooltipProvider = foundation.TooltipProvider;
-
-export default Tooltip;
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };

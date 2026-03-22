@@ -1,12 +1,96 @@
-'use client';
+import * as React from 'react';
+import { DrawerBase, DrawerTriggerBase, DrawerContentBase, DrawerHeaderBase, DrawerFooterBase, DrawerTitleBase, DrawerDescriptionBase, DrawerPortalBase, DrawerOverlayBase, type DrawerContentBaseProps } from '@/ui/components/_base/drawer';
+import { cn } from '@/lib/utils';
+import { DrawerCloseBase } from '@/ui/components/_base/drawer';
 
-import { createDrawerFoundation } from '../_shared/family-foundations';
+const Drawer = DrawerBase;
+const DrawerTrigger = DrawerTriggerBase;
+const DrawerPortal = DrawerPortalBase;
 
-const foundation = createDrawerFoundation('circuit-board');
+const DrawerOverlay = React.forwardRef<React.ElementRef<typeof DrawerOverlayBase>, React.ComponentPropsWithoutRef<typeof DrawerOverlayBase>>(
+  ({ className, ...props }, ref) => (
+    <DrawerOverlayBase
+      ref={ref}
+      className={cn('fixed inset-0 z-50 bg-black/80', className)}
+      {...props}
+    />
+  )
+);
+DrawerOverlay.displayName = 'DrawerOverlay';
 
-export const Overlay = foundation.Overlay;
-export const Content = foundation.Content;
-export const Title = foundation.Title;
-export const Description = foundation.Description;
+const DrawerContent = React.forwardRef<React.ElementRef<typeof DrawerContentBase>, DrawerContentBaseProps>(
+  ({ className, children, ...props }, ref) => (
+    <DrawerPortal>
+      <DrawerOverlay />
+      <DrawerContentBase
+        ref={ref}
+        className={cn(
+          'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-none border-t-2 border-[var(--cb-trace)] bg-[var(--cb-soldermask)] text-[var(--cb-trace-lit)] shadow-[0_0_20px_var(--cb-trace)]',
+          className
+        )}
+        {...props}
+      >
+        <div className="mx-auto mt-4 h-2 w-[100px] rounded-none bg-[var(--cb-trace)]" />
+        {children}
+      </DrawerContentBase>
+    </DrawerPortal>
+  )
+);
+DrawerContent.displayName = 'DrawerContent';
 
-export default foundation;
+const DrawerHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <DrawerHeaderBase
+      ref={ref}
+      className={cn('grid gap-1.5 p-4 text-center sm:text-left', className)}
+      {...props}
+    />
+  )
+);
+DrawerHeader.displayName = 'DrawerHeader';
+
+const DrawerFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <DrawerFooterBase
+      ref={ref}
+      className={cn('mt-auto flex flex-col gap-2 p-4', className)}
+      {...props}
+    />
+  )
+);
+DrawerFooter.displayName = 'DrawerFooter';
+
+const DrawerTitle = React.forwardRef<React.ElementRef<typeof DrawerTitleBase>, React.ComponentPropsWithoutRef<typeof DrawerTitleBase>>(
+  ({ className, ...props }, ref) => (
+    <DrawerTitleBase
+      ref={ref}
+      className={cn('text-xl font-bold font-mono uppercase tracking-widest text-[var(--cb-trace-lit)] drop-shadow-[0_0_5px_var(--cb-trace-lit)]', className)}
+      {...props}
+    />
+  )
+);
+DrawerTitle.displayName = 'DrawerTitle';
+
+const DrawerDescription = React.forwardRef<React.ElementRef<typeof DrawerDescriptionBase>, React.ComponentPropsWithoutRef<typeof DrawerDescriptionBase>>(
+  ({ className, ...props }, ref) => (
+    <DrawerDescriptionBase
+      ref={ref}
+      className={cn('text-sm text-[var(--cb-trace-dim)] font-mono uppercase tracking-wide', className)}
+      {...props}
+    />
+  )
+);
+DrawerDescription.displayName = 'DrawerDescription';
+
+export {
+  Drawer,
+  DrawerPortal,
+  DrawerOverlay,
+  DrawerTrigger,
+  DrawerCloseBase as DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerTitle,
+  DrawerDescription,
+};

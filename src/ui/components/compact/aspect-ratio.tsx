@@ -1,22 +1,17 @@
-'use client';
-
 import * as React from 'react';
-import { AspectRatioBase } from '../_base/aspect-ratio';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { AspectRatioBase, type AspectRatioBaseProps } from '../_base/aspect-ratio';
+import { cn } from '@/lib/utils';
 
-export type AspectRatioProps = Omit<React.ComponentPropsWithoutRef<typeof AspectRatioBase>, 'type'> & StyledProps;
+export interface AspectRatioProps extends AspectRatioBaseProps {}
 
 export const AspectRatio = React.forwardRef<React.ElementRef<typeof AspectRatioBase>, AspectRatioProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
+  ({ className, style, ...props }, ref) => (
     <AspectRatioBase
       ref={ref}
-      className={cx('relative overflow-hidden', className)}
-      style={getSurfaceStyle(version ?? 'compact', type, uiType, colors, style)}
+      style={{ borderRadius: '2px', ...style }}
+      className={cn(' overflow-hidden bg-[var(--cp-bg)] border border-[var(--cp-border)]', className)}
       {...props}
     />
   )
 );
-
 AspectRatio.displayName = 'AspectRatio';
-
-export default AspectRatio;

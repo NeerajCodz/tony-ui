@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { DayPicker } from 'react-day-picker';
 import { CalendarBase, type CalendarBaseProps } from '../_base/calendar';
-import { cn } from '@/lib/utils';
-import { buttonVariants } from '@/lib/utils'; // Assuming this exists or I define styles inline. Button styles.
+import { cn } from '@/lib/utils';// Assuming this exists or I define styles inline. Button styles.
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
@@ -50,8 +49,11 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
           ...classNames,
         }}
         components={{
-          IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-          IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+          Chevron: ({ orientation, ...props }: any) => {
+            if (orientation === 'left') return <ChevronLeft className="h-4 w-4" {...props} />;
+            if (orientation === 'right') return <ChevronRight className="h-4 w-4" {...props} />;
+            return <ChevronLeft className="h-4 w-4" {...props} />;
+          }
         }}
         {...props}
       />

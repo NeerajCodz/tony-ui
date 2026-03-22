@@ -1,25 +1,16 @@
-'use client';
-
 import * as React from 'react';
-import { SkeletonBase } from '../_base/skeleton';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { SkeletonBase, type SkeletonBaseProps } from '@/ui/components/_base/skeleton';
+import { cn } from '@/lib/utils';
 
-export type SkeletonProps = Omit<React.ComponentPropsWithoutRef<typeof SkeletonBase>, 'type'> &
-  StyledProps & {
-    animated?: boolean;
-  };
-
-export const Skeleton = React.forwardRef<React.ElementRef<typeof SkeletonBase>, SkeletonProps>(
-  ({ className, animated = true, version, type, uiType, colors, style, ...props }, ref) => (
+const Skeleton = React.forwardRef<HTMLDivElement, SkeletonBaseProps>(
+  ({ className, ...props }, ref) => (
     <SkeletonBase
       ref={ref}
-      className={cx(animated && 'animate-pulse', 'rounded', className)}
-      style={getSurfaceStyle(version ?? 'border', type, uiType, colors, style)}
+      className={cn('animate-pulse rounded-none bg-[var(--br-surface)]', className)}
       {...props}
     />
   )
 );
-
 Skeleton.displayName = 'Skeleton';
 
-export default Skeleton;
+export { Skeleton };

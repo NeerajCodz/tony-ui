@@ -1,116 +1,108 @@
-import React from 'react';
+import * as React from 'react';
+import { 
+  BreadcrumbBase, 
+  BreadcrumbListBase, 
+  BreadcrumbItemBase, 
+  BreadcrumbLinkBase, 
+  BreadcrumbPageBase, 
+  BreadcrumbSeparatorBase, 
+  BreadcrumbEllipsisBase,
+  type BreadcrumbBaseProps 
+} from '../_base/breadcrumb';
 import { cn } from '@/lib/utils';
-import type { BreadcrumbProps, BreadcrumbItemProps, BreadcrumbLinkProps, BreadcrumbListProps, BreadcrumbPageProps, BreadcrumbSeparatorProps } from '@/ui/types/components/navigation';
-import { Slot } from "@radix-ui/react-slot"
-import { ChevronRight, MoreHorizontal } from "lucide-react"
-import { BreadcrumbBase, BreadcrumbListBase, BreadcrumbItemBase, BreadcrumbLinkBase, BreadcrumbPageBase, BreadcrumbSeparatorBase, BreadcrumbEllipsisBase } from '../_base/breadcrumb';
+import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
+import { ChevronRight } from 'lucide-react';
 
-export function Breadcrumb({ className, type = 'default', colors, ...props }: BreadcrumbProps & { colors?: any }) {
-  const typeStyles = {
-    default: {
-      backgroundColor: colors?.background,
-      color: colors?.text,
-      border: colors?.border ? `1px solid ${colors.border}` : undefined
-    },
-    solid: {
-      backgroundColor: colors?.accent?.primary,
-      color: colors?.text,
-      boxShadow: colors?.accent?.glow ? `0 0 10px ${colors?.accent?.glow}` : undefined
-    },
-    outline: {
-      backgroundColor: 'transparent',
-      color: colors?.accent?.primary,
-      border: colors?.accent?.primary ? `1px solid ${colors?.accent?.primary}` : undefined
-    },
-    ghost: {
-      backgroundColor: 'transparent',
-      color: colors?.textHover
-    },
-    inverse: {
-      backgroundColor: colors?.text,
-      color: colors?.background,
-      border: colors?.text ? `1px solid ${colors.text}` : undefined
-    },
-    contrast: {
-      backgroundColor: colors?.accent?.primary || colors?.text,
-      color: '#000000',
-      fontWeight: 'bold',
-      border: colors?.text ? `1px solid ${colors.text}` : undefined
-    },
-    soft: {
-      backgroundColor: colors?.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors?.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
-      color: colors?.accent?.primary || colors?.text,
-      border: 'none'
-    }
-  };
-
-  return (
-    <nav 
-      aria-label="breadcrumb" 
-      className={className} 
-      style={typeStyles[type as keyof typeof typeStyles] || typeStyles.default} 
-      {...props} 
-    />
-  )
+export interface BreadcrumbProps extends BreadcrumbBaseProps {
+  effects?: HoloFrameEffects;
 }
 
-export function BreadcrumbList({ className, ...props }: BreadcrumbListProps) {
-  return (
-    <ol
-      className={cn(
-        "flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5",
-        className
-      )}
+const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
+  ({ className, effects = 'on', ...props }, ref) => (
+    <BreadcrumbBase ref={ref} className={cn(holoFrameEffectsClass(effects), 'font-mono uppercase tracking-wider', className)} {...props} />
+  )
+);
+Breadcrumb.displayName = 'Breadcrumb';
+
+const BreadcrumbList = React.forwardRef<HTMLOListElement, React.ComponentPropsWithoutRef<typeof BreadcrumbListBase> & { effects?: HoloFrameEffects }>(
+  ({ className, effects = 'on', ...props }, ref) => (
+    <BreadcrumbListBase
+      ref={ref}
+      className={cn(holoFrameEffectsClass(effects), 'flex flex-wrap items-center gap-1.5 break-words text-sm text-[var(--hf-text)]', className)}
       {...props}
     />
   )
-}
+);
+BreadcrumbList.displayName = 'BreadcrumbList';
 
-export function BreadcrumbItem({ className, ...props }: BreadcrumbItemProps) {
-  return (
-    <li
-      className={cn("inline-flex items-center gap-1.5", className)}
+const BreadcrumbItem = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<typeof BreadcrumbItemBase> & { effects?: HoloFrameEffects }>(
+  ({ className, effects = 'on', ...props }, ref) => (
+    <BreadcrumbItemBase
+      ref={ref}
+      className={cn(holoFrameEffectsClass(effects), 'inline-flex items-center gap-1.5', className)}
       {...props}
     />
   )
-}
+);
+BreadcrumbItem.displayName = 'BreadcrumbItem';
 
-export function BreadcrumbLink({ asChild, className, ...props }: BreadcrumbLinkProps) {
-  const Comp = asChild ? Slot : "a"
-
-  return (
-    <Comp
-      className={cn("transition-colors hover:text-foreground", className)}
+const BreadcrumbLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<typeof BreadcrumbLinkBase> & { effects?: HoloFrameEffects }>(
+  ({ className, effects = 'on', ...props }, ref) => (
+    <BreadcrumbLinkBase
+      ref={ref}
+      className={cn(holoFrameEffectsClass(effects), 'transition-colors hover:text-[var(--hf-border-main)] hover:underline', className)}
       {...props}
     />
   )
-}
+);
+BreadcrumbLink.displayName = 'BreadcrumbLink';
 
-export function BreadcrumbPage({ className, ...props }: BreadcrumbPageProps) {
-  return (
-    <span
-      role="link"
-      aria-disabled="true"
-      aria-current="page"
-      className={cn("font-normal text-foreground", className)}
+const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<typeof BreadcrumbPageBase> & { effects?: HoloFrameEffects }>(
+  ({ className, effects = 'on', ...props }, ref) => (
+    <BreadcrumbPageBase
+      ref={ref}
+      className={cn(holoFrameEffectsClass(effects), 'font-normal text-[var(--hf-text)] font-bold', className)}
       {...props}
     />
   )
-}
+);
+BreadcrumbPage.displayName = 'BreadcrumbPage';
 
-export function BreadcrumbSeparator({
-  children,
-  className,
-  ...props
-}: BreadcrumbSeparatorProps) {
-  return (
-    <li
-      role="presentation"
-      aria-hidden="true"
-      className={cn("[&>svg]:size-3.5", className)}
+const BreadcrumbSeparator = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<typeof BreadcrumbSeparatorBase> & { effects?: HoloFrameEffects }>(
+  ({ children, className, effects = 'on', ...props }, ref) => (
+    <BreadcrumbSeparatorBase
+      ref={ref}
+      className={cn(holoFrameEffectsClass(effects), 'text-[var(--hf-border-main)]/50', className)}
       {...props}
     >
-      {children ?? <ChevronRight />}
-    </li>
+      {children ?? <ChevronRight className="h-3.5 w-3.5" />}
+    </BreadcrumbSeparatorBase>
   )
-}
+);
+BreadcrumbSeparator.displayName = 'BreadcrumbSeparator';
+
+const BreadcrumbEllipsis = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<typeof BreadcrumbEllipsisBase> & { effects?: HoloFrameEffects }>(
+  ({ className, effects = 'on', ...props }, ref) => (
+    <BreadcrumbEllipsisBase
+      ref={ref}
+      className={cn(holoFrameEffectsClass(effects), 'flex h-9 w-9 items-center justify-center', className)}
+      {...props}
+    >
+      <span className="sr-only">More</span>
+      <span className="h-1 w-1 rounded-full bg-current mx-[1px]" />
+      <span className="h-1 w-1 rounded-full bg-current mx-[1px]" />
+      <span className="h-1 w-1 rounded-full bg-current mx-[1px]" />
+    </BreadcrumbEllipsisBase>
+  )
+);
+BreadcrumbEllipsis.displayName = 'BreadcrumbEllipsis';
+
+export {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis,
+};

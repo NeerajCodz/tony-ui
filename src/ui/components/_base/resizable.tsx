@@ -244,3 +244,8 @@ export const ResizableHandleBase = React.forwardRef<HTMLDivElement, ResizableHan
   )
 );
 ResizableHandleBase.displayName = 'ResizableHandleBase';
+
+// Aliases for compatibility
+export const ResizableBase = ResizablePanelGroupBase;
+export const ResizeHandleBase = ResizableHandleBase;
+export type ResizableBaseProps = ResizablePanelGroupBaseProps;

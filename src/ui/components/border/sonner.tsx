@@ -1,95 +1,25 @@
-'use client';
+import { SonnerBase } from '@/ui/components/_base/sonner';
 
-import React, { forwardRef } from 'react';
-import { Toaster as SonnerToaster } from 'sonner';
-import type { VariantColors } from '../../types/common';
-import { SonnerBase } from '../_base/sonner';
+type ToasterProps = React.ComponentProps<typeof SonnerBase>;
 
-export interface SonnerProps {
-  version?: string;
-  variant?: string;
-  type?: string;
-  size?: string;
-  colors?: VariantColors;
-  styles?: React.CSSProperties;
-  config?: any;
-  position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
-  expand?: boolean;
-  richColors?: boolean;
-  closeButton?: boolean;
-  duration?: number;
-  showLoader?: boolean;
-  className?: string;
-}
+const Toaster = ({ ...props }: ToasterProps) => {
+  return (
+    <SonnerBase
+      className="toaster group"
+      toastOptions={{
+        classNames: {
+          toast:
+            'group toast group-[.toaster]:bg-[var(--br-bg)] group-[.toaster]:text-[var(--text-primary)] group-[.toaster]:border-[var(--br-border-dim)] group-[.toaster]:shadow-lg font-mono rounded-none',
+          description: 'group-[.toast]:text-muted-foreground',
+          actionButton:
+            'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
+          cancelButton:
+            'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
+        },
+      }}
+      {...props}
+    />
+  );
+};
 
-const BorderSonner = forwardRef<HTMLDivElement, SonnerProps>(
-  ({ 
-    colors,
-    position = 'bottom-right',
-    expand = true,
-    richColors = true,
-    closeButton = true,
-    duration = 4000,
-    type = 'default',
-    showLoader = true,
-    className = '',
-    ...props 
-  }, ref) => {
-    let bg = colors?.base || '#1f2937';
-    let fg = colors?.foreground || '#ffffff';
-    let border = colors?.border || '#374151';
-    const glow = colors?.glow || 'rgba(0,0,0,0)';
-
-    // Handle new types
-    if (type === 'inverse') {
-      const temp = bg;
-      bg = fg;
-      fg = temp;
-      border = bg;
-    } else if (type === 'contrast') {
-      border = fg;
-      bg = colors?.base || '#000000';
-      fg = colors?.foreground || '#ffffff';
-    } else if (type === 'soft') {
-      bg = colors?.muted || bg;
-      border = colors?.border ? `${colors.border}40` : border;
-    }
-
-    return (
-      <div ref={ref} className={`sonner-container-border ${className}`}>
-        <SonnerToaster
-          position={position}
-          expand={expand}
-          richColors={richColors}
-          closeButton={closeButton}
-          theme="dark"
-          toastOptions={{
-            duration: duration,
-            style: {
-              backgroundColor: bg,
-              color: fg,
-              border: `2px solid ${border}`,
-              borderRadius: '0',
-              fontFamily: 'inherit',
-              boxShadow: `none`,
-              clipPath: 'none',
-              backdropFilter: 'none',
-              padding: '1rem',
-              
-            },
-            classNames: {
-              toast: 'sonner-toast-border',
-              title: 'font-semibold text-sm',
-              description: 'text-sm opacity-80',
-            },
-          }}
-          {...props}
-        />
-      </div>
-    );
-  }
-);
-
-BorderSonner.displayName = 'BorderSonner';
-
-export default BorderSonner;
+export { Toaster };

@@ -1,9 +1,15 @@
-'use client';
+import * as React from 'react';
+import { AnalogClockBase, type AnalogClockBaseProps } from '@/ui/components/_base/analog-clock';
+import { cn } from '@/lib/utils';
 
-import { createAnalogClockFoundation } from '../_shared/family-foundations';
-
-const foundation = createAnalogClockFoundation('circuit-board');
-
-export const AnalogClock = foundation.AnalogClock;
-
-export default AnalogClock;
+const AnalogClock = React.forwardRef<React.ElementRef<typeof AnalogClockBase>, AnalogClockBaseProps>(
+  ({ className, ...props }, ref) => (
+    <AnalogClockBase
+      ref={ref}
+      className={cn('rounded-full border-4 border-[var(--cb-trace)] bg-[var(--cb-soldermask)] shadow-[0_0_20px_var(--cb-trace)]', className)}
+      {...props}
+    />
+  )
+);
+AnalogClock.displayName = 'AnalogClock';
+export { AnalogClock };

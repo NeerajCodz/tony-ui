@@ -1,105 +1,75 @@
-'use client';
-
 import * as React from 'react';
+import { InputBase, type InputBaseProps } from '../_base/input';
 import { cn } from '@/lib/utils';
-import { InputBase } from '../_base/input';
-import type { VariantColors } from '../../types/common';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
+export interface InputProps extends InputBaseProps {}
 
-export interface InputProps extends Omit<React.ComponentPropsWithoutRef<typeof InputBase>, 'type' | 'size'> {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  colors?: VariantColors;
-  version?: string;
-  htmlType?: React.HTMLInputTypeAttribute;
-  size?: 'sm' | 'md' | 'lg';
-  error?: boolean;
-  icon?: React.ReactNode;
-  iconPosition?: 'left' | 'right';
-}
+const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
-const versionKey = 'angular-corner';
+const getVisualTypeStyles = (visualType: string = 'default', invalid: boolean = false) => {
+  if (invalid) {
+    return 'border-[var(--ac-danger)] text-[var(--ac-danger)] placeholder:text-[var(--ac-danger)]/50 focus:border-[var(--ac-danger)] focus:ring-[var(--ac-danger)]/20 bg-[var(--ac-danger)]/5';
+  }
 
-// Angular clipped corners for input
-const INPUT_CLIP_PATH = 'polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px)';
+  switch (visualType) {
+    case 'default':
+      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--ac-accent)] focus:bg-[var(--ac-bg)]';
+    case 'outline':
+      return 'bg-transparent border-2 border-[var(--ac-accent)] text-[var(--ac-accent)] placeholder:text-[var(--ac-accent)]/50 focus:bg-[var(--ac-surface)]';
+    case 'ghost':
+      return 'bg-transparent border-none text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:bg-[var(--ac-surface)] focus:border-2 focus:border-[var(--ac-accent)]';
+    case 'soft':
+      return 'bg-[var(--ac-accent)]/10 border-none text-[var(--ac-accent)] placeholder:text-[var(--ac-accent)]/50 focus:bg-[var(--ac-accent)]/20 focus:border-2 focus:border-[var(--ac-accent)]';
+    case 'subtle':
+      return 'bg-[var(--ac-surface)]/50 border-none text-[var(--text-secondary)] placeholder:text-[var(--text-muted)] focus:bg-[var(--ac-surface)] focus:text-[var(--text-primary)]';
+    case 'flat':
+      return 'bg-transparent border-none p-0 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:bg-[var(--ac-surface)]/20';
+    case 'neutral':
+      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-secondary)] placeholder:text-[var(--text-muted)] focus:border-[var(--text-primary)]';
+    case 'elevated':
+      return 'bg-[var(--ac-surface)] border-none text-[var(--text-primary)] shadow-[0_4px_20px_rgba(0,0,0,0.5)] focus:shadow-[0_4px_20px_rgba(0,200,255,0.1)] focus:border-2 focus:border-[var(--ac-accent)]';
+    case 'unstyled':
+      return '';
+    default:
+      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--ac-accent)]';
+  }
+};
 
-const sizeMap = {
-  sm: 'h-8 px-2 text-sm',
-  md: 'h-10 px-3 text-sm',
-  lg: 'h-12 px-4 text-base',
-} as const;
+const getSizeStyles = (size: string = 'md') => {
+  switch (size) {
+    case 'sm': return 'h-8 px-3 text-xs [--corner:6px]';
+    case 'md': return 'h-10 px-4 text-sm [--corner:8px]';
+    case 'lg': return 'h-12 px-6 text-base [--corner:10px]';
+    default: return 'h-10 px-4 text-sm [--corner:8px]';
+  }
+};
 
-export const Input = React.forwardRef<React.ElementRef<typeof InputBase>, InputProps>(
-  ({
-    className,
-    type,
-    uiType,
-    colors,
-    style,
-    htmlType = 'text',
-    size = 'md',
-    error,
-    icon: _icon,
-    iconPosition: _iconPosition,
-    ...props
-  }, ref) => {
-    const resolvedType = uiType ?? type ?? 'default';
-    const palette = normalizeColors(colors);
-    const typeStyles = getCoreTypeStyles(resolvedType, colors);
-
-    // Compute background based on type
-    const backgroundColor =
-      resolvedType === 'solid'
-        ? palette.accentPrimary ?? palette.base
-        : resolvedType === 'soft' && palette.accentRgb
-          ? `rgba(${palette.accentRgb}, 0.1)`
-          : resolvedType === 'inverse'
-            ? palette.foreground
-            : resolvedType === 'ghost'
-              ? 'transparent'
-              : (typeStyles.backgroundColor as string | undefined) ?? palette.base;
-
-    // Compute border color based on type (error overrides)
-    const borderColor = error
-      ? '#ef4444'
-      : resolvedType === 'outline' || resolvedType === 'contrast'
-        ? palette.accentPrimary ?? palette.border
-        : resolvedType === 'ghost'
-          ? 'transparent'
-          : palette.border;
-
-    // Compute text color based on type
-    const textColor =
-      resolvedType === 'solid'
-        ? palette.base ?? '#fff'
-        : resolvedType === 'inverse'
-          ? palette.base ?? '#000'
-          : (typeStyles.color as string | undefined) ?? palette.foreground;
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, visualType = 'default', inputSize = 'md', invalid = false, style, ...props }, ref) => {
+    // Merge custom style with clip-path, unless it's unstyled
+    const componentStyle = visualType !== 'unstyled'
+      ? { ...style, clipPath: AC_CLIP_PATH } 
+      : style;
 
     return (
       <InputBase
         ref={ref}
-        type={htmlType}
-        className={cn('w-full outline-none transition-colors', sizeMap[size], className)}
-        style={{
-          clipPath: INPUT_CLIP_PATH,
-          backgroundColor,
-          border: `2px solid ${borderColor}`,
-          color: textColor,
-          fontFamily: 'inherit',
-          letterSpacing: '0.04em',
-          ...style,
-        }}
-        data-version={versionKey}
-        data-type={resolvedType}
+        visualType={visualType}
+        inputSize={inputSize}
+        invalid={invalid}
+        style={componentStyle}
+        className={cn(
+          'w-full font-mono font-medium',
+          'transition-all duration-200 outline-none file:bg-transparent file:text-sm file:font-medium file:text-[var(--text-primary)]',
+          'disabled:opacity-50 disabled:cursor-not-allowed',
+          'focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--ac-bg)] focus:ring-transparent', // Hide default ring, use border
+          getVisualTypeStyles(visualType, invalid),
+          getSizeStyles(inputSize),
+          className
+        )}
         {...props}
       />
     );
   }
 );
-
 Input.displayName = 'Input';
-
-export default Input;

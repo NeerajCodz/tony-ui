@@ -104,3 +104,17 @@ export const ButtonGroupBase = React.forwardRef<HTMLDivElement, ButtonGroupBaseP
   )
 );
 ButtonGroupBase.displayName = 'ButtonGroupBase';
+
+// ============================================================================
+// ButtonGroup Item
+// ============================================================================
+
+export interface ButtonGroupItemBaseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
+/**
+ * ButtonGroupItemBase - Single button within a group
+ */
+export const ButtonGroupItemBase = React.forwardRef<HTMLButtonElement, ButtonGroupItemBaseProps>(
+  (props, ref) => <button ref={ref} {...props} />
+);
+ButtonGroupItemBase.displayName = 'ButtonGroupItemBase';

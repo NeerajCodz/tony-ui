@@ -1,160 +1,118 @@
-'use client';
-
 import * as React from 'react';
+import { Drawer as DrawerPrimitive } from 'vaul';
 import { cn } from '@/lib/utils';
-import {
-  DrawerOverlayBase,
-  DrawerContentBase,
-  DrawerTitleBase,
-  DrawerDescriptionBase,
-} from '../_base/drawer';
-import type { VariantColors } from '../../types/common';
-import { normalizeColors, getCoreTypeStyles } from '../_shared/version-styles';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
+const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
-interface StyledProps {
-  type?: ComponentType;
-  uiType?: ComponentType;
-  colors?: VariantColors;
-}
+const Drawer = ({
+  shouldScaleBackground = true,
+  ...props
+}: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
+  <DrawerPrimitive.Root
+    shouldScaleBackground={shouldScaleBackground}
+    {...props}
+  />
+);
+Drawer.displayName = 'Drawer';
 
-const versionKey = 'angular-corner';
+const DrawerTrigger = DrawerPrimitive.Trigger;
 
-const DRAWER_CLIP_PATH = 'polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%, 0 16px)';
+const DrawerPortal = DrawerPrimitive.Portal;
 
-export const Overlay = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+const DrawerClose = DrawerPrimitive.Close;
+
+const DrawerOverlay = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.Overlay>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
-  <DrawerOverlayBase
+  <DrawerPrimitive.Overlay
+    ref={ref}
+    className={cn('fixed inset-0 z-50 bg-black/80', className)}
+    {...props}
+  />
+));
+DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
+
+const DrawerContent = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
+>(({ className, children, ...props }, ref) => (
+  <DrawerPortal>
+    <DrawerOverlay />
+    <DrawerPrimitive.Content
+      ref={ref}
+      className={cn(
+        'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col border border-[var(--ac-border)] bg-[var(--ac-surface)] text-[var(--text-primary)] shadow-2xl',
+        className
+      )}
+      style={{ clipPath: 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% 100%, 0% 100%)', '--corner': '20px' } as React.CSSProperties}
+      {...props}
+    >
+      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-[var(--ac-border)] opacity-50" />
+      {children}
+    </DrawerPrimitive.Content>
+  </DrawerPortal>
+));
+DrawerContent.displayName = 'DrawerContent';
+
+const DrawerHeader = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn('grid gap-1.5 p-4 text-center sm:text-left', className)}
+    {...props}
+  />
+);
+DrawerHeader.displayName = 'DrawerHeader';
+
+const DrawerFooter = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn('mt-auto flex flex-col gap-2 p-4', className)}
+    {...props}
+  />
+);
+DrawerFooter.displayName = 'DrawerFooter';
+
+const DrawerTitle = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>
+>(({ className, ...props }, ref) => (
+  <DrawerPrimitive.Title
     ref={ref}
     className={cn(
-      'fixed inset-0 z-50 bg-black/70 backdrop-blur-sm',
+      'text-lg font-bold leading-none tracking-tight font-mono uppercase text-[var(--ac-accent)]',
       className
     )}
     {...props}
   />
 ));
-Overlay.displayName = 'DrawerOverlay';
+DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
 
-export const Content = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & StyledProps
->(({ className, children, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
+const DrawerDescription = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
+>(({ className, ...props }, ref) => (
+  <DrawerPrimitive.Description
+    ref={ref}
+    className={cn('text-sm text-[var(--text-muted)] font-mono', className)}
+    {...props}
+  />
+));
+DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
 
-  const backgroundColor =
-    resolvedType === 'solid'
-      ? palette.accentPrimary ?? palette.base
-      : resolvedType === 'soft' && palette.accentRgb
-        ? 'rgba(' + palette.accentRgb + ', 0.95)'
-        : resolvedType === 'inverse'
-          ? palette.foreground
-          : (typeStyles.backgroundColor as string | undefined) ?? palette.base ?? '#0a0a0a';
-
-  const borderColor = palette.accentPrimary ?? palette.border ?? '#333';
-
-  const textColor =
-    resolvedType === 'solid'
-      ? palette.base ?? '#fff'
-      : resolvedType === 'inverse'
-        ? palette.base ?? '#000'
-        : (typeStyles.color as string | undefined) ?? palette.foreground ?? '#fff';
-
-  return (
-    <DrawerContentBase
-      ref={ref}
-      className={cn(
-        'fixed inset-x-0 bottom-0 z-50 flex h-auto flex-col p-6',
-        className
-      )}
-      style={{
-        clipPath: DRAWER_CLIP_PATH,
-        backgroundColor,
-        borderTop: '2px solid ' + borderColor,
-        color: textColor,
-        boxShadow: '0 -4px 20px ' + (palette.glow ?? 'rgba(0,0,0,0.5)'),
-        ...style,
-      }}
-      data-version={versionKey}
-      data-type={resolvedType}
-      {...props}
-    >
-      <div
-        className="mx-auto mb-4 h-1.5 w-[60px] shrink-0"
-        style={{
-          clipPath: 'polygon(4px 0, calc(100% - 4px) 0, 100% 50%, calc(100% - 4px) 100%, 4px 100%, 0 50%)',
-          backgroundColor: palette.accentPrimary ?? borderColor,
-        }}
-      />
-      {children}
-    </DrawerContentBase>
-  );
-});
-Content.displayName = 'DrawerContent';
-
-export const Title = React.forwardRef<
-  HTMLHeadingElement,
-  React.HTMLAttributes<HTMLHeadingElement> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
-
-  const textColor =
-    resolvedType === 'solid'
-      ? palette.base ?? '#fff'
-      : resolvedType === 'inverse'
-        ? palette.base ?? '#000'
-        : (typeStyles.color as string | undefined) ?? palette.foreground ?? '#fff';
-
-  return (
-    <DrawerTitleBase
-      ref={ref}
-      className={cn('text-lg font-bold uppercase tracking-wider', className)}
-      style={{
-        color: textColor,
-        letterSpacing: '0.08em',
-        ...style,
-      }}
-      {...props}
-    />
-  );
-});
-Title.displayName = 'DrawerTitle';
-
-export const Description = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement> & StyledProps
->(({ className, type, uiType, colors, style, ...props }, ref) => {
-  const resolvedType = uiType ?? type ?? 'default';
-  const palette = normalizeColors(colors);
-  const typeStyles = getCoreTypeStyles(resolvedType, colors);
-
-  const textColor =
-    resolvedType === 'solid'
-      ? palette.base ?? '#fff'
-      : resolvedType === 'inverse'
-        ? palette.base ?? '#000'
-        : (typeStyles.color as string | undefined) ?? palette.foreground ?? '#fff';
-
-  return (
-    <DrawerDescriptionBase
-      ref={ref}
-      className={cn('text-sm', className)}
-      style={{
-        color: textColor,
-        opacity: 0.75,
-        ...style,
-      }}
-      {...props}
-    />
-  );
-});
-Description.displayName = 'DrawerDescription';
-
-const Drawer = { Overlay, Content, Title, Description };
-export default Drawer;
+export {
+  Drawer,
+  DrawerPortal,
+  DrawerOverlay,
+  DrawerTrigger,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerTitle,
+  DrawerDescription,
+};
