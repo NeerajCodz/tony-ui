@@ -1,58 +1,26 @@
-'use client';
+import * as React from 'react';
+import { TextareaBase, type TextareaBaseProps } from '../_base/textarea';
+import { cn } from '@/lib/utils';
+import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
-import React, { forwardRef } from 'react';
-import type { VariantColors } from '../../types/common';
-import { TextareaBase } from '../_base/textarea';
-
-export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  version?: string;
-  type?: string;
-  variant?: string;
-  colors?: VariantColors;
+export interface TextareaProps extends TextareaBaseProps {
+  effects?: TerminalWindowEffects;
 }
 
-const TerminalWindowTextarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, colors, type, style, ...props }, ref) => {
-    let bg = colors?.base || 'transparent';
-    let fg = colors?.foreground || 'currentColor';
-    let border = colors?.border || '#e5e7eb';
-    const glow = colors?.glow || 'transparent';
-
-    if (type === 'inverse') {
-      const temp = bg;
-      bg = fg;
-      fg = temp;
-      border = bg;
-    } else if (type === 'contrast') {
-      border = fg;
-      bg = colors?.base || '#000000';
-      fg = colors?.foreground || '#ffffff';
-    } else if (type === 'soft') {
-      bg = colors?.muted || bg;
-      border = colors?.border ? `${colors.border}40` : border;
-    }
-
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className, effects = 'on', ...props }, ref) => {
     return (
-      <textarea
-        className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      <TextareaBase
+        className={cn(terminalWindowEffectsClass(effects), 
+          'flex min-h-[80px] w-full rounded-none border border-[var(--tm-phosphor)]/50 bg-transparent px-3 py-2 text-sm text-[var(--tm-phosphor)] placeholder:text-[var(--tm-phosphor-dim)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--tm-phosphor)] disabled:cursor-not-allowed disabled:opacity-50 font-mono tracking-wider',
+          className
+        )}
         ref={ref}
-        style={{
-            backgroundColor: bg,
-            color: fg,
-            borderColor: border,
-            borderWidth: '2px',
-            borderStyle: 'solid',
-            borderRadius: '0',
-            fontFamily: 'monospace',
-            boxShadow: `none`,
-            clipPath: 'none',
-            ...style
-        }}
         {...props}
       />
     );
   }
 );
-TerminalWindowTextarea.displayName = 'TerminalWindowTextarea';
+Textarea.displayName = 'Textarea';
 
-export default TerminalWindowTextarea;
+export { Textarea };

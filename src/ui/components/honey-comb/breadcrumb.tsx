@@ -1,102 +1,108 @@
-import * as React from 'react';
-import { 
-  BreadcrumbBase, 
-  BreadcrumbListBase, 
-  BreadcrumbItemBase, 
-  BreadcrumbLinkBase, 
-  BreadcrumbPageBase, 
-  BreadcrumbSeparatorBase, 
-  BreadcrumbEllipsisBase,
-  type BreadcrumbBaseProps 
-} from '../_base/breadcrumb';
-import { cn } from '@/lib/utils';
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
-import { ChevronRight } from 'lucide-react';
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { ChevronRight, MoreHorizontal } from "lucide-react"
 
-export interface BreadcrumbProps extends BreadcrumbBaseProps {
-  effects?: HoneyCombEffects;
-}
+import { cn } from "@/lib/utils"
 
+const Breadcrumb = React.forwardRef<
+  HTMLElement,
+  React.ComponentPropsWithoutRef<"nav"> & {
+    separator?: React.ReactNode
+  }
+>(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />)
+Breadcrumb.displayName = "Breadcrumb"
 
-const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
-  ({ className, effects = 'on', ...props }, ref) => (
-    <BreadcrumbBase ref={ref} className={cn(honeyCombEffectsClass(effects), 'font-["JetBrains_Mono"] uppercase tracking-wider', className)} {...props} />
-  )
-);
-Breadcrumb.displayName = 'Breadcrumb';
+const BreadcrumbList = React.forwardRef<
+  HTMLOListElement,
+  React.ComponentPropsWithoutRef<"ol">
+>(({ className, ...props }, ref) => (
+  <ol
+    ref={ref}
+    className={cn(
+      "flex flex-wrap items-center gap-1.5 break-words text-sm text-[var(--hc-text-secondary)] font-body",
+      className
+    )}
+    {...props}
+  />
+))
+BreadcrumbList.displayName = "BreadcrumbList"
 
-const BreadcrumbList = React.forwardRef<HTMLOListElement, React.ComponentPropsWithoutRef<typeof BreadcrumbListBase> & { effects?: HoneyCombEffects }>(
-  ({ className, effects = 'on', ...props }, ref) => (
-    <BreadcrumbListBase
+const BreadcrumbItem = React.forwardRef<
+  HTMLLIElement,
+  React.ComponentPropsWithoutRef<"li">
+>(({ className, ...props }, ref) => (
+  <li
+    ref={ref}
+    className={cn("inline-flex items-center gap-1.5", className)}
+    {...props}
+  />
+))
+BreadcrumbItem.displayName = "BreadcrumbItem"
+
+const BreadcrumbLink = React.forwardRef<
+  HTMLAnchorElement,
+  React.ComponentPropsWithoutRef<"a"> & {
+    asChild?: boolean
+  }
+>(({ asChild, className, ...props }, ref) => {
+  const Comp = asChild ? Slot : "a"
+
+  return (
+    <Comp
       ref={ref}
-      className={cn(honeyCombEffectsClass(effects), 'flex flex-wrap items-center gap-1.5 break-words text-sm text-[var(--text-muted)]', className)}
+      className={cn("transition-colors hover:text-[var(--hc-accent)] uppercase tracking-wider font-display text-[12px]", className)}
       {...props}
     />
   )
-);
-BreadcrumbList.displayName = 'BreadcrumbList';
+})
+BreadcrumbLink.displayName = "BreadcrumbLink"
 
-const BreadcrumbItem = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<typeof BreadcrumbItemBase> & { effects?: HoneyCombEffects }>(
-  ({ className, effects = 'on', ...props }, ref) => (
-    <BreadcrumbItemBase
-      ref={ref}
-      className={cn(honeyCombEffectsClass(effects), 'inline-flex items-center gap-1.5', className)}
-      {...props}
-    />
-  )
-);
-BreadcrumbItem.displayName = 'BreadcrumbItem';
+const BreadcrumbPage = React.forwardRef<
+  HTMLSpanElement,
+  React.ComponentPropsWithoutRef<"span">
+>(({ className, ...props }, ref) => (
+  <span
+    ref={ref}
+    role="link"
+    aria-disabled="true"
+    aria-current="page"
+    className={cn("font-normal text-[var(--hc-text-primary)] font-display uppercase tracking-wider text-[12px]", className)}
+    {...props}
+  />
+))
+BreadcrumbPage.displayName = "BreadcrumbPage"
 
-const BreadcrumbLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<typeof BreadcrumbLinkBase> & { effects?: HoneyCombEffects }>(
-  ({ className, effects = 'on', ...props }, ref) => (
-    <BreadcrumbLinkBase
-      ref={ref}
-      className={cn(honeyCombEffectsClass(effects), 'transition-colors hover:text-[var(--hc-plasma-1)] hover:underline', className)}
-      {...props}
-    />
-  )
-);
-BreadcrumbLink.displayName = 'BreadcrumbLink';
+const BreadcrumbSeparator = ({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<"li">) => (
+  <li
+    role="presentation"
+    aria-hidden="true"
+    className={cn("[&>svg]:size-3.5 text-[var(--hc-accent)] opacity-50", className)}
+    {...props}
+  >
+    {children ?? <ChevronRight />}
+  </li>
+)
+BreadcrumbSeparator.displayName = "BreadcrumbSeparator"
 
-const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<typeof BreadcrumbPageBase> & { effects?: HoneyCombEffects }>(
-  ({ className, effects = 'on', ...props }, ref) => (
-    <BreadcrumbPageBase
-      ref={ref}
-      className={cn(honeyCombEffectsClass(effects), 'font-normal text-[var(--text-primary)] font-bold', className)}
-      {...props}
-    />
-  )
-);
-BreadcrumbPage.displayName = 'BreadcrumbPage';
-
-const BreadcrumbSeparator = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<typeof BreadcrumbSeparatorBase> & { effects?: HoneyCombEffects }>(
-  ({ children, className, ...props }, ref) => (
-    <BreadcrumbSeparatorBase
-      ref={ref}
-      className={cn(honeyCombEffectsClass(effects), 'text-[var(--hc-plasma-1)]/50', className)}
-      {...props}
-    >
-      {children ?? <ChevronRight className="h-3.5 w-3.5" />}
-    </BreadcrumbSeparatorBase>
-  )
-);
-BreadcrumbSeparator.displayName = 'BreadcrumbSeparator';
-
-const BreadcrumbEllipsis = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<typeof BreadcrumbEllipsisBase> & { effects?: HoneyCombEffects }>(
-  ({ className, effects = 'on', ...props }, ref) => (
-    <BreadcrumbEllipsisBase
-      ref={ref}
-      className={cn(honeyCombEffectsClass(effects), 'flex h-9 w-9 items-center justify-center', className)}
-      {...props}
-    >
-      <span className="sr-only">More</span>
-      <span className="h-1 w-1 rounded-full bg-current mx-[1px]" />
-      <span className="h-1 w-1 rounded-full bg-current mx-[1px]" />
-      <span className="h-1 w-1 rounded-full bg-current mx-[1px]" />
-    </BreadcrumbEllipsisBase>
-  )
-);
-BreadcrumbEllipsis.displayName = 'BreadcrumbEllipsis';
+const BreadcrumbEllipsis = ({
+  className,
+  ...props
+}: React.ComponentProps<"span">) => (
+  <span
+    role="presentation"
+    aria-hidden="true"
+    className={cn("flex h-9 w-9 items-center justify-center", className)}
+    {...props}
+  >
+    <MoreHorizontal className="h-4 w-4" />
+    <span className="sr-only">More</span>
+  </span>
+)
+BreadcrumbEllipsis.displayName = "BreadcrumbElipssis"
 
 export {
   Breadcrumb,
@@ -106,4 +112,4 @@ export {
   BreadcrumbPage,
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
-};
+}

@@ -1,22 +1,18 @@
-'use client';
+import * as React from "react"
 
-import * as React from 'react';
-import { ItemBase } from '../_base/item';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from "@/lib/utils"
 
-export type ItemProps = Omit<React.ComponentPropsWithoutRef<typeof ItemBase>, 'type'> & StyledProps;
-
-export const Item = React.forwardRef<React.ElementRef<typeof ItemBase>, ItemProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <ItemBase
-      ref={ref}
-      className={cx('flex items-center gap-2 rounded px-2 py-1.5 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'neon', type, uiType, colors, style)}
+export function Item({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div
+      className={cn(
+        "flex items-center gap-2 rounded-none p-2 text-sm hover:bg-[var(--ne-primary)]/10 hover:shadow-[inset_0_0_5px_var(--ne-primary)] transition-all",
+        className
+      )}
       {...props}
     />
   )
-);
-
-Item.displayName = 'Item';
-
-export default Item;
+}

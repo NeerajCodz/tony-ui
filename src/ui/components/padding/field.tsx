@@ -1,94 +1,36 @@
-'use client';
+import * as React from "react"
+import { cn } from "@/lib/utils"
+import { Label } from "@/ui/components/padding/label"
 
-import * as React from 'react';
-import { FieldBase, FieldDescriptionBase, FieldErrorBase, FieldLabelBase } from '../_base/field';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
+  label?: string
+  description?: string
+  error?: string
+  required?: boolean
+  htmlFor?: string
+}
 
-export type FieldProps = Omit<React.ComponentPropsWithoutRef<typeof FieldBase>, 'type'> & StyledProps;
-export type FieldLabelProps = React.ComponentPropsWithoutRef<typeof FieldLabelBase> & StyledProps;
-export type FieldDescriptionProps = React.ComponentPropsWithoutRef<typeof FieldDescriptionBase> & StyledProps;
-export type FieldErrorProps = React.ComponentPropsWithoutRef<typeof FieldErrorBase> & StyledProps;
-
-export const Field = React.forwardRef<React.ElementRef<typeof FieldBase>, FieldProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <FieldBase
-      ref={ref}
-      className={cx('space-y-1 rounded p-2', className)}
-      style={getSurfaceStyle(version ?? 'padding', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    />
-  )
-);
-Field.displayName = 'Field';
-
-export const FieldLabel = React.forwardRef<React.ElementRef<typeof FieldLabelBase>, FieldLabelProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
+const Field = React.forwardRef<HTMLDivElement, FieldProps>(
+  ({ className, label, description, error, required, htmlFor, children, ...props }, ref) => {
     return (
-      <FieldLabelBase
-        ref={ref}
-        className={cx('text-sm font-medium', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'padding', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.foreground,
-        }}
-        {...props}
-      />
-    );
+      <div ref={ref} className={cn("space-y-2 font-sans", className)} {...props}>
+        {label && (
+          <Label htmlFor={htmlFor} className={cn(error && "text-destructive")}>
+            {label}
+            {required && <span className="text-destructive ml-1">*</span>}
+          </Label>
+        )}
+        {children}
+        {description && !error && (
+          <p className="text-sm text-[var(--pd-muted)]">{description}</p>
+        )}
+        {error && (
+          <p className="text-sm font-medium text-destructive">{error}</p>
+        )}
+      </div>
+    )
   }
-);
-FieldLabel.displayName = 'FieldLabel';
+)
+Field.displayName = "Field"
 
-export const FieldDescription = React.forwardRef<React.ElementRef<typeof FieldDescriptionBase>, FieldDescriptionProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <FieldDescriptionBase
-        ref={ref}
-        className={cx('text-xs opacity-80', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'padding', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.muted,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-FieldDescription.displayName = 'FieldDescription';
-
-export const FieldError = React.forwardRef<React.ElementRef<typeof FieldErrorBase>, FieldErrorProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <FieldErrorBase
-        ref={ref}
-        className={cx('text-xs text-red-400', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'padding', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.accentPrimary,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-FieldError.displayName = 'FieldError';
-
-export default Field;
+export { Field }

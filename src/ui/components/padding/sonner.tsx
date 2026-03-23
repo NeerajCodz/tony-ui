@@ -1,95 +1,31 @@
-'use client';
+"use client"
 
-import React, { forwardRef } from 'react';
-import { Toaster as SonnerToaster } from 'sonner';
-import type { VariantColors } from '../../types/common';
-import { SonnerBase } from '../_base/sonner';
+import { useTheme } from "next-themes"
+import { Toaster as Sonner } from "sonner"
 
-export interface SonnerProps {
-  version?: string;
-  variant?: string;
-  type?: string;
-  size?: string;
-  colors?: VariantColors;
-  styles?: React.CSSProperties;
-  config?: any;
-  position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
-  expand?: boolean;
-  richColors?: boolean;
-  closeButton?: boolean;
-  duration?: number;
-  showLoader?: boolean;
-  className?: string;
+type ToasterProps = React.ComponentProps<typeof Sonner>
+
+const Toaster = ({ ...props }: ToasterProps) => {
+  const { theme = "system" } = useTheme()
+
+  return (
+    <Sonner
+      theme={theme as ToasterProps["theme"]}
+      className="toaster group font-sans"
+      toastOptions={{
+        classNames: {
+          toast:
+            "group toast group-[.toaster]:bg-[var(--pd-bg)] group-[.toaster]:text-[var(--pd-text)] group-[.toaster]:border-transparent group-[.toaster]:shadow-xl group-[.toaster]:rounded-[8px] group-[.toaster]:p-6",
+          description: "group-[.toast]:text-[var(--pd-muted)]",
+          actionButton:
+            "group-[.toast]:bg-[var(--pd-accent)] group-[.toast]:text-white",
+          cancelButton:
+            "group-[.toast]:bg-[rgba(255,255,255,0.05)] group-[.toast]:text-[var(--pd-text)]",
+        },
+      }}
+      {...props}
+    />
+  )
 }
 
-const PaddingSonner = forwardRef<HTMLDivElement, SonnerProps>(
-  ({ 
-    colors,
-    position = 'bottom-right',
-    expand = true,
-    richColors = true,
-    closeButton = true,
-    duration = 4000,
-    type = 'default',
-    showLoader = true,
-    className = '',
-    ...props 
-  }, ref) => {
-    let bg = colors?.base || '#1f2937';
-    let fg = colors?.foreground || '#ffffff';
-    let border = colors?.border || '#374151';
-    const glow = colors?.glow || 'rgba(0,0,0,0)';
-
-    // Handle new types
-    if (type === 'inverse') {
-      const temp = bg;
-      bg = fg;
-      fg = temp;
-      border = bg;
-    } else if (type === 'contrast') {
-      border = fg;
-      bg = colors?.base || '#000000';
-      fg = colors?.foreground || '#ffffff';
-    } else if (type === 'soft') {
-      bg = colors?.muted || bg;
-      border = colors?.border ? `${colors.border}40` : border;
-    }
-
-    return (
-      <div ref={ref} className={`sonner-container-padding ${className}`}>
-        <SonnerToaster
-          position={position}
-          expand={expand}
-          richColors={richColors}
-          closeButton={closeButton}
-          theme="dark"
-          toastOptions={{
-            duration: duration,
-            style: {
-              backgroundColor: bg,
-              color: fg,
-              border: `1px solid ${border}`,
-              borderRadius: '0.5rem',
-              fontFamily: 'inherit',
-              boxShadow: `none`,
-              clipPath: 'none',
-              backdropFilter: 'none',
-              padding: '1rem',
-              
-            },
-            classNames: {
-              toast: 'sonner-toast-padding',
-              title: 'font-semibold text-sm',
-              description: 'text-sm opacity-80',
-            },
-          }}
-          {...props}
-        />
-      </div>
-    );
-  }
-);
-
-PaddingSonner.displayName = 'PaddingSonner';
-
-export default PaddingSonner;
+export { Toaster }

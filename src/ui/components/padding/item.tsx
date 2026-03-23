@@ -1,22 +1,28 @@
-'use client';
+import * as React from "react"
+import { cn } from "@/lib/utils"
 
-import * as React from 'react';
-import { ItemBase } from '../_base/item';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+interface ItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  active?: boolean
+  disabled?: boolean
+}
 
-export type ItemProps = Omit<React.ComponentPropsWithoutRef<typeof ItemBase>, 'type'> & StyledProps;
+const Item = React.forwardRef<HTMLDivElement, ItemProps>(
+  ({ className, active, disabled, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "relative flex items-center p-3 rounded-[6px] transition-colors font-sans",
+          "hover:bg-[rgba(255,255,255,0.03)]",
+          active && "bg-[rgba(255,255,255,0.05)] text-[var(--pd-text)]",
+          disabled && "pointer-events-none opacity-50",
+          className
+        )}
+        {...props}
+      />
+    )
+  }
+)
+Item.displayName = "Item"
 
-export const Item = React.forwardRef<React.ElementRef<typeof ItemBase>, ItemProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <ItemBase
-      ref={ref}
-      className={cx('flex items-center gap-2 rounded px-2 py-1.5 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'padding', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-
-Item.displayName = 'Item';
-
-export default Item;
+export { Item }

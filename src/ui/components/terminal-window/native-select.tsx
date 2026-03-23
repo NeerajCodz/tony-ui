@@ -1,62 +1,34 @@
-'use client';
-
-import React, { forwardRef } from 'react';
+import * as React from 'react';
 import { cn } from '@/lib/utils';
-import { VariantColors } from '@/ui/types/common';
-import { NativeSelectBase } from '../_base/native-select';
-
-const getStyles = (type?: string, colors?: VariantColors) => {
-  if (!type || !colors) return {};
-  
-  switch (type) {
-    case 'inverse':
-      return {
-        backgroundColor: colors.text,
-        color: colors.background,
-        border: `1px solid ${colors.text}`
-      };
-    case 'contrast':
-      return {
-        backgroundColor: colors.accent?.primary || colors.text,
-        color: '#000000',
-        fontWeight: 'bold',
-        border: `1px solid ${colors.text}`
-      };
-    case 'soft':
-      return {
-        backgroundColor: colors.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
-        color: colors.accent?.primary || colors.text,
-        border: 'none'
-      };
-    default:
-      return {};
-  }
-};
-
+import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
 export interface NativeSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  version?: string;
-  variant?: string;
-  type?: string;
-  colors?: VariantColors;
+  effects?: TerminalWindowEffects;
 }
 
-const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
-  ({ className, version, variant, type, colors, children, ...props }, ref) => {
+const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(
+  ({ className, children, effects = 'on', ...props }, ref) => {
     return (
-      <select
-        ref={ref}
-        className={cn(
-          "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-          className
-        )}
-        {...props} style={{ ...getStyles(type, colors), ...(props.style as any) }}
-      >
-        {children}
-      </select>
+      <div className={cn(terminalWindowEffectsClass(effects), 'relative')}>
+        <select
+          className={cn(
+            'flex h-10 w-full appearance-none items-center justify-between rounded-none border border-[var(--tm-phosphor)] bg-[var(--tm-bg)] px-3 py-2 text-sm placeholder:text-[var(--tm-phosphor-dim)] focus:outline-none focus:ring-1 focus:ring-[var(--tm-phosphor)] disabled:cursor-not-allowed disabled:opacity-50 font-mono text-[var(--tm-phosphor)]',
+            className
+          )}
+          ref={ref}
+          {...props}
+        >
+          {children}
+        </select>
+        <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[var(--tm-phosphor)]'>
+          <svg className='h-4 w-4 fill-current' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
+            <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
+          </svg>
+        </div>
+      </div>
     );
   }
 );
-NativeSelect.displayName = "NativeSelect";
+NativeSelect.displayName = 'NativeSelect';
 
 export { NativeSelect };

@@ -1,30 +1,29 @@
-import * as React from 'react';
-import { cn } from '@/lib/utils';
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
+import * as React from "react"
+
+import { cn } from "@/lib/utils"
 
 export interface NativeSelectProps
-  extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  effects?: HoneyCombEffects;
-}
-
+  extends React.SelectHTMLAttributes<HTMLSelectElement> {}
 
 const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(
-  ({ className, effects = 'on', children, ...props }, ref) => {
+  ({ className, children, ...props }, ref) => {
     return (
       <select
-        className={cn(honeyCombEffectsClass(effects), 
-          'flex h-10 w-full items-center justify-between border border-[var(--hc-hex-line)] bg-[var(--hc-surface)] px-3 py-2 text-sm placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-[var(--hc-plasma-1)] disabled:cursor-not-allowed disabled:opacity-50 font-["JetBrains_Mono"] text-[var(--text-primary)] appearance-none',
+        className={cn(
+          "flex h-10 w-full items-center justify-between rounded-none border border-[var(--hc-border)] bg-[var(--hc-surface)] px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none",
           className
         )}
-        style={{ '--corner': '6px' } as React.CSSProperties}
+        style={{
+            clipPath: "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
+        }}
         ref={ref}
         {...props}
       >
         {children}
       </select>
-    );
+    )
   }
-);
-NativeSelect.displayName = 'NativeSelect';
+)
+NativeSelect.displayName = "NativeSelect"
 
-export { NativeSelect };
+export { NativeSelect }

@@ -1,22 +1,47 @@
-'use client';
-
 import * as React from 'react';
-import { BadgeBase } from '../_base/badge';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { BadgeBase, type BadgeBaseProps } from '../_base/badge';
+import { cn } from '@/lib/utils';
+import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
+import { cva, type VariantProps } from 'class-variance-authority';
 
-export type BadgeProps = Omit<React.ComponentPropsWithoutRef<typeof BadgeBase>, 'type'> & StyledProps;
-
-export const Badge = React.forwardRef<React.ElementRef<typeof BadgeBase>, BadgeProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <BadgeBase
-      ref={ref}
-      className={cx('inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold', className)}
-      style={getSurfaceStyle(version ?? 'tech-panel', type, uiType, colors, style)}
-      {...props}
-    />
-  )
+export const badgeVariants = cva(
+  'inline-flex items-center rounded-sm px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest transition-colors focus:outline-none focus:ring-1 focus:ring-[var(--tp-accent)]',
+  {
+    variants: {
+      visualType: {
+        default: 'bg-[var(--tp-panel)] border border-[var(--tp-border-inner)] text-[var(--tp-accent)]',
+        solid: 'bg-[var(--tp-accent)] text-[var(--tp-bg)] border border-[var(--tp-accent)]',
+        outline: 'text-[var(--tp-accent)] border border-[var(--tp-accent)]',
+        ghost: 'bg-transparent text-[var(--text-secondary)]',
+        inverse: 'bg-[var(--tp-inset)] text-[var(--tp-power-3)] border border-[var(--tp-power-3)]',
+        contrast: 'bg-[#000] text-[var(--tp-power-3)] border border-[var(--tp-power-3)]',
+        soft: 'bg-[var(--tp-border-inner)]/30 text-[var(--text-muted)]',
+      },
+    },
+    defaultVariants: {
+      visualType: 'default',
+    },
+  }
 );
 
-Badge.displayName = 'Badge';
+export interface BadgeProps extends Omit<BadgeBaseProps, 'visualType'>, VariantProps<typeof badgeVariants> {
+  effects?: TechPanelEffects;
+}
 
-export default Badge;
+export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
+  ({ className, effects = 'on', visualType, ...props }, ref) => {
+    return (
+      <BadgeBase
+        ref={ref}
+        visualType={visualType}
+        className={cn(
+          techPanelEffectsClass(effects),
+          badgeVariants({ visualType }),
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+Badge.displayName = 'Badge';

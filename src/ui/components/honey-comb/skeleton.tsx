@@ -1,23 +1,20 @@
-import * as React from 'react';
-import { cn } from '@/lib/utils';
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
-
+import { cn } from "@/lib/utils"
 
 function Skeleton({
   className,
-  effects = 'on',
+  style,
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & { effects?: HoneyCombEffects }) {
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn(honeyCombEffectsClass(effects),
-        'animate-pulse bg-[var(--hc-hex-line)]/20',
-        className
-      )}
-      style={{ '--corner': '4px' } as React.CSSProperties}
+      className={cn("animate-pulse bg-[var(--hc-surface)]", className)}
+      style={{
+          clipPath: "polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px)",
+          ...style
+      }}
       {...props}
     />
-  );
+  )
 }
 
-export { Skeleton };
+export { Skeleton }

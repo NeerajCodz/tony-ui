@@ -1,13 +1,13 @@
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
+import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
 import * as React from 'react';
 import * as DirectionPrimitive from '@radix-ui/react-direction';
 
 type DirectionProviderProps = React.ComponentPropsWithoutRef<typeof DirectionPrimitive.Provider> & {
-  effects?: HoneyCombEffects;
+  effects?: TacticalHudEffects;
 };
 
 const DirectionProvider = ({ effects = 'on', ...props }: DirectionProviderProps) => (
-  <div className={honeyCombEffectsClass(effects)}>
+  <div className={tacticalHudEffectsClass(effects)}>
     <DirectionPrimitive.Provider {...props} />
   </div>
 );

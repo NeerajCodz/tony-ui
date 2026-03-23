@@ -1,26 +1,18 @@
-import * as React from 'react';
-import { cn } from '@/lib/utils';
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
+import * as React from "react"
 
-export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
-  effects?: HoneyCombEffects;
+import { cn } from "@/lib/utils"
+
+export function Kbd({
+  className,
+  ...props
+}: React.ComponentProps<"kbd">) {
+  return (
+    <kbd
+      className={cn(
+        "pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100",
+        className
+      )}
+      {...props}
+    />
+  )
 }
-
-const Kbd = React.forwardRef<HTMLElement, KbdProps>(
-  ({ className, effects = 'on', ...props }, ref) => {
-    return (
-      <kbd
-        className={cn(honeyCombEffectsClass(effects), 
-          'pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-[var(--hc-hex-line)] bg-[var(--hc-surface)] px-1.5 font-["JetBrains_Mono"] text-[10px] font-medium text-[var(--text-muted)] opacity-100',
-          className
-        )}
-        style={{ clipPath: 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))', '--corner': '2px' } as React.CSSProperties}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
-Kbd.displayName = 'Kbd';
-
-export { Kbd };

@@ -1,42 +1,42 @@
-'use client';
+"use client"
 
-import * as React from 'react';
-import { Circle } from 'lucide-react';
-import { RadioGroupBase, RadioGroupIndicatorBase, RadioGroupItemBase } from '../_base/radio-group';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import * as React from "react"
+import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
+import { Circle } from "lucide-react"
 
-export type RadioGroupProps = Omit<React.ComponentPropsWithoutRef<typeof RadioGroupBase>, 'type'> & StyledProps;
-export type RadioGroupItemProps = Omit<React.ComponentPropsWithoutRef<typeof RadioGroupItemBase>, 'type'> &
-  StyledProps & {
-    htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  };
+import { cn } from "@/lib/utils"
 
-const RadioGroupRoot = React.forwardRef<React.ElementRef<typeof RadioGroupBase>, RadioGroupProps>(
-  ({ className, ...props }, ref) => <RadioGroupBase ref={ref} className={cx('grid gap-2', className)} {...props} />
-);
-RadioGroupRoot.displayName = 'RadioGroup';
+const RadioGroup = React.forwardRef<
+  React.ElementRef<typeof RadioGroupPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <RadioGroupPrimitive.Root
+    className={cn("grid gap-2 font-mono", className)}
+    {...props}
+    ref={ref}
+  />
+))
+RadioGroup.displayName = RadioGroupPrimitive.Root.displayName
 
-const RadioGroupItem = React.forwardRef<React.ElementRef<typeof RadioGroupItemBase>, RadioGroupItemProps>(
-  ({ className, version, type, uiType, colors, style, htmlType = 'button', children, ...props }, ref) => (
-    <RadioGroupItemBase
+const RadioGroupItem = React.forwardRef<
+  React.ElementRef<typeof RadioGroupPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>
+>(({ className, ...props }, ref) => {
+  return (
+    <RadioGroupPrimitive.Item
       ref={ref}
-      type={htmlType}
-      className={cx('aspect-square h-4 w-4 rounded-full', className)}
-      style={getSurfaceStyle(version ?? 'matrix-grid', type, uiType, colors, style)}
+      className={cn(
+        "aspect-square h-4 w-4 rounded-none border border-[var(--mg-border)] text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mg-accent)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-[var(--mg-accent)] data-[state=checked]:bg-[var(--mg-accent)] data-[state=checked]:text-[var(--mg-bg)]",
+        className
+      )}
       {...props}
     >
-      <RadioGroupIndicatorBase className="flex items-center justify-center">
-        {children ?? <Circle className="h-2.5 w-2.5 fill-current text-current" />}
-      </RadioGroupIndicatorBase>
-    </RadioGroupItemBase>
+      <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
+        <Circle className="h-2.5 w-2.5 fill-current text-current" />
+      </RadioGroupPrimitive.Indicator>
+    </RadioGroupPrimitive.Item>
   )
-);
-RadioGroupItem.displayName = 'RadioGroupItem';
+})
+RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName
 
-export const RadioGroup = Object.assign(RadioGroupRoot, {
-  Item: RadioGroupItem,
-});
-
-export { RadioGroupItem };
-
-export default RadioGroup;
+export { RadioGroup, RadioGroupItem }

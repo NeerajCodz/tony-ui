@@ -15,7 +15,7 @@ import {
 } from '../_base/alert-dialog';
 import { Button } from './button'; 
 import { cn } from '@/lib/utils';
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
+import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
 
 
 const AlertDialog = AlertDialogBase;
@@ -24,10 +24,10 @@ const AlertDialogPortal = AlertDialogPortalBase;
 
 const AlertDialogOverlay = React.forwardRef<
   React.ElementRef<typeof AlertDialogOverlayBase>,
-  React.ComponentPropsWithoutRef<typeof AlertDialogOverlayBase> & { effects?: HoneyCombEffects }
+  React.ComponentPropsWithoutRef<typeof AlertDialogOverlayBase> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AlertDialogOverlayBase
-    className={cn(honeyCombEffectsClass(effects), 
+    className={cn(tacticalHudEffectsClass(effects), 
       'fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       className
     )}
@@ -39,7 +39,7 @@ AlertDialogOverlay.displayName = AlertDialogOverlayBase.displayName;
 
 const AlertDialogContent = React.forwardRef<
   React.ElementRef<typeof AlertDialogContentBase>,
-  AlertDialogContentBaseProps
+  AlertDialogContentBaseProps & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', type = 'default', size = 'md', style, ...props }, ref) => (
   <AlertDialogPortal>
     <AlertDialogOverlay />
@@ -48,8 +48,8 @@ const AlertDialogContent = React.forwardRef<
       type={type}
       size={size}
       style={{ ...style }}
-      className={cn(honeyCombEffectsClass(effects), 
-        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-[var(--hc-hex-line)] bg-[var(--hc-surface)] p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] ',
+      className={cn(tacticalHudEffectsClass(effects), 
+        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-[var(--th-hex-line)] bg-[var(--th-surface)] p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] ',
         className
       )}
       {...props}
@@ -60,11 +60,11 @@ AlertDialogContent.displayName = AlertDialogContentBase.displayName;
 
 const AlertDialogHeader = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { effects?: HoneyCombEffects }
+  React.HTMLAttributes<HTMLDivElement> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AlertDialogHeaderBase
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 'flex flex-col space-y-2 text-center sm:text-left', className)}
+    className={cn(tacticalHudEffectsClass(effects), 'flex flex-col space-y-2 text-center sm:text-left', className)}
     {...props}
   />
 ));
@@ -72,11 +72,11 @@ AlertDialogHeader.displayName = AlertDialogHeaderBase.displayName;
 
 const AlertDialogFooter = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { effects?: HoneyCombEffects }
+  React.HTMLAttributes<HTMLDivElement> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AlertDialogFooterBase
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)}
+    className={cn(tacticalHudEffectsClass(effects), 'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)}
     {...props}
   />
 ));
@@ -84,11 +84,11 @@ AlertDialogFooter.displayName = AlertDialogFooterBase.displayName;
 
 const AlertDialogTitle = React.forwardRef<
   React.ElementRef<typeof AlertDialogTitleBase>,
-  React.ComponentPropsWithoutRef<typeof AlertDialogTitleBase> & { effects?: HoneyCombEffects }
+  React.ComponentPropsWithoutRef<typeof AlertDialogTitleBase> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AlertDialogTitleBase
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 'text-lg font-["Bebas_Neue"] font-bold uppercase tracking-wide', className)}
+    className={cn(tacticalHudEffectsClass(effects), 'text-lg font-sans font-bold uppercase tracking-wide', className)}
     {...props}
   />
 ));
@@ -96,11 +96,11 @@ AlertDialogTitle.displayName = AlertDialogTitleBase.displayName;
 
 const AlertDialogDescription = React.forwardRef<
   React.ElementRef<typeof AlertDialogDescriptionBase>,
-  React.ComponentPropsWithoutRef<typeof AlertDialogDescriptionBase> & { effects?: HoneyCombEffects }
+  React.ComponentPropsWithoutRef<typeof AlertDialogDescriptionBase> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AlertDialogDescriptionBase
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 'text-sm text-[var(--text-secondary)] font-["JetBrains_Mono"]', className)}
+    className={cn(tacticalHudEffectsClass(effects), 'text-sm text-[var(--text-secondary)] font-sans', className)}
     {...props}
   />
 ));
@@ -108,7 +108,7 @@ AlertDialogDescription.displayName = AlertDialogDescriptionBase.displayName;
 
 const AlertDialogAction = React.forwardRef<
   React.ElementRef<typeof AlertDialogActionBase>,
-  React.ComponentPropsWithoutRef<typeof AlertDialogActionBase> & { effects?: HoneyCombEffects }
+  React.ComponentPropsWithoutRef<typeof AlertDialogActionBase> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AlertDialogActionBase ref={ref} asChild>
     <Button visualType="solid" className={className} {...props} />
@@ -118,10 +118,10 @@ AlertDialogAction.displayName = AlertDialogActionBase.displayName;
 
 const AlertDialogCancel = React.forwardRef<
   React.ElementRef<typeof AlertDialogCancelBase>,
-  React.ComponentPropsWithoutRef<typeof AlertDialogCancelBase> & { effects?: HoneyCombEffects }
+  React.ComponentPropsWithoutRef<typeof AlertDialogCancelBase> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AlertDialogCancelBase ref={ref} asChild>
-    <Button visualType="outline" className={cn(honeyCombEffectsClass(effects), 'mt-2 sm:mt-0', className)} {...props} />
+    <Button visualType="outline" className={cn(tacticalHudEffectsClass(effects), 'mt-2 sm:mt-0', className)} {...props} />
   </AlertDialogCancelBase>
 ));
 AlertDialogCancel.displayName = AlertDialogCancelBase.displayName;

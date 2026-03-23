@@ -1,166 +1,80 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import type { VariantColors } from '../../types/common';
-import {
-  getTypographyTone,
-  getVersionCardDecor,
-  getVersionCardRootStyles,
-  getVersionStyleProfile,
-} from '../_shared/version-styles';
-import {
-  CardBase,
-  CardHeaderBase,
-  CardTitleBase,
-  CardDescriptionBase,
-  CardContentBase,
-  CardFooterBase,
-} from '../_base/card';
+import * as React from "react"
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
+import { cn } from "@/lib/utils"
 
-interface StyledProps {
-  type?: ComponentType;
-  colors?: VariantColors;
-  variant?: string;
-  version?: string;
-}
+const Card = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "rounded-none border border-[var(--mg-border)] bg-[var(--mg-surface)] text-[var(--mg-text)] shadow-sm font-mono relative overflow-hidden",
+      "before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(var(--mg-grid)_1px,transparent_1px),linear-gradient(90deg,var(--mg-grid)_1px,transparent_1px)] before:bg-[size:20px_20px] before:pointer-events-none before:z-0",
+      className
+    )}
+    {...props}
+  />
+))
+Card.displayName = "Card"
 
-export interface CardProps extends React.ComponentProps<typeof CardBase>, StyledProps {}
-export interface CardHeaderProps extends React.ComponentProps<typeof CardHeaderBase>, StyledProps {}
-export interface CardTitleProps extends React.ComponentProps<typeof CardTitleBase>, StyledProps {}
-export interface CardDescriptionProps extends React.ComponentProps<typeof CardDescriptionBase>, StyledProps {}
-export interface CardContentProps extends React.ComponentProps<typeof CardContentBase>, StyledProps {}
-export interface CardFooterProps extends React.ComponentProps<typeof CardFooterBase>, StyledProps {}
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex flex-col space-y-1.5 p-6 relative z-10", className)}
+    {...props}
+  />
+))
+CardHeader.displayName = "CardHeader"
 
-const versionIdentityClass = 'card-matrix-grid';
-const versionKey = 'matrix-grid';
+const CardTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h3
+    ref={ref}
+    className={cn(
+      "text-2xl font-semibold leading-none tracking-tight text-[var(--mg-accent)]",
+      className
+    )}
+    {...props}
+  />
+))
+CardTitle.displayName = "CardTitle"
 
-function getSectionStyle(type: ComponentType, colors?: VariantColors, version?: string): React.CSSProperties {
-  const profile = getVersionStyleProfile(version ?? versionKey);
-  const tone = getTypographyTone(type, colors);
+const CardDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn("text-sm text-[var(--mg-text-dim)]", className)}
+    {...props}
+  />
+))
+CardDescription.displayName = "CardDescription"
 
-  return {
-    fontFamily: profile.fontFamily,
-    letterSpacing: profile.letterSpacing,
-    color: tone.body,
-    borderColor: tone.border,
-  };
-}
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-6 pt-0 relative z-10", className)} {...props} />
+))
+CardContent.displayName = "CardContent"
 
-const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, type = 'default', colors, variant, version, style, children, ...props }, ref) => {
-    const profile = getVersionStyleProfile(version ?? versionKey);
+const CardFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex items-center p-6 pt-0 relative z-10", className)}
+    {...props}
+  />
+))
+CardFooter.displayName = "CardFooter"
 
-    return (
-      <CardBase
-        ref={ref}
-        className={cn('card-root', versionIdentityClass, className)}
-        style={{ ...getVersionCardRootStyles(profile, type, colors), ...style }}
-        data-version={profile.version}
-        data-variant={variant}
-        data-type={type}
-        {...props}
-      >
-        {getVersionCardDecor(profile, colors)}
-        <div className="relative z-[1]">{children}</div>
-      </CardBase>
-    );
-  }
-);
-CardRoot.displayName = 'Card';
-
-const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
-    <CardHeaderBase
-      ref={ref}
-      className={cn('card-header', `${versionIdentityClass}__header`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        borderBottom: `1px solid ${getTypographyTone(type, colors).border}`,
-        paddingBottom: '0.5rem',
-        marginBottom: '0.25rem',
-        ...style,
-      }}
-      {...props}
-    />
-  )
-);
-CardHeader.displayName = 'CardHeader';
-
-const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
-    <CardTitleBase
-      ref={ref}
-      className={cn('card-title', `${versionIdentityClass}__title`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        color: getTypographyTone(type, colors).heading,
-        fontWeight: 700,
-        lineHeight: 1.2,
-        ...style,
-      }}
-      {...props}
-    />
-  )
-);
-CardTitle.displayName = 'CardTitle';
-
-const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
-    <CardDescriptionBase
-      ref={ref}
-      className={cn('card-description', `${versionIdentityClass}__description`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        opacity: 0.88,
-        ...style,
-      }}
-      {...props}
-    />
-  )
-);
-CardDescription.displayName = 'CardDescription';
-
-const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
-    <CardContentBase
-      ref={ref}
-      className={cn('card-content', `${versionIdentityClass}__content`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        ...style,
-      }}
-      {...props}
-    />
-  )
-);
-CardContent.displayName = 'CardContent';
-
-const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
-    <CardFooterBase
-      ref={ref}
-      className={cn('card-footer', `${versionIdentityClass}__footer`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        borderTop: `1px solid ${getTypographyTone(type, colors).border}`,
-        paddingTop: '0.5rem',
-        marginTop: '0.5rem',
-        ...style,
-      }}
-      {...props}
-    />
-  )
-);
-CardFooter.displayName = 'CardFooter';
-
-export const Card = Object.assign(CardRoot, {
-  Header: CardHeader,
-  Title: CardTitle,
-  Description: CardDescription,
-  Content: CardContent,
-  Footer: CardFooter,
-});
-
-export { CardHeader, CardTitle, CardDescription, CardContent, CardFooter };
-export default Card;
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }

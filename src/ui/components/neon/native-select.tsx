@@ -1,62 +1,28 @@
-'use client';
+import * as React from "react"
 
-import React, { forwardRef } from 'react';
-import { cn } from '@/lib/utils';
-import { VariantColors } from '@/ui/types/common';
-import { NativeSelectBase } from '../_base/native-select';
+import { cn } from "@/lib/utils"
 
-const getStyles = (type?: string, colors?: VariantColors) => {
-  if (!type || !colors) return {};
-  
-  switch (type) {
-    case 'inverse':
-      return {
-        backgroundColor: colors.text,
-        color: colors.background,
-        border: `1px solid ${colors.text}`
-      };
-    case 'contrast':
-      return {
-        backgroundColor: colors.accent?.primary || colors.text,
-        color: '#000000',
-        fontWeight: 'bold',
-        border: `1px solid ${colors.text}`
-      };
-    case 'soft':
-      return {
-        backgroundColor: colors.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
-        color: colors.accent?.primary || colors.text,
-        border: 'none'
-      };
-    default:
-      return {};
-  }
-};
-
-
-export interface NativeSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  version?: string;
-  variant?: string;
-  type?: string;
-  colors?: VariantColors;
+export interface NativeSelectProps
+  extends React.SelectHTMLAttributes<HTMLSelectElement> {
+  children?: React.ReactNode
 }
 
-const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
-  ({ className, version, variant, type, colors, children, ...props }, ref) => {
-    return (
+export function NativeSelect({
+  className,
+  children,
+  ...props
+}: NativeSelectProps) {
+  return (
+    <div className="relative">
       <select
-        ref={ref}
         className={cn(
-          "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          "w-full appearance-none bg-[var(--ne-bg)] border-2 border-[var(--ne-primary)] px-3 py-2 text-sm shadow-[0_0_5px_var(--ne-primary),inset_0_0_5px_var(--ne-primary)] text-[var(--ne-text-primary)] focus:outline-none focus:shadow-[0_0_15px_var(--ne-primary),inset_0_0_10px_var(--ne-primary)] disabled:cursor-not-allowed disabled:opacity-50 font-code",
           className
         )}
-        {...props} style={{ ...getStyles(type, colors), ...(props.style as any) }}
+        {...props}
       >
         {children}
       </select>
-    );
-  }
-);
-NativeSelect.displayName = "NativeSelect";
-
-export { NativeSelect };
+    </div>
+  )
+}

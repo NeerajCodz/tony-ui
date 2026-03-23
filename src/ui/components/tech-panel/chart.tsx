@@ -1,142 +1,278 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import type { VariantColors } from '../../types/common';
-
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
-
-interface StyledProps {
-  type?: ComponentType;
-  colors?: VariantColors;
-  variant?: string;
-  version?: string;
-}
-
-const getTypeStyles = (type: ComponentType, colors?: VariantColors): React.CSSProperties => {
-  if (!colors) return {};
-
-  const base = colors.base;
-  const foreground = colors.foreground;
-  const border = colors.border;
-  const glow = colors.glow;
-  const accent = colors.accent?.primary ?? colors.base;
-  const muted = colors.muted ?? colors.border;
-
-  switch (type) {
-    case 'solid':
-      return {
-        backgroundColor: accent,
-        color: foreground,
-        border: border ? `1px solid ${border}` : undefined,
-        boxShadow: glow ? `0 0 12px ${glow}` : undefined,
-      };
-    case 'outline':
-      return {
-        backgroundColor: 'transparent',
-        color: accent ?? foreground,
-        border: border ? `1px solid ${border}` : (accent ? `1px solid ${accent}` : undefined),
-      };
-    case 'ghost':
-      return {
-        backgroundColor: 'transparent',
-        color: foreground,
-        border: 'none',
-      };
-    case 'inverse':
-      return {
-        backgroundColor: foreground,
-        color: base ?? accent,
-        border: foreground ? `1px solid ${foreground}` : undefined,
-      };
-    case 'contrast':
-      return {
-        backgroundColor: border ?? accent,
-        color: foreground,
-        border: accent ? `2px solid ${accent}` : undefined,
-        fontWeight: 700,
-      };
-    case 'soft':
-      return {
-        backgroundColor: base ? `color-mix(in srgb, ${base} 12%, transparent)` : undefined,
-        color: foreground,
-        border: muted ? `1px solid ${muted}` : undefined,
-      };
-    case 'default':
-    default:
-      return {
-        backgroundColor: base,
-        color: foreground,
-        border: border ? `1px solid ${border}` : undefined,
-      };
-  }
-};
-
+import * as React from 'react';
 import {
   ChartBase,
   ChartContainerBase,
-  ChartTooltipBase,
   ChartLegendBase,
-} from '../_base/chart';
+  ChartLegendContentBase,
+  ChartStyleBase,
+  ChartTooltipBase,
+  ChartTooltipContentBase,
+  useChart,
+  type ChartConfig,
+} from '@/ui/components/_base/chart';
+import { cn } from '@/lib/utils';
+import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
+import { ResponsiveContainer } from 'recharts';
 
-export interface ChartProps extends React.ComponentProps<typeof ChartBase>, StyledProps {}
-export interface ChartContainerProps extends React.ComponentProps<typeof ChartContainerBase>, StyledProps {}
-export interface ChartTooltipProps extends React.ComponentProps<typeof ChartTooltipBase>, StyledProps {}
-export interface ChartLegendProps extends React.ComponentProps<typeof ChartLegendBase>, StyledProps {}
+/* -------------------------------------------------------------------------- */
+/*                               Chart Container                              */
+/* -------------------------------------------------------------------------- */
 
-const versionIdentityClass = 'chart-tech-panel';
 
-const ChartRoot = React.forwardRef<HTMLDivElement, ChartProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
-    <ChartBase
-      ref={ref}
-      className={cn('chart-root', versionIdentityClass, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
-      {...props}
-    />
-  )
-);
-ChartRoot.displayName = 'Chart';
-
-const ChartContainer = React.forwardRef<HTMLDivElement, ChartContainerProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
+const ChartContainer = React.forwardRef<
+  React.ElementRef<typeof ChartContainerBase>,
+  React.ComponentPropsWithoutRef<typeof ChartContainerBase> & { effects?: TechPanelEffects } & { chartType?: 'line' | 'bar' | 'pie' | 'area' | 'radar' | 'scatter' | 'composed' }
+>(({ className, effects = 'on', chartType, ...props }, ref) => {
+  return (
     <ChartContainerBase
       ref={ref}
-      className={cn('chart-container', `${versionIdentityClass}__container`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
+      className={cn(techPanelEffectsClass(effects), 
+        "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-[var(--text-muted)] [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-[var(--tp-border-inner)]/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-[var(--tp-border-inner)] [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-[var(--tp-border-inner)] [&_.recharts-radial-bar-background-sector]:fill-[var(--text-muted)] [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-[var(--text-muted)] [&_.recharts-reference-line_[stroke='#ccc']]:stroke-[var(--tp-border-inner)] [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none font-mono",
+        className
+      )}
       {...props}
-    />
-  )
-);
+    >
+      <ChartStyleBase id="chart" config={props.config} />
+      <ResponsiveContainer>
+        <ChartBase chartType={chartType ?? 'line'}>
+          {props.children}
+        </ChartBase>
+      </ResponsiveContainer>
+    </ChartContainerBase>
+  );
+});
 ChartContainer.displayName = 'ChartContainer';
 
-const ChartTooltip = React.forwardRef<HTMLDivElement, ChartTooltipProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
-    <ChartTooltipBase
-      ref={ref}
-      className={cn('chart-tooltip', `${versionIdentityClass}__tooltip`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
-      {...props}
-    />
-  )
-);
-ChartTooltip.displayName = 'ChartTooltip';
+/* -------------------------------------------------------------------------- */
+/*                                Chart Tooltip                               */
+/* -------------------------------------------------------------------------- */
 
-const ChartLegend = React.forwardRef<HTMLDivElement, ChartLegendProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
-    <ChartLegendBase
-      ref={ref}
-      className={cn('chart-legend', `${versionIdentityClass}__legend`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
-      {...props}
-    />
-  )
-);
-ChartLegend.displayName = 'ChartLegend';
+const ChartTooltip = ChartTooltipBase;
 
-export const Chart = Object.assign(ChartRoot, {
-  Container: ChartContainer,
-  Tooltip: ChartTooltip,
-  Legend: ChartLegend,
+const ChartTooltipContent = React.forwardRef<
+  React.ElementRef<typeof ChartTooltipContentBase>,
+  React.ComponentPropsWithoutRef<typeof ChartTooltipContentBase> & { effects?: TechPanelEffects } & {
+    hideLabel?: boolean;
+    hideIndicator?: boolean;
+    indicator?: 'line' | 'dot' | 'dashed';
+    label?: string;
+    payload?: any[];
+    active?: boolean;
+    labelFormatter?: (value: any, payload: any[]) => React.ReactNode;
+    labelClassName?: string;
+    formatter?: (value: any, name: string, item: any, index: number, payload: any) => React.ReactNode;
+  }
+>(({ className, effects = 'on', indicator = 'dot', hideLabel = false, hideIndicator = false, label, payload, active, ...props }, ref) => {
+  const config = useChart();
+  
+  if (!active || !payload?.length) {
+    return null;
+  }
+
+  const nestLabel = payload.length === 1 && indicator !== 'dot';
+  const tooltipLabel = React.useMemo(() => {
+    if (hideLabel || !payload.length) {
+      return null;
+    }
+    
+    const [item] = payload;
+    const key = `${item.name || item.dataKey || 'value'}`;
+    const value =
+      !nestLabel ? (label ?? (item.payload as any)[item.dataKey as string]) : config[key as string]?.label;
+    
+    if (props.labelFormatter) {
+      return (
+        <div className={cn(techPanelEffectsClass(effects), 'font-bold font-display uppercase', props.labelClassName)}>
+          {props.labelFormatter(value, payload)}
+        </div>
+      );
+    }
+
+    if (!value) {
+      return null;
+    }
+
+    return <div className={cn(techPanelEffectsClass(effects), 'font-bold font-display uppercase', props.labelClassName)}>{value}</div>;
+  }, [label, payload, hideLabel, nestLabel, config, props.labelFormatter, props.labelClassName]);
+
+  return (
+    <div
+      ref={ref}
+      className={cn(techPanelEffectsClass(effects), 
+        'grid min-w-[8rem] items-start gap-1.5 border border-[var(--tp-border-outer)] bg-[var(--tp-panel)] px-2.5 py-1.5 text-xs shadow-xl rounded-none',
+        className
+      )}
+      style={{ } as React.CSSProperties}
+    >
+      {!nestLabel ? tooltipLabel : null}
+      <div className="grid gap-1.5">
+        {payload.map((item, index) => {
+          const key = `${item.name || item.dataKey || 'value'}`;
+          const itemConfig = getPayloadConfigFromPayload(config, item, key);
+          const indicatorColor = (item.payload as any).fill || item.color;
+
+          return (
+            <div
+              key={item.dataKey as React.Key}
+              className={cn(techPanelEffectsClass(effects), 
+                'flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-[var(--text-muted)]',
+                indicator === 'dot' && 'items-center'
+              )}
+            >
+              {props.formatter && item?.value !== undefined && item.name ? (
+                (props.formatter as any)(item.value, item.name, item, index, item.payload)
+              ) : (
+                <>
+                  {itemConfig?.icon ? (
+                    <itemConfig.icon />
+                  ) : (
+                    !hideIndicator && (
+                      <div
+                        className={cn(techPanelEffectsClass(effects), 
+                          'shrink-0 border-[--color-border] bg-[--color-bg]',
+                          indicator === 'dot' && 'h-2.5 w-2.5',
+                          indicator === 'line' && 'w-1',
+                          indicator === 'dashed' && 'w-0 border-[1.5px] border-dashed bg-transparent',
+                          nestLabel && indicator === 'dashed' && 'my-0.5'
+                        )}
+                        style={
+                          {
+                            '--color-bg': indicatorColor,
+                            '--color-border': indicatorColor,
+                          } as React.CSSProperties
+                        }
+                      />
+                    )
+                  )}
+                  <div
+                    className={cn(techPanelEffectsClass(effects), 
+                      'flex flex-1 justify-between leading-none',
+                      nestLabel ? 'items-end' : 'items-center'
+                    )}
+                  >
+                    <div className="grid gap-1.5">
+                      {nestLabel ? tooltipLabel : null}
+                      <span className="text-[var(--text-muted)] font-mono">
+                        {itemConfig?.label || item.name}
+                      </span>
+                    </div>
+                    {item.value && (
+                      <span className="font-mono font-medium tabular-nums text-[var(--text-primary)]">
+                        {item.value.toLocaleString()}
+                      </span>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 });
+ChartTooltipContent.displayName = 'ChartTooltipContent';
 
-export { ChartContainer, ChartTooltip, ChartLegend };
-export default Chart;
+/* -------------------------------------------------------------------------- */
+/*                                Chart Legend                                */
+/* -------------------------------------------------------------------------- */
+
+const ChartLegend = ChartLegendBase;
+
+const ChartLegendContent = React.forwardRef<
+  React.ElementRef<typeof ChartLegendContentBase>,
+  React.ComponentPropsWithoutRef<typeof ChartLegendContentBase> & { effects?: TechPanelEffects }
+>(({ className, effects = 'on', hideIcon = false, payload, verticalAlign = 'bottom', nameKey }, ref) => {
+  const config = useChart();
+
+  if (!payload?.length) {
+    return null;
+  }
+
+  return (
+    <div
+      ref={ref}
+      className={cn(techPanelEffectsClass(effects), 
+        'flex items-center justify-center gap-4',
+        verticalAlign === 'top' ? 'pb-3' : 'pt-3',
+        className
+      )}
+    >
+      {payload.map((item) => {
+        const key = `${nameKey || (item as any).dataKey || 'value'}`;
+        const itemConfig = getPayloadConfigFromPayload(config, item, key);
+
+        return (
+          <div
+            key={item.value}
+            className={cn(techPanelEffectsClass(effects), 
+              'flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-[var(--text-muted)]'
+            )}
+          >
+            {itemConfig?.icon && !hideIcon ? (
+              <itemConfig.icon />
+            ) : (
+              <div
+                className="h-2 w-2 shrink-0"
+                style={{
+                  backgroundColor: item.color,
+                }}
+              />
+            )}
+            <span className="text-sm text-[var(--text-muted)] font-mono">
+              {itemConfig?.label}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+});
+ChartLegendContent.displayName = 'ChartLegendContent';
+
+// Helper function
+function getPayloadConfigFromPayload(
+  config: ChartConfig,
+  payload: unknown,
+  key: string
+): any {
+  if (typeof payload !== 'object' || payload === null) {
+    return undefined;
+  }
+
+  const payloadPayload =
+    'payload' in payload &&
+    typeof (payload as any).payload === 'object' &&
+    (payload as any).payload !== null
+      ? (payload as any).payload
+      : undefined;
+
+  let configLabelKey: string = key;
+
+  if (
+    key in payload &&
+    typeof (payload as any)[key] === 'string'
+  ) {
+    configLabelKey = (payload as any)[key] as string;
+  } else if (
+    payloadPayload &&
+    key in payloadPayload &&
+    typeof payloadPayload[key] === 'string'
+  ) {
+    configLabelKey = payloadPayload[key] as string;
+  }
+
+  return configLabelKey in config
+    ? config[configLabelKey]
+    : config[key as keyof typeof config];
+}
+
+export {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  ChartStyleBase as ChartStyle,
+};
+export type { ChartConfig };

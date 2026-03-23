@@ -1,34 +1,24 @@
-'use client';
-
 import * as React from 'react';
-import { SeparatorBase } from '../_base/separator';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import * as SeparatorPrimitive from '@radix-ui/react-separator';
+import { cn } from '@/lib/utils';
+import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
-export type SeparatorProps = Omit<React.ComponentPropsWithoutRef<typeof SeparatorBase>, 'type'> & StyledProps;
+const Separator = React.forwardRef<
+  React.ElementRef<typeof SeparatorPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> & { effects?: TerminalWindowEffects }
+>(({ className, orientation = 'horizontal', decorator = true, effects = 'on', ...props }, ref) => (
+  <SeparatorPrimitive.Root
+    ref={ref}
+    decorative={decorator}
+    orientation={orientation}
+    className={cn(terminalWindowEffectsClass(effects), 
+      'shrink-0 bg-[var(--tm-phosphor)]/20',
+      orientation === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]',
+      className
+    )}
+    {...props}
+  />
+));
+Separator.displayName = SeparatorPrimitive.Root.displayName;
 
-export const Separator = React.forwardRef<React.ElementRef<typeof SeparatorBase>, SeparatorProps>(
-  ({ className, orientation = 'horizontal', decorative = true, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <SeparatorBase
-        ref={ref}
-        decorative={decorative}
-        orientation={orientation}
-        className={cx('shrink-0', orientation === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'terminal-window', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          backgroundColor: palette.border,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-
-Separator.displayName = 'Separator';
-
-export default Separator;
+export { Separator };

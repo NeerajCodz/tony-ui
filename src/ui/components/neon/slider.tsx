@@ -1,45 +1,28 @@
-import React from 'react';import { cn } from '../../utils/component-helpers';
+"use client"
 
-import { SliderBase, SliderRangeBase, SliderThumbBase, SliderTrackBase } from '../_base/slider';
+import * as React from "react"
+import * as SliderPrimitive from "@radix-ui/react-slider"
 
-const getTypeStyles = (type: string | undefined) => {
-  if (!type) return '';
-  switch (type) {
-    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
-    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
-    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
-    default: return '';
-  }
-};
+import { cn } from "@/lib/utils"
 
-
-interface SliderProps extends React.ComponentPropsWithoutRef<typeof SliderBase> {
-  type?: 'inverse' | 'contrast' | 'soft';
-  variant?: 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
-}
-
-const Slider = React.forwardRef<React.ElementRef<typeof SliderBase>, SliderProps>(({ type, className, variant = 'primary', ...props }, ref) => {
-  const colorMap: Record<string, string> = {
-    neutral: 'primary', success: 'success', warning: 'warning', info: 'info', destructive: 'destructive', primary: 'primary'
-  };
-  const color = colorMap[variant] || 'primary';
-
-  return (
-    <SliderBase
-      ref={ref}
-      className={cn("relative flex w-full touch-none select-none items-center", className, getTypeStyles(type))}
-      {...props}
-    >
-      <SliderTrackBase className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary" style={{  }}>
-        <SliderRangeBase className="absolute h-full bg-primary" style={{ backgroundColor: `hsl(var(--${color}-base))` }} />
-      </SliderTrackBase>
-      <SliderThumbBase
-        className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-        style={{ borderColor: `hsl(var(--${color}-base))` }}
-      />
-    </SliderBase>
-  )
-})
-Slider.displayName = SliderBase.displayName
+const Slider = React.forwardRef<
+  React.ElementRef<typeof SliderPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <SliderPrimitive.Root
+    ref={ref}
+    className={cn(
+      "relative flex w-full touch-none select-none items-center",
+      className
+    )}
+    {...props}
+  >
+    <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-none bg-[var(--ne-bg)] border border-[var(--ne-text-secondary)] shadow-[inset_0_0_5px_var(--ne-text-secondary)]">
+      <SliderPrimitive.Range className="absolute h-full bg-[var(--ne-primary)] shadow-[0_0_10px_var(--ne-primary)]" />
+    </SliderPrimitive.Track>
+    <SliderPrimitive.Thumb className="block h-5 w-5 rounded-none border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] shadow-[0_0_15px_var(--ne-primary),inset_0_0_5px_var(--ne-primary)] ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ne-primary)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-[var(--ne-primary)]" />
+  </SliderPrimitive.Root>
+))
+Slider.displayName = SliderPrimitive.Root.displayName
 
 export { Slider }

@@ -1,40 +1,159 @@
-import React from 'react';
-import { cn } from '../../utils/component-helpers';
-import { SidebarBase, SidebarHeaderBase, SidebarContentBase, SidebarFooterBase, SidebarItemBase } from '../_base/sidebar';
+import * as React from "react"
+import { PanelLeft } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Button } from "./button"
+import { Sheet, SheetContent } from "./sheet"
+import { ghostEffectsClass, type GhostEffects } from "./_effects"
 
-const getTypeStyles = (type: string | undefined) => {
-  if (!type) return '';
-  switch (type) {
-    case 'inverse': return "bg-white text-black border-black hover:bg-gray-100";
-    case 'contrast': return "bg-black text-white border-white border-2 shadow-[4px_4px_0px_white]";
-    case 'soft': return "bg-opacity-20 border-opacity-30 shadow-none";
-    default: return '';
-  }
-};
+const SidebarContext = React.createContext<{
+  state: "expanded" | "collapsed"
+  open: boolean
+  setOpen: (open: boolean) => void
+  openMobile: boolean
+  setOpenMobile: (open: boolean) => void
+  toggleSidebar: () => void
+}>({
+  state: "expanded",
+  open: true,
+  setOpen: () => {},
+  openMobile: false,
+  setOpenMobile: () => {},
+  toggleSidebar: () => {},
+})
 
+function SidebarProvider({
+  children,
+  defaultOpen = true,
+  className,
+  style,
+  effects = "on",
+  ...props
+}: React.ComponentProps<"div"> & {
+  defaultOpen?: boolean
+  effects?: GhostEffects
+}) {
+  const [open, setOpen] = React.useState(defaultOpen)
+  const [openMobile, setOpenMobile] = React.useState(false)
 
-interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
-  type?: 'inverse' | 'contrast' | 'soft';
-  variant?: 'neutral' | 'success' | 'warning' | 'info' | 'destructive' | 'primary';
-}
+  const toggleSidebar = React.useCallback(() => {
+    return openMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open)
+  }, [openMobile, setOpen, setOpenMobile])
 
-const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(({ type, className, variant = 'primary', ...props }, ref) => {
-  const colorMap: Record<string, string> = {
-    neutral: 'primary', success: 'success', warning: 'warning', info: 'info', destructive: 'destructive', primary: 'primary'
-  };
-  const color = colorMap[variant] || 'primary';
+  const state = open ? "expanded" : "collapsed"
 
   return (
-    <aside
-      ref={ref}
-      className={cn("flex flex-col h-screen w-64 border-r bg-background", className, getTypeStyles(type))}
-      style={{
-        background: 'transparent', border: 'none'
+    <SidebarContext.Provider
+      value={{
+        state,
+        open,
+        setOpen,
+        openMobile,
+        setOpenMobile,
+        toggleSidebar,
+      }}
+    >
+        <div
+          style={
+            {
+              "--sidebar-width": "16rem",
+              "--sidebar-width-icon": "3rem",
+              ...style,
+            } as React.CSSProperties
+          }
+          className={cn(ghostEffectsClass(effects),
+            "group/sidebar-wrapper flex min-h-screen w-full has-[[data-variant=inset]]:bg-[var(--gh-surface)]",
+            className
+          )}
+          {...props}
+        >
+          {children}
+        </div>
+    </SidebarContext.Provider>
+  )
+}
+
+function Sidebar({
+  side = "left",
+  variant = "sidebar",
+  collapsible = "offcanvas",
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div"> & {
+  side?: "left" | "right"
+  variant?: "sidebar" | "floating" | "inset"
+  collapsible?: "offcanvas" | "icon" | "none"
+}) {
+  const { openMobile, setOpenMobile } = React.useContext(SidebarContext)
+
+  if (collapsible === "none") {
+    return (
+      <div
+        className={cn(
+          "flex h-full w-[--sidebar-width] flex-col bg-[var(--gh-surface)] text-[var(--gh-text)]",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+        <SheetContent
+          data-sidebar="sidebar"
+          data-mobile="true"
+          className="w-[--sidebar-width] bg-[var(--gh-surface)] p-0 text-[var(--gh-text)] [&>button]:hidden"
+          style={
+            {
+              "--sidebar-width": "18rem",
+            } as React.CSSProperties
+          }
+          side={side}
+        >
+          <div className="flex h-full w-full flex-col">{children}</div>
+        </SheetContent>
+      </Sheet>
+      <div
+        className={cn(
+          "hidden border-r border-[var(--gh-border)] bg-[var(--gh-surface)] text-[var(--gh-text)] md:flex",
+          "h-screen w-[--sidebar-width] flex-col fixed z-10",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    </>
+  )
+}
+
+function SidebarTrigger({
+  className,
+  onClick,
+  ...props
+}: React.ComponentProps<typeof Button>) {
+  const { toggleSidebar } = React.useContext(SidebarContext)
+
+  return (
+    <Button
+      data-sidebar="trigger"
+      variant="ghost"
+      size="icon"
+      className={cn("h-7 w-7", className)}
+      onClick={(event) => {
+        onClick?.(event)
+        toggleSidebar()
       }}
       {...props}
-    />
+    >
+      <PanelLeft />
+      <span className="sr-only">Toggle Sidebar</span>
+    </Button>
   )
-})
-Sidebar.displayName = "Sidebar"
+}
 
-export { Sidebar }
+export { Sidebar, SidebarProvider, SidebarTrigger }

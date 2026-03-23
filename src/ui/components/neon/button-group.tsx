@@ -1,23 +1,32 @@
-'use client';
+import * as React from "react"
+import { cn } from "@/lib/utils"
+import { ButtonProps } from "./button"
 
-import * as React from 'react';
-import { ButtonGroupBase } from '../_base/button-group';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  orientation?: "horizontal" | "vertical"
+}
 
-export type ButtonGroupProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonGroupBase>, 'type'> & StyledProps;
+const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
+  ({ className, orientation = "horizontal", children, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "flex",
+          orientation === "vertical" ? "flex-col" : "flex-row",
+          "[&>button]:rounded-none [&>button]:border-2 [&>button:not(:first-child)]:-ml-0.5 [&>button:not(:first-child)]:border-l-0",
+          orientation === "vertical" &&
+            "[&>button:not(:first-child)]:-mt-0.5 [&>button:not(:first-child)]:border-t-0 [&>button:not(:first-child)]:border-l-2",
+          "shadow-[0_0_15px_var(--ne-accent)]",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    )
+  }
+)
+ButtonGroup.displayName = "ButtonGroup"
 
-export const ButtonGroup = React.forwardRef<React.ElementRef<typeof ButtonGroupBase>, ButtonGroupProps>(
-  ({ className, version, type, uiType, colors, style, orientation = 'horizontal', ...props }, ref) => (
-    <ButtonGroupBase
-      ref={ref}
-      orientation={orientation}
-      className={cx('inline-flex gap-1', orientation === 'vertical' && 'flex-col', className)}
-      style={getSurfaceStyle(version ?? 'neon', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-
-ButtonGroup.displayName = 'ButtonGroup';
-
-export default ButtonGroup;
+export { ButtonGroup }

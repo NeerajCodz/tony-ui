@@ -1,67 +1,69 @@
-'use client';
-
 import * as React from 'react';
-import { AlertBase, AlertDescriptionBase, AlertTitleBase } from '../_base/alert';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { 
+  AlertBase, 
+  AlertIconBase, 
+  AlertContentBase, 
+  AlertTitleBase, 
+  AlertDescriptionBase, 
+  AlertCloseBase,
+  type AlertBaseProps 
+} from '../_base/alert';
+import { cn } from '@/lib/utils';
+import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
+import { Terminal } from 'lucide-react';
 
-export type AlertProps = Omit<React.ComponentPropsWithoutRef<typeof AlertBase>, 'type'> & StyledProps;
-export type AlertTitleProps = React.ComponentPropsWithoutRef<typeof AlertTitleBase> & StyledProps;
-export type AlertDescriptionProps = React.ComponentPropsWithoutRef<typeof AlertDescriptionBase> & StyledProps;
+export interface AlertProps extends AlertBaseProps {
+  effects?: TerminalWindowEffects;
+}
 
-export const Alert = React.forwardRef<React.ElementRef<typeof AlertBase>, AlertProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <AlertBase
+const getVariantStyles = (variant: string = 'default') => {
+  switch (variant) {
+    case 'destructive': return 'border-red-900 text-red-500 [&>svg]:text-red-500 bg-red-950/20 [text-shadow:0_0_5px_red]';
+    case 'warning': return 'border-yellow-900 text-yellow-500 [&>svg]:text-yellow-500 bg-yellow-950/20 [text-shadow:0_0_5px_yellow]';
+    case 'success': return 'border-[var(--tm-phosphor)] text-[var(--tm-phosphor)] [&>svg]:text-[var(--tm-phosphor)] bg-[var(--tm-phosphor)]/10 [text-shadow:0_0_5px_var(--tm-phosphor)]';
+    case 'info': return 'border-blue-900 text-blue-500 [&>svg]:text-blue-500 bg-blue-950/20 [text-shadow:0_0_5px_blue]';
+    default: return 'border-[var(--tm-phosphor)] text-[var(--tm-phosphor)] [&>svg]:text-[var(--tm-phosphor)] bg-[var(--tm-phosphor)]/5';
+  }
+};
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
+  ({ className, effects = 'on', variant = 'default', ...props }, ref) => {
+    return (
+      <AlertBase
+        ref={ref}
+        variant={variant}
+        className={cn(terminalWindowEffectsClass(effects), 
+          'relative w-full rounded-none border-l-4 p-4 pl-12 [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:h-5 [&>svg]:w-5 font-mono',
+          getVariantStyles(variant),
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+Alert.displayName = 'Alert';
+
+const AlertTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement> & { effects?: TerminalWindowEffects }>(
+  ({ className, effects = 'on', ...props }, ref) => (
+    <AlertTitleBase
       ref={ref}
-      className={cx('relative w-full p-4 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'terminal-window', type, uiType, colors, style)}
+      className={cn(terminalWindowEffectsClass(effects), 'mb-1 font-bold leading-none tracking-wider uppercase', className)}
       {...props}
     />
   )
 );
-Alert.displayName = 'Alert';
-
-export const AlertTitle = React.forwardRef<React.ElementRef<typeof AlertTitleBase>, AlertTitleProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <AlertTitleBase
-        ref={ref}
-        className={cx('mb-1 font-semibold leading-none tracking-tight', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'terminal-window', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.foreground,
-        }}
-        {...props}
-      />
-    );
-  }
-);
 AlertTitle.displayName = 'AlertTitle';
 
-export const AlertDescription = React.forwardRef<React.ElementRef<typeof AlertDescriptionBase>, AlertDescriptionProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <AlertDescriptionBase
-        ref={ref}
-        className={cx('text-sm [&_p]:leading-relaxed', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'terminal-window', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.muted,
-        }}
-        {...props}
-      />
-    );
-  }
+const AlertDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement> & { effects?: TerminalWindowEffects }>(
+  ({ className, effects = 'on', ...props }, ref) => (
+    <AlertDescriptionBase
+      ref={ref}
+      className={cn(terminalWindowEffectsClass(effects), 'text-sm [&_p]:leading-relaxed opacity-90', className)}
+      {...props}
+    />
+  )
 );
 AlertDescription.displayName = 'AlertDescription';
 
-export default Alert;
+export { Alert, AlertTitle, AlertDescription };

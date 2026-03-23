@@ -1,25 +1,19 @@
-'use client';
-
 import * as React from 'react';
-import { SkeletonBase } from '../_base/skeleton';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from '@/lib/utils';
+import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
-export type SkeletonProps = Omit<React.ComponentPropsWithoutRef<typeof SkeletonBase>, 'type'> &
-  StyledProps & {
-    animated?: boolean;
-  };
-
-export const Skeleton = React.forwardRef<React.ElementRef<typeof SkeletonBase>, SkeletonProps>(
-  ({ className, animated = true, version, type, uiType, colors, style, ...props }, ref) => (
-    <SkeletonBase
+const Skeleton = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { effects?: TerminalWindowEffects }
+>(({ className, effects = 'on', ...props }, ref) => {
+  return (
+    <div
       ref={ref}
-      className={cx(animated && 'animate-pulse', 'rounded', className)}
-      style={getSurfaceStyle(version ?? 'terminal-window', type, uiType, colors, style)}
+      className={cn(terminalWindowEffectsClass(effects), 'animate-pulse rounded-none bg-[var(--tm-phosphor)]/20', className)}
       {...props}
     />
-  )
-);
-
+  );
+});
 Skeleton.displayName = 'Skeleton';
 
-export default Skeleton;
+export { Skeleton };

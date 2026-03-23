@@ -1,80 +1,94 @@
-'use client';
+"use client"
 
-import * as React from 'react';
-import { ChevronDown } from 'lucide-react';
-import { ComboboxBase, ComboboxContentBase, ComboboxItemBase, ComboboxTriggerBase } from '../_base/combobox';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import * as React from "react"
+import { Check, ChevronsUpDown } from "lucide-react"
 
-export type ComboboxProps = Omit<React.ComponentPropsWithoutRef<typeof ComboboxBase>, 'type'> & StyledProps;
-export type ComboboxTriggerProps = Omit<React.ComponentPropsWithoutRef<typeof ComboboxTriggerBase>, 'type'> &
-  StyledProps & {
-    htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  };
-export type ComboboxContentProps = Omit<React.ComponentPropsWithoutRef<typeof ComboboxContentBase>, 'type'> & StyledProps;
-export type ComboboxItemProps = Omit<React.ComponentPropsWithoutRef<typeof ComboboxItemBase>, 'type'> & StyledProps;
+import { cn } from "@/lib/utils"
+import { Button } from "@/ui/components/padding/button"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/ui/components/padding/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/ui/components/padding/popover"
 
-const ComboboxRoot = React.forwardRef<React.ElementRef<typeof ComboboxBase>, ComboboxProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <ComboboxBase
-      ref={ref}
-      className={cx('relative flex w-full flex-col gap-1', className)}
-      style={getSurfaceStyle(version ?? 'padding', type, uiType, colors, style)}
-      {...props}
-    />
+interface ComboboxProps {
+  items: { value: string; label: string }[]
+  placeholder?: string
+  searchPlaceholder?: string
+  emptyText?: string
+  value?: string
+  onSelect?: (value: string) => void
+  className?: string
+}
+
+export function Combobox({
+  items,
+  placeholder = "Select item...",
+  searchPlaceholder = "Search...",
+  emptyText = "No item found.",
+  value,
+  onSelect,
+  className,
+}: ComboboxProps) {
+  const [open, setOpen] = React.useState(false)
+  const [currentValue, setCurrentValue] = React.useState(value || "")
+
+  React.useEffect(() => {
+    if (value) {
+      setCurrentValue(value)
+    }
+  }, [value])
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className={cn("w-[200px] justify-between font-sans", className)}
+        >
+          {currentValue
+            ? items.find((item) => item.value === currentValue)?.label
+            : placeholder}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0 font-sans border-transparent">
+        <Command>
+          <CommandInput placeholder={searchPlaceholder} />
+          <CommandEmpty>{emptyText}</CommandEmpty>
+          <CommandGroup>
+            {items.map((item) => (
+              <CommandItem
+                key={item.value}
+                value={item.value}
+                onSelect={(currentValue) => {
+                  const newValue = currentValue === value ? "" : currentValue
+                  setCurrentValue(newValue)
+                  onSelect?.(newValue)
+                  setOpen(false)
+                }}
+              >
+                <Check
+                  className={cn(
+                    "mr-2 h-4 w-4",
+                    currentValue === item.value ? "opacity-100" : "opacity-0"
+                  )}
+                />
+                {item.label}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </Command>
+      </PopoverContent>
+    </Popover>
   )
-);
-ComboboxRoot.displayName = 'Combobox';
-
-const ComboboxTrigger = React.forwardRef<React.ElementRef<typeof ComboboxTriggerBase>, ComboboxTriggerProps>(
-  ({ className, version, type, uiType, colors, style, htmlType = 'button', children, ...props }, ref) => (
-    <ComboboxTriggerBase
-      ref={ref}
-      type={htmlType}
-      className={cx('flex w-full items-center justify-between rounded px-3 py-2 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'padding', type, uiType, colors, style)}
-      {...props}
-    >
-      <span className="truncate">{children}</span>
-      <ChevronDown className="h-4 w-4 shrink-0" />
-    </ComboboxTriggerBase>
-  )
-);
-ComboboxTrigger.displayName = 'ComboboxTrigger';
-
-const ComboboxContent = React.forwardRef<React.ElementRef<typeof ComboboxContentBase>, ComboboxContentProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <ComboboxContentBase
-      ref={ref}
-      className={cx('z-50 max-h-56 overflow-y-auto rounded p-1 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'padding', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-ComboboxContent.displayName = 'ComboboxContent';
-
-const ComboboxItem = React.forwardRef<React.ElementRef<typeof ComboboxItemBase>, ComboboxItemProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <ComboboxItemBase
-      ref={ref}
-      className={cx('cursor-default rounded px-2 py-1.5 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'padding', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    />
-  )
-);
-ComboboxItem.displayName = 'ComboboxItem';
-
-export const Combobox = Object.assign(ComboboxRoot, {
-  Trigger: ComboboxTrigger,
-  Content: ComboboxContent,
-  Item: ComboboxItem,
-});
-
-export { ComboboxTrigger, ComboboxContent, ComboboxItem };
-
-export default Combobox;
+}

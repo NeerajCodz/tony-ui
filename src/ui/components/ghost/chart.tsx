@@ -1,142 +1,156 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import type { VariantColors } from '../../types/common';
+import * as React from "react"
+import * as RechartsPrimitive from "recharts"
+import { cn } from "@/lib/utils"
+import { ghostEffectsClass, type GhostEffects } from "./_effects"
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
-
-interface StyledProps {
-  type?: ComponentType;
-  colors?: VariantColors;
-  variant?: string;
-  version?: string;
-}
-
-const getTypeStyles = (type: ComponentType, colors?: VariantColors): React.CSSProperties => {
-  if (!colors) return {};
-
-  const base = colors.base;
-  const foreground = colors.foreground;
-  const border = colors.border;
-  const glow = colors.glow;
-  const accent = colors.accent?.primary ?? colors.base;
-  const muted = colors.muted ?? colors.border;
-
-  switch (type) {
-    case 'solid':
-      return {
-        backgroundColor: accent,
-        color: foreground,
-        border: border ? `1px solid ${border}` : undefined,
-        boxShadow: glow ? `0 0 12px ${glow}` : undefined,
-      };
-    case 'outline':
-      return {
-        backgroundColor: 'transparent',
-        color: accent ?? foreground,
-        border: border ? `1px solid ${border}` : (accent ? `1px solid ${accent}` : undefined),
-      };
-    case 'ghost':
-      return {
-        backgroundColor: 'transparent',
-        color: foreground,
-        border: 'none',
-      };
-    case 'inverse':
-      return {
-        backgroundColor: foreground,
-        color: base ?? accent,
-        border: foreground ? `1px solid ${foreground}` : undefined,
-      };
-    case 'contrast':
-      return {
-        backgroundColor: border ?? accent,
-        color: foreground,
-        border: accent ? `2px solid ${accent}` : undefined,
-        fontWeight: 700,
-      };
-    case 'soft':
-      return {
-        backgroundColor: base ? `color-mix(in srgb, ${base} 12%, transparent)` : undefined,
-        color: foreground,
-        border: muted ? `1px solid ${muted}` : undefined,
-      };
-    case 'default':
-    default:
-      return {
-        backgroundColor: base,
-        color: foreground,
-        border: border ? `1px solid ${border}` : undefined,
-      };
+const ChartContainer = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<"div"> & {
+    config: Record<string, { label: string; color?: string }>
+    children: React.ComponentProps<typeof RechartsPrimitive.ResponsiveContainer>["children"]
+    effects?: GhostEffects
   }
-};
+>(({ id, className, children, config, effects = "on", ...props }, ref) => {
+  const uniqueId = React.useId()
+  const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`
 
-import {
-  ChartBase,
-  ChartContainerBase,
-  ChartTooltipBase,
-  ChartLegendBase,
-} from '../_base/chart';
-
-export interface ChartProps extends React.ComponentProps<typeof ChartBase>, StyledProps {}
-export interface ChartContainerProps extends React.ComponentProps<typeof ChartContainerBase>, StyledProps {}
-export interface ChartTooltipProps extends React.ComponentProps<typeof ChartTooltipBase>, StyledProps {}
-export interface ChartLegendProps extends React.ComponentProps<typeof ChartLegendBase>, StyledProps {}
-
-const versionIdentityClass = 'chart-ghost';
-
-const ChartRoot = React.forwardRef<HTMLDivElement, ChartProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
-    <ChartBase
+  return (
+    <div
       ref={ref}
-      className={cn('chart-root', versionIdentityClass, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
+      data-chart={chartId}
+      className={cn(ghostEffectsClass(effects),
+        "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none",
+        className
+      )}
       {...props}
-    />
+    >
+      <style dangerouslySetInnerHTML={{ __html: `
+        [data-chart=${chartId}] {
+          ${Object.entries(config)
+            .map(
+              ([key, value]) =>
+                `--color-${key}: ${value.color};`
+            )
+            .join("\n")}
+        }
+      ` }} />
+      <RechartsPrimitive.ResponsiveContainer>
+        {children}
+      </RechartsPrimitive.ResponsiveContainer>
+    </div>
   )
-);
-ChartRoot.displayName = 'Chart';
+})
+ChartContainer.displayName = "ChartContainer"
 
-const ChartContainer = React.forwardRef<HTMLDivElement, ChartContainerProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
-    <ChartContainerBase
-      ref={ref}
-      className={cn('chart-container', `${versionIdentityClass}__container`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
-      {...props}
-    />
-  )
-);
-ChartContainer.displayName = 'ChartContainer';
+const ChartTooltip = RechartsPrimitive.Tooltip
 
-const ChartTooltip = React.forwardRef<HTMLDivElement, ChartTooltipProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
-    <ChartTooltipBase
-      ref={ref}
-      className={cn('chart-tooltip', `${versionIdentityClass}__tooltip`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
-      {...props}
-    />
-  )
-);
-ChartTooltip.displayName = 'ChartTooltip';
+const ChartTooltipContent = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
+    React.ComponentProps<"div"> & {
+      hideLabel?: boolean
+      hideIndicator?: boolean
+      indicator?: "line" | "dot" | "dashed"
+      nameKey?: string
+      labelKey?: string
+    }
+>(
+  (
+    {
+      active,
+      payload,
+      className,
+      indicator = "dot",
+      hideLabel = false,
+      hideIndicator = false,
+      label,
+      labelFormatter,
+      labelClassName,
+      formatter,
+      color,
+      nameKey,
+      labelKey,
+    },
+    ref
+  ) => {
+    const config = {} // In a real implementation, we'd use context
 
-const ChartLegend = React.forwardRef<HTMLDivElement, ChartLegendProps>(
-  ({ className, type = 'default', colors, style, ...props }, ref) => (
-    <ChartLegendBase
-      ref={ref}
-      className={cn('chart-legend', `${versionIdentityClass}__legend`, className)}
-      style={{ ...getTypeStyles(type, colors), ...style }}
-      {...props}
-    />
-  )
-);
-ChartLegend.displayName = 'ChartLegend';
+    if (!active || !payload?.length) {
+      return null
+    }
 
-export const Chart = Object.assign(ChartRoot, {
-  Container: ChartContainer,
-  Tooltip: ChartTooltip,
-  Legend: ChartLegend,
-});
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "grid min-w-[8rem] items-start gap-1.5 rounded-sm border border-[var(--gh-border)] bg-[var(--gh-surface)] px-2.5 py-1.5 text-xs text-[var(--gh-text)] shadow-xl",
+          className
+        )}
+      >
+        {/* Simplified tooltip implementation */}
+        <div className="grid gap-1.5">
+          {payload.map((item, index) => (
+             <div key={index} className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full" style={{ backgroundColor: item.color }} />
+                <span>{item.name}:</span>
+                <span className="font-mono font-medium">{item.value}</span>
+             </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+)
+ChartTooltipContent.displayName = "ChartTooltipContent"
 
-export { ChartContainer, ChartTooltip, ChartLegend };
-export default Chart;
+const ChartLegend = RechartsPrimitive.Legend
+
+const ChartLegendContent = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<"div"> &
+    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
+      hideIcon?: boolean
+      nameKey?: string
+    }
+>(
+  (
+    { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
+    ref
+  ) => {
+    if (!payload?.length) {
+      return null
+    }
+
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "flex items-center justify-center gap-4",
+          verticalAlign === "top" ? "pb-3" : "pt-3",
+          className
+        )}
+      >
+        {payload.map((item) => (
+          <div
+            key={item.value}
+            className={cn(
+              "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 text-[var(--gh-text)]"
+            )}
+          >
+             <div className="h-2 w-2 rounded-full" style={{ backgroundColor: item.color }} />
+             <span>{item.value}</span>
+          </div>
+        ))}
+      </div>
+    )
+  }
+)
+ChartLegendContent.displayName = "ChartLegendContent"
+
+export {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+}

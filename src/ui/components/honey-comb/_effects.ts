@@ -1,18 +1,66 @@
-export type HoneyCombEffects = 'on' | 'off';
+export type TacticalHudEffects = 'on' | 'off';
 
-export const honeyCombEffectsClass = (effects: HoneyCombEffects = 'on') => {
+export const tacticalHudEffectsClass = (effects: TacticalHudEffects = 'on') => {
   if (effects === 'off') {
     return '!filter-none !drop-shadow-none hover:!filter-none active:!filter-none focus:!filter-none [&_*]:!filter-none [&_*]:!drop-shadow-none';
   }
   return '';
 };
 
-// SVG Hex Grid Pattern (Data URI)
-const HEX_GRID_SVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpolygon points='30,2 58,17 58,49 30,64 2,49 2,17' fill='rgba(255,140,10,0.04)' stroke='rgba(255,160,20,0.18)' stroke-width='1' /%3E%3Cpolygon points='30,54 58,69 58,101 30,116 2,101 2,69' fill='rgba(255,140,10,0.04)' stroke='rgba(255,160,20,0.18)' stroke-width='1' /%3E%3C/svg%3E`;
+// Tactical HUD Brackets Style
+const bracketSize = '15px';
+const bracketWidth = '2px';
+const pipSize = '4px';
 
-// Hex grid background style object
-export const hexGridStyle = {
-  backgroundImage: `url("${HEX_GRID_SVG}"), url("${HEX_GRID_SVG}")`,
-  backgroundSize: '60px 104px',
-  backgroundPosition: '0 0, 30px 52px',
-};
+// Helper to create gradient for L-brackets and Pips
+export const getBracketsStyle = (size: string = '15px', width: string = '2px', pip: string = '4px') => ({
+  backgroundImage: `
+    /* Top Left L */
+    linear-gradient(to right, var(--th-bracket) ${width}, transparent ${width}),
+    linear-gradient(to bottom, var(--th-bracket) ${width}, transparent ${width}),
+    
+    /* Top Right L */
+    linear-gradient(to left, var(--th-bracket) ${width}, transparent ${width}),
+    linear-gradient(to bottom, var(--th-bracket) ${width}, transparent ${width}),
+    
+    /* Bottom Left L */
+    linear-gradient(to right, var(--th-bracket) ${width}, transparent ${width}),
+    linear-gradient(to top, var(--th-bracket) ${width}, transparent ${width}),
+    
+    /* Bottom Right L */
+    linear-gradient(to left, var(--th-bracket) ${width}, transparent ${width}),
+    linear-gradient(to top, var(--th-bracket) ${width}, transparent ${width}),
+    
+    /* Top Pip */
+    linear-gradient(to bottom, var(--th-pip) ${pip}, transparent ${pip}),
+    /* Bottom Pip */
+    linear-gradient(to top, var(--th-pip) ${pip}, transparent ${pip}),
+    /* Left Pip */
+    linear-gradient(to right, var(--th-pip) ${pip}, transparent ${pip}),
+    /* Right Pip */
+    linear-gradient(to left, var(--th-pip) ${pip}, transparent ${pip})
+  `,
+  backgroundPosition: `
+    top left, top left,
+    top right, top right,
+    bottom left, bottom left,
+    bottom right, bottom right,
+    top center,
+    bottom center,
+    center left,
+    center right
+  `,
+  backgroundSize: `
+    ${size} ${size}, ${size} ${size},
+    ${size} ${size}, ${size} ${size},
+    ${size} ${size}, ${size} ${size},
+    ${size} ${size}, ${size} ${size},
+    ${pip} ${pip},
+    ${pip} ${pip},
+    ${pip} ${pip},
+    ${pip} ${pip}
+  `,
+  backgroundRepeat: 'no-repeat',
+});
+
+export const bracketsStyle = getBracketsStyle();

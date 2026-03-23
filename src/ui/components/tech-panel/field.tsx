@@ -1,94 +1,44 @@
-'use client';
-
 import * as React from 'react';
-import { FieldBase, FieldDescriptionBase, FieldErrorBase, FieldLabelBase } from '../_base/field';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from '@/lib/utils';
+import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
+import { Label } from './label';
 
-export type FieldProps = Omit<React.ComponentPropsWithoutRef<typeof FieldBase>, 'type'> & StyledProps;
-export type FieldLabelProps = React.ComponentPropsWithoutRef<typeof FieldLabelBase> & StyledProps;
-export type FieldDescriptionProps = React.ComponentPropsWithoutRef<typeof FieldDescriptionBase> & StyledProps;
-export type FieldErrorProps = React.ComponentPropsWithoutRef<typeof FieldErrorBase> & StyledProps;
+interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
+  label?: string;
+  error?: string;
+  description?: string;
+  required?: boolean;
+  effects?: TechPanelEffects;
+}
 
-export const Field = React.forwardRef<React.ElementRef<typeof FieldBase>, FieldProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <FieldBase
-      ref={ref}
-      className={cx('space-y-1 rounded p-2', className)}
-      style={getSurfaceStyle(version ?? 'tech-panel', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    />
-  )
+const Field = React.forwardRef<HTMLDivElement, FieldProps>(
+  ({ className, effects = 'on', label, error, description, required, children, ...props }, ref) => {
+    const id = React.useId();
+    
+    // Clone child to add id if it's a valid element
+    const child = React.isValidElement(children) 
+      ? React.cloneElement(children as React.ReactElement<any>, { id })
+      : children;
+
+    return (
+      <div ref={ref} className={cn(techPanelEffectsClass(effects), 'flex flex-col gap-1.5', className)} {...props}>
+        {label && (
+          <Label htmlFor={id} className={cn(error && 'text-[var(--df-destructive)]', 'flex items-center gap-1')}>
+            {label}
+            {required && <span className='text-[var(--tp-accent)]'>*</span>}
+          </Label>
+        )}
+        {child}
+        {description && !error && (
+          <p className='text-[0.8rem] text-[var(--text-muted)] font-mono'>{description}</p>
+        )}
+        {error && (
+          <p className='text-[0.8rem] font-medium text-[var(--df-destructive)] font-mono'>{error}</p>
+        )}
+      </div>
+    );
+  }
 );
 Field.displayName = 'Field';
 
-export const FieldLabel = React.forwardRef<React.ElementRef<typeof FieldLabelBase>, FieldLabelProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <FieldLabelBase
-        ref={ref}
-        className={cx('text-sm font-medium', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'tech-panel', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.foreground,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-FieldLabel.displayName = 'FieldLabel';
-
-export const FieldDescription = React.forwardRef<React.ElementRef<typeof FieldDescriptionBase>, FieldDescriptionProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <FieldDescriptionBase
-        ref={ref}
-        className={cx('text-xs opacity-80', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'tech-panel', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.muted,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-FieldDescription.displayName = 'FieldDescription';
-
-export const FieldError = React.forwardRef<React.ElementRef<typeof FieldErrorBase>, FieldErrorProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <FieldErrorBase
-        ref={ref}
-        className={cx('text-xs text-red-400', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'tech-panel', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.accentPrimary,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-FieldError.displayName = 'FieldError';
-
-export default Field;
+export { Field };

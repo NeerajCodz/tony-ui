@@ -1,24 +1,24 @@
-import * as React from 'react';
-import { Button, ButtonProps } from './button';
-import { cn } from '@/lib/utils';
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
+import * as React from "react"
+import { cn } from "@/lib/utils"
+import { Button, ButtonProps } from "@/ui/components/honey-comb/button"
 
-export interface IconButtonProps extends ButtonProps {
-  effects?: HoneyCombEffects;
+interface IconButtonProps extends ButtonProps {
+  icon?: React.ReactNode
 }
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ className, effects = 'on', size = 'icon', ...props }, ref) => {
+  ({ className, icon, children, ...props }, ref) => {
     return (
       <Button
         ref={ref}
-        size={size}
-        className={cn(honeyCombEffectsClass(effects), 'aspect-square p-0', className)}
+        className={cn("p-2 aspect-square", className)}
         {...props}
-      />
-    );
+      >
+        {icon || children}
+      </Button>
+    )
   }
-);
-IconButton.displayName = 'IconButton';
+)
+IconButton.displayName = "IconButton"
 
-export { IconButton };
+export { IconButton }

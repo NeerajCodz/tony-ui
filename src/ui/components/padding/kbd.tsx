@@ -1,22 +1,21 @@
-'use client';
+import * as React from "react"
+import { cn } from "@/lib/utils"
 
-import * as React from 'react';
-import { KbdBase } from '../_base/kbd';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
-
-export type KbdProps = Omit<React.ComponentPropsWithoutRef<typeof KbdBase>, 'type'> & StyledProps;
-
-export const Kbd = React.forwardRef<React.ElementRef<typeof KbdBase>, KbdProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <KbdBase
+const Kbd = React.forwardRef<
+  HTMLElement,
+  React.HTMLAttributes<HTMLElement>
+>(({ className, ...props }, ref) => {
+  return (
+    <kbd
       ref={ref}
-      className={cx('inline-flex min-h-5 items-center rounded px-1.5 text-[10px] font-medium uppercase tracking-wide', className)}
-      style={getSurfaceStyle(version ?? 'padding', type, uiType, colors, style)}
+      className={cn(
+        "pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded-[4px] bg-[rgba(255,255,255,0.1)] px-1.5 font-mono text-[10px] font-medium text-[var(--pd-muted)] opacity-100",
+        className
+      )}
       {...props}
     />
   )
-);
+})
+Kbd.displayName = "Kbd"
 
-Kbd.displayName = 'Kbd';
-
-export default Kbd;
+export { Kbd }

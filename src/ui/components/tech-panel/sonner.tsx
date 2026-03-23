@@ -1,95 +1,26 @@
-'use client';
+import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
+import { Toaster as Sonner } from 'sonner';
 
-import React, { forwardRef } from 'react';
-import { Toaster as SonnerToaster } from 'sonner';
-import type { VariantColors } from '../../types/common';
-import { SonnerBase } from '../_base/sonner';
+type ToasterProps = React.ComponentProps<typeof Sonner>;
 
-export interface SonnerProps {
-  version?: string;
-  variant?: string;
-  type?: string;
-  size?: string;
-  colors?: VariantColors;
-  styles?: React.CSSProperties;
-  config?: any;
-  position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
-  expand?: boolean;
-  richColors?: boolean;
-  closeButton?: boolean;
-  duration?: number;
-  showLoader?: boolean;
-  className?: string;
-}
+const Toaster = ({ effects = 'on', ...props }: ToasterProps & { effects?: TechPanelEffects }) => {
+  return (
+    <Sonner
+      className={techPanelEffectsClass(effects) + ' toaster group font-mono'}
+      toastOptions={{
+        classNames: {
+          toast:
+            'group toast group-[.toaster]:bg-[var(--tp-panel)] group-[.toaster]:text-[var(--text-primary)] group-[.toaster]:border-[var(--tp-border-outer)] group-[.toaster]:shadow-lg rounded-none',
+          description: 'group-[.toast]:text-[var(--text-muted)]',
+          actionButton:
+            'group-[.toast]:bg-[var(--tp-accent)] group-[.toast]:text-[var(--tp-bg)]',
+          cancelButton:
+            'group-[.toast]:bg-[var(--tp-inset)] group-[.toast]:text-[var(--text-muted)]',
+        },
+      }}
+      {...props}
+    />
+  );
+};
 
-const TechPanelSonner = forwardRef<HTMLDivElement, SonnerProps>(
-  ({ 
-    colors,
-    position = 'bottom-right',
-    expand = true,
-    richColors = true,
-    closeButton = true,
-    duration = 4000,
-    type = 'default',
-    showLoader = true,
-    className = '',
-    ...props 
-  }, ref) => {
-    let bg = colors?.base || '#1f2937';
-    let fg = colors?.foreground || '#ffffff';
-    let border = colors?.border || '#374151';
-    const glow = colors?.glow || 'rgba(0,0,0,0)';
-
-    // Handle new types
-    if (type === 'inverse') {
-      const temp = bg;
-      bg = fg;
-      fg = temp;
-      border = bg;
-    } else if (type === 'contrast') {
-      border = fg;
-      bg = colors?.base || '#000000';
-      fg = colors?.foreground || '#ffffff';
-    } else if (type === 'soft') {
-      bg = colors?.muted || bg;
-      border = colors?.border ? `${colors.border}40` : border;
-    }
-
-    return (
-      <div ref={ref} className={`sonner-container-tech-panel ${className}`}>
-        <SonnerToaster
-          position={position}
-          expand={expand}
-          richColors={richColors}
-          closeButton={closeButton}
-          theme="dark"
-          toastOptions={{
-            duration: duration,
-            style: {
-              backgroundColor: bg,
-              color: fg,
-              border: `1px solid ${border}`,
-              borderRadius: '2px',
-              fontFamily: 'inherit',
-              boxShadow: `none`,
-              clipPath: 'none',
-              backdropFilter: 'none',
-              padding: '1rem',
-              background: 'linear-gradient(180deg, rgba(var(--primary), 0.1) 0%, transparent 100%)'
-            },
-            classNames: {
-              toast: 'sonner-toast-tech-panel',
-              title: 'font-semibold text-sm',
-              description: 'text-sm opacity-80',
-            },
-          }}
-          {...props}
-        />
-      </div>
-    );
-  }
-);
-
-TechPanelSonner.displayName = 'TechPanelSonner';
-
-export default TechPanelSonner;
+export { Toaster };

@@ -1,15 +1,55 @@
-'use client';
+import * as React from 'react';
+import * as AccordionPrimitive from '@radix-ui/react-accordion';
+import { ChevronDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
-import { createAccordionFoundation } from '../_shared/family-foundations';
+const Accordion = AccordionPrimitive.Root;
 
-const foundation = createAccordionFoundation('terminal-window');
+const AccordionItem = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item> & { effects?: TerminalWindowEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <AccordionPrimitive.Item
+    ref={ref}
+    className={cn(terminalWindowEffectsClass(effects), 'border-b border-[var(--tm-phosphor)]/30', className)}
+    {...props}
+  />
+));
+AccordionItem.displayName = 'AccordionItem';
 
-export const Accordion = foundation.Accordion;
-export const AccordionItem = foundation.AccordionItem;
-export const AccordionTrigger = foundation.AccordionTrigger;
-export const AccordionContent = foundation.AccordionContent;
-export const Item = foundation.Item;
-export const Trigger = foundation.Trigger;
-export const Content = foundation.Content;
+const AccordionTrigger = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & { effects?: TerminalWindowEffects }
+>(({ className, effects = 'on', children, ...props }, ref) => (
+  <AccordionPrimitive.Header className='flex'>
+    <AccordionPrimitive.Trigger
+      ref={ref}
+      className={cn(terminalWindowEffectsClass(effects), 
+        'flex flex-1 items-center justify-between py-4 font-medium transition-all hover:text-[var(--tm-phosphor)] hover:bg-[var(--tm-phosphor)]/5 [&[data-state=open]>svg]:rotate-180 font-mono uppercase tracking-wide text-[var(--tm-phosphor)] text-left',
+        className
+      )}
+      {...props}
+    >
+      {children}
+      <ChevronDown className='h-4 w-4 shrink-0 transition-transform duration-200' />
+    </AccordionPrimitive.Trigger>
+  </AccordionPrimitive.Header>
+));
+AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
-export default Accordion;
+const AccordionContent = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content> & { effects?: TerminalWindowEffects }
+>(({ className, effects = 'on', children, ...props }, ref) => (
+  <AccordionPrimitive.Content
+    ref={ref}
+    className='overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down'
+    {...props}
+  >
+    <div className={cn(terminalWindowEffectsClass(effects), 'pb-4 pt-0 font-mono text-[var(--tm-phosphor)]/80', className)}>{children}</div>
+  </AccordionPrimitive.Content>
+));
+AccordionContent.displayName = AccordionPrimitive.Content.displayName;
+
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };

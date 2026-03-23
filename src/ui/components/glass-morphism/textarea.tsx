@@ -1,58 +1,27 @@
-'use client';
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+import { glassInputClass, type GlassEffects } from './_effects';
 
-import React, { forwardRef } from 'react';
-import type { VariantColors } from '../../types/common';
-import { TextareaBase } from '../_base/textarea';
-
-export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  version?: string;
-  type?: string;
-  variant?: string;
-  colors?: VariantColors;
+export interface TextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  effects?: GlassEffects;
 }
 
-const GlassMorphismTextarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, colors, type, style, ...props }, ref) => {
-    let bg = colors?.base || 'transparent';
-    let fg = colors?.foreground || 'currentColor';
-    let border = colors?.border || '#e5e7eb';
-    const glow = colors?.glow || 'transparent';
-
-    if (type === 'inverse') {
-      const temp = bg;
-      bg = fg;
-      fg = temp;
-      border = bg;
-    } else if (type === 'contrast') {
-      border = fg;
-      bg = colors?.base || '#000000';
-      fg = colors?.foreground || '#ffffff';
-    } else if (type === 'soft') {
-      bg = colors?.muted || bg;
-      border = colors?.border ? `${colors.border}40` : border;
-    }
-
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className, effects = 'on', ...props }, ref) => {
     return (
       <textarea
-        className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+        className={cn(
+          'flex min-h-[80px] w-full rounded-md px-3 py-2 text-sm placeholder:text-[var(--df-muted-text)]/50 disabled:cursor-not-allowed disabled:opacity-50 text-[var(--df-text)] font-sans',
+          glassInputClass(effects),
+          className
+        )}
         ref={ref}
-        style={{
-            backgroundColor: bg,
-            color: fg,
-            borderColor: border,
-            borderWidth: '1px',
-            borderStyle: 'solid',
-            borderRadius: '1rem',
-            fontFamily: 'inherit',
-            boxShadow: `none`,
-            clipPath: 'none',
-            ...style
-        }}
         {...props}
       />
     );
   }
 );
-GlassMorphismTextarea.displayName = 'GlassMorphismTextarea';
+Textarea.displayName = 'Textarea';
 
-export default GlassMorphismTextarea;
+export { Textarea };

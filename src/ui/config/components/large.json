@@ -1,33 +1,24 @@
 {
-  "theme": {
-    "--lg-bg": "232 29% 5%",
-    "--lg-surface": "230 25% 9%",
-    "--lg-border": "235 30% 17%",
-    "--lg-accent": "245 100% 72%",
-    "--lg-text": "232 35% 91%",
-    "--df-bg": "232 29% 5%",
-    "--df-background": "232 29% 5%",
-    "--df-foreground": "232 35% 91%",
-    "--df-card": "230 25% 9%",
-    "--df-card-foreground": "232 35% 91%",
-    "--df-popover": "230 25% 9%",
-    "--df-popover-foreground": "232 35% 91%",
-    "--df-primary": "245 100% 72%",
-    "--df-primary-foreground": "0 0% 0%",
-    "--df-secondary": "235 30% 17%",
-    "--df-secondary-foreground": "232 35% 91%",
-    "--df-muted": "235 30% 17%",
-    "--df-muted-foreground": "232 35% 91%",
-    "--df-muted-text": "232 35% 91%",
-    "--df-accent": "245 100% 72%",
-    "--df-accent-foreground": "0 0% 0%",
-    "--df-destructive": "0 84.2% 60.2%",
-    "--df-destructive-foreground": "0 0% 98%",
-    "--df-border": "235 30% 17%",
-    "--df-input": "235 30% 17%",
-    "--df-ring": "245 100% 72%",
-    "--df-radius": "0.5rem",
-    "--df-text": "232 35% 91%",
-    "--df-surface": "230 25% 9%"
+  "name": "large",
+  "label": "Large Scale",
+  "tokens": {
+    "colors": {
+      "background": "#0a0b12",
+      "surface": "#12141e",
+      "border": "#1e2038",
+      "accent": "#7c6fff",
+      "text-primary": "#e0e2f0",
+      "text-secondary": "#a0a2b0",
+      "text-muted": "#606270"
+    },
+    "spacing": {
+      "base": "32px",
+      "large": "48px"
+    },
+    "radius": "16px",
+    "fonts": {
+      "display": "\"Clash Display\", \"Syne\", sans-serif",
+      "body": "\"Satoshi\", \"Plus Jakarta Sans\", sans-serif"
+    }
   }
 }

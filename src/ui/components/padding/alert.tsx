@@ -1,67 +1,59 @@
-'use client';
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
 
-import * as React from 'react';
-import { AlertBase, AlertDescriptionBase, AlertTitleBase } from '../_base/alert';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from "@/lib/utils"
 
-export type AlertProps = Omit<React.ComponentPropsWithoutRef<typeof AlertBase>, 'type'> & StyledProps;
-export type AlertTitleProps = React.ComponentPropsWithoutRef<typeof AlertTitleBase> & StyledProps;
-export type AlertDescriptionProps = React.ComponentPropsWithoutRef<typeof AlertDescriptionBase> & StyledProps;
-
-export const Alert = React.forwardRef<React.ElementRef<typeof AlertBase>, AlertProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <AlertBase
-      ref={ref}
-      className={cx('relative w-full p-4 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'padding', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-Alert.displayName = 'Alert';
-
-export const AlertTitle = React.forwardRef<React.ElementRef<typeof AlertTitleBase>, AlertTitleProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <AlertTitleBase
-        ref={ref}
-        className={cx('mb-1 font-semibold leading-none tracking-tight', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'padding', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.foreground,
-        }}
-        {...props}
-      />
-    );
+const alertVariants = cva(
+  "relative w-full rounded-[8px] p-6 [&>svg~*]:pl-8 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-6 [&>svg]:top-6 [&>svg]:text-[var(--pd-text)] font-sans",
+  {
+    variants: {
+      variant: {
+        default: "bg-[var(--pd-bg)] text-[var(--pd-text)]",
+        destructive:
+          "border border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive bg-destructive/10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
   }
-);
-AlertTitle.displayName = 'AlertTitle';
+)
 
-export const AlertDescription = React.forwardRef<React.ElementRef<typeof AlertDescriptionBase>, AlertDescriptionProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <AlertDescriptionBase
-        ref={ref}
-        className={cx('text-sm [&_p]:leading-relaxed', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'padding', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.muted,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-AlertDescription.displayName = 'AlertDescription';
+const Alert = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
+>(({ className, variant, ...props }, ref) => (
+  <div
+    ref={ref}
+    role="alert"
+    className={cn(alertVariants({ variant }), className)}
+    {...props}
+  />
+))
+Alert.displayName = "Alert"
 
-export default Alert;
+const AlertTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h5
+    ref={ref}
+    className={cn("mb-2 font-medium leading-none tracking-tight font-sans text-lg", className)}
+    {...props}
+  />
+))
+AlertTitle.displayName = "AlertTitle"
+
+const AlertDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("text-sm text-[var(--pd-muted)] leading-relaxed", className)}
+    {...props}
+  />
+))
+AlertDescription.displayName = "AlertDescription"
+
+export { Alert, AlertTitle, AlertDescription }

@@ -1,17 +1,28 @@
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
-import * as React from 'react';
+"use client"
+
+import * as React from "react"
 import {
   ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
-  useReactTable,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
-  getFilteredRowModel,
-  ColumnFiltersState,
-  VisibilityState,
-} from '@tanstack/react-table';
+  useReactTable,
+} from "@tanstack/react-table"
+import { ChevronDown } from "lucide-react"
+
+import { Button } from "@/ui/components/honey-comb/button"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/ui/components/honey-comb/dropdown-menu"
+import { Input } from "@/ui/components/honey-comb/input"
 import {
   Table,
   TableBody,
@@ -19,45 +30,35 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from './table';
-import { Button } from './button';
-import { Input } from './input';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from './dropdown-menu';
-import { ChevronDown } from 'lucide-react';
+} from "@/ui/components/honey-comb/table"
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  effects?: HoneyCombEffects;
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
+  searchKey?: string
 }
-
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  effects = 'on',
+  searchKey,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  );
+  )
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+    React.useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
     data,
     columns,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
-    onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
@@ -67,23 +68,24 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
     },
-  });
+  })
 
   return (
-    <div className={cn(honeyCombEffectsClass(effects), 'w-full font-["JetBrains_Mono"]')}>
-      <div className="flex items-center py-4">
-        <Input
-          effects={effects}
-          placeholder="Filter..."
-          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('email')?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+    <div className="w-full">
+      <div className="flex items-center py-4 gap-2">
+        {searchKey && (
+          <Input
+            placeholder={`Filter ${searchKey}...`}
+            value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn(searchKey)?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button visualType="outline" effects={effects} className="ml-auto">
+            <Button variant="outline" className="ml-auto">
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -103,14 +105,14 @@ export function DataTable<TData, TValue>({
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>
-                );
+                )
               })}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded border border-[var(--hc-hex-line)] bg-[var(--hc-surface)] p-1" style={{ '--corner': '8px' } as React.CSSProperties}>
+      <div className="rounded-md border border-[var(--hc-border)] overflow-hidden">
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-[var(--hc-surface)]">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -123,7 +125,7 @@ export function DataTable<TData, TValue>({
                             header.getContext()
                           )}
                     </TableHead>
-                  );
+                  )
                 })}
               </TableRow>
             ))}
@@ -133,7 +135,8 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
+                  data-state={row.getIsSelected() && "selected"}
+                  className="hover:bg-[var(--hc-surface)]/50 border-b-[var(--hc-border)]"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -159,14 +162,13 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-[var(--text-muted)]">
-          {table.getFilteredSelectedRowModel().rows.length} of{' '}
+        <div className="flex-1 text-sm text-muted-foreground">
+          {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="space-x-2">
           <Button
-            visualType="outline"
-            effects={effects}
+            variant="outline"
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
@@ -174,8 +176,7 @@ export function DataTable<TData, TValue>({
             Previous
           </Button>
           <Button
-            visualType="outline"
-            effects={effects}
+            variant="outline"
             size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
@@ -185,5 +186,5 @@ export function DataTable<TData, TValue>({
         </div>
       </div>
     </div>
-  );
+  )
 }

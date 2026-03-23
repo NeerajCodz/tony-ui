@@ -1,166 +1,99 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import type { VariantColors } from '../../types/common';
-import {
-  getTypographyTone,
-  getVersionCardDecor,
-  getVersionCardRootStyles,
-  getVersionStyleProfile,
-} from '../_shared/version-styles';
-import {
-  CardBase,
-  CardHeaderBase,
-  CardTitleBase,
-  CardDescriptionBase,
-  CardContentBase,
-  CardFooterBase,
+import * as React from 'react';
+import { 
+  CardBase, 
+  CardHeaderBase, 
+  CardTitleBase, 
+  CardDescriptionBase, 
+  CardContentBase, 
+  CardFooterBase 
 } from '../_base/card';
+import { cn } from '@/lib/utils';
+import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
-type ComponentType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
-
-interface StyledProps {
-  type?: ComponentType;
-  colors?: VariantColors;
-  variant?: string;
-  version?: string;
+export interface CardProps extends React.ComponentPropsWithoutRef<typeof CardBase> {
+  effects?: TerminalWindowEffects;
+  variant?: 'default' | 'solid' | 'outline' | 'ghost' | 'inverse';
 }
 
-export interface CardProps extends React.ComponentProps<typeof CardBase>, StyledProps {}
-export interface CardHeaderProps extends React.ComponentProps<typeof CardHeaderBase>, StyledProps {}
-export interface CardTitleProps extends React.ComponentProps<typeof CardTitleBase>, StyledProps {}
-export interface CardDescriptionProps extends React.ComponentProps<typeof CardDescriptionBase>, StyledProps {}
-export interface CardContentProps extends React.ComponentProps<typeof CardContentBase>, StyledProps {}
-export interface CardFooterProps extends React.ComponentProps<typeof CardFooterBase>, StyledProps {}
-
-const versionIdentityClass = 'card-terminal-window';
-const versionKey = 'terminal-window';
-
-function getSectionStyle(type: ComponentType, colors?: VariantColors, version?: string): React.CSSProperties {
-  const profile = getVersionStyleProfile(version ?? versionKey);
-  const tone = getTypographyTone(type, colors);
-
-  return {
-    fontFamily: profile.fontFamily,
-    letterSpacing: profile.letterSpacing,
-    color: tone.body,
-    borderColor: tone.border,
-  };
-}
-
-const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, type = 'default', colors, variant, version, style, children, ...props }, ref) => {
-    const profile = getVersionStyleProfile(version ?? versionKey);
-
-    return (
-      <CardBase
-        ref={ref}
-        className={cn('card-root', versionIdentityClass, className)}
-        style={{ ...getVersionCardRootStyles(profile, type, colors), ...style }}
-        data-version={profile.version}
-        data-variant={variant}
-        data-type={type}
-        {...props}
-      >
-        {getVersionCardDecor(profile, colors)}
-        <div className="relative z-[1]">{children}</div>
-      </CardBase>
-    );
+const getVariantStyles = (variant: string = 'default') => {
+  switch (variant) {
+    case 'solid':
+      return 'bg-[var(--tm-phosphor)]/10 border-[var(--tm-phosphor)] text-[var(--tm-phosphor)]';
+    case 'outline':
+      return 'bg-transparent border-[var(--tm-phosphor)] text-[var(--tm-phosphor)] border-dashed';
+    case 'ghost':
+      return 'bg-transparent border-transparent text-[var(--tm-phosphor)]';
+    case 'inverse':
+      return 'bg-[var(--tm-phosphor)] text-[var(--tm-bg)] border-[var(--tm-phosphor)]';
+    default:
+      return 'bg-[var(--tm-bg)] border-[var(--tm-phosphor)] text-[var(--tm-phosphor)]';
   }
-);
-CardRoot.displayName = 'Card';
+};
 
-const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, effects = 'on', variant = 'default', ...props }, ref) => (
+    <CardBase
+      ref={ref}
+      className={cn(terminalWindowEffectsClass(effects), 
+        'rounded-none border-2 shadow-[0_0_10px_rgba(0,0,0,0.5)]',
+        getVariantStyles(variant),
+        className
+      )}
+      {...props}
+    />
+  )
+);
+Card.displayName = 'Card';
+
+const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { effects?: TerminalWindowEffects }>(
+  ({ className, effects = 'on', ...props }, ref) => (
     <CardHeaderBase
       ref={ref}
-      className={cn('card-header', `${versionIdentityClass}__header`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        borderBottom: `1px solid ${getTypographyTone(type, colors).border}`,
-        paddingBottom: '0.5rem',
-        marginBottom: '0.25rem',
-        ...style,
-      }}
+      className={cn(terminalWindowEffectsClass(effects), 'flex flex-col space-y-1.5 p-6 border-b border-[var(--tm-phosphor)]/30 bg-[var(--tm-phosphor)]/5', className)}
       {...props}
     />
   )
 );
 CardHeader.displayName = 'CardHeader';
 
-const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
+const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement> & { effects?: TerminalWindowEffects }>(
+  ({ className, effects = 'on', ...props }, ref) => (
     <CardTitleBase
       ref={ref}
-      className={cn('card-title', `${versionIdentityClass}__title`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        color: getTypographyTone(type, colors).heading,
-        fontWeight: 700,
-        lineHeight: 1.2,
-        ...style,
-      }}
+      className={cn(terminalWindowEffectsClass(effects), 'font-mono text-2xl font-bold leading-none tracking-tight uppercase [text-shadow:0_0_5px_var(--tm-phosphor)]', className)}
       {...props}
     />
   )
 );
 CardTitle.displayName = 'CardTitle';
 
-const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
+const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement> & { effects?: TerminalWindowEffects }>(
+  ({ className, effects = 'on', ...props }, ref) => (
     <CardDescriptionBase
       ref={ref}
-      className={cn('card-description', `${versionIdentityClass}__description`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        opacity: 0.88,
-        ...style,
-      }}
+      className={cn(terminalWindowEffectsClass(effects), 'text-sm text-[var(--tm-phosphor-dim)] font-mono', className)}
       {...props}
     />
   )
 );
 CardDescription.displayName = 'CardDescription';
 
-const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
-    <CardContentBase
-      ref={ref}
-      className={cn('card-content', `${versionIdentityClass}__content`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        ...style,
-      }}
-      {...props}
-    />
+const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { effects?: TerminalWindowEffects }>(
+  ({ className, effects = 'on', ...props }, ref) => (
+    <CardContentBase ref={ref} className={cn(terminalWindowEffectsClass(effects), 'p-6 pt-6 font-mono', className)} {...props} />
   )
 );
 CardContent.displayName = 'CardContent';
 
-const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
-  ({ className, type = 'default', colors, version, style, ...props }, ref) => (
+const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { effects?: TerminalWindowEffects }>(
+  ({ className, effects = 'on', ...props }, ref) => (
     <CardFooterBase
       ref={ref}
-      className={cn('card-footer', `${versionIdentityClass}__footer`, className)}
-      style={{
-        ...getSectionStyle(type, colors, version),
-        borderTop: `1px solid ${getTypographyTone(type, colors).border}`,
-        paddingTop: '0.5rem',
-        marginTop: '0.5rem',
-        ...style,
-      }}
+      className={cn(terminalWindowEffectsClass(effects), 'flex items-center p-6 pt-0 border-t border-[var(--tm-phosphor)]/30 mt-auto bg-[var(--tm-phosphor)]/5', className)}
       {...props}
     />
   )
 );
 CardFooter.displayName = 'CardFooter';
 
-export const Card = Object.assign(CardRoot, {
-  Header: CardHeader,
-  Title: CardTitle,
-  Description: CardDescription,
-  Content: CardContent,
-  Footer: CardFooter,
-});
-
-export { CardHeader, CardTitle, CardDescription, CardContent, CardFooter };
-export default Card;
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };

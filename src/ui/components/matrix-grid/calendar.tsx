@@ -1,22 +1,69 @@
-'use client';
+"use client"
 
-import * as React from 'react';
-import { CalendarBase } from '../_base/calendar';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import * as React from "react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { DayPicker } from "react-day-picker"
 
-export type CalendarProps = Omit<React.ComponentPropsWithoutRef<typeof CalendarBase>, 'type'> & StyledProps;
+import { cn } from "@/lib/utils"
+import { buttonVariants } from "@/ui/components/matrix-grid/button"
 
-export const Calendar = React.forwardRef<React.ElementRef<typeof CalendarBase>, CalendarProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <CalendarBase
-      ref={ref}
-      className={cx('p-2', className)}
-      style={getSurfaceStyle(version ?? 'matrix-grid', type, uiType, colors, style)}
+export type CalendarProps = React.ComponentProps<typeof DayPicker>
+
+function Calendar({
+  className,
+  classNames,
+  showOutsideDays = true,
+  ...props
+}: CalendarProps) {
+  return (
+    <DayPicker
+      showOutsideDays={showOutsideDays}
+      className={cn(
+        "p-3 rounded-none border border-[var(--mg-border)] bg-[var(--mg-surface)] font-mono",
+        className
+      )}
+      classNames={{
+        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+        month: "space-y-4",
+        caption: "flex justify-center pt-1 relative items-center",
+        caption_label: "text-sm font-medium text-[var(--mg-text)]",
+        nav: "space-x-1 flex items-center",
+        nav_button: cn(
+          buttonVariants({ variant: "outline" }),
+          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 border-[var(--mg-border)]"
+        ),
+        nav_button_previous: "absolute left-1",
+        nav_button_next: "absolute right-1",
+        table: "w-full border-collapse space-y-1",
+        head_row: "flex",
+        head_cell:
+          "text-[var(--mg-text-dim)] rounded-none w-9 font-normal text-[0.8rem]",
+        row: "flex w-full mt-2",
+        cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-[var(--mg-accent)]/50 [&:has([aria-selected])]:bg-[var(--mg-accent)] first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
+        day: cn(
+          buttonVariants({ variant: "ghost" }),
+          "h-9 w-9 p-0 font-normal aria-selected:opacity-100 rounded-none hover:bg-[var(--mg-accent)]/10 hover:text-[var(--mg-accent)]"
+        ),
+        day_range_end: "day-range-end",
+        day_selected:
+          "bg-[var(--mg-accent)] text-[var(--mg-bg)] hover:bg-[var(--mg-accent)] hover:text-[var(--mg-bg)] focus:bg-[var(--mg-accent)] focus:text-[var(--mg-bg)]",
+        day_today: "bg-[var(--mg-accent)]/10 text-[var(--mg-accent)]",
+        day_outside:
+          "day-outside text-[var(--mg-text-dim)] opacity-50 aria-selected:bg-[var(--mg-accent)]/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
+        day_disabled: "text-[var(--mg-text-dim)] opacity-50",
+        day_range_middle:
+          "aria-selected:bg-[var(--mg-accent)] aria-selected:text-[var(--mg-bg)]",
+        day_hidden: "invisible",
+        ...classNames,
+      }}
+      components={{
+        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
+        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+      }}
       {...props}
     />
   )
-);
+}
+Calendar.displayName = "Calendar"
 
-Calendar.displayName = 'Calendar';
-
-export default Calendar;
+export { Calendar }

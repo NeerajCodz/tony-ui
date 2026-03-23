@@ -1,40 +1,30 @@
 {
-  "theme": {
-    "--hc-bg": "204 45% 2%",
-    "--hc-surface": "204 45% 4%",
-    "--hc-hex-stroke": "36 100% 54%",
-    "--hc-hex-fill": "32 100% 52%",
-    "--hc-hex-hover": "33 100% 58%",
-    "--hc-hex-active": "41 100% 66%",
-    "--hc-accent": "40 100% 50%",
-    "--hc-accent-dim": "39 100% 12%",
-    "--hc-accent-bright": "45 100% 63%",
-    "--hc-wax": "43 100% 62%",
-    "--hc-queen": "24 100% 50%",
-    "--hc-border": "36 100% 54%",
-    "--df-bg": "204 45% 2%",
-    "--df-background": "204 45% 2%",
-    "--df-foreground": "36 100% 74%",
-    "--df-card": "204 45% 4%",
-    "--df-card-foreground": "36 100% 74%",
-    "--df-popover": "204 45% 4%",
-    "--df-popover-foreground": "36 100% 74%",
-    "--df-primary": "40 100% 50%",
-    "--df-primary-foreground": "0 0% 0%",
-    "--df-secondary": "39 100% 12%",
-    "--df-secondary-foreground": "36 100% 74%",
-    "--df-muted": "39 100% 12%",
-    "--df-muted-foreground": "36 100% 74%",
-    "--df-muted-text": "36 100% 74%",
-    "--df-accent": "40 100% 50%",
-    "--df-accent-foreground": "0 0% 0%",
-    "--df-destructive": "0 84.2% 60.2%",
-    "--df-destructive-foreground": "0 0% 98%",
-    "--df-border": "36 100% 54%",
-    "--df-input": "36 100% 54%",
-    "--df-ring": "40 100% 50%",
-    "--df-radius": "0.5rem",
-    "--df-text": "36 100% 74%",
-    "--df-surface": "204 45% 4%"
+  "name": "honey-comb",
+  "tokens": {
+    "colors": {
+      "--hc-bg": "#030608",
+      "--hc-surface": "#060c10",
+      "--hc-hex-stroke": "rgba(255, 160, 20, 0.18)",
+      "--hc-hex-fill": "rgba(255, 140, 10, 0.04)",
+      "--hc-hex-hover": "rgba(255, 160, 40, 0.15)",
+      "--hc-hex-active": "rgba(255, 200, 80, 0.35)",
+      "--hc-accent": "#ffaa00",
+      "--hc-accent-dim": "#3d2800",
+      "--hc-accent-bright": "#ffd040",
+      "--hc-wax": "rgba(255, 200, 60, 0.08)",
+      "--hc-queen": "#ff6600",
+      "--hc-border": "rgba(255, 160, 20, 0.35)",
+      "--hc-text-primary": "rgba(255, 200, 120, 0.9)",
+      "--hc-text-secondary": "rgba(255, 200, 120, 0.6)"
+    },
+    "fonts": {
+      "display": "'Bebas Neue', sans-serif",
+      "body": "'Barlow', sans-serif",
+      "code": "'JetBrains Mono', monospace"
+    },
+    "shapes": {
+      "hex-clip": "polygon(92% 0, 100% 25%, 100% 100%, 8% 100%, 0% 75%, 0% 0%)",
+      "hex-button": "polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)"
+    }
   }
 }

@@ -1,22 +1,30 @@
-'use client';
+import * as React from "react"
+import { cn } from "@/lib/utils"
+import { ghostEffectsClass, type GhostEffects } from "./_effects"
 
-import * as React from 'react';
-import { ItemBase } from '../_base/item';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+export interface ItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  effects?: GhostEffects
+  disabled?: boolean
+  selected?: boolean
+}
 
-export type ItemProps = Omit<React.ComponentPropsWithoutRef<typeof ItemBase>, 'type'> & StyledProps;
+const Item = React.forwardRef<HTMLDivElement, ItemProps>(
+  ({ className, effects = "on", disabled, selected, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        aria-disabled={disabled}
+        data-disabled={disabled}
+        data-selected={selected}
+        className={cn(ghostEffectsClass(effects),
+          "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-[var(--gh-surface-hover)] focus:bg-[var(--gh-surface-hover)] data-[selected]:bg-[var(--gh-surface-hover)]",
+          className
+        )}
+        {...props}
+      />
+    )
+  }
+)
+Item.displayName = "Item"
 
-export const Item = React.forwardRef<React.ElementRef<typeof ItemBase>, ItemProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <ItemBase
-      ref={ref}
-      className={cx('flex items-center gap-2 rounded px-2 py-1.5 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'ghost', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-
-Item.displayName = 'Item';
-
-export default Item;
+export { Item }

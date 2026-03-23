@@ -1,67 +1,67 @@
-'use client';
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
+import { glassEffectsClass, type GlassEffects } from "./_effects"
 
-import * as React from 'react';
-import { AlertBase, AlertDescriptionBase, AlertTitleBase } from '../_base/alert';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
-
-export type AlertProps = Omit<React.ComponentPropsWithoutRef<typeof AlertBase>, 'type'> & StyledProps;
-export type AlertTitleProps = React.ComponentPropsWithoutRef<typeof AlertTitleBase> & StyledProps;
-export type AlertDescriptionProps = React.ComponentPropsWithoutRef<typeof AlertDescriptionBase> & StyledProps;
-
-export const Alert = React.forwardRef<React.ElementRef<typeof AlertBase>, AlertProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <AlertBase
-      ref={ref}
-      className={cx('relative w-full p-4 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-Alert.displayName = 'Alert';
-
-export const AlertTitle = React.forwardRef<React.ElementRef<typeof AlertTitleBase>, AlertTitleProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <AlertTitleBase
-        ref={ref}
-        className={cx('mb-1 font-semibold leading-none tracking-tight', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.foreground,
-        }}
-        {...props}
-      />
-    );
+const alertVariants = cva(
+  "relative w-full rounded-xl border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground font-sans",
+  {
+    variants: {
+      variant: {
+        default: "text-[var(--df-text)] border-[var(--gl-glass-border)]/20",
+        destructive:
+          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
   }
-);
-AlertTitle.displayName = 'AlertTitle';
+)
 
-export const AlertDescription = React.forwardRef<React.ElementRef<typeof AlertDescriptionBase>, AlertDescriptionProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <AlertDescriptionBase
-        ref={ref}
-        className={cx('text-sm [&_p]:leading-relaxed', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.muted,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-AlertDescription.displayName = 'AlertDescription';
+const Alert = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> &
+    VariantProps<typeof alertVariants> & { effects?: GlassEffects }
+>(({ className, variant, effects = "on", ...props }, ref) => (
+  <div
+    ref={ref}
+    role="alert"
+    className={cn(
+      glassEffectsClass(effects),
+      alertVariants({ variant }),
+      className
+    )}
+    {...props}
+  />
+))
+Alert.displayName = "Alert"
 
-export default Alert;
+const AlertTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h5
+    ref={ref}
+    className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+    {...props}
+  />
+))
+AlertTitle.displayName = "AlertTitle"
+
+const AlertDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "text-sm [&_p]:leading-relaxed text-[var(--df-muted-text)]",
+      className
+    )}
+    {...props}
+  />
+))
+AlertDescription.displayName = "AlertDescription"
+
+export { Alert, AlertTitle, AlertDescription }

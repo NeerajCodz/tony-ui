@@ -1,79 +1,37 @@
-'use client';
+import * as React from "react"
+import { cn } from "@/lib/utils"
+import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { PackageOpen } from "lucide-react"
 
-import * as React from 'react';
-import { EmptyActionsBase, EmptyBase, EmptyDescriptionBase, EmptyIconBase, EmptyTitleBase } from '../_base/empty';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
-
-export type EmptyProps = Omit<React.ComponentPropsWithoutRef<typeof EmptyBase>, 'type'> & StyledProps;
-export type EmptyIconProps = React.ComponentPropsWithoutRef<typeof EmptyIconBase> & StyledProps;
-export type EmptyTitleProps = React.ComponentPropsWithoutRef<typeof EmptyTitleBase> & StyledProps;
-export type EmptyDescriptionProps = React.ComponentPropsWithoutRef<typeof EmptyDescriptionBase> & StyledProps;
-export type EmptyActionsProps = React.ComponentPropsWithoutRef<typeof EmptyActionsBase> & StyledProps;
-
-export const Empty = React.forwardRef<React.ElementRef<typeof EmptyBase>, EmptyProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <EmptyBase
+const EmptyState = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { effects?: GlassEffects }
+>(({ className, effects = "on", children, ...props }, ref) => {
+  return (
+    <div
       ref={ref}
-      className={cx('flex flex-col items-center justify-center gap-3 rounded p-6 text-center', className)}
-      style={getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style)}
+      className={cn(
+        glassEffectsClass(effects),
+        "flex h-[450px] shrink-0 items-center justify-center rounded-lg border border-dashed border-[var(--gl-glass-border)]/30 bg-[var(--gl-glass-bg)]/20 backdrop-blur-sm",
+        className
+      )}
       {...props}
-    />
+    >
+      <div className="mx-auto flex max-w-[420px] flex-col items-center justify-center text-center">
+        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[var(--gl-glass-bg)]/30 backdrop-blur-md shadow-sm">
+          <PackageOpen className="h-10 w-10 text-[var(--df-muted-text)]" />
+        </div>
+        <h3 className="mt-4 text-lg font-medium font-sans text-[var(--df-text)]">
+          No data found
+        </h3>
+        <p className="mb-4 mt-2 text-sm text-[var(--df-muted-text)] font-sans">
+          There is no data to display at this time.
+        </p>
+        {children}
+      </div>
+    </div>
   )
-);
-Empty.displayName = 'Empty';
+})
+EmptyState.displayName = "EmptyState"
 
-export const EmptyIcon = React.forwardRef<React.ElementRef<typeof EmptyIconBase>, EmptyIconProps>(
-  ({ className, ...props }, ref) => <EmptyIconBase ref={ref} className={cx('text-2xl opacity-80', className)} {...props} />
-);
-EmptyIcon.displayName = 'EmptyIcon';
-
-export const EmptyTitle = React.forwardRef<React.ElementRef<typeof EmptyTitleBase>, EmptyTitleProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <EmptyTitleBase
-        ref={ref}
-        className={cx('text-base font-semibold', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.foreground,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-EmptyTitle.displayName = 'EmptyTitle';
-
-export const EmptyDescription = React.forwardRef<React.ElementRef<typeof EmptyDescriptionBase>, EmptyDescriptionProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <EmptyDescriptionBase
-        ref={ref}
-        className={cx('max-w-md text-sm', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.muted,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-EmptyDescription.displayName = 'EmptyDescription';
-
-export const EmptyActions = React.forwardRef<React.ElementRef<typeof EmptyActionsBase>, EmptyActionsProps>(
-  ({ className, ...props }, ref) => <EmptyActionsBase ref={ref} className={cx('mt-2 flex flex-wrap items-center gap-2', className)} {...props} />
-);
-EmptyActions.displayName = 'EmptyActions';
-
-export default Empty;
+export { EmptyState }

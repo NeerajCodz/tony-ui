@@ -1,37 +1,22 @@
 {
-  "theme": {
-    "--mg-bg": "146 78% 2%",
-    "--mg-surface": "142 58% 4%",
-    "--mg-grid": "142 100% 43%",
-    "--mg-grid-bright": "142 100% 43%",
-    "--mg-text": "143 100% 43%",
-    "--mg-text-dim": "144 100% 39%",
-    "--mg-rain": "139 100% 50%",
-    "--mg-accent": "140 100% 50%",
-    "--mg-border": "140 100% 35%",
-    "--df-bg": "146 78% 2%",
-    "--df-background": "146 78% 2%",
-    "--df-foreground": "143 100% 43%",
-    "--df-card": "142 58% 4%",
-    "--df-card-foreground": "143 100% 43%",
-    "--df-popover": "142 58% 4%",
-    "--df-popover-foreground": "143 100% 43%",
-    "--df-primary": "140 100% 50%",
-    "--df-primary-foreground": "0 0% 0%",
-    "--df-secondary": "144 100% 39%",
-    "--df-secondary-foreground": "143 100% 43%",
-    "--df-muted": "144 100% 39%",
-    "--df-muted-foreground": "143 100% 43%",
-    "--df-muted-text": "143 100% 43%",
-    "--df-accent": "140 100% 50%",
-    "--df-accent-foreground": "0 0% 0%",
-    "--df-destructive": "0 84.2% 60.2%",
-    "--df-destructive-foreground": "0 0% 98%",
-    "--df-border": "140 100% 35%",
-    "--df-input": "140 100% 35%",
-    "--df-ring": "140 100% 50%",
-    "--df-radius": "0.5rem",
-    "--df-text": "143 100% 43%",
-    "--df-surface": "142 58% 4%"
+  "name": "matrix-grid",
+  "label": "Matrix Grid",
+  "tokens": {
+    "colors": {
+      "background": "#010804",
+      "surface": "#040f08",
+      "border": "rgba(0, 180, 60, 0.3)",
+      "accent": "#00ff55",
+      "text-primary": "#00dd55",
+      "text-secondary": "rgba(0, 200, 80, 0.7)",
+      "text-muted": "rgba(0, 180, 60, 0.5)",
+      "grid": "rgba(0, 220, 80, 0.08)",
+      "grid-bright": "rgba(0, 220, 80, 0.2)"
+    },
+    "radius": "0px",
+    "fonts": {
+      "display": "\"Matrix Code NFI\", \"Courier New\", monospace",
+      "body": "\"Share Tech Mono\", monospace"
+    }
   }
 }

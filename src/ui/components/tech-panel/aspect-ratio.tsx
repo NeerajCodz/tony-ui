@@ -1,22 +1,20 @@
-'use client';
-
 import * as React from 'react';
-import { AspectRatioBase } from '../_base/aspect-ratio';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { AspectRatioBase, type AspectRatioBaseProps } from '../_base/aspect-ratio';
+import { cn } from '@/lib/utils';
+import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
 
-export type AspectRatioProps = Omit<React.ComponentPropsWithoutRef<typeof AspectRatioBase>, 'type'> & StyledProps;
+export interface AspectRatioProps extends AspectRatioBaseProps {
+  effects?: TechPanelEffects;
+}
 
 export const AspectRatio = React.forwardRef<React.ElementRef<typeof AspectRatioBase>, AspectRatioProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
+  ({ className, effects = 'on', style, ...props }, ref) => (
     <AspectRatioBase
       ref={ref}
-      className={cx('relative overflow-hidden', className)}
-      style={getSurfaceStyle(version ?? 'tech-panel', type, uiType, colors, style)}
+      style={{ ...style }}
+      className={cn(techPanelEffectsClass(effects), ' overflow-hidden bg-[var(--tp-panel)] border border-[var(--tp-border-outer)]', className)}
       {...props}
     />
   )
 );
-
 AspectRatio.displayName = 'AspectRatio';
-
-export default AspectRatio;

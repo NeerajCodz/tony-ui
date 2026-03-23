@@ -1,22 +1,27 @@
-'use client';
-
 import * as React from 'react';
-import { ItemBase } from '../_base/item';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from '@/lib/utils';
+import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
-export type ItemProps = Omit<React.ComponentPropsWithoutRef<typeof ItemBase>, 'type'> & StyledProps;
+export interface ItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  effects?: TerminalWindowEffects;
+  active?: boolean;
+}
 
-export const Item = React.forwardRef<React.ElementRef<typeof ItemBase>, ItemProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <ItemBase
-      ref={ref}
-      className={cx('flex items-center gap-2 rounded px-2 py-1.5 text-sm', className)}
-      style={getSurfaceStyle(version ?? 'terminal-window', type, uiType, colors, style)}
-      {...props}
-    />
-  )
+const Item = React.forwardRef<HTMLDivElement, ItemProps>(
+  ({ className, active, effects = 'on', ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(terminalWindowEffectsClass(effects), 
+          'flex items-center space-x-2 rounded-none p-2 transition-colors hover:bg-[var(--tm-phosphor)]/10 font-mono text-[var(--tm-phosphor)]',
+          active && 'bg-[var(--tm-phosphor)]/20',
+          className
+        )}
+        {...props}
+      />
+    );
+  }
 );
-
 Item.displayName = 'Item';
 
-export default Item;
+export { Item };

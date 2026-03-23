@@ -1,95 +1,31 @@
-'use client';
+"use client"
 
-import React, { forwardRef } from 'react';
-import { Toaster as SonnerToaster } from 'sonner';
-import type { VariantColors } from '../../types/common';
-import { SonnerBase } from '../_base/sonner';
+import { useTheme } from "next-themes"
+import { Toaster as Sonner } from "sonner"
 
-export interface SonnerProps {
-  version?: string;
-  variant?: string;
-  type?: string;
-  size?: string;
-  colors?: VariantColors;
-  styles?: React.CSSProperties;
-  config?: any;
-  position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
-  expand?: boolean;
-  richColors?: boolean;
-  closeButton?: boolean;
-  duration?: number;
-  showLoader?: boolean;
-  className?: string;
+type ToasterProps = React.ComponentProps<typeof Sonner>
+
+const Toaster = ({ ...props }: ToasterProps) => {
+  const { theme = "system" } = useTheme()
+
+  return (
+    <Sonner
+      theme={theme as ToasterProps["theme"]}
+      className="toaster group font-mono"
+      toastOptions={{
+        classNames: {
+          toast:
+            "group toast group-[.toaster]:bg-[var(--mg-surface)] group-[.toaster]:text-[var(--mg-text)] group-[.toaster]:border-[var(--mg-border)] group-[.toaster]:shadow-lg group-[.toaster]:rounded-none",
+          description: "group-[.toast]:text-[var(--mg-text-dim)]",
+          actionButton:
+            "group-[.toast]:bg-[var(--mg-accent)] group-[.toast]:text-[var(--mg-bg)] group-[.toast]:rounded-none",
+          cancelButton:
+            "group-[.toast]:bg-[var(--mg-surface)] group-[.toast]:text-[var(--mg-text-dim)] group-[.toast]:rounded-none group-[.toast]:border-[var(--mg-border)]",
+        },
+      }}
+      {...props}
+    />
+  )
 }
 
-const MatrixGridSonner = forwardRef<HTMLDivElement, SonnerProps>(
-  ({ 
-    colors,
-    position = 'bottom-right',
-    expand = true,
-    richColors = true,
-    closeButton = true,
-    duration = 4000,
-    type = 'default',
-    showLoader = true,
-    className = '',
-    ...props 
-  }, ref) => {
-    let bg = colors?.base || '#1f2937';
-    let fg = colors?.foreground || '#ffffff';
-    let border = colors?.border || '#374151';
-    const glow = colors?.glow || 'rgba(0,0,0,0)';
-
-    // Handle new types
-    if (type === 'inverse') {
-      const temp = bg;
-      bg = fg;
-      fg = temp;
-      border = bg;
-    } else if (type === 'contrast') {
-      border = fg;
-      bg = colors?.base || '#000000';
-      fg = colors?.foreground || '#ffffff';
-    } else if (type === 'soft') {
-      bg = colors?.muted || bg;
-      border = colors?.border ? `${colors.border}40` : border;
-    }
-
-    return (
-      <div ref={ref} className={`sonner-container-matrix-grid ${className}`}>
-        <SonnerToaster
-          position={position}
-          expand={expand}
-          richColors={richColors}
-          closeButton={closeButton}
-          theme="dark"
-          toastOptions={{
-            duration: duration,
-            style: {
-              backgroundColor: bg,
-              color: fg,
-              border: `1px solid ${border}`,
-              borderRadius: '0',
-              fontFamily: 'monospace',
-              boxShadow: `none`,
-              clipPath: 'none',
-              backdropFilter: 'none',
-              padding: '1rem',
-              backgroundImage: 'linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px)', backgroundSize: '20px 20px'
-            },
-            classNames: {
-              toast: 'sonner-toast-matrix-grid',
-              title: 'font-semibold text-sm',
-              description: 'text-sm opacity-80',
-            },
-          }}
-          {...props}
-        />
-      </div>
-    );
-  }
-);
-
-MatrixGridSonner.displayName = 'MatrixGridSonner';
-
-export default MatrixGridSonner;
+export { Toaster }

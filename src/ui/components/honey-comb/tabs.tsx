@@ -1,57 +1,63 @@
-import * as React from 'react';
-import * as TabsPrimitive from '@radix-ui/react-tabs';
-import { cn } from '@/lib/utils';
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
+"use client"
 
+import * as React from "react"
+import * as TabsPrimitive from "@radix-ui/react-tabs"
 
-const Tabs = TabsPrimitive.Root;
+import { cn } from "@/lib/utils"
+
+const Tabs = TabsPrimitive.Root
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
+>(({ className, style, ...props }, ref) => (
   <TabsPrimitive.List
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'inline-flex h-12 items-center justify-center bg-[var(--hc-surface)] p-1 text-[var(--text-muted)] border border-[var(--hc-hex-line)] ',
+    className={cn(
+      "inline-flex h-10 items-center justify-center bg-[var(--hc-bg)] p-1 text-muted-foreground border border-[var(--hc-border)]",
       className
     )}
-    style={{ } as React.CSSProperties}
+    style={{
+        clipPath: "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
+        ...style
+    }}
     {...props}
   />
-));
-TabsList.displayName = TabsPrimitive.List.displayName;
+))
+TabsList.displayName = TabsPrimitive.List.displayName
 
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
+>(({ className, style, ...props }, ref) => (
   <TabsPrimitive.Trigger
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'inline-flex items-center justify-center whitespace-nowrap px-4 py-2 text-sm font-["Barlow"] font-bold uppercase tracking-wider ring-offset-[var(--hc-bg)] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hc-plasma-1)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-[var(--hc-plasma-1)] data-[state=active]:text-[var(--hc-bg)] data-[state=active]:shadow-sm ',
+    className={cn(
+      "inline-flex items-center justify-center whitespace-nowrap px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-[var(--hc-accent)] data-[state=active]:text-black data-[state=active]:shadow-sm font-display uppercase tracking-wider text-[var(--hc-text-secondary)] hover:text-[var(--hc-accent)]",
       className
     )}
-    style={{ } as React.CSSProperties}
+    style={{
+        clipPath: "polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px)",
+        ...style
+    }}
     {...props}
   />
-));
-TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
+))
+TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
 
 const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
+>(({ className, ...props }, ref) => (
   <TabsPrimitive.Content
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'mt-4 ring-offset-[var(--hc-bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hc-plasma-1)] focus-visible:ring-offset-2 p-4 border border-[var(--hc-hex-line)] bg-[var(--hc-surface)] ',
+    className={cn(
+      "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 text-[var(--hc-text-primary)] font-body",
       className
     )}
-    style={{ } as React.CSSProperties}
     {...props}
   />
-));
-TabsContent.displayName = TabsPrimitive.Content.displayName;
+))
+TabsContent.displayName = TabsPrimitive.Content.displayName
 
-export { Tabs, TabsList, TabsTrigger, TabsContent };
+export { Tabs, TabsList, TabsTrigger, TabsContent }

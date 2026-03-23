@@ -1,127 +1,136 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import type { AlertDialogProps, AlertDialogActionProps, AlertDialogCancelProps, AlertDialogContentProps, AlertDialogDescriptionProps, AlertDialogFooterProps, AlertDialogHeaderProps, AlertDialogTitleProps, AlertDialogTriggerProps } from '@/ui/types/components/overlay';
-import { AlertDialogActionBase, AlertDialogBase, AlertDialogCancelBase, AlertDialogContentBase, AlertDialogDescriptionBase, AlertDialogOverlayBase, AlertDialogPortalBase, AlertDialogTitleBase, AlertDialogTriggerBase } from '../_base/alert-dialog';
+import * as React from "react"
+import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
+import { cn } from "@/lib/utils"
+import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { buttonVariants } from "./button"
 
-export function AlertDialog({ ...props }: AlertDialogProps) {
-  return <AlertDialogBase {...props} />
-}
+const AlertDialog = AlertDialogPrimitive.Root
+const AlertDialogTrigger = AlertDialogPrimitive.Trigger
+const AlertDialogPortal = AlertDialogPrimitive.Portal
 
-export function AlertDialogTrigger({ ...props }: AlertDialogTriggerProps) {
-  return <AlertDialogTriggerBase {...props} />
-}
+const AlertDialogOverlay = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay> & { effects?: GhostEffects }
+>(({ className, effects = "on", ...props }, ref) => (
+  <AlertDialogPrimitive.Overlay
+    className={cn(ghostEffectsClass(effects),
+      "fixed inset-0 z-50 bg-black/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      className
+    )}
+    {...props}
+    ref={ref}
+  />
+))
+AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName
 
-export function AlertDialogContent({ className, colors, uiType = 'default', ...props }: AlertDialogContentProps) {
-  const baseStyles = "relative transition-all duration-200 opacity-80 hover:opacity-100 fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg";
-  
-  const typeStyles = {
-    default: {
-      backgroundColor: colors.background,
-      color: colors.text,
-      border: `1px solid ${colors.border}`
-    },
-    solid: {
-      backgroundColor: colors?.accent?.primary,
-      color: colors.text,
-      boxShadow: `0 0 10px ${colors?.accent?.glow}`
-    },
-    outline: {
-      backgroundColor: 'transparent',
-      color: colors?.accent?.primary,
-      border: `1px solid ${colors?.accent?.primary}`
-    },
-    ghost: {
-      backgroundColor: 'transparent',
-      color: colors.textHover
-    },
-    inverse: {
-      backgroundColor: colors.text,
-      color: colors.background,
-      border: `1px solid ${colors.text}`
-    },
-    contrast: {
-      backgroundColor: colors.accent?.primary || colors.text,
-      color: '#000000',
-      fontWeight: 'bold',
-      border: `1px solid ${colors.text}`
-    },
-    soft: {
-      backgroundColor: colors.accent?.rgb ? `rgba(${colors?.accent?.rgb}, 0.1)` : (colors.accent?.primary ? `color-mix(in srgb, ${colors?.accent?.primary} 10%, transparent)` : 'rgba(0,0,0,0.1)'),
-      color: colors.accent?.primary || colors.text,
-      border: 'none'
-    },
-
-  };
-
-
-  return (
-    <AlertDialogPortalBase>
-      <AlertDialogOverlayBase className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-      <AlertDialogContentBase
-        className={cn(baseStyles, className)}
-        style={typeStyles[uiType as keyof typeof typeStyles] || typeStyles.default}
-        {...props}
-      >
-        {props.children}
-        
-      </AlertDialogContentBase>
-    </AlertDialogPortalBase>
-  )
-}
-
-export function AlertDialogHeader({ className, ...props }: AlertDialogHeaderProps) {
-  return (
-    <div
-      className={cn("flex flex-col space-y-2 text-center sm:text-left", className)}
-      {...props}
-    />
-  )
-}
-
-export function AlertDialogFooter({ className, ...props }: AlertDialogFooterProps) {
-  return (
-    <div
-      className={cn(
-        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+const AlertDialogContent = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content> & { effects?: GhostEffects }
+>(({ className, effects = "on", ...props }, ref) => (
+  <AlertDialogPortal>
+    <AlertDialogOverlay />
+    <AlertDialogPrimitive.Content
+      ref={ref}
+      className={cn(ghostEffectsClass(effects),
+        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-[var(--gh-border)] bg-[var(--gh-surface)] p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-sm",
         className
       )}
       {...props}
     />
-  )
-}
+  </AlertDialogPortal>
+))
+AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName
 
-export function AlertDialogTitle({ className, ...props }: AlertDialogTitleProps) {
-  return (
-    <AlertDialogTitleBase
-      className={cn("text-lg font-semibold", className)}
-      {...props}
-    />
-  )
-}
+const AlertDialogHeader = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn(
+      "flex flex-col space-y-2 text-center sm:text-left",
+      className
+    )}
+    {...props}
+  />
+)
+AlertDialogHeader.displayName = "AlertDialogHeader"
 
-export function AlertDialogDescription({ className, ...props }: AlertDialogDescriptionProps) {
-  return (
-    <AlertDialogDescriptionBase
-      className={cn("text-sm text-muted-foreground", className)}
-      {...props}
-    />
-  )
-}
+const AlertDialogFooter = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn(
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+      className
+    )}
+    {...props}
+  />
+)
+AlertDialogFooter.displayName = "AlertDialogFooter"
 
-export function AlertDialogAction({ className, ...props }: AlertDialogActionProps) {
-  return (
-    <AlertDialogActionBase
-      className={cn("inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50", className)}
-      {...props}
-    />
-  )
-}
+const AlertDialogTitle = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
+>(({ className, ...props }, ref) => (
+  <AlertDialogPrimitive.Title
+    ref={ref}
+    className={cn("text-lg font-semibold font-display text-[var(--gh-text-hover)]", className)}
+    {...props}
+  />
+))
+AlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName
 
-export function AlertDialogCancel({ className, ...props }: AlertDialogCancelProps) {
-  return (
-    <AlertDialogCancelBase
-      className={cn("mt-2 inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 sm:mt-0", className)}
-      {...props}
-    />
-  )
+const AlertDialogDescription = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
+>(({ className, ...props }, ref) => (
+  <AlertDialogPrimitive.Description
+    ref={ref}
+    className={cn("text-sm text-[var(--gh-text)] opacity-80", className)}
+    {...props}
+  />
+))
+AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayName
+
+const AlertDialogAction = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Action>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>
+>(({ className, ...props }, ref) => (
+  <AlertDialogPrimitive.Action
+    ref={ref}
+    className={cn(buttonVariants(), className)}
+    {...props}
+  />
+))
+AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName
+
+const AlertDialogCancel = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Cancel>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>
+>(({ className, ...props }, ref) => (
+  <AlertDialogPrimitive.Cancel
+    ref={ref}
+    className={cn(
+      buttonVariants({ variant: "outline" }),
+      "mt-2 sm:mt-0",
+      className
+    )}
+    {...props}
+  />
+))
+AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName
+
+export {
+  AlertDialog,
+  AlertDialogPortal,
+  AlertDialogOverlay,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+  AlertDialogCancel,
 }

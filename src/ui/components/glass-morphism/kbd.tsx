@@ -1,22 +1,26 @@
-'use client';
+import * as React from "react"
+import { cn } from "@/lib/utils"
+import { glassEffectsClass, type GlassEffects } from "./_effects"
 
-import * as React from 'react';
-import { KbdBase } from '../_base/kbd';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
+  effects?: GlassEffects
+}
 
-export type KbdProps = Omit<React.ComponentPropsWithoutRef<typeof KbdBase>, 'type'> & StyledProps;
+const Kbd = React.forwardRef<HTMLElement, KbdProps>(
+  ({ className, effects = "on", ...props }, ref) => {
+    return (
+      <kbd
+        ref={ref}
+        className={cn(
+          glassEffectsClass(effects),
+          "pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-[var(--gl-glass-border)]/30 bg-[var(--gl-glass-bg)]/30 px-1.5 font-sans text-[10px] font-medium text-[var(--df-muted-text)] opacity-100 shadow-sm backdrop-blur-sm",
+          className
+        )}
+        {...props}
+      />
+    )
+  }
+)
+Kbd.displayName = "Kbd"
 
-export const Kbd = React.forwardRef<React.ElementRef<typeof KbdBase>, KbdProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <KbdBase
-      ref={ref}
-      className={cx('inline-flex min-h-5 items-center rounded px-1.5 text-[10px] font-medium uppercase tracking-wide', className)}
-      style={getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-
-Kbd.displayName = 'Kbd';
-
-export default Kbd;
+export { Kbd }

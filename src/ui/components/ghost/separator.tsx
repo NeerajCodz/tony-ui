@@ -1,34 +1,29 @@
-'use client';
+import * as React from "react"
+import * as SeparatorPrimitive from "@radix-ui/react-separator"
+import { cn } from "@/lib/utils"
+import { ghostEffectsClass, type GhostEffects } from "./_effects"
 
-import * as React from 'react';
-import { SeparatorBase } from '../_base/separator';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+const Separator = React.forwardRef<
+  React.ElementRef<typeof SeparatorPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> & { effects?: GhostEffects }
+>(
+  (
+    { className, orientation = "horizontal", decorative = true, effects = "on", ...props },
+    ref
+  ) => (
+    <SeparatorPrimitive.Root
+      ref={ref}
+      decorative={decorative}
+      orientation={orientation}
+      className={cn(ghostEffectsClass(effects),
+        "shrink-0 bg-[var(--gh-border)]",
+        orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
+        className
+      )}
+      {...props}
+    />
+  )
+)
+Separator.displayName = SeparatorPrimitive.Root.displayName
 
-export type SeparatorProps = Omit<React.ComponentPropsWithoutRef<typeof SeparatorBase>, 'type'> & StyledProps;
-
-export const Separator = React.forwardRef<React.ElementRef<typeof SeparatorBase>, SeparatorProps>(
-  ({ className, orientation = 'horizontal', decorative = true, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <SeparatorBase
-        ref={ref}
-        decorative={decorative}
-        orientation={orientation}
-        className={cx('shrink-0', orientation === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'ghost', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          backgroundColor: palette.border,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-
-Separator.displayName = 'Separator';
-
-export default Separator;
+export { Separator }

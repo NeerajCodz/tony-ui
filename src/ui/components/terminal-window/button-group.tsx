@@ -1,23 +1,42 @@
-'use client';
-
 import * as React from 'react';
-import { ButtonGroupBase } from '../_base/button-group';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from '@/lib/utils';
+import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
-export type ButtonGroupProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonGroupBase>, 'type'> & StyledProps;
+export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  effects?: TerminalWindowEffects;
+  orientation?: 'horizontal' | 'vertical';
+}
 
-export const ButtonGroup = React.forwardRef<React.ElementRef<typeof ButtonGroupBase>, ButtonGroupProps>(
-  ({ className, version, type, uiType, colors, style, orientation = 'horizontal', ...props }, ref) => (
-    <ButtonGroupBase
-      ref={ref}
-      orientation={orientation}
-      className={cx('inline-flex gap-1', orientation === 'vertical' && 'flex-col', className)}
-      style={getSurfaceStyle(version ?? 'terminal-window', type, uiType, colors, style)}
-      {...props}
-    />
-  )
+const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
+  ({ className, orientation = 'horizontal', children, effects = 'on', ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(terminalWindowEffectsClass(effects), 
+          'inline-flex -space-x-px rounded-none shadow-sm shadow-black/5',
+          orientation === 'vertical' && 'flex-col -space-x-0 -space-y-px',
+          className
+        )}
+        {...props}
+      >
+        {React.Children.map(children, (child) => {
+          if (React.isValidElement(child)) {
+            return React.cloneElement(child, {
+              // @ts-ignore
+              className: cn(
+                // @ts-ignore
+                child.props.className,
+                'rounded-none first:rounded-l-none last:rounded-r-none focus-visible:z-10',
+                orientation === 'vertical' && 'w-full first:rounded-t-none first:rounded-bl-none last:rounded-b-none last:rounded-tr-none'
+              ),
+            });
+          }
+          return child;
+        })}
+      </div>
+    );
+  }
 );
-
 ButtonGroup.displayName = 'ButtonGroup';
 
-export default ButtonGroup;
+export { ButtonGroup };

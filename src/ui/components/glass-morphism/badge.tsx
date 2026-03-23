@@ -1,22 +1,43 @@
-'use client';
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
+import { glassEffectsClass, type GlassEffects } from "./_effects"
 
-import * as React from 'react';
-import { BadgeBase } from '../_base/badge';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+const badgeVariants = cva(
+  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 font-display backdrop-blur-sm",
+  {
+    variants: {
+      variant: {
+        default:
+          "border-transparent bg-[var(--df-accent)] text-primary-foreground hover:bg-[var(--df-accent)]/80 shadow-[0_0_10px_var(--gl-accent-dim)]",
+        secondary:
+          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        destructive:
+          "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
+        outline: "text-[var(--df-text)] border-[var(--gl-glass-border)]/50",
+        glass:
+          "bg-[var(--gl-glass-bg)]/40 border border-[var(--gl-glass-border)]/30 text-[var(--df-text)] shadow-sm",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
 
-export type BadgeProps = Omit<React.ComponentPropsWithoutRef<typeof BadgeBase>, 'type'> & StyledProps;
+export interface BadgeProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof badgeVariants> {
+  effects?: GlassEffects
+}
 
-export const Badge = React.forwardRef<React.ElementRef<typeof BadgeBase>, BadgeProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <BadgeBase
-      ref={ref}
-      className={cx('inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold', className)}
-      style={getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style)}
+function Badge({ className, variant, effects = "on", ...props }: BadgeProps) {
+  return (
+    <div
+      className={cn(glassEffectsClass(effects), badgeVariants({ variant }), className)}
       {...props}
     />
   )
-);
+}
 
-Badge.displayName = 'Badge';
-
-export default Badge;
+export { Badge, badgeVariants }

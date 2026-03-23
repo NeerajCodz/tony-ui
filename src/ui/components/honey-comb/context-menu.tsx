@@ -1,33 +1,26 @@
-import * as React from 'react';
-import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
-import { Check, ChevronRight, Circle } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
+import * as React from "react"
+import * as ContextMenuPrimitive from "@radix-ui/react-context-menu"
+import { Check, ChevronRight, Circle } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-const ContextMenu = ContextMenuPrimitive.Root;
-
-const ContextMenuTrigger = ContextMenuPrimitive.Trigger;
-
-const ContextMenuGroup = ContextMenuPrimitive.Group;
-
-const ContextMenuPortal = ContextMenuPrimitive.Portal;
-
-const ContextMenuSub = ContextMenuPrimitive.Sub;
-
-const ContextMenuRadioGroup = ContextMenuPrimitive.RadioGroup;
-
+const ContextMenu = ContextMenuPrimitive.Root
+const ContextMenuTrigger = ContextMenuPrimitive.Trigger
+const ContextMenuGroup = ContextMenuPrimitive.Group
+const ContextMenuPortal = ContextMenuPrimitive.Portal
+const ContextMenuSub = ContextMenuPrimitive.Sub
+const ContextMenuRadioGroup = ContextMenuPrimitive.RadioGroup
 
 const ContextMenuSubTrigger = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.SubTrigger>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubTrigger> & { effects?: HoneyCombEffects } & {
-    inset?: boolean;
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubTrigger> & {
+    inset?: boolean
   }
->(({ className, effects = 'on', inset, children, ...props }, ref) => (
+>(({ className, inset, children, ...props }, ref) => (
   <ContextMenuPrimitive.SubTrigger
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none focus:bg-[var(--hc-plasma-1)] focus:text-[var(--hc-bg)] data-[state=open]:bg-[var(--hc-plasma-1)] data-[state=open]:text-[var(--hc-bg)] font-["JetBrains_Mono"]',
-      inset && 'pl-8',
+    className={cn(
+      "flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none focus:bg-[var(--hc-hex-hover)] focus:text-[var(--hc-accent-bright)] data-[state=open]:bg-[var(--hc-hex-hover)] data-[state=open]:text-[var(--hc-accent-bright)] [clip-path:polygon(2%_0,100%_0,100%_100%,0_100%,0_20%)]",
+      inset && "pl-8",
       className
     )}
     {...props}
@@ -35,69 +28,67 @@ const ContextMenuSubTrigger = React.forwardRef<
     {children}
     <ChevronRight className="ml-auto h-4 w-4" />
   </ContextMenuPrimitive.SubTrigger>
-));
-ContextMenuSubTrigger.displayName = ContextMenuPrimitive.SubTrigger.displayName;
+))
+ContextMenuSubTrigger.displayName = ContextMenuPrimitive.SubTrigger.displayName
 
 const ContextMenuSubContent = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.SubContent>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent>
+>(({ className, ...props }, ref) => (
   <ContextMenuPrimitive.SubContent
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'z-50 min-w-[8rem] overflow-hidden border border-[var(--hc-hex-line)] bg-[var(--hc-surface)] p-1 text-[var(--text-primary)] shadow-md animate-in fade-in-80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+    className={cn(
+      "z-50 min-w-[8rem] overflow-hidden border border-[var(--hc-border)] bg-[var(--hc-surface)] p-1 text-[var(--hc-text)] shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 [clip-path:polygon(3%_0%,97%_0%,100%_3%,100%_97%,97%_100%,3%_100%,0%_97%,0%_3%)]",
       className
     )}
-    style={{ '--corner': '8px' } as React.CSSProperties}
     {...props}
   />
-));
-ContextMenuSubContent.displayName = ContextMenuPrimitive.SubContent.displayName;
+))
+ContextMenuSubContent.displayName = ContextMenuPrimitive.SubContent.displayName
 
 const ContextMenuContent = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Content> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Content>
+>(({ className, ...props }, ref) => (
   <ContextMenuPrimitive.Portal>
     <ContextMenuPrimitive.Content
       ref={ref}
-      className={cn(honeyCombEffectsClass(effects), 
-        'z-50 min-w-[8rem] overflow-hidden border border-[var(--hc-hex-line)] bg-[var(--hc-surface)] p-1 text-[var(--text-primary)] shadow-md animate-in fade-in-80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+      className={cn(
+        "z-50 min-w-[8rem] overflow-hidden border border-[var(--hc-border)] bg-[var(--hc-surface)] p-1 text-[var(--hc-text)] shadow-md animate-in fade-in-80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 [clip-path:polygon(3%_0%,97%_0%,100%_3%,100%_97%,97%_100%,3%_100%,0%_97%,0%_3%)]",
         className
       )}
-      style={{ '--corner': '8px' } as React.CSSProperties}
       {...props}
     />
   </ContextMenuPrimitive.Portal>
-));
-ContextMenuContent.displayName = ContextMenuPrimitive.Content.displayName;
+))
+ContextMenuContent.displayName = ContextMenuPrimitive.Content.displayName
 
 const ContextMenuItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Item> & { effects?: HoneyCombEffects } & {
-    inset?: boolean;
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Item> & {
+    inset?: boolean
   }
->(({ className, effects = 'on', inset, ...props }, ref) => (
+>(({ className, inset, ...props }, ref) => (
   <ContextMenuPrimitive.Item
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'relative flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none focus:bg-[var(--hc-plasma-1)] focus:text-[var(--hc-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-["JetBrains_Mono"] transition-colors',
-      inset && 'pl-8',
+    className={cn(
+      "relative flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none focus:bg-[var(--hc-hex-hover)] focus:text-[var(--hc-accent-bright)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [clip-path:polygon(2%_0,100%_0,100%_100%,0_100%,0_20%)]",
+      inset && "pl-8",
       className
     )}
     {...props}
   />
-));
-ContextMenuItem.displayName = ContextMenuPrimitive.Item.displayName;
+))
+ContextMenuItem.displayName = ContextMenuPrimitive.Item.displayName
 
 const ContextMenuCheckboxItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.CheckboxItem>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.CheckboxItem> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', children, checked, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.CheckboxItem>
+>(({ className, children, checked, ...props }, ref) => (
   <ContextMenuPrimitive.CheckboxItem
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-[var(--hc-plasma-1)] focus:text-[var(--hc-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-["JetBrains_Mono"]',
+    className={cn(
+      "relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-[var(--hc-hex-hover)] focus:text-[var(--hc-accent-bright)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [clip-path:polygon(2%_0,100%_0,100%_100%,0_100%,0_20%)]",
       className
     )}
     checked={checked}
@@ -110,18 +101,18 @@ const ContextMenuCheckboxItem = React.forwardRef<
     </span>
     {children}
   </ContextMenuPrimitive.CheckboxItem>
-));
+))
 ContextMenuCheckboxItem.displayName =
-  ContextMenuPrimitive.CheckboxItem.displayName;
+  ContextMenuPrimitive.CheckboxItem.displayName
 
 const ContextMenuRadioItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.RadioItem>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.RadioItem> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.RadioItem>
+>(({ className, children, ...props }, ref) => (
   <ContextMenuPrimitive.RadioItem
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-[var(--hc-plasma-1)] focus:text-[var(--hc-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-["JetBrains_Mono"]',
+    className={cn(
+      "relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-[var(--hc-hex-hover)] focus:text-[var(--hc-accent-bright)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [clip-path:polygon(2%_0,100%_0,100%_100%,0_100%,0_20%)]",
       className
     )}
     {...props}
@@ -133,54 +124,52 @@ const ContextMenuRadioItem = React.forwardRef<
     </span>
     {children}
   </ContextMenuPrimitive.RadioItem>
-));
-ContextMenuRadioItem.displayName = ContextMenuPrimitive.RadioItem.displayName;
+))
+ContextMenuRadioItem.displayName = ContextMenuPrimitive.RadioItem.displayName
 
 const ContextMenuLabel = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Label>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Label> & { effects?: HoneyCombEffects } & {
-    inset?: boolean;
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Label> & {
+    inset?: boolean
   }
->(({ className, effects = 'on', inset, ...props }, ref) => (
+>(({ className, inset, ...props }, ref) => (
   <ContextMenuPrimitive.Label
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'px-2 py-1.5 text-xs font-bold text-[var(--text-muted)] font-["Barlow"] uppercase tracking-wider',
-      inset && 'pl-8',
+    className={cn(
+      "px-2 py-1.5 text-sm font-semibold text-[var(--hc-muted)] font-display uppercase tracking-wider",
+      inset && "pl-8",
       className
     )}
     {...props}
   />
-));
-ContextMenuLabel.displayName = ContextMenuPrimitive.Label.displayName;
+))
+ContextMenuLabel.displayName = ContextMenuPrimitive.Label.displayName
 
 const ContextMenuSeparator = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Separator>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Separator> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Separator>
+>(({ className, ...props }, ref) => (
   <ContextMenuPrimitive.Separator
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), '-mx-1 my-1 h-px bg-[var(--hc-hex-line)]', className)}
+    className={cn("-mx-1 my-1 h-px bg-[var(--hc-border)]", className)}
     {...props}
   />
-));
-ContextMenuSeparator.displayName = ContextMenuPrimitive.Separator.displayName;
+))
+ContextMenuSeparator.displayName = ContextMenuPrimitive.Separator.displayName
 
 const ContextMenuShortcut = ({
   className,
   ...props
-}: React.HTMLAttributes<HTMLSpanElement> & { effects?: HoneyCombEffects }) => {
-  return (
-    <span
-      className={cn(honeyCombEffectsClass(effects), 
-        'ml-auto text-xs tracking-widest text-[var(--text-muted)]',
-        className
-      )}
-      {...props}
-    />
-  );
-};
-ContextMenuShortcut.displayName = 'ContextMenuShortcut';
+}: React.HTMLAttributes<HTMLSpanElement>) => (
+  <span
+    className={cn(
+      "ml-auto text-xs tracking-widest text-[var(--hc-muted)]",
+      className
+    )}
+    {...props}
+  />
+)
+ContextMenuShortcut.displayName = "ContextMenuShortcut"
 
 export {
   ContextMenu,
@@ -198,4 +187,4 @@ export {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuRadioGroup,
-};
+}

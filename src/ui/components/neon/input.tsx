@@ -1,49 +1,25 @@
-'use client';
+import * as React from "react"
 
-import * as React from 'react';
-import { InputBase } from '../_base/input';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from "@/lib/utils"
 
-export type InputProps = Omit<React.ComponentPropsWithoutRef<typeof InputBase>, 'type' | 'size'> &
-  StyledProps & {
-    htmlType?: React.HTMLInputTypeAttribute;
-    size?: 'sm' | 'md' | 'lg';
-    error?: boolean;
-    icon?: React.ReactNode;
-    iconPosition?: 'left' | 'right';
-  };
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const sizeMap = {
-  sm: 'h-8 px-2 text-sm',
-  md: 'h-10 px-3 text-sm',
-  lg: 'h-12 px-4 text-base',
-} as const;
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, ...props }, ref) => {
+    return (
+      <input
+        type={type}
+        className={cn(
+          "flex h-10 w-full rounded-none border-2 border-[var(--ne-text-secondary)] bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-[var(--ne-primary)] focus-visible:shadow-[0_0_10px_var(--ne-primary),inset_0_0_5px_var(--ne-primary)] disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 font-code tracking-wide",
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+Input.displayName = "Input"
 
-export const Input = React.forwardRef<React.ElementRef<typeof InputBase>, InputProps>(
-  ({
-    className,
-    version,
-    type,
-    uiType,
-    colors,
-    style,
-    htmlType = 'text',
-    size = 'md',
-    error: _error,
-    icon: _icon,
-    iconPosition: _iconPosition,
-    ...props
-  }, ref) => (
-    <InputBase
-      ref={ref}
-      type={htmlType}
-      className={cx('w-full rounded outline-none', sizeMap[size], className)}
-      style={getSurfaceStyle(version ?? 'neon', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-
-Input.displayName = 'Input';
-
-export default Input;
+export { Input }

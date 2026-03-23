@@ -1,94 +1,146 @@
-'use client';
+import * as React from "react"
 
-import * as React from 'react';
-import { FieldBase, FieldDescriptionBase, FieldErrorBase, FieldLabelBase } from '../_base/field';
-import { cx, getPalette, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from "@/lib/utils"
+import {
+  FieldBase,
+  type FieldBaseProps,
+  FieldControlBase,
+  type FieldControlBaseProps,
+  FieldDescriptionBase,
+  type FieldDescriptionBaseProps,
+  FieldErrorBase,
+  type FieldErrorBaseProps,
+  FieldLabelBase,
+  type FieldLabelBaseProps,
+} from "@/ui/components/_base/field"
+import { glassEffectsClass, type GlassEffects } from "./_effects"
 
-export type FieldProps = Omit<React.ComponentPropsWithoutRef<typeof FieldBase>, 'type'> & StyledProps;
-export type FieldLabelProps = React.ComponentPropsWithoutRef<typeof FieldLabelBase> & StyledProps;
-export type FieldDescriptionProps = React.ComponentPropsWithoutRef<typeof FieldDescriptionBase> & StyledProps;
-export type FieldErrorProps = React.ComponentPropsWithoutRef<typeof FieldErrorBase> & StyledProps;
+export interface FieldProps extends FieldBaseProps {
+  effects?: GlassEffects
+}
+export interface FieldLabelProps extends FieldLabelBaseProps {
+  size?: "sm" | "md" | "lg"
+  effects?: GlassEffects
+}
+export interface FieldDescriptionProps extends FieldDescriptionBaseProps {
+  effects?: GlassEffects
+}
+export interface FieldErrorProps extends FieldErrorBaseProps {
+  effects?: GlassEffects
+}
+export interface FieldControlProps extends FieldControlBaseProps {
+  effects?: GlassEffects
+}
 
-export const Field = React.forwardRef<React.ElementRef<typeof FieldBase>, FieldProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <FieldBase
-      ref={ref}
-      className={cx('space-y-1 rounded p-2', className)}
-      style={getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style, {
-        borderless: true,
-        disableClip: true,
-        disableGlow: true,
-      })}
-      {...props}
-    />
-  )
-);
-Field.displayName = 'Field';
+const getSizeStyles = (size: string = "md") => {
+  switch (size) {
+    case "sm":
+      return "gap-1.5"
+    case "md":
+      return "gap-2"
+    case "lg":
+      return "gap-3"
+    default:
+      return "gap-2"
+  }
+}
 
-export const FieldLabel = React.forwardRef<React.ElementRef<typeof FieldLabelBase>, FieldLabelProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
+export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
+  (
+    {
+      className,
+      effects = "on",
+      orientation = "vertical",
+      size = "md",
+      ...props
+    },
+    ref
+  ) => {
+    return (
+      <FieldBase
+        ref={ref}
+        orientation={orientation}
+        size={size}
+        className={cn(
+          glassEffectsClass(effects),
+          "flex w-full group/field",
+          orientation === "vertical" ? "flex-col" : "flex-row items-center",
+          getSizeStyles(size),
+          className
+        )}
+        {...props}
+      />
+    )
+  }
+)
+Field.displayName = "Field"
+
+export const FieldLabel = React.forwardRef<HTMLLabelElement, FieldLabelProps>(
+  ({ className, effects = "on", size = "md", ...props }, ref) => {
+    const sizeClass =
+      size === "sm" ? "text-xs" : size === "lg" ? "text-base" : "text-sm"
     return (
       <FieldLabelBase
         ref={ref}
-        className={cx('text-sm font-medium', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.foreground,
-        }}
+        className={cn(
+          glassEffectsClass(effects),
+          "font-sans font-medium text-[var(--df-text)] group-focus-within/field:text-[var(--df-accent)] transition-colors",
+          sizeClass,
+          className
+        )}
         {...props}
       />
-    );
+    )
   }
-);
-FieldLabel.displayName = 'FieldLabel';
+)
+FieldLabel.displayName = "FieldLabel"
 
-export const FieldDescription = React.forwardRef<React.ElementRef<typeof FieldDescriptionBase>, FieldDescriptionProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <FieldDescriptionBase
-        ref={ref}
-        className={cx('text-xs opacity-80', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.muted,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-FieldDescription.displayName = 'FieldDescription';
+export const FieldDescription = React.forwardRef<
+  HTMLParagraphElement,
+  FieldDescriptionProps
+>(({ className, effects = "on", ...props }, ref) => {
+  return (
+    <FieldDescriptionBase
+      ref={ref}
+      className={cn(
+        glassEffectsClass(effects),
+        "text-[0.8rem] text-[var(--df-muted-text)] font-sans",
+        className
+      )}
+      {...props}
+    />
+  )
+})
+FieldDescription.displayName = "FieldDescription"
 
-export const FieldError = React.forwardRef<React.ElementRef<typeof FieldErrorBase>, FieldErrorProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => {
-    const palette = getPalette(colors);
-    return (
-      <FieldErrorBase
-        ref={ref}
-        className={cx('text-xs text-red-400', className)}
-        style={{
-          ...getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style, {
-            borderless: true,
-            disableClip: true,
-            disableGlow: true,
-          }),
-          color: palette.accentPrimary,
-        }}
-        {...props}
-      />
-    );
-  }
-);
-FieldError.displayName = 'FieldError';
+export const FieldError = React.forwardRef<
+  HTMLParagraphElement,
+  FieldErrorProps
+>(({ className, effects = "on", ...props }, ref) => {
+  return (
+    <FieldErrorBase
+      ref={ref}
+      className={cn(
+        glassEffectsClass(effects),
+        "text-[0.8rem] font-medium text-destructive font-sans",
+        className
+      )}
+      {...props}
+    />
+  )
+})
+FieldError.displayName = "FieldError"
 
-export default Field;
+export const FieldControl = React.forwardRef<
+  HTMLDivElement,
+  FieldControlProps
+>(({ className, effects = "on", ...props }, ref) => {
+  return (
+    <FieldControlBase
+      ref={ref}
+      className={cn(glassEffectsClass(effects), "relative w-full", className)}
+      {...props}
+    />
+  )
+})
+FieldControl.displayName = "FieldControl"

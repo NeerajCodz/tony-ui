@@ -1,112 +1,109 @@
-import * as React from 'react';
-import { cn } from '@/lib/utils';
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
+import * as React from "react"
+
+import { cn } from "@/lib/utils"
 
 const Table = React.forwardRef<
   HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+  React.HTMLAttributes<HTMLTableElement>
+>(({ className, ...props }, ref) => (
   <div className="relative w-full overflow-auto">
     <table
       ref={ref}
-      className={cn(honeyCombEffectsClass(effects), 'w-full caption-bottom text-sm font-["JetBrains_Mono"]', className)}
+      className={cn("w-full caption-bottom text-sm text-[var(--hc-text-primary)] font-body", className)}
       {...props}
     />
   </div>
-));
-Table.displayName = 'Table';
+))
+Table.displayName = "Table"
 
 const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
-  <thead ref={ref} className={cn(honeyCombEffectsClass(effects), '[&_tr]:border-b border-[var(--hc-hex-line)]', className)} {...props} />
-));
-TableHeader.displayName = 'TableHeader';
+  React.HTMLAttributes<HTMLTableSectionElement>
+>(({ className, ...props }, ref) => (
+  <thead ref={ref} className={cn("[&_tr]:border-b border-[var(--hc-border)]", className)} {...props} />
+))
+TableHeader.displayName = "TableHeader"
 
 const TableBody = React.forwardRef<
   HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+  React.HTMLAttributes<HTMLTableSectionElement>
+>(({ className, ...props }, ref) => (
   <tbody
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), '[&_tr:last-child]:border-0', className)}
+    className={cn("[&_tr:last-child]:border-0", className)}
     {...props}
   />
-));
-TableBody.displayName = 'TableBody';
+))
+TableBody.displayName = "TableBody"
 
 const TableFooter = React.forwardRef<
   HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+  React.HTMLAttributes<HTMLTableSectionElement>
+>(({ className, ...props }, ref) => (
   <tfoot
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'border-t bg-[var(--text-muted)]/10 font-medium [&>tr]:last:border-b-0',
+    className={cn(
+      "border-t bg-[var(--hc-surface)] font-medium [&>tr]:last:border-b-0 border-[var(--hc-border)]",
       className
     )}
     {...props}
   />
-));
-TableFooter.displayName = 'TableFooter';
+))
+TableFooter.displayName = "TableFooter"
 
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
-  React.HTMLAttributes<HTMLTableRowElement> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+  React.HTMLAttributes<HTMLTableRowElement>
+>(({ className, ...props }, ref) => (
   <tr
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'border-b border-[var(--hc-hex-line)] transition-colors hover:bg-[var(--hc-plasma-1)]/5 data-[state=selected]:bg-[var(--hc-plasma-1)]/10',
+    className={cn(
+      "border-b transition-colors hover:bg-[var(--hc-surface)]/50 data-[state=selected]:bg-[var(--hc-accent)]/10 border-[var(--hc-border)]",
       className
     )}
     {...props}
   />
-));
-TableRow.displayName = 'TableRow';
+))
+TableRow.displayName = "TableRow"
 
 const TableHead = React.forwardRef<
   HTMLTableCellElement,
   React.ThHTMLAttributes<HTMLTableCellElement>
->(({ className, effects = 'on', ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <th
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'h-12 px-4 text-left align-middle font-bold text-[var(--text-muted)] [&:has([role=checkbox])]:pr-0 font-["Barlow"] uppercase tracking-wider',
+    className={cn(
+      "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 font-display uppercase tracking-wider text-[var(--hc-accent)]",
       className
     )}
     {...props}
   />
-));
-TableHead.displayName = 'TableHead';
+))
+TableHead.displayName = "TableHead"
 
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement>
->(({ className, effects = 'on', ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <td
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'p-4 align-middle [&:has([role=checkbox])]:pr-0 text-[var(--text-primary)]',
-      className
-    )}
+    className={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className)}
     {...props}
   />
-));
-TableCell.displayName = 'TableCell';
+))
+TableCell.displayName = "TableCell"
 
 const TableCaption = React.forwardRef<
   HTMLTableCaptionElement,
-  React.HTMLAttributes<HTMLTableCaptionElement> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+  React.HTMLAttributes<HTMLTableCaptionElement>
+>(({ className, ...props }, ref) => (
   <caption
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 'mt-4 text-sm text-[var(--text-muted)]', className)}
+    className={cn("mt-4 text-sm text-muted-foreground text-[var(--hc-text-secondary)]", className)}
     {...props}
   />
-));
-TableCaption.displayName = 'TableCaption';
+))
+TableCaption.displayName = "TableCaption"
 
 export {
   Table,
@@ -117,4 +114,4 @@ export {
   TableRow,
   TableCell,
   TableCaption,
-};
+}

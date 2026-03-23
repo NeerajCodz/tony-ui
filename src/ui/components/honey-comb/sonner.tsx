@@ -1,26 +1,26 @@
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
-import { Toaster as Sonner } from 'sonner';
+import { Toaster as Sonner } from "sonner"
 
-type ToasterProps = React.ComponentProps<typeof Sonner>;
+type ToasterProps = React.ComponentProps<typeof Sonner>
 
-const Toaster = ({ effects = 'on', ...props }: ToasterProps & { effects?: HoneyCombEffects }) => {
+const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
-      className={honeyCombEffectsClass(effects) + ' toaster group font-["JetBrains_Mono"]'}
+      theme="dark"
+      className="toaster group"
       toastOptions={{
         classNames: {
           toast:
-            'group toast group-[.toaster]:bg-[var(--hc-surface)] group-[.toaster]:text-[var(--text-primary)] group-[.toaster]:border-[var(--hc-hex-line)] group-[.toaster]:shadow-lg',
-          description: 'group-[.toast]:text-[var(--text-muted)]',
+            "group toast group-[.toaster]:bg-[var(--hc-surface)] group-[.toaster]:text-[var(--hc-text)] group-[.toaster]:border-[var(--hc-border)] group-[.toaster]:shadow-lg [clip-path:polygon(3%_0%,97%_0%,100%_15%,100%_85%,97%_100%,3%_100%,0%_85%,0%_15%)]",
+          description: "group-[.toast]:text-muted-foreground",
           actionButton:
-            'group-[.toast]:bg-[var(--hc-plasma-1)] group-[.toast]:text-[var(--hc-bg)]',
+            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
           cancelButton:
-            'group-[.toast]:bg-[var(--hc-surface)] group-[.toast]:text-[var(--text-muted)]',
+            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
         },
       }}
       {...props}
     />
-  );
-};
+  )
+}
 
-export { Toaster };
+export { Toaster }

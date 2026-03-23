@@ -1,50 +1,44 @@
-import * as React from 'react';
-import { format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
-import { Button } from './button';
-import { Calendar } from './calendar';
+"use client"
+
+import * as React from "react"
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+import { Button } from "@/ui/components/honey-comb/button"
+import { Calendar } from "@/ui/components/honey-comb/calendar"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from './popover';
-
-export interface DatePickerProps {
-    date?: Date;
-    setDate?: (date: Date | undefined) => void;
-    className?: string;
-    placeholder?: string;
-    effects?: HoneyCombEffects;
-}
+} from "@/ui/components/honey-comb/popover"
 
 export function DatePicker({
   date,
   setDate,
   className,
-  effects = 'on',
-  placeholder = "Pick a date"
-}: DatePickerProps) {
+}: {
+  date?: Date
+  setDate?: (date?: Date) => void
+  className?: string
+}) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          visualType="outline"
-          effects={effects}
+          variant={"outline"}
           className={cn(
-            'w-[280px] justify-start text-left font-normal font-["JetBrains_Mono"]',
-            !date && 'text-[var(--text-muted)]',
+            "w-[280px] justify-start text-left font-normal",
+            !date && "text-muted-foreground",
             className
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, 'PPP') : <span>{placeholder}</span>}
+          {date ? format(date, "PPP") : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={honeyCombEffectsClass(effects) + ' w-auto p-0'} align="start">
+      <PopoverContent className="w-auto p-0" align="start">
         <Calendar
-          effects={effects}
           mode="single"
           selected={date}
           onSelect={setDate}
@@ -52,5 +46,5 @@ export function DatePicker({
         />
       </PopoverContent>
     </Popover>
-  );
+  )
 }

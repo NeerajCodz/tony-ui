@@ -1,9 +1,19 @@
-'use client';
+import * as React from "react"
+import { cn } from "@/lib/utils"
+import { Button, ButtonProps } from "./button"
 
-import { createIconButtonFoundation } from '../_shared/family-foundations';
+const IconButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, size = "icon", ...props }, ref) => {
+    return (
+      <Button
+        ref={ref}
+        size={size}
+        className={cn("rounded-full", className)}
+        {...props}
+      />
+    )
+  }
+)
+IconButton.displayName = "IconButton"
 
-const foundation = createIconButtonFoundation('ghost');
-
-export const IconButton = foundation.IconButton;
-
-export default IconButton;
+export { IconButton }

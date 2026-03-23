@@ -1,22 +1,25 @@
-'use client';
-
 import * as React from 'react';
-import { KbdBase } from '../_base/kbd';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from '@/lib/utils';
+import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
-export type KbdProps = Omit<React.ComponentPropsWithoutRef<typeof KbdBase>, 'type'> & StyledProps;
+export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
+  effects?: TerminalWindowEffects;
+}
 
-export const Kbd = React.forwardRef<React.ElementRef<typeof KbdBase>, KbdProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <KbdBase
-      ref={ref}
-      className={cx('inline-flex min-h-5 items-center rounded px-1.5 text-[10px] font-medium uppercase tracking-wide', className)}
-      style={getSurfaceStyle(version ?? 'terminal-window', type, uiType, colors, style)}
-      {...props}
-    />
-  )
+const Kbd = React.forwardRef<HTMLElement, KbdProps>(
+  ({ className, effects = 'on', ...props }, ref) => {
+    return (
+      <kbd
+        ref={ref}
+        className={cn(terminalWindowEffectsClass(effects), 
+          'pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded-none border border-[var(--tm-phosphor)] bg-[var(--tm-bg)] px-1.5 font-mono text-[10px] font-medium text-[var(--tm-phosphor)] shadow-[2px_2px_0px_var(--tm-phosphor)] opacity-100',
+          className
+        )}
+        {...props}
+      />
+    );
+  }
 );
-
 Kbd.displayName = 'Kbd';
 
-export default Kbd;
+export { Kbd };

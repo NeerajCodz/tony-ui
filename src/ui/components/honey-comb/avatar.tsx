@@ -1,75 +1,54 @@
-import * as React from 'react';
-import { 
-  AvatarBase, 
-  AvatarImageBase, 
-  AvatarFallbackBase, 
-  type AvatarBaseProps 
-} from '../_base/avatar';
-import { cn } from '@/lib/utils';
-import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
+"use client"
 
-export interface AvatarProps extends AvatarBaseProps {
-  effects?: HoneyCombEffects;
-}
+import * as React from "react"
+import * as AvatarPrimitive from "@radix-ui/react-avatar"
 
+import { cn } from "@/lib/utils"
 
-const getSizeStyles = (size: string = 'md') => {
-  switch (size) {
-    case 'xs': return 'h-5 w-5  text-[8px]';
-    case 'sm': return 'h-7 w-7  text-[10px]';
-    case 'md': return 'h-9 w-9  text-xs';
-    case 'lg': return 'h-12 w-12  text-sm';
-    case 'xl': return 'h-16 w-16  text-base';
-    case '2xl': return 'h-24 w-24  text-lg';
-    default: return 'h-9 w-9  text-xs';
-  }
-};
-
-const Avatar = React.forwardRef<React.ElementRef<typeof AvatarBase>, AvatarProps>(
-  ({ className, effects = 'on', size = 'md', shape = 'circle', style, ...props }, ref) => {
-    return (
-      <AvatarBase
-        ref={ref}
-        size={size}
-        shape={shape}
-        style={{ ...style }}
-        className={cn(honeyCombEffectsClass(effects), 
-          'relative flex shrink-0 overflow-hidden bg-[var(--hc-surface)] border border-[var(--hc-hex-line)]',
-          getSizeStyles(size),
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
-Avatar.displayName = 'Avatar';
-
-const AvatarImage = React.forwardRef<
-  React.ElementRef<typeof AvatarImageBase>,
-  React.ComponentPropsWithoutRef<typeof AvatarImageBase> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
-  <AvatarImageBase
+const Avatar = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
+>(({ className, style, ...props }, ref) => (
+  <AvatarPrimitive.Root
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 'aspect-square h-full w-full object-cover', className)}
+    className={cn(
+      "relative flex h-10 w-10 shrink-0 overflow-hidden",
+      className
+    )}
+    style={{
+        clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
+        ...style
+    }}
     {...props}
   />
-));
-AvatarImage.displayName = 'AvatarImage';
+))
+Avatar.displayName = AvatarPrimitive.Root.displayName
+
+const AvatarImage = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Image>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Image
+    ref={ref}
+    className={cn("aspect-square h-full w-full", className)}
+    {...props}
+  />
+))
+AvatarImage.displayName = AvatarPrimitive.Image.displayName
 
 const AvatarFallback = React.forwardRef<
-  React.ElementRef<typeof AvatarFallbackBase>,
-  React.ComponentPropsWithoutRef<typeof AvatarFallbackBase> & { effects?: HoneyCombEffects }
->(({ className, effects = 'on', ...props }, ref) => (
-  <AvatarFallbackBase
+  React.ElementRef<typeof AvatarPrimitive.Fallback>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Fallback
     ref={ref}
-    className={cn(honeyCombEffectsClass(effects), 
-      'flex h-full w-full items-center justify-center bg-[var(--hc-surface)] text-[var(--text-secondary)] font-["JetBrains_Mono"] font-bold',
+    className={cn(
+      "flex h-full w-full items-center justify-center rounded-full bg-[var(--hc-surface)] border border-[var(--hc-border)] text-[var(--hc-accent)] font-display",
       className
     )}
     {...props}
   />
-));
-AvatarFallback.displayName = 'AvatarFallback';
+))
+AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
 
-export { Avatar, AvatarImage, AvatarFallback };
+export { Avatar, AvatarImage, AvatarFallback }

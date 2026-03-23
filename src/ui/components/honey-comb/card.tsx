@@ -1,122 +1,84 @@
-import * as React from 'react';
-import { CardBase, CardHeaderBase, CardTitleBase, CardDescriptionBase, CardContentBase, CardFooterBase, type CardBaseProps } from '../_base/card';
-import { cn } from '@/lib/utils';
-import { honeyCombEffectsClass, hexGridStyle, type HoneyCombEffects } from './_effects';
+import * as React from "react"
 
-export interface CardProps extends CardBaseProps {
-  effects?: HoneyCombEffects;
-}
+import { cn } from "@/lib/utils"
+import { hexGridPattern } from "./_effects"
 
-// Hive Frame Clip Path (Chamfered corners)
-const HIVE_FRAME_PATH = 'polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px)';
+const Card = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, style, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "rounded-none border border-[var(--hc-border)] bg-[var(--hc-bg)] text-[var(--hc-text-primary)] shadow-sm relative overflow-hidden",
+      className
+    )}
+    style={{
+      clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)",
+      backgroundImage: hexGridPattern,
+      backgroundSize: "60px 104px",
+      backgroundPosition: "0 0, 30px 52px",
+      ...style,
+    }}
+    {...props}
+  />
+))
+Card.displayName = "Card"
 
-const getVisualTypeStyles = (visualType: string = 'default') => {
-  switch (visualType) {
-    case 'default':
-      return 'bg-[var(--hc-surface)] border border-[var(--hc-border)] text-[var(--text-primary)] shadow-sm';
-    case 'solid':
-      return 'bg-[var(--hc-wax)] border border-[var(--hc-accent)] text-[var(--hc-accent-bright)]';
-    case 'outline':
-      return 'bg-transparent border border-[var(--hc-accent)] text-[var(--hc-accent)]';
-    case 'ghost':
-      return 'bg-transparent border-none text-[var(--text-primary)]';
-    case 'inverse':
-      return 'bg-[var(--hc-accent)]/20 border border-[var(--hc-bg)] text-[var(--hc-bg)]';
-    case 'contrast':
-      return 'bg-[var(--hc-bg)] border border-[var(--hc-queen)] text-[var(--hc-queen)]';
-    case 'soft':
-      return 'bg-[rgba(255,140,10,0.03)] border border-[rgba(255,160,20,0.12)] text-[var(--text-primary)]';
-    case 'neutral':
-      return 'bg-[var(--hc-surface)] border border-[var(--hc-border)] text-[var(--text-secondary)]';
-    case 'subtle':
-      return 'bg-[var(--hc-surface)]/50 border-none text-[var(--text-secondary)]';
-    case 'elevated':
-      return 'bg-[var(--hc-surface)] border border-[var(--hc-border)] text-[var(--text-primary)] shadow-lg';
-    case 'flat':
-      return 'bg-transparent border-none text-[var(--text-primary)] p-0';
-    case 'tinted':
-      return 'bg-[var(--hc-accent)]/10 border border-[var(--hc-accent)]/30 text-[var(--hc-accent)]';
-    case 'link':
-      return 'bg-transparent border-none text-[var(--hc-accent)] hover:underline p-0 clip-path-none';
-    case 'disabled':
-      return 'bg-[var(--hc-bg)] border border-[var(--hc-border)]/50 text-[var(--text-muted)] opacity-50 cursor-not-allowed';
-    case 'unstyled':
-      return '';
-    default:
-      return 'bg-[var(--hc-surface)] border border-[var(--hc-border)] text-[var(--text-primary)]';
-  }
-};
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex flex-col space-y-1.5 p-6 border-b border-[var(--hc-border)] bg-[var(--hc-surface)]/50", className)}
+    {...props}
+  />
+))
+CardHeader.displayName = "CardHeader"
 
-const getSizeStyles = (size: string = 'md') => {
-  switch (size) {
-    case 'sm': return ' p-4 text-sm';
-    case 'md': return ' p-6 text-base';
-    case 'lg': return ' p-8 text-lg';
-    default: return ' p-6 text-base';
-  }
-};
+const CardTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h3
+    ref={ref}
+    className={cn("text-2xl font-semibold leading-none tracking-tight font-display text-[var(--hc-accent)] uppercase", className)}
+    {...props}
+  />
+))
+CardTitle.displayName = "CardTitle"
 
-const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, effects = 'on', type = 'default', size = 'md', clickable, style, ...props }, ref) => {
-    // Merge custom style with clip-path, unless unstyled or link
-    const componentStyle = (type !== 'unstyled' && type !== 'link')
-      ? { ...style, ...hexGridStyle, clipPath: HIVE_FRAME_PATH } 
-      : style;
+const CardDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn("text-sm text-[var(--hc-text-secondary)] font-body", className)}
+    {...props}
+  />
+))
+CardDescription.displayName = "CardDescription"
 
-    return (
-      <CardBase
-        ref={ref}
-        type={type}
-        size={size}
-        clickable={clickable}
-        style={componentStyle}
-        className={cn(honeyCombEffectsClass(effects), 
-          'transition-all duration-300 relative font-["Barlow"]',
-          getVisualTypeStyles(type),
-          getSizeStyles(size),
-          clickable && 'cursor-pointer hover:border-[var(--hc-accent)] hover:shadow-[0_0_15px_var(--hc-accent)]/20 active:scale-[0.99]',
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
-Card.displayName = 'Card';
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-6 pt-6 relative z-10", className)} {...props} />
+))
+CardContent.displayName = "CardContent"
 
-const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { effects?: HoneyCombEffects }>(
-  ({ className, effects = 'on', ...props }, ref) => (
-    <CardHeaderBase ref={ref} className={cn(honeyCombEffectsClass(effects), 'flex flex-col space-y-1.5', className)} {...props} />
-  )
-);
-CardHeader.displayName = 'CardHeader';
+const CardFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex items-center p-6 pt-0 relative z-10", className)}
+    {...props}
+  />
+))
+CardFooter.displayName = "CardFooter"
 
-const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement> & { effects?: HoneyCombEffects }>(
-  ({ className, effects = 'on', ...props }, ref) => (
-    <CardTitleBase ref={ref} className={cn(honeyCombEffectsClass(effects), 'font-normal leading-none tracking-[0.06em] uppercase font-["Bebas_Neue"] text-[var(--hc-accent-bright)] text-2xl', className)} {...props} />
-  )
-);
-CardTitle.displayName = 'CardTitle';
-
-const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement> & { effects?: HoneyCombEffects }>(
-  ({ className, effects = 'on', ...props }, ref) => (
-    <CardDescriptionBase ref={ref} className={cn(honeyCombEffectsClass(effects), 'text-sm text-[var(--text-muted)] font-["Barlow"] mt-1.5 uppercase tracking-wider font-semibold', className)} {...props} />
-  )
-);
-CardDescription.displayName = 'CardDescription';
-
-const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { effects?: HoneyCombEffects }>(
-  ({ className, effects = 'on', ...props }, ref) => (
-    <CardContentBase ref={ref} className={cn(honeyCombEffectsClass(effects), 'pt-4', className)} {...props} />
-  )
-);
-CardContent.displayName = 'CardContent';
-
-const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { effects?: HoneyCombEffects }>(
-  ({ className, effects = 'on', ...props }, ref) => (
-    <CardFooterBase ref={ref} className={cn(honeyCombEffectsClass(effects), 'flex items-center pt-4', className)} {...props} />
-  )
-);
-CardFooter.displayName = 'CardFooter';
-
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }

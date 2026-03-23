@@ -1,12 +1,28 @@
-'use client';
+import * as React from "react"
+import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
-import { createTooltipFoundation } from '../_shared/family-foundations';
+import { cn } from "@/lib/utils"
 
-const foundation = createTooltipFoundation('padding');
+const TooltipProvider = TooltipPrimitive.Provider
 
-export const Tooltip = foundation.Tooltip;
-export const TooltipTrigger = foundation.TooltipTrigger;
-export const TooltipContent = foundation.TooltipContent;
-export const TooltipProvider = foundation.TooltipProvider;
+const Tooltip = TooltipPrimitive.Root
 
-export default Tooltip;
+const TooltipTrigger = TooltipPrimitive.Trigger
+
+const TooltipContent = React.forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
+>(({ className, sideOffset = 8, ...props }, ref) => (
+  <TooltipPrimitive.Content
+    ref={ref}
+    sideOffset={sideOffset}
+    className={cn(
+      "z-50 overflow-hidden rounded-[8px] border border-transparent bg-[var(--pd-bg)] px-4 py-2 text-sm text-[var(--pd-text)] shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 font-sans",
+      className
+    )}
+    {...props}
+  />
+))
+TooltipContent.displayName = TooltipPrimitive.Content.displayName
+
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }

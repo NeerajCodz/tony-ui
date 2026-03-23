@@ -1,22 +1,18 @@
-'use client';
-
 import * as React from 'react';
-import { AspectRatioBase } from '../_base/aspect-ratio';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
+import { cn } from '@/lib/utils';
+import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
-export type AspectRatioProps = Omit<React.ComponentPropsWithoutRef<typeof AspectRatioBase>, 'type'> & StyledProps;
+const AspectRatio = React.forwardRef<
+  React.ElementRef<typeof AspectRatioPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AspectRatioPrimitive.Root> & { effects?: TerminalWindowEffects }
+>(({ className, effects = 'on', ...props }, ref) => (
+  <AspectRatioPrimitive.Root
+    ref={ref}
+    className={cn(terminalWindowEffectsClass(effects), 'border border-[var(--tm-phosphor)] bg-[var(--tm-bg)]', className)}
+    {...props}
+  />
+));
+AspectRatio.displayName = AspectRatioPrimitive.Root.displayName;
 
-export const AspectRatio = React.forwardRef<React.ElementRef<typeof AspectRatioBase>, AspectRatioProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
-    <AspectRatioBase
-      ref={ref}
-      className={cx('relative overflow-hidden', className)}
-      style={getSurfaceStyle(version ?? 'terminal-window', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-
-AspectRatio.displayName = 'AspectRatio';
-
-export default AspectRatio;
+export { AspectRatio };

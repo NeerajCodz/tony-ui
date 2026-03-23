@@ -1,23 +1,44 @@
-'use client';
+import * as React from "react"
+import {
+  ButtonGroupBase,
+  type ButtonGroupBaseProps,
+} from "../_base/button-group"
+import { cn } from "@/lib/utils"
+import { glassEffectsClass, type GlassEffects } from "./_effects"
 
-import * as React from 'react';
-import { ButtonGroupBase } from '../_base/button-group';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+export interface ButtonGroupProps extends ButtonGroupBaseProps {
+  effects?: GlassEffects
+}
 
-export type ButtonGroupProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonGroupBase>, 'type'> & StyledProps;
+const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
+  (
+    {
+      className,
+      effects = "on",
+      orientation = "horizontal",
+      attached = true,
+      ...props
+    },
+    ref
+  ) => {
+    return (
+      <ButtonGroupBase
+        ref={ref}
+        orientation={orientation}
+        attached={attached}
+        className={cn(
+          glassEffectsClass(effects),
+          "flex",
+          orientation === "vertical" ? "flex-col" : "flex-row",
+          // Glass morphism buttons look better with a tiny gap even if attached
+          attached ? "gap-[1px]" : "gap-2",
+          className
+        )}
+        {...props}
+      />
+    )
+  }
+)
+ButtonGroup.displayName = "ButtonGroup"
 
-export const ButtonGroup = React.forwardRef<React.ElementRef<typeof ButtonGroupBase>, ButtonGroupProps>(
-  ({ className, version, type, uiType, colors, style, orientation = 'horizontal', ...props }, ref) => (
-    <ButtonGroupBase
-      ref={ref}
-      orientation={orientation}
-      className={cx('inline-flex gap-1', orientation === 'vertical' && 'flex-col', className)}
-      style={getSurfaceStyle(version ?? 'glass-morphism', type, uiType, colors, style)}
-      {...props}
-    />
-  )
-);
-
-ButtonGroup.displayName = 'ButtonGroup';
-
-export default ButtonGroup;
+export { ButtonGroup }
