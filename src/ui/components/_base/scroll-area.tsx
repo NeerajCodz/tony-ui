@@ -79,7 +79,7 @@ export interface ScrollAreaBaseProps
  * - Native scroll behavior preserved
  */
 export const ScrollAreaBase = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.Root>,
+  React.ComponentRef<typeof ScrollAreaPrimitive.Root>,
   ScrollAreaBaseProps
 >(({ visualType = 'default', scrollbarType = 'hover', size = 'md', variant, ...props }, ref) => (
   <ScrollAreaPrimitive.Root
@@ -106,7 +106,7 @@ export interface ScrollAreaViewportBaseProps
  * Content goes inside here.
  */
 export const ScrollAreaViewportBase = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.Viewport>,
+  React.ComponentRef<typeof ScrollAreaPrimitive.Viewport>,
   ScrollAreaViewportBaseProps
 >((props, ref) => <ScrollAreaPrimitive.Viewport ref={ref} {...props} />);
 ScrollAreaViewportBase.displayName = 'ScrollAreaViewportBase';
@@ -129,7 +129,7 @@ export interface ScrollBarBaseProps
  * - active (dragging): highlighted
  */
 export const ScrollBarBase = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
+  React.ComponentRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
   ScrollBarBaseProps
 >((props, ref) => <ScrollAreaPrimitive.ScrollAreaScrollbar ref={ref} {...props} />);
 ScrollBarBase.displayName = 'ScrollBarBase';
@@ -145,7 +145,7 @@ export interface ScrollBarThumbBaseProps
  * ScrollBarThumbBase - The draggable thumb
  */
 export const ScrollBarThumbBase = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaThumb>,
+  React.ComponentRef<typeof ScrollAreaPrimitive.ScrollAreaThumb>,
   ScrollBarThumbBaseProps
 >((props, ref) => <ScrollAreaPrimitive.ScrollAreaThumb ref={ref} {...props} />);
 ScrollBarThumbBase.displayName = 'ScrollBarThumbBase';
@@ -164,7 +164,7 @@ export interface ScrollAreaCornerBaseProps
  * ScrollAreaCornerBase - Corner where scrollbars meet
  */
 export const ScrollAreaCornerBase = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.Corner>,
+  React.ComponentRef<typeof ScrollAreaPrimitive.Corner>,
   ScrollAreaCornerBaseProps
 >((props, ref) => <ScrollAreaPrimitive.Corner ref={ref} {...props} />);
 ScrollAreaCornerBase.displayName = 'ScrollAreaCornerBase';

@@ -5,7 +5,7 @@ import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from 
 
 
 const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
+  React.ComponentRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', value, style, ...props }, ref) => (
   <ProgressPrimitive.Root

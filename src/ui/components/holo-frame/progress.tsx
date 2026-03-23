@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 
 const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
+  React.ComponentRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & { effects?: HoloFrameEffects }
 >(({ className, effects = 'on', value, ...props }, ref) => (
   <ProgressPrimitive.Root

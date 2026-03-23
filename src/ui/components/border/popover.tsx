@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 const Popover = PopoverBase;
 const PopoverTrigger = PopoverTriggerBase;
 
-const PopoverContent = React.forwardRef<React.ElementRef<typeof PopoverContentBase>, PopoverContentBaseProps>(
+const PopoverContent = React.forwardRef<React.ComponentRef<typeof PopoverContentBase>, PopoverContentBaseProps>(
   ({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
     <PopoverContentBase
       ref={ref}

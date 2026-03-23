@@ -3,6 +3,7 @@ import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { getNeonGlow } from './_effects';
 
 const Select = SelectPrimitive.Root;
 
@@ -12,19 +13,23 @@ const SelectValue = SelectPrimitive.Value;
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & { effects?: boolean }
+>(({ className, children, effects = true, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'flex h-12 w-full items-center justify-between rounded-none border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] px-3 py-2 text-sm placeholder:text-[var(--ne-text)]/50 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-[var(--ne-text)] shadow-[0_0_5px_var(--ne-primary)] hover:shadow-[0_0_15px_var(--ne-primary)] transition-all font-body tracking-wide',
+      'flex h-12 w-full items-center justify-between rounded-none border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] px-3 py-2 text-sm placeholder:text-[var(--ne-text)]/50 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-[var(--ne-text)] transition-all font-body tracking-wide hover:shadow-[0_0_15px_var(--ne-primary)]',
+      getNeonGlow(effects),
       className
     )}
     {...props}
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-4 w-4 opacity-50 text-[var(--ne-primary)] drop-shadow-[0_0_2px_currentColor]" />
+      <ChevronDown className={cn(
+        "h-4 w-4 opacity-50 text-[var(--ne-primary)]",
+        getNeonGlow(effects, 'text')
+      )} />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
@@ -67,13 +72,14 @@ SelectScrollDownButton.displayName =
 
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
->(({ className, children, position = 'popper', ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> & { effects?: boolean }
+>(({ className, children, position = 'popper', effects = true, ...props }, ref) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        'relative z-50 min-w-[8rem] overflow-hidden border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] text-[var(--ne-text)] shadow-[0_0_20px_var(--ne-primary)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        'relative z-50 min-w-[8rem] overflow-hidden border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] text-[var(--ne-text)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        getNeonGlow(effects, 'high'),
         position === 'popper' &&
           'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
         className
@@ -111,12 +117,13 @@ SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
 const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> & { effects?: boolean }
+>(({ className, children, effects = true, ...props }, ref) => (
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex w-full cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body transition-colors focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
+      'relative flex w-full cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body transition-colors',
+      effects && 'focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
       className
     )}
     {...props}
@@ -134,11 +141,15 @@ SelectItem.displayName = SelectPrimitive.Item.displayName;
 
 const SelectSeparator = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Separator>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
   <SelectPrimitive.Separator
     ref={ref}
-    className={cn('-mx-1 my-1 h-px bg-[var(--ne-primary)]/50 shadow-[0_0_5px_var(--ne-primary)]', className)}
+    className={cn(
+      '-mx-1 my-1 h-px bg-[var(--ne-primary)]/50',
+      getNeonGlow(effects),
+      className
+    )}
     {...props}
   />
 ));

@@ -217,7 +217,7 @@ const Sidebar = React.forwardRef<
 Sidebar.displayName = 'Sidebar';
 
 const SidebarTrigger = React.forwardRef<
-  React.ElementRef<typeof Button>,
+  React.ComponentRef<typeof Button>,
   React.ComponentProps<typeof Button> & { effects?: TerminalWindowEffects }
 >(({ className, onClick, effects = 'on', ...props }, ref) => {
   const { toggleSidebar } = useSidebar();
@@ -290,7 +290,7 @@ const SidebarInset = React.forwardRef<
 SidebarInset.displayName = 'SidebarInset';
 
 const SidebarInput = React.forwardRef<
-  React.ElementRef<typeof React.InputHTMLAttributes<HTMLInputElement>>,
+  React.ComponentRef<typeof React.InputHTMLAttributes<HTMLInputElement>>,
   React.ComponentProps<'input'> & { effects?: TerminalWindowEffects }
 >(({ className, effects = 'on', ...props }, ref) => {
   return (

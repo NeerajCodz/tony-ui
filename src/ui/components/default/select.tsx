@@ -22,7 +22,7 @@ export const SelectGroup = SelectGroupBase;
 
 export const SelectValue = SelectValueBase;
 
-export const SelectTrigger = React.forwardRef<React.ElementRef<typeof SelectTriggerBase>, SelectTriggerBaseProps>(
+export const SelectTrigger = React.forwardRef<React.ComponentRef<typeof SelectTriggerBase>, SelectTriggerBaseProps>(
   ({ className, children, ...props }, ref) => (
     <SelectTriggerBase
       ref={ref}
@@ -41,7 +41,7 @@ export const SelectTrigger = React.forwardRef<React.ElementRef<typeof SelectTrig
 );
 SelectTrigger.displayName = 'SelectTrigger';
 
-export const SelectScrollUpButton = React.forwardRef<React.ElementRef<typeof SelectScrollUpButtonBase>, React.ComponentPropsWithoutRef<typeof SelectScrollUpButtonBase>>(
+export const SelectScrollUpButton = React.forwardRef<React.ComponentRef<typeof SelectScrollUpButtonBase>, React.ComponentPropsWithoutRef<typeof SelectScrollUpButtonBase>>(
   ({ className, ...props }, ref) => (
     <SelectScrollUpButtonBase
       ref={ref}
@@ -57,7 +57,7 @@ export const SelectScrollUpButton = React.forwardRef<React.ElementRef<typeof Sel
 );
 SelectScrollUpButton.displayName = 'SelectScrollUpButton';
 
-export const SelectScrollDownButton = React.forwardRef<React.ElementRef<typeof SelectScrollDownButtonBase>, React.ComponentPropsWithoutRef<typeof SelectScrollDownButtonBase>>(
+export const SelectScrollDownButton = React.forwardRef<React.ComponentRef<typeof SelectScrollDownButtonBase>, React.ComponentPropsWithoutRef<typeof SelectScrollDownButtonBase>>(
   ({ className, ...props }, ref) => (
     <SelectScrollDownButtonBase
       ref={ref}
@@ -73,7 +73,7 @@ export const SelectScrollDownButton = React.forwardRef<React.ElementRef<typeof S
 );
 SelectScrollDownButton.displayName = 'SelectScrollDownButton';
 
-export const SelectContent = React.forwardRef<React.ElementRef<typeof SelectContentBase>, React.ComponentPropsWithoutRef<typeof SelectContentBase>>(
+export const SelectContent = React.forwardRef<React.ComponentRef<typeof SelectContentBase>, React.ComponentPropsWithoutRef<typeof SelectContentBase>>(
   ({ className, children, position = 'popper', ...props }, ref) => (
     <SelectPrimitive.Portal>
       <SelectContentBase
@@ -104,7 +104,7 @@ export const SelectContent = React.forwardRef<React.ElementRef<typeof SelectCont
 );
 SelectContent.displayName = 'SelectContent';
 
-export const SelectLabel = React.forwardRef<React.ElementRef<typeof SelectLabelBase>, React.ComponentPropsWithoutRef<typeof SelectLabelBase>>(
+export const SelectLabel = React.forwardRef<React.ComponentRef<typeof SelectLabelBase>, React.ComponentPropsWithoutRef<typeof SelectLabelBase>>(
   ({ className, ...props }, ref) => (
     <SelectLabelBase
       ref={ref}
@@ -115,7 +115,7 @@ export const SelectLabel = React.forwardRef<React.ElementRef<typeof SelectLabelB
 );
 SelectLabel.displayName = 'SelectLabel';
 
-export const SelectItem = React.forwardRef<React.ElementRef<typeof SelectItemBase>, React.ComponentPropsWithoutRef<typeof SelectItemBase>>(
+export const SelectItem = React.forwardRef<React.ComponentRef<typeof SelectItemBase>, React.ComponentPropsWithoutRef<typeof SelectItemBase>>(
   ({ className, children, ...props }, ref) => (
     <SelectItemBase
       ref={ref}
@@ -136,7 +136,7 @@ export const SelectItem = React.forwardRef<React.ElementRef<typeof SelectItemBas
 );
 SelectItem.displayName = 'SelectItem';
 
-export const SelectSeparator = React.forwardRef<React.ElementRef<typeof SelectSeparatorBase>, React.ComponentPropsWithoutRef<typeof SelectSeparatorBase>>(
+export const SelectSeparator = React.forwardRef<React.ComponentRef<typeof SelectSeparatorBase>, React.ComponentPropsWithoutRef<typeof SelectSeparatorBase>>(
   ({ className, ...props }, ref) => (
     <SelectSeparatorBase
       ref={ref}

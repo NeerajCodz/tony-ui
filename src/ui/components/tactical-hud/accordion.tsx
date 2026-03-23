@@ -16,7 +16,7 @@ import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from 
 import { ChevronDown } from 'lucide-react';
 
 
-const Accordion = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, AccordionBaseProps & { effects?: TacticalHudEffects }>(
+const Accordion = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Root>, AccordionBaseProps & { effects?: TacticalHudEffects }>(
   ({ className, effects = 'on', ...props }, ref) => (
     <AccordionBase 
       ref={ref} 
@@ -27,7 +27,7 @@ const Accordion = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Ro
 );
 Accordion.displayName = 'Accordion';
 
-const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Item>, AccordionItemBaseProps & { effects?: TacticalHudEffects }>(
+const AccordionItem = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Item>, AccordionItemBaseProps & { effects?: TacticalHudEffects }>(
   ({ className, effects = 'on', style, ...props }, ref) => (
     <AccordionItemBase
       ref={ref}
@@ -42,7 +42,7 @@ const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitiv
 );
 AccordionItem.displayName = 'AccordionItem';
 
-const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Trigger>, AccordionTriggerBaseProps & { effects?: TacticalHudEffects }>(
+const AccordionTrigger = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Trigger>, AccordionTriggerBaseProps & { effects?: TacticalHudEffects }>(
   ({ className, effects = 'on', children, ...props }, ref) => (
     <AccordionHeaderBase className="flex">
       <AccordionTriggerBase
@@ -61,7 +61,7 @@ const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimi
 );
 AccordionTrigger.displayName = 'AccordionTrigger';
 
-const AccordionContent = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Content>, AccordionContentBaseProps & { effects?: TacticalHudEffects }>(
+const AccordionContent = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Content>, AccordionContentBaseProps & { effects?: TacticalHudEffects }>(
   ({ className, effects = 'on', children, ...props }, ref) => (
     <AccordionContentBase
       ref={ref}

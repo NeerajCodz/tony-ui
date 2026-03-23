@@ -2,15 +2,17 @@ import * as React from 'react';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 
 import { cn } from '@/lib/utils';
+import { getNeonGlow } from './_effects';
 
 const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
   <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      'relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full border-2 border-[var(--ne-primary)] shadow-[0_0_10px_var(--ne-primary)]',
+      'relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full border-2 border-[var(--ne-primary)]',
+      getNeonGlow(effects),
       className
     )}
     {...props}

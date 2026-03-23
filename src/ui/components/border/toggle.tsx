@@ -37,7 +37,7 @@ const toToggleVisualSize = (size?: ToggleSize): ToggleVisualSize | undefined => 
 
 export interface ToggleProps extends ToggleBaseProps {}
 
-const Toggle = React.forwardRef<React.ElementRef<typeof ToggleBase>, ToggleProps>(
+const Toggle = React.forwardRef<React.ComponentRef<typeof ToggleBase>, ToggleProps>(
   ({ className, visualType, size, ...props }, ref) => (
     <ToggleBase
       ref={ref}

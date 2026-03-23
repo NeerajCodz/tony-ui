@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 
 const Slider = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Root>,
+  React.ComponentRef<typeof SliderPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> & { effects?: HoloFrameEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <SliderPrimitive.Root

@@ -40,7 +40,7 @@ const getSizeStyles = (size: string = 'md') => {
   }
 };
 
-export const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(
+export const Checkbox = React.forwardRef<React.ComponentRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(
   ({ className, visualType = 'default', size = 'md', ...props }, ref) => {
     return (
       <CheckboxBase

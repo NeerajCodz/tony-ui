@@ -4,24 +4,26 @@ import { DayPicker } from 'react-day-picker';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from './button';
+import { getNeonGlow } from './_effects';
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
+export type CalendarProps = React.ComponentProps<typeof DayPicker> & { effects?: boolean };
 
 function Calendar({
   className,
   classNames,
   showOutsideDays = true,
+  effects = true,
   ...props
 }: CalendarProps) {
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn('p-3 border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] shadow-[0_0_20px_var(--ne-primary)] inline-block', className)}
+      className={cn('p-3 border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] inline-block', getNeonGlow(effects, 'high'), className)}
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
         month: 'space-y-4',
         caption: 'flex justify-center pt-1 relative items-center',
-        caption_label: 'text-sm font-medium font-display uppercase tracking-widest text-[var(--ne-primary)] drop-shadow-[0_0_5px_var(--ne-primary)]',
+        caption_label: cn('text-sm font-medium font-display uppercase tracking-widest text-[var(--ne-primary)]', getNeonGlow(effects, 'text')),
         nav: 'space-x-1 flex items-center',
         nav_button: cn(
           buttonVariants({ variant: 'outline' }),
@@ -41,7 +43,7 @@ function Calendar({
         ),
         day_range_end: 'day-range-end',
         day_selected:
-          'bg-[var(--ne-primary)] text-[var(--ne-bg)] hover:bg-[var(--ne-primary)] hover:text-[var(--ne-bg)] focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] shadow-[0_0_10px_var(--ne-primary)]',
+          cn('bg-[var(--ne-primary)] text-[var(--ne-bg)] hover:bg-[var(--ne-primary)] hover:text-[var(--ne-bg)] focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)]', getNeonGlow(effects)),
         day_today: 'bg-accent text-accent-foreground',
         day_outside:
           'day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',

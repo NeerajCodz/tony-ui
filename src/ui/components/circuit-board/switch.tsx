@@ -50,7 +50,7 @@ export interface SwitchProps extends Omit<SwitchBaseProps, 'size'> {
   visualSize?: SwitchVisualSize;
 }
 
-const Switch = React.forwardRef<React.ElementRef<typeof SwitchBase>, SwitchProps>(
+const Switch = React.forwardRef<React.ComponentRef<typeof SwitchBase>, SwitchProps>(
   ({ className, visualSize, visualType, ...props }, ref) => (
     <SwitchBase
       className={cn(switchVariants({ size: visualSize, visualType, className }))}

@@ -1,25 +1,22 @@
-'use client';
-
 import * as React from 'react';
-import { SkeletonBase } from '../_base/skeleton';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from '@/lib/utils';
 
-export type SkeletonProps = Omit<React.ComponentPropsWithoutRef<typeof SkeletonBase>, 'type'> &
-  StyledProps & {
-    animated?: boolean;
-  };
+const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
-export const Skeleton = React.forwardRef<React.ElementRef<typeof SkeletonBase>, SkeletonProps>(
-  ({ className, animated = true, version, type, uiType, colors, style, ...props }, ref) => (
-    <SkeletonBase
-      ref={ref}
-      className={cx(animated && 'animate-pulse', 'rounded', className)}
-      style={getSurfaceStyle(version ?? 'pill', type, uiType, colors, style)}
+function Skeleton({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn(
+        'animate-pulse bg-[var(--ac-border)]/20',
+        className
+      )}
+      style={{ clipPath: AC_CLIP_PATH, '--corner': '4px' } as React.CSSProperties}
       {...props}
     />
-  )
-);
+  );
+}
 
-Skeleton.displayName = 'Skeleton';
-
-export default Skeleton;
+export { Skeleton };

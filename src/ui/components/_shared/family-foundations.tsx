@@ -213,12 +213,12 @@ export function createAccordionFoundation(versionKey: string) {
     };
   type AccordionContentProps = React.ComponentPropsWithoutRef<typeof AccordionContentBase> & StyledProps;
 
-  const Accordion = React.forwardRef<React.ElementRef<typeof AccordionBase>, AccordionRootProps>(
+  const Accordion = React.forwardRef<React.ComponentRef<typeof AccordionBase>, AccordionRootProps>(
     ({ className: _className, ...props }, ref) => <AccordionBase ref={ref} {...props} />
   );
   Accordion.displayName = 'Accordion';
 
-  const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionItemBase>, AccordionItemProps>(
+  const AccordionItem = React.forwardRef<React.ComponentRef<typeof AccordionItemBase>, AccordionItemProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => (
       <AccordionItemBase
         ref={ref}
@@ -230,7 +230,7 @@ export function createAccordionFoundation(versionKey: string) {
   );
   AccordionItem.displayName = 'AccordionItem';
 
-  const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionTriggerBase>, AccordionTriggerProps>(
+  const AccordionTrigger = React.forwardRef<React.ComponentRef<typeof AccordionTriggerBase>, AccordionTriggerProps>(
     ({ className, children, version, type, uiType, colors, style, htmlType = 'button', ...props }, ref) => {
       const visualType = resolveVisualType(type, uiType);
       const palette = normalizeColors(colors);
@@ -263,7 +263,7 @@ export function createAccordionFoundation(versionKey: string) {
   );
   AccordionTrigger.displayName = 'AccordionTrigger';
 
-  const AccordionContent = React.forwardRef<React.ElementRef<typeof AccordionContentBase>, AccordionContentProps>(
+  const AccordionContent = React.forwardRef<React.ComponentRef<typeof AccordionContentBase>, AccordionContentProps>(
     ({ className, version, type, uiType, colors, style, children, ...props }, ref) => {
       const palette = normalizeColors(colors);
       return (
@@ -309,7 +309,7 @@ export function createAvatarFoundation(versionKey: string) {
   type AvatarImageProps = React.ComponentPropsWithoutRef<typeof AvatarImageBase> & StyledProps;
   type AvatarFallbackProps = React.ComponentPropsWithoutRef<typeof AvatarFallbackBase> & StyledProps;
 
-  const Avatar = React.forwardRef<React.ElementRef<typeof AvatarBase>, AvatarProps>(
+  const Avatar = React.forwardRef<React.ComponentRef<typeof AvatarBase>, AvatarProps>(
     ({ className, version, type, uiType, colors, style, size = 'md', children, ...props }, ref) => {
       const side = avatarSizeMap[size] ?? avatarSizeMap.md;
       return (
@@ -331,12 +331,12 @@ export function createAvatarFoundation(versionKey: string) {
   );
   Avatar.displayName = 'Avatar';
 
-  const AvatarImage = React.forwardRef<React.ElementRef<typeof AvatarImageBase>, AvatarImageProps>(
+  const AvatarImage = React.forwardRef<React.ComponentRef<typeof AvatarImageBase>, AvatarImageProps>(
     ({ className, ...props }, ref) => <AvatarImageBase ref={ref} className={cx('h-full w-full object-cover', className)} {...props} />
   );
   AvatarImage.displayName = 'AvatarImage';
 
-  const AvatarFallback = React.forwardRef<React.ElementRef<typeof AvatarFallbackBase>, AvatarFallbackProps>(
+  const AvatarFallback = React.forwardRef<React.ComponentRef<typeof AvatarFallbackBase>, AvatarFallbackProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => (
       <AvatarFallbackBase
         ref={ref}
@@ -369,7 +369,7 @@ export function createCarouselFoundation(versionKey: string) {
       htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
     };
 
-  const CarouselRoot = React.forwardRef<React.ElementRef<typeof CarouselBase>, CarouselRootProps>(
+  const CarouselRoot = React.forwardRef<React.ComponentRef<typeof CarouselBase>, CarouselRootProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => (
       <CarouselBase
         ref={ref}
@@ -381,7 +381,7 @@ export function createCarouselFoundation(versionKey: string) {
   );
   CarouselRoot.displayName = 'Carousel';
 
-  const CarouselContent = React.forwardRef<React.ElementRef<typeof CarouselContentBase>, CarouselContentProps>(
+  const CarouselContent = React.forwardRef<React.ComponentRef<typeof CarouselContentBase>, CarouselContentProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => (
       <CarouselContentBase
         ref={ref}
@@ -397,7 +397,7 @@ export function createCarouselFoundation(versionKey: string) {
   );
   CarouselContent.displayName = 'CarouselContent';
 
-  const CarouselItem = React.forwardRef<React.ElementRef<typeof CarouselItemBase>, CarouselItemProps>(
+  const CarouselItem = React.forwardRef<React.ComponentRef<typeof CarouselItemBase>, CarouselItemProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => (
       <CarouselItemBase
         ref={ref}
@@ -409,7 +409,7 @@ export function createCarouselFoundation(versionKey: string) {
   );
   CarouselItem.displayName = 'CarouselItem';
 
-  const CarouselPrevious = React.forwardRef<React.ElementRef<typeof CarouselPreviousBase>, CarouselPreviousProps>(
+  const CarouselPrevious = React.forwardRef<React.ComponentRef<typeof CarouselPreviousBase>, CarouselPreviousProps>(
     ({ className, version, type, uiType, colors, style, htmlType = 'button', children, ...props }, ref) => (
       <CarouselPreviousBase
         ref={ref}
@@ -424,7 +424,7 @@ export function createCarouselFoundation(versionKey: string) {
   );
   CarouselPrevious.displayName = 'CarouselPrevious';
 
-  const CarouselNext = React.forwardRef<React.ElementRef<typeof CarouselNextBase>, CarouselNextProps>(
+  const CarouselNext = React.forwardRef<React.ComponentRef<typeof CarouselNextBase>, CarouselNextProps>(
     ({ className, version, type, uiType, colors, style, htmlType = 'button', children, ...props }, ref) => (
       <CarouselNextBase
         ref={ref}
@@ -462,7 +462,7 @@ export function createDatePickerFoundation(versionKey: string) {
       label?: string;
     };
 
-  const DatePicker = React.forwardRef<React.ElementRef<typeof DatePickerBase>, DatePickerProps>(
+  const DatePicker = React.forwardRef<React.ComponentRef<typeof DatePickerBase>, DatePickerProps>(
     (
       {
         className,
@@ -541,7 +541,7 @@ export function createDrawerFoundation(versionKey: string) {
   type TitleProps = React.ComponentPropsWithoutRef<typeof DrawerTitleBase> & StyledProps;
   type DescriptionProps = React.ComponentPropsWithoutRef<typeof DrawerDescriptionBase> & StyledProps;
 
-  const Overlay = React.forwardRef<React.ElementRef<typeof DrawerOverlayBase>, OverlayProps>(
+  const Overlay = React.forwardRef<React.ComponentRef<typeof DrawerOverlayBase>, OverlayProps>(
     ({ className, colors, style, ...props }, ref) => {
       const palette = normalizeColors(colors);
       return (
@@ -559,7 +559,7 @@ export function createDrawerFoundation(versionKey: string) {
   );
   Overlay.displayName = 'DrawerOverlay';
 
-  const Content = React.forwardRef<React.ElementRef<typeof DrawerContentBase>, ContentProps>(
+  const Content = React.forwardRef<React.ComponentRef<typeof DrawerContentBase>, ContentProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => (
       <DrawerContentBase
         ref={ref}
@@ -571,7 +571,7 @@ export function createDrawerFoundation(versionKey: string) {
   );
   Content.displayName = 'DrawerContent';
 
-  const Title = React.forwardRef<React.ElementRef<typeof DrawerTitleBase>, TitleProps>(
+  const Title = React.forwardRef<React.ComponentRef<typeof DrawerTitleBase>, TitleProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => {
       const tone = getTypographyTone(resolveVisualType(type, uiType), colors);
       return (
@@ -586,7 +586,7 @@ export function createDrawerFoundation(versionKey: string) {
   );
   Title.displayName = 'DrawerTitle';
 
-  const Description = React.forwardRef<React.ElementRef<typeof DrawerDescriptionBase>, DescriptionProps>(
+  const Description = React.forwardRef<React.ComponentRef<typeof DrawerDescriptionBase>, DescriptionProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => {
       const tone = getTypographyTone(resolveVisualType(type, uiType), colors);
       return (
@@ -616,7 +616,7 @@ export function createIconButtonFoundation(versionKey: string) {
       size?: 'sm' | 'md' | 'lg' | 'xl';
     };
 
-  const IconButton = React.forwardRef<React.ElementRef<typeof IconButtonBase>, IconButtonProps>(
+  const IconButton = React.forwardRef<React.ComponentRef<typeof IconButtonBase>, IconButtonProps>(
     ({
       className,
       version,
@@ -669,7 +669,7 @@ export function createInputOtpFoundation(versionKey: string) {
     };
   type InputOTPSeparatorProps = React.ComponentPropsWithoutRef<typeof InputOTPSeparatorBase> & StyledProps;
 
-  const InputOTP = React.forwardRef<React.ElementRef<typeof InputOTPBase>, InputOTPProps>(
+  const InputOTP = React.forwardRef<React.ComponentRef<typeof InputOTPBase>, InputOTPProps>(
     ({
       className,
       version,
@@ -743,12 +743,12 @@ export function createInputOtpFoundation(versionKey: string) {
   );
   InputOTP.displayName = 'InputOTP';
 
-  const InputOTPGroup = React.forwardRef<React.ElementRef<typeof InputOTPGroupBase>, InputOTPGroupProps>(
+  const InputOTPGroup = React.forwardRef<React.ComponentRef<typeof InputOTPGroupBase>, InputOTPGroupProps>(
     ({ className, ...props }, ref) => <InputOTPGroupBase ref={ref} className={cx('flex items-center gap-2', className)} {...props} />
   );
   InputOTPGroup.displayName = 'InputOTPGroup';
 
-  const InputOTPSlot = React.forwardRef<React.ElementRef<typeof InputOTPSlotBase>, InputOTPSlotProps>(
+  const InputOTPSlot = React.forwardRef<React.ComponentRef<typeof InputOTPSlotBase>, InputOTPSlotProps>(
     ({ className, version, type, uiType, colors, style, active, ...props }, ref) => (
       <InputOTPSlotBase
         ref={ref}
@@ -763,7 +763,7 @@ export function createInputOtpFoundation(versionKey: string) {
   );
   InputOTPSlot.displayName = 'InputOTPSlot';
 
-  const InputOTPSeparator = React.forwardRef<React.ElementRef<typeof InputOTPSeparatorBase>, InputOTPSeparatorProps>(
+  const InputOTPSeparator = React.forwardRef<React.ComponentRef<typeof InputOTPSeparatorBase>, InputOTPSeparatorProps>(
     ({ className, children, ...props }, ref) => (
       <InputOTPSeparatorBase ref={ref} className={cx('inline-flex items-center justify-center', className)} {...props}>
         {children ?? <Dot className="h-4 w-4" />}
@@ -789,7 +789,7 @@ export function createScrollAreaFoundation(versionKey: string) {
     };
   type ScrollBarProps = React.ComponentPropsWithoutRef<typeof ScrollBarBase> & StyledProps;
 
-  const ScrollBar = React.forwardRef<React.ElementRef<typeof ScrollBarBase>, ScrollBarProps>(
+  const ScrollBar = React.forwardRef<React.ComponentRef<typeof ScrollBarBase>, ScrollBarProps>(
     ({ className, version, type, uiType, colors, style, orientation = 'vertical', ...props }, ref) => {
       const resolvedVersion = version ?? versionKey;
       const visualType = resolveVisualType(type, uiType);
@@ -860,7 +860,7 @@ export function createScrollAreaFoundation(versionKey: string) {
   );
   ScrollBar.displayName = 'ScrollBar';
 
-  const ScrollArea = React.forwardRef<React.ElementRef<typeof ScrollAreaBase>, ScrollAreaProps>(
+  const ScrollArea = React.forwardRef<React.ComponentRef<typeof ScrollAreaBase>, ScrollAreaProps>(
     ({
       className,
       version,
@@ -960,7 +960,7 @@ export function createSelectFoundation(versionKey: string) {
   const SelectGroup = SelectGroupBase;
   const SelectValue = SelectValueBase;
 
-  const SelectTrigger = React.forwardRef<React.ElementRef<typeof SelectTriggerBase>, SelectTriggerProps>(
+  const SelectTrigger = React.forwardRef<React.ComponentRef<typeof SelectTriggerBase>, SelectTriggerProps>(
     ({ className, version, type, uiType, colors, style, htmlType = 'button', children, ...props }, ref) => (
       <SelectTriggerBase
         ref={ref}
@@ -976,7 +976,7 @@ export function createSelectFoundation(versionKey: string) {
   );
   SelectTrigger.displayName = 'SelectTrigger';
 
-  const SelectScrollUpButton = React.forwardRef<React.ElementRef<typeof SelectScrollUpButtonBase>, React.ComponentPropsWithoutRef<typeof SelectScrollUpButtonBase>>(
+  const SelectScrollUpButton = React.forwardRef<React.ComponentRef<typeof SelectScrollUpButtonBase>, React.ComponentPropsWithoutRef<typeof SelectScrollUpButtonBase>>(
     ({ className, ...props }, ref) => (
       <SelectScrollUpButtonBase ref={ref} className={cx('flex cursor-default items-center justify-center py-1', className)} {...props}>
         <ChevronUp className="h-4 w-4" />
@@ -985,7 +985,7 @@ export function createSelectFoundation(versionKey: string) {
   );
   SelectScrollUpButton.displayName = 'SelectScrollUpButton';
 
-  const SelectScrollDownButton = React.forwardRef<React.ElementRef<typeof SelectScrollDownButtonBase>, React.ComponentPropsWithoutRef<typeof SelectScrollDownButtonBase>>(
+  const SelectScrollDownButton = React.forwardRef<React.ComponentRef<typeof SelectScrollDownButtonBase>, React.ComponentPropsWithoutRef<typeof SelectScrollDownButtonBase>>(
     ({ className, ...props }, ref) => (
       <SelectScrollDownButtonBase ref={ref} className={cx('flex cursor-default items-center justify-center py-1', className)} {...props}>
         <ChevronDown className="h-4 w-4" />
@@ -994,7 +994,7 @@ export function createSelectFoundation(versionKey: string) {
   );
   SelectScrollDownButton.displayName = 'SelectScrollDownButton';
 
-  const SelectContent = React.forwardRef<React.ElementRef<typeof SelectContentBase>, SelectContentProps>(
+  const SelectContent = React.forwardRef<React.ComponentRef<typeof SelectContentBase>, SelectContentProps>(
     ({ className, version, type, uiType, colors, style, children, position = 'popper', ...props }, ref) => (
       <SelectContentBase
         ref={ref}
@@ -1013,7 +1013,7 @@ export function createSelectFoundation(versionKey: string) {
   );
   SelectContent.displayName = 'SelectContent';
 
-  const SelectLabel = React.forwardRef<React.ElementRef<typeof SelectLabelBase>, SelectLabelProps>(
+  const SelectLabel = React.forwardRef<React.ComponentRef<typeof SelectLabelBase>, SelectLabelProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => (
       <SelectLabelBase
         ref={ref}
@@ -1029,7 +1029,7 @@ export function createSelectFoundation(versionKey: string) {
   );
   SelectLabel.displayName = 'SelectLabel';
 
-  const SelectItem = React.forwardRef<React.ElementRef<typeof SelectItemBase>, SelectItemProps>(
+  const SelectItem = React.forwardRef<React.ComponentRef<typeof SelectItemBase>, SelectItemProps>(
     ({ className, version, type, uiType, colors, style, children, ...props }, ref) => (
       <SelectItemBase
         ref={ref}
@@ -1050,7 +1050,7 @@ export function createSelectFoundation(versionKey: string) {
   );
   SelectItem.displayName = 'SelectItem';
 
-  const SelectSeparator = React.forwardRef<React.ElementRef<typeof SelectSeparatorBase>, SelectSeparatorProps>(
+  const SelectSeparator = React.forwardRef<React.ComponentRef<typeof SelectSeparatorBase>, SelectSeparatorProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => {
       const palette = normalizeColors(colors);
       return (
@@ -1099,7 +1099,7 @@ export function createSheetFoundation(versionKey: string) {
   const SheetClose = SheetCloseBase;
   const SheetPortal = SheetPortalBase;
 
-  const SheetOverlay = React.forwardRef<React.ElementRef<typeof SheetOverlayBase>, SheetOverlayProps>(
+  const SheetOverlay = React.forwardRef<React.ComponentRef<typeof SheetOverlayBase>, SheetOverlayProps>(
     ({ className, colors, style, ...props }, ref) => {
       const palette = normalizeColors(colors);
       return (
@@ -1114,7 +1114,7 @@ export function createSheetFoundation(versionKey: string) {
   );
   SheetOverlay.displayName = 'SheetOverlay';
 
-  const SheetContent = React.forwardRef<React.ElementRef<typeof SheetContentBase>, SheetContentProps>(
+  const SheetContent = React.forwardRef<React.ComponentRef<typeof SheetContentBase>, SheetContentProps>(
     ({ className, version, type, uiType, colors, style, side = 'right', children, ...props }, ref) => (
       <SheetPortalBase>
         <SheetOverlay colors={colors} />
@@ -1153,7 +1153,7 @@ export function createSheetFoundation(versionKey: string) {
   );
   SheetFooter.displayName = 'SheetFooter';
 
-  const SheetTitle = React.forwardRef<React.ElementRef<typeof SheetTitleBase>, SheetTitleProps>(
+  const SheetTitle = React.forwardRef<React.ComponentRef<typeof SheetTitleBase>, SheetTitleProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => {
       const tone = getTypographyTone(resolveVisualType(type, uiType), colors);
       return <SheetTitleBase ref={ref} className={cx('text-lg font-semibold', className)} style={{ color: tone.heading, ...style }} {...props} />;
@@ -1161,7 +1161,7 @@ export function createSheetFoundation(versionKey: string) {
   );
   SheetTitle.displayName = 'SheetTitle';
 
-  const SheetDescription = React.forwardRef<React.ElementRef<typeof SheetDescriptionBase>, SheetDescriptionProps>(
+  const SheetDescription = React.forwardRef<React.ComponentRef<typeof SheetDescriptionBase>, SheetDescriptionProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => {
       const tone = getTypographyTone(resolveVisualType(type, uiType), colors);
       return <SheetDescriptionBase ref={ref} className={cx('text-sm opacity-80', className)} style={{ color: tone.body, ...style }} {...props} />;
@@ -1189,7 +1189,7 @@ export function createSwitchFoundation(versionKey: string) {
       htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
     };
 
-  const Switch = React.forwardRef<React.ElementRef<typeof SwitchBase>, SwitchProps>(
+  const Switch = React.forwardRef<React.ComponentRef<typeof SwitchBase>, SwitchProps>(
     ({ className, version, type, uiType, colors, style, htmlType = 'button', ...props }, ref) => {
       const palette = normalizeColors(colors);
       return (
@@ -1239,7 +1239,7 @@ export function createTableFoundation(versionKey: string) {
   type TableCellProps = React.ComponentPropsWithoutRef<typeof TableCellBase> & StyledProps;
   type TableCaptionProps = React.ComponentPropsWithoutRef<typeof TableCaptionBase> & StyledProps;
 
-  const Table = React.forwardRef<React.ElementRef<typeof TableBase>, TableProps>(
+  const Table = React.forwardRef<React.ComponentRef<typeof TableBase>, TableProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => (
       <div className="relative w-full overflow-auto">
         <TableBase
@@ -1253,29 +1253,29 @@ export function createTableFoundation(versionKey: string) {
   );
   Table.displayName = 'Table';
 
-  const TableHeader = React.forwardRef<React.ElementRef<typeof TableHeaderBase>, TableHeaderProps>(
+  const TableHeader = React.forwardRef<React.ComponentRef<typeof TableHeaderBase>, TableHeaderProps>(
     ({ className, ...props }, ref) => <TableHeaderBase ref={ref} className={cx('[&_tr]:border-b', className)} {...props} />
   );
   TableHeader.displayName = 'TableHeader';
 
-  const TableBody = React.forwardRef<React.ElementRef<typeof TableBodyBase>, TableBodyProps>(
+  const TableBody = React.forwardRef<React.ComponentRef<typeof TableBodyBase>, TableBodyProps>(
     ({ className, ...props }, ref) => <TableBodyBase ref={ref} className={cx('[&_tr:last-child]:border-0', className)} {...props} />
   );
   TableBody.displayName = 'TableBody';
 
-  const TableFooter = React.forwardRef<React.ElementRef<typeof TableFooterBase>, TableFooterProps>(
+  const TableFooter = React.forwardRef<React.ComponentRef<typeof TableFooterBase>, TableFooterProps>(
     ({ className, ...props }, ref) => <TableFooterBase ref={ref} className={cx('border-t font-medium', className)} {...props} />
   );
   TableFooter.displayName = 'TableFooter';
 
-  const TableHead = React.forwardRef<React.ElementRef<typeof TableHeadBase>, TableHeadProps>(
+  const TableHead = React.forwardRef<React.ComponentRef<typeof TableHeadBase>, TableHeadProps>(
     ({ className, ...props }, ref) => (
       <TableHeadBase ref={ref} className={cx('h-10 px-3 text-left align-middle text-xs font-semibold uppercase tracking-wide', className)} {...props} />
     )
   );
   TableHead.displayName = 'TableHead';
 
-  const TableRow = React.forwardRef<React.ElementRef<typeof TableRowBase>, TableRowProps>(
+  const TableRow = React.forwardRef<React.ComponentRef<typeof TableRowBase>, TableRowProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => (
       <TableRowBase
         ref={ref}
@@ -1291,12 +1291,12 @@ export function createTableFoundation(versionKey: string) {
   );
   TableRow.displayName = 'TableRow';
 
-  const TableCell = React.forwardRef<React.ElementRef<typeof TableCellBase>, TableCellProps>(
+  const TableCell = React.forwardRef<React.ComponentRef<typeof TableCellBase>, TableCellProps>(
     ({ className, ...props }, ref) => <TableCellBase ref={ref} className={cx('p-3 align-middle', className)} {...props} />
   );
   TableCell.displayName = 'TableCell';
 
-  const TableCaption = React.forwardRef<React.ElementRef<typeof TableCaptionBase>, TableCaptionProps>(
+  const TableCaption = React.forwardRef<React.ComponentRef<typeof TableCaptionBase>, TableCaptionProps>(
     ({ className, ...props }, ref) => <TableCaptionBase ref={ref} className={cx('mt-3 text-sm opacity-70', className)} {...props} />
   );
   TableCaption.displayName = 'TableCaption';
@@ -1322,12 +1322,12 @@ export function createTabsFoundation(versionKey: string) {
     };
   type TabsContentProps = React.ComponentPropsWithoutRef<typeof TabsContentBase> & StyledProps;
 
-  const Tabs = React.forwardRef<React.ElementRef<typeof TabsBase>, TabsProps>(
+  const Tabs = React.forwardRef<React.ComponentRef<typeof TabsBase>, TabsProps>(
     ({ className, ...props }, ref) => <TabsBase ref={ref} className={cx('w-full', className)} {...props} />
   );
   Tabs.displayName = 'Tabs';
 
-  const TabsList = React.forwardRef<React.ElementRef<typeof TabsListBase>, TabsListProps>(
+  const TabsList = React.forwardRef<React.ComponentRef<typeof TabsListBase>, TabsListProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => (
       <TabsListBase
         ref={ref}
@@ -1339,7 +1339,7 @@ export function createTabsFoundation(versionKey: string) {
   );
   TabsList.displayName = 'TabsList';
 
-  const TabsTrigger = React.forwardRef<React.ElementRef<typeof TabsTriggerBase>, TabsTriggerProps>(
+  const TabsTrigger = React.forwardRef<React.ComponentRef<typeof TabsTriggerBase>, TabsTriggerProps>(
     ({ className, version, type, uiType, colors, style, htmlType = 'button', ...props }, ref) => (
       <TabsTriggerBase
         ref={ref}
@@ -1355,7 +1355,7 @@ export function createTabsFoundation(versionKey: string) {
   );
   TabsTrigger.displayName = 'TabsTrigger';
 
-  const TabsContent = React.forwardRef<React.ElementRef<typeof TabsContentBase>, TabsContentProps>(
+  const TabsContent = React.forwardRef<React.ComponentRef<typeof TabsContentBase>, TabsContentProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => (
       <TabsContentBase
         ref={ref}
@@ -1389,7 +1389,7 @@ export function createToastFoundation(versionKey: string) {
 
   const ToastProvider = ToastProviderBase;
 
-  const ToastViewport = React.forwardRef<React.ElementRef<typeof ToastViewportBase>, ToastViewportProps>(
+  const ToastViewport = React.forwardRef<React.ComponentRef<typeof ToastViewportBase>, ToastViewportProps>(
     ({ className, ...props }, ref) => (
       <ToastViewportBase
         ref={ref}
@@ -1400,7 +1400,7 @@ export function createToastFoundation(versionKey: string) {
   );
   ToastViewport.displayName = 'ToastViewport';
 
-  const Toast = React.forwardRef<React.ElementRef<typeof ToastBase>, ToastProps>(
+  const Toast = React.forwardRef<React.ComponentRef<typeof ToastBase>, ToastProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => (
       <ToastBase
         ref={ref}
@@ -1412,17 +1412,17 @@ export function createToastFoundation(versionKey: string) {
   );
   Toast.displayName = 'Toast';
 
-  const ToastTitle = React.forwardRef<React.ElementRef<typeof ToastTitleBase>, ToastTitleProps>(
+  const ToastTitle = React.forwardRef<React.ComponentRef<typeof ToastTitleBase>, ToastTitleProps>(
     ({ className, ...props }, ref) => <ToastTitleBase ref={ref} className={cx('text-sm font-semibold', className)} {...props} />
   );
   ToastTitle.displayName = 'ToastTitle';
 
-  const ToastDescription = React.forwardRef<React.ElementRef<typeof ToastDescriptionBase>, ToastDescriptionProps>(
+  const ToastDescription = React.forwardRef<React.ComponentRef<typeof ToastDescriptionBase>, ToastDescriptionProps>(
     ({ className, ...props }, ref) => <ToastDescriptionBase ref={ref} className={cx('text-sm opacity-85', className)} {...props} />
   );
   ToastDescription.displayName = 'ToastDescription';
 
-  const ToastClose = React.forwardRef<React.ElementRef<typeof ToastCloseBase>, ToastCloseProps>(
+  const ToastClose = React.forwardRef<React.ComponentRef<typeof ToastCloseBase>, ToastCloseProps>(
     ({ className, children, ...props }, ref) => (
       <ToastCloseBase ref={ref} className={cx('inline-flex h-7 w-7 items-center justify-center', className)} {...props}>
         {children ?? <X className="h-4 w-4" />}
@@ -1431,7 +1431,7 @@ export function createToastFoundation(versionKey: string) {
   );
   ToastClose.displayName = 'ToastClose';
 
-  const ToastAction = React.forwardRef<React.ElementRef<typeof ToastActionBase>, ToastActionProps>(
+  const ToastAction = React.forwardRef<React.ComponentRef<typeof ToastActionBase>, ToastActionProps>(
     ({ className, ...props }, ref) => (
       <ToastActionBase ref={ref} className={cx('inline-flex h-8 items-center justify-center px-3 text-xs', className)} {...props} />
     )
@@ -1456,12 +1456,12 @@ export function createToggleGroupFoundation(versionKey: string) {
       htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
     };
 
-  const ToggleGroup = React.forwardRef<React.ElementRef<typeof ToggleGroupBase>, ToggleGroupProps>(
+  const ToggleGroup = React.forwardRef<React.ComponentRef<typeof ToggleGroupBase>, ToggleGroupProps>(
     ({ className: _className, ...props }, ref) => <ToggleGroupBase ref={ref} {...props} />
   );
   ToggleGroup.displayName = 'ToggleGroup';
 
-  const ToggleGroupItem = React.forwardRef<React.ElementRef<typeof ToggleGroupItemBase>, ToggleGroupItemProps>(
+  const ToggleGroupItem = React.forwardRef<React.ComponentRef<typeof ToggleGroupItemBase>, ToggleGroupItemProps>(
     ({ className, version, type, uiType, colors, style, htmlType = 'button', ...props }, ref) => (
       <ToggleGroupItemBase
         ref={ref}
@@ -1486,7 +1486,7 @@ export function createToggleFoundation(versionKey: string) {
       htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
     };
 
-  const Toggle = React.forwardRef<React.ElementRef<typeof ToggleBase>, ToggleProps>(
+  const Toggle = React.forwardRef<React.ComponentRef<typeof ToggleBase>, ToggleProps>(
     ({ className, version, type, uiType, colors, style, htmlType = 'button', ...props }, ref) => (
       <ToggleBase
         ref={ref}
@@ -1511,7 +1511,7 @@ export function createTooltipFoundation(versionKey: string) {
   const Tooltip = TooltipBase;
   const TooltipTrigger = TooltipTriggerBase;
 
-  const TooltipContent = React.forwardRef<React.ElementRef<typeof TooltipContentBase>, TooltipContentProps>(
+  const TooltipContent = React.forwardRef<React.ComponentRef<typeof TooltipContentBase>, TooltipContentProps>(
     ({ className, version, type, uiType, colors, style, sideOffset = 6, ...props }, ref) => (
       <TooltipContentBase
         ref={ref}
@@ -1538,7 +1538,7 @@ export function createDigitalClockFoundation(versionKey: string) {
       showTimezone?: boolean;
     };
 
-  const DigitalClock = React.forwardRef<React.ElementRef<typeof DigitalClockBase>, DigitalClockProps>(
+  const DigitalClock = React.forwardRef<React.ComponentRef<typeof DigitalClockBase>, DigitalClockProps>(
     ({ className, version, type, uiType, colors, style, timezone, showTimezone = true, ...props }, ref) => {
       const resolvedVersion = version ?? versionKey;
       const visualType = resolveVisualType(type, uiType);
@@ -1603,7 +1603,7 @@ export function createDigitalClockFoundation(versionKey: string) {
 export function createAnalogClockFoundation(versionKey: string) {
   type AnalogClockProps = React.ComponentPropsWithoutRef<typeof AnalogClockBase> & StyledProps;
 
-  const AnalogClock = React.forwardRef<React.ElementRef<typeof AnalogClockBase>, AnalogClockProps>(
+  const AnalogClock = React.forwardRef<React.ComponentRef<typeof AnalogClockBase>, AnalogClockProps>(
     ({ className, version, type, uiType, colors, style, ...props }, ref) => {
       const resolvedVersion = version ?? versionKey;
       const visualType = resolveVisualType(type, uiType);

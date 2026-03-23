@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
 const Separator = React.forwardRef<
-  React.ElementRef<typeof SeparatorPrimitive.Root>,
+  React.ComponentRef<typeof SeparatorPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> & { effects?: TerminalWindowEffects }
 >(({ className, orientation = 'horizontal', decorator = true, effects = 'on', ...props }, ref) => (
   <SeparatorPrimitive.Root

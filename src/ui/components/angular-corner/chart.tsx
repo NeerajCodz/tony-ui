@@ -20,7 +20,7 @@ import { ResponsiveContainer } from 'recharts';
 const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
 const ChartContainer = React.forwardRef<
-  React.ElementRef<typeof ChartContainerBase>,
+  React.ComponentRef<typeof ChartContainerBase>,
   React.ComponentPropsWithoutRef<typeof ChartContainerBase> & { chartType?: 'line' | 'bar' | 'pie' | 'area' | 'radar' | 'scatter' | 'composed' }
 >(({ className, chartType, ...props }, ref) => {
   return (
@@ -50,7 +50,7 @@ ChartContainer.displayName = 'ChartContainer';
 const ChartTooltip = ChartTooltipBase;
 
 const ChartTooltipContent = React.forwardRef<
-  React.ElementRef<typeof ChartTooltipContentBase>,
+  React.ComponentRef<typeof ChartTooltipContentBase>,
   React.ComponentPropsWithoutRef<typeof ChartTooltipContentBase> & {
     hideLabel?: boolean;
     hideIndicator?: boolean;
@@ -181,7 +181,7 @@ ChartTooltipContent.displayName = 'ChartTooltipContent';
 const ChartLegend = ChartLegendBase;
 
 const ChartLegendContent = React.forwardRef<
-  React.ElementRef<typeof ChartLegendContentBase>,
+  React.ComponentRef<typeof ChartLegendContentBase>,
   React.ComponentPropsWithoutRef<typeof ChartLegendContentBase>
 >(({ className, hideIcon = false, payload, verticalAlign = 'bottom', nameKey }, ref) => {
   const config = useChart();

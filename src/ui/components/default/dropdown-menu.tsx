@@ -28,7 +28,7 @@ const DropdownMenuSub = DropdownMenuSubBase;
 const DropdownMenuRadioGroup = DropdownMenuRadioGroupBase;
 
 const DropdownMenuSubTrigger = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuSubTriggerBase>,
+  React.ComponentRef<typeof DropdownMenuSubTriggerBase>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuSubTriggerBase>
 >(({ className, inset, children, ...props }, ref) => (
   <DropdownMenuSubTriggerBase
@@ -47,7 +47,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
 DropdownMenuSubTrigger.displayName = 'DropdownMenuSubTrigger'
 
 const DropdownMenuSubContent = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuSubContentBase>,
+  React.ComponentRef<typeof DropdownMenuSubContentBase>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuSubContentBase>
 >(({ className, ...props }, ref) => (
   <DropdownMenuSubContentBase
@@ -62,7 +62,7 @@ const DropdownMenuSubContent = React.forwardRef<
 DropdownMenuSubContent.displayName = 'DropdownMenuSubContent'
 
 const DropdownMenuContent = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuContentBase>,
+  React.ComponentRef<typeof DropdownMenuContentBase>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuContentBase>
 >(({ className, sideOffset = 4, ...props }, ref) => (
   <DropdownMenuPortalBase>
@@ -80,7 +80,7 @@ const DropdownMenuContent = React.forwardRef<
 DropdownMenuContent.displayName = 'DropdownMenuContent'
 
 const DropdownMenuItem = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuItemBase>,
+  React.ComponentRef<typeof DropdownMenuItemBase>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuItemBase> & {
     inset?: boolean
   }
@@ -98,7 +98,7 @@ const DropdownMenuItem = React.forwardRef<
 DropdownMenuItem.displayName = 'DropdownMenuItem'
 
 const DropdownMenuCheckboxItem = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuCheckboxItemBase>,
+  React.ComponentRef<typeof DropdownMenuCheckboxItemBase>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuCheckboxItemBase>
 >(({ className, children, checked, ...props }, ref) => (
   <DropdownMenuCheckboxItemBase
@@ -121,7 +121,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
 DropdownMenuCheckboxItem.displayName = 'DropdownMenuCheckboxItem'
 
 const DropdownMenuRadioItem = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuRadioItemBase>,
+  React.ComponentRef<typeof DropdownMenuRadioItemBase>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuRadioItemBase>
 >(({ className, children, ...props }, ref) => (
   <DropdownMenuRadioItemBase
@@ -143,7 +143,7 @@ const DropdownMenuRadioItem = React.forwardRef<
 DropdownMenuRadioItem.displayName = 'DropdownMenuRadioItem'
 
 const DropdownMenuLabel = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuLabelBase>,
+  React.ComponentRef<typeof DropdownMenuLabelBase>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuLabelBase> & {
     inset?: boolean
   }
@@ -161,7 +161,7 @@ const DropdownMenuLabel = React.forwardRef<
 DropdownMenuLabel.displayName = 'DropdownMenuLabel'
 
 const DropdownMenuSeparator = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuSeparatorBase>,
+  React.ComponentRef<typeof DropdownMenuSeparatorBase>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuSeparatorBase>
 >(({ className, ...props }, ref) => (
   <DropdownMenuSeparatorBase

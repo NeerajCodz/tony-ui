@@ -11,7 +11,7 @@ const TooltipTrigger = TooltipPrimitive.Trigger;
 
 
 const TooltipContent = React.forwardRef<
-  React.ElementRef<typeof TooltipPrimitive.Content>,
+  React.ComponentRef<typeof TooltipPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', sideOffset = 4, style, ...props }, ref) => {
   const smallBrackets = React.useMemo(() => getBracketsStyle('6px', '1px', '2px'), []);

@@ -21,7 +21,7 @@ const sliderVariants = cva(
 
 export interface SliderProps extends SliderBaseProps, VariantProps<typeof sliderVariants> {}
 
-const Slider = React.forwardRef<React.ElementRef<typeof SliderBase>, SliderProps>(
+const Slider = React.forwardRef<React.ComponentRef<typeof SliderBase>, SliderProps>(
   ({ className, size, ...props }, ref) => (
     <SliderBase
       ref={ref}

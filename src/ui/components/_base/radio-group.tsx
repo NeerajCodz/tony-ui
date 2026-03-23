@@ -62,7 +62,7 @@ export interface RadioGroupBaseProps
  * - Items are arrow-key navigable, NOT Tab navigable (single tab stop)
  */
 export const RadioGroupBase = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitive.Root>,
+  React.ComponentRef<typeof RadioGroupPrimitive.Root>,
   RadioGroupBaseProps
 >(({ type = 'default', size = 'md', variant, ...props }, ref) => (
   <RadioGroupPrimitive.Root
@@ -101,7 +101,7 @@ export interface RadioGroupItemBaseProps
  * - aria-checked="true|false"
  */
 export const RadioGroupItemBase = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitive.Item>,
+  React.ComponentRef<typeof RadioGroupPrimitive.Item>,
   RadioGroupItemBaseProps
 >((props, ref) => <RadioGroupPrimitive.Item ref={ref} {...props} />);
 RadioGroupItemBase.displayName = 'RadioGroupItemBase';
@@ -117,7 +117,7 @@ export interface RadioGroupIndicatorBaseProps
  * RadioGroupIndicatorBase - The inner dot when selected
  */
 export const RadioGroupIndicatorBase = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitive.Indicator>,
+  React.ComponentRef<typeof RadioGroupPrimitive.Indicator>,
   RadioGroupIndicatorBaseProps
 >((props, ref) => <RadioGroupPrimitive.Indicator ref={ref} {...props} />);
 export const RadioGroupItem = RadioGroupItemBase;

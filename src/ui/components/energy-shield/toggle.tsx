@@ -28,7 +28,7 @@ const toggleVariants = cva(
 );
 
 const Toggle = React.forwardRef<
-  React.ElementRef<typeof TogglePrimitive.Root>,
+  React.ComponentRef<typeof TogglePrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof TogglePrimitive.Root> & { effects?: EnergyShieldEffects } &
     VariantProps<typeof toggleVariants>
 >(({ className, effects = 'on', variant, size, ...props }, ref) => (

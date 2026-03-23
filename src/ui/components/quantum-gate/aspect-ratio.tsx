@@ -8,7 +8,7 @@ export interface AspectRatioProps extends AspectRatioBaseProps {
 }
 
 
-export const AspectRatio = React.forwardRef<React.ElementRef<typeof AspectRatioBase>, AspectRatioProps>(
+export const AspectRatio = React.forwardRef<React.ComponentRef<typeof AspectRatioBase>, AspectRatioProps>(
   ({ className, effects = 'on', style, ...props }, ref) => (
     <AspectRatioBase
       ref={ref}

@@ -67,7 +67,7 @@ export interface AlertDialogTriggerBaseProps
  * AlertDialogTriggerBase - Button that opens the alert dialog
  */
 export const AlertDialogTriggerBase = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Trigger>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Trigger>,
   AlertDialogTriggerBaseProps
 >((props, ref) => <AlertDialogPrimitive.Trigger ref={ref} {...props} />);
 AlertDialogTriggerBase.displayName = 'AlertDialogTriggerBase';
@@ -96,7 +96,7 @@ export interface AlertDialogOverlayBaseProps
  * Note: Does NOT close dialog on click (unlike regular Dialog)
  */
 export const AlertDialogOverlayBase = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Overlay>,
   AlertDialogOverlayBaseProps
 >((props, ref) => <AlertDialogPrimitive.Overlay ref={ref} {...props} />);
 AlertDialogOverlayBase.displayName = 'AlertDialogOverlayBase';
@@ -134,7 +134,7 @@ export interface AlertDialogContentBaseProps
  * - With overlay backdrop fade
  */
 export const AlertDialogContentBase = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Content>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Content>,
   AlertDialogContentBaseProps
 >(({ type = 'default', size = 'md', variant, ...props }, ref) => (
   <AlertDialogPrimitive.Content
@@ -176,7 +176,7 @@ export interface AlertDialogTitleBaseProps
  * Should clearly describe the action being confirmed
  */
 export const AlertDialogTitleBase = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Title>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Title>,
   AlertDialogTitleBaseProps
 >((props, ref) => <AlertDialogPrimitive.Title ref={ref} {...props} />);
 AlertDialogTitleBase.displayName = 'AlertDialogTitleBase';
@@ -194,7 +194,7 @@ export interface AlertDialogDescriptionBaseProps
  * Provides additional context about consequences
  */
 export const AlertDialogDescriptionBase = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Description>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Description>,
   AlertDialogDescriptionBaseProps
 >((props, ref) => <AlertDialogPrimitive.Description ref={ref} {...props} />);
 AlertDialogDescriptionBase.displayName = 'AlertDialogDescriptionBase';
@@ -231,7 +231,7 @@ export interface AlertDialogActionBaseProps
  * Should NOT have initial focus for destructive actions.
  */
 export const AlertDialogActionBase = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Action>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Action>,
   AlertDialogActionBaseProps
 >((props, ref) => <AlertDialogPrimitive.Action ref={ref} {...props} />);
 AlertDialogActionBase.displayName = 'AlertDialogActionBase';
@@ -249,7 +249,7 @@ export interface AlertDialogCancelBaseProps
  * Should receive initial focus (least destructive action)
  */
 export const AlertDialogCancelBase = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Cancel>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Cancel>,
   AlertDialogCancelBaseProps
 >((props, ref) => <AlertDialogPrimitive.Cancel ref={ref} {...props} />);
 AlertDialogCancelBase.displayName = 'AlertDialogCancelBase';

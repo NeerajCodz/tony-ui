@@ -56,7 +56,7 @@ export interface SliderBaseProps
  * - aria-disabled
  */
 export const SliderBase = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Root>,
+  React.ComponentRef<typeof SliderPrimitive.Root>,
   SliderBaseProps
 >(({ size = 'md', variant, ...props }, ref) => (
   <SliderPrimitive.Root
@@ -79,7 +79,7 @@ export interface SliderTrackBaseProps
  * SliderTrackBase - Full-width track bar
  */
 export const SliderTrackBase = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Track>,
+  React.ComponentRef<typeof SliderPrimitive.Track>,
   SliderTrackBaseProps
 >((props, ref) => <SliderPrimitive.Track ref={ref} {...props} />);
 SliderTrackBase.displayName = 'SliderTrackBase';
@@ -95,7 +95,7 @@ export interface SliderRangeBaseProps
  * SliderRangeBase - Filled portion from min to value
  */
 export const SliderRangeBase = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Range>,
+  React.ComponentRef<typeof SliderPrimitive.Range>,
   SliderRangeBaseProps
 >((props, ref) => <SliderPrimitive.Range ref={ref} {...props} />);
 SliderRangeBase.displayName = 'SliderRangeBase';
@@ -113,7 +113,7 @@ export interface SliderThumbBaseProps
  * Use two thumbs for range slider
  */
 export const SliderThumbBase = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Thumb>,
+  React.ComponentRef<typeof SliderPrimitive.Thumb>,
   SliderThumbBaseProps
 >((props, ref) => <SliderPrimitive.Thumb ref={ref} {...props} />);
 SliderThumbBase.displayName = 'SliderThumbBase';

@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 const HoverCard = HoverCardBase;
 const HoverCardTrigger = HoverCardTriggerBase;
 
-const HoverCardContent = React.forwardRef<React.ElementRef<typeof HoverCardContentBase>, HoverCardContentBaseProps>(
+const HoverCardContent = React.forwardRef<React.ComponentRef<typeof HoverCardContentBase>, HoverCardContentBaseProps>(
   ({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
     <HoverCardContentBase
       ref={ref}

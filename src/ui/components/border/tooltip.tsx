@@ -6,7 +6,7 @@ const TooltipProvider = TooltipProviderBase;
 const Tooltip = TooltipBase;
 const TooltipTrigger = TooltipTriggerBase;
 
-const TooltipContent = React.forwardRef<React.ElementRef<typeof TooltipContentBase>, TooltipContentBaseProps>(
+const TooltipContent = React.forwardRef<React.ComponentRef<typeof TooltipContentBase>, TooltipContentBaseProps>(
   ({ className, sideOffset = 4, ...props }, ref) => (
     <TooltipContentBase
       ref={ref}

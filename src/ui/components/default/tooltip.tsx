@@ -12,7 +12,7 @@ export const Tooltip = TooltipBase;
 export const TooltipTrigger = TooltipTriggerBase;
 export const TooltipProvider = TooltipProviderBase;
 
-export const TooltipContent = React.forwardRef<React.ElementRef<typeof TooltipContentBase>, React.ComponentPropsWithoutRef<typeof TooltipContentBase>>(
+export const TooltipContent = React.forwardRef<React.ComponentRef<typeof TooltipContentBase>, React.ComponentPropsWithoutRef<typeof TooltipContentBase>>(
   ({ className, sideOffset = 4, ...props }, ref) => (
     <TooltipContentBase
       ref={ref}
@@ -27,7 +27,7 @@ export const TooltipContent = React.forwardRef<React.ElementRef<typeof TooltipCo
 );
 TooltipContent.displayName = 'TooltipContent';
 
-export const TooltipArrow = React.forwardRef<React.ElementRef<typeof TooltipArrowBase>, React.ComponentPropsWithoutRef<typeof TooltipArrowBase>>(
+export const TooltipArrow = React.forwardRef<React.ComponentRef<typeof TooltipArrowBase>, React.ComponentPropsWithoutRef<typeof TooltipArrowBase>>(
     ({ className, ...props }, ref) => (
         <TooltipArrowBase ref={ref} className={cn('fill-[var(--df-border)]', className)} {...props} />
     )

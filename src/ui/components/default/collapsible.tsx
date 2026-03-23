@@ -7,7 +7,7 @@ import {
 } from '../_base/collapsible';
 import { cn } from '@/lib/utils';
 
-const Collapsible = React.forwardRef<React.ElementRef<typeof CollapsibleBase>, CollapsibleBaseProps>(
+const Collapsible = React.forwardRef<React.ComponentRef<typeof CollapsibleBase>, CollapsibleBaseProps>(
   ({ className, ...props }, ref) => (
     <CollapsibleBase
       ref={ref}

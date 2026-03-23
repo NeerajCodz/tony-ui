@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
 const AspectRatio = React.forwardRef<
-  React.ElementRef<typeof AspectRatioPrimitive.Root>,
+  React.ComponentRef<typeof AspectRatioPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof AspectRatioPrimitive.Root> & { effects?: TerminalWindowEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AspectRatioPrimitive.Root

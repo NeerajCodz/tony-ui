@@ -5,7 +5,7 @@ import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
 
 
 const Slider = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Root>,
+  React.ComponentRef<typeof SliderPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> & { effects?: TechPanelEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <SliderPrimitive.Root

@@ -94,7 +94,7 @@ export interface TooltipContentBaseProps
  * - Never interactive → never needs focus management
  */
 export const TooltipContentBase = React.forwardRef<
-  React.ElementRef<typeof TooltipPrimitive.Content>,
+  React.ComponentRef<typeof TooltipPrimitive.Content>,
   TooltipContentBaseProps
 >(({ size = 'md', sideOffset = 4, ...props }, ref) => (
   <TooltipPrimitive.Content
@@ -119,7 +119,7 @@ export interface TooltipArrowBaseProps
  * Same fill as content bg
  */
 export const TooltipArrowBase = React.forwardRef<
-  React.ElementRef<typeof TooltipPrimitive.Arrow>,
+  React.ComponentRef<typeof TooltipPrimitive.Arrow>,
   TooltipArrowBaseProps
 >((props, ref) => <TooltipPrimitive.Arrow ref={ref} {...props} />);
 TooltipArrowBase.displayName = 'TooltipArrowBase';

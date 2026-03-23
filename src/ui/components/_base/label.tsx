@@ -45,7 +45,7 @@ export interface LabelBaseProps
  * <Input id="input-id" />
  */
 export const LabelBase = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentRef<typeof LabelPrimitive.Root>,
   LabelBaseProps
 >(({ size = 'md', required = false, disabled = false, invalid = false, ...props }, ref) => (
   <LabelPrimitive.Root

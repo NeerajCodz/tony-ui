@@ -7,7 +7,7 @@ const ChartTooltip = ChartTooltipBase;
 const ChartLegend = ChartLegendBase;
 const ChartStyle = ChartStyleBase;
 
-const ChartTooltipContent = React.forwardRef<React.ElementRef<typeof ChartTooltipContentBase>, React.ComponentPropsWithoutRef<typeof ChartTooltipContentBase>>(
+const ChartTooltipContent = React.forwardRef<React.ComponentRef<typeof ChartTooltipContentBase>, React.ComponentPropsWithoutRef<typeof ChartTooltipContentBase>>(
   ({ className, ...props }, ref) => (
     <ChartTooltipContentBase
       ref={ref}
@@ -21,7 +21,7 @@ const ChartTooltipContent = React.forwardRef<React.ElementRef<typeof ChartToolti
 );
 ChartTooltipContent.displayName = 'ChartTooltipContent';
 
-const ChartLegendContent = React.forwardRef<React.ElementRef<typeof ChartLegendContentBase>, React.ComponentPropsWithoutRef<typeof ChartLegendContentBase>>(
+const ChartLegendContent = React.forwardRef<React.ComponentRef<typeof ChartLegendContentBase>, React.ComponentPropsWithoutRef<typeof ChartLegendContentBase>>(
   ({ className, ...props }, ref) => (
     <ChartLegendContentBase
       ref={ref}

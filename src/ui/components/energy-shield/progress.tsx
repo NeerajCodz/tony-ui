@@ -5,7 +5,7 @@ import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 
 const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
+  React.ComponentRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & { effects?: EnergyShieldEffects }
 >(({ className, effects = 'on', value, ...props }, ref) => (
   <ProgressPrimitive.Root

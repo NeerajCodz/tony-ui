@@ -105,7 +105,7 @@ const AccordionBase = React.forwardRef<HTMLDivElement, AccordionProps>(
 );
 AccordionBase.displayName = 'Accordion';
 
-const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Item>, AccordionItemProps>((props, ref) => {
+const AccordionItem = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Item>, AccordionItemProps>((props, ref) => {
   const { versionModule, variant, type, colors } = useAccordionContext();
   if (!versionModule) return <LoadingSkeleton />;
   const Component = (versionModule.AccordionItem || versionModule.Item) as React.ComponentType<any>;
@@ -114,7 +114,7 @@ const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitiv
 });
 AccordionItem.displayName = 'AccordionItem';
 
-const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Trigger>, AccordionTriggerProps>((props, ref) => {
+const AccordionTrigger = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Trigger>, AccordionTriggerProps>((props, ref) => {
   const { versionModule, variant, type, colors } = useAccordionContext();
   const Component = (versionModule?.AccordionTrigger || versionModule?.Trigger) as React.ComponentType<any> | undefined;
   if (!Component) return <AccordionPrimitive.Trigger ref={ref} {...props} />;
@@ -122,7 +122,7 @@ const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimi
 });
 AccordionTrigger.displayName = 'AccordionTrigger';
 
-const AccordionContent = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Content>, AccordionContentProps>((props, ref) => {
+const AccordionContent = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Content>, AccordionContentProps>((props, ref) => {
   const { versionModule, variant, type, colors } = useAccordionContext();
   const Component = (versionModule?.AccordionContent || versionModule?.Content) as React.ComponentType<any> | undefined;
   if (!Component) return <AccordionPrimitive.Content ref={ref} {...props} />;

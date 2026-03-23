@@ -4,7 +4,7 @@ import { RadioGroupBase, RadioGroupItemBase, RadioGroupIndicatorBase, type Radio
 import { cn } from '@/lib/utils';
 import { Circle } from 'lucide-react';
 
-const RadioGroup = React.forwardRef<React.ElementRef<typeof RadioGroupBase>, RadioGroupBaseProps>(
+const RadioGroup = React.forwardRef<React.ComponentRef<typeof RadioGroupBase>, RadioGroupBaseProps>(
   ({ className, ...props }, ref) => {
     return <RadioGroupBase className={cn('grid gap-2', className)} {...props} ref={ref} />;
   }
@@ -45,7 +45,7 @@ export interface RadioGroupItemProps extends RadioGroupItemBaseProps {
   visualSize?: RadioVisualSize;
 }
 
-const RadioGroupItem = React.forwardRef<React.ElementRef<typeof RadioGroupItemBase>, RadioGroupItemProps>(
+const RadioGroupItem = React.forwardRef<React.ComponentRef<typeof RadioGroupItemBase>, RadioGroupItemProps>(
   ({ className, visualType, visualSize, ...props }, ref) => {
     return (
       <RadioGroupItemBase

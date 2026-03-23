@@ -4,6 +4,7 @@ import { type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 import { toggleVariants } from './toggle';
+import { getNeonGlow } from './_effects';
 
 const ToggleGroup = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Root>,
@@ -14,9 +15,7 @@ const ToggleGroup = React.forwardRef<
     ref={ref}
     className={cn('flex items-center justify-center gap-2', className)}
     {...props}
-  >
-    {children}
-  </ToggleGroupPrimitive.Root>
+  />
 ));
 
 ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName;
@@ -24,9 +23,8 @@ ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName;
 const ToggleGroupItem = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> &
-    VariantProps<typeof toggleVariants>
->(({ className, children, variant, size, ...props }, ref) => {
-  const context = React.useContext(ToggleGroupPrimitive.Root);
+    VariantProps<typeof toggleVariants> & { effects?: boolean }
+>(({ className, children, variant, size, effects = true, ...props }, ref) => {
   return (
     <ToggleGroupPrimitive.Item
       ref={ref}
@@ -35,6 +33,8 @@ const ToggleGroupItem = React.forwardRef<
           variant,
           size,
         }),
+        effects && variant === 'outline' && getNeonGlow(true),
+        effects && "data-[state=on]:shadow-[0_0_15px_var(--ne-primary)]",
         className
       )}
       {...props}

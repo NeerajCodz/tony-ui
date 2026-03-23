@@ -19,7 +19,7 @@ export const DialogTrigger = DialogTriggerBase;
 export const DialogPortal = DialogPortalBase;
 export const DialogClose = DialogCloseBase;
 
-export const DialogOverlay = React.forwardRef<React.ElementRef<typeof DialogOverlayBase>, React.ComponentPropsWithoutRef<typeof DialogOverlayBase>>(
+export const DialogOverlay = React.forwardRef<React.ComponentRef<typeof DialogOverlayBase>, React.ComponentPropsWithoutRef<typeof DialogOverlayBase>>(
   ({ className, ...props }, ref) => (
     <DialogOverlayBase
       ref={ref}
@@ -33,7 +33,7 @@ export const DialogOverlay = React.forwardRef<React.ElementRef<typeof DialogOver
 );
 DialogOverlay.displayName = 'DialogOverlay';
 
-export const DialogContent = React.forwardRef<React.ElementRef<typeof DialogContentBase>, React.ComponentPropsWithoutRef<typeof DialogContentBase>>(
+export const DialogContent = React.forwardRef<React.ComponentRef<typeof DialogContentBase>, React.ComponentPropsWithoutRef<typeof DialogContentBase>>(
   ({ className, children, ...props }, ref) => (
     <DialogPortal>
       <DialogOverlay />
@@ -78,7 +78,7 @@ export const DialogFooter = React.forwardRef<HTMLDivElement, React.HTMLAttribute
 );
 DialogFooter.displayName = 'DialogFooter';
 
-export const DialogTitle = React.forwardRef<React.ElementRef<typeof DialogTitleBase>, React.ComponentPropsWithoutRef<typeof DialogTitleBase>>(
+export const DialogTitle = React.forwardRef<React.ComponentRef<typeof DialogTitleBase>, React.ComponentPropsWithoutRef<typeof DialogTitleBase>>(
   ({ className, ...props }, ref) => (
     <DialogTitleBase
       ref={ref}
@@ -89,7 +89,7 @@ export const DialogTitle = React.forwardRef<React.ElementRef<typeof DialogTitleB
 );
 DialogTitle.displayName = 'DialogTitle';
 
-export const DialogDescription = React.forwardRef<React.ElementRef<typeof DialogDescriptionBase>, React.ComponentPropsWithoutRef<typeof DialogDescriptionBase>>(
+export const DialogDescription = React.forwardRef<React.ComponentRef<typeof DialogDescriptionBase>, React.ComponentPropsWithoutRef<typeof DialogDescriptionBase>>(
   ({ className, ...props }, ref) => (
     <DialogDescriptionBase
       ref={ref}

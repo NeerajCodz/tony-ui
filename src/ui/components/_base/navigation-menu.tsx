@@ -70,7 +70,7 @@ export interface NavigationMenuBaseProps
  * - Triggers have aria-expanded
  */
 export const NavigationMenuBase = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Root>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Root>,
   NavigationMenuBaseProps
 >(({ type = 'default', size = 'md', variant, ...props }, ref) => (
   <NavigationMenuPrimitive.Root
@@ -94,7 +94,7 @@ export interface NavigationMenuListBaseProps
  * NavigationMenuListBase - Container for navigation items
  */
 export const NavigationMenuListBase = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.List>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.List>,
   NavigationMenuListBaseProps
 >((props, ref) => <NavigationMenuPrimitive.List ref={ref} {...props} />);
 NavigationMenuListBase.displayName = 'NavigationMenuListBase';
@@ -110,7 +110,7 @@ export interface NavigationMenuItemBaseProps
  * NavigationMenuItemBase - Wrapper for each navigation item
  */
 export const NavigationMenuItemBase = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Item>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Item>,
   NavigationMenuItemBaseProps
 >((props, ref) => <NavigationMenuPrimitive.Item ref={ref} {...props} />);
 NavigationMenuItemBase.displayName = 'NavigationMenuItemBase';
@@ -134,7 +134,7 @@ export interface NavigationMenuTriggerBaseProps
  * - focus: focus ring
  */
 export const NavigationMenuTriggerBase = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Trigger>,
   NavigationMenuTriggerBaseProps
 >((props, ref) => <NavigationMenuPrimitive.Trigger ref={ref} {...props} />);
 NavigationMenuTriggerBase.displayName = 'NavigationMenuTriggerBase';
@@ -156,7 +156,7 @@ export interface NavigationMenuContentBaseProps
  * - Content transitions when switching between items
  */
 export const NavigationMenuContentBase = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Content>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Content>,
   NavigationMenuContentBaseProps
 >((props, ref) => <NavigationMenuPrimitive.Content ref={ref} {...props} />);
 NavigationMenuContentBase.displayName = 'NavigationMenuContentBase';
@@ -185,7 +185,7 @@ export interface NavigationMenuLinkBaseProps
  * - focus: focus ring
  */
 export const NavigationMenuLinkBase = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Link>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Link>,
   NavigationMenuLinkBaseProps
 >(({ active, ...props }, ref) => (
   <NavigationMenuPrimitive.Link
@@ -210,7 +210,7 @@ export interface NavigationMenuViewportBaseProps
  * between different items' content.
  */
 export const NavigationMenuViewportBase = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Viewport>,
   NavigationMenuViewportBaseProps
 >((props, ref) => <NavigationMenuPrimitive.Viewport ref={ref} {...props} />);
 NavigationMenuViewportBase.displayName = 'NavigationMenuViewportBase';
@@ -228,7 +228,7 @@ export interface NavigationMenuIndicatorBaseProps
  * Typically rendered as an arrow or underline.
  */
 export const NavigationMenuIndicatorBase = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Indicator>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Indicator>,
   NavigationMenuIndicatorBaseProps
 >((props, ref) => <NavigationMenuPrimitive.Indicator ref={ref} {...props} />);
 NavigationMenuIndicatorBase.displayName = 'NavigationMenuIndicatorBase';
@@ -244,7 +244,7 @@ export interface NavigationMenuSubBaseProps
  * NavigationMenuSubBase - Sub navigation (for mobile/vertical layouts)
  */
 export const NavigationMenuSubBase = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Sub>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Sub>,
   NavigationMenuSubBaseProps
 >((props, ref) => <NavigationMenuPrimitive.Sub ref={ref} {...props} />);
 NavigationMenuSubBase.displayName = 'NavigationMenuSubBase';

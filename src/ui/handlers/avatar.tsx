@@ -47,7 +47,7 @@ const LoadingSkeleton: React.FC<{ size?: AvatarSize }> = ({ size = 'md' }) => {
 
 // Main Component
 const AvatarRoot = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Root>,
+  React.ComponentRef<typeof AvatarPrimitive.Root>,
   AvatarProps
 >(({
   version = 'angular-corner',
@@ -81,7 +81,7 @@ AvatarRoot.displayName = 'Avatar';
 
 // Image subcomponent
 const AvatarImage = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Image>,
+  React.ComponentRef<typeof AvatarPrimitive.Image>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
 >((props, ref) => {
   const { versionModule, variant, size, colors } = useAvatarContext();
@@ -103,7 +103,7 @@ AvatarImage.displayName = 'AvatarImage';
 
 // Fallback subcomponent
 const AvatarFallback = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Fallback>,
+  React.ComponentRef<typeof AvatarPrimitive.Fallback>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
 >((props, ref) => {
   const { versionModule, variant, size, colors } = useAvatarContext();

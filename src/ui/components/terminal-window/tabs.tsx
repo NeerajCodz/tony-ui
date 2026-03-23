@@ -6,7 +6,7 @@ import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effec
 const Tabs = TabsPrimitive.Root;
 
 const TabsList = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.List>,
+  React.ComponentRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> & { effects?: TerminalWindowEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <TabsPrimitive.List
@@ -21,7 +21,7 @@ const TabsList = React.forwardRef<
 TabsList.displayName = TabsPrimitive.List.displayName;
 
 const TabsTrigger = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.Trigger>,
+  React.ComponentRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> & { effects?: TerminalWindowEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <TabsPrimitive.Trigger
@@ -36,7 +36,7 @@ const TabsTrigger = React.forwardRef<
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
 const TabsContent = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.Content>,
+  React.ComponentRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> & { effects?: TerminalWindowEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <TabsPrimitive.Content

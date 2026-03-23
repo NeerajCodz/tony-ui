@@ -20,7 +20,7 @@ import { ResponsiveContainer } from 'recharts';
 
 
 const ChartContainer = React.forwardRef<
-  React.ElementRef<typeof ChartContainerBase>,
+  React.ComponentRef<typeof ChartContainerBase>,
   React.ComponentPropsWithoutRef<typeof ChartContainerBase> & { effects?: QuantumGateEffects } & { chartType?: 'line' | 'bar' | 'pie' | 'area' | 'radar' | 'scatter' | 'composed' }
 >(({ className, effects = 'on', chartType, ...props }, ref) => {
   return (
@@ -50,7 +50,7 @@ ChartContainer.displayName = 'ChartContainer';
 const ChartTooltip = ChartTooltipBase;
 
 const ChartTooltipContent = React.forwardRef<
-  React.ElementRef<typeof ChartTooltipContentBase>,
+  React.ComponentRef<typeof ChartTooltipContentBase>,
   React.ComponentPropsWithoutRef<typeof ChartTooltipContentBase> & { effects?: QuantumGateEffects } & {
     hideLabel?: boolean;
     hideIndicator?: boolean;
@@ -181,7 +181,7 @@ ChartTooltipContent.displayName = 'ChartTooltipContent';
 const ChartLegend = ChartLegendBase;
 
 const ChartLegendContent = React.forwardRef<
-  React.ElementRef<typeof ChartLegendContentBase>,
+  React.ComponentRef<typeof ChartLegendContentBase>,
   React.ComponentPropsWithoutRef<typeof ChartLegendContentBase> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', hideIcon = false, payload, verticalAlign = 'bottom', nameKey }, ref) => {
   const config = useChart();

@@ -4,6 +4,7 @@ import { cva } from 'class-variance-authority';
 import { ChevronDown } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { getNeonGlow } from './_effects';
 
 const NavigationMenu = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Root>,
@@ -18,7 +19,7 @@ const NavigationMenu = React.forwardRef<
     {...props}
   >
     {children}
-    <NavigationViewport />
+    <NavigationMenuViewport />
   </NavigationMenuPrimitive.Root>
 ));
 NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName;
@@ -39,19 +40,20 @@ const NavigationMenuList = React.forwardRef<
 NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 
 const navigationMenuTriggerStyle = cva(
-  'group inline-flex h-10 w-max items-center justify-center bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-[var(--ne-primary)]/10 hover:text-[var(--ne-primary)] focus:bg-[var(--ne-primary)]/10 focus:text-[var(--ne-primary)] focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-[var(--ne-primary)]/20 data-[state=open]:bg-[var(--ne-primary)]/20 font-display uppercase tracking-widest hover:shadow-[0_0_10px_var(--ne-primary)]'
+  'group inline-flex h-10 w-max items-center justify-center bg-[var(--ne-bg)] px-4 py-2 text-sm font-medium transition-colors hover:bg-[var(--ne-primary)]/10 hover:text-[var(--ne-primary)] focus:bg-[var(--ne-primary)]/10 focus:text-[var(--ne-primary)] focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-[var(--ne-primary)]/20 data-[state=open]:bg-[var(--ne-primary)]/20 font-display uppercase tracking-widest'
 );
 
 const NavigationMenuTrigger = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger> & { effects?: boolean }
+>(({ className, children, effects = true, ...props }, ref) => (
   <NavigationMenuPrimitive.Trigger
     ref={ref}
-    className={cn(navigationMenuTriggerStyle(), 'group', className)}
+    className={cn(navigationMenuTriggerStyle(), 'group', getNeonGlow(effects, 'text'), className)}
     {...props}
   >
     {children}
+    {' '}
     <ChevronDown
       className="relative top-[1px] ml-1 h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180"
       aria-hidden="true"
@@ -77,14 +79,15 @@ NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 
 const NavigationMenuLink = NavigationMenuPrimitive.Link;
 
-const NavigationViewport = React.forwardRef<
+const NavigationMenuViewport = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Viewport>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Viewport> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
   <div className={cn('absolute left-0 top-full flex justify-center')}>
     <NavigationMenuPrimitive.Viewport
       className={cn(
-        'origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] text-[var(--ne-text)] shadow-[0_0_20px_var(--ne-primary)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]',
+        'origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] text-[var(--ne-text)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]',
+        getNeonGlow(effects, 'high'),
         className
       )}
       ref={ref}
@@ -92,13 +95,13 @@ const NavigationViewport = React.forwardRef<
     />
   </div>
 ));
-NavigationViewport.displayName =
+NavigationMenuViewport.displayName =
   NavigationMenuPrimitive.Viewport.displayName;
 
 const NavigationMenuIndicator = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Indicator>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Indicator>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Indicator> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
   <NavigationMenuPrimitive.Indicator
     ref={ref}
     className={cn(
@@ -107,7 +110,10 @@ const NavigationMenuIndicator = React.forwardRef<
     )}
     {...props}
   >
-    <div className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-[var(--ne-primary)] shadow-[0_0_10px_var(--ne-primary)]" />
+    <div className={cn(
+      "relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-[var(--ne-primary)] shadow-md",
+      getNeonGlow(effects)
+    )} />
   </NavigationMenuPrimitive.Indicator>
 ));
 NavigationMenuIndicator.displayName =
@@ -117,9 +123,25 @@ export {
   navigationMenuTriggerStyle,
   NavigationMenu,
   NavigationMenuList,
-  NavigationMenuTrigger,
+  NavigationMenuItem,
   NavigationMenuContent,
+  NavigationMenuTrigger,
   NavigationMenuLink,
-  NavigationViewport,
   NavigationMenuIndicator,
+  NavigationMenuViewport,
+} from './navigation-menu-exports'; // Assuming exports are handled or I should export inline. 
+// Wait, I am overwriting the file. I should export inline.
+
+export {
+  navigationMenuTriggerStyle,
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuContent,
+  NavigationMenuTrigger,
+  NavigationMenuLink,
+  NavigationMenuIndicator,
+  NavigationMenuViewport,
 };
+
+const NavigationMenuItem = NavigationMenuPrimitive.Item;
+export { NavigationMenuItem };

@@ -41,7 +41,7 @@ const getItemStyles = (visualType: string = 'default', size: string = 'md') => {
     return styles;
 }
 
-export const RadioGroup = React.forwardRef<React.ElementRef<typeof RadioGroupBase>, RadioGroupProps>(
+export const RadioGroup = React.forwardRef<React.ComponentRef<typeof RadioGroupBase>, RadioGroupProps>(
   ({ className, ...props }, ref) => {
     return (
       <RadioGroupBase
@@ -54,7 +54,7 @@ export const RadioGroup = React.forwardRef<React.ElementRef<typeof RadioGroupBas
 );
 RadioGroup.displayName = 'RadioGroup';
 
-export const RadioGroupItem = React.forwardRef<React.ElementRef<typeof RadioGroupItemBase>, RadioGroupItemProps>(
+export const RadioGroupItem = React.forwardRef<React.ComponentRef<typeof RadioGroupItemBase>, RadioGroupItemProps>(
   ({ className, ...props }, ref) => {
     return (
         <RadioGroupItemBase

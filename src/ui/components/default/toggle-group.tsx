@@ -13,7 +13,7 @@ const ToggleGroupContext = React.createContext<{
     variant?: string;
 }>({});
 
-export const ToggleGroup = React.forwardRef<React.ElementRef<typeof ToggleGroupBase>, ToggleGroupBaseProps>(
+export const ToggleGroup = React.forwardRef<React.ComponentRef<typeof ToggleGroupBase>, ToggleGroupBaseProps>(
   ({ className, visualType = 'default', size = 'md', variant, appearance = 'joined', children, ...props }, ref) => (
     <ToggleGroupBase
       ref={ref}
@@ -35,7 +35,7 @@ export const ToggleGroup = React.forwardRef<React.ElementRef<typeof ToggleGroupB
 );
 ToggleGroup.displayName = 'ToggleGroup';
 
-export const ToggleGroupItem = React.forwardRef<React.ElementRef<typeof ToggleGroupItemBase>, ToggleGroupItemBaseProps>(
+export const ToggleGroupItem = React.forwardRef<React.ComponentRef<typeof ToggleGroupItemBase>, ToggleGroupItemBaseProps>(
   ({ className, children, ...props }, ref) => {
     const context = React.useContext(ToggleGroupContext);
     return (

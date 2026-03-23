@@ -54,7 +54,7 @@ export interface CollapsibleBaseProps
  * - Content: id matches aria-controls
  */
 export const CollapsibleBase = React.forwardRef<
-  React.ElementRef<typeof CollapsiblePrimitive.Root>,
+  React.ComponentRef<typeof CollapsiblePrimitive.Root>,
   CollapsibleBaseProps
 >(({ type = 'default', variant, ...props }, ref) => (
   <CollapsiblePrimitive.Root
@@ -79,7 +79,7 @@ export interface CollapsibleTriggerBaseProps
  * Typically contains label and chevron indicator
  */
 export const CollapsibleTriggerBase = React.forwardRef<
-  React.ElementRef<typeof CollapsiblePrimitive.Trigger>,
+  React.ComponentRef<typeof CollapsiblePrimitive.Trigger>,
   CollapsibleTriggerBaseProps
 >((props, ref) => <CollapsiblePrimitive.Trigger ref={ref} {...props} />);
 CollapsibleTriggerBase.displayName = 'CollapsibleTriggerBase';
@@ -103,7 +103,7 @@ export interface CollapsibleContentBaseProps
  * Animates height and opacity on open/close.
  */
 export const CollapsibleContentBase = React.forwardRef<
-  React.ElementRef<typeof CollapsiblePrimitive.Content>,
+  React.ComponentRef<typeof CollapsiblePrimitive.Content>,
   CollapsibleContentBaseProps
 >((props, ref) => <CollapsiblePrimitive.Content ref={ref} {...props} />);
 CollapsibleContentBase.displayName = 'CollapsibleContentBase';

@@ -3,6 +3,7 @@ import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { ChevronDown } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { getNeonGlow } from './_effects';
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -20,13 +21,14 @@ AccordionItem.displayName = 'AccordionItem';
 
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & { effects?: boolean }
+>(({ className, children, effects = true, ...props }, ref) => (
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        'flex flex-1 items-center justify-between py-4 font-display uppercase tracking-widest transition-all hover:text-[var(--ne-primary)] hover:drop-shadow-[0_0_5px_var(--ne-primary)] [&[data-state=open]>svg]:rotate-180',
+        'flex flex-1 items-center justify-between py-4 font-display uppercase tracking-widest transition-all hover:text-[var(--ne-primary)] [&[data-state=open]>svg]:rotate-180',
+        getNeonGlow(effects, 'text'),
         className
       )}
       {...props}

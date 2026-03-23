@@ -19,7 +19,7 @@ export type TechPanelAccordionProps = AccordionBaseProps & {
   effects?: TechPanelEffects;
 };
 
-const Accordion = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, TechPanelAccordionProps>(
+const Accordion = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Root>, TechPanelAccordionProps>(
   ({ className, effects = 'on', ...props }, ref) => (
     <AccordionBase 
       ref={ref} 
@@ -30,7 +30,7 @@ const Accordion = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Ro
 );
 Accordion.displayName = 'Accordion';
 
-const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Item>, AccordionItemBaseProps & { effects?: TechPanelEffects }>(
+const AccordionItem = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Item>, AccordionItemBaseProps & { effects?: TechPanelEffects }>(
   ({ className, effects = 'on', style, ...props }, ref) => (
     <AccordionItemBase
       ref={ref}
@@ -46,7 +46,7 @@ const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitiv
 );
 AccordionItem.displayName = 'AccordionItem';
 
-const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Trigger>, AccordionTriggerBaseProps & { effects?: TechPanelEffects }>(
+const AccordionTrigger = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Trigger>, AccordionTriggerBaseProps & { effects?: TechPanelEffects }>(
   ({ className, effects = 'on', children, ...props }, ref) => (
     <AccordionHeaderBase className="flex">
       <AccordionTriggerBase
@@ -65,7 +65,7 @@ const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimi
 );
 AccordionTrigger.displayName = 'AccordionTrigger';
 
-const AccordionContent = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Content>, AccordionContentBaseProps & { effects?: TechPanelEffects }>(
+const AccordionContent = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Content>, AccordionContentBaseProps & { effects?: TechPanelEffects }>(
   ({ className, effects = 'on', children, ...props }, ref) => (
     <AccordionContentBase
       ref={ref}

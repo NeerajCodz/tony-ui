@@ -56,7 +56,13 @@ const Carousel = React.forwardRef<
     },
     ref
   ) => {
-    const [api, setApiInternal] = React.useState<CarouselApi>();
+    const [carouselRef, api] = useEmblaCarousel(
+      {
+        ...opts,
+        axis: orientation === 'horizontal' ? 'x' : 'y',
+      },
+      plugins
+    );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
 
@@ -90,36 +96,27 @@ const Carousel = React.forwardRef<
       [scrollPrev, scrollNext]
     );
 
-    const [carouselRef, apiObj] = useEmblaCarousel(
-      {
-        ...opts,
-        axis: orientation === 'horizontal' ? 'x' : 'y',
-      },
-      plugins
-    );
-
     React.useEffect(() => {
-      if (!apiObj || !setApi) {
+      if (!api || !setApi) {
         return;
       }
 
-      setApi(apiObj);
-    }, [apiObj, setApi]);
+      setApi(api);
+    }, [api, setApi]);
 
     React.useEffect(() => {
-      if (!apiObj) {
+      if (!api) {
         return;
       }
 
-      onSelect(apiObj);
-      apiObj.on('reInit', onSelect);
-      apiObj.on('select', onSelect);
+      onSelect(api);
+      api.on('reInit', onSelect);
+      api.on('select', onSelect);
 
       return () => {
-        apiObj.off('reInit', onSelect);
-        apiObj.off('select', onSelect);
+        api.off('select', onSelect);
       };
-    }, [apiObj, onSelect]);
+    }, [api, onSelect]);
 
     return (
       <CarouselContext.Provider
@@ -207,7 +204,7 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        'absolute h-8 w-8 rounded-full shadow-[0_0_10px_var(--ne-primary)]',
+        'absolute  h-8 w-8 rounded-full',
         orientation === 'horizontal'
           ? '-left-12 top-1/2 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -236,7 +233,7 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        'absolute h-8 w-8 rounded-full shadow-[0_0_10px_var(--ne-primary)]',
+        'absolute h-8 w-8 rounded-full',
         orientation === 'horizontal'
           ? '-right-12 top-1/2 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { ghostEffectsClass, type GhostEffects } from "./_effects"
 
 const Checkbox = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitive.Root>,
+  React.ComponentRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> & { effects?: GhostEffects }
 >(({ className, effects = "on", ...props }, ref) => (
   <CheckboxPrimitive.Root

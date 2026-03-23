@@ -35,7 +35,7 @@ export interface SeparatorBaseProps
  * - Decorative: aria-hidden="true"
  */
 export const SeparatorBase = React.forwardRef<
-  React.ElementRef<typeof SeparatorPrimitive.Root>,
+  React.ComponentRef<typeof SeparatorPrimitive.Root>,
   SeparatorBaseProps
 >(({ orientation = 'horizontal', decorative = true, ...props }, ref) => (
   <SeparatorPrimitive.Root

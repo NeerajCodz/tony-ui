@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
 const Switch = React.forwardRef<
-  React.ElementRef<typeof SwitchPrimitive.Root>,
+  React.ComponentRef<typeof SwitchPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Root> & { effects?: TerminalWindowEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <SwitchPrimitive.Root

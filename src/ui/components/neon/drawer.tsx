@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';
 
 import { cn } from '@/lib/utils';
+import { getNeonGlow } from './_effects';
 
 const Drawer = ({
   shouldScaleBackground = true,
@@ -34,20 +35,22 @@ DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> & { effects?: boolean }
+>(({ className, children, effects = true, ...props }, ref) => (
   <DrawerPortal>
     <DrawerOverlay />
     <DrawerPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border-t-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] shadow-[0_0_40px_var(--ne-primary)]',
+        'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background',
+        'border-[var(--ne-primary)] bg-[var(--ne-bg)] rounded-none',
+        getNeonGlow(effects, 'high'),
         className
       )}
       {...props}
     >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-[var(--ne-primary)] shadow-[0_0_10px_var(--ne-primary)]" />
-      <div className="p-4">{children}</div>
+      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-[var(--ne-primary)]/20" />
+      {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>
 ));
@@ -77,12 +80,13 @@ DrawerFooter.displayName = 'DrawerFooter';
 
 const DrawerTitle = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
   <DrawerPrimitive.Title
     ref={ref}
     className={cn(
-      'text-lg font-semibold leading-none tracking-tight font-display uppercase text-[var(--ne-primary)] drop-shadow-[0_0_5px_var(--ne-primary)]',
+      'text-lg font-semibold leading-none tracking-tight font-display uppercase text-[var(--ne-primary)]',
+      getNeonGlow(effects, 'text'),
       className
     )}
     {...props}
@@ -96,7 +100,7 @@ const DrawerDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Description
     ref={ref}
-    className={cn('text-sm text-muted-foreground font-body', className)}
+    className={cn('text-sm text-muted-foreground', className)}
     {...props}
   />
 ));

@@ -64,7 +64,7 @@ export interface DialogOverlayBaseProps
  * - aria-hidden="true"
  */
 export const DialogOverlayBase = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Overlay>,
+  React.ComponentRef<typeof DialogPrimitive.Overlay>,
   DialogOverlayBaseProps
 >((props, ref) => <DialogPrimitive.Overlay ref={ref} {...props} />);
 DialogOverlayBase.displayName = 'DialogOverlayBase';
@@ -113,7 +113,7 @@ export interface DialogContentBaseProps
  * - aria-labelledby, aria-describedby
  */
 export const DialogContentBase = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Content>,
+  React.ComponentRef<typeof DialogPrimitive.Content>,
   DialogContentBaseProps
 >(({ type = 'default', variant, size = 'md', ...props }, ref) => (
   <DialogPrimitive.Content
@@ -165,7 +165,7 @@ export interface DialogTitleBaseProps
  * DialogTitleBase - Heading (h3 scale)
  */
 export const DialogTitleBase = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Title>,
+  React.ComponentRef<typeof DialogPrimitive.Title>,
   DialogTitleBaseProps
 >((props, ref) => <DialogPrimitive.Title ref={ref} {...props} />);
 DialogTitleBase.displayName = 'DialogTitleBase';
@@ -181,7 +181,7 @@ export interface DialogDescriptionBaseProps
  * DialogDescriptionBase - Secondary text
  */
 export const DialogDescriptionBase = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Description>,
+  React.ComponentRef<typeof DialogPrimitive.Description>,
   DialogDescriptionBaseProps
 >((props, ref) => <DialogPrimitive.Description ref={ref} {...props} />);
 DialogDescriptionBase.displayName = 'DialogDescriptionBase';

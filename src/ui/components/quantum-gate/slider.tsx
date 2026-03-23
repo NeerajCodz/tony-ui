@@ -5,7 +5,7 @@ import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 
 
 const Slider = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Root>,
+  React.ComponentRef<typeof SliderPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <SliderPrimitive.Root

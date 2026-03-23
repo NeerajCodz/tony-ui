@@ -5,7 +5,7 @@ import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
 
 
 const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
+  React.ComponentRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & { effects?: TechPanelEffects }
 >(({ className, effects = 'on', value, ...props }, ref) => (
   <ProgressPrimitive.Root

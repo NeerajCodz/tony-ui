@@ -1,15 +1,16 @@
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
+import { getNeonGlow } from './_effects';
 
 const Table = React.forwardRef<
   HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto border-2 border-[var(--ne-primary)] shadow-[0_0_20px_var(--ne-primary)]">
+  React.HTMLAttributes<HTMLTableElement> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
+  <div className={cn("relative w-full overflow-auto border-2 border-[var(--ne-primary)]", getNeonGlow(effects, 'high'))}>
     <table
       ref={ref}
-      className={cn('w-full caption-bottom text-sm text-[var(--ne-text)]', className)}
+      className={cn('w-full caption-bottom text-sm font-body', className)}
       {...props}
     />
   </div>
@@ -20,7 +21,7 @@ const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn('[&_tr]:border-b border-[var(--ne-primary)]/50', className)} {...props} />
+  <thead ref={ref} className={cn('[&_tr]:border-b border-[var(--ne-primary)]', className)} {...props} />
 ));
 TableHeader.displayName = 'TableHeader';
 
@@ -43,7 +44,7 @@ const TableFooter = React.forwardRef<
   <tfoot
     ref={ref}
     className={cn(
-      'border-t bg-[var(--ne-primary)]/10 font-medium [&>tr]:last:border-b-0',
+      'border-t bg-muted/50 font-medium [&>tr]:last:border-b-0',
       className
     )}
     {...props}
@@ -68,12 +69,13 @@ TableRow.displayName = 'TableRow';
 
 const TableHead = React.forwardRef<
   HTMLTableCellElement,
-  React.ThHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
+  React.ThHTMLAttributes<HTMLTableCellElement> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
   <th
     ref={ref}
     className={cn(
-      'h-12 px-4 text-left align-middle font-medium text-[var(--ne-secondary)] [&:has([role=checkbox])]:pr-0 font-display uppercase tracking-widest',
+      'h-12 px-4 text-left align-middle font-medium text-[var(--ne-primary)] [&:has([role=checkbox])]:pr-0 font-display uppercase tracking-widest',
+      getNeonGlow(effects, 'text'),
       className
     )}
     {...props}
@@ -87,7 +89,7 @@ const TableCell = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <td
     ref={ref}
-    className={cn('p-4 align-middle [&:has([role=checkbox])]:pr-0 font-body', className)}
+    className={cn('p-4 align-middle [&:has([role=checkbox])]:pr-0', className)}
     {...props}
   />
 ));
@@ -99,7 +101,7 @@ const TableCaption = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <caption
     ref={ref}
-    className={cn('mt-4 text-sm text-muted-foreground', className)}
+    className={cn('mt-4 text-sm text-[var(--ne-text)]/50', className)}
     {...props}
   />
 ));

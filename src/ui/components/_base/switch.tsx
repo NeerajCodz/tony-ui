@@ -53,7 +53,7 @@ export interface SwitchBaseProps
  * - MUST have accessible label
  */
 export const SwitchBase = React.forwardRef<
-  React.ElementRef<typeof SwitchPrimitive.Root>,
+  React.ComponentRef<typeof SwitchPrimitive.Root>,
   SwitchBaseProps
 >(({ size = 'md', variant, ...props }, ref) => (
   <SwitchPrimitive.Root
@@ -76,7 +76,7 @@ export interface SwitchThumbBaseProps
  * SwitchThumbBase - The sliding circle inside the track
  */
 export const SwitchThumbBase = React.forwardRef<
-  React.ElementRef<typeof SwitchPrimitive.Thumb>,
+  React.ComponentRef<typeof SwitchPrimitive.Thumb>,
   SwitchThumbBaseProps
 >((props, ref) => <SwitchPrimitive.Thumb ref={ref} {...props} />);
 SwitchThumbBase.displayName = 'SwitchThumbBase';

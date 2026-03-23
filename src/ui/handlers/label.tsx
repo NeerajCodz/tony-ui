@@ -22,7 +22,7 @@ export interface LabelProps extends React.ComponentPropsWithoutRef<typeof LabelP
 
 // Fallback
 const FallbackLabel = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentRef<typeof LabelPrimitive.Root>,
   LabelProps
 >(({ className = '', required, error, children, ...props }, ref) => (
   <LabelPrimitive.Root
@@ -38,7 +38,7 @@ FallbackLabel.displayName = 'FallbackLabel';
 
 // Main Label Component
 export const Label = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentRef<typeof LabelPrimitive.Root>,
   LabelProps
 >(({
   version = 'angular-corner',

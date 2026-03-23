@@ -79,7 +79,7 @@ const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
 const AlertDialogPortal = AlertDialogPrimitive.Portal;
 
 const AlertDialogOverlay = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
 >((props, ref) => {
   const { versionModule, variant, type, colors } = useAlertDialogContext();
@@ -100,7 +100,7 @@ const AlertDialogOverlay = React.forwardRef<
 AlertDialogOverlay.displayName = 'AlertDialogOverlay';
 
 const AlertDialogContent = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Content>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
 >((props, ref) => {
   const { versionModule, variant, type, colors } = useAlertDialogContext();
@@ -162,7 +162,7 @@ const AlertDialogFooter = React.forwardRef<
 AlertDialogFooter.displayName = 'AlertDialogFooter';
 
 const AlertDialogTitle = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Title>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
 >((props, ref) => {
   const { versionModule, variant, type, colors } = useAlertDialogContext();
@@ -183,7 +183,7 @@ const AlertDialogTitle = React.forwardRef<
 AlertDialogTitle.displayName = 'AlertDialogTitle';
 
 const AlertDialogDescription = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Description>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
 >((props, ref) => {
   const { versionModule, variant, type, colors } = useAlertDialogContext();
@@ -204,7 +204,7 @@ const AlertDialogDescription = React.forwardRef<
 AlertDialogDescription.displayName = 'AlertDialogDescription';
 
 const AlertDialogAction = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Action>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Action>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>
 >((props, ref) => {
   const { versionModule, variant, type, colors } = useAlertDialogContext();
@@ -225,7 +225,7 @@ const AlertDialogAction = React.forwardRef<
 AlertDialogAction.displayName = 'AlertDialogAction';
 
 const AlertDialogCancel = React.forwardRef<
-  React.ElementRef<typeof AlertDialogPrimitive.Cancel>,
+  React.ComponentRef<typeof AlertDialogPrimitive.Cancel>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>
 >((props, ref) => {
   const { versionModule, variant, type, colors } = useAlertDialogContext();

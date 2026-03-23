@@ -10,7 +10,7 @@ const ContextMenuPortal = ContextMenuPortalBase;
 const ContextMenuSub = ContextMenuSubBase;
 const ContextMenuRadioGroup = ContextMenuRadioGroupBase;
 
-const ContextMenuSubTrigger = React.forwardRef<React.ElementRef<typeof ContextMenuSubTriggerBase>, React.ComponentPropsWithoutRef<typeof ContextMenuSubTriggerBase> & { inset?: boolean }>(
+const ContextMenuSubTrigger = React.forwardRef<React.ComponentRef<typeof ContextMenuSubTriggerBase>, React.ComponentPropsWithoutRef<typeof ContextMenuSubTriggerBase> & { inset?: boolean }>(
   ({ className, inset, children, ...props }, ref) => (
     <ContextMenuSubTriggerBase
       ref={ref}
@@ -28,7 +28,7 @@ const ContextMenuSubTrigger = React.forwardRef<React.ElementRef<typeof ContextMe
 );
 ContextMenuSubTrigger.displayName = 'ContextMenuSubTrigger';
 
-const ContextMenuSubContent = React.forwardRef<React.ElementRef<typeof ContextMenuSubContentBase>, React.ComponentPropsWithoutRef<typeof ContextMenuSubContentBase>>(
+const ContextMenuSubContent = React.forwardRef<React.ComponentRef<typeof ContextMenuSubContentBase>, React.ComponentPropsWithoutRef<typeof ContextMenuSubContentBase>>(
   ({ className, ...props }, ref) => (
     <ContextMenuSubContentBase
       ref={ref}
@@ -42,7 +42,7 @@ const ContextMenuSubContent = React.forwardRef<React.ElementRef<typeof ContextMe
 );
 ContextMenuSubContent.displayName = 'ContextMenuSubContent';
 
-const ContextMenuContent = React.forwardRef<React.ElementRef<typeof ContextMenuContentBase>, React.ComponentPropsWithoutRef<typeof ContextMenuContentBase>>(
+const ContextMenuContent = React.forwardRef<React.ComponentRef<typeof ContextMenuContentBase>, React.ComponentPropsWithoutRef<typeof ContextMenuContentBase>>(
   ({ className, ...props }, ref) => (
     <ContextMenuContentBase
       ref={ref}
@@ -56,7 +56,7 @@ const ContextMenuContent = React.forwardRef<React.ElementRef<typeof ContextMenuC
 );
 ContextMenuContent.displayName = 'ContextMenuContent';
 
-const ContextMenuItem = React.forwardRef<React.ElementRef<typeof ContextMenuItemBase>, React.ComponentPropsWithoutRef<typeof ContextMenuItemBase> & { inset?: boolean }>(
+const ContextMenuItem = React.forwardRef<React.ComponentRef<typeof ContextMenuItemBase>, React.ComponentPropsWithoutRef<typeof ContextMenuItemBase> & { inset?: boolean }>(
   ({ className, inset, ...props }, ref) => (
     <ContextMenuItemBase
       ref={ref}
@@ -71,7 +71,7 @@ const ContextMenuItem = React.forwardRef<React.ElementRef<typeof ContextMenuItem
 );
 ContextMenuItem.displayName = 'ContextMenuItem';
 
-const ContextMenuCheckboxItem = React.forwardRef<React.ElementRef<typeof ContextMenuCheckboxItemBase>, React.ComponentPropsWithoutRef<typeof ContextMenuCheckboxItemBase>>(
+const ContextMenuCheckboxItem = React.forwardRef<React.ComponentRef<typeof ContextMenuCheckboxItemBase>, React.ComponentPropsWithoutRef<typeof ContextMenuCheckboxItemBase>>(
   ({ className, children, checked, ...props }, ref) => (
     <ContextMenuCheckboxItemBase
       ref={ref}
@@ -93,7 +93,7 @@ const ContextMenuCheckboxItem = React.forwardRef<React.ElementRef<typeof Context
 );
 ContextMenuCheckboxItem.displayName = 'ContextMenuCheckboxItem';
 
-const ContextMenuRadioItem = React.forwardRef<React.ElementRef<typeof ContextMenuRadioItemBase>, React.ComponentPropsWithoutRef<typeof ContextMenuRadioItemBase>>(
+const ContextMenuRadioItem = React.forwardRef<React.ComponentRef<typeof ContextMenuRadioItemBase>, React.ComponentPropsWithoutRef<typeof ContextMenuRadioItemBase>>(
   ({ className, children, ...props }, ref) => (
     <ContextMenuRadioItemBase
       ref={ref}
@@ -114,7 +114,7 @@ const ContextMenuRadioItem = React.forwardRef<React.ElementRef<typeof ContextMen
 );
 ContextMenuRadioItem.displayName = 'ContextMenuRadioItem';
 
-const ContextMenuLabel = React.forwardRef<React.ElementRef<typeof ContextMenuLabelBase>, React.ComponentPropsWithoutRef<typeof ContextMenuLabelBase> & { inset?: boolean }>(
+const ContextMenuLabel = React.forwardRef<React.ComponentRef<typeof ContextMenuLabelBase>, React.ComponentPropsWithoutRef<typeof ContextMenuLabelBase> & { inset?: boolean }>(
   ({ className, inset, ...props }, ref) => (
     <ContextMenuLabelBase
       ref={ref}
@@ -125,7 +125,7 @@ const ContextMenuLabel = React.forwardRef<React.ElementRef<typeof ContextMenuLab
 );
 ContextMenuLabel.displayName = 'ContextMenuLabel';
 
-const ContextMenuSeparator = React.forwardRef<React.ElementRef<typeof ContextMenuSeparatorBase>, React.ComponentPropsWithoutRef<typeof ContextMenuSeparatorBase>>(
+const ContextMenuSeparator = React.forwardRef<React.ComponentRef<typeof ContextMenuSeparatorBase>, React.ComponentPropsWithoutRef<typeof ContextMenuSeparatorBase>>(
   ({ className, ...props }, ref) => (
     <ContextMenuSeparatorBase
       ref={ref}

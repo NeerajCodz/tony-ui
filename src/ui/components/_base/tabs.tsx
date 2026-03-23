@@ -56,7 +56,7 @@ export interface TabsBaseProps
  * - Home → first tab, End → last tab
  */
 export const TabsBase = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.Root>,
+  React.ComponentRef<typeof TabsPrimitive.Root>,
   TabsBaseProps
 >(({ size = 'md', variant, ...props }, ref) => (
   <TabsPrimitive.Root
@@ -91,7 +91,7 @@ export interface TabsListBaseProps
  * - aria-orientation
  */
 export const TabsListBase = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.List>,
+  React.ComponentRef<typeof TabsPrimitive.List>,
   TabsListBaseProps
 >(({ type = 'default', ...props }, ref) => (
   <TabsPrimitive.List ref={ref} data-type={type} {...props} />
@@ -137,7 +137,7 @@ export interface TabsTriggerBaseProps
  * - aria-controls="[panel-id]"
  */
 export const TabsTriggerBase = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.Trigger>,
+  React.ComponentRef<typeof TabsPrimitive.Trigger>,
   TabsTriggerBaseProps
 >(({ visualType = 'default', htmlType = 'button', ...props }, ref) => (
   <TabsPrimitive.Trigger ref={ref} type={htmlType} data-type={visualType} {...props} />
@@ -164,7 +164,7 @@ export interface TabsContentBaseProps
  * - Inactive content: hidden attribute
  */
 export const TabsContentBase = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.Content>,
+  React.ComponentRef<typeof TabsPrimitive.Content>,
   TabsContentBaseProps
 >((props, ref) => <TabsPrimitive.Content ref={ref} {...props} />);
 TabsContentBase.displayName = 'TabsContentBase';

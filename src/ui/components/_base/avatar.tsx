@@ -46,7 +46,7 @@ export interface AvatarBaseProps
  * - error: fallback shown
  */
 export const AvatarBase = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Root>,
+  React.ComponentRef<typeof AvatarPrimitive.Root>,
   AvatarBaseProps
 >(({ size = 'md', shape = 'circle', ...props }, ref) => (
   <AvatarPrimitive.Root
@@ -72,7 +72,7 @@ export interface AvatarImageBaseProps
  * - alt is REQUIRED
  */
 export const AvatarImageBase = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Image>,
+  React.ComponentRef<typeof AvatarPrimitive.Image>,
   AvatarImageBaseProps
 >((props, ref) => <AvatarPrimitive.Image ref={ref} {...props} />);
 AvatarImageBase.displayName = 'AvatarImageBase';
@@ -100,7 +100,7 @@ export interface AvatarFallbackBaseProps
  * - aria-hidden="true" if alt on image covers it
  */
 export const AvatarFallbackBase = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Fallback>,
+  React.ComponentRef<typeof AvatarPrimitive.Fallback>,
   AvatarFallbackBaseProps
 >(({ delayMs = 600, ...props }, ref) => (
   <AvatarPrimitive.Fallback ref={ref} delayMs={delayMs} {...props} />

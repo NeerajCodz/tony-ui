@@ -30,7 +30,7 @@ const LoadingSkeleton: React.FC = () => (
 
 // Fallback
 const FallbackProgress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
+  React.ComponentRef<typeof ProgressPrimitive.Root>,
   ProgressProps
 >(({ className = '', value = 0, max = 100, ...props }, ref) => (
   <ProgressPrimitive.Root
@@ -48,7 +48,7 @@ FallbackProgress.displayName = 'FallbackProgress';
 
 // Main Progress Component
 export const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
+  React.ComponentRef<typeof ProgressPrimitive.Root>,
   ProgressProps
 >(({
   version = 'angular-corner',

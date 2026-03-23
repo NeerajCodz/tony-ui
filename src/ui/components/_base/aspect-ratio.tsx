@@ -68,7 +68,7 @@ export interface AspectRatioBaseProps
  * - 1.618:1 - Golden ratio
  */
 export const AspectRatioBase = React.forwardRef<
-  React.ElementRef<typeof AspectRatioPrimitive.Root>,
+  React.ComponentRef<typeof AspectRatioPrimitive.Root>,
   AspectRatioBaseProps
 >(({ ratio = 1, ...props }, ref) => {
   // Convert preset string to number

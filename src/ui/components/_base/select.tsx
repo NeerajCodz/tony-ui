@@ -105,7 +105,7 @@ export interface SelectTriggerBaseProps
  * - aria-haspopup="listbox"
  */
 export const SelectTriggerBase = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Trigger>,
+  React.ComponentRef<typeof SelectPrimitive.Trigger>,
   SelectTriggerBaseProps
 >(({ visualType = 'default', htmlType = 'button', size = 'md', invalid = false, ...props }, ref) => (
   <SelectPrimitive.Trigger
@@ -145,7 +145,7 @@ export interface SelectContentBaseProps
  * - role="listbox"
  */
 export const SelectContentBase = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Content>,
+  React.ComponentRef<typeof SelectPrimitive.Content>,
   SelectContentBaseProps
 >((props, ref) => <SelectPrimitive.Content ref={ref} {...props} />);
 SelectContentBase.displayName = 'SelectContentBase';
@@ -164,7 +164,7 @@ export interface SelectScrollUpButtonBaseProps
   extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton> {}
 
 export const SelectScrollUpButtonBase = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.ScrollUpButton>,
+  React.ComponentRef<typeof SelectPrimitive.ScrollUpButton>,
   SelectScrollUpButtonBaseProps
 >((props, ref) => <SelectPrimitive.ScrollUpButton ref={ref} {...props} />);
 SelectScrollUpButtonBase.displayName = 'SelectScrollUpButtonBase';
@@ -173,7 +173,7 @@ export interface SelectScrollDownButtonBaseProps
   extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton> {}
 
 export const SelectScrollDownButtonBase = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.ScrollDownButton>,
+  React.ComponentRef<typeof SelectPrimitive.ScrollDownButton>,
   SelectScrollDownButtonBaseProps
 >((props, ref) => <SelectPrimitive.ScrollDownButton ref={ref} {...props} />);
 SelectScrollDownButtonBase.displayName = 'SelectScrollDownButtonBase';
@@ -189,7 +189,7 @@ export interface SelectLabelBaseProps
  * SelectLabelBase - Group header
  */
 export const SelectLabelBase = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Label>,
+  React.ComponentRef<typeof SelectPrimitive.Label>,
   SelectLabelBaseProps
 >((props, ref) => <SelectPrimitive.Label ref={ref} {...props} />);
 SelectLabelBase.displayName = 'SelectLabelBase';
@@ -209,7 +209,7 @@ export interface SelectItemBaseProps
  * - aria-selected
  */
 export const SelectItemBase = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Item>,
+  React.ComponentRef<typeof SelectPrimitive.Item>,
   SelectItemBaseProps
 >((props, ref) => <SelectPrimitive.Item ref={ref} {...props} />);
 SelectItemBase.displayName = 'SelectItemBase';
@@ -229,7 +229,7 @@ export interface SelectSeparatorBaseProps
   extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator> {}
 
 export const SelectSeparatorBase = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Separator>,
+  React.ComponentRef<typeof SelectPrimitive.Separator>,
   SelectSeparatorBaseProps
 >((props, ref) => <SelectPrimitive.Separator ref={ref} {...props} />);
 SelectSeparatorBase.displayName = 'SelectSeparatorBase';

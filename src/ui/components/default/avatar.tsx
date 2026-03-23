@@ -15,7 +15,7 @@ const getSizeStyles = (size: string = 'md') => {
     }
 }
 
-export const Avatar = React.forwardRef<React.ElementRef<typeof AvatarBase>, AvatarProps>(
+export const Avatar = React.forwardRef<React.ComponentRef<typeof AvatarBase>, AvatarProps>(
   ({ className, size = 'md', ...props }, ref) => (
     <AvatarBase
       ref={ref}
@@ -31,7 +31,7 @@ export const Avatar = React.forwardRef<React.ElementRef<typeof AvatarBase>, Avat
 );
 Avatar.displayName = 'Avatar';
 
-export const AvatarImage = React.forwardRef<React.ElementRef<typeof AvatarImageBase>, React.ComponentPropsWithoutRef<typeof AvatarImageBase>>(
+export const AvatarImage = React.forwardRef<React.ComponentRef<typeof AvatarImageBase>, React.ComponentPropsWithoutRef<typeof AvatarImageBase>>(
   ({ className, ...props }, ref) => (
     <AvatarImageBase
       ref={ref}
@@ -42,7 +42,7 @@ export const AvatarImage = React.forwardRef<React.ElementRef<typeof AvatarImageB
 );
 AvatarImage.displayName = 'AvatarImage';
 
-export const AvatarFallback = React.forwardRef<React.ElementRef<typeof AvatarFallbackBase>, React.ComponentPropsWithoutRef<typeof AvatarFallbackBase>>(
+export const AvatarFallback = React.forwardRef<React.ComponentRef<typeof AvatarFallbackBase>, React.ComponentPropsWithoutRef<typeof AvatarFallbackBase>>(
   ({ className, ...props }, ref) => (
     <AvatarFallbackBase
       ref={ref}

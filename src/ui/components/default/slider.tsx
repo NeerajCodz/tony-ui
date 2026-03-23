@@ -8,7 +8,7 @@ import {
 } from '../_base/slider';
 import { cn } from '@/lib/utils';
 
-export const Slider = React.forwardRef<React.ElementRef<typeof SliderBase>, SliderBaseProps>(
+export const Slider = React.forwardRef<React.ComponentRef<typeof SliderBase>, SliderBaseProps>(
   ({ className, ...props }, ref) => (
     <SliderBase
       ref={ref}

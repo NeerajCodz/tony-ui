@@ -74,7 +74,7 @@ export interface ContextMenuTriggerBaseProps
  * The entire trigger area is the right-click zone
  */
 export const ContextMenuTriggerBase = React.forwardRef<
-  React.ElementRef<typeof ContextMenuPrimitive.Trigger>,
+  React.ComponentRef<typeof ContextMenuPrimitive.Trigger>,
   ContextMenuTriggerBaseProps
 >((props, ref) => <ContextMenuPrimitive.Trigger ref={ref} {...props} />);
 ContextMenuTriggerBase.displayName = 'ContextMenuTriggerBase';
@@ -90,7 +90,7 @@ export interface ContextMenuGroupBaseProps
  * ContextMenuGroupBase - Groups related items
  */
 export const ContextMenuGroupBase = React.forwardRef<
-  React.ElementRef<typeof ContextMenuPrimitive.Group>,
+  React.ComponentRef<typeof ContextMenuPrimitive.Group>,
   ContextMenuGroupBaseProps
 >((props, ref) => <ContextMenuPrimitive.Group ref={ref} {...props} />);
 ContextMenuGroupBase.displayName = 'ContextMenuGroupBase';
@@ -128,7 +128,7 @@ export interface ContextMenuRadioGroupBaseProps
  * ContextMenuRadioGroupBase - Group for radio items
  */
 export const ContextMenuRadioGroupBase = React.forwardRef<
-  React.ElementRef<typeof ContextMenuPrimitive.RadioGroup>,
+  React.ComponentRef<typeof ContextMenuPrimitive.RadioGroup>,
   ContextMenuRadioGroupBaseProps
 >((props, ref) => <ContextMenuPrimitive.RadioGroup ref={ref} {...props} />);
 ContextMenuRadioGroupBase.displayName = 'ContextMenuRadioGroupBase';
@@ -155,7 +155,7 @@ export interface ContextMenuSubTriggerBaseProps
  * ContextMenuSubTriggerBase - Item that opens a submenu
  */
 export const ContextMenuSubTriggerBase = React.forwardRef<
-  React.ElementRef<typeof ContextMenuPrimitive.SubTrigger>,
+  React.ComponentRef<typeof ContextMenuPrimitive.SubTrigger>,
   ContextMenuSubTriggerBaseProps
 >(({ showIndicator = true, ...props }, ref) => (
   <ContextMenuPrimitive.SubTrigger
@@ -177,7 +177,7 @@ export interface ContextMenuSubContentBaseProps
  * ContextMenuSubContentBase - Content for a submenu
  */
 export const ContextMenuSubContentBase = React.forwardRef<
-  React.ElementRef<typeof ContextMenuPrimitive.SubContent>,
+  React.ComponentRef<typeof ContextMenuPrimitive.SubContent>,
   ContextMenuSubContentBaseProps
 >((props, ref) => <ContextMenuPrimitive.SubContent ref={ref} {...props} />);
 ContextMenuSubContentBase.displayName = 'ContextMenuSubContentBase';
@@ -216,7 +216,7 @@ export interface ContextMenuContentBaseProps
  * - Close: reverse
  */
 export const ContextMenuContentBase = React.forwardRef<
-  React.ElementRef<typeof ContextMenuPrimitive.Content>,
+  React.ComponentRef<typeof ContextMenuPrimitive.Content>,
   ContextMenuContentBaseProps
 >(({ type = 'default', size = 'md', variant, ...props }, ref) => (
   <ContextMenuPrimitive.Content
@@ -245,7 +245,7 @@ export interface ContextMenuItemBaseProps
  * ContextMenuItemBase - Standard action item
  */
 export const ContextMenuItemBase = React.forwardRef<
-  React.ElementRef<typeof ContextMenuPrimitive.Item>,
+  React.ComponentRef<typeof ContextMenuPrimitive.Item>,
   ContextMenuItemBaseProps
 >(({ destructive, ...props }, ref) => (
   <ContextMenuPrimitive.Item
@@ -272,7 +272,7 @@ export interface ContextMenuCheckboxItemBaseProps
  * ContextMenuCheckboxItemBase - Item with checkbox state
  */
 export const ContextMenuCheckboxItemBase = React.forwardRef<
-  React.ElementRef<typeof ContextMenuPrimitive.CheckboxItem>,
+  React.ComponentRef<typeof ContextMenuPrimitive.CheckboxItem>,
   ContextMenuCheckboxItemBaseProps
 >((props, ref) => <ContextMenuPrimitive.CheckboxItem ref={ref} {...props} />);
 ContextMenuCheckboxItemBase.displayName = 'ContextMenuCheckboxItemBase';
@@ -288,7 +288,7 @@ export interface ContextMenuRadioItemBaseProps
  * ContextMenuRadioItemBase - Item in a radio group
  */
 export const ContextMenuRadioItemBase = React.forwardRef<
-  React.ElementRef<typeof ContextMenuPrimitive.RadioItem>,
+  React.ComponentRef<typeof ContextMenuPrimitive.RadioItem>,
   ContextMenuRadioItemBaseProps
 >((props, ref) => <ContextMenuPrimitive.RadioItem ref={ref} {...props} />);
 ContextMenuRadioItemBase.displayName = 'ContextMenuRadioItemBase';
@@ -304,7 +304,7 @@ export interface ContextMenuItemIndicatorBaseProps
  * ContextMenuItemIndicatorBase - Check/radio indicator
  */
 export const ContextMenuItemIndicatorBase = React.forwardRef<
-  React.ElementRef<typeof ContextMenuPrimitive.ItemIndicator>,
+  React.ComponentRef<typeof ContextMenuPrimitive.ItemIndicator>,
   ContextMenuItemIndicatorBaseProps
 >((props, ref) => <ContextMenuPrimitive.ItemIndicator ref={ref} {...props} />);
 ContextMenuItemIndicatorBase.displayName = 'ContextMenuItemIndicatorBase';
@@ -325,7 +325,7 @@ export interface ContextMenuLabelBaseProps
  * ContextMenuLabelBase - Non-interactive label for grouping
  */
 export const ContextMenuLabelBase = React.forwardRef<
-  React.ElementRef<typeof ContextMenuPrimitive.Label>,
+  React.ComponentRef<typeof ContextMenuPrimitive.Label>,
   ContextMenuLabelBaseProps
 >((props, ref) => <ContextMenuPrimitive.Label ref={ref} {...props} />);
 ContextMenuLabelBase.displayName = 'ContextMenuLabelBase';
@@ -341,7 +341,7 @@ export interface ContextMenuSeparatorBaseProps
  * ContextMenuSeparatorBase - Visual divider between items
  */
 export const ContextMenuSeparatorBase = React.forwardRef<
-  React.ElementRef<typeof ContextMenuPrimitive.Separator>,
+  React.ComponentRef<typeof ContextMenuPrimitive.Separator>,
   ContextMenuSeparatorBaseProps
 >((props, ref) => <ContextMenuPrimitive.Separator ref={ref} {...props} />);
 ContextMenuSeparatorBase.displayName = 'ContextMenuSeparatorBase';

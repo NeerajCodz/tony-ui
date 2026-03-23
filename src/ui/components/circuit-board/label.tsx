@@ -26,7 +26,7 @@ const labelVariants = cva(
 
 export interface LabelProps extends LabelBaseProps, VariantProps<typeof labelVariants> {}
 
-const Label = React.forwardRef<React.ElementRef<typeof LabelBase>, LabelProps>(
+const Label = React.forwardRef<React.ComponentRef<typeof LabelBase>, LabelProps>(
   ({ className, size, invalid, ...props }, ref) => (
     <LabelBase
       ref={ref}

@@ -8,7 +8,7 @@ const DialogTrigger = DialogTriggerBase;
 const DialogPortal = DialogPortalBase;
 const DialogClose = DialogCloseBase;
 
-const DialogOverlay = React.forwardRef<React.ElementRef<typeof DialogOverlayBase>, React.ComponentPropsWithoutRef<typeof DialogOverlayBase>>(
+const DialogOverlay = React.forwardRef<React.ComponentRef<typeof DialogOverlayBase>, React.ComponentPropsWithoutRef<typeof DialogOverlayBase>>(
   ({ className, ...props }, ref) => (
     <DialogOverlayBase
       ref={ref}
@@ -22,7 +22,7 @@ const DialogOverlay = React.forwardRef<React.ElementRef<typeof DialogOverlayBase
 );
 DialogOverlay.displayName = 'DialogOverlay';
 
-const DialogContent = React.forwardRef<React.ElementRef<typeof DialogContentBase>, DialogContentBaseProps>(
+const DialogContent = React.forwardRef<React.ComponentRef<typeof DialogContentBase>, DialogContentBaseProps>(
   ({ className, children, ...props }, ref) => (
     <DialogPortal>
       <DialogOverlay />
@@ -67,7 +67,7 @@ const DialogFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
 );
 DialogFooter.displayName = 'DialogFooter';
 
-const DialogTitle = React.forwardRef<React.ElementRef<typeof DialogTitleBase>, React.ComponentPropsWithoutRef<typeof DialogTitleBase>>(
+const DialogTitle = React.forwardRef<React.ComponentRef<typeof DialogTitleBase>, React.ComponentPropsWithoutRef<typeof DialogTitleBase>>(
   ({ className, ...props }, ref) => (
     <DialogTitleBase
       ref={ref}
@@ -78,7 +78,7 @@ const DialogTitle = React.forwardRef<React.ElementRef<typeof DialogTitleBase>, R
 );
 DialogTitle.displayName = 'DialogTitle';
 
-const DialogDescription = React.forwardRef<React.ElementRef<typeof DialogDescriptionBase>, React.ComponentPropsWithoutRef<typeof DialogDescriptionBase>>(
+const DialogDescription = React.forwardRef<React.ComponentRef<typeof DialogDescriptionBase>, React.ComponentPropsWithoutRef<typeof DialogDescriptionBase>>(
   ({ className, ...props }, ref) => (
     <DialogDescriptionBase
       ref={ref}

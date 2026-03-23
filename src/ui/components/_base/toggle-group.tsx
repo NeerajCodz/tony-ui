@@ -153,7 +153,7 @@ export type ToggleGroupBaseProps = ToggleGroupBaseSingleProps | ToggleGroupBaseM
  * - Items have aria-pressed
  */
 export const ToggleGroupBase = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Root>,
+  React.ComponentRef<typeof ToggleGroupPrimitive.Root>,
   ToggleGroupBaseProps
 >(
   (
@@ -191,7 +191,7 @@ export interface ToggleGroupItemBaseProps
  * - disabled: reduced opacity
  */
 export const ToggleGroupItemBase = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Item>,
+  React.ComponentRef<typeof ToggleGroupPrimitive.Item>,
   ToggleGroupItemBaseProps
 >((props, ref) => <ToggleGroupPrimitive.Item ref={ref} {...props} />);
 ToggleGroupItemBase.displayName = 'ToggleGroupItemBase';

@@ -78,7 +78,7 @@ export interface CheckboxBaseProps
  * - MUST have accessible label (via <label>, aria-label, or aria-labelledby)
  */
 export const CheckboxBase = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitive.Root>,
+  React.ComponentRef<typeof CheckboxPrimitive.Root>,
   CheckboxBaseProps
 >(
   (
@@ -116,7 +116,7 @@ export interface CheckboxIndicatorBaseProps
  * Only renders when checked or indeterminate
  */
 export const CheckboxIndicatorBase = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitive.Indicator>,
+  React.ComponentRef<typeof CheckboxPrimitive.Indicator>,
   CheckboxIndicatorBaseProps
 >((props, ref) => <CheckboxPrimitive.Indicator ref={ref} {...props} />);
 CheckboxIndicatorBase.displayName = 'CheckboxIndicatorBase';

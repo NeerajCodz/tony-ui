@@ -9,7 +9,7 @@ const labelVariants = cva(
 );
 
 const Label = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & { effects?: HoloFrameEffects } &
     VariantProps<typeof labelVariants>
 >(({ className, effects = 'on', ...props }, ref) => (

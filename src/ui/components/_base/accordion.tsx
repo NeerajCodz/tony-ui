@@ -148,7 +148,7 @@ export type AccordionBaseProps = AccordionBaseSingleProps | AccordionBaseMultipl
  * </Accordion>
  */
 export const AccordionBase = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Root>,
+  React.ComponentRef<typeof AccordionPrimitive.Root>,
   AccordionBaseProps
 >(({ visualType = 'default', size = 'md', variant, ...props }, ref) => (
   <AccordionPrimitive.Root
@@ -174,7 +174,7 @@ export interface AccordionItemBaseProps
  * States: closed | open | disabled
  */
 export const AccordionItemBase = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
+  React.ComponentRef<typeof AccordionPrimitive.Item>,
   AccordionItemBaseProps
 >((props, ref) => <AccordionPrimitive.Item ref={ref} {...props} />);
 AccordionItemBase.displayName = 'AccordionItemBase';
@@ -190,7 +190,7 @@ export interface AccordionHeaderBaseProps
  * AccordionHeaderBase - Wraps the trigger
  */
 export const AccordionHeaderBase = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Header>,
+  React.ComponentRef<typeof AccordionPrimitive.Header>,
   AccordionHeaderBaseProps
 >((props, ref) => <AccordionPrimitive.Header ref={ref} {...props} />);
 AccordionHeaderBase.displayName = 'AccordionHeaderBase';
@@ -218,7 +218,7 @@ export interface AccordionTriggerBaseProps
  * - Enter/Space on focused trigger → toggle
  */
 export const AccordionTriggerBase = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  React.ComponentRef<typeof AccordionPrimitive.Trigger>,
   AccordionTriggerBaseProps
 >((props, ref) => <AccordionPrimitive.Trigger ref={ref} {...props} />);
 AccordionTriggerBase.displayName = 'AccordionTriggerBase';
@@ -248,7 +248,7 @@ export interface AccordionContentBaseProps
  * - id matching aria-controls on trigger
  */
 export const AccordionContentBase = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Content>,
+  React.ComponentRef<typeof AccordionPrimitive.Content>,
   AccordionContentBaseProps
 >((props, ref) => <AccordionPrimitive.Content ref={ref} {...props} />);
 AccordionContentBase.displayName = 'AccordionContentBase';

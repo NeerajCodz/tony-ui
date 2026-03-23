@@ -1,9 +1,39 @@
-'use client';
+import * as React from 'react';
+import { cn } from '@/lib/utils';
 
-import { createDigitalClockFoundation } from '../_shared/family-foundations';
+interface DigitalClockProps extends React.HTMLAttributes<HTMLDivElement> {
+    size?: 'sm' | 'md' | 'lg' | 'xl';
+}
 
-const foundation = createDigitalClockFoundation('pill');
+const DigitalClock = React.forwardRef<HTMLDivElement, DigitalClockProps>(
+  ({ className, size = 'md', ...props }, ref) => {
+    const [time, setTime] = React.useState(new Date());
 
-export const DigitalClock = foundation.DigitalClock;
+    React.useEffect(() => {
+        const timer = setInterval(() => {
+            setTime(new Date());
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
 
-export default DigitalClock;
+    const sizeClasses = {
+        sm: 'text-lg',
+        md: 'text-2xl',
+        lg: 'text-4xl',
+        xl: 'text-6xl'
+    };
+
+    return (
+        <div 
+            ref={ref} 
+            className={cn('font-mono font-bold tracking-widest text-[var(--ac-accent)]', sizeClasses[size], className)}
+            {...props}
+        >
+            {time.toLocaleTimeString()}
+        </div>
+    );
+  }
+);
+DigitalClock.displayName = 'DigitalClock';
+
+export { DigitalClock };

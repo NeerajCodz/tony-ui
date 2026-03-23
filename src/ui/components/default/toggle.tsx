@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ToggleBase, type ToggleBaseProps } from '../_base/toggle';
 import { cn } from '@/lib/utils';
 
-export const Toggle = React.forwardRef<React.ElementRef<typeof ToggleBase>, ToggleBaseProps>(
+export const Toggle = React.forwardRef<React.ComponentRef<typeof ToggleBase>, ToggleBaseProps>(
   ({ className, visualType = 'default', size = 'md', ...props }, ref) => (
     <ToggleBase
       ref={ref}

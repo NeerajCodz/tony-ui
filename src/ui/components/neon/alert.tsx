@@ -2,15 +2,16 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
+import { getNeonGlow } from './_effects';
 
 const alertVariants = cva(
-  'relative w-full border-2 p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground shadow-[0_0_10px_var(--ne-primary)]',
+  'relative w-full border-2 p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground',
   {
     variants: {
       variant: {
         default: 'bg-[var(--ne-bg)] text-[var(--ne-text)] border-[var(--ne-primary)]',
         destructive:
-          'border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive shadow-[0_0_10px_rgba(255,0,0,0.5)]',
+          'border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive',
       },
     },
     defaultVariants: {
@@ -21,12 +22,17 @@ const alertVariants = cva(
 
 const Alert = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
->(({ className, variant, ...props }, ref) => (
+  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants> & { effects?: boolean }
+>(({ className, variant, effects = true, ...props }, ref) => (
   <div
     ref={ref}
     role="alert"
-    className={cn(alertVariants({ variant }), className)}
+    className={cn(
+      alertVariants({ variant }), 
+      effects && (variant === 'default' || !variant) && getNeonGlow(true),
+      effects && variant === 'destructive' && 'shadow-[0_0_10px_rgba(255,0,0,0.5)]',
+      className
+    )}
     {...props}
   />
 ));

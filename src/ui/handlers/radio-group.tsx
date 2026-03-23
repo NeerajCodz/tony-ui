@@ -43,7 +43,7 @@ const useRadioGroupContext = () => useContext(RadioGroupContext);
 
 // Main Component
 const RadioGroupRoot = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitive.Root>,
+  React.ComponentRef<typeof RadioGroupPrimitive.Root>,
   RadioGroupProps
 >(({
   version = 'angular-corner',
@@ -75,7 +75,7 @@ RadioGroupRoot.displayName = 'RadioGroup';
 
 // Item
 const RadioGroupItem = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitive.Item>,
+  React.ComponentRef<typeof RadioGroupPrimitive.Item>,
   RadioGroupItemProps
 >(({ className = '', ...props }, ref) => {
   const { versionModule, variant, colors } = useRadioGroupContext();

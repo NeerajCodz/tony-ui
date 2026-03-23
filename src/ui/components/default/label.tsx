@@ -13,7 +13,7 @@ const getSizeStyles = (size: string = 'md') => {
   }
 };
 
-export const Label = React.forwardRef<React.ElementRef<typeof LabelBase>, LabelProps>(
+export const Label = React.forwardRef<React.ComponentRef<typeof LabelBase>, LabelProps>(
   ({ className, size = 'md', required, disabled, invalid, ...props }, ref) => {
     return (
       <LabelBase

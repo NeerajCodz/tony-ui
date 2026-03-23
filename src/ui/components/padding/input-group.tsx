@@ -16,7 +16,7 @@ export type InputRightAddonProps = Omit<React.ComponentPropsWithoutRef<typeof In
 export type InputLeftElementProps = Omit<React.ComponentPropsWithoutRef<typeof InputLeftElementBase>, 'type'> & StyledProps;
 export type InputRightElementProps = Omit<React.ComponentPropsWithoutRef<typeof InputRightElementBase>, 'type'> & StyledProps;
 
-const InputGroup = React.forwardRef<React.ElementRef<typeof InputGroupBase>, InputGroupProps>(
+const InputGroup = React.forwardRef<React.ComponentRef<typeof InputGroupBase>, InputGroupProps>(
   ({ className, version, type, uiType, colors, style, ...props }, ref) => (
     <InputGroupBase
       ref={ref}
@@ -28,22 +28,22 @@ const InputGroup = React.forwardRef<React.ElementRef<typeof InputGroupBase>, Inp
 );
 InputGroup.displayName = 'InputGroup';
 
-const InputLeftAddon = React.forwardRef<React.ElementRef<typeof InputLeftAddonBase>, InputLeftAddonProps>(
+const InputLeftAddon = React.forwardRef<React.ComponentRef<typeof InputLeftAddonBase>, InputLeftAddonProps>(
   ({ className, ...props }, ref) => <InputLeftAddonBase ref={ref} className={cx('inline-flex items-center px-2 text-sm', className)} {...props} />
 );
 InputLeftAddon.displayName = 'InputLeftAddon';
 
-const InputRightAddon = React.forwardRef<React.ElementRef<typeof InputRightAddonBase>, InputRightAddonProps>(
+const InputRightAddon = React.forwardRef<React.ComponentRef<typeof InputRightAddonBase>, InputRightAddonProps>(
   ({ className, ...props }, ref) => <InputRightAddonBase ref={ref} className={cx('inline-flex items-center px-2 text-sm', className)} {...props} />
 );
 InputRightAddon.displayName = 'InputRightAddon';
 
-const InputLeftElement = React.forwardRef<React.ElementRef<typeof InputLeftElementBase>, InputLeftElementProps>(
+const InputLeftElement = React.forwardRef<React.ComponentRef<typeof InputLeftElementBase>, InputLeftElementProps>(
   ({ className, ...props }, ref) => <InputLeftElementBase ref={ref} className={cx('inline-flex items-center px-2', className)} {...props} />
 );
 InputLeftElement.displayName = 'InputLeftElement';
 
-const InputRightElement = React.forwardRef<React.ElementRef<typeof InputRightElementBase>, InputRightElementProps>(
+const InputRightElement = React.forwardRef<React.ComponentRef<typeof InputRightElementBase>, InputRightElementProps>(
   ({ className, ...props }, ref) => <InputRightElementBase ref={ref} className={cx('inline-flex items-center px-2', className)} {...props} />
 );
 InputRightElement.displayName = 'InputRightElement';

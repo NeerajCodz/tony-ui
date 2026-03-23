@@ -14,7 +14,7 @@ const getSizeStyles = (size: string = 'md') => {
   }
 };
 
-export const Progress = React.forwardRef<React.ElementRef<typeof ProgressBase>, ProgressProps>(
+export const Progress = React.forwardRef<React.ComponentRef<typeof ProgressBase>, ProgressProps>(
   ({ className, size = 'md', ...props }, ref) => {
     return (
       <ProgressBase

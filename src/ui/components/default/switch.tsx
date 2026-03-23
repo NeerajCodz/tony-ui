@@ -22,7 +22,7 @@ const getThumbSizeStyles = (size: string = 'md') => {
   }
 };
 
-export const Switch = React.forwardRef<React.ElementRef<typeof SwitchBase>, SwitchProps>(
+export const Switch = React.forwardRef<React.ComponentRef<typeof SwitchBase>, SwitchProps>(
   ({ className, size = 'md', ...props }, ref) => {
     return (
       <SwitchBase

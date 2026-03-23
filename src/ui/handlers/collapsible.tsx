@@ -37,7 +37,7 @@ const useCollapsibleContext = () => useContext(CollapsibleContext);
 
 // Main Component
 const CollapsibleRoot = React.forwardRef<
-  React.ElementRef<typeof CollapsiblePrimitive.Root>,
+  React.ComponentRef<typeof CollapsiblePrimitive.Root>,
   CollapsibleProps
 >(({
   version = 'default',
@@ -64,7 +64,7 @@ CollapsibleRoot.displayName = 'Collapsible';
 
 // Trigger
 const CollapsibleTrigger = React.forwardRef<
-  React.ElementRef<typeof CollapsiblePrimitive.Trigger>,
+  React.ComponentRef<typeof CollapsiblePrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof CollapsiblePrimitive.Trigger>
 >((props, ref) => {
   const { versionModule, variant, colors } = useCollapsibleContext();
@@ -80,7 +80,7 @@ CollapsibleTrigger.displayName = 'CollapsibleTrigger';
 
 // Content
 const CollapsibleContent = React.forwardRef<
-  React.ElementRef<typeof CollapsiblePrimitive.Content>,
+  React.ComponentRef<typeof CollapsiblePrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof CollapsiblePrimitive.Content>
 >((props, ref) => {
   const { versionModule, variant, colors } = useCollapsibleContext();

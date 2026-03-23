@@ -64,7 +64,7 @@ const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
 
 const SelectTrigger = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Trigger>,
+  React.ComponentRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
 >(({ className = '', children, ...props }, ref) => {
   const { versionModule, variant, colors } = useSelectContext();
@@ -90,7 +90,7 @@ const SelectTrigger = React.forwardRef<
 SelectTrigger.displayName = 'SelectTrigger';
 
 const SelectScrollUpButton = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.ScrollUpButton>,
+  React.ComponentRef<typeof SelectPrimitive.ScrollUpButton>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>
 >(({ className = '', ...props }, ref) => (
   <SelectPrimitive.ScrollUpButton
@@ -104,7 +104,7 @@ const SelectScrollUpButton = React.forwardRef<
 SelectScrollUpButton.displayName = 'SelectScrollUpButton';
 
 const SelectScrollDownButton = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.ScrollDownButton>,
+  React.ComponentRef<typeof SelectPrimitive.ScrollDownButton>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>
 >(({ className = '', ...props }, ref) => (
   <SelectPrimitive.ScrollDownButton
@@ -118,7 +118,7 @@ const SelectScrollDownButton = React.forwardRef<
 SelectScrollDownButton.displayName = 'SelectScrollDownButton';
 
 const SelectContent = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Content>,
+  React.ComponentRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className = '', children, position = 'popper', ...props }, ref) => {
   const { versionModule, variant, colors } = useSelectContext();
@@ -156,7 +156,7 @@ const SelectContent = React.forwardRef<
 SelectContent.displayName = 'SelectContent';
 
 const SelectLabel = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Label>,
+  React.ComponentRef<typeof SelectPrimitive.Label>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
 >(({ className = '', ...props }, ref) => {
   const { versionModule, variant, colors } = useSelectContext();
@@ -177,7 +177,7 @@ const SelectLabel = React.forwardRef<
 SelectLabel.displayName = 'SelectLabel';
 
 const SelectItem = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Item>,
+  React.ComponentRef<typeof SelectPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
 >(({ className = '', children, ...props }, ref) => {
   const { versionModule, variant, colors } = useSelectContext();
@@ -205,7 +205,7 @@ const SelectItem = React.forwardRef<
 SelectItem.displayName = 'SelectItem';
 
 const SelectSeparator = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Separator>,
+  React.ComponentRef<typeof SelectPrimitive.Separator>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
 >(({ className = '', ...props }, ref) => {
   const { versionModule, variant, colors } = useSelectContext();

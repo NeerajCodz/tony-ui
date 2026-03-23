@@ -5,7 +5,7 @@ import { X } from 'lucide-react';
 
 const ToastProvider = ToastProviderBase;
 
-const ToastViewport = React.forwardRef<React.ElementRef<typeof ToastViewportBase>, React.ComponentPropsWithoutRef<typeof ToastViewportBase>>(
+const ToastViewport = React.forwardRef<React.ComponentRef<typeof ToastViewportBase>, React.ComponentPropsWithoutRef<typeof ToastViewportBase>>(
   ({ className, ...props }, ref) => (
     <ToastViewportBase
       ref={ref}
@@ -19,7 +19,7 @@ const ToastViewport = React.forwardRef<React.ElementRef<typeof ToastViewportBase
 );
 ToastViewport.displayName = 'ToastViewport';
 
-const Toast = React.forwardRef<React.ElementRef<typeof ToastBase>, ToastBaseProps>(
+const Toast = React.forwardRef<React.ComponentRef<typeof ToastBase>, ToastBaseProps>(
   ({ className, variant, ...props }, ref) => {
     return (
       <ToastBase
@@ -37,7 +37,7 @@ const Toast = React.forwardRef<React.ElementRef<typeof ToastBase>, ToastBaseProp
 );
 Toast.displayName = 'Toast';
 
-const ToastAction = React.forwardRef<React.ElementRef<typeof ToastActionBase>, React.ComponentPropsWithoutRef<typeof ToastActionBase>>(
+const ToastAction = React.forwardRef<React.ComponentRef<typeof ToastActionBase>, React.ComponentPropsWithoutRef<typeof ToastActionBase>>(
   ({ className, ...props }, ref) => (
     <ToastActionBase
       ref={ref}
@@ -51,7 +51,7 @@ const ToastAction = React.forwardRef<React.ElementRef<typeof ToastActionBase>, R
 );
 ToastAction.displayName = 'ToastAction';
 
-const ToastClose = React.forwardRef<React.ElementRef<typeof ToastCloseBase>, React.ComponentPropsWithoutRef<typeof ToastCloseBase>>(
+const ToastClose = React.forwardRef<React.ComponentRef<typeof ToastCloseBase>, React.ComponentPropsWithoutRef<typeof ToastCloseBase>>(
   ({ className, ...props }, ref) => (
     <ToastCloseBase
       ref={ref}
@@ -68,7 +68,7 @@ const ToastClose = React.forwardRef<React.ElementRef<typeof ToastCloseBase>, Rea
 );
 ToastClose.displayName = 'ToastClose';
 
-const ToastTitle = React.forwardRef<React.ElementRef<typeof ToastTitleBase>, React.ComponentPropsWithoutRef<typeof ToastTitleBase>>(
+const ToastTitle = React.forwardRef<React.ComponentRef<typeof ToastTitleBase>, React.ComponentPropsWithoutRef<typeof ToastTitleBase>>(
   ({ className, ...props }, ref) => (
     <ToastTitleBase
       ref={ref}
@@ -79,7 +79,7 @@ const ToastTitle = React.forwardRef<React.ElementRef<typeof ToastTitleBase>, Rea
 );
 ToastTitle.displayName = 'ToastTitle';
 
-const ToastDescription = React.forwardRef<React.ElementRef<typeof ToastDescriptionBase>, React.ComponentPropsWithoutRef<typeof ToastDescriptionBase>>(
+const ToastDescription = React.forwardRef<React.ComponentRef<typeof ToastDescriptionBase>, React.ComponentPropsWithoutRef<typeof ToastDescriptionBase>>(
   ({ className, ...props }, ref) => (
     <ToastDescriptionBase
       ref={ref}

@@ -80,7 +80,7 @@ export interface ToggleBaseProps
  * - aria-pressed="true|false"
  */
 export const ToggleBase = React.forwardRef<
-  React.ElementRef<typeof TogglePrimitive.Root>,
+  React.ComponentRef<typeof TogglePrimitive.Root>,
   ToggleBaseProps
 >(({ visualType = 'default', htmlType = 'button', size = 'md', variant, ...props }, ref) => (
   <TogglePrimitive.Root

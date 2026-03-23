@@ -7,7 +7,7 @@ type CollapsibleProps = React.ComponentPropsWithoutRef<typeof CollapsiblePrimiti
   effects?: TacticalHudEffects;
 };
 
-const Collapsible = React.forwardRef<React.ElementRef<typeof CollapsiblePrimitive.Root>, CollapsibleProps>(
+const Collapsible = React.forwardRef<React.ComponentRef<typeof CollapsiblePrimitive.Root>, CollapsibleProps>(
   ({ effects = 'on', className, ...props }, ref) => (
   <CollapsiblePrimitive.Root ref={ref} className={cn(tacticalHudEffectsClass(effects), className)} {...props} />
 ));
@@ -17,7 +17,7 @@ type CollapsibleTriggerProps = React.ComponentPropsWithoutRef<typeof Collapsible
   effects?: TacticalHudEffects;
 };
 
-const CollapsibleTrigger = React.forwardRef<React.ElementRef<typeof CollapsiblePrimitive.CollapsibleTrigger>, CollapsibleTriggerProps>(
+const CollapsibleTrigger = React.forwardRef<React.ComponentRef<typeof CollapsiblePrimitive.CollapsibleTrigger>, CollapsibleTriggerProps>(
   ({ effects = 'on', className, ...props }, ref) => (
   <CollapsiblePrimitive.CollapsibleTrigger ref={ref} className={cn(tacticalHudEffectsClass(effects), className)} {...props} />
 ));
@@ -27,7 +27,7 @@ type CollapsibleContentProps = React.ComponentPropsWithoutRef<typeof Collapsible
   effects?: TacticalHudEffects;
 };
 
-const CollapsibleContent = React.forwardRef<React.ElementRef<typeof CollapsiblePrimitive.CollapsibleContent>, CollapsibleContentProps>(
+const CollapsibleContent = React.forwardRef<React.ComponentRef<typeof CollapsiblePrimitive.CollapsibleContent>, CollapsibleContentProps>(
   ({ effects = 'on', className, ...props }, ref) => (
   <CollapsiblePrimitive.CollapsibleContent ref={ref} className={cn(tacticalHudEffectsClass(effects), className)} {...props} />
 ));

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { AvatarBase, AvatarImageBase, AvatarFallbackBase } from '@/ui/components/_base/avatar';
 import { cn } from '@/lib/utils';
 
-const Avatar = React.forwardRef<React.ElementRef<typeof AvatarBase>, React.ComponentPropsWithoutRef<typeof AvatarBase>>(
+const Avatar = React.forwardRef<React.ComponentRef<typeof AvatarBase>, React.ComponentPropsWithoutRef<typeof AvatarBase>>(
   ({ className, ...props }, ref) => (
     <AvatarBase
       ref={ref}
@@ -16,7 +16,7 @@ const Avatar = React.forwardRef<React.ElementRef<typeof AvatarBase>, React.Compo
 );
 Avatar.displayName = 'Avatar';
 
-const AvatarImage = React.forwardRef<React.ElementRef<typeof AvatarImageBase>, React.ComponentPropsWithoutRef<typeof AvatarImageBase>>(
+const AvatarImage = React.forwardRef<React.ComponentRef<typeof AvatarImageBase>, React.ComponentPropsWithoutRef<typeof AvatarImageBase>>(
   ({ className, ...props }, ref) => (
     <AvatarImageBase
       ref={ref}
@@ -27,7 +27,7 @@ const AvatarImage = React.forwardRef<React.ElementRef<typeof AvatarImageBase>, R
 );
 AvatarImage.displayName = 'AvatarImage';
 
-const AvatarFallback = React.forwardRef<React.ElementRef<typeof AvatarFallbackBase>, React.ComponentPropsWithoutRef<typeof AvatarFallbackBase>>(
+const AvatarFallback = React.forwardRef<React.ComponentRef<typeof AvatarFallbackBase>, React.ComponentPropsWithoutRef<typeof AvatarFallbackBase>>(
   ({ className, ...props }, ref) => (
     <AvatarFallbackBase
       ref={ref}

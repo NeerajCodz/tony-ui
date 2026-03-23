@@ -19,7 +19,7 @@ export const SheetTrigger = SheetTriggerBase;
 export const SheetClose = SheetCloseBase;
 export const SheetPortal = SheetPortalBase;
 
-export const SheetOverlay = React.forwardRef<React.ElementRef<typeof SheetOverlayBase>, React.ComponentPropsWithoutRef<typeof SheetOverlayBase>>(
+export const SheetOverlay = React.forwardRef<React.ComponentRef<typeof SheetOverlayBase>, React.ComponentPropsWithoutRef<typeof SheetOverlayBase>>(
   ({ className, ...props }, ref) => (
     <SheetOverlayBase
       ref={ref}
@@ -44,7 +44,7 @@ const getSideStyles = (side: string = 'right') => {
     }
 }
 
-export const SheetContent = React.forwardRef<React.ElementRef<typeof SheetContentBase>, React.ComponentPropsWithoutRef<typeof SheetContentBase>>(
+export const SheetContent = React.forwardRef<React.ComponentRef<typeof SheetContentBase>, React.ComponentPropsWithoutRef<typeof SheetContentBase>>(
   ({ className, children, side = 'right', ...props }, ref) => (
     <SheetPortal>
       <SheetOverlay />
@@ -91,7 +91,7 @@ export const SheetFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes
 );
 SheetFooter.displayName = 'SheetFooter';
 
-export const SheetTitle = React.forwardRef<React.ElementRef<typeof SheetTitleBase>, React.ComponentPropsWithoutRef<typeof SheetTitleBase>>(
+export const SheetTitle = React.forwardRef<React.ComponentRef<typeof SheetTitleBase>, React.ComponentPropsWithoutRef<typeof SheetTitleBase>>(
   ({ className, ...props }, ref) => (
     <SheetTitleBase
       ref={ref}
@@ -102,7 +102,7 @@ export const SheetTitle = React.forwardRef<React.ElementRef<typeof SheetTitleBas
 );
 SheetTitle.displayName = 'SheetTitle';
 
-export const SheetDescription = React.forwardRef<React.ElementRef<typeof SheetDescriptionBase>, React.ComponentPropsWithoutRef<typeof SheetDescriptionBase>>(
+export const SheetDescription = React.forwardRef<React.ComponentRef<typeof SheetDescriptionBase>, React.ComponentPropsWithoutRef<typeof SheetDescriptionBase>>(
   ({ className, ...props }, ref) => (
     <SheetDescriptionBase
       ref={ref}

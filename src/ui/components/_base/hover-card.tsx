@@ -68,7 +68,7 @@ export interface HoverCardTriggerBaseProps
  * HoverCardTriggerBase - Element that triggers hover card on hover
  */
 export const HoverCardTriggerBase = React.forwardRef<
-  React.ElementRef<typeof HoverCardPrimitive.Trigger>,
+  React.ComponentRef<typeof HoverCardPrimitive.Trigger>,
   HoverCardTriggerBaseProps
 >((props, ref) => <HoverCardPrimitive.Trigger ref={ref} {...props} />);
 HoverCardTriggerBase.displayName = 'HoverCardTriggerBase';
@@ -122,7 +122,7 @@ export interface HoverCardContentBaseProps
  * - avoidCollisions
  */
 export const HoverCardContentBase = React.forwardRef<
-  React.ElementRef<typeof HoverCardPrimitive.Content>,
+  React.ComponentRef<typeof HoverCardPrimitive.Content>,
   HoverCardContentBaseProps
 >(({ type = 'default', size = 'md', variant, ...props }, ref) => (
   <HoverCardPrimitive.Content
@@ -146,7 +146,7 @@ export interface HoverCardArrowBaseProps
  * HoverCardArrowBase - Arrow pointing to trigger
  */
 export const HoverCardArrowBase = React.forwardRef<
-  React.ElementRef<typeof HoverCardPrimitive.Arrow>,
+  React.ComponentRef<typeof HoverCardPrimitive.Arrow>,
   HoverCardArrowBaseProps
 >((props, ref) => <HoverCardPrimitive.Arrow ref={ref} {...props} />);
 HoverCardArrowBase.displayName = 'HoverCardArrowBase';

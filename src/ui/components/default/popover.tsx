@@ -12,7 +12,7 @@ export const Popover = PopoverBase;
 export const PopoverTrigger = PopoverTriggerBase;
 export const PopoverClose = PopoverCloseBase;
 
-export const PopoverContent = React.forwardRef<React.ElementRef<typeof PopoverContentBase>, React.ComponentPropsWithoutRef<typeof PopoverContentBase>>(
+export const PopoverContent = React.forwardRef<React.ComponentRef<typeof PopoverContentBase>, React.ComponentPropsWithoutRef<typeof PopoverContentBase>>(
   ({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
     <PopoverContentBase
       ref={ref}
@@ -28,7 +28,7 @@ export const PopoverContent = React.forwardRef<React.ElementRef<typeof PopoverCo
 );
 PopoverContent.displayName = 'PopoverContent';
 
-export const PopoverArrow = React.forwardRef<React.ElementRef<typeof PopoverArrowBase>, React.ComponentPropsWithoutRef<typeof PopoverArrowBase>>(
+export const PopoverArrow = React.forwardRef<React.ComponentRef<typeof PopoverArrowBase>, React.ComponentPropsWithoutRef<typeof PopoverArrowBase>>(
   ({ className, ...props }, ref) => (
     <PopoverArrowBase
       ref={ref}

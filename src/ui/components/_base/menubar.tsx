@@ -70,7 +70,7 @@ export interface MenubarBaseProps
  * - role="menuitem" on items
  */
 export const MenubarBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.Root>,
+  React.ComponentRef<typeof MenubarPrimitive.Root>,
   MenubarBaseProps
 >(({ type = 'default', size = 'md', variant, ...props }, ref) => (
   <MenubarPrimitive.Root
@@ -105,7 +105,7 @@ export interface MenubarGroupBaseProps
  * MenubarGroupBase - Groups related items
  */
 export const MenubarGroupBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.Group>,
+  React.ComponentRef<typeof MenubarPrimitive.Group>,
   MenubarGroupBaseProps
 >((props, ref) => <MenubarPrimitive.Group ref={ref} {...props} />);
 MenubarGroupBase.displayName = 'MenubarGroupBase';
@@ -143,7 +143,7 @@ export interface MenubarRadioGroupBaseProps
  * MenubarRadioGroupBase - Group for radio items
  */
 export const MenubarRadioGroupBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.RadioGroup>,
+  React.ComponentRef<typeof MenubarPrimitive.RadioGroup>,
   MenubarRadioGroupBaseProps
 >((props, ref) => <MenubarPrimitive.RadioGroup ref={ref} {...props} />);
 MenubarRadioGroupBase.displayName = 'MenubarRadioGroupBase';
@@ -165,7 +165,7 @@ export interface MenubarTriggerBaseProps
  * - focus: focus ring
  */
 export const MenubarTriggerBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.Trigger>,
+  React.ComponentRef<typeof MenubarPrimitive.Trigger>,
   MenubarTriggerBaseProps
 >((props, ref) => <MenubarPrimitive.Trigger ref={ref} {...props} />);
 MenubarTriggerBase.displayName = 'MenubarTriggerBase';
@@ -192,7 +192,7 @@ export interface MenubarSubTriggerBaseProps
  * MenubarSubTriggerBase - Item that opens a submenu
  */
 export const MenubarSubTriggerBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.SubTrigger>,
+  React.ComponentRef<typeof MenubarPrimitive.SubTrigger>,
   MenubarSubTriggerBaseProps
 >(({ showIndicator = true, ...props }, ref) => (
   <MenubarPrimitive.SubTrigger
@@ -214,7 +214,7 @@ export interface MenubarSubContentBaseProps
  * MenubarSubContentBase - Content for a submenu
  */
 export const MenubarSubContentBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.SubContent>,
+  React.ComponentRef<typeof MenubarPrimitive.SubContent>,
   MenubarSubContentBaseProps
 >((props, ref) => <MenubarPrimitive.SubContent ref={ref} {...props} />);
 MenubarSubContentBase.displayName = 'MenubarSubContentBase';
@@ -234,7 +234,7 @@ export interface MenubarContentBaseProps
  * - Close: reverse
  */
 export const MenubarContentBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.Content>,
+  React.ComponentRef<typeof MenubarPrimitive.Content>,
   MenubarContentBaseProps
 >((props, ref) => <MenubarPrimitive.Content ref={ref} {...props} />);
 MenubarContentBase.displayName = 'MenubarContentBase';
@@ -255,7 +255,7 @@ export interface MenubarItemBaseProps
  * MenubarItemBase - Standard action item
  */
 export const MenubarItemBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.Item>,
+  React.ComponentRef<typeof MenubarPrimitive.Item>,
   MenubarItemBaseProps
 >(({ destructive, ...props }, ref) => (
   <MenubarPrimitive.Item
@@ -282,7 +282,7 @@ export interface MenubarCheckboxItemBaseProps
  * MenubarCheckboxItemBase - Item with checkbox state
  */
 export const MenubarCheckboxItemBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.CheckboxItem>,
+  React.ComponentRef<typeof MenubarPrimitive.CheckboxItem>,
   MenubarCheckboxItemBaseProps
 >((props, ref) => <MenubarPrimitive.CheckboxItem ref={ref} {...props} />);
 MenubarCheckboxItemBase.displayName = 'MenubarCheckboxItemBase';
@@ -298,7 +298,7 @@ export interface MenubarRadioItemBaseProps
  * MenubarRadioItemBase - Item in a radio group
  */
 export const MenubarRadioItemBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.RadioItem>,
+  React.ComponentRef<typeof MenubarPrimitive.RadioItem>,
   MenubarRadioItemBaseProps
 >((props, ref) => <MenubarPrimitive.RadioItem ref={ref} {...props} />);
 MenubarRadioItemBase.displayName = 'MenubarRadioItemBase';
@@ -314,7 +314,7 @@ export interface MenubarItemIndicatorBaseProps
  * MenubarItemIndicatorBase - Check/radio indicator
  */
 export const MenubarItemIndicatorBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.ItemIndicator>,
+  React.ComponentRef<typeof MenubarPrimitive.ItemIndicator>,
   MenubarItemIndicatorBaseProps
 >((props, ref) => <MenubarPrimitive.ItemIndicator ref={ref} {...props} />);
 MenubarItemIndicatorBase.displayName = 'MenubarItemIndicatorBase';
@@ -335,7 +335,7 @@ export interface MenubarLabelBaseProps
  * MenubarLabelBase - Non-interactive label for grouping
  */
 export const MenubarLabelBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.Label>,
+  React.ComponentRef<typeof MenubarPrimitive.Label>,
   MenubarLabelBaseProps
 >((props, ref) => <MenubarPrimitive.Label ref={ref} {...props} />);
 MenubarLabelBase.displayName = 'MenubarLabelBase';
@@ -351,7 +351,7 @@ export interface MenubarSeparatorBaseProps
  * MenubarSeparatorBase - Visual divider between items
  */
 export const MenubarSeparatorBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.Separator>,
+  React.ComponentRef<typeof MenubarPrimitive.Separator>,
   MenubarSeparatorBaseProps
 >((props, ref) => <MenubarPrimitive.Separator ref={ref} {...props} />);
 MenubarSeparatorBase.displayName = 'MenubarSeparatorBase';
@@ -383,7 +383,7 @@ export interface MenubarArrowBaseProps
  * MenubarArrowBase - Arrow pointing to trigger
  */
 export const MenubarArrowBase = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.Arrow>,
+  React.ComponentRef<typeof MenubarPrimitive.Arrow>,
   MenubarArrowBaseProps
 >((props, ref) => <MenubarPrimitive.Arrow ref={ref} {...props} />);
 MenubarArrowBase.displayName = 'MenubarArrowBase';

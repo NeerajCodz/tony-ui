@@ -8,7 +8,7 @@ import { ghostEffectsClass, type GhostEffects } from './_effects';
 const ToastProvider = ToastPrimitive.Provider;
 
 const ToastViewport = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitive.Viewport>,
+  React.ComponentRef<typeof ToastPrimitive.Viewport>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitive.Viewport> & { effects?: GhostEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <ToastPrimitive.Viewport
@@ -39,7 +39,7 @@ const toastVariants = cva(
 );
 
 const Toast = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitive.Root>,
+  React.ComponentRef<typeof ToastPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitive.Root> &
     VariantProps<typeof toastVariants> & { effects?: GhostEffects }
 >(({ className, variant, effects = 'on', ...props }, ref) => {
@@ -54,7 +54,7 @@ const Toast = React.forwardRef<
 Toast.displayName = ToastPrimitive.Root.displayName;
 
 const ToastAction = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitive.Action>,
+  React.ComponentRef<typeof ToastPrimitive.Action>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitive.Action> & { effects?: GhostEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <ToastPrimitive.Action
@@ -69,7 +69,7 @@ const ToastAction = React.forwardRef<
 ToastAction.displayName = ToastPrimitive.Action.displayName;
 
 const ToastClose = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitive.Close>,
+  React.ComponentRef<typeof ToastPrimitive.Close>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitive.Close> & { effects?: GhostEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <ToastPrimitive.Close
@@ -87,7 +87,7 @@ const ToastClose = React.forwardRef<
 ToastClose.displayName = ToastPrimitive.Close.displayName;
 
 const ToastTitle = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitive.Title>,
+  React.ComponentRef<typeof ToastPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitive.Title> & { effects?: GhostEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <ToastPrimitive.Title
@@ -99,7 +99,7 @@ const ToastTitle = React.forwardRef<
 ToastTitle.displayName = ToastPrimitive.Title.displayName;
 
 const ToastDescription = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitive.Description>,
+  React.ComponentRef<typeof ToastPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitive.Description> & { effects?: GhostEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <ToastPrimitive.Description

@@ -42,7 +42,7 @@ const getSizeStyles = (size: string = 'md') => {
   }
 };
 
-export const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(
+export const Checkbox = React.forwardRef<React.ComponentRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(
   ({ className, visualType = 'default', size = 'md', style, ...props }, ref) => {
     // Merge custom style with clip-path, unless unstyled
     const componentStyle = visualType !== 'unstyled'

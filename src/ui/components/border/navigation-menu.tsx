@@ -6,7 +6,7 @@ import { ChevronDown } from 'lucide-react';
 const navigationMenuTriggerStyle = () =>
   'inline-flex h-10 w-max items-center justify-center rounded-none px-4 py-2 text-sm font-medium transition-colors';
 
-const NavigationMenu = React.forwardRef<React.ElementRef<typeof NavigationMenuBase>, React.ComponentPropsWithoutRef<typeof NavigationMenuBase>>(
+const NavigationMenu = React.forwardRef<React.ComponentRef<typeof NavigationMenuBase>, React.ComponentPropsWithoutRef<typeof NavigationMenuBase>>(
   ({ className, children, ...props }, ref) => (
     <NavigationMenuBase
       ref={ref}
@@ -23,7 +23,7 @@ const NavigationMenu = React.forwardRef<React.ElementRef<typeof NavigationMenuBa
 );
 NavigationMenu.displayName = 'NavigationMenu';
 
-const NavigationMenuList = React.forwardRef<React.ElementRef<typeof NavigationMenuListBase>, React.ComponentPropsWithoutRef<typeof NavigationMenuListBase>>(
+const NavigationMenuList = React.forwardRef<React.ComponentRef<typeof NavigationMenuListBase>, React.ComponentPropsWithoutRef<typeof NavigationMenuListBase>>(
   ({ className, ...props }, ref) => (
     <NavigationMenuListBase
       ref={ref}
@@ -39,7 +39,7 @@ NavigationMenuList.displayName = 'NavigationMenuList';
 
 const NavigationMenuItem = NavigationMenuItemBase;
 
-const NavigationMenuTrigger = React.forwardRef<React.ElementRef<typeof NavigationMenuTriggerBase>, React.ComponentPropsWithoutRef<typeof NavigationMenuTriggerBase>>(
+const NavigationMenuTrigger = React.forwardRef<React.ComponentRef<typeof NavigationMenuTriggerBase>, React.ComponentPropsWithoutRef<typeof NavigationMenuTriggerBase>>(
   ({ className, children, ...props }, ref) => (
     <NavigationMenuTriggerBase
       ref={ref}
@@ -56,7 +56,7 @@ const NavigationMenuTrigger = React.forwardRef<React.ElementRef<typeof Navigatio
 );
 NavigationMenuTrigger.displayName = 'NavigationMenuTrigger';
 
-const NavigationMenuContent = React.forwardRef<React.ElementRef<typeof NavigationMenuContentBase>, React.ComponentPropsWithoutRef<typeof NavigationMenuContentBase>>(
+const NavigationMenuContent = React.forwardRef<React.ComponentRef<typeof NavigationMenuContentBase>, React.ComponentPropsWithoutRef<typeof NavigationMenuContentBase>>(
   ({ className, ...props }, ref) => (
     <NavigationMenuContentBase
       ref={ref}
@@ -72,7 +72,7 @@ NavigationMenuContent.displayName = 'NavigationMenuContent';
 
 const NavigationMenuLink = NavigationMenuLinkBase;
 
-const NavigationMenuViewport = React.forwardRef<React.ElementRef<typeof NavigationMenuViewportBase>, React.ComponentPropsWithoutRef<typeof NavigationMenuViewportBase>>(
+const NavigationMenuViewport = React.forwardRef<React.ComponentRef<typeof NavigationMenuViewportBase>, React.ComponentPropsWithoutRef<typeof NavigationMenuViewportBase>>(
   ({ className, ...props }, ref) => (
     <div className={cn('absolute left-0 top-full flex justify-center')}>
       <NavigationMenuViewportBase
@@ -88,7 +88,7 @@ const NavigationMenuViewport = React.forwardRef<React.ElementRef<typeof Navigati
 );
 NavigationMenuViewport.displayName = 'NavigationMenuViewport';
 
-const NavigationMenuIndicator = React.forwardRef<React.ElementRef<typeof NavigationMenuIndicatorBase>, React.ComponentPropsWithoutRef<typeof NavigationMenuIndicatorBase>>(
+const NavigationMenuIndicator = React.forwardRef<React.ComponentRef<typeof NavigationMenuIndicatorBase>, React.ComponentPropsWithoutRef<typeof NavigationMenuIndicatorBase>>(
   ({ className, ...props }, ref) => (
     <NavigationMenuIndicatorBase
       ref={ref}

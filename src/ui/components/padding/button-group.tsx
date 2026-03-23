@@ -6,7 +6,7 @@ import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces
 
 export type ButtonGroupProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonGroupBase>, 'type'> & StyledProps;
 
-export const ButtonGroup = React.forwardRef<React.ElementRef<typeof ButtonGroupBase>, ButtonGroupProps>(
+export const ButtonGroup = React.forwardRef<React.ComponentRef<typeof ButtonGroupBase>, ButtonGroupProps>(
   ({ className, version, type, uiType, colors, style, orientation = 'horizontal', ...props }, ref) => (
     <ButtonGroupBase
       ref={ref}

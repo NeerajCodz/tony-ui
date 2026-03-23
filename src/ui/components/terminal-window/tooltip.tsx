@@ -10,7 +10,7 @@ const Tooltip = TooltipPrimitive.Root;
 const TooltipTrigger = TooltipPrimitive.Trigger;
 
 const TooltipContent = React.forwardRef<
-  React.ElementRef<typeof TooltipPrimitive.Content>,
+  React.ComponentRef<typeof TooltipPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content> & { effects?: TerminalWindowEffects }
 >(({ className, sideOffset = 4, effects = 'on', ...props }, ref) => (
   <TooltipPrimitive.Content

@@ -70,7 +70,7 @@ export interface PopoverTriggerBaseProps
  * Uses asChild to compose with your button
  */
 export const PopoverTriggerBase = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Trigger>,
+  React.ComponentRef<typeof PopoverPrimitive.Trigger>,
   PopoverTriggerBaseProps
 >((props, ref) => <PopoverPrimitive.Trigger ref={ref} {...props} />);
 PopoverTriggerBase.displayName = 'PopoverTriggerBase';
@@ -86,7 +86,7 @@ export interface PopoverAnchorBaseProps
  * PopoverAnchorBase - Alternative anchor point (when trigger ≠ anchor)
  */
 export const PopoverAnchorBase = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Anchor>,
+  React.ComponentRef<typeof PopoverPrimitive.Anchor>,
   PopoverAnchorBaseProps
 >((props, ref) => <PopoverPrimitive.Anchor ref={ref} {...props} />);
 PopoverAnchorBase.displayName = 'PopoverAnchorBase';
@@ -141,7 +141,7 @@ export interface PopoverContentBaseProps
  * - avoidCollisions
  */
 export const PopoverContentBase = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Content>,
+  React.ComponentRef<typeof PopoverPrimitive.Content>,
   PopoverContentBaseProps
 >(({ type = 'default', size = 'md', variant, ...props }, ref) => (
   <PopoverPrimitive.Content
@@ -165,7 +165,7 @@ export interface PopoverArrowBaseProps
  * PopoverArrowBase - Visual arrow pointing to trigger
  */
 export const PopoverArrowBase = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Arrow>,
+  React.ComponentRef<typeof PopoverPrimitive.Arrow>,
   PopoverArrowBaseProps
 >((props, ref) => <PopoverPrimitive.Arrow ref={ref} {...props} />);
 PopoverArrowBase.displayName = 'PopoverArrowBase';
@@ -181,7 +181,7 @@ export interface PopoverCloseBaseProps
  * PopoverCloseBase - Button that closes the popover
  */
 export const PopoverCloseBase = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Close>,
+  React.ComponentRef<typeof PopoverPrimitive.Close>,
   PopoverCloseBaseProps
 >((props, ref) => <PopoverPrimitive.Close ref={ref} {...props} />);
 PopoverCloseBase.displayName = 'PopoverCloseBase';

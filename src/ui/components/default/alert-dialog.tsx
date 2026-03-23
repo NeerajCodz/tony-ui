@@ -20,7 +20,7 @@ const AlertDialogTrigger = AlertDialogTriggerBase;
 const AlertDialogPortal = AlertDialogPortalBase;
 
 const AlertDialogOverlay = React.forwardRef<
-  React.ElementRef<typeof AlertDialogOverlayBase>,
+  React.ComponentRef<typeof AlertDialogOverlayBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogOverlayBase>
 >(({ className, ...props }, ref) => (
   <AlertDialogOverlayBase
@@ -35,7 +35,7 @@ const AlertDialogOverlay = React.forwardRef<
 AlertDialogOverlay.displayName = 'AlertDialogOverlay'
 
 const AlertDialogContent = React.forwardRef<
-  React.ElementRef<typeof AlertDialogContentBase>,
+  React.ComponentRef<typeof AlertDialogContentBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogContentBase>
 >(({ className, ...props }, ref) => (
   <AlertDialogPortal>
@@ -53,7 +53,7 @@ const AlertDialogContent = React.forwardRef<
 AlertDialogContent.displayName = 'AlertDialogContent'
 
 const AlertDialogHeader = React.forwardRef<
-  React.ElementRef<typeof AlertDialogHeaderBase>,
+  React.ComponentRef<typeof AlertDialogHeaderBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogHeaderBase>
 >(({ className, ...props }, ref) => (
   <AlertDialogHeaderBase
@@ -68,7 +68,7 @@ const AlertDialogHeader = React.forwardRef<
 AlertDialogHeader.displayName = 'AlertDialogHeader'
 
 const AlertDialogFooter = React.forwardRef<
-  React.ElementRef<typeof AlertDialogFooterBase>,
+  React.ComponentRef<typeof AlertDialogFooterBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogFooterBase>
 >(({ className, ...props }, ref) => (
   <AlertDialogFooterBase
@@ -83,7 +83,7 @@ const AlertDialogFooter = React.forwardRef<
 AlertDialogFooter.displayName = 'AlertDialogFooter'
 
 const AlertDialogTitle = React.forwardRef<
-  React.ElementRef<typeof AlertDialogTitleBase>,
+  React.ComponentRef<typeof AlertDialogTitleBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogTitleBase>
 >(({ className, ...props }, ref) => (
   <AlertDialogTitleBase
@@ -95,7 +95,7 @@ const AlertDialogTitle = React.forwardRef<
 AlertDialogTitle.displayName = 'AlertDialogTitle'
 
 const AlertDialogDescription = React.forwardRef<
-  React.ElementRef<typeof AlertDialogDescriptionBase>,
+  React.ComponentRef<typeof AlertDialogDescriptionBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogDescriptionBase>
 >(({ className, ...props }, ref) => (
   <AlertDialogDescriptionBase
@@ -107,7 +107,7 @@ const AlertDialogDescription = React.forwardRef<
 AlertDialogDescription.displayName = 'AlertDialogDescription'
 
 const AlertDialogAction = React.forwardRef<
-  React.ElementRef<typeof AlertDialogActionBase>,
+  React.ComponentRef<typeof AlertDialogActionBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogActionBase>
 >(({ className, ...props }, ref) => (
   <AlertDialogActionBase ref={ref} asChild>
@@ -117,7 +117,7 @@ const AlertDialogAction = React.forwardRef<
 AlertDialogAction.displayName = 'AlertDialogAction'
 
 const AlertDialogCancel = React.forwardRef<
-  React.ElementRef<typeof AlertDialogCancelBase>,
+  React.ComponentRef<typeof AlertDialogCancelBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogCancelBase>
 >(({ className, ...props }, ref) => (
   <AlertDialogCancelBase ref={ref} asChild>

@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 
 export interface ScrollAreaProps extends ScrollAreaBaseProps {}
 
-export const ScrollArea = React.forwardRef<React.ElementRef<typeof ScrollAreaBase>, ScrollAreaProps>(
+export const ScrollArea = React.forwardRef<React.ComponentRef<typeof ScrollAreaBase>, ScrollAreaProps>(
   ({ className, children, ...props }, ref) => (
     <ScrollAreaBase
       ref={ref}
@@ -28,7 +28,7 @@ export const ScrollArea = React.forwardRef<React.ElementRef<typeof ScrollAreaBas
 );
 ScrollArea.displayName = 'ScrollArea';
 
-export const ScrollBar = React.forwardRef<React.ElementRef<typeof ScrollBarBase>, React.ComponentPropsWithoutRef<typeof ScrollBarBase>>(
+export const ScrollBar = React.forwardRef<React.ComponentRef<typeof ScrollBarBase>, React.ComponentPropsWithoutRef<typeof ScrollBarBase>>(
   ({ className, orientation = 'vertical', ...props }, ref) => (
     <ScrollBarBase
       ref={ref}

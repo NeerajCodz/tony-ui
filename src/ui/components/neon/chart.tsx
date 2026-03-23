@@ -1,40 +1,42 @@
-import * as React from 'react';
-import * as Recharts from 'recharts';
+"use client"
 
-import { cn } from '@/lib/utils';
+import * as React from "react"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 
-// Helper to wrap Recharts components
-const ChartContainer = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn('w-full h-[300px] border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-4 shadow-[0_0_20px_var(--ne-primary)]', className)}
-    {...props}
-  />
-));
-ChartContainer.displayName = 'ChartContainer';
+import { cn } from "@/lib/utils"
 
-const ChartTooltip = Recharts.Tooltip;
-const ChartLegend = Recharts.Legend;
-const ChartXAxis = Recharts.XAxis;
-const ChartYAxis = Recharts.YAxis;
-const ChartCartesianGrid = Recharts.CartesianGrid;
-const ChartArea = Recharts.Area;
-const ChartBar = Recharts.Bar;
-const ChartLine = Recharts.Line;
-const ChartResponsiveContainer = Recharts.ResponsiveContainer;
-
-export {
-  ChartContainer,
-  ChartTooltip,
-  ChartLegend,
-  ChartXAxis,
-  ChartYAxis,
-  ChartCartesianGrid,
-  ChartArea,
-  ChartBar,
-  ChartLine,
-  ChartResponsiveContainer,
-};
+export function Chart({ className }: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <ResponsiveContainer width="100%" height={350}>
+      <BarChart data={[
+        { name: "Jan", total: Math.floor(Math.random() * 5000) + 1000 },
+        { name: "Feb", total: Math.floor(Math.random() * 5000) + 1000 },
+        { name: "Mar", total: Math.floor(Math.random() * 5000) + 1000 },
+        { name: "Apr", total: Math.floor(Math.random() * 5000) + 1000 },
+        { name: "May", total: Math.floor(Math.random() * 5000) + 1000 },
+        { name: "Jun", total: Math.floor(Math.random() * 5000) + 1000 },
+      ]}>
+        <XAxis
+          dataKey="name"
+          stroke="#888888"
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+        />
+        <YAxis
+          stroke="#888888"
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value) => `$${value}`}
+        />
+        <Bar
+          dataKey="total"
+          fill="var(--ne-primary)"
+          radius={[4, 4, 0, 0]}
+          className="fill-[var(--ne-primary)]"
+        />
+      </BarChart>
+    </ResponsiveContainer>
+  )
+}

@@ -47,7 +47,7 @@ const getIconSize = (size: string = 'md') => {
     }
 }
 
-export const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxBase>, CheckboxProps>(
+export const Checkbox = React.forwardRef<React.ComponentRef<typeof CheckboxBase>, CheckboxProps>(
   ({ className, visualType = 'default', size = 'md', invalid = false, children, ...props }, ref) => {
     return (
       <CheckboxBase

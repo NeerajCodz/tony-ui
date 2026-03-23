@@ -14,7 +14,7 @@ const ToggleGroupContext = React.createContext<
 });
 
 const ToggleGroup = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Root>,
+  React.ComponentRef<typeof ToggleGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> & { effects?: TacticalHudEffects } &
     VariantProps<typeof toggleVariants>
 >(({ className, effects = 'on', variant, size, children, ...props }, ref) => (
@@ -33,7 +33,7 @@ ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName;
 
 
 const ToggleGroupItem = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Item>,
+  React.ComponentRef<typeof ToggleGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> & { effects?: TacticalHudEffects } &
     VariantProps<typeof toggleVariants>
 >(({ className, effects = 'on', children, variant, size, style, ...props }, ref) => {

@@ -13,7 +13,7 @@ const ToggleGroupContext = React.createContext<
 });
 
 const ToggleGroup = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Root>,
+  React.ComponentRef<typeof ToggleGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> & { effects?: HoloFrameEffects } &
     VariantProps<typeof toggleVariants>
 >(({ className, effects = 'on', variant, size, children, ...props }, ref) => (
@@ -29,7 +29,7 @@ const ToggleGroup = React.forwardRef<
 ));
 
 const ToggleGroupItem = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Item>,
+  React.ComponentRef<typeof ToggleGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> & { effects?: HoloFrameEffects } &
     VariantProps<typeof toggleVariants>
 >(({ className, effects = 'on', children, variant, size, ...props }, ref) => {

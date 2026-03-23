@@ -7,7 +7,7 @@ import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 
 
 const NavigationMenu = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Root>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', children, ...props }, ref) => (
   <NavigationMenuPrimitive.Root
@@ -25,7 +25,7 @@ const NavigationMenu = React.forwardRef<
 NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName;
 
 const NavigationMenuList = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.List>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <NavigationMenuPrimitive.List
@@ -44,7 +44,7 @@ const navigationMenuTriggerStyle = cva(
 );
 
 const NavigationMenuTrigger = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', children, ...props }, ref) => (
   <NavigationMenuPrimitive.Trigger
@@ -64,7 +64,7 @@ const NavigationMenuTrigger = React.forwardRef<
 NavigationMenuTrigger.displayName = NavigationMenuPrimitive.Trigger.displayName;
 
 const NavigationMenuContent = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Content>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Content> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <NavigationMenuPrimitive.Content
@@ -81,7 +81,7 @@ NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 const NavigationMenuLink = NavigationMenuPrimitive.Link;
 
 const NavigationViewport = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Viewport>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Viewport> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <div className={cn(quantumGateEffectsClass(effects), 'absolute left-0 top-full flex justify-center')}>
@@ -100,7 +100,7 @@ NavigationViewport.displayName =
   NavigationMenuPrimitive.Viewport.displayName;
 
 const NavigationMenuIndicator = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Indicator>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Indicator>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Indicator> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <NavigationMenuPrimitive.Indicator

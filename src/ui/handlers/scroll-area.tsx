@@ -42,7 +42,7 @@ const ScrollAreaContext = createContext<ScrollAreaContextValue>({
 const useScrollAreaContext = () => useContext(ScrollAreaContext);
 
 const FallbackScrollBar = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
+  React.ComponentRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>
 >(({ className = '', orientation = 'vertical', ...props }, ref) => (
   <ScrollAreaPrimitive.ScrollAreaScrollbar
@@ -59,7 +59,7 @@ const FallbackScrollBar = React.forwardRef<
 FallbackScrollBar.displayName = 'FallbackScrollBar';
 
 const FallbackScrollArea = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.Root>,
+  React.ComponentRef<typeof ScrollAreaPrimitive.Root>,
   Omit<ScrollAreaProps, 'version' | 'variant' | 'type'>
 >(({ className = '', children, withHorizontalBar, hideBar, ...props }, ref) => (
   <ScrollAreaPrimitive.Root ref={ref} className={`relative overflow-hidden ${className}`} {...props}>
@@ -71,7 +71,7 @@ const FallbackScrollArea = React.forwardRef<
 ));
 FallbackScrollArea.displayName = 'FallbackScrollArea';
 
-const ScrollAreaRoot = React.forwardRef<React.ElementRef<typeof ScrollAreaPrimitive.Root>, ScrollAreaProps>(
+const ScrollAreaRoot = React.forwardRef<React.ComponentRef<typeof ScrollAreaPrimitive.Root>, ScrollAreaProps>(
   ({
     version = 'default',
     variant = 'default',
@@ -116,7 +116,7 @@ const ScrollAreaRoot = React.forwardRef<React.ElementRef<typeof ScrollAreaPrimit
 );
 ScrollAreaRoot.displayName = 'ScrollArea';
 
-const ScrollBar = React.forwardRef<React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>, ScrollBarProps>(
+const ScrollBar = React.forwardRef<React.ComponentRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>, ScrollBarProps>(
   ({ version: explicitVersion, variant: explicitVariant, uiType: explicitUiType, ...props }, ref) => {
     const context = useScrollAreaContext();
     const version = explicitVersion ?? context.version;

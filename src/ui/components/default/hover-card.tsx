@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 export const HoverCard = HoverCardBase;
 export const HoverCardTrigger = HoverCardTriggerBase;
 
-export const HoverCardContent = React.forwardRef<React.ElementRef<typeof HoverCardContentBase>, React.ComponentPropsWithoutRef<typeof HoverCardContentBase>>(
+export const HoverCardContent = React.forwardRef<React.ComponentRef<typeof HoverCardContentBase>, React.ComponentPropsWithoutRef<typeof HoverCardContentBase>>(
   ({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
     <HoverCardContentBase
       ref={ref}
@@ -26,7 +26,7 @@ export const HoverCardContent = React.forwardRef<React.ElementRef<typeof HoverCa
 );
 HoverCardContent.displayName = 'HoverCardContent';
 
-export const HoverCardArrow = React.forwardRef<React.ElementRef<typeof HoverCardArrowBase>, React.ComponentPropsWithoutRef<typeof HoverCardArrowBase>>(
+export const HoverCardArrow = React.forwardRef<React.ComponentRef<typeof HoverCardArrowBase>, React.ComponentPropsWithoutRef<typeof HoverCardArrowBase>>(
     ({ className, ...props }, ref) => (
         <HoverCardArrowBase ref={ref} className={cn('fill-[var(--df-border)]', className)} {...props} />
     )

@@ -231,7 +231,7 @@ const Sidebar = React.forwardRef<
 Sidebar.displayName = "Sidebar"
 
 const SidebarTrigger = React.forwardRef<
-  React.ElementRef<typeof Button>,
+  React.ComponentRef<typeof Button>,
   React.ComponentProps<typeof Button>
 >(({ className, onClick, ...props }, ref) => {
   const { toggleSidebar } = useSidebar()
@@ -304,7 +304,7 @@ const SidebarInset = React.forwardRef<
 SidebarInset.displayName = "SidebarInset"
 
 const SidebarInput = React.forwardRef<
-  React.ElementRef<"input">,
+  React.ComponentRef<"input">,
   React.ComponentProps<"input">
 >(({ className, ...props }, ref) => {
   return (
@@ -352,7 +352,7 @@ const SidebarFooter = React.forwardRef<
 SidebarFooter.displayName = "SidebarFooter"
 
 const SidebarSeparator = React.forwardRef<
-  React.ElementRef<typeof React.Component>,
+  React.ComponentRef<typeof React.Component>,
   React.ComponentProps<"div">
 >(({ className, ...props }, ref) => {
   return (

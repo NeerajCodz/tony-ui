@@ -7,7 +7,7 @@ import { toggleVariants } from './toggle';
 
 
 const ToggleGroup = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Root>,
+  React.ComponentRef<typeof ToggleGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> & { effects?: TechPanelEffects } &
     VariantProps<typeof toggleVariants>
 >(({ className, effects = 'on', variant, size, children, ...props }, ref) => (
@@ -32,7 +32,7 @@ const ToggleGroupContext = React.createContext<
 });
 
 const ToggleGroupItem = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Item>,
+  React.ComponentRef<typeof ToggleGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> & { effects?: TechPanelEffects } &
     VariantProps<typeof toggleVariants>
 >(({ className, effects = 'on', children, variant, size, ...props }, ref) => {

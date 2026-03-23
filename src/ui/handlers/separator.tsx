@@ -20,7 +20,7 @@ export interface SeparatorProps extends React.ComponentPropsWithoutRef<typeof Se
 
 // Fallback
 const FallbackSeparator = React.forwardRef<
-  React.ElementRef<typeof SeparatorPrimitive.Root>,
+  React.ComponentRef<typeof SeparatorPrimitive.Root>,
   SeparatorProps
 >(({ className = '', orientation = 'horizontal', decorative = true, ...props }, ref) => (
   <SeparatorPrimitive.Root
@@ -35,7 +35,7 @@ FallbackSeparator.displayName = 'FallbackSeparator';
 
 // Main Separator Component
 export const Separator = React.forwardRef<
-  React.ElementRef<typeof SeparatorPrimitive.Root>,
+  React.ComponentRef<typeof SeparatorPrimitive.Root>,
   SeparatorProps
 >(({
   version = 'angular-corner',

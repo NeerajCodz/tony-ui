@@ -1,12 +1,16 @@
+import * as React from 'react';
+
 import { cn } from '@/lib/utils';
+import { getNeonGlow } from './_effects';
 
 function Skeleton({
   className,
+  effects = true,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: React.HTMLAttributes<HTMLDivElement> & { effects?: boolean }) {
   return (
     <div
-      className={cn('animate-pulse rounded-md bg-[var(--ne-primary)]/20 shadow-[0_0_10px_var(--ne-primary)]', className)}
+      className={cn('animate-pulse rounded-md bg-[var(--ne-primary)]/10', getNeonGlow(effects), className)}
       {...props}
     />
   );

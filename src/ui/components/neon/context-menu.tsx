@@ -3,6 +3,7 @@ import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
 import { Check, ChevronRight, Circle } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { getNeonGlow } from './_effects';
 
 const ContextMenu = ContextMenuPrimitive.Root;
 
@@ -39,12 +40,13 @@ ContextMenuSubTrigger.displayName = ContextMenuPrimitive.SubTrigger.displayName;
 
 const ContextMenuSubContent = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.SubContent>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
   <ContextMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      'z-50 min-w-[8rem] overflow-hidden border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-1 text-[var(--ne-text)] shadow-[0_0_20px_var(--ne-primary)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+      'z-50 min-w-[8rem] overflow-hidden border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-1 text-[var(--ne-text)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+      getNeonGlow(effects, 'high'),
       className
     )}
     {...props}
@@ -54,13 +56,14 @@ ContextMenuSubContent.displayName = ContextMenuPrimitive.SubContent.displayName;
 
 const ContextMenuContent = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Content>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Content> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
   <ContextMenuPrimitive.Portal>
     <ContextMenuPrimitive.Content
       ref={ref}
       className={cn(
-        'z-50 min-w-[8rem] overflow-hidden border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-1 text-[var(--ne-text)] shadow-[0_0_20px_var(--ne-primary)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        'z-50 min-w-[8rem] overflow-hidden border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-1 text-[var(--ne-text)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        getNeonGlow(effects, 'high'),
         className
       )}
       {...props}
@@ -73,12 +76,14 @@ const ContextMenuItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Item> & {
     inset?: boolean;
+    effects?: boolean;
   }
->(({ className, inset, ...props }, ref) => (
+>(({ className, inset, effects = true, ...props }, ref) => (
   <ContextMenuPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none transition-colors focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body tracking-wide focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
+      'relative flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none transition-colors focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body tracking-wide',
+      effects && 'focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
       inset && 'pl-8',
       className
     )}
@@ -89,12 +94,13 @@ ContextMenuItem.displayName = ContextMenuPrimitive.Item.displayName;
 
 const ContextMenuCheckboxItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.CheckboxItem>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.CheckboxItem>
->(({ className, children, checked, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.CheckboxItem> & { effects?: boolean }
+>(({ className, children, checked, effects = true, ...props }, ref) => (
   <ContextMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body tracking-wide focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
+      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body tracking-wide',
+      effects && 'focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
       className
     )}
     checked={checked}
@@ -113,12 +119,13 @@ ContextMenuCheckboxItem.displayName =
 
 const ContextMenuRadioItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.RadioItem>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.RadioItem>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.RadioItem> & { effects?: boolean }
+>(({ className, children, effects = true, ...props }, ref) => (
   <ContextMenuPrimitive.RadioItem
     ref={ref}
     className={cn(
-      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body tracking-wide focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
+      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body tracking-wide',
+      effects && 'focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
       className
     )}
     {...props}
@@ -153,11 +160,11 @@ ContextMenuLabel.displayName = ContextMenuPrimitive.Label.displayName;
 
 const ContextMenuSeparator = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Separator>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Separator>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Separator> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
   <ContextMenuPrimitive.Separator
     ref={ref}
-    className={cn('-mx-1 my-1 h-px bg-[var(--ne-primary)]/50 shadow-[0_0_5px_var(--ne-primary)]', className)}
+    className={cn('-mx-1 my-1 h-px bg-[var(--ne-primary)]/50', getNeonGlow(effects), className)}
     {...props}
   />
 ));

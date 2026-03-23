@@ -23,7 +23,7 @@ const AlertDialogTrigger = AlertDialogTriggerBase;
 const AlertDialogPortal = AlertDialogPortalBase;
 
 const AlertDialogOverlay = React.forwardRef<
-  React.ElementRef<typeof AlertDialogOverlayBase>,
+  React.ComponentRef<typeof AlertDialogOverlayBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogOverlayBase> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AlertDialogOverlayBase
@@ -38,7 +38,7 @@ const AlertDialogOverlay = React.forwardRef<
 AlertDialogOverlay.displayName = AlertDialogOverlayBase.displayName;
 
 const AlertDialogContent = React.forwardRef<
-  React.ElementRef<typeof AlertDialogContentBase>,
+  React.ComponentRef<typeof AlertDialogContentBase>,
   AlertDialogContentBaseProps & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', type = 'default', size = 'md', style, ...props }, ref) => (
   <AlertDialogPortal>
@@ -83,7 +83,7 @@ const AlertDialogFooter = React.forwardRef<
 AlertDialogFooter.displayName = AlertDialogFooterBase.displayName;
 
 const AlertDialogTitle = React.forwardRef<
-  React.ElementRef<typeof AlertDialogTitleBase>,
+  React.ComponentRef<typeof AlertDialogTitleBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogTitleBase> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AlertDialogTitleBase
@@ -95,7 +95,7 @@ const AlertDialogTitle = React.forwardRef<
 AlertDialogTitle.displayName = AlertDialogTitleBase.displayName;
 
 const AlertDialogDescription = React.forwardRef<
-  React.ElementRef<typeof AlertDialogDescriptionBase>,
+  React.ComponentRef<typeof AlertDialogDescriptionBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogDescriptionBase> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AlertDialogDescriptionBase
@@ -107,7 +107,7 @@ const AlertDialogDescription = React.forwardRef<
 AlertDialogDescription.displayName = AlertDialogDescriptionBase.displayName;
 
 const AlertDialogAction = React.forwardRef<
-  React.ElementRef<typeof AlertDialogActionBase>,
+  React.ComponentRef<typeof AlertDialogActionBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogActionBase> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AlertDialogActionBase ref={ref} asChild>
@@ -117,7 +117,7 @@ const AlertDialogAction = React.forwardRef<
 AlertDialogAction.displayName = AlertDialogActionBase.displayName;
 
 const AlertDialogCancel = React.forwardRef<
-  React.ElementRef<typeof AlertDialogCancelBase>,
+  React.ComponentRef<typeof AlertDialogCancelBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogCancelBase> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AlertDialogCancelBase ref={ref} asChild>

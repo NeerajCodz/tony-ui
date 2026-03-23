@@ -1,87 +1,47 @@
-'use client';
-
-import React, { forwardRef } from 'react';
+import * as React from 'react';
+import { SpinnerBase, type SpinnerBaseProps } from '../_base/spinner';
 import { cn } from '@/lib/utils';
-import type { VariantColors } from '../../types/common';
-import { SpinnerBase } from '../_base/spinner';
-import { getSpinnerVisual, getVersionStyleProfile } from '../_shared/version-styles';
 
-type SpinnerSize = 'sm' | 'md' | 'lg' | 'xl';
+export interface SpinnerProps extends SpinnerBaseProps {}
 
-export interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
-  version?: string;
-  type?: string;
-  variant?: string;
-  size?: SpinnerSize;
-  colors?: VariantColors;
-}
-
-const versionKey = 'pill';
-
-const shapeClipPaths: Record<string, string | undefined> = {
-  hex: 'polygon(25% 8%, 75% 8%, 96% 50%, 75% 92%, 25% 92%, 4% 50%)',
-  clipped: 'polygon(8% 0, 100% 0, 100% 92%, 92% 100%, 0 100%, 0 8%)',
-  bracket: 'polygon(0 0, 92% 0, 100% 8%, 100% 100%, 8% 100%, 0 92%)',
+const getSizeStyles = (size: string = 'md') => {
+  switch (size) {
+    case 'xs': return 'h-3 w-3 border-[1.5px]';
+    case 'sm': return 'h-4 w-4 border-2';
+    case 'md': return 'h-6 w-6 border-2';
+    case 'lg': return 'h-9 w-9 border-[3px]';
+    case 'xl': return 'h-12 w-12 border-4';
+    default: return 'h-6 w-6 border-2';
+  }
 };
 
-const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
-  ({ size = 'md', colors, type = 'default', version, className = '', style, ...props }, ref) => {
-    const profile = getVersionStyleProfile(version ?? versionKey);
-    const visual = getSpinnerVisual(type, colors);
+const getVariantStyles = (variant: string = 'default') => {
+  switch (variant) {
+    case 'primary': return 'border-[var(--ac-accent)]/30 border-t-[var(--ac-accent)]';
+    case 'secondary': return 'border-[var(--text-secondary)]/30 border-t-[var(--text-secondary)]';
+    case 'accent': return 'border-[var(--ac-accent)]/30 border-t-[var(--ac-accent)]';
+    case 'destructive': return 'border-[var(--ac-destructive)]/30 border-t-[var(--ac-destructive)]';
+    case 'ghost': return 'border-[var(--text-muted)]/30 border-t-[var(--text-muted)]';
+    default: return 'border-[var(--ac-accent)]/30 border-t-[var(--ac-accent)]';
+  }
+};
 
-    const sizeMap: Record<SpinnerSize, number> = {
-      sm: 16,
-      md: 24,
-      lg: 32,
-      xl: 48,
-    };
-
-    const pxSize = sizeMap[size] ?? 24;
-    const clipPath = shapeClipPaths[profile.shape];
-
+export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(
+  ({ className, size = 'md', variant = 'default', ...props }, ref) => {
     return (
       <SpinnerBase
         ref={ref}
         size={size}
-        className={cn('relative inline-flex items-center justify-center', className)}
-        style={{ width: pxSize, height: pxSize, color: visual.color, ...style }}
-        data-version={profile.version}
-        data-type={type}
+        variant={variant}
+        className={cn(
+          'animate-spin rounded-full border-t-transparent',
+          getSizeStyles(size),
+          getVariantStyles(variant),
+          className
+        )}
         {...props}
-      >
-        <span
-          className="absolute inset-0 animate-spin rounded-full border-2 border-transparent"
-          style={{
-            borderTopColor: visual.color,
-            borderRightColor: visual.color,
-            clipPath,
-            filter: `drop-shadow(0 0 6px ${visual.glow})`,
-          }}
-        />
-        <span
-          className="absolute inset-[25%] rounded-full"
-          style={{
-            backgroundColor: `color-mix(in srgb, ${visual.color} 24%, transparent)`,
-          }}
-        />
-        {(profile.shape === 'hex' || profile.hasHoneycomb) ? (
-          <span
-            className="absolute inset-[12%] border"
-            style={{
-              borderColor: visual.color,
-              clipPath: shapeClipPaths.hex,
-              opacity: 0.7,
-            }}
-          />
-        ) : null}
-        {profile.hasTerminalBar ? (
-          <span className="absolute -top-1 left-0 right-0 h-[2px] opacity-70" style={{ backgroundColor: visual.color }} />
-        ) : null}
-      </SpinnerBase>
+      />
     );
   }
 );
-
 Spinner.displayName = 'Spinner';
-
-export default Spinner;

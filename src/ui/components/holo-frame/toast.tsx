@@ -8,7 +8,7 @@ import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 const ToastProvider = ToastPrimitives.Provider;
 
 const ToastViewport = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitives.Viewport>,
+  React.ComponentRef<typeof ToastPrimitives.Viewport>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport> & { effects?: HoloFrameEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <ToastPrimitives.Viewport
@@ -39,7 +39,7 @@ const toastVariants = cva(
 );
 
 const Toast = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitives.Root>,
+  React.ComponentRef<typeof ToastPrimitives.Root>,
   Omit<React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> & { effects?: HoloFrameEffects }, 'type'> & {
     type?: 'foreground' | 'background' | string;
   } & VariantProps<typeof toastVariants>
@@ -57,7 +57,7 @@ const Toast = React.forwardRef<
 Toast.displayName = ToastPrimitives.Root.displayName;
 
 const ToastAction = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitives.Action>,
+  React.ComponentRef<typeof ToastPrimitives.Action>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Action> & { effects?: HoloFrameEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <ToastPrimitives.Action
@@ -72,7 +72,7 @@ const ToastAction = React.forwardRef<
 ToastAction.displayName = ToastPrimitives.Action.displayName;
 
 const ToastClose = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitives.Close>,
+  React.ComponentRef<typeof ToastPrimitives.Close>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close> & { effects?: HoloFrameEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <ToastPrimitives.Close
@@ -90,7 +90,7 @@ const ToastClose = React.forwardRef<
 ToastClose.displayName = ToastPrimitives.Close.displayName;
 
 const ToastTitle = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitives.Title>,
+  React.ComponentRef<typeof ToastPrimitives.Title>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title> & { effects?: HoloFrameEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <ToastPrimitives.Title
@@ -102,7 +102,7 @@ const ToastTitle = React.forwardRef<
 ToastTitle.displayName = ToastPrimitives.Title.displayName;
 
 const ToastDescription = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitives.Description>,
+  React.ComponentRef<typeof ToastPrimitives.Description>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description> & { effects?: HoloFrameEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <ToastPrimitives.Description

@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from './_effects';
 
 const RadioGroup = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitive.Root>,
+  React.ComponentRef<typeof RadioGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', ...props }, ref) => {
   return (
@@ -20,7 +20,7 @@ RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 
 
 const RadioGroupItem = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitive.Item>,
+  React.ComponentRef<typeof RadioGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', style, ...props }, ref) => {
   return (

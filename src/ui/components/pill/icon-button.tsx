@@ -1,9 +1,21 @@
-'use client';
+import * as React from 'react';
+import { Button, ButtonProps } from './button';
+import { cn } from '@/lib/utils';
 
-import { createIconButtonFoundation } from '../_shared/family-foundations';
+export interface IconButtonProps extends ButtonProps {}
 
-const foundation = createIconButtonFoundation('pill');
+const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
+  ({ className, size = 'icon', ...props }, ref) => {
+    return (
+      <Button
+        ref={ref}
+        size={size}
+        className={cn('aspect-square p-0', className)}
+        {...props}
+      />
+    );
+  }
+);
+IconButton.displayName = 'IconButton';
 
-export const IconButton = foundation.IconButton;
-
-export default IconButton;
+export { IconButton };

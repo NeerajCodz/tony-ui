@@ -5,7 +5,7 @@ import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from 
 import { Check } from 'lucide-react';
 
 const Checkbox = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitive.Root>,
+  React.ComponentRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', style, ...props }, ref) => (
   <CheckboxPrimitive.Root

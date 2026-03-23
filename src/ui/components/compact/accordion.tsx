@@ -14,7 +14,7 @@ import {
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
 
-const Accordion = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, AccordionBaseProps>(
+const Accordion = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Root>, AccordionBaseProps>(
   ({ className, ...props }, ref) => (
     <AccordionBase 
       ref={ref} 
@@ -25,7 +25,7 @@ const Accordion = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Ro
 );
 Accordion.displayName = 'Accordion';
 
-const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Item>, AccordionItemBaseProps>(
+const AccordionItem = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Item>, AccordionItemBaseProps>(
   ({ className, style, ...props }, ref) => (
     <AccordionItemBase
       ref={ref}
@@ -41,7 +41,7 @@ const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitiv
 );
 AccordionItem.displayName = 'AccordionItem';
 
-const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Trigger>, AccordionTriggerBaseProps>(
+const AccordionTrigger = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Trigger>, AccordionTriggerBaseProps>(
   ({ className, children, ...props }, ref) => (
     <AccordionHeaderBase className="flex">
       <AccordionTriggerBase
@@ -60,7 +60,7 @@ const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimi
 );
 AccordionTrigger.displayName = 'AccordionTrigger';
 
-const AccordionContent = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Content>, AccordionContentBaseProps>(
+const AccordionContent = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Content>, AccordionContentBaseProps>(
   ({ className, children, ...props }, ref) => (
     <AccordionContentBase
       ref={ref}

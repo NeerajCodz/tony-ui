@@ -53,7 +53,7 @@ export interface ProgressBaseProps
  * - Indeterminate: omit aria-valuenow
  */
 export const ProgressBase = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
+  React.ComponentRef<typeof ProgressPrimitive.Root>,
   ProgressBaseProps
 >(({ size = 'md', variant, indeterminate = false, ...props }, ref) => (
   <ProgressPrimitive.Root
@@ -79,7 +79,7 @@ export interface ProgressIndicatorBaseProps
  * Width/transform controlled by value prop on parent.
  */
 export const ProgressIndicatorBase = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Indicator>,
+  React.ComponentRef<typeof ProgressPrimitive.Indicator>,
   ProgressIndicatorBaseProps
 >((props, ref) => <ProgressPrimitive.Indicator ref={ref} {...props} />);
 ProgressIndicatorBase.displayName = 'ProgressIndicatorBase';

@@ -14,7 +14,7 @@ const DialogClose = DialogPrimitive.Close;
 
 
 const DialogOverlay = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Overlay>,
+  React.ComponentRef<typeof DialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <DialogPrimitive.Overlay
@@ -29,7 +29,7 @@ const DialogOverlay = React.forwardRef<
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Content>,
+  React.ComponentRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', children, ...props }, ref) => (
   <DialogPortal>
@@ -78,7 +78,7 @@ const DialogFooter = ({ className, effects = 'on', ...props }: React.HTMLAttribu
 DialogFooter.displayName = 'DialogFooter';
 
 const DialogTitle = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Title>,
+  React.ComponentRef<typeof DialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <DialogPrimitive.Title
@@ -93,7 +93,7 @@ const DialogTitle = React.forwardRef<
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
 const DialogDescription = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Description>,
+  React.ComponentRef<typeof DialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description> & { effects?: QuantumGateEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <DialogPrimitive.Description

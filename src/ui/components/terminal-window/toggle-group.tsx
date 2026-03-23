@@ -6,7 +6,7 @@ import { toggleVariants } from '@/ui/components/terminal-window/toggle';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
 const ToggleGroup = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Root>,
+  React.ComponentRef<typeof ToggleGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> &
     VariantProps<typeof toggleVariants> & { effects?: TerminalWindowEffects }
 >(({ className, variant, size, children, effects = 'on', ...props }, ref) => (
@@ -30,7 +30,7 @@ const ToggleGroupContext = React.createContext<
 });
 
 const ToggleGroupItem = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Item>,
+  React.ComponentRef<typeof ToggleGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> &
     VariantProps<typeof toggleVariants> & { effects?: TerminalWindowEffects }
 >(({ className, children, variant, size, effects = 'on', ...props }, ref) => {

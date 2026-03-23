@@ -25,7 +25,7 @@ const getSizeStyles = (size: string = 'md') => {
   }
 };
 
-const Avatar = React.forwardRef<React.ElementRef<typeof AvatarBase>, AvatarProps>(
+const Avatar = React.forwardRef<React.ComponentRef<typeof AvatarBase>, AvatarProps>(
   ({ className, effects = 'on', size = 'md', shape = 'square', style, ...props }, ref) => {
     return (
       <AvatarBase
@@ -46,7 +46,7 @@ const Avatar = React.forwardRef<React.ElementRef<typeof AvatarBase>, AvatarProps
 Avatar.displayName = 'Avatar';
 
 const AvatarImage = React.forwardRef<
-  React.ElementRef<typeof AvatarImageBase>,
+  React.ComponentRef<typeof AvatarImageBase>,
   React.ComponentPropsWithoutRef<typeof AvatarImageBase> & { effects?: TechPanelEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AvatarImageBase
@@ -58,7 +58,7 @@ const AvatarImage = React.forwardRef<
 AvatarImage.displayName = 'AvatarImage';
 
 const AvatarFallback = React.forwardRef<
-  React.ElementRef<typeof AvatarFallbackBase>,
+  React.ComponentRef<typeof AvatarFallbackBase>,
   React.ComponentPropsWithoutRef<typeof AvatarFallbackBase> & { effects?: TechPanelEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <AvatarFallbackBase

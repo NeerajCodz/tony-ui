@@ -9,7 +9,7 @@ const SheetTrigger = SheetTriggerBase;
 const SheetClose = SheetCloseBase;
 const SheetPortal = SheetPortalBase;
 
-const SheetOverlay = React.forwardRef<React.ElementRef<typeof SheetOverlayBase>, React.ComponentPropsWithoutRef<typeof SheetOverlayBase>>(
+const SheetOverlay = React.forwardRef<React.ComponentRef<typeof SheetOverlayBase>, React.ComponentPropsWithoutRef<typeof SheetOverlayBase>>(
   ({ className, ...props }, ref) => (
     <SheetOverlayBase
       className={cn(
@@ -42,7 +42,7 @@ const sheetVariants = cva(
 
 interface SheetContentProps extends SheetContentBaseProps, VariantProps<typeof sheetVariants> {}
 
-const SheetContent = React.forwardRef<React.ElementRef<typeof SheetContentBase>, SheetContentProps>(
+const SheetContent = React.forwardRef<React.ComponentRef<typeof SheetContentBase>, SheetContentProps>(
   ({ side = 'right', className, children, ...props }, ref) => (
     <SheetPortal>
       <SheetOverlay />
@@ -85,7 +85,7 @@ const SheetFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
 );
 SheetFooter.displayName = 'SheetFooter';
 
-const SheetTitle = React.forwardRef<React.ElementRef<typeof SheetTitleBase>, React.ComponentPropsWithoutRef<typeof SheetTitleBase>>(
+const SheetTitle = React.forwardRef<React.ComponentRef<typeof SheetTitleBase>, React.ComponentPropsWithoutRef<typeof SheetTitleBase>>(
   ({ className, ...props }, ref) => (
     <SheetTitleBase
       ref={ref}
@@ -96,7 +96,7 @@ const SheetTitle = React.forwardRef<React.ElementRef<typeof SheetTitleBase>, Rea
 );
 SheetTitle.displayName = 'SheetTitle';
 
-const SheetDescription = React.forwardRef<React.ElementRef<typeof SheetDescriptionBase>, React.ComponentPropsWithoutRef<typeof SheetDescriptionBase>>(
+const SheetDescription = React.forwardRef<React.ComponentRef<typeof SheetDescriptionBase>, React.ComponentPropsWithoutRef<typeof SheetDescriptionBase>>(
   ({ className, ...props }, ref) => (
     <SheetDescriptionBase
       ref={ref}

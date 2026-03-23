@@ -75,7 +75,7 @@ export interface SheetTriggerBaseProps
  * SheetTriggerBase - Button that opens the sheet
  */
 export const SheetTriggerBase = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Trigger>,
+  React.ComponentRef<typeof SheetPrimitive.Trigger>,
   SheetTriggerBaseProps
 >((props, ref) => <SheetPrimitive.Trigger ref={ref} {...props} />);
 SheetTriggerBase.displayName = 'SheetTriggerBase';
@@ -91,7 +91,7 @@ export interface SheetCloseBaseProps
  * SheetCloseBase - Button that closes the sheet
  */
 export const SheetCloseBase = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Close>,
+  React.ComponentRef<typeof SheetPrimitive.Close>,
   SheetCloseBaseProps
 >((props, ref) => <SheetPrimitive.Close ref={ref} {...props} />);
 SheetCloseBase.displayName = 'SheetCloseBase';
@@ -120,7 +120,7 @@ export interface SheetOverlayBaseProps
  * Clicking closes the sheet.
  */
 export const SheetOverlayBase = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Overlay>,
+  React.ComponentRef<typeof SheetPrimitive.Overlay>,
   SheetOverlayBaseProps
 >((props, ref) => <SheetPrimitive.Overlay ref={ref} {...props} />);
 SheetOverlayBase.displayName = 'SheetOverlayBase';
@@ -161,7 +161,7 @@ export interface SheetContentBaseProps
  * Slides in from the specified edge.
  */
 export const SheetContentBase = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Content>,
+  React.ComponentRef<typeof SheetPrimitive.Content>,
   SheetContentBaseProps
 >(({ side = 'right', size = 'md', type = 'default', variant, ...props }, ref) => (
   <SheetPrimitive.Content
@@ -200,7 +200,7 @@ export interface SheetTitleBaseProps
  * SheetTitleBase - Title of the sheet
  */
 export const SheetTitleBase = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Title>,
+  React.ComponentRef<typeof SheetPrimitive.Title>,
   SheetTitleBaseProps
 >((props, ref) => <SheetPrimitive.Title ref={ref} {...props} />);
 SheetTitleBase.displayName = 'SheetTitleBase';
@@ -216,7 +216,7 @@ export interface SheetDescriptionBaseProps
  * SheetDescriptionBase - Description text
  */
 export const SheetDescriptionBase = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Description>,
+  React.ComponentRef<typeof SheetPrimitive.Description>,
   SheetDescriptionBaseProps
 >((props, ref) => <SheetPrimitive.Description ref={ref} {...props} />);
 SheetDescriptionBase.displayName = 'SheetDescriptionBase';

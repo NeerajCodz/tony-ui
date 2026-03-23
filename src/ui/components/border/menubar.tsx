@@ -9,7 +9,7 @@ const MenubarPortal = MenubarPortalBase;
 const MenubarSub = MenubarSubBase;
 const MenubarRadioGroup = MenubarRadioGroupBase;
 
-const Menubar = React.forwardRef<React.ElementRef<typeof MenubarBase>, React.ComponentPropsWithoutRef<typeof MenubarBase>>(
+const Menubar = React.forwardRef<React.ComponentRef<typeof MenubarBase>, React.ComponentPropsWithoutRef<typeof MenubarBase>>(
   ({ className, ...props }, ref) => (
     <MenubarBase
       ref={ref}
@@ -23,7 +23,7 @@ const Menubar = React.forwardRef<React.ElementRef<typeof MenubarBase>, React.Com
 );
 Menubar.displayName = 'Menubar';
 
-const MenubarTrigger = React.forwardRef<React.ElementRef<typeof MenubarTriggerBase>, React.ComponentPropsWithoutRef<typeof MenubarTriggerBase>>(
+const MenubarTrigger = React.forwardRef<React.ComponentRef<typeof MenubarTriggerBase>, React.ComponentPropsWithoutRef<typeof MenubarTriggerBase>>(
   ({ className, ...props }, ref) => (
     <MenubarTriggerBase
       ref={ref}
@@ -37,7 +37,7 @@ const MenubarTrigger = React.forwardRef<React.ElementRef<typeof MenubarTriggerBa
 );
 MenubarTrigger.displayName = 'MenubarTrigger';
 
-const MenubarSubTrigger = React.forwardRef<React.ElementRef<typeof MenubarSubTriggerBase>, React.ComponentPropsWithoutRef<typeof MenubarSubTriggerBase> & { inset?: boolean }>(
+const MenubarSubTrigger = React.forwardRef<React.ComponentRef<typeof MenubarSubTriggerBase>, React.ComponentPropsWithoutRef<typeof MenubarSubTriggerBase> & { inset?: boolean }>(
   ({ className, inset, children, ...props }, ref) => (
     <MenubarSubTriggerBase
       ref={ref}
@@ -55,7 +55,7 @@ const MenubarSubTrigger = React.forwardRef<React.ElementRef<typeof MenubarSubTri
 );
 MenubarSubTrigger.displayName = 'MenubarSubTrigger';
 
-const MenubarSubContent = React.forwardRef<React.ElementRef<typeof MenubarSubContentBase>, React.ComponentPropsWithoutRef<typeof MenubarSubContentBase>>(
+const MenubarSubContent = React.forwardRef<React.ComponentRef<typeof MenubarSubContentBase>, React.ComponentPropsWithoutRef<typeof MenubarSubContentBase>>(
   ({ className, ...props }, ref) => (
     <MenubarSubContentBase
       ref={ref}
@@ -69,7 +69,7 @@ const MenubarSubContent = React.forwardRef<React.ElementRef<typeof MenubarSubCon
 );
 MenubarSubContent.displayName = 'MenubarSubContent';
 
-const MenubarContent = React.forwardRef<React.ElementRef<typeof MenubarContentBase>, React.ComponentPropsWithoutRef<typeof MenubarContentBase>>(
+const MenubarContent = React.forwardRef<React.ComponentRef<typeof MenubarContentBase>, React.ComponentPropsWithoutRef<typeof MenubarContentBase>>(
   ({ className, ...props }, ref) => (
     <MenubarContentBase
       ref={ref}
@@ -83,7 +83,7 @@ const MenubarContent = React.forwardRef<React.ElementRef<typeof MenubarContentBa
 );
 MenubarContent.displayName = 'MenubarContent';
 
-const MenubarItem = React.forwardRef<React.ElementRef<typeof MenubarItemBase>, React.ComponentPropsWithoutRef<typeof MenubarItemBase> & { inset?: boolean }>(
+const MenubarItem = React.forwardRef<React.ComponentRef<typeof MenubarItemBase>, React.ComponentPropsWithoutRef<typeof MenubarItemBase> & { inset?: boolean }>(
   ({ className, inset, ...props }, ref) => (
     <MenubarItemBase
       ref={ref}
@@ -98,7 +98,7 @@ const MenubarItem = React.forwardRef<React.ElementRef<typeof MenubarItemBase>, R
 );
 MenubarItem.displayName = 'MenubarItem';
 
-const MenubarCheckboxItem = React.forwardRef<React.ElementRef<typeof MenubarCheckboxItemBase>, React.ComponentPropsWithoutRef<typeof MenubarCheckboxItemBase>>(
+const MenubarCheckboxItem = React.forwardRef<React.ComponentRef<typeof MenubarCheckboxItemBase>, React.ComponentPropsWithoutRef<typeof MenubarCheckboxItemBase>>(
   ({ className, children, checked, ...props }, ref) => (
     <MenubarCheckboxItemBase
       ref={ref}
@@ -120,7 +120,7 @@ const MenubarCheckboxItem = React.forwardRef<React.ElementRef<typeof MenubarChec
 );
 MenubarCheckboxItem.displayName = 'MenubarCheckboxItem';
 
-const MenubarRadioItem = React.forwardRef<React.ElementRef<typeof MenubarRadioItemBase>, React.ComponentPropsWithoutRef<typeof MenubarRadioItemBase>>(
+const MenubarRadioItem = React.forwardRef<React.ComponentRef<typeof MenubarRadioItemBase>, React.ComponentPropsWithoutRef<typeof MenubarRadioItemBase>>(
   ({ className, children, ...props }, ref) => (
     <MenubarRadioItemBase
       ref={ref}
@@ -141,7 +141,7 @@ const MenubarRadioItem = React.forwardRef<React.ElementRef<typeof MenubarRadioIt
 );
 MenubarRadioItem.displayName = 'MenubarRadioItem';
 
-const MenubarLabel = React.forwardRef<React.ElementRef<typeof MenubarLabelBase>, React.ComponentPropsWithoutRef<typeof MenubarLabelBase> & { inset?: boolean }>(
+const MenubarLabel = React.forwardRef<React.ComponentRef<typeof MenubarLabelBase>, React.ComponentPropsWithoutRef<typeof MenubarLabelBase> & { inset?: boolean }>(
   ({ className, inset, ...props }, ref) => (
     <MenubarLabelBase
       ref={ref}
@@ -152,7 +152,7 @@ const MenubarLabel = React.forwardRef<React.ElementRef<typeof MenubarLabelBase>,
 );
 MenubarLabel.displayName = 'MenubarLabel';
 
-const MenubarSeparator = React.forwardRef<React.ElementRef<typeof MenubarSeparatorBase>, React.ComponentPropsWithoutRef<typeof MenubarSeparatorBase>>(
+const MenubarSeparator = React.forwardRef<React.ComponentRef<typeof MenubarSeparatorBase>, React.ComponentPropsWithoutRef<typeof MenubarSeparatorBase>>(
   ({ className, ...props }, ref) => (
     <MenubarSeparatorBase
       ref={ref}

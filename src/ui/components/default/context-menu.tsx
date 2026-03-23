@@ -28,7 +28,7 @@ const ContextMenuSub = ContextMenuSubBase;
 const ContextMenuRadioGroup = ContextMenuRadioGroupBase;
 
 const ContextMenuSubTrigger = React.forwardRef<
-  React.ElementRef<typeof ContextMenuSubTriggerBase>,
+  React.ComponentRef<typeof ContextMenuSubTriggerBase>,
   React.ComponentPropsWithoutRef<typeof ContextMenuSubTriggerBase> & {
     inset?: boolean
   }
@@ -49,7 +49,7 @@ const ContextMenuSubTrigger = React.forwardRef<
 ContextMenuSubTrigger.displayName = 'ContextMenuSubTrigger'
 
 const ContextMenuSubContent = React.forwardRef<
-  React.ElementRef<typeof ContextMenuSubContentBase>,
+  React.ComponentRef<typeof ContextMenuSubContentBase>,
   React.ComponentPropsWithoutRef<typeof ContextMenuSubContentBase>
 >(({ className, ...props }, ref) => (
   <ContextMenuSubContentBase
@@ -64,7 +64,7 @@ const ContextMenuSubContent = React.forwardRef<
 ContextMenuSubContent.displayName = 'ContextMenuSubContent'
 
 const ContextMenuContent = React.forwardRef<
-  React.ElementRef<typeof ContextMenuContentBase>,
+  React.ComponentRef<typeof ContextMenuContentBase>,
   React.ComponentPropsWithoutRef<typeof ContextMenuContentBase>
 >(({ className, ...props }, ref) => (
   <ContextMenuPortalBase>
@@ -81,7 +81,7 @@ const ContextMenuContent = React.forwardRef<
 ContextMenuContent.displayName = 'ContextMenuContent'
 
 const ContextMenuItem = React.forwardRef<
-  React.ElementRef<typeof ContextMenuItemBase>,
+  React.ComponentRef<typeof ContextMenuItemBase>,
   React.ComponentPropsWithoutRef<typeof ContextMenuItemBase> & {
     inset?: boolean
   }
@@ -99,7 +99,7 @@ const ContextMenuItem = React.forwardRef<
 ContextMenuItem.displayName = 'ContextMenuItem'
 
 const ContextMenuCheckboxItem = React.forwardRef<
-  React.ElementRef<typeof ContextMenuCheckboxItemBase>,
+  React.ComponentRef<typeof ContextMenuCheckboxItemBase>,
   React.ComponentPropsWithoutRef<typeof ContextMenuCheckboxItemBase>
 >(({ className, children, checked, ...props }, ref) => (
   <ContextMenuCheckboxItemBase
@@ -122,7 +122,7 @@ const ContextMenuCheckboxItem = React.forwardRef<
 ContextMenuCheckboxItem.displayName = 'ContextMenuCheckboxItem'
 
 const ContextMenuRadioItem = React.forwardRef<
-  React.ElementRef<typeof ContextMenuRadioItemBase>,
+  React.ComponentRef<typeof ContextMenuRadioItemBase>,
   React.ComponentPropsWithoutRef<typeof ContextMenuRadioItemBase>
 >(({ className, children, ...props }, ref) => (
   <ContextMenuRadioItemBase
@@ -144,7 +144,7 @@ const ContextMenuRadioItem = React.forwardRef<
 ContextMenuRadioItem.displayName = 'ContextMenuRadioItem'
 
 const ContextMenuLabel = React.forwardRef<
-  React.ElementRef<typeof ContextMenuLabelBase>,
+  React.ComponentRef<typeof ContextMenuLabelBase>,
   React.ComponentPropsWithoutRef<typeof ContextMenuLabelBase> & {
     inset?: boolean
   }
@@ -162,7 +162,7 @@ const ContextMenuLabel = React.forwardRef<
 ContextMenuLabel.displayName = 'ContextMenuLabel'
 
 const ContextMenuSeparator = React.forwardRef<
-  React.ElementRef<typeof ContextMenuSeparatorBase>,
+  React.ComponentRef<typeof ContextMenuSeparatorBase>,
   React.ComponentPropsWithoutRef<typeof ContextMenuSeparatorBase>
 >(({ className, ...props }, ref) => (
   <ContextMenuSeparatorBase

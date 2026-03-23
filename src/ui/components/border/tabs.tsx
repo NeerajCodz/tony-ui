@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 const Tabs = TabsBase;
 
-const TabsList = React.forwardRef<React.ElementRef<typeof TabsListBase>, React.ComponentPropsWithoutRef<typeof TabsListBase>>(
+const TabsList = React.forwardRef<React.ComponentRef<typeof TabsListBase>, React.ComponentPropsWithoutRef<typeof TabsListBase>>(
   ({ className, ...props }, ref) => (
     <TabsListBase
       ref={ref}
@@ -18,7 +18,7 @@ const TabsList = React.forwardRef<React.ElementRef<typeof TabsListBase>, React.C
 );
 TabsList.displayName = 'TabsList';
 
-const TabsTrigger = React.forwardRef<React.ElementRef<typeof TabsTriggerBase>, React.ComponentPropsWithoutRef<typeof TabsTriggerBase>>(
+const TabsTrigger = React.forwardRef<React.ComponentRef<typeof TabsTriggerBase>, React.ComponentPropsWithoutRef<typeof TabsTriggerBase>>(
   ({ className, ...props }, ref) => (
     <TabsTriggerBase
       ref={ref}
@@ -32,7 +32,7 @@ const TabsTrigger = React.forwardRef<React.ElementRef<typeof TabsTriggerBase>, R
 );
 TabsTrigger.displayName = 'TabsTrigger';
 
-const TabsContent = React.forwardRef<React.ElementRef<typeof TabsContentBase>, React.ComponentPropsWithoutRef<typeof TabsContentBase>>(
+const TabsContent = React.forwardRef<React.ComponentRef<typeof TabsContentBase>, React.ComponentPropsWithoutRef<typeof TabsContentBase>>(
   ({ className, ...props }, ref) => (
     <TabsContentBase
       ref={ref}

@@ -5,7 +5,7 @@ import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from 
 
 
 const Slider = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Root>,
+  React.ComponentRef<typeof SliderPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> & { effects?: TacticalHudEffects }
 >(({ className, effects = 'on', style, ...props }, ref) => (
   <SliderPrimitive.Root

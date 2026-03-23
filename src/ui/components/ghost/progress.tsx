@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 import { ghostEffectsClass, type GhostEffects } from "./_effects"
 
 const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
+  React.ComponentRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & { effects?: GhostEffects }
 >(({ className, value, effects = "on", ...props }, ref) => (
   <ProgressPrimitive.Root

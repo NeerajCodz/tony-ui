@@ -1,22 +1,19 @@
-'use client';
-
 import * as React from 'react';
-import { AspectRatioBase } from '../_base/aspect-ratio';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { AspectRatioBase, type AspectRatioBaseProps } from '../_base/aspect-ratio';
+import { cn } from '@/lib/utils';
 
-export type AspectRatioProps = Omit<React.ComponentPropsWithoutRef<typeof AspectRatioBase>, 'type'> & StyledProps;
+export interface AspectRatioProps extends AspectRatioBaseProps {}
 
-export const AspectRatio = React.forwardRef<React.ElementRef<typeof AspectRatioBase>, AspectRatioProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
+const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
+
+export const AspectRatio = React.forwardRef<React.ComponentRef<typeof AspectRatioBase>, AspectRatioProps>(
+  ({ className, style, ...props }, ref) => (
     <AspectRatioBase
       ref={ref}
-      className={cx('relative overflow-hidden', className)}
-      style={getSurfaceStyle(version ?? 'pill', type, uiType, colors, style)}
+      style={{ clipPath: AC_CLIP_PATH, ...style }}
+      className={cn('[--corner:12px] overflow-hidden bg-[var(--ac-surface)] border border-[var(--ac-border)]', className)}
       {...props}
     />
   )
 );
-
 AspectRatio.displayName = 'AspectRatio';
-
-export default AspectRatio;

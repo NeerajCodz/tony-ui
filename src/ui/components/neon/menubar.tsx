@@ -3,15 +3,17 @@ import * as MenubarPrimitive from '@radix-ui/react-menubar';
 import { Check, ChevronRight, Circle } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { getNeonGlow } from './_effects';
 
 const Menubar = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Root>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Root> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
   <MenubarPrimitive.Root
     ref={ref}
     className={cn(
-      'flex h-12 items-center space-x-1 border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-1 shadow-[0_0_10px_var(--ne-primary)]',
+      'flex h-12 items-center space-x-1 border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-1',
+      getNeonGlow(effects),
       className
     )}
     {...props}
@@ -64,12 +66,13 @@ MenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName;
 
 const MenubarSubContent = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.SubContent>,
-  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubContent>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubContent> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
   <MenubarPrimitive.SubContent
     ref={ref}
     className={cn(
-      'z-50 min-w-[12rem] overflow-hidden border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-1 text-[var(--ne-text)] shadow-[0_0_20px_var(--ne-primary)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+      'z-50 min-w-[12rem] overflow-hidden border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-1 text-[var(--ne-text)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+      getNeonGlow(effects, 'high'),
       className
     )}
     {...props}
@@ -79,8 +82,8 @@ MenubarSubContent.displayName = MenubarPrimitive.SubContent.displayName;
 
 const MenubarContent = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Content>
->(({ className, align = 'start', alignOffset = -4, sideOffset = 8, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Content> & { effects?: boolean }
+>(({ className, align = 'start', alignOffset = -4, sideOffset = 8, effects = true, ...props }, ref) => (
   <MenubarPrimitive.Portal>
     <MenubarPrimitive.Content
       ref={ref}
@@ -88,7 +91,8 @@ const MenubarContent = React.forwardRef<
       alignOffset={alignOffset}
       sideOffset={sideOffset}
       className={cn(
-        'z-50 min-w-[12rem] overflow-hidden border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-1 text-[var(--ne-text)] shadow-[0_0_20px_var(--ne-primary)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        'z-50 min-w-[12rem] overflow-hidden border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-1 text-[var(--ne-text)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        getNeonGlow(effects, 'high'),
         className
       )}
       {...props}
@@ -101,12 +105,14 @@ const MenubarItem = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Item> & {
     inset?: boolean;
+    effects?: boolean;
   }
->(({ className, inset, ...props }, ref) => (
+>(({ className, inset, effects = true, ...props }, ref) => (
   <MenubarPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none transition-colors focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body tracking-wide focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
+      'relative flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none transition-colors focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body tracking-wide',
+      effects && 'focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
       inset && 'pl-8',
       className
     )}
@@ -117,12 +123,13 @@ MenubarItem.displayName = MenubarPrimitive.Item.displayName;
 
 const MenubarCheckboxItem = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.CheckboxItem>,
-  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.CheckboxItem>
->(({ className, children, checked, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.CheckboxItem> & { effects?: boolean }
+>(({ className, children, checked, effects = true, ...props }, ref) => (
   <MenubarPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body tracking-wide focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
+      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body tracking-wide',
+      effects && 'focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
       className
     )}
     checked={checked}
@@ -140,12 +147,13 @@ MenubarCheckboxItem.displayName = MenubarPrimitive.CheckboxItem.displayName;
 
 const MenubarRadioItem = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.RadioItem>,
-  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.RadioItem>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.RadioItem> & { effects?: boolean }
+>(({ className, children, effects = true, ...props }, ref) => (
   <MenubarPrimitive.RadioItem
     ref={ref}
     className={cn(
-      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body tracking-wide focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
+      'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--ne-primary)] focus:text-[var(--ne-bg)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-body tracking-wide',
+      effects && 'focus:shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]',
       className
     )}
     {...props}
@@ -160,31 +168,13 @@ const MenubarRadioItem = React.forwardRef<
 ));
 MenubarRadioItem.displayName = MenubarPrimitive.RadioItem.displayName;
 
-const MenubarLabel = React.forwardRef<
-  React.ElementRef<typeof MenubarPrimitive.Label>,
-  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Label> & {
-    inset?: boolean;
-  }
->(({ className, inset, ...props }, ref) => (
-  <MenubarPrimitive.Label
-    ref={ref}
-    className={cn(
-      'px-2 py-1.5 text-sm font-semibold text-[var(--ne-secondary)] font-display uppercase tracking-widest',
-      inset && 'pl-8',
-      className
-    )}
-    {...props}
-  />
-));
-MenubarLabel.displayName = MenubarPrimitive.Label.displayName;
-
 const MenubarSeparator = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.Separator>,
-  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Separator>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Separator> & { effects?: boolean }
+>(({ className, effects = true, ...props }, ref) => (
   <MenubarPrimitive.Separator
     ref={ref}
-    className={cn('-mx-1 my-1 h-px bg-[var(--ne-primary)]/50 shadow-[0_0_5px_var(--ne-primary)]', className)}
+    className={cn('-mx-1 my-1 h-px bg-[var(--ne-primary)]/50', getNeonGlow(effects), className)}
     {...props}
   />
 ));

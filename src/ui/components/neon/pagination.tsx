@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { ButtonProps, buttonVariants } from './button';
+import { getNeonGlow } from './_effects';
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
@@ -36,6 +37,7 @@ PaginationItem.displayName = 'PaginationItem';
 
 type PaginationLinkProps = {
   isActive?: boolean;
+  effects?: boolean;
 } & Pick<ButtonProps, 'size'> &
   React.ComponentProps<'a'>;
 
@@ -43,19 +45,17 @@ const PaginationLink = ({
   className,
   isActive,
   size = 'icon',
+  effects = true,
   ...props
 }: PaginationLinkProps) => (
   <a
     aria-current={isActive ? 'page' : undefined}
     className={cn(
       buttonVariants({
-        variant: isActive ? 'default' : 'ghost',
+        variant: isActive ? 'outline' : 'ghost',
         size,
       }),
-      'rounded-none border-2',
-      isActive
-        ? 'border-[var(--ne-primary)] bg-[var(--ne-primary)] text-[var(--ne-bg)] shadow-[0_0_15px_var(--ne-primary)]'
-        : 'border-transparent text-[var(--ne-text)] hover:border-[var(--ne-primary)] hover:bg-[var(--ne-primary)]/10 hover:text-[var(--ne-primary)] hover:shadow-[0_0_10px_var(--ne-primary)]',
+      isActive && effects && getNeonGlow(true),
       className
     )}
     {...props}
@@ -101,10 +101,7 @@ const PaginationEllipsis = ({
 }: React.ComponentProps<'span'>) => (
   <span
     aria-hidden
-    className={cn(
-      'flex h-9 w-9 items-center justify-center text-[var(--ne-primary)]',
-      className
-    )}
+    className={cn('flex h-9 w-9 items-center justify-center', className)}
     {...props}
   >
     <MoreHorizontal className="h-4 w-4" />

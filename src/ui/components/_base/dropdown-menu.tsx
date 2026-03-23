@@ -73,7 +73,7 @@ export interface DropdownMenuTriggerBaseProps
  * DropdownMenuTriggerBase - Button that opens the menu
  */
 export const DropdownMenuTriggerBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Trigger>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.Trigger>,
   DropdownMenuTriggerBaseProps
 >((props, ref) => <DropdownMenuPrimitive.Trigger ref={ref} {...props} />);
 DropdownMenuTriggerBase.displayName = 'DropdownMenuTriggerBase';
@@ -89,7 +89,7 @@ export interface DropdownMenuGroupBaseProps
  * DropdownMenuGroupBase - Groups related items
  */
 export const DropdownMenuGroupBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Group>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.Group>,
   DropdownMenuGroupBaseProps
 >((props, ref) => <DropdownMenuPrimitive.Group ref={ref} {...props} />);
 DropdownMenuGroupBase.displayName = 'DropdownMenuGroupBase';
@@ -127,7 +127,7 @@ export interface DropdownMenuRadioGroupBaseProps
  * DropdownMenuRadioGroupBase - Group for radio items
  */
 export const DropdownMenuRadioGroupBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.RadioGroup>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.RadioGroup>,
   DropdownMenuRadioGroupBaseProps
 >((props, ref) => <DropdownMenuPrimitive.RadioGroup ref={ref} {...props} />);
 DropdownMenuRadioGroupBase.displayName = 'DropdownMenuRadioGroupBase';
@@ -156,7 +156,7 @@ export interface DropdownMenuSubTriggerBaseProps
  * Shows chevron indicator by default
  */
 export const DropdownMenuSubTriggerBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.SubTrigger>,
   DropdownMenuSubTriggerBaseProps
 >(({ showIndicator = true, ...props }, ref) => (
   <DropdownMenuPrimitive.SubTrigger
@@ -178,7 +178,7 @@ export interface DropdownMenuSubContentBaseProps
  * DropdownMenuSubContentBase - Content for a submenu
  */
 export const DropdownMenuSubContentBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.SubContent>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
   DropdownMenuSubContentBaseProps
 >((props, ref) => <DropdownMenuPrimitive.SubContent ref={ref} {...props} />);
 DropdownMenuSubContentBase.displayName = 'DropdownMenuSubContentBase';
@@ -219,7 +219,7 @@ export interface DropdownMenuContentBaseProps
  * - avoidCollisions
  */
 export const DropdownMenuContentBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Content>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.Content>,
   DropdownMenuContentBaseProps
 >(({ type = 'default', size = 'md', variant, ...props }, ref) => (
   <DropdownMenuPrimitive.Content
@@ -252,7 +252,7 @@ export interface DropdownMenuItemBaseProps
  * - destructive variant for dangerous actions
  */
 export const DropdownMenuItemBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Item>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.Item>,
   DropdownMenuItemBaseProps
 >(({ destructive, ...props }, ref) => (
   <DropdownMenuPrimitive.Item
@@ -281,7 +281,7 @@ export interface DropdownMenuCheckboxItemBaseProps
  * Use with ItemIndicator for checkmark
  */
 export const DropdownMenuCheckboxItemBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.CheckboxItem>,
   DropdownMenuCheckboxItemBaseProps
 >((props, ref) => <DropdownMenuPrimitive.CheckboxItem ref={ref} {...props} />);
 DropdownMenuCheckboxItemBase.displayName = 'DropdownMenuCheckboxItemBase';
@@ -299,7 +299,7 @@ export interface DropdownMenuRadioItemBaseProps
  * Use with ItemIndicator for selected indicator
  */
 export const DropdownMenuRadioItemBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.RadioItem>,
   DropdownMenuRadioItemBaseProps
 >((props, ref) => <DropdownMenuPrimitive.RadioItem ref={ref} {...props} />);
 DropdownMenuRadioItemBase.displayName = 'DropdownMenuRadioItemBase';
@@ -315,7 +315,7 @@ export interface DropdownMenuItemIndicatorBaseProps
  * DropdownMenuItemIndicatorBase - Check/radio indicator
  */
 export const DropdownMenuItemIndicatorBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.ItemIndicator>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.ItemIndicator>,
   DropdownMenuItemIndicatorBaseProps
 >((props, ref) => <DropdownMenuPrimitive.ItemIndicator ref={ref} {...props} />);
 DropdownMenuItemIndicatorBase.displayName = 'DropdownMenuItemIndicatorBase';
@@ -336,7 +336,7 @@ export interface DropdownMenuLabelBaseProps
  * DropdownMenuLabelBase - Non-interactive label for grouping
  */
 export const DropdownMenuLabelBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Label>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.Label>,
   DropdownMenuLabelBaseProps
 >((props, ref) => <DropdownMenuPrimitive.Label ref={ref} {...props} />);
 DropdownMenuLabelBase.displayName = 'DropdownMenuLabelBase';
@@ -352,7 +352,7 @@ export interface DropdownMenuSeparatorBaseProps
  * DropdownMenuSeparatorBase - Visual divider between items
  */
 export const DropdownMenuSeparatorBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.Separator>,
   DropdownMenuSeparatorBaseProps
 >((props, ref) => <DropdownMenuPrimitive.Separator ref={ref} {...props} />);
 DropdownMenuSeparatorBase.displayName = 'DropdownMenuSeparatorBase';
@@ -386,7 +386,7 @@ export interface DropdownMenuArrowBaseProps
  * DropdownMenuArrowBase - Arrow pointing to trigger
  */
 export const DropdownMenuArrowBase = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Arrow>,
+  React.ComponentRef<typeof DropdownMenuPrimitive.Arrow>,
   DropdownMenuArrowBaseProps
 >((props, ref) => <DropdownMenuPrimitive.Arrow ref={ref} {...props} />);
 DropdownMenuArrowBase.displayName = 'DropdownMenuArrowBase';

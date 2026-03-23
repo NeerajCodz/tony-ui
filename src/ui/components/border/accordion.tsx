@@ -5,7 +5,7 @@ import { ChevronDown } from 'lucide-react';
 
 const Accordion = AccordionBase;
 
-const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionItemBase>, React.ComponentPropsWithoutRef<typeof AccordionItemBase>>(
+const AccordionItem = React.forwardRef<React.ComponentRef<typeof AccordionItemBase>, React.ComponentPropsWithoutRef<typeof AccordionItemBase>>(
   ({ className, ...props }, ref) => (
     <AccordionItemBase
       ref={ref}
@@ -16,7 +16,7 @@ const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionItemBase
 );
 AccordionItem.displayName = 'AccordionItem';
 
-const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionTriggerBase>, React.ComponentPropsWithoutRef<typeof AccordionTriggerBase>>(
+const AccordionTrigger = React.forwardRef<React.ComponentRef<typeof AccordionTriggerBase>, React.ComponentPropsWithoutRef<typeof AccordionTriggerBase>>(
   ({ className, children, ...props }, ref) => (
     <AccordionTriggerBase
       ref={ref}
@@ -33,7 +33,7 @@ const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionTrigg
 );
 AccordionTrigger.displayName = 'AccordionTrigger';
 
-const AccordionContent = React.forwardRef<React.ElementRef<typeof AccordionContentBase>, React.ComponentPropsWithoutRef<typeof AccordionContentBase>>(
+const AccordionContent = React.forwardRef<React.ComponentRef<typeof AccordionContentBase>, React.ComponentPropsWithoutRef<typeof AccordionContentBase>>(
   ({ className, children, ...props }, ref) => (
     <AccordionContentBase
       ref={ref}

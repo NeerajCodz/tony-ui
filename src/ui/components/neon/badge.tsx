@@ -1,19 +1,21 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+
 import { cn } from '@/lib/utils';
+import { getNeonGlow } from './_effects';
 
 const badgeVariants = cva(
-  'inline-flex items-center border-2 px-3 py-1 text-xs font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 font-display uppercase tracking-widest rounded-none shadow-[0_0_8px_currentColor]',
+  'inline-flex items-center rounded-none border-2 px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 font-display uppercase tracking-widest',
   {
     variants: {
       variant: {
         default:
-          'border-[var(--ne-primary)] text-[var(--ne-primary)] bg-[var(--ne-bg)] hover:bg-[var(--ne-primary)] hover:text-[var(--ne-bg)]',
+          'border-[var(--ne-primary)] bg-[var(--ne-primary)] text-[var(--ne-bg)] hover:bg-[var(--ne-primary)]/80',
         secondary:
-          'border-[var(--ne-secondary)] text-[var(--ne-secondary)] bg-[var(--ne-bg)] hover:bg-[var(--ne-secondary)] hover:text-[var(--ne-bg)]',
+          'border-[var(--ne-secondary)] bg-[var(--ne-secondary)] text-[var(--ne-bg)] hover:bg-[var(--ne-secondary)]/80',
         destructive:
-          'border-destructive text-destructive bg-[var(--ne-bg)] hover:bg-destructive hover:text-white',
-        outline: 'text-[var(--ne-text)] border-[var(--ne-text)]',
+          'border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/80',
+        outline: 'text-[var(--ne-primary)] border-[var(--ne-primary)]',
       },
     },
     defaultVariants: {
@@ -24,11 +26,17 @@ const badgeVariants = cva(
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof badgeVariants> {}
+    VariantProps<typeof badgeVariants> {
+    effects?: boolean;
+  }
 
-function Badge({ className, variant, ...props }: BadgeProps) {
+function Badge({ className, variant, effects = true, ...props }: BadgeProps) {
   return (
-    <div className={cn(badgeVariants({ variant }), className)} {...props} />
+    <div className={cn(
+      badgeVariants({ variant }), 
+      getNeonGlow(effects),
+      className
+    )} {...props} />
   );
 }
 

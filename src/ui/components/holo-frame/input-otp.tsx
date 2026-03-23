@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 
 const InputOTP = React.forwardRef<
-  React.ElementRef<typeof OTPInput>,
+  React.ComponentRef<typeof OTPInput>,
   React.ComponentPropsWithoutRef<typeof OTPInput> & { effects?: HoloFrameEffects }
 >(({ className, effects = 'on', containerClassName, ...props }, ref) => (
   <OTPInput
@@ -21,7 +21,7 @@ const InputOTP = React.forwardRef<
 InputOTP.displayName = 'InputOTP';
 
 const InputOTPGroup = React.forwardRef<
-  React.ElementRef<'div'>,
+  React.ComponentRef<'div'>,
   React.ComponentPropsWithoutRef<'div'> & { effects?: HoloFrameEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <div ref={ref} className={cn(holoFrameEffectsClass(effects), 'flex items-center gap-1', className)} {...props} />
@@ -29,7 +29,7 @@ const InputOTPGroup = React.forwardRef<
 InputOTPGroup.displayName = 'InputOTPGroup';
 
 const InputOTPSlot = React.forwardRef<
-  React.ElementRef<'div'>,
+  React.ComponentRef<'div'>,
   React.ComponentPropsWithoutRef<'div'> & { effects?: HoloFrameEffects } & { index: number }
 >(({ index, className, effects = 'on', ...props }, ref) => {
   const inputOTPContext = React.useContext(OTPInputContext);
@@ -58,7 +58,7 @@ const InputOTPSlot = React.forwardRef<
 InputOTPSlot.displayName = 'InputOTPSlot';
 
 const InputOTPSeparator = React.forwardRef<
-  React.ElementRef<'div'>,
+  React.ComponentRef<'div'>,
   React.ComponentPropsWithoutRef<'div'> & { effects?: HoloFrameEffects }
 >(({ ...props }, ref) => (
   <div ref={ref} role="separator" {...props}>
