@@ -1,19 +1,13 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
 function Skeleton({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn(
-        'animate-pulse bg-[var(--ac-border)]/20',
-        className
-      )}
-      style={{ clipPath: AC_CLIP_PATH, '--corner': '4px' } as React.CSSProperties}
+      className={cn('animate-pulse rounded-2xl bg-[var(--lg-border)]/50', className)}
       {...props}
     />
   );

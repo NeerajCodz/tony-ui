@@ -1,73 +1,47 @@
 import * as React from 'react';
-import { 
-  AvatarBase, 
-  AvatarImageBase, 
-  AvatarFallbackBase, 
-  type AvatarBaseProps 
-} from '../_base/avatar';
+import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { cn } from '@/lib/utils';
 
-export interface AvatarProps extends AvatarBaseProps {}
-
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
-const getSizeStyles = (size: string = 'md') => {
-  switch (size) {
-    case 'xs': return 'h-5 w-5 [--corner:4px] text-[8px]';
-    case 'sm': return 'h-7 w-7 [--corner:6px] text-[10px]';
-    case 'md': return 'h-9 w-9 [--corner:8px] text-xs';
-    case 'lg': return 'h-12 w-12 [--corner:10px] text-sm';
-    case 'xl': return 'h-16 w-16 [--corner:12px] text-base';
-    case '2xl': return 'h-24 w-24 [--corner:16px] text-lg';
-    default: return 'h-9 w-9 [--corner:8px] text-xs';
-  }
-};
-
-const Avatar = React.forwardRef<React.ElementRef<typeof AvatarBase>, AvatarProps>(
-  ({ className, size = 'md', shape = 'circle', style, ...props }, ref) => {
-    return (
-      <AvatarBase
-        ref={ref}
-        size={size}
-        shape={shape}
-        style={{ clipPath: AC_CLIP_PATH, ...style }}
-        className={cn(
-          'relative flex shrink-0 overflow-hidden bg-[var(--ac-surface)] border-2 border-[var(--ac-border)]',
-          getSizeStyles(size),
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
-Avatar.displayName = 'Avatar';
-
-const AvatarImage = React.forwardRef<
-  React.ElementRef<typeof AvatarImageBase>,
-  React.ComponentPropsWithoutRef<typeof AvatarImageBase>
+const Avatar = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
 >(({ className, ...props }, ref) => (
-  <AvatarImageBase
-    ref={ref}
-    className={cn('aspect-square h-full w-full object-cover', className)}
-    {...props}
-  />
-));
-AvatarImage.displayName = 'AvatarImage';
-
-const AvatarFallback = React.forwardRef<
-  React.ElementRef<typeof AvatarFallbackBase>,
-  React.ComponentPropsWithoutRef<typeof AvatarFallbackBase>
->(({ className, ...props }, ref) => (
-  <AvatarFallbackBase
+  <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      'flex h-full w-full items-center justify-center bg-[var(--ac-surface)] text-[var(--text-secondary)] font-mono font-bold',
+      'relative flex h-10 w-10 shrink-0 overflow-hidden rounded-[4px] border-2 border-[var(--ra-border)] shadow-[2px_2px_0_var(--ra-shadow)]',
       className
     )}
     {...props}
   />
 ));
-AvatarFallback.displayName = 'AvatarFallback';
+Avatar.displayName = AvatarPrimitive.Root.displayName;
+
+const AvatarImage = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Image>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Image
+    ref={ref}
+    className={cn('aspect-square h-full w-full', className)}
+    {...props}
+  />
+));
+AvatarImage.displayName = AvatarPrimitive.Image.displayName;
+
+const AvatarFallback = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Fallback>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Fallback
+    ref={ref}
+    className={cn(
+      'flex h-full w-full items-center justify-center rounded-[2px] bg-[var(--ra-surface)] text-[var(--ra-text)] font-mono font-bold',
+      className
+    )}
+    {...props}
+  />
+));
+AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
 export { Avatar, AvatarImage, AvatarFallback };

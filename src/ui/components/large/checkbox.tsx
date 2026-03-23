@@ -6,57 +6,49 @@ import { Check } from 'lucide-react';
 
 export interface CheckboxProps extends CheckboxBaseProps {}
 
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
 const getVisualTypeStyles = (visualType: string = 'default') => {
   switch (visualType) {
     case 'default':
-      return 'border-2 border-[var(--ac-border)] bg-[var(--ac-surface)] data-[state=checked]:bg-[var(--ac-accent)] data-[state=checked]:text-[var(--ac-bg)] data-[state=checked]:border-[var(--ac-accent)]';
+      return 'border border-[var(--lg-border)] bg-[var(--lg-surface)] data-[state=checked]:bg-[var(--lg-accent)] data-[state=checked]:text-white data-[state=checked]:border-[var(--lg-accent)]';
     case 'solid':
-      return 'border-2 border-[var(--ac-accent)] bg-[var(--ac-surface)] data-[state=checked]:bg-[var(--ac-accent)] data-[state=checked]:text-[var(--ac-bg)]';
+      return 'border border-[var(--lg-accent)] bg-[var(--lg-surface)] data-[state=checked]:bg-[var(--lg-accent)] data-[state=checked]:text-white';
     case 'outline':
-      return 'border-2 border-[var(--ac-accent)] bg-transparent data-[state=checked]:bg-[var(--ac-accent)] data-[state=checked]:text-[var(--ac-bg)]';
+      return 'border border-[var(--lg-accent)] bg-transparent data-[state=checked]:bg-[var(--lg-accent)] data-[state=checked]:text-white';
     case 'ghost':
-      return 'border-none bg-[var(--ac-surface)]/50 data-[state=checked]:bg-[var(--ac-accent)]/20 data-[state=checked]:text-[var(--ac-accent)]';
+      return 'border-none bg-[var(--lg-surface)]/50 data-[state=checked]:bg-[var(--lg-accent)]/20 data-[state=checked]:text-[var(--lg-accent)]';
     case 'soft':
-      return 'border-none bg-[var(--ac-accent)]/10 text-[var(--ac-accent)] data-[state=checked]:bg-[var(--ac-accent)]/20';
+      return 'border-none bg-[var(--lg-accent)]/10 text-[var(--lg-accent)] data-[state=checked]:bg-[var(--lg-accent)]/20';
     case 'subtle':
-      return 'border-none bg-[var(--ac-surface)]/50 text-[var(--text-secondary)] data-[state=checked]:bg-[var(--ac-surface)] data-[state=checked]:text-[var(--text-primary)]';
+      return 'border-none bg-[var(--lg-surface)]/50 text-[var(--text-secondary)] data-[state=checked]:bg-[var(--lg-surface)] data-[state=checked]:text-[var(--text-primary)]';
     case 'neutral':
-      return 'border-2 border-[var(--ac-border)] bg-[var(--ac-surface)] data-[state=checked]:bg-[var(--text-secondary)] data-[state=checked]:text-[var(--ac-bg)]';
+      return 'border border-[var(--lg-border)] bg-[var(--lg-surface)] data-[state=checked]:bg-[var(--text-secondary)] data-[state=checked]:text-white';
     case 'disabled':
-      return 'border-2 border-[var(--ac-border)]/50 bg-[var(--ac-bg)] opacity-50 cursor-not-allowed';
+      return 'border border-[var(--lg-border)]/50 bg-[var(--lg-bg)] opacity-50 cursor-not-allowed';
     case 'unstyled':
       return '';
     default:
-      return 'border-2 border-[var(--ac-border)] bg-[var(--ac-surface)] data-[state=checked]:bg-[var(--ac-accent)] data-[state=checked]:text-[var(--ac-bg)]';
+      return 'border border-[var(--lg-border)] bg-[var(--lg-surface)] data-[state=checked]:bg-[var(--lg-accent)] data-[state=checked]:text-white';
   }
 };
 
 const getSizeStyles = (size: string = 'md') => {
   switch (size) {
-    case 'sm': return 'h-4 w-4 [--corner:3px]';
-    case 'md': return 'h-5 w-5 [--corner:4px]';
-    case 'lg': return 'h-6 w-6 [--corner:5px]';
-    default: return 'h-5 w-5 [--corner:4px]';
+    case 'sm': return 'h-5 w-5 rounded-md';
+    case 'md': return 'h-6 w-6 rounded-lg';
+    case 'lg': return 'h-8 w-8 rounded-xl';
+    default: return 'h-6 w-6 rounded-lg';
   }
 };
 
 export const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(
-  ({ className, visualType = 'default', size = 'md', style, ...props }, ref) => {
-    // Merge custom style with clip-path, unless unstyled
-    const componentStyle = visualType !== 'unstyled'
-      ? { ...style, clipPath: AC_CLIP_PATH } 
-      : style;
-
+  ({ className, visualType = 'default', size = 'md', ...props }, ref) => {
     return (
       <CheckboxBase
         ref={ref}
         visualType={visualType}
         size={size}
-        style={componentStyle}
         className={cn(
-          'peer shrink-0 shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ac-accent)] disabled:cursor-not-allowed disabled:opacity-50',
+          'peer shrink-0 shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lg-accent)] disabled:cursor-not-allowed disabled:opacity-50',
           'flex items-center justify-center font-bold',
           getVisualTypeStyles(visualType),
           getSizeStyles(size),
@@ -65,7 +57,10 @@ export const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimiti
         {...props}
       >
         <CheckboxIndicatorBase className="flex items-center justify-center text-current">
-          <Check className="h-4 w-4 stroke-[3px]" />
+          <Check className={cn(
+            size === 'sm' ? "h-3 w-3" : size === 'lg' ? "h-5 w-5" : "h-4 w-4",
+            "stroke-[3px]"
+          )} />
         </CheckboxIndicatorBase>
       </CheckboxBase>
     );

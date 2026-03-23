@@ -2,8 +2,6 @@ import * as React from 'react';
 import * as SliderPrimitive from '@radix-ui/react-slider';
 import { cn } from '@/lib/utils';
 
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
@@ -16,16 +14,10 @@ const Slider = React.forwardRef<
     )}
     {...props}
   >
-    <SliderPrimitive.Track
-      className="relative h-2 w-full grow overflow-hidden bg-[var(--ac-bg)] border border-[var(--ac-border)] [--corner:2px]"
-      style={{ clipPath: AC_CLIP_PATH } as React.CSSProperties}
-    >
-      <SliderPrimitive.Range className="absolute h-full bg-[var(--ac-accent)]" />
+    <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-[4px] bg-[var(--ra-surface)] border-2 border-[var(--ra-border)]">
+      <SliderPrimitive.Range className="absolute h-full bg-[var(--ra-accent)]" />
     </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb
-      className="block h-5 w-5 border-2 border-[var(--ac-accent)] bg-[var(--ac-surface)] ring-offset-[var(--ac-bg)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ac-accent)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [--corner:2px]"
-      style={{ clipPath: AC_CLIP_PATH } as React.CSSProperties}
-    />
+    <SliderPrimitive.Thumb className="block h-5 w-5 rounded-[4px] border-2 border-[var(--ra-accent)] bg-[var(--ra-bg)] ring-offset-[var(--ra-bg)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ra-accent)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-[var(--ra-accent)] shadow-[2px_2px_0_var(--ra-shadow)] hover:shadow-[4px_4px_0_var(--ra-shadow)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0_var(--ra-shadow)]" />
   </SliderPrimitive.Root>
 ));
 Slider.displayName = SliderPrimitive.Root.displayName;

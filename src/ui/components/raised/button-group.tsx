@@ -1,28 +1,36 @@
 import * as React from 'react';
-import { ButtonGroupBase, type ButtonGroupBaseProps } from '../_base/button-group';
 import { cn } from '@/lib/utils';
+import { Button, ButtonProps } from '@/ui/components/raised/button';
 
-export interface ButtonGroupProps extends ButtonGroupBaseProps {}
+interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  orientation?: 'horizontal' | 'vertical';
+}
 
 const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
-  ({ className, orientation = 'horizontal', attached = true, ...props }, ref) => {
+  ({ className, orientation = 'horizontal', children, ...props }, ref) => {
     return (
-      <ButtonGroupBase
+      <div
         ref={ref}
-        orientation={orientation}
-        attached={attached}
         className={cn(
-          'flex',
+          'inline-flex rounded-[4px] shadow-[4px_4px_0_var(--ra-shadow)] border-2 border-[var(--ra-border)] bg-[var(--ra-surface)]',
           orientation === 'vertical' ? 'flex-col' : 'flex-row',
-          // If attached, we need to handle borders and negative margins. 
-          // For angular-corner with clip-paths, attaching is hard. 
-          // We'll simulate it by removing inner borders/gaps if attached, but clip-paths might overlap.
-          // Better to just use a small gap for this theme to preserve the "modules" look.
-          attached ? 'gap-[1px]' : 'gap-2',
           className
         )}
         {...props}
-      />
+      >
+        {React.Children.map(children, (child, index) => {
+          if (!React.isValidElement(child)) return null;
+          
+          return React.cloneElement(child as React.ReactElement<ButtonProps>, {
+            className: cn(
+              (child.props as any).className,
+              'rounded-none border-0 shadow-none hover:shadow-none focus:shadow-none active:translate-x-0 active:translate-y-0 active:bg-[var(--ra-accent)]/20',
+              orientation === 'horizontal' && index !== React.Children.count(children) - 1 && 'border-r-2 border-[var(--ra-border)]',
+              orientation === 'vertical' && index !== React.Children.count(children) - 1 && 'border-b-2 border-[var(--ra-border)]'
+            ),
+          });
+        })}
+      </div>
     );
   }
 );

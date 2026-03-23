@@ -4,74 +4,65 @@ import { cn } from '@/lib/utils';
 
 export interface CardProps extends CardBaseProps {}
 
-// Angular Corner Clip Path
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
 const getVisualTypeStyles = (visualType: string = 'default') => {
   switch (visualType) {
     case 'default':
-      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-primary)] shadow-sm';
+      return 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)] text-[var(--ra-text)] shadow-[4px_4px_0_var(--ra-shadow)]';
     case 'solid':
-      return 'bg-[var(--ac-accent-dim)] border-2 border-[var(--ac-accent)] text-[var(--ac-edge-light)]';
+      return 'bg-[var(--ra-accent)] border-2 border-[var(--ra-accent)] text-white shadow-[4px_4px_0_var(--ra-shadow-accent)]';
     case 'outline':
-      return 'bg-transparent border-2 border-[var(--ac-accent)] text-[var(--ac-accent)]';
+      return 'bg-transparent border-2 border-[var(--ra-accent)] text-[var(--ra-accent)] shadow-[4px_4px_0_var(--ra-accent)]';
     case 'ghost':
-      return 'bg-transparent border-none text-[var(--text-primary)]';
+      return 'bg-transparent border-none text-[var(--ra-text)]';
     case 'inverse':
-      return 'bg-[var(--ac-edge-light)] border-2 border-[var(--ac-bg)] text-[var(--ac-bg)]';
+      return 'bg-[var(--ra-text)] border-2 border-[var(--ra-bg)] text-[var(--ra-bg)] shadow-[4px_4px_0_var(--ra-border)]';
     case 'contrast':
-      return 'bg-[var(--ac-bg)] border-2 border-[var(--ac-danger)] text-white';
+      return 'bg-[#000] border-2 border-[#fff] text-[#fff] shadow-[4px_4px_0_#fff]';
     case 'soft':
-      return 'bg-[var(--ac-accent)]/10 border-2 border-[var(--ac-accent)]/20 text-[var(--text-primary)]';
+      return 'bg-[rgba(64,96,255,0.08)] border-2 border-[var(--ra-border)] text-[var(--text-secondary)] shadow-[2px_2px_0_var(--ra-shadow)]';
     case 'neutral':
-      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-secondary)]';
+      return 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)] text-[var(--text-secondary)] shadow-[4px_4px_0_var(--ra-shadow)]';
     case 'subtle':
-      return 'bg-[var(--ac-surface)]/50 border-none text-[var(--text-secondary)]';
+      return 'bg-[var(--ra-surface)]/50 border-none text-[var(--text-secondary)]';
     case 'elevated':
-      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-primary)] shadow-[0_4px_20px_rgba(0,0,0,0.5)]';
+      return 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)] text-[var(--ra-text)] shadow-[8px_8px_0_var(--ra-shadow)]';
     case 'flat':
-      return 'bg-transparent border-none text-[var(--text-primary)] p-0';
+      return 'bg-transparent border-none text-[var(--ra-text)] p-0 shadow-none';
     case 'tinted':
-      return 'bg-[var(--ac-accent)]/20 border-2 border-[var(--ac-accent)]/30 text-[var(--ac-edge-light)]';
+      return 'bg-[var(--ra-accent)]/20 border-2 border-[var(--ra-accent)]/50 text-[var(--ra-text)] shadow-[4px_4px_0_var(--ra-shadow)]';
     case 'link':
-      return 'bg-transparent border-none text-[var(--ac-accent)] hover:underline p-0 clip-path-none';
+      return 'bg-transparent border-none text-[var(--ra-accent)] hover:underline p-0 shadow-none';
     case 'disabled':
-      return 'bg-[var(--ac-bg)] border-2 border-[var(--ac-border)]/50 text-[var(--text-muted)] opacity-50 cursor-not-allowed';
+      return 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)]/50 text-[var(--text-muted)] opacity-50 cursor-not-allowed shadow-none';
     case 'unstyled':
       return '';
     default:
-      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-primary)]';
+      return 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)] text-[var(--ra-text)] shadow-[4px_4px_0_var(--ra-shadow)]';
   }
 };
 
 const getSizeStyles = (size: string = 'md') => {
   switch (size) {
-    case 'sm': return '[--corner:8px] p-4 text-sm';
-    case 'md': return '[--corner:12px] p-6 text-base';
-    case 'lg': return '[--corner:18px] p-8 text-lg';
-    default: return '[--corner:12px] p-6 text-base';
+    case 'sm': return 'p-4 text-sm';
+    case 'md': return 'p-6 text-base';
+    case 'lg': return 'p-8 text-lg';
+    default: return 'p-6 text-base';
   }
 };
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, type = 'default', size = 'md', clickable, style, ...props }, ref) => {
-    // Merge custom style with clip-path, unless unstyled or link
-    const componentStyle = (type !== 'unstyled' && type !== 'link')
-      ? { ...style, clipPath: AC_CLIP_PATH } 
-      : style;
-
+  ({ className, type = 'default', size = 'md', clickable, ...props }, ref) => {
     return (
       <CardBase
         ref={ref}
         type={type}
         size={size}
         clickable={clickable}
-        style={componentStyle}
         className={cn(
-          'transition-all duration-300 relative font-mono',
+          'transition-all duration-100 font-mono rounded-[4px]',
           getVisualTypeStyles(type),
           getSizeStyles(size),
-          clickable && 'cursor-pointer hover:border-[var(--ac-accent)] hover:shadow-[0_0_20px_rgba(0,200,255,0.1)] active:scale-[0.99]',
+          clickable && 'cursor-pointer hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[6px_6px_0_var(--ra-shadow)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0_var(--ra-shadow)]',
           className
         )}
         {...props}

@@ -1,32 +1,41 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ButtonProps } from "./button"
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+import { Button, ButtonProps } from './button';
 
-export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
-  orientation?: "horizontal" | "vertical"
+interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  orientation?: 'horizontal' | 'vertical';
 }
 
 const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
-  ({ className, orientation = "horizontal", children, ...props }, ref) => {
+  ({ className, orientation = 'horizontal', children, ...props }, ref) => {
     return (
       <div
         ref={ref}
         className={cn(
-          "flex",
-          orientation === "vertical" ? "flex-col" : "flex-row",
-          "[&>button]:rounded-none [&>button]:border-2 [&>button:not(:first-child)]:-ml-0.5 [&>button:not(:first-child)]:border-l-0",
-          orientation === "vertical" &&
-            "[&>button:not(:first-child)]:-mt-0.5 [&>button:not(:first-child)]:border-t-0 [&>button:not(:first-child)]:border-l-2",
-          "shadow-[0_0_15px_var(--ne-accent)]",
+          'flex',
+          orientation === 'vertical' ? 'flex-col' : 'flex-row',
           className
         )}
         {...props}
       >
-        {children}
+        {React.Children.map(children, (child) => {
+          if (React.isValidElement(child)) {
+            return React.cloneElement(child, {
+              className: cn(
+                child.props.className,
+                'rounded-none first:rounded-l-none last:rounded-r-none',
+                orientation === 'horizontal'
+                  ? 'border-r-0 last:border-r-2 focus:relative'
+                  : 'border-b-0 last:border-b-2 w-full focus:relative'
+              ),
+            } as any);
+          }
+          return child;
+        })}
       </div>
-    )
+    );
   }
-)
-ButtonGroup.displayName = "ButtonGroup"
+);
+ButtonGroup.displayName = 'ButtonGroup';
 
-export { ButtonGroup }
+export { ButtonGroup };

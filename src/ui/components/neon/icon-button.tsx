@@ -1,20 +1,19 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { Button, ButtonProps } from "./button"
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+import { Button, ButtonProps } from './button';
 
-export interface IconButtonProps extends ButtonProps {}
-
-const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
+const IconButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, ...props }, ref) => {
     return (
       <Button
         ref={ref}
-        className={cn("aspect-square p-2", className)}
+        size="icon"
+        className={cn('rounded-full shadow-[0_0_10px_var(--ne-primary)]', className)}
         {...props}
       />
-    )
+    );
   }
-)
-IconButton.displayName = "IconButton"
+);
+IconButton.displayName = 'IconButton';
 
-export { IconButton }
+export { IconButton };

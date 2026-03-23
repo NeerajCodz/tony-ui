@@ -1,28 +1,26 @@
-import * as React from "react"
+import * as React from 'react';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
 export interface NativeSelectProps
-  extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  children?: React.ReactNode
-}
+  extends React.SelectHTMLAttributes<HTMLSelectElement> {}
 
-export function NativeSelect({
-  className,
-  children,
-  ...props
-}: NativeSelectProps) {
-  return (
-    <div className="relative">
+const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
       <select
         className={cn(
-          "w-full appearance-none bg-[var(--ne-bg)] border-2 border-[var(--ne-primary)] px-3 py-2 text-sm shadow-[0_0_5px_var(--ne-primary),inset_0_0_5px_var(--ne-primary)] text-[var(--ne-text-primary)] focus:outline-none focus:shadow-[0_0_15px_var(--ne-primary),inset_0_0_10px_var(--ne-primary)] disabled:cursor-not-allowed disabled:opacity-50 font-code",
+          'flex h-10 w-full items-center justify-between rounded-none border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-[var(--ne-text)] shadow-[0_0_10px_var(--ne-primary)]',
           className
         )}
+        ref={ref}
         {...props}
       >
         {children}
       </select>
-    </div>
-  )
-}
+    );
+  }
+);
+NativeSelect.displayName = 'NativeSelect';
+
+export { NativeSelect };

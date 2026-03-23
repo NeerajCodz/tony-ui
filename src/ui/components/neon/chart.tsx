@@ -1,110 +1,40 @@
-"use client"
+import * as React from 'react';
+import * as Recharts from 'recharts';
 
-import * as React from "react"
-import { Bar, BarChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+import { cn } from '@/lib/utils';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/ui/components/neon/card"
+// Helper to wrap Recharts components
+const ChartContainer = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn('w-full h-[300px] border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-4 shadow-[0_0_20px_var(--ne-primary)]', className)}
+    {...props}
+  />
+));
+ChartContainer.displayName = 'ChartContainer';
 
-export function Chart({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div className={className} {...props}>
-      <ResponsiveContainer width="100%" height={350}>
-        <BarChart data={data}>
-          <XAxis
-            dataKey="name"
-            stroke="#888888"
-            fontSize={12}
-            tickLine={false}
-            axisLine={false}
-          />
-          <YAxis
-            stroke="#888888"
-            fontSize={12}
-            tickLine={false}
-            axisLine={false}
-            tickFormatter={(value) => `$${value}`}
-          />
-          <Tooltip
-            content={({ active, payload }) => {
-              if (active && payload && payload.length) {
-                return (
-                  <div className="rounded-none border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] p-2 shadow-[0_0_10px_var(--ne-primary)]">
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="flex flex-col">
-                        <span className="text-[0.70rem] uppercase text-[var(--ne-text-secondary)] font-display">
-                          Today
-                        </span>
-                        <span className="font-bold text-[var(--ne-primary)] drop-shadow-[0_0_5px_var(--ne-primary)]">
-                          {payload[0].value}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                )
-              }
+const ChartTooltip = Recharts.Tooltip;
+const ChartLegend = Recharts.Legend;
+const ChartXAxis = Recharts.XAxis;
+const ChartYAxis = Recharts.YAxis;
+const ChartCartesianGrid = Recharts.CartesianGrid;
+const ChartArea = Recharts.Area;
+const ChartBar = Recharts.Bar;
+const ChartLine = Recharts.Line;
+const ChartResponsiveContainer = Recharts.ResponsiveContainer;
 
-              return null
-            }}
-          />
-          <Bar
-            dataKey="total"
-            fill="currentColor"
-            radius={[0, 0, 0, 0]}
-            className="fill-[var(--ne-primary)] drop-shadow-[0_0_5px_var(--ne-primary)]"
-          />
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
-  )
-}
-
-const data = [
-  {
-    name: "Jan",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Feb",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Mar",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Apr",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "May",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Jun",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Jul",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Aug",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Sep",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Oct",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Nov",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Dec",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-]
+export {
+  ChartContainer,
+  ChartTooltip,
+  ChartLegend,
+  ChartXAxis,
+  ChartYAxis,
+  ChartCartesianGrid,
+  ChartArea,
+  ChartBar,
+  ChartLine,
+  ChartResponsiveContainer,
+};

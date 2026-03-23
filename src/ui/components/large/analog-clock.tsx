@@ -1,101 +1,70 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
-interface AnalogClockProps extends React.SVGAttributes<SVGSVGElement> {
-  visualType?: string;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+interface AnalogClockProps extends React.HTMLAttributes<HTMLDivElement> {
+  size?: number;
 }
 
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
-const AnalogClock = React.forwardRef<SVGSVGElement, AnalogClockProps>(
-  ({ className, size = 'md', visualType = 'outline', ...props }, ref) => {
+const AnalogClock = React.forwardRef<HTMLDivElement, AnalogClockProps>(
+  ({ className, size = 200, ...props }, ref) => {
     const [time, setTime] = React.useState(new Date());
 
     React.useEffect(() => {
       const timer = setInterval(() => {
         setTime(new Date());
       }, 1000);
-      return () => clearInterval(timer);
+
+      return () => {
+        clearInterval(timer);
+      };
     }, []);
 
-    const secondsRatio = time.getSeconds() / 60;
-    const minutesRatio = (secondsRatio + time.getMinutes()) / 60;
-    const hoursRatio = (minutesRatio + time.getHours()) / 12;
-
-    const sizeClasses = {
-        xs: 'w-16 h-16',
-        sm: 'w-24 h-24',
-        md: 'w-32 h-32',
-        lg: 'w-48 h-48',
-        xl: 'w-64 h-64'
-    };
+    const secondRatio = time.getSeconds() / 60;
+    const minuteRatio = (secondRatio + time.getMinutes()) / 60;
+    const hourRatio = (minuteRatio + time.getHours()) / 12;
 
     return (
-      <svg
+      <div
         ref={ref}
-        className={cn('bg-[var(--ac-surface)] text-[var(--text-primary)] border border-[var(--ac-border)] rounded-full', sizeClasses[size], className)}
-        viewBox="0 0 100 100"
-        style={{ '--corner': '50%' } as React.CSSProperties} // Circular, or use polygon for angular look? User wants angular corner theme. 
-        // Angular corner usually means octagon. Let's use AC_CLIP_PATH with border radius logic or just clip path.
-        // SVG viewBox 0 0 100 100.
+        className={cn(
+          'relative flex items-center justify-center rounded-full bg-[var(--lg-surface)] border-2 border-[var(--lg-border)] shadow-xl',
+          className
+        )}
+        style={{ width: size, height: size }}
         {...props}
       >
-        <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="2" className="text-[var(--ac-border)]" />
+        <div className="absolute inset-2 rounded-full border border-[var(--text-muted)]/20" />
         
-        {/* Markers */}
-        {Array.from({ length: 12 }).map((_, i) => (
-          <line
-            key={i}
-            x1="50"
-            y1="10"
-            x2="50"
-            y2="15"
-            transform={`rotate(${i * 30} 50 50)`}
-            stroke="currentColor"
-            strokeWidth="2"
-            className="text-[var(--text-muted)]"
-          />
-        ))}
-
         {/* Hour Hand */}
-        <line
-          x1="50"
-          y1="50"
-          x2="50"
-          y2="25"
-          stroke="currentColor"
-          strokeWidth="4"
-          transform={`rotate(${hoursRatio * 360} 50 50)`}
-          className="text-[var(--text-primary)]"
+        <div
+          className="absolute bottom-1/2 left-1/2 w-1.5 origin-bottom rounded-full bg-[var(--lg-text)]"
+          style={{
+            height: '30%',
+            transform: `translateX(-50%) rotate(${hourRatio * 360}deg)`,
+          }}
         />
 
         {/* Minute Hand */}
-        <line
-          x1="50"
-          y1="50"
-          x2="50"
-          y2="15"
-          stroke="currentColor"
-          strokeWidth="3"
-          transform={`rotate(${minutesRatio * 360} 50 50)`}
-          className="text-[var(--text-primary)]"
+        <div
+          className="absolute bottom-1/2 left-1/2 w-1 origin-bottom rounded-full bg-[var(--text-secondary)]"
+          style={{
+            height: '40%',
+            transform: `translateX(-50%) rotate(${minuteRatio * 360}deg)`,
+          }}
         />
 
         {/* Second Hand */}
-        <line
-          x1="50"
-          y1="50"
-          x2="50"
-          y2="10"
-          stroke="currentColor"
-          strokeWidth="1"
-          transform={`rotate(${secondsRatio * 360} 50 50)`}
-          className="text-[var(--ac-accent)]"
+        <div
+          className="absolute bottom-1/2 left-1/2 w-0.5 origin-bottom rounded-full bg-[var(--lg-accent)]"
+          style={{
+            height: '45%',
+            transform: `translateX(-50%) rotate(${secondRatio * 360}deg)`,
+          }}
         />
-        
-        <circle cx="50" cy="50" r="3" fill="currentColor" className="text-[var(--ac-accent)]" />
-      </svg>
+
+        {/* Center Dot */}
+        <div className="absolute h-3 w-3 rounded-full bg-[var(--lg-accent)]" />
+      </div>
     );
   }
 );

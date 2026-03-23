@@ -1,3 +1,0 @@
-export const matrixGridBg = "bg-[image:linear-gradient(var(--mg-grid)_1px,transparent_1px),linear-gradient(90deg,var(--mg-grid)_1px,transparent_1px)] bg-[size:20px_20px]"
-export const matrixGridMajor = "after:content-[''] after:absolute after:inset-0 after:bg-[image:linear-gradient(var(--mg-grid-bright)_1px,transparent_1px),linear-gradient(90deg,var(--mg-grid-bright)_1px,transparent_1px)] after:bg-[size:80px_80px] after:pointer-events-none"
-export const matrixRain = "before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(transparent,var(--mg-rain))] before:opacity-10 before:animate-pulse"

@@ -2,35 +2,44 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 interface DigitalClockProps extends React.HTMLAttributes<HTMLDivElement> {
-    size?: 'sm' | 'md' | 'lg' | 'xl';
+  showSeconds?: boolean;
 }
 
 const DigitalClock = React.forwardRef<HTMLDivElement, DigitalClockProps>(
-  ({ className, size = 'md', ...props }, ref) => {
+  ({ className, showSeconds = true, ...props }, ref) => {
     const [time, setTime] = React.useState(new Date());
 
     React.useEffect(() => {
-        const timer = setInterval(() => {
-            setTime(new Date());
-        }, 1000);
-        return () => clearInterval(timer);
+      const timer = setInterval(() => {
+        setTime(new Date());
+      }, 1000);
+
+      return () => {
+        clearInterval(timer);
+      };
     }, []);
 
-    const sizeClasses = {
-        sm: 'text-lg',
-        md: 'text-2xl',
-        lg: 'text-4xl',
-        xl: 'text-6xl'
-    };
+    const formatTime = (val: number) => val.toString().padStart(2, '0');
 
     return (
-        <div 
-            ref={ref} 
-            className={cn('font-mono font-bold tracking-widest text-[var(--ac-accent)]', sizeClasses[size], className)}
-            {...props}
-        >
-            {time.toLocaleTimeString()}
-        </div>
+      <div
+        ref={ref}
+        className={cn(
+          'inline-flex items-center justify-center rounded-[4px] bg-[var(--ra-surface)] px-4 py-3 text-3xl font-bold tracking-widest text-[var(--ra-text)] shadow-[4px_4px_0_var(--ra-shadow)] border-2 border-[var(--ra-border)] font-mono',
+          className
+        )}
+        {...props}
+      >
+        <span>{formatTime(time.getHours())}</span>
+        <span className="mx-1 animate-pulse text-[var(--text-muted)]">:</span>
+        <span>{formatTime(time.getMinutes())}</span>
+        {showSeconds && (
+          <>
+            <span className="mx-1 animate-pulse text-[var(--text-muted)]">:</span>
+            <span className="text-[var(--ra-accent)]">{formatTime(time.getSeconds())}</span>
+          </>
+        )}
+      </div>
     );
   }
 );

@@ -2,34 +2,27 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { PackageOpen } from 'lucide-react';
 
-const EmptyState = React.forwardRef<
+const Empty = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        'flex h-[450px] shrink-0 items-center justify-center rounded-md border border-[var(--ac-border)] border-dashed bg-[var(--ac-surface)]',
-        className
-      )}
-      {...props}
-    >
-      <div className="mx-auto flex max-w-[420px] flex-col items-center justify-center text-center">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[var(--ac-accent)]/10">
-          <PackageOpen className="h-10 w-10 text-[var(--ac-accent)]" />
-        </div>
-        <h3 className="mt-4 text-lg font-bold font-mono uppercase tracking-wider text-[var(--text-primary)]">
-            No data found
-        </h3>
-        <p className="mb-4 mt-2 text-sm text-[var(--text-muted)] font-mono">
-            There is no data to display at this time.
-        </p>
-        {children}
-      </div>
+>(({ className, children, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      'flex h-full min-h-[300px] w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-[var(--lg-border)] bg-[var(--lg-surface)]/50 p-8 text-center animate-in fade-in-50',
+      className
+    )}
+    {...props}
+  >
+    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[var(--lg-surface)] shadow-sm mb-4">
+      <PackageOpen className="h-10 w-10 text-[var(--text-muted)]" />
     </div>
-  );
-});
-EmptyState.displayName = 'EmptyState';
+    <h3 className="text-xl font-semibold text-[var(--lg-text)]">No data</h3>
+    <p className="mt-2 text-base text-[var(--text-muted)] max-w-sm mx-auto">
+      {children || "There is nothing to show here yet."}
+    </p>
+  </div>
+));
+Empty.displayName = 'Empty';
 
-export { EmptyState };
+export { Empty };

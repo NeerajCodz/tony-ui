@@ -3,37 +3,34 @@ import { ButtonBase, type ButtonBaseProps } from '../_base/button';
 import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-// Angular Corner Clip Path
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
 export const buttonVariants = cva(
-  'font-mono font-bold uppercase tracking-wider transition-all duration-300 ease-out inline-flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ac-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ac-bg)] disabled:opacity-50 disabled:pointer-events-none',
+  'font-mono font-bold uppercase tracking-wider transition-all duration-100 ease-out inline-flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ra-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ra-bg)] disabled:opacity-50 disabled:pointer-events-none rounded-[4px] active:translate-x-[2px] active:translate-y-[2px]',
   {
     variants: {
       visualType: {
-        default: 'bg-[var(--ac-bg)] border-2 border-[var(--ac-border)] text-[var(--text-primary)] hover:border-[var(--ac-accent-dim)] active:bg-[var(--ac-surface)]',
-        solid: 'bg-[var(--ac-accent-dim)] border-2 border-[var(--ac-accent)] text-[var(--ac-edge-light)] hover:bg-[var(--ac-accent)]/30 hover:shadow-[inset_0_0_20px_rgba(0,200,255,0.2)] active:brightness-110',
-        outline: 'bg-transparent border-2 border-[var(--ac-accent)] text-[var(--ac-accent)] hover:bg-[var(--ac-accent)]/10 active:bg-[var(--ac-accent)]/20',
-        ghost: 'bg-transparent border-none text-[var(--text-secondary)] hover:bg-[var(--ac-surface)] hover:text-[var(--ac-accent)] active:bg-[var(--ac-surface)]/80 relative after:content-[""] after:absolute after:inset-0 after:border-2 after:border-[var(--ac-accent)]/0 after:hover:border-[var(--ac-accent)]/50 after:transition-all',
-        inverse: 'bg-[var(--ac-edge-light)] border-2 border-[var(--ac-bg)] text-[var(--ac-bg)] font-bold hover:opacity-90 active:opacity-80',
-        contrast: 'bg-[#000000] border-2 border-[var(--ac-danger)] text-[#ffffff] hover:bg-[#111] active:bg-[#222]',
-        soft: 'bg-[rgba(0,200,255,0.06)] border-2 border-[rgba(0,200,255,0.2)] text-[var(--text-secondary)] hover:bg-[rgba(0,200,255,0.1)] active:bg-[rgba(0,200,255,0.15)]',
-        neutral: 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--text-muted)]',
-        subtle: 'bg-[var(--ac-surface)]/50 border-none text-[var(--text-secondary)] hover:bg-[var(--ac-surface)] hover:text-[var(--text-primary)]',
-        elevated: 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-primary)] shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:border-[var(--ac-accent)] hover:shadow-[0_4px_20px_rgba(0,200,255,0.1)]',
-        flat: 'bg-transparent border-none text-[var(--text-primary)] hover:bg-[var(--ac-surface)]/50',
-        tinted: 'bg-[var(--ac-accent)]/20 border-2 border-[var(--ac-accent)]/50 text-[var(--ac-edge-light)] hover:bg-[var(--ac-accent)]/30',
-        link: 'bg-transparent border-none text-[var(--ac-accent)] hover:underline hover:text-[var(--ac-edge-light)] p-0 h-auto clip-path-none',
-        disabled: 'bg-[var(--ac-bg)] border-2 border-[var(--ac-border)]/50 text-[var(--text-muted)] opacity-50 cursor-not-allowed',
+        default: 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)] text-[var(--ra-text)] shadow-[4px_4px_0_var(--ra-shadow)] hover:shadow-[6px_6px_0_var(--ra-shadow)] hover:-translate-x-[1px] hover:-translate-y-[1px] active:shadow-[2px_2px_0_var(--ra-shadow)]',
+        solid: 'bg-[var(--ra-accent)] border-2 border-[var(--ra-accent)] text-white shadow-[4px_4px_0_var(--ra-shadow-accent)] hover:shadow-[6px_6px_0_var(--ra-shadow-accent)] hover:-translate-x-[1px] hover:-translate-y-[1px] active:shadow-[2px_2px_0_var(--ra-shadow-accent)]',
+        outline: 'bg-transparent border-2 border-[var(--ra-accent)] text-[var(--ra-accent)] shadow-[4px_4px_0_var(--ra-accent)] hover:shadow-[6px_6px_0_var(--ra-accent)] hover:-translate-x-[1px] hover:-translate-y-[1px] active:shadow-[2px_2px_0_var(--ra-accent)]',
+        ghost: 'bg-transparent border-none text-[var(--ra-text)] hover:bg-[var(--ra-surface)] active:bg-[var(--ra-surface)]/80 shadow-none active:translate-x-0 active:translate-y-0',
+        inverse: 'bg-[var(--ra-text)] border-2 border-[var(--ra-bg)] text-[var(--ra-bg)] shadow-[4px_4px_0_var(--ra-border)] active:shadow-[2px_2px_0_var(--ra-border)]',
+        contrast: 'bg-[#000] border-2 border-[#fff] text-[#fff] shadow-[4px_4px_0_#fff] hover:shadow-[6px_6px_0_#fff] active:shadow-[2px_2px_0_#fff]',
+        soft: 'bg-[rgba(64,96,255,0.08)] border-2 border-[var(--ra-border)] text-[var(--text-secondary)] shadow-[2px_2px_0_var(--ra-shadow)] hover:shadow-[4px_4px_0_var(--ra-shadow)] active:shadow-[1px_1px_0_var(--ra-shadow)]',
+        neutral: 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--text-muted)] shadow-[4px_4px_0_var(--ra-shadow)]',
+        subtle: 'bg-[var(--ra-surface)]/50 border-none text-[var(--text-secondary)] hover:bg-[var(--ra-surface)] shadow-none',
+        elevated: 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)] text-[var(--ra-text)] shadow-[6px_6px_0_var(--ra-shadow)] hover:shadow-[8px_8px_0_var(--ra-shadow)] active:shadow-[4px_4px_0_var(--ra-shadow)]',
+        flat: 'bg-transparent border-none text-[var(--ra-text)] hover:bg-[var(--ra-surface)]/50 shadow-none',
+        tinted: 'bg-[var(--ra-accent)]/20 border-2 border-[var(--ra-accent)]/50 text-[var(--ra-text)] shadow-[4px_4px_0_var(--ra-shadow)]',
+        link: 'bg-transparent border-none text-[var(--ra-accent)] hover:underline p-0 h-auto shadow-none active:translate-x-0 active:translate-y-0',
+        disabled: 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)]/50 text-[var(--text-muted)] opacity-50 cursor-not-allowed shadow-none active:translate-x-0 active:translate-y-0',
         unstyled: '',
       },
       size: {
-        xs: 'h-5 px-2 text-[10px] [--corner:4px]',
-        sm: 'h-7 px-3 text-xs [--corner:8px]',
-        md: 'h-9 px-4 text-sm [--corner:12px]',
-        lg: 'h-11 px-5 text-base [--corner:16px]',
-        xl: 'h-[52px] px-6 text-lg [--corner:18px]',
-        icon: 'h-9 w-9 p-0 [--corner:8px]',
+        xs: 'h-7 px-2 text-[10px]',
+        sm: 'h-8 px-3 text-xs',
+        md: 'h-10 px-4 text-sm',
+        lg: 'h-12 px-6 text-base',
+        xl: 'h-14 px-8 text-lg',
+        icon: 'h-10 w-10 p-0',
       },
     },
     defaultVariants: {
@@ -46,19 +43,13 @@ export const buttonVariants = cva(
 export interface ButtonProps extends Omit<ButtonBaseProps, 'size' | 'visualType'>, VariantProps<typeof buttonVariants> {}
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, visualType, size, style, ...props }, ref) => {
-    // Merge custom style with clip-path, unless it's a link or unstyled which might not want it
-    const componentStyle = (visualType !== 'link' && visualType !== 'unstyled') 
-      ? { ...style, clipPath: AC_CLIP_PATH } 
-      : style;
-
+  ({ className, visualType, size, ...props }, ref) => {
     return (
       <ButtonBase
         ref={ref}
         visualType={visualType}
         size={size}
         className={cn(buttonVariants({ visualType, size, className }))}
-        style={componentStyle}
         {...props}
       />
     );

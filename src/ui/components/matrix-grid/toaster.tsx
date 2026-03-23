@@ -1,5 +1,4 @@
-"use client"
-
+import { useToast } from '@/ui/hooks/use-toast';
 import {
   Toast,
   ToastClose,
@@ -7,11 +6,10 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from "@/ui/components/matrix-grid/toast"
-import { useToast } from "@/ui/components/matrix-grid/use-toast"
+} from '@/ui/components/matrix-grid/toast';
 
 export function Toaster() {
-  const { toasts } = useToast()
+  const { toasts } = useToast();
 
   return (
     <ToastProvider>
@@ -27,9 +25,9 @@ export function Toaster() {
             {action}
             <ToastClose />
           </Toast>
-        )
+        );
       })}
       <ToastViewport />
     </ToastProvider>
-  )
+  );
 }

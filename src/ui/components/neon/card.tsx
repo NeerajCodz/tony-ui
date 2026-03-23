@@ -1,6 +1,5 @@
-import * as React from "react"
-
-import { cn } from "@/lib/utils"
+import * as React from 'react';
+import { cn } from '@/lib/utils';
 
 const Card = React.forwardRef<
   HTMLDivElement,
@@ -9,13 +8,20 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-none border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] text-[var(--ne-text-primary)] shadow-[inset_0_0_6px_var(--ne-primary),0_0_8px_var(--ne-primary),0_0_20px_var(--ne-primary),0_0_40px_rgba(0,245,255,0.3)]",
+      'bg-[var(--ne-bg)] text-[var(--ne-text)] border-2 border-[var(--ne-primary)] shadow-[0_0_15px_var(--ne-primary),inset_0_0_20px_rgba(0,245,255,0.1)] rounded-none relative overflow-hidden',
       className
     )}
     {...props}
-  />
-))
-Card.displayName = "Card"
+  >
+    {/* Corner accents */}
+    <div className="absolute top-0 left-0 w-2 h-2 bg-[var(--ne-primary)] shadow-[0_0_10px_var(--ne-primary)]" />
+    <div className="absolute top-0 right-0 w-2 h-2 bg-[var(--ne-primary)] shadow-[0_0_10px_var(--ne-primary)]" />
+    <div className="absolute bottom-0 left-0 w-2 h-2 bg-[var(--ne-primary)] shadow-[0_0_10px_var(--ne-primary)]" />
+    <div className="absolute bottom-0 right-0 w-2 h-2 bg-[var(--ne-primary)] shadow-[0_0_10px_var(--ne-primary)]" />
+    {props.children}
+  </div>
+));
+Card.displayName = 'Card';
 
 const CardHeader = React.forwardRef<
   HTMLDivElement,
@@ -23,11 +29,11 @@ const CardHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    className={cn('flex flex-col space-y-1.5 p-6 border-b border-[var(--ne-primary)]/30', className)}
     {...props}
   />
-))
-CardHeader.displayName = "CardHeader"
+));
+CardHeader.displayName = 'CardHeader';
 
 const CardTitle = React.forwardRef<
   HTMLParagraphElement,
@@ -36,13 +42,13 @@ const CardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cn(
-      "font-display text-2xl font-black leading-none tracking-widest uppercase text-[var(--ne-primary)] drop-shadow-[0_0_5px_var(--ne-primary)] drop-shadow-[0_0_10px_var(--ne-primary)]",
+      'text-2xl font-bold leading-none tracking-widest text-[var(--ne-primary)] font-display uppercase drop-shadow-[0_0_5px_var(--ne-primary)]',
       className
     )}
     {...props}
   />
-))
-CardTitle.displayName = "CardTitle"
+));
+CardTitle.displayName = 'CardTitle';
 
 const CardDescription = React.forwardRef<
   HTMLParagraphElement,
@@ -50,19 +56,19 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-sm text-[var(--ne-text-secondary)] font-code", className)}
+    className={cn('text-sm text-[var(--ne-text)]/80 font-body', className)}
     {...props}
   />
-))
-CardDescription.displayName = "CardDescription"
+));
+CardDescription.displayName = 'CardDescription';
 
 const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0 font-body", className)} {...props} />
-))
-CardContent.displayName = "CardContent"
+  <div ref={ref} className={cn('p-6 relative z-10', className)} {...props} />
+));
+CardContent.displayName = 'CardContent';
 
 const CardFooter = React.forwardRef<
   HTMLDivElement,
@@ -70,10 +76,10 @@ const CardFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex items-center p-6 pt-0", className)}
+    className={cn('flex items-center p-6 pt-0 border-t border-[var(--ne-primary)]/30 bg-[var(--ne-primary)]/5 mt-auto', className)}
     {...props}
   />
-))
-CardFooter.displayName = "CardFooter"
+));
+CardFooter.displayName = 'CardFooter';
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };

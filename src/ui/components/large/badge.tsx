@@ -5,43 +5,40 @@ import { X } from 'lucide-react';
 
 export interface BadgeProps extends BadgeBaseProps {}
 
-// Angular Corner Clip Path
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
 const getVisualTypeStyles = (type: string = 'default') => {
   switch (type) {
     case 'default':
-      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-primary)]';
+      return 'bg-[var(--lg-surface)] border border-[var(--lg-border)] text-[var(--lg-text)]';
     case 'solid':
-      return 'bg-[var(--ac-accent-dim)] border-2 border-[var(--ac-accent)] text-[var(--ac-edge-light)] font-bold';
+      return 'bg-[var(--lg-accent)] border border-[var(--lg-accent)] text-white font-bold';
     case 'outline':
-      return 'bg-transparent border-2 border-[var(--ac-accent)] text-[var(--ac-accent)]';
+      return 'bg-transparent border-2 border-[var(--lg-accent)] text-[var(--lg-accent)]';
     case 'ghost':
-      return 'bg-transparent border-none text-[var(--text-secondary)] hover:bg-[var(--ac-surface)]';
+      return 'bg-transparent border-none text-[var(--text-secondary)] hover:bg-[var(--lg-surface)]';
     case 'inverse':
-      return 'bg-[var(--ac-edge-light)] border-2 border-[var(--ac-bg)] text-[var(--ac-bg)] font-bold';
+      return 'bg-[var(--lg-text)] border border-[var(--lg-bg)] text-[var(--lg-bg)] font-bold';
     case 'contrast':
-      return 'bg-[var(--ac-danger)] border-2 border-[var(--ac-danger)] text-white font-bold';
+      return 'bg-white border border-white text-black font-bold';
     case 'soft':
-      return 'bg-[var(--ac-accent)]/10 border-2 border-[var(--ac-accent)]/20 text-[var(--ac-accent)]';
+      return 'bg-[var(--lg-accent)]/10 border border-[var(--lg-accent)]/20 text-[var(--lg-accent)]';
     case 'neutral':
-      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-secondary)]';
+      return 'bg-[var(--lg-surface)] border border-[var(--lg-border)] text-[var(--text-secondary)]';
     case 'subtle':
-      return 'bg-[var(--ac-surface)]/50 border-none text-[var(--text-secondary)]';
+      return 'bg-[var(--lg-surface)]/50 border-none text-[var(--text-secondary)]';
     case 'elevated':
-      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-primary)] shadow-[0_2px_10px_rgba(0,0,0,0.5)]';
+      return 'bg-[var(--lg-surface)] border border-[var(--lg-border)] text-[var(--lg-text)] shadow-md';
     case 'flat':
-      return 'bg-transparent border-none text-[var(--text-primary)] p-0';
+      return 'bg-transparent border-none text-[var(--lg-text)] p-0';
     case 'tinted':
-      return 'bg-[var(--ac-accent)]/20 border-2 border-[var(--ac-accent)]/30 text-[var(--ac-edge-light)]';
+      return 'bg-[var(--lg-accent)]/20 border border-[var(--lg-accent)]/30 text-[var(--lg-text)]';
     case 'link':
-      return 'bg-transparent border-none text-[var(--ac-accent)] hover:underline p-0 clip-path-none';
+      return 'bg-transparent border-none text-[var(--lg-accent)] hover:underline p-0';
     case 'disabled':
-      return 'bg-[var(--ac-bg)] border-2 border-[var(--ac-border)]/50 text-[var(--text-muted)] opacity-50';
+      return 'bg-[var(--lg-bg)] border border-[var(--lg-border)]/50 text-[var(--text-muted)] opacity-50';
     case 'unstyled':
       return '';
     default:
-      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-primary)]';
+      return 'bg-[var(--lg-surface)] border border-[var(--lg-border)] text-[var(--lg-text)]';
   }
 };
 
@@ -49,11 +46,11 @@ const getVariantStyles = (variant?: string) => {
     if (!variant) return '';
     switch (variant) {
         case 'destructive':
-            return 'border-[var(--ac-danger)] text-[var(--ac-danger)] data-[type=solid]:bg-[var(--ac-danger)] data-[type=solid]:text-white';
+            return 'border-red-500 text-red-500 data-[type=solid]:bg-red-600 data-[type=solid]:text-white';
         case 'success':
-            return 'border-green-500 text-green-500 data-[type=solid]:bg-green-900 data-[type=solid]:text-green-300';
+            return 'border-green-500 text-green-500 data-[type=solid]:bg-green-600 data-[type=solid]:text-white';
         case 'warning':
-            return 'border-yellow-500 text-yellow-500 data-[type=solid]:bg-yellow-900 data-[type=solid]:text-yellow-300';
+            return 'border-yellow-500 text-yellow-500 data-[type=solid]:bg-yellow-600 data-[type=solid]:text-white';
         default:
             return '';
     }
@@ -61,20 +58,15 @@ const getVariantStyles = (variant?: string) => {
 
 const getSizeStyles = (size: string = 'md') => {
   switch (size) {
-    case 'sm': return 'h-5 px-2 text-[10px] [--corner:4px]';
-    case 'md': return 'h-6 px-3 text-xs [--corner:6px]';
-    case 'lg': return 'h-7 px-4 text-sm [--corner:8px]';
-    default: return 'h-6 px-3 text-xs [--corner:6px]';
+    case 'sm': return 'h-7 px-3 text-xs rounded-full';
+    case 'md': return 'h-8 px-4 text-sm rounded-full';
+    case 'lg': return 'h-10 px-5 text-base rounded-full';
+    default: return 'h-8 px-4 text-sm rounded-full';
   }
 };
 
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
-  ({ className, type = 'default', variant, size = 'md', style, children, onRemove, removable, ...props }, ref) => {
-    // Merge custom style with clip-path, unless unstyled or link
-    const componentStyle = (type !== 'unstyled' && type !== 'link')
-      ? { ...style, clipPath: AC_CLIP_PATH } 
-      : style;
-
+  ({ className, type = 'default', variant, size = 'md', children, onRemove, removable, ...props }, ref) => {
     const isRemovable = removable || !!onRemove;
 
     return (
@@ -85,9 +77,8 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         variant={variant}
         removable={removable}
         onRemove={onRemove}
-        style={componentStyle}
         className={cn(
-          'inline-flex items-center justify-center font-mono uppercase tracking-wider transition-all duration-200',
+          'inline-flex items-center justify-center font-sans tracking-wide transition-all duration-200',
           getVisualTypeStyles(type),
           getVariantStyles(variant),
           getSizeStyles(size),
@@ -100,9 +91,9 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
           <button
             type="button"
             onClick={onRemove}
-            className="ml-1 -mr-0.5 hover:bg-[var(--ac-bg)]/50 rounded-none transition-colors focus:outline-none"
+            className="ml-2 -mr-1 hover:bg-black/10 rounded-full p-0.5 transition-colors focus:outline-none"
           >
-            <X className="h-3 w-3" />
+            <X className="h-3.5 w-3.5" />
             <span className="sr-only">Remove</span>
           </button>
         )}

@@ -1,10 +1,8 @@
 import * as React from 'react';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { cva } from 'class-variance-authority';
-import { ChevronDownIcon } from '@radix-ui/react-icons';
+import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
 const NavigationMenu = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Root>,
@@ -31,7 +29,7 @@ const NavigationMenuList = React.forwardRef<
   <NavigationMenuPrimitive.List
     ref={ref}
     className={cn(
-      'group flex flex-1 list-none items-center justify-center space-x-1',
+      'group flex flex-1 list-none items-center justify-center space-x-2',
       className
     )}
     {...props}
@@ -39,8 +37,10 @@ const NavigationMenuList = React.forwardRef<
 ));
 NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 
+const NavigationMenuItem = NavigationMenuPrimitive.Item;
+
 const navigationMenuTriggerStyle = cva(
-  'group inline-flex h-9 w-max items-center justify-center px-4 py-2 text-sm font-medium font-mono uppercase tracking-wider transition-colors hover:bg-[var(--ac-accent)] hover:text-[var(--ac-bg)] focus:bg-[var(--ac-accent)] focus:text-[var(--ac-bg)] focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-[var(--ac-accent)] data-[active]:text-[var(--ac-bg)] data-[state=open]:bg-[var(--ac-accent)] data-[state=open]:text-[var(--ac-bg)] [--corner:4px]',
+  'group inline-flex h-12 w-max items-center justify-center rounded-xl bg-[var(--lg-surface)] px-5 py-2 text-base font-medium transition-colors hover:bg-[var(--lg-accent)] hover:text-white focus:bg-[var(--lg-accent)] focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-[var(--lg-accent)] data-[state=open]:bg-[var(--lg-accent)] data-[active]:text-white data-[state=open]:text-white'
 );
 
 const NavigationMenuTrigger = React.forwardRef<
@@ -50,13 +50,11 @@ const NavigationMenuTrigger = React.forwardRef<
   <NavigationMenuPrimitive.Trigger
     ref={ref}
     className={cn(navigationMenuTriggerStyle(), 'group', className)}
-    style={{ clipPath: AC_CLIP_PATH } as React.CSSProperties}
     {...props}
   >
     {children}
-    {' '}
-    <ChevronDownIcon
-      className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
+    <ChevronDown
+      className="relative top-[1px] ml-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180"
       aria-hidden="true"
     />
   </NavigationMenuPrimitive.Trigger>
@@ -70,7 +68,7 @@ const NavigationMenuContent = React.forwardRef<
   <NavigationMenuPrimitive.Content
     ref={ref}
     className={cn(
-      'left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto ',
+      'left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto',
       className
     )}
     {...props}
@@ -87,11 +85,10 @@ const NavigationViewport = React.forwardRef<
   <div className={cn('absolute left-0 top-full flex justify-center')}>
     <NavigationMenuPrimitive.Viewport
       className={cn(
-        'origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden border border-[var(--ac-border)] bg-[var(--ac-surface)] text-[var(--text-primary)] shadow data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)] [--corner:8px]',
+        'origin-top-center relative mt-3 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-2xl border border-[var(--lg-border)] bg-[var(--lg-surface)] text-[var(--lg-text)] shadow-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]',
         className
       )}
       ref={ref}
-      style={{ clipPath: AC_CLIP_PATH } as React.CSSProperties}
       {...props}
     />
   </div>
@@ -111,13 +108,11 @@ const NavigationMenuIndicator = React.forwardRef<
     )}
     {...props}
   >
-    <div className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-[var(--ac-border)] shadow-md" />
+    <div className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-[var(--lg-border)] shadow-md" />
   </NavigationMenuPrimitive.Indicator>
 ));
 NavigationMenuIndicator.displayName =
   NavigationMenuPrimitive.Indicator.displayName;
-
-const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 export {
   navigationMenuTriggerStyle,

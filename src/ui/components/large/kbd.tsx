@@ -1,23 +1,21 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
-export interface KbdProps extends React.HTMLAttributes<HTMLElement> {}
-
-const Kbd = React.forwardRef<HTMLElement, KbdProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <kbd
-        className={cn(
-          'pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-[var(--ac-border)] bg-[var(--ac-surface)] px-1.5 font-mono text-[10px] font-medium text-[var(--text-muted)] opacity-100',
-          className
-        )}
-        style={{ clipPath: 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))', '--corner': '2px' } as React.CSSProperties}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
+const Kbd = React.forwardRef<
+  HTMLElement,
+  React.HTMLAttributes<HTMLElement>
+>(({ className, ...props }, ref) => {
+  return (
+    <kbd
+      ref={ref}
+      className={cn(
+        'pointer-events-none inline-flex h-8 select-none items-center gap-1 rounded-lg border border-[var(--lg-border)] bg-[var(--lg-surface)] px-2.5 font-mono text-[14px] font-medium text-[var(--lg-text)] shadow-sm opacity-100',
+        className
+      )}
+      {...props}
+    />
+  );
+});
 Kbd.displayName = 'Kbd';
 
 export { Kbd };

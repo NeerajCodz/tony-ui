@@ -1,37 +1,82 @@
 import * as React from 'react';
-import { TypographyBase, type TypographyBaseProps } from '../_base/typography';
 import { cn } from '@/lib/utils';
 
-export interface TypographyProps extends TypographyBaseProps {}
-
-const getVariantStyles = (variant: string = 'body') => {
-  switch (variant) {
-    case 'h1': return 'font-mono font-black tracking-tighter uppercase text-[var(--ac-edge-light)] text-[56px] leading-tight';
-    case 'h2': return 'font-mono font-bold tracking-tight uppercase text-[var(--text-primary)] text-[40px] leading-tight';
-    case 'h3': return 'font-mono font-bold tracking-wide uppercase text-[var(--text-primary)] text-[28px]';
-    case 'h4': return 'font-mono font-semibold tracking-wider uppercase text-[var(--ac-accent)] text-[20px]';
-    case 'h5': return 'font-mono font-semibold tracking-widest uppercase text-[var(--text-secondary)] text-[16px]';
-    case 'h6': return 'font-mono font-medium tracking-[0.3em] uppercase text-[var(--text-muted)] text-[14px]';
-    case 'body': return 'font-mono font-normal text-[var(--text-secondary)] text-[14px] leading-relaxed';
-    case 'label': return 'font-mono font-bold tracking-[0.4em] uppercase text-[var(--ac-accent)] text-[10px]';
-    case 'code': return 'font-mono bg-[var(--ac-surface)] border border-[var(--ac-border)] px-1 py-0.5 rounded-none text-[var(--ac-accent)] text-sm';
-    default: return 'font-mono font-normal text-[var(--text-secondary)] text-[14px]';
-  }
-};
-
-export const Typography = React.forwardRef<HTMLElement, TypographyProps>(
-  ({ className, variant = 'body', ...props }, ref) => {
-    return (
-      <TypographyBase
+const Typography = {
+  h1: React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+    ({ className, ...props }, ref) => (
+      <h1
         ref={ref}
-        variant={variant}
         className={cn(
-          getVariantStyles(variant),
+          'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-[var(--lg-text)]',
           className
         )}
         {...props}
       />
-    );
-  }
-);
-Typography.displayName = 'Typography';
+    ),
+  ),
+  h2: React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+    ({ className, ...props }, ref) => (
+      <h2
+        ref={ref}
+        className={cn(
+          'scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 text-[var(--lg-text)]',
+          className
+        )}
+        {...props}
+      />
+    ),
+  ),
+  h3: React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+    ({ className, ...props }, ref) => (
+      <h3
+        ref={ref}
+        className={cn(
+          'scroll-m-20 text-2xl font-semibold tracking-tight text-[var(--lg-text)]',
+          className
+        )}
+        {...props}
+      />
+    ),
+  ),
+  h4: React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+    ({ className, ...props }, ref) => (
+      <h4
+        ref={ref}
+        className={cn(
+          'scroll-m-20 text-xl font-semibold tracking-tight text-[var(--lg-text)]',
+          className
+        )}
+        {...props}
+      />
+    ),
+  ),
+  p: React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
+    ({ className, ...props }, ref) => (
+      <p
+        ref={ref}
+        className={cn('leading-7 [&:not(:first-child)]:mt-6 text-[var(--lg-text)]', className)}
+        {...props}
+      />
+    ),
+  ),
+  blockquote: React.forwardRef<HTMLQuoteElement, React.HTMLAttributes<HTMLQuoteElement>>(
+    ({ className, ...props }, ref) => (
+      <blockquote
+        ref={ref}
+        className={cn('mt-6 border-l-2 pl-6 italic text-[var(--lg-text)]', className)}
+        {...props}
+      />
+    ),
+  ),
+  list: React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListElement>>(
+    ({ className, ...props }, ref) => (
+      <ul
+        ref={ref}
+        className={cn('my-6 ml-6 list-disc [&>li]:mt-2 text-[var(--lg-text)]', className)}
+        {...props}
+      />
+    ),
+  ),
+};
+
+export { Typography };

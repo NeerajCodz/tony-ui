@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';
 import { cn } from '@/lib/utils';
 
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
 const Drawer = ({
   shouldScaleBackground = true,
   ...props
@@ -42,13 +40,12 @@ const DrawerContent = React.forwardRef<
     <DrawerPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col border border-[var(--ac-border)] bg-[var(--ac-surface)] text-[var(--text-primary)] shadow-2xl',
+        'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[32px] border border-[var(--lg-border)] bg-[var(--lg-surface)]',
         className
       )}
-      style={{ clipPath: 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% 100%, 0% 100%)', '--corner': '20px' } as React.CSSProperties}
       {...props}
     >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-[var(--ac-border)] opacity-50" />
+      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-[var(--text-muted)]/20" />
       {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>
@@ -84,7 +81,7 @@ const DrawerTitle = React.forwardRef<
   <DrawerPrimitive.Title
     ref={ref}
     className={cn(
-      'text-lg font-bold leading-none tracking-tight font-mono uppercase text-[var(--ac-accent)]',
+      'text-lg font-semibold leading-none tracking-tight text-[var(--lg-text)]',
       className
     )}
     {...props}
@@ -98,7 +95,7 @@ const DrawerDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Description
     ref={ref}
-    className={cn('text-sm text-[var(--text-muted)] font-mono', className)}
+    className={cn('text-sm text-[var(--text-secondary)]', className)}
     {...props}
   />
 ));

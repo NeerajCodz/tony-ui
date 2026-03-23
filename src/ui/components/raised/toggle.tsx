@@ -3,16 +3,14 @@ import * as TogglePrimitive from '@radix-ui/react-toggle';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
 const toggleVariants = cva(
-  'inline-flex items-center justify-center text-sm font-mono font-medium uppercase tracking-wider transition-colors hover:bg-[var(--ac-surface)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ac-accent)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-[var(--ac-accent)] data-[state=on]:text-[var(--ac-bg)] border border-[var(--ac-border)] ring-offset-[var(--ac-bg)] [--corner:4px]',
+  'inline-flex items-center justify-center rounded-[4px] text-sm font-medium ring-offset-[var(--ra-bg)] transition-all hover:bg-[var(--ra-surface)] hover:text-[var(--ra-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ra-accent)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-[var(--ra-accent)] data-[state=on]:text-white shadow-[2px_2px_0_var(--ra-shadow)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0_var(--ra-shadow)] data-[state=on]:shadow-inner',
   {
     variants: {
       variant: {
-        default: 'bg-transparent',
+        default: 'bg-transparent border-2 border-transparent hover:border-[var(--ra-border)]',
         outline:
-          'bg-transparent hover:bg-[var(--ac-surface)] hover:text-[var(--text-primary)]',
+          'border-2 border-[var(--ra-border)] bg-transparent hover:bg-[var(--ra-surface)] hover:text-[var(--ra-text)]',
       },
       size: {
         default: 'h-10 px-3',
@@ -35,7 +33,6 @@ const Toggle = React.forwardRef<
   <TogglePrimitive.Root
     ref={ref}
     className={cn(toggleVariants({ variant, size, className }))}
-    style={{ clipPath: AC_CLIP_PATH } as React.CSSProperties}
     {...props}
   />
 ));

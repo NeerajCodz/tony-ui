@@ -6,57 +6,49 @@ import { Check } from 'lucide-react';
 
 export interface CheckboxProps extends CheckboxBaseProps {}
 
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
 const getVisualTypeStyles = (visualType: string = 'default') => {
   switch (visualType) {
     case 'default':
-      return 'border-2 border-[var(--ac-border)] bg-[var(--ac-surface)] data-[state=checked]:bg-[var(--ac-accent)] data-[state=checked]:text-[var(--ac-bg)] data-[state=checked]:border-[var(--ac-accent)]';
+      return 'border-2 border-[var(--ra-border)] bg-[var(--ra-surface)] data-[state=checked]:bg-[var(--ra-accent)] data-[state=checked]:text-white data-[state=checked]:border-[var(--ra-accent)] shadow-[2px_2px_0_var(--ra-shadow)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0_var(--ra-shadow)]';
     case 'solid':
-      return 'border-2 border-[var(--ac-accent)] bg-[var(--ac-surface)] data-[state=checked]:bg-[var(--ac-accent)] data-[state=checked]:text-[var(--ac-bg)]';
+      return 'border-2 border-[var(--ra-accent)] bg-[var(--ra-surface)] data-[state=checked]:bg-[var(--ra-accent)] data-[state=checked]:text-white shadow-[2px_2px_0_var(--ra-shadow-accent)]';
     case 'outline':
-      return 'border-2 border-[var(--ac-accent)] bg-transparent data-[state=checked]:bg-[var(--ac-accent)] data-[state=checked]:text-[var(--ac-bg)]';
+      return 'border-2 border-[var(--ra-accent)] bg-transparent data-[state=checked]:bg-[var(--ra-accent)] data-[state=checked]:text-white shadow-[2px_2px_0_var(--ra-accent)]';
     case 'ghost':
-      return 'border-none bg-[var(--ac-surface)]/50 data-[state=checked]:bg-[var(--ac-accent)]/20 data-[state=checked]:text-[var(--ac-accent)]';
+      return 'border-none bg-[var(--ra-surface)]/50 data-[state=checked]:bg-[var(--ra-accent)]/20 data-[state=checked]:text-[var(--ra-accent)]';
     case 'soft':
-      return 'border-none bg-[var(--ac-accent)]/10 text-[var(--ac-accent)] data-[state=checked]:bg-[var(--ac-accent)]/20';
+      return 'border-none bg-[var(--ra-accent)]/10 text-[var(--ra-accent)] data-[state=checked]:bg-[var(--ra-accent)]/20';
     case 'subtle':
-      return 'border-none bg-[var(--ac-surface)]/50 text-[var(--text-secondary)] data-[state=checked]:bg-[var(--ac-surface)] data-[state=checked]:text-[var(--text-primary)]';
+      return 'border-none bg-[var(--ra-surface)]/50 text-[var(--text-secondary)] data-[state=checked]:bg-[var(--ra-surface)] data-[state=checked]:text-[var(--text-primary)]';
     case 'neutral':
-      return 'border-2 border-[var(--ac-border)] bg-[var(--ac-surface)] data-[state=checked]:bg-[var(--text-secondary)] data-[state=checked]:text-[var(--ac-bg)]';
+      return 'border-2 border-[var(--ra-border)] bg-[var(--ra-surface)] data-[state=checked]:bg-[var(--text-secondary)] data-[state=checked]:text-white shadow-[2px_2px_0_var(--ra-shadow)]';
     case 'disabled':
-      return 'border-2 border-[var(--ac-border)]/50 bg-[var(--ac-bg)] opacity-50 cursor-not-allowed';
+      return 'border-2 border-[var(--ra-border)]/50 bg-[var(--ra-bg)] opacity-50 cursor-not-allowed shadow-none';
     case 'unstyled':
       return '';
     default:
-      return 'border-2 border-[var(--ac-border)] bg-[var(--ac-surface)] data-[state=checked]:bg-[var(--ac-accent)] data-[state=checked]:text-[var(--ac-bg)]';
+      return 'border-2 border-[var(--ra-border)] bg-[var(--ra-surface)] data-[state=checked]:bg-[var(--ra-accent)] data-[state=checked]:text-white shadow-[2px_2px_0_var(--ra-shadow)]';
   }
 };
 
 const getSizeStyles = (size: string = 'md') => {
   switch (size) {
-    case 'sm': return 'h-4 w-4 [--corner:3px]';
-    case 'md': return 'h-5 w-5 [--corner:4px]';
-    case 'lg': return 'h-6 w-6 [--corner:5px]';
-    default: return 'h-5 w-5 [--corner:4px]';
+    case 'sm': return 'h-4 w-4 rounded-[4px]';
+    case 'md': return 'h-5 w-5 rounded-[4px]';
+    case 'lg': return 'h-6 w-6 rounded-[4px]';
+    default: return 'h-5 w-5 rounded-[4px]';
   }
 };
 
 export const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(
-  ({ className, visualType = 'default', size = 'md', style, ...props }, ref) => {
-    // Merge custom style with clip-path, unless unstyled
-    const componentStyle = visualType !== 'unstyled'
-      ? { ...style, clipPath: AC_CLIP_PATH } 
-      : style;
-
+  ({ className, visualType = 'default', size = 'md', ...props }, ref) => {
     return (
       <CheckboxBase
         ref={ref}
         visualType={visualType}
         size={size}
-        style={componentStyle}
         className={cn(
-          'peer shrink-0 shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ac-accent)] disabled:cursor-not-allowed disabled:opacity-50',
+          'peer shrink-0 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ra-accent)] disabled:cursor-not-allowed disabled:opacity-50',
           'flex items-center justify-center font-bold',
           getVisualTypeStyles(visualType),
           getSizeStyles(size),

@@ -9,15 +9,13 @@ const RadioGroup = React.forwardRef<
 >(({ className, ...props }, ref) => {
   return (
     <RadioGroupPrimitive.Root
-      className={cn('grid gap-2', className)}
+      className={cn('grid gap-3', className)}
       {...props}
       ref={ref}
     />
   );
 });
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
-
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
 const RadioGroupItem = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Item>,
@@ -27,14 +25,13 @@ const RadioGroupItem = React.forwardRef<
     <RadioGroupPrimitive.Item
       ref={ref}
       className={cn(
-        'aspect-square h-4 w-4 border border-[var(--ac-accent)] text-[var(--ac-accent)] ring-offset-[var(--ac-bg)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ac-accent)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+        'aspect-square h-6 w-6 rounded-full border-2 border-[var(--lg-border)] text-[var(--lg-accent)] ring-offset-[var(--lg-bg)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lg-accent)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-[var(--lg-accent)]',
         className
       )}
-      style={{ clipPath: AC_CLIP_PATH, '--corner': '3px' } as React.CSSProperties}
       {...props}
     >
       <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
-        <div className="h-2.5 w-2.5 bg-current" style={{ clipPath: AC_CLIP_PATH, '--corner': '2px' } as React.CSSProperties} />
+        <Circle className="h-3 w-3 fill-current text-current" />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   );

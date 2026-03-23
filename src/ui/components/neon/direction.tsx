@@ -1,15 +1,12 @@
-import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
 import * as React from 'react';
-import * as DirectionPrimitive from '@radix-ui/react-direction';
+import { Slot } from '@radix-ui/react-slot';
 
-type DirectionProviderProps = React.ComponentPropsWithoutRef<typeof DirectionPrimitive.Provider> & {
-  effects?: TacticalHudEffects;
-};
+const Direction = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { dir?: 'ltr' | 'rtl' }
+>(({ dir = 'ltr', ...props }, ref) => (
+  <div ref={ref} dir={dir} {...props} />
+));
+Direction.displayName = 'Direction';
 
-const DirectionProvider = ({ effects = 'on', ...props }: DirectionProviderProps) => (
-  <div className={tacticalHudEffectsClass(effects)}>
-    <DirectionPrimitive.Provider {...props} />
-  </div>
-);
-
-export { DirectionProvider };
+export { Direction };

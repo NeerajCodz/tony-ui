@@ -1,15 +1,23 @@
-import * as React from "react"
-import { Loader2 } from "lucide-react"
+import * as React from 'react';
+import { Loader2 } from 'lucide-react';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
-export interface SpinnerProps extends React.ComponentProps<"svg"> {}
+const Spinner = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      'flex items-center justify-center text-[var(--ne-primary)] drop-shadow-[0_0_5px_var(--ne-primary)]',
+      className
+    )}
+    {...props}
+  >
+    <Loader2 className="h-8 w-8 animate-spin" />
+  </div>
+));
+Spinner.displayName = 'Spinner';
 
-export function Spinner({ className, ...props }: SpinnerProps) {
-  return (
-    <Loader2
-      className={cn("h-4 w-4 animate-spin text-[var(--ne-primary)] drop-shadow-[0_0_5px_var(--ne-primary)]", className)}
-      {...props}
-    />
-  )
-}
+export { Spinner };

@@ -1,50 +1,52 @@
-"use client"
+import * as React from 'react';
+import { format } from 'date-fns';
+import { Calendar as CalendarIcon } from 'lucide-react';
 
-import * as React from "react"
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-
-import { cn } from "@/lib/utils"
-import { Button } from "@/ui/components/matrix-grid/button"
-import { Calendar } from "@/ui/components/matrix-grid/calendar"
+import { cn } from '@/lib/utils';
+import { Button } from '@/ui/components/matrix-grid/button';
+import { Calendar } from '@/ui/components/matrix-grid/calendar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/ui/components/matrix-grid/popover"
+} from '@/ui/components/matrix-grid/popover';
+
+interface DatePickerProps {
+  date?: Date;
+  onSelect?: (date: Date | undefined) => void;
+  className?: string;
+  placeholder?: string;
+}
 
 export function DatePicker({
   date,
-  setDate,
+  onSelect,
   className,
-}: {
-  date?: Date
-  setDate?: (date?: Date) => void
-  className?: string
-}) {
+  placeholder = 'Pick a date',
+}: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={"outline"}
+          variant={'outline'}
           className={cn(
-            "w-[280px] justify-start text-left font-normal",
-            !date && "text-muted-foreground",
+            'w-[280px] justify-start text-left font-normal',
+            !date && 'text-muted-foreground',
             className
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? format(date, 'PPP') : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
+      <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={onSelect}
           initialFocus
         />
       </PopoverContent>
     </Popover>
-  )
+  );
 }

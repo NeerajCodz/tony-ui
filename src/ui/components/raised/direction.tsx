@@ -1,6 +1,13 @@
 import * as React from 'react';
-import * as DirectionPrimitive from '@radix-ui/react-direction';
+import { Slot } from '@radix-ui/react-slot';
 
-const DirectionProvider = DirectionPrimitive.Provider;
+const Direction = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { asChild?: boolean }
+>(({ dir = 'ltr', asChild, ...props }, ref) => {
+  const Comp = asChild ? Slot : 'div';
+  return <Comp ref={ref} dir={dir} {...props} />;
+});
+Direction.displayName = 'Direction';
 
-export { DirectionProvider };
+export { Direction };

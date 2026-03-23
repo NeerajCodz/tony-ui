@@ -1,25 +1,26 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { ChevronDown } from 'lucide-react';
 
 export interface NativeSelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {}
 
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
 const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <select
-        className={cn(
-          'flex h-10 w-full items-center justify-between border border-[var(--ac-border)] bg-[var(--ac-surface)] px-3 py-2 text-sm placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-[var(--ac-accent)] disabled:cursor-not-allowed disabled:opacity-50 font-mono text-[var(--text-primary)] appearance-none',
-          className
-        )}
-        style={{ clipPath: AC_CLIP_PATH, '--corner': '6px' } as React.CSSProperties}
-        ref={ref}
-        {...props}
-      >
-        {children}
-      </select>
+      <div className="relative">
+        <select
+          className={cn(
+            'flex h-10 w-full appearance-none items-center justify-between rounded-[4px] border-2 border-[var(--ra-border)] bg-[var(--ra-surface)] px-3 py-2 text-sm font-mono shadow-[4px_4px_0_var(--ra-shadow)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none',
+            className
+          )}
+          ref={ref}
+          {...props}
+        >
+          {children}
+        </select>
+        <ChevronDown className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 opacity-50 pointer-events-none" />
+      </div>
     );
   }
 );

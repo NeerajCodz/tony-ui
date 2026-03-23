@@ -4,65 +4,57 @@ import { cn } from '@/lib/utils';
 
 export interface InputProps extends InputBaseProps {}
 
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
-
 const getVisualTypeStyles = (visualType: string = 'default', invalid: boolean = false) => {
   if (invalid) {
-    return 'border-[var(--ac-danger)] text-[var(--ac-danger)] placeholder:text-[var(--ac-danger)]/50 focus:border-[var(--ac-danger)] focus:ring-[var(--ac-danger)]/20 bg-[var(--ac-danger)]/5';
+    return 'border-2 border-[var(--ra-destructive)] text-[var(--ra-destructive)] placeholder:text-[var(--ra-destructive)]/50 focus:shadow-[4px_4px_0_var(--ra-destructive)] bg-[var(--ra-destructive)]/5';
   }
 
   switch (visualType) {
     case 'default':
-      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--ac-accent)] focus:bg-[var(--ac-bg)]';
+      return 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)] text-[var(--ra-text)] placeholder:text-[var(--text-muted)] focus:border-[var(--ra-accent)] focus:shadow-[4px_4px_0_var(--ra-shadow)]';
     case 'outline':
-      return 'bg-transparent border-2 border-[var(--ac-accent)] text-[var(--ac-accent)] placeholder:text-[var(--ac-accent)]/50 focus:bg-[var(--ac-surface)]';
+      return 'bg-transparent border-2 border-[var(--ra-accent)] text-[var(--ra-accent)] placeholder:text-[var(--ra-accent)]/50 focus:shadow-[4px_4px_0_var(--ra-accent)]';
     case 'ghost':
-      return 'bg-transparent border-none text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:bg-[var(--ac-surface)] focus:border-2 focus:border-[var(--ac-accent)]';
+      return 'bg-transparent border-none text-[var(--ra-text)] placeholder:text-[var(--text-muted)] focus:bg-[var(--ra-surface)] focus:border-2 focus:border-[var(--ra-accent)]';
     case 'soft':
-      return 'bg-[var(--ac-accent)]/10 border-none text-[var(--ac-accent)] placeholder:text-[var(--ac-accent)]/50 focus:bg-[var(--ac-accent)]/20 focus:border-2 focus:border-[var(--ac-accent)]';
+      return 'bg-[rgba(64,96,255,0.08)] border-2 border-[var(--ra-border)] text-[var(--text-secondary)] placeholder:text-[var(--text-secondary)]/50 focus:shadow-[2px_2px_0_var(--ra-shadow)]';
     case 'subtle':
-      return 'bg-[var(--ac-surface)]/50 border-none text-[var(--text-secondary)] placeholder:text-[var(--text-muted)] focus:bg-[var(--ac-surface)] focus:text-[var(--text-primary)]';
+      return 'bg-[var(--ra-surface)]/50 border-none text-[var(--text-secondary)] placeholder:text-[var(--text-muted)] focus:bg-[var(--ra-surface)] focus:text-[var(--ra-text)]';
     case 'flat':
-      return 'bg-transparent border-none p-0 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:bg-[var(--ac-surface)]/20';
+      return 'bg-transparent border-none p-0 text-[var(--ra-text)] placeholder:text-[var(--text-muted)] focus:bg-[var(--ra-surface)]/20';
     case 'neutral':
-      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-secondary)] placeholder:text-[var(--text-muted)] focus:border-[var(--text-primary)]';
+      return 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)] text-[var(--text-secondary)] placeholder:text-[var(--text-muted)] focus:border-[var(--text-primary)] focus:shadow-[4px_4px_0_var(--ra-shadow)]';
     case 'elevated':
-      return 'bg-[var(--ac-surface)] border-none text-[var(--text-primary)] shadow-[0_4px_20px_rgba(0,0,0,0.5)] focus:shadow-[0_4px_20px_rgba(0,200,255,0.1)] focus:border-2 focus:border-[var(--ac-accent)]';
+      return 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)] text-[var(--ra-text)] shadow-[4px_4px_0_var(--ra-shadow)] focus:shadow-[6px_6px_0_var(--ra-shadow)]';
     case 'unstyled':
       return '';
     default:
-      return 'bg-[var(--ac-surface)] border-2 border-[var(--ac-border)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--ac-accent)]';
+      return 'bg-[var(--ra-surface)] border-2 border-[var(--ra-border)] text-[var(--ra-text)] placeholder:text-[var(--text-muted)] focus:border-[var(--ra-accent)] focus:shadow-[4px_4px_0_var(--ra-shadow)]';
   }
 };
 
 const getSizeStyles = (size: string = 'md') => {
   switch (size) {
-    case 'sm': return 'h-8 px-3 text-xs [--corner:6px]';
-    case 'md': return 'h-10 px-4 text-sm [--corner:8px]';
-    case 'lg': return 'h-12 px-6 text-base [--corner:10px]';
-    default: return 'h-10 px-4 text-sm [--corner:8px]';
+    case 'sm': return 'h-8 px-3 text-xs';
+    case 'md': return 'h-10 px-4 text-sm';
+    case 'lg': return 'h-12 px-6 text-base';
+    default: return 'h-10 px-4 text-sm';
   }
 };
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, visualType = 'default', inputSize = 'md', invalid = false, style, ...props }, ref) => {
-    // Merge custom style with clip-path, unless it's unstyled
-    const componentStyle = visualType !== 'unstyled'
-      ? { ...style, clipPath: AC_CLIP_PATH } 
-      : style;
-
+  ({ className, visualType = 'default', inputSize = 'md', invalid = false, ...props }, ref) => {
     return (
       <InputBase
         ref={ref}
         visualType={visualType}
         inputSize={inputSize}
         invalid={invalid}
-        style={componentStyle}
         className={cn(
-          'w-full font-mono font-medium',
-          'transition-all duration-200 outline-none file:bg-transparent file:text-sm file:font-medium file:text-[var(--text-primary)]',
+          'w-full font-mono font-medium rounded-[4px]',
+          'transition-all duration-100 outline-none file:bg-transparent file:text-sm file:font-medium file:text-[var(--ra-text)]',
           'disabled:opacity-50 disabled:cursor-not-allowed',
-          'focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--ac-bg)] focus:ring-transparent', // Hide default ring, use border
+          'focus:ring-0', // Disable ring, use shadow/border
           getVisualTypeStyles(visualType, invalid),
           getSizeStyles(inputSize),
           className

@@ -1,15 +1,21 @@
-import * as React from "react"
+import * as React from 'react';
+import { Slot } from '@radix-ui/react-slot';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
-export function Field({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
-  return (
-    <div
-      className={cn("flex flex-col gap-2", className)}
-      {...props}
-    />
-  )
-}
+const Field = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      'flex flex-col gap-2',
+      className
+    )}
+    {...props}
+  />
+));
+Field.displayName = 'Field';
+
+export { Field };
