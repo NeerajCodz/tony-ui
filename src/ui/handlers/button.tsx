@@ -8,24 +8,9 @@
  */
 
 import React, { lazy, Suspense, useMemo } from 'react';
-import type { Version, Variant, Size, ButtonComponentType } from '../types/common';
+import type { Version, Variant, Size } from '../types/common';
+import type { ButtonProps, ButtonType } from '../types/components/button';
 import { getVariantColors } from '../core/handler-factory';
-
-export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
-  version?: Version;
-  variant?: Variant;
-  type?: ButtonComponentType;
-  htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  size?: Size;
-  loading?: boolean;
-  fullWidth?: boolean;
-  iconBefore?: React.ReactNode;
-  iconAfter?: React.ReactNode;
-  /** @deprecated Use iconBefore instead */
-  leftIcon?: React.ReactNode;
-  /** @deprecated Use iconAfter instead */
-  rightIcon?: React.ReactNode;
-}
 
 // Dynamic component loader - NO hardcoded versions
 const loadButtonComponent = (version: Version): React.ComponentType<any> => {
@@ -54,6 +39,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   variant = 'default',
   type = 'default',
   size = 'md',
+  effects,
   loading = false,
   fullWidth = false,
   iconBefore,
@@ -107,6 +93,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         uiType={type}
         htmlType={htmlType}
         colors={colors}
+        effects={effects}
         aria-busy={loading || undefined}
         disabled={disabled || loading}
         {...props}

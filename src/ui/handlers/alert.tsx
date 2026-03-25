@@ -2,24 +2,9 @@
 
 import React, { lazy, Suspense } from 'react';
 import type { Variant, Version } from '../types/common';
+import type { AlertProps, AlertTitleProps, AlertDescriptionProps } from '../types/components/alert';
 import { getVariantColors } from '../core/handler-factory';
 import { loadVersionModule } from './load-version-module';
-
-export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
-  version?: Version;
-  variant?: Variant;
-  icon?: React.ReactNode;
-}
-
-export interface AlertTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  version?: Version;
-  variant?: Variant;
-}
-
-export interface AlertDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {
-  version?: Version;
-  variant?: Variant;
-}
 
 const FallbackAlert = React.forwardRef<HTMLDivElement, AlertProps>(({ children, className = '', ...props }, ref) => (
   <div ref={ref} role="alert" className={className} {...props}>
@@ -30,7 +15,7 @@ FallbackAlert.displayName = 'FallbackAlert';
 
 const LoadingSkeleton: React.FC = () => <div className="h-20 animate-pulse rounded bg-muted/20" />;
 
-const AlertBase = React.forwardRef<HTMLDivElement, AlertProps>(({ version = 'default', variant = 'default', children, ...props }, ref) => {
+const AlertBase = React.forwardRef<HTMLDivElement, AlertProps>(({ version = 'default', variant = 'default', effects, children, ...props }, ref) => {
   const colors = React.useMemo(() => getVariantColors(variant), [variant]);
   const LazyComponent = React.useMemo(
     () =>
@@ -46,7 +31,7 @@ const AlertBase = React.forwardRef<HTMLDivElement, AlertProps>(({ version = 'def
 
   return (
     <Suspense fallback={<LoadingSkeleton />}>
-      <ResolvedComponent ref={ref} version={version} variant={variant} colors={colors} {...props}>
+      <ResolvedComponent ref={ref} version={version} variant={variant} colors={colors} effects={effects} {...props}>
         {children}
       </ResolvedComponent>
     </Suspense>

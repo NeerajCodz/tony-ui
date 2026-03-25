@@ -128,6 +128,7 @@ const CardBase = React.forwardRef<HTMLDivElement, CardProps>(({
   version = 'default',
   variant = 'default',
   type = 'default',
+  effects,
   ...props 
 }, ref) => {
   const [config, setConfig] = useState<unknown>(null);
@@ -159,6 +160,7 @@ const CardBase = React.forwardRef<HTMLDivElement, CardProps>(({
         type={type}
         colors={colors}
         config={config}
+        effects={effects}
         {...props} 
       />
     </Suspense>
