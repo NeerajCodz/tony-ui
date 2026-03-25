@@ -52,6 +52,8 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   style?: React.CSSProperties;
   /** Child content */
   children?: React.ReactNode;
+  /** Visual effects */
+  effects?: string;
 }
 
 /**

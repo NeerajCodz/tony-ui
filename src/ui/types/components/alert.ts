@@ -46,6 +46,8 @@ export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
   style?: React.CSSProperties;
   /** Child content */
   children?: React.ReactNode;
+  /** Visual effects */
+  effects?: string;
 }
 
 /**
