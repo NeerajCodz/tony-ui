@@ -20,6 +20,7 @@ export interface HandlerParams {
   variant?: Variant;
   type?: string;
   size?: Size;
+  effects?: string;
 }
 
 export interface HandlerConfig {
@@ -199,6 +200,7 @@ export function createHandler<P extends object = {}>(config: HandlerConfig) {
         variant = defaultVariant,
         type = defaultType,
         size = defaultSize,
+        effects,
         style,
         ...restProps
       } = props as HandlerResolvedProps;
@@ -219,6 +221,7 @@ export function createHandler<P extends object = {}>(config: HandlerConfig) {
             variant={variant}
             type={type}
             size={size}
+            effects={effects}
             style={style}
             {...restProps}
           />

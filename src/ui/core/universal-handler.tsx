@@ -15,6 +15,7 @@ interface UniversalHandlerProps extends Record<string, any> {
   variant?: Variant;
   type?: string;
   size?: string;
+  effects?: string;
   children?: React.ReactNode;
 }
 
@@ -156,6 +157,7 @@ export const UniversalHandler = React.forwardRef<any, UniversalHandlerProps>(
       variant = 'primary',
       type,
       size = 'md',
+      effects,
       children,
       ...props
     },
@@ -184,6 +186,7 @@ export const UniversalHandler = React.forwardRef<any, UniversalHandlerProps>(
         variant={variant}
         type={type}
         size={size}
+        effects={effects}
         style={computedStyle}
         {...props}
       >
