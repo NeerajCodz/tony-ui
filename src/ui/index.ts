@@ -1,5 +1,4 @@
-export { ColorProvider, ColorContext } from './providers/ColorProvider';
-export { ThemeProvider, ThemeContext } from './providers/ThemeProvider';
+export * from './providers';
 export { useColors, useTheme, useCSSVariable, useColorValue } from './hooks/useColorTheme';
 export { CyberBorder } from './components/CyberBorder';
 
