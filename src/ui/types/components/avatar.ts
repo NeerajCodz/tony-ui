@@ -80,6 +80,8 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   
   /** Additional CSS class */
   className?: string;
+  /** Visual effects */
+  effects?: string;
 }
 
 /**

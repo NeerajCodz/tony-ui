@@ -428,4 +428,6 @@ export interface SonnerProps extends React.HTMLAttributes<HTMLDivElement> {
   
   /** CSS class */
   className?: string;
+  /** Visual effects */
+  effects?: string;
 }
