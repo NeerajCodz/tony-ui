@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as LabelPrimitive from '@radix-ui/react-label';
-import { Slot } from '@radix-ui/react-slot';
+import { LabelPrimitive } from '../_base/label';
+import { Slot } from '../_base/form';
 import {
   Controller,
   ControllerProps,

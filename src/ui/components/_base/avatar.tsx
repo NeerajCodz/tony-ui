@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
-
 /**
  * Avatar sizes (diameter in pixels)
  * | Size | Diameter |
@@ -106,3 +105,5 @@ export const AvatarFallbackBase = React.forwardRef<
   <AvatarPrimitive.Fallback ref={ref} delayMs={delayMs} {...props} />
 ));
 AvatarFallbackBase.displayName = 'AvatarFallbackBase';
+
+export { AvatarPrimitive };

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
-
 /**
  * RadioGroup type variants
  */
@@ -124,3 +123,5 @@ export const RadioGroupItem = RadioGroupItemBase;
 export type RadioGroupItemProps = RadioGroupItemBaseProps;
 export const RadioGroup = RadioGroupBase;
 export type RadioGroupProps = RadioGroupBaseProps;
+
+export { RadioGroupPrimitive };

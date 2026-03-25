@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
+import { AspectRatioPrimitive } from '../_base/aspect-ratio';
 import { cn } from '@/lib/utils';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 

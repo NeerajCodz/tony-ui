@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import { CheckboxPrimitive } from '../_base/checkbox';
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from './_effects';
 import { Check } from 'lucide-react';

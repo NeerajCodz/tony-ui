@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as SelectPrimitive from '@radix-ui/react-select';
+import { SelectPrimitive } from '../_base/select';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';

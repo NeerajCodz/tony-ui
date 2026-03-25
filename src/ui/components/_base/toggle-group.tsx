@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
-
 /**
  * ToggleGroup type variants (visual)
  */
@@ -195,3 +194,5 @@ export const ToggleGroupItemBase = React.forwardRef<
   ToggleGroupItemBaseProps
 >((props, ref) => <ToggleGroupPrimitive.Item ref={ref} {...props} />);
 ToggleGroupItemBase.displayName = 'ToggleGroupItemBase';
+
+export { ToggleGroupPrimitive };

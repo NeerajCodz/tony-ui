@@ -45,32 +45,41 @@ export { default as Sonner } from './handlers/sonner';
 export { default as Table } from './handlers/table';
 export { default as Tabs } from './handlers/tabs';
 
-export { default as Chart } from './components/default/chart';
-export { default as Command } from './components/default/command';
-export { default as Combobox } from './components/default/combobox';
-export { default as ContextMenu } from './components/default/context-menu';
-export { default as DatePicker } from './components/default/date-picker';
-export { default as Direction } from './components/default/direction';
-export { default as Empty } from './components/default/empty';
-export { default as Field } from './components/default/field';
+import * as DefaultChart from './components/default/chart';
+export const Chart = {
+  Container: DefaultChart.ChartContainer,
+  Tooltip: DefaultChart.ChartTooltip,
+  TooltipContent: DefaultChart.ChartTooltipContent,
+  Legend: DefaultChart.ChartLegend,
+  LegendContent: DefaultChart.ChartLegendContent,
+  Style: DefaultChart.ChartStyle,
+};
+
+export { Command } from './components/default/command';
+export { Combobox } from './components/default/combobox';
+export { ContextMenu } from './components/default/context-menu';
+export { DatePicker } from './components/default/date-picker';
+export { Direction } from './components/default/direction';
+export { Empty } from './components/default/empty';
+export { Field } from './components/default/field';
 export { HoverCard, HoverCardContent, HoverCardTrigger } from './components/default/hover-card';
-export { default as IconButton } from './components/default/icon-button';
-export { default as InputGroup } from './components/default/input-group';
+export { IconButton } from './components/default/icon-button';
+export { InputGroup } from './components/default/input-group';
 export { InputOTP as InputOtp } from './components/default/input-otp';
-export { default as Item } from './components/default/item';
-export { default as Kbd } from './components/default/kbd';
+export { Item } from './components/default/item';
+export { Kbd } from './components/default/kbd';
 export { NativeSelect } from './components/default/native-select';
-export { default as Sidebar } from './components/default/sidebar';
+export { Sidebar } from './components/default/sidebar';
 export { Slider } from './components/default/slider';
 export { default as Spinner } from './handlers/spinner';
-export { default as Switch } from './components/default/switch';
-export { default as Textarea } from './components/default/textarea';
-export { default as Toggle } from './components/default/toggle';
+export { Switch } from './components/default/switch';
+export { Textarea } from './components/default/textarea';
+export { Toggle } from './components/default/toggle';
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './components/default/tooltip';
 export { default as Typography } from './handlers/typography';
 
 import {
-  NavigationMenuRoot,
+  NavigationMenu as NavigationMenuRoot,
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuContent,
@@ -81,7 +90,7 @@ import {
 } from './components/default/navigation-menu';
 
 import {
-  MenubarRoot,
+  Menubar as MenubarRoot,
   MenubarMenu,
   MenubarTrigger,
   MenubarContent,

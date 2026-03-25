@@ -109,9 +109,11 @@ AlertDialogDescription.displayName = AlertDialogDescriptionBase.displayName;
 const AlertDialogAction = React.forwardRef<
   React.ComponentRef<typeof AlertDialogActionBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogActionBase> & { effects?: TacticalHudEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+>(({ className, effects = 'on', children, ...props }, ref) => (
   <AlertDialogActionBase ref={ref} asChild>
-    <Button visualType="solid" className={className} {...props} />
+    <Button className={className} {...props}>
+      {children}
+    </Button>
   </AlertDialogActionBase>
 ));
 AlertDialogAction.displayName = AlertDialogActionBase.displayName;
@@ -119,9 +121,15 @@ AlertDialogAction.displayName = AlertDialogActionBase.displayName;
 const AlertDialogCancel = React.forwardRef<
   React.ComponentRef<typeof AlertDialogCancelBase>,
   React.ComponentPropsWithoutRef<typeof AlertDialogCancelBase> & { effects?: TacticalHudEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+>(({ className, effects = 'on', children, ...props }, ref) => (
   <AlertDialogCancelBase ref={ref} asChild>
-    <Button visualType="outline" className={cn(tacticalHudEffectsClass(effects), 'mt-2 sm:mt-0', className)} {...props} />
+    <Button
+      variant="outline"
+      className={cn(tacticalHudEffectsClass(effects), 'mt-2 sm:mt-0', className)}
+      {...props}
+    >
+      {children}
+    </Button>
   </AlertDialogCancelBase>
 ));
 AlertDialogCancel.displayName = AlertDialogCancelBase.displayName;

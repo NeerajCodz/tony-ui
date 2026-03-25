@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Slot } from '@radix-ui/react-slot';
 
 /**
  * Field orientation options
@@ -204,3 +205,5 @@ export const FieldControlBase = React.forwardRef<HTMLDivElement, FieldControlBas
   (props, ref) => <div ref={ref} {...props} />
 );
 FieldControlBase.displayName = 'FieldControlBase';
+
+export { Slot };

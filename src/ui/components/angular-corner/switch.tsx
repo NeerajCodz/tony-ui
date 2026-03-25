@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as SwitchPrimitive from '@radix-ui/react-switch';
+import { SwitchPrimitive } from '../_base/switch';
 import { SwitchBase, SwitchThumbBase, type SwitchBaseProps } from '../_base/switch';
 import { cn } from '@/lib/utils';
 

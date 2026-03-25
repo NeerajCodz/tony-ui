@@ -1,7 +1,6 @@
 import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
 import * as React from 'react';
-import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
-
+import { CollapsiblePrimitive } from '../_base/collapsible';
 type CollapsibleProps = React.ComponentPropsWithoutRef<typeof CollapsiblePrimitive.Root> & {
   effects?: TechPanelEffects;
 };

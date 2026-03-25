@@ -1,11 +1,11 @@
 import * as React from 'react';
-import * as LabelPrimitive from '@radix-ui/react-label';
-import { Slot } from '@radix-ui/react-slot';
+import { LabelPrimitive } from '../_base/label';
+import { Slot } from '../_base/form';
 import {
   Controller,
-  ControllerProps,
-  FieldPath,
-  FieldValues,
+  type ControllerProps,
+  type FieldPath,
+  type FieldValues,
   FormProvider,
   useFormContext,
 } from 'react-hook-form';
@@ -17,18 +17,16 @@ const Form = FormProvider;
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > = {
   name: TName;
 };
 
-const FormFieldContext = React.createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue
-);
+const FormFieldContext = React.createContext<FormFieldContextValue | null>(null);
 
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
 }: ControllerProps<TFieldValues, TName>) => {
@@ -39,36 +37,37 @@ const FormField = <
   );
 };
 
+type FormItemContextValue = {
+  id: string;
+};
+
+const FormItemContext = React.createContext<FormItemContextValue | null>(null);
+
 const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext);
   const itemContext = React.useContext(FormItemContext);
   const { getFieldState, formState } = useFormContext();
 
-  const fieldState = getFieldState(fieldContext.name, formState);
-
   if (!fieldContext) {
-    throw new Error('useFormField should be used within <FormField>');
+    throw new Error('useFormField should be used within <FormField>.');
   }
 
+  if (!itemContext) {
+    throw new Error('useFormField should be used within <FormItem>.');
+  }
+
+  const fieldState = getFieldState(fieldContext.name, formState);
   const { id } = itemContext;
 
   return {
     id,
     name: fieldContext.name,
-    formItemId: \\-form-item\,
-    formDescriptionId: \\-form-item-description\,
-    formMessageId: \\-form-item-message\,
+    formItemId: `${id}-form-item`,
+    formDescriptionId: `${id}-form-item-description`,
+    formMessageId: `${id}-form-item-message`,
     ...fieldState,
   };
 };
-
-type FormItemContextValue = {
-  id: string;
-};
-
-const FormItemContext = React.createContext<FormItemContextValue>(
-  {} as FormItemContextValue
-);
 
 const FormItem = React.forwardRef<
   HTMLDivElement,
@@ -78,7 +77,11 @@ const FormItem = React.forwardRef<
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn(terminalWindowEffectsClass(effects), 'space-y-2', className)} {...props} />
+      <div
+        ref={ref}
+        className={cn(terminalWindowEffectsClass(effects), 'space-y-2', className)}
+        {...props}
+      />
     </FormItemContext.Provider>
   );
 });
@@ -111,11 +114,7 @@ const FormControl = React.forwardRef<
     <Slot
       ref={ref}
       id={formItemId}
-      aria-describedby={
-        !error
-          ? \\\
-          : \\ \\
-      }
+      aria-describedby={!error ? formDescriptionId : `${formDescriptionId} ${formMessageId}`}
       aria-invalid={!!error}
       className={cn(terminalWindowEffectsClass(effects))}
       {...props}
@@ -134,7 +133,11 @@ const FormDescription = React.forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn(terminalWindowEffectsClass(effects), 'text-sm text-[var(--tm-phosphor-dim)] font-mono', className)}
+      className={cn(
+        terminalWindowEffectsClass(effects),
+        'text-sm text-[var(--tm-phosphor-dim)] font-mono',
+        className
+      )}
       {...props}
     />
   );
@@ -156,7 +159,11 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn(terminalWindowEffectsClass(effects), 'text-sm font-medium text-[var(--tm-red)] font-mono', className)}
+      className={cn(
+        terminalWindowEffectsClass(effects),
+        'text-sm font-medium text-[var(--tm-red)] font-mono',
+        className
+      )}
       {...props}
     >
       {body}
@@ -173,4 +180,5 @@ export {
   FormControl,
   FormDescription,
   FormMessage,
+  FormField,
 };

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
-
 /**
  * Common aspect ratio presets
  */
@@ -80,3 +79,5 @@ export const AspectRatioBase = React.forwardRef<
   );
 });
 AspectRatioBase.displayName = 'AspectRatioBase';
+
+export { AspectRatioPrimitive };

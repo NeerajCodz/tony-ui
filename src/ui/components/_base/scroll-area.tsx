@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
-
 /**
  * ScrollArea type variants
  */
@@ -168,3 +167,5 @@ export const ScrollAreaCornerBase = React.forwardRef<
   ScrollAreaCornerBaseProps
 >((props, ref) => <ScrollAreaPrimitive.Corner ref={ref} {...props} />);
 ScrollAreaCornerBase.displayName = 'ScrollAreaCornerBase';
+
+export { ScrollAreaPrimitive };

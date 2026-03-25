@@ -1,6 +1,5 @@
 import * as React from 'react';
-import * as PopoverPrimitive from '@radix-ui/react-popover';
-
+import { PopoverPrimitive } from '../_base/popover';
 import { cn } from '@/lib/utils';
 import { getNeonGlow } from './_effects';
 

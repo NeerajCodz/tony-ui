@@ -17,34 +17,41 @@ export const inputVariants = cva(
         contrast: 'bg-[#000] border border-[var(--tp-power-3)] text-[var(--tp-power-3)]',
         soft: 'bg-[var(--tp-border-inner)]/30 border border-[var(--tp-border-inner)] text-[var(--text-primary)]',
       },
-      size: {
-        default: 'h-10',
+      inputSize: {
+        md: 'h-10',
         sm: 'h-8 px-2 text-xs',
         lg: 'h-12 px-4 text-base',
       }
     },
     defaultVariants: {
       visualType: 'default',
-      size: 'default',
+      inputSize: 'md',
     },
   }
 );
 
-export interface InputProps extends Omit<InputBaseProps, 'visualType' | 'size'>, VariantProps<typeof inputVariants> {
+export interface InputProps extends Omit<InputBaseProps, 'visualType' | 'inputSize'>, VariantProps<typeof inputVariants> {
   effects?: TechPanelEffects;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, effects = 'on', visualType, size, type, ...props }, ref) => {
+  ({ className, effects = 'on', visualType, inputSize, type, ...props }, ref) => {
+    const mappedVisualType = (visualType === 'solid'
+      ? 'default'
+      : visualType === 'inverse'
+        ? 'outline'
+        : visualType === 'contrast'
+          ? 'outline'
+          : visualType) as InputBaseProps['visualType'];
     return (
       <InputBase
         ref={ref}
         type={type}
-        visualType={visualType}
-        size={size}
+        visualType={mappedVisualType}
+        inputSize={inputSize}
         className={cn(
           techPanelEffectsClass(effects),
-          inputVariants({ visualType, size }),
+          inputVariants({ visualType, inputSize }),
           className
         )}
         {...props}

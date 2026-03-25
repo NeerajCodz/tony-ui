@@ -1,6 +1,6 @@
 import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
 import * as React from 'react';
-import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
+import { CollapsiblePrimitive } from '../_base/collapsible';
 import { cn } from '@/lib/utils';
 
 type CollapsibleProps = React.ComponentPropsWithoutRef<typeof CollapsiblePrimitive.Root> & {

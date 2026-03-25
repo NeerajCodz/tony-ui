@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
+import { AlertDialogPrimitive } from '../_base/alert-dialog';
 import { cn } from '@/lib/utils';
-import { buttonVariants } from '@/ui/components/terminal-window/button';
+import { buttonVariants } from './button';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
 const AlertDialog = AlertDialogPrimitive.Root;
@@ -94,19 +94,21 @@ AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayNam
 const AlertDialogAction = React.forwardRef<
   React.ComponentRef<typeof AlertDialogPrimitive.Action>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action> & { effects?: TerminalWindowEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+>(({ className, effects = 'on', children, ...props }, ref) => (
   <AlertDialogPrimitive.Action
     ref={ref}
     className={cn(terminalWindowEffectsClass(effects), buttonVariants(), className)}
     {...props}
-  />
+  >
+    {children}
+  </AlertDialogPrimitive.Action>
 ));
 AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName;
 
 const AlertDialogCancel = React.forwardRef<
   React.ComponentRef<typeof AlertDialogPrimitive.Cancel>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel> & { effects?: TerminalWindowEffects }
->(({ className, effects = 'on', ...props }, ref) => (
+>(({ className, effects = 'on', children, ...props }, ref) => (
   <AlertDialogPrimitive.Cancel
     ref={ref}
     className={cn(terminalWindowEffectsClass(effects), 
@@ -115,7 +117,9 @@ const AlertDialogCancel = React.forwardRef<
       className
     )}
     {...props}
-  />
+  >
+    {children}
+  </AlertDialogPrimitive.Cancel>
 ));
 AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
 

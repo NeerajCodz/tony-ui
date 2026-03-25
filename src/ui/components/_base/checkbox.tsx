@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
-
 /**
  * Checkbox type variants
  */
@@ -123,3 +122,5 @@ CheckboxIndicatorBase.displayName = 'CheckboxIndicatorBase';
 
 // Re-export for convenience
 export { CheckboxIndicatorBase as CheckboxIndicator };
+
+export { CheckboxPrimitive };

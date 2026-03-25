@@ -1,10 +1,6 @@
 import * as React from 'react';
-import * as MenubarPrimitive from '@radix-ui/react-menubar';
-import {
-  CheckIcon,
-  ChevronRightIcon,
-  DotFilledIcon,
-} from '@radix-ui/react-icons';
+import { MenubarPrimitive } from '../_base/menubar';
+import { CheckIcon, ChevronRightIcon, DotFilledIcon } from '../_base/menubar';
 import { cn } from '@/lib/utils';
 
 

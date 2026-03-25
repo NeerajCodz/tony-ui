@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
-
 /**
  * Breadcrumb type variants
  */
@@ -205,3 +204,5 @@ export const BreadcrumbEllipsisBase = React.forwardRef<HTMLSpanElement, Breadcru
   )
 );
 BreadcrumbEllipsisBase.displayName = 'BreadcrumbEllipsisBase';
+
+export { Slot };

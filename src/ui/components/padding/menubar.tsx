@@ -1,5 +1,5 @@
 import * as React from "react"
-import * as MenubarPrimitive from "@radix-ui/react-menubar"
+import { MenubarPrimitive } from '../_base/menubar';
 import { Check, ChevronRight, Circle } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -20,6 +20,10 @@ const Menubar = React.forwardRef<
 Menubar.displayName = MenubarPrimitive.Root.displayName
 
 const MenubarMenu = MenubarPrimitive.Menu
+const MenubarGroup = MenubarPrimitive.Group
+const MenubarPortal = MenubarPrimitive.Portal
+const MenubarSub = MenubarPrimitive.Sub
+const MenubarRadioGroup = MenubarPrimitive.RadioGroup
 
 const MenubarTrigger = React.forwardRef<
   React.ComponentRef<typeof MenubarPrimitive.Trigger>,

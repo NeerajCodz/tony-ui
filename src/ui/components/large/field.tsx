@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot } from '../_base/field';
 import { cn } from '@/lib/utils';
 
 const Field = React.forwardRef<

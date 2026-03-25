@@ -1,15 +1,14 @@
 'use client';
 
 import React, { lazy, Suspense, useMemo } from 'react';
-import type { AnalogClockBaseProps } from '../components/_base/analog-clock';
-import type { StyleComponentType, Variant, Version } from '../types/common';
+import type { AnalogClockBaseProps, AnalogClockType } from '../components/_base/analog-clock';
+import type { Variant, Version } from '../types/common';
 import { getVariantColors } from '../core/handler-factory';
 import { loadVersionModule } from './load-version-module';
 
 export interface AnalogClockProps extends AnalogClockBaseProps {
   version?: Version;
   variant?: Variant;
-  type?: StyleComponentType;
 }
 
 const FallbackAnalogClock = React.forwardRef<SVGSVGElement, AnalogClockProps>(({ className = '', ...props }, ref) => (

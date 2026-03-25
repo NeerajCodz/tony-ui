@@ -1,15 +1,14 @@
 'use client';
 
 import React, { lazy, Suspense, useMemo } from 'react';
-import type { DigitalClockBaseProps } from '../components/_base/digital-clock';
-import type { StyleComponentType, Variant, Version } from '../types/common';
+import type { DigitalClockBaseProps, DigitalClockType } from '../components/_base/digital-clock';
+import type { Variant, Version } from '../types/common';
 import { getVariantColors } from '../core/handler-factory';
 import { loadVersionModule } from './load-version-module';
 
 export interface DigitalClockProps extends DigitalClockBaseProps {
   version?: Version;
   variant?: Variant;
-  type?: StyleComponentType;
 }
 
 const FallbackDigitalClock = React.forwardRef<HTMLDivElement, DigitalClockProps>(({ className = '', ...props }, ref) => (

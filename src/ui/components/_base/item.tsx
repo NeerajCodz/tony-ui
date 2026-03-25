@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Slot } from '@radix-ui/react-slot';
 
 /**
  * Item type variants
@@ -189,3 +190,5 @@ export const ItemActionBase = React.forwardRef<HTMLButtonElement, ItemActionBase
   (props, ref) => <button ref={ref} type="button" {...props} />
 );
 ItemActionBase.displayName = 'ItemActionBase';
+
+export { Slot };

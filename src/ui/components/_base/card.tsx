@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
-
 /**
  * Card type variants - all 15 types supported
  */
@@ -243,3 +242,5 @@ export const CardFooterBase = React.forwardRef<HTMLDivElement, CardFooterBasePro
   )
 );
 CardFooterBase.displayName = 'CardFooterBase';
+
+export { Slot };

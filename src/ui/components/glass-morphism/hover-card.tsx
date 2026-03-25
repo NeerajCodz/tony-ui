@@ -1,5 +1,5 @@
 import * as React from "react"
-import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
+import { HoverCardPrimitive } from '../_base/hover-card';
 import { cn } from "@/lib/utils"
 import { glassEffectsClass, type GlassEffects } from "./_effects"
 

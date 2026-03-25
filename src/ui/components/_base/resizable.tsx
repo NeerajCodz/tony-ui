@@ -249,3 +249,8 @@ ResizableHandleBase.displayName = 'ResizableHandleBase';
 export const ResizableBase = ResizablePanelGroupBase;
 export const ResizeHandleBase = ResizableHandleBase;
 export type ResizableBaseProps = ResizablePanelGroupBaseProps;
+
+// Compatibility aliases expected by version wrappers
+export const ResizablePanelGroup = ResizablePanelGroupBase;
+export const ResizablePanel = ResizablePanelBase;
+export const ResizableHandle = ResizableHandleBase;

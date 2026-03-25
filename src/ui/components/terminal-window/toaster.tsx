@@ -16,10 +16,11 @@ export interface ToasterProps {
 
 export function Toaster({ effects = 'on' }: ToasterProps) {
   const { toasts } = useToast();
+  const safeToasts = toasts.map(({ variant: _variant, ...toast }) => toast);
 
   return (
     <ToastProvider>
-      {toasts.map(function ({ id, title, description, action, ...props }) {
+      {safeToasts.map(function ({ id, title, description, action, ...props }) {
         return (
           <Toast key={id} {...props} effects={effects}>
             <div className='grid gap-1'>

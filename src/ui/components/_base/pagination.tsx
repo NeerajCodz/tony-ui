@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
-
 /**
  * Pagination type variants
  */
@@ -273,3 +272,5 @@ export const PaginationEllipsisBase = React.forwardRef<HTMLSpanElement, Paginati
   )
 );
 PaginationEllipsisBase.displayName = 'PaginationEllipsisBase';
+
+export { Slot };

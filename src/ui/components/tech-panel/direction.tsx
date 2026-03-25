@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
-import { Slot } from '@radix-ui/react-slot';
-
+import { Slot } from '../_base/direction';
 interface DirectionProps extends React.HTMLAttributes<HTMLDivElement> {
   direction?: 'ltr' | 'rtl';
   asChild?: boolean;

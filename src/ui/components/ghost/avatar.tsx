@@ -1,5 +1,5 @@
 import * as React from "react"
-import * as AvatarPrimitive from "@radix-ui/react-avatar"
+import { AvatarPrimitive } from '../_base/avatar';
 import { cn } from "@/lib/utils"
 import { ghostEffectsClass, type GhostEffects } from "./_effects"
 

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
-
 /**
  * Select trigger type variants
  */
@@ -233,3 +232,5 @@ export const SelectSeparatorBase = React.forwardRef<
   SelectSeparatorBaseProps
 >((props, ref) => <SelectPrimitive.Separator ref={ref} {...props} />);
 SelectSeparatorBase.displayName = 'SelectSeparatorBase';
+
+export { SelectPrimitive };

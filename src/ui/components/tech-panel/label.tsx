@@ -33,7 +33,6 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
     return (
       <LabelBase
         ref={ref}
-        visualType={visualType}
         className={cn(techPanelEffectsClass(effects), labelVariants({ visualType }), className)}
         {...props}
       />

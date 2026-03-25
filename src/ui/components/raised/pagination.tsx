@@ -48,7 +48,7 @@ const PaginationLink = ({
     aria-current={isActive ? 'page' : undefined}
     className={cn(
       buttonVariants({
-        variant: isActive ? 'default' : 'ghost',
+        visualType: isActive ? 'default' : 'ghost',
         size,
       }),
       'rounded-[4px]',
@@ -65,7 +65,7 @@ const PaginationPrevious = ({
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to previous page"
-    size="default"
+    size="md"
     className={cn('gap-1 pl-2.5 rounded-[4px] shadow-none hover:shadow-[4px_4px_0_var(--ra-shadow)] border-transparent hover:border-[var(--ra-border)] border-2', className)}
     {...props}
   >
@@ -81,7 +81,7 @@ const PaginationNext = ({
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to next page"
-    size="default"
+    size="md"
     className={cn('gap-1 pr-2.5 rounded-[4px] shadow-none hover:shadow-[4px_4px_0_var(--ra-shadow)] border-transparent hover:border-[var(--ra-border)] border-2', className)}
     {...props}
   >

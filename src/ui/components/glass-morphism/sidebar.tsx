@@ -1,8 +1,7 @@
 import * as React from "react"
 import { PanelLeft } from "lucide-react"
-import { Slot } from "@radix-ui/react-slot"
-
-import { useIsMobile } from "@/hooks/use-mobile"
+import { Slot } from '../_base/sidebar';
+import { useIsMobile } from "./use-mobile"
 import { cn } from "@/lib/utils"
 import { Button } from "./button"
 import { Sheet, SheetContent } from "./sheet"
@@ -523,8 +522,6 @@ const SidebarMenuButton = React.forwardRef<
     {
       asChild = false,
       isActive = false,
-      variant = "default",
-      size = "default",
       tooltip,
       className,
       ...props
@@ -538,12 +535,9 @@ const SidebarMenuButton = React.forwardRef<
       <Comp
         ref={ref}
         data-sidebar="menu-button"
-        data-size={size}
         data-active={isActive}
         className={cn(
           "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none ring-[var(--df-ring)] transition-[width,height,padding] hover:bg-[var(--gl-glass-bg)]/30 hover:text-[var(--df-text)] focus-visible:ring-2 active:bg-[var(--gl-glass-bg)]/50 active:text-[var(--df-text)] disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-[var(--gl-glass-bg)]/50 data-[active=true]:font-medium data-[active=true]:text-[var(--df-text)] data-[active=true]:shadow-sm data-[active=true]:backdrop-blur-sm",
-          size === "sm" && "text-xs",
-          size === "md" && "text-sm",
           "group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2",
           className
         )}

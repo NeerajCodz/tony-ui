@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot } from '../_base/sidebar';
 import { PanelLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/terminal-window/button';
@@ -290,7 +290,7 @@ const SidebarInset = React.forwardRef<
 SidebarInset.displayName = 'SidebarInset';
 
 const SidebarInput = React.forwardRef<
-  React.ComponentRef<typeof React.InputHTMLAttributes<HTMLInputElement>>,
+  HTMLInputElement,
   React.ComponentProps<'input'> & { effects?: TerminalWindowEffects }
 >(({ className, effects = 'on', ...props }, ref) => {
   return (

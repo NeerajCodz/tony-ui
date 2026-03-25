@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
-
+import { Slot } from '../_base/direction';
 const Direction = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { asChild?: boolean; dir?: 'ltr' | 'rtl' }

@@ -1,49 +1,34 @@
 import * as React from 'react';
+import { AnalogClockBase, type AnalogClockBaseProps } from '../_base/analog-clock';
 import { cn } from '@/lib/utils';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
-export interface AnalogClockProps extends React.HTMLAttributes<HTMLDivElement> {
-  time?: Date;
+export interface AnalogClockProps extends AnalogClockBaseProps {
   effects?: TerminalWindowEffects;
 }
 
-const AnalogClock = React.forwardRef<HTMLDivElement, AnalogClockProps>(
-  ({ className, time = new Date(), effects = 'on', ...props }, ref) => {
-    const seconds = time.getSeconds();
-    const minutes = time.getMinutes();
-    const hours = time.getHours();
+const sizeClasses = {
+  xs: 'w-16 h-16',
+  sm: 'w-24 h-24',
+  md: 'w-32 h-32',
+  lg: 'w-48 h-48',
+  xl: 'w-64 h-64',
+} as const;
 
-    const secondDegrees = (seconds / 60) * 360;
-    const minuteDegrees = ((minutes + seconds / 60) / 60) * 360;
-    const hourDegrees = ((hours + minutes / 60) / 12) * 360;
-
+const AnalogClock = React.forwardRef<SVGSVGElement, AnalogClockProps>(
+  ({ className, size = 'md', effects = 'on', ...props }, ref) => {
     return (
-      <div
+      <AnalogClockBase
         ref={ref}
-        className={cn(terminalWindowEffectsClass(effects), 
-          'relative flex h-32 w-32 items-center justify-center rounded-full border-2 border-[var(--tm-phosphor)] bg-[var(--tm-bg)]',
+        size={size}
+        className={cn(
+          terminalWindowEffectsClass(effects),
+          sizeClasses[size],
+          'text-[var(--tm-phosphor)] [&_[data-hand="second"]]:stroke-[var(--tm-red)]',
           className
         )}
         {...props}
-      >
-        {/* Hour Hand */}
-        <div
-          className='absolute bottom-1/2 left-1/2 h-[30%] w-1 -translate-x-1/2 origin-bottom bg-[var(--tm-phosphor)]'
-          style={{ transform: \otate(\deg)\ }}
-        />
-        {/* Minute Hand */}
-        <div
-          className='absolute bottom-1/2 left-1/2 h-[40%] w-0.5 -translate-x-1/2 origin-bottom bg-[var(--tm-phosphor)]'
-          style={{ transform: \otate(\deg)\ }}
-        />
-        {/* Second Hand */}
-        <div
-          className='absolute bottom-1/2 left-1/2 h-[45%] w-px -translate-x-1/2 origin-bottom bg-[var(--tm-red)]'
-          style={{ transform: \otate(\deg)\ }}
-        />
-        {/* Center Dot */}
-        <div className='absolute z-10 h-2 w-2 rounded-full bg-[var(--tm-phosphor)]' />
-      </div>
+      />
     );
   }
 );

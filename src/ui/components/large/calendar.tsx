@@ -23,7 +23,7 @@ function Calendar({
         caption_label: 'text-base font-semibold text-[var(--lg-text)]',
         nav: 'space-x-1 flex items-center',
         nav_button: cn(
-          buttonVariants({ variant: 'outline' }),
+          buttonVariants({ visualType: 'outline' }),
           'h-10 w-10 bg-transparent p-0 opacity-50 hover:opacity-100 rounded-xl'
         ),
         nav_button_previous: 'absolute left-1',
@@ -35,7 +35,7 @@ function Calendar({
         row: 'flex w-full mt-2',
         cell: 'h-12 w-12 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-xl [&:has([aria-selected].day-outside)]:bg-[var(--lg-accent)]/50 [&:has([aria-selected])]:bg-[var(--lg-accent)] first:[&:has([aria-selected])]:rounded-l-xl last:[&:has([aria-selected])]:rounded-r-xl focus-within:relative focus-within:z-20',
         day: cn(
-          buttonVariants({ variant: 'ghost' }),
+          buttonVariants({ visualType: 'ghost' }),
           'h-12 w-12 p-0 font-normal aria-selected:opacity-100 rounded-xl'
         ),
         day_range_end: 'day-range-end',
@@ -51,8 +51,12 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-5 w-5" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-5 w-5" />,
+        Chevron: ({ orientation }) =>
+          orientation === 'right' ? (
+            <ChevronRight className="h-5 w-5" />
+          ) : (
+            <ChevronLeft className="h-5 w-5" />
+          ),
       }}
       {...props}
     />

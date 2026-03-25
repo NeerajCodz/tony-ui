@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as SheetPrimitive from '@radix-ui/react-dialog';
+import { SheetPrimitive } from '../_base/sheet';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
@@ -29,13 +29,11 @@ SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = ({ side }: { side: 'top' | 'bottom' | 'left' | 'right' }) =>
   cn(
-    'fixed z-50 gap-4 bg-[var(--tm-bg)] p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 border-[var(--tm-phosphor)] text-[var(--tm-phosphor)]',
-    {
-      'inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm': side === 'right',
-      'inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm': side === 'left',
-      'inset-x-0 top-0 h-auto border-b': side === 'top',
-      'inset-x-0 bottom-0 h-auto border-t': side === 'bottom',
-    }
+    'fixed z-50 gap-4 bg-[var(--tm-bg)] p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 text-[var(--tm-phosphor)]',
+    side === 'right' && 'inset-y-0 right-0 h-full w-3/4 border-l border-[var(--tm-phosphor)] sm:max-w-sm',
+    side === 'left' && 'inset-y-0 left-0 h-full w-3/4 border-r border-[var(--tm-phosphor)] sm:max-w-sm',
+    side === 'top' && 'inset-x-0 top-0 h-auto border-b border-[var(--tm-phosphor)]',
+    side === 'bottom' && 'inset-x-0 bottom-0 h-auto border-t border-[var(--tm-phosphor)]'
   );
 
 interface SheetContentProps

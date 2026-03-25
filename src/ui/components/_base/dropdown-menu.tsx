@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-
 /**
  * DropdownMenu type variants
  */
@@ -390,3 +389,5 @@ export const DropdownMenuArrowBase = React.forwardRef<
   DropdownMenuArrowBaseProps
 >((props, ref) => <DropdownMenuPrimitive.Arrow ref={ref} {...props} />);
 DropdownMenuArrowBase.displayName = 'DropdownMenuArrowBase';
+
+export { DropdownMenuPrimitive };

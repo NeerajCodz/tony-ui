@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as LabelPrimitive from '@radix-ui/react-label';
-
 /**
  * Label sizes
  */
@@ -58,3 +57,5 @@ export const LabelBase = React.forwardRef<
   />
 ));
 LabelBase.displayName = 'LabelBase';
+
+export { LabelPrimitive };

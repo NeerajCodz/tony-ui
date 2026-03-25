@@ -1,0 +1,802 @@
+[
+  {
+    "File": "src/ui/components/ghost/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/ghost/calendar.tsx(58,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'."
+  },
+  {
+    "File": "src/ui/components/ghost/chart.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/ghost/chart.tsx(61,7): error TS2339: Property 'payload' does not exist on type 'Omit<Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean; allowEscapeViewBox?: AllowInDimension; ... 24 more ...; wrapperStyle?: CSSProperties; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }, \"ref\">'."
+  },
+  {
+    "File": "src/ui/components/ghost/chart.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/ghost/chart.tsx(66,7): error TS2339: Property 'label' does not exist on type 'Omit<Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean; allowEscapeViewBox?: AllowInDimension; ... 24 more ...; wrapperStyle?: CSSProperties; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }, \"ref\">'."
+  },
+  {
+    "File": "src/ui/components/ghost/chart.tsx",
+    "Code": "2344",
+    "Line": "src/ui/components/ghost/chart.tsx(111,41): error TS2344: Type '\"payload\" | \"verticalAlign\"' does not satisfy the constraint '\"string\" | \"mode\" | \"filter\" | \"values\" | \"transform\" | \"version\" | \"type\" | \"role\" | \"onClick\" | \"children\" | \"orientation\" | \"onSelect\" | \"direction\" | \"r\" | \"href\" | \"d\" | \"name\" | ... 433 more ... | \"onBBoxUpdate\"'."
+  },
+  {
+    "File": "src/ui/components/ghost/chart.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/ghost/chart.tsx(120,19): error TS2339: Property 'length' does not exist on type 'unknown'."
+  },
+  {
+    "File": "src/ui/components/ghost/chart.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/ghost/chart.tsx(133,18): error TS2339: Property 'map' does not exist on type 'unknown'."
+  },
+  {
+    "File": "src/ui/components/ghost/index.ts",
+    "Code": "2308",
+    "Line": "src/ui/components/ghost/index.ts(61,1): error TS2308: Module \"./sonner\" has already exported a member named 'Toaster'. Consider explicitly re-exporting to resolve the ambiguity."
+  },
+  {
+    "File": "src/ui/components/ghost/toaster.tsx",
+    "Code": "2305",
+    "Line": "src/ui/components/ghost/toaster.tsx(1,10): error TS2305: Module '\"./_effects\"' has no exported member 'tacticalHudEffectsClass'."
+  },
+  {
+    "File": "src/ui/components/ghost/toaster.tsx",
+    "Code": "2305",
+    "Line": "src/ui/components/ghost/toaster.tsx(1,40): error TS2305: Module '\"./_effects\"' has no exported member 'TacticalHudEffects'."
+  },
+  {
+    "File": "src/ui/components/ghost/toaster.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/ghost/toaster.tsx(42,13): error TS2322: Type 'ToastType' is not assignable to type '\"background\" | \"foreground\"'."
+  },
+  {
+    "File": "src/ui/components/ghost/typography.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/ghost/typography.tsx(38,7): error TS2339: Property 'large' does not exist on type 'JSX.IntrinsicElements'."
+  },
+  {
+    "File": "src/ui/components/ghost/typography.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/ghost/typography.tsx(38,7): error TS2339: Property 'muted' does not exist on type 'JSX.IntrinsicElements'."
+  },
+  {
+    "File": "src/ui/components/ghost/typography.tsx",
+    "Code": "2604",
+    "Line": "src/ui/components/ghost/typography.tsx(38,8): error TS2604: JSX element type 'Comp' does not have any construct or call signatures."
+  },
+  {
+    "File": "src/ui/components/glass-morphism/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/glass-morphism/calendar.tsx(52,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'."
+  },
+  {
+    "File": "src/ui/components/glass-morphism/chart.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/glass-morphism/chart.tsx(118,7): error TS2339: Property 'payload' does not exist on type 'Omit<Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean; allowEscapeViewBox?: AllowInDimension; ... 24 more ...; wrapperStyle?: CSSProperties; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }, \"ref\">'."
+  },
+  {
+    "File": "src/ui/components/glass-morphism/chart.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/glass-morphism/chart.tsx(123,7): error TS2339: Property 'label' does not exist on type 'Omit<Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean; allowEscapeViewBox?: AllowInDimension; ... 24 more ...; wrapperStyle?: CSSProperties; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }, \"ref\">'."
+  },
+  {
+    "File": "src/ui/components/glass-morphism/chart.tsx",
+    "Code": "2344",
+    "Line": "src/ui/components/glass-morphism/chart.tsx(209,41): error TS2344: Type '\"payload\" | \"verticalAlign\"' does not satisfy the constraint '\"string\" | \"mode\" | \"filter\" | \"values\" | \"transform\" | \"version\" | \"type\" | \"role\" | \"onClick\" | \"children\" | \"orientation\" | \"onSelect\" | \"direction\" | \"r\" | \"href\" | \"d\" | \"name\" | ... 433 more ... | \"onBBoxUpdate\"'."
+  },
+  {
+    "File": "src/ui/components/glass-morphism/chart.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/glass-morphism/chart.tsx(221,19): error TS2339: Property 'length' does not exist on type 'unknown'."
+  },
+  {
+    "File": "src/ui/components/glass-morphism/chart.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/glass-morphism/chart.tsx(235,18): error TS2339: Property 'map' does not exist on type 'unknown'."
+  },
+  {
+    "File": "src/ui/components/glass-morphism/index.ts",
+    "Code": "2308",
+    "Line": "src/ui/components/glass-morphism/index.ts(61,1): error TS2308: Module \"./sonner\" has already exported a member named 'Toaster'. Consider explicitly re-exporting to resolve the ambiguity."
+  },
+  {
+    "File": "src/ui/components/glass-morphism/native-select.tsx",
+    "Code": "2345",
+    "Line": "src/ui/components/glass-morphism/native-select.tsx(16,27): error TS2345: Argument of type 'false' is not assignable to parameter of type 'GlassEffects'."
+  },
+  {
+    "File": "src/ui/components/glass-morphism/navigation-menu.tsx",
+    "Code": "2552",
+    "Line": "src/ui/components/glass-morphism/navigation-menu.tsx(120,3): error TS2552: Cannot find name 'NavigationMenuItem'. Did you mean 'NavigationMenu'?"
+  },
+  {
+    "File": "src/ui/components/glass-morphism/sidebar.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/glass-morphism/sidebar.tsx(5,29): error TS2307: Cannot find module '@/hooks/use-mobile' or its corresponding type declarations."
+  },
+  {
+    "File": "src/ui/components/glass-morphism/sidebar.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/glass-morphism/sidebar.tsx(526,7): error TS2339: Property 'variant' does not exist on type 'Omit<ClassAttributes<HTMLButtonElement> & ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean; isActive?: boolean; tooltip?: string | (Omit<...> & ... 1 more ... & RefAttributes<...>); }, \"ref\">'."
+  },
+  {
+    "File": "src/ui/components/glass-morphism/sidebar.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/glass-morphism/sidebar.tsx(527,7): error TS2339: Property 'size' does not exist on type 'Omit<ClassAttributes<HTMLButtonElement> & ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean; isActive?: boolean; tooltip?"
+  },
+  {
+    "File": "src/ui/components/glass-morphism/toaster.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/glass-morphism/toaster.tsx(19,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; v"
+  },
+  {
+    "File": "src/ui/components/honey-comb/alert-dialog.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/honey-comb/alert-dialog.tsx(114,13): error TS2322: Type '{ type?: \"reset\" | \"submit\" | \"button\"; role?"
+  },
+  {
+    "File": "src/ui/components/honey-comb/alert-dialog.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/honey-comb/alert-dialog.tsx(124,13): error TS2322: Type '{ type?: \"reset\" | \"submit\" | \"button\"; role?"
+  },
+  {
+    "File": "src/ui/components/honey-comb/alert.tsx",
+    "Code": "2305",
+    "Line": "src/ui/components/honey-comb/alert.tsx(5,10): error TS2305: Module '\"./_effects\"' has no exported member 'hexGridPattern"
+  },
+  {
+    "File": "src/ui/components/honey-comb/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/honey-comb/calendar.tsx(54,9): error TS2353: Object literal may only specify known properties, and 'Ic"
+  },
+  {
+    "File": "src/ui/components/honey-comb/card.tsx",
+    "Code": "2305",
+    "Line": "src/ui/components/honey-comb/card.tsx(4,10): error TS2305: Module '\"./_effects\"' has no exported member 'hexGridPattern'"
+  },
+  {
+    "File": "src/ui/components/honey-comb/dialog.tsx",
+    "Code": "2305",
+    "Line": "src/ui/components/honey-comb/dialog.tsx(8,10): error TS2305: Module '\"./_effects\"' has no exported member 'hexGridPatter"
+  },
+  {
+    "File": "src/ui/components/honey-comb/menubar.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/honey-comb/menubar.tsx(212,3): error TS2304: Cannot find name 'MenubarRadioGroup'."
+  },
+  {
+    "File": "src/ui/components/honey-comb/menubar.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/honey-comb/menubar.tsx(214,3): error TS2304: Cannot find name 'MenubarPortal'."
+  },
+  {
+    "File": "src/ui/components/honey-comb/menubar.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/honey-comb/menubar.tsx(217,3): error TS2304: Cannot find name 'MenubarGroup'."
+  },
+  {
+    "File": "src/ui/components/honey-comb/sheet.tsx",
+    "Code": "2305",
+    "Line": "src/ui/components/honey-comb/sheet.tsx(9,10): error TS2305: Module '\"./_effects\"' has no exported member 'hexGridPattern"
+  },
+  {
+    "File": "src/ui/components/honey-comb/sidebar.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/honey-comb/sidebar.tsx(8,29): error TS2307: Cannot find module '@/hooks/use-mobile' or its correspondi"
+  },
+  {
+    "File": "src/ui/components/honey-comb/sidebar.tsx",
+    "Code": "2305",
+    "Line": "src/ui/components/honey-comb/sidebar.tsx(21,10): error TS2305: Module '\"./_effects\"' has no exported member 'hexGridPatt"
+  },
+  {
+    "File": "src/ui/components/honey-comb/toast.tsx",
+    "Code": "2305",
+    "Line": "src/ui/components/honey-comb/toast.tsx(9,10): error TS2305: Module '\"./_effects\"' has no exported member 'hexGridPattern"
+  },
+  {
+    "File": "src/ui/components/honey-comb/toaster.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/honey-comb/toaster.tsx(42,13): error TS2322: Type 'ToastType' is not assignable to type '\"background\" "
+  },
+  {
+    "File": "src/ui/components/honey-comb/toaster.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/honey-comb/toaster.tsx(45,37): error TS2322: Type '{ children: string & ReactNode; effects: TacticalHu"
+  },
+  {
+    "File": "src/ui/components/honey-comb/toaster.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/honey-comb/toaster.tsx(47,35): error TS2322: Type '{ children: string | number | bigint | true | React"
+  },
+  {
+    "File": "src/ui/components/honey-comb/toaster.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/honey-comb/toaster.tsx(51,25): error TS2322: Type '{ effects: TacticalHudEffects; }' is not assignable"
+  },
+  {
+    "File": "src/ui/components/honey-comb/toaster.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/honey-comb/toaster.tsx(55,22): error TS2322: Type '{ effects: TacticalHudEffects; }' is not assignable"
+  },
+  {
+    "File": "src/ui/components/large/alert-dialog.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/large/alert-dialog.tsx(117,24): error TS2353: Object literal may only specify known properties, and 'v"
+  },
+  {
+    "File": "src/ui/components/large/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/large/calendar.tsx(26,28): error TS2353: Object literal may only specify known properties, and 'varian"
+  },
+  {
+    "File": "src/ui/components/large/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/large/calendar.tsx(38,28): error TS2353: Object literal may only specify known properties, and 'varian"
+  },
+  {
+    "File": "src/ui/components/large/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/large/calendar.tsx(54,9): error TS2353: Object literal may only specify known properties, and 'IconLef"
+  },
+  {
+    "File": "src/ui/components/large/index.ts",
+    "Code": "2308",
+    "Line": "src/ui/components/large/index.ts(60,1): error TS2308: Module './sonner' has already exported a member named 'Toaster'. C"
+  },
+  {
+    "File": "src/ui/components/large/pagination.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/large/pagination.tsx(51,9): error TS2353: Object literal may only specify known properties, and 'varia"
+  },
+  {
+    "File": "src/ui/components/large/pagination.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/large/pagination.tsx(68,5): error TS2322: Type '\"default\"' is not assignable to type '\"md\" | \"sm\" | \"l"
+  },
+  {
+    "File": "src/ui/components/large/pagination.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/large/pagination.tsx(84,5): error TS2322: Type '\"default\"' is not assignable to type '\"md\" | \"sm\" | \"l"
+  },
+  {
+    "File": "src/ui/components/large/toaster.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/large/toaster.tsx(18,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: "
+  },
+  {
+    "File": "src/ui/components/large/toggle-group.tsx",
+    "Code": "2345",
+    "Line": "src/ui/components/large/toggle-group.tsx(28,36): error TS2345: Argument of type 'ForwardRefExoticComponent<(ToggleGroupS"
+  },
+  {
+    "File": "src/ui/components/matrix-grid/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/matrix-grid/calendar.tsx(55,9): error TS2353: Object literal may only specify known properties, and 'I"
+  },
+  {
+    "File": "src/ui/components/matrix-grid/index.ts",
+    "Code": "2308",
+    "Line": "src/ui/components/matrix-grid/index.ts(60,1): error TS2308: Module './sonner' has already exported a member named 'Toast"
+  },
+  {
+    "File": "src/ui/components/matrix-grid/sonner.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/matrix-grid/sonner.tsx(1,26): error TS2307: Cannot find module 'next-themes' or its corresponding type"
+  },
+  {
+    "File": "src/ui/components/matrix-grid/toaster.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/matrix-grid/toaster.tsx(18,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; vari"
+  },
+  {
+    "File": "src/ui/components/matrix-grid/toggle-group.tsx",
+    "Code": "2345",
+    "Line": "src/ui/components/matrix-grid/toggle-group.tsx(29,36): error TS2345: Argument of type 'ForwardRefExoticComponent<(Toggle"
+  },
+  {
+    "File": "src/ui/components/neon/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/neon/calendar.tsx(55,9): error TS2353: Object literal may only specify known properties, and 'IconLeft"
+  },
+  {
+    "File": "src/ui/components/neon/index.ts",
+    "Code": "2308",
+    "Line": "src/ui/components/neon/index.ts(60,1): error TS2308: Module './sonner' has already exported a member named 'Toaster'. Co"
+  },
+  {
+    "File": "src/ui/components/neon/menubar.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/neon/menubar.tsx(206,3): error TS2304: Cannot find name 'MenubarLabel'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(123,3): error TS2300: Duplicate identifier 'navigationMenuTriggerStyle'.     "
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(124,3): error TS2300: Duplicate identifier 'NavigationMenu'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(125,3): error TS2300: Duplicate identifier 'NavigationMenuList'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(126,3): error TS2300: Duplicate identifier 'NavigationMenuItem'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(127,3): error TS2300: Duplicate identifier 'NavigationMenuContent'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(128,3): error TS2300: Duplicate identifier 'NavigationMenuTrigger'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(129,3): error TS2300: Duplicate identifier 'NavigationMenuLink'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(130,3): error TS2300: Duplicate identifier 'NavigationMenuIndicator'.        "
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(131,3): error TS2300: Duplicate identifier 'NavigationMenuViewport'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(132,8): error TS2307: Cannot find module './navigation-menu-exports' or its c"
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(136,3): error TS2300: Duplicate identifier 'navigationMenuTriggerStyle'.     "
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(137,3): error TS2300: Duplicate identifier 'NavigationMenu'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(138,3): error TS2300: Duplicate identifier 'NavigationMenuList'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(139,3): error TS2300: Duplicate identifier 'NavigationMenuContent'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(140,3): error TS2300: Duplicate identifier 'NavigationMenuTrigger'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(141,3): error TS2300: Duplicate identifier 'NavigationMenuLink'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(142,3): error TS2300: Duplicate identifier 'NavigationMenuIndicator'.        "
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(143,3): error TS2300: Duplicate identifier 'NavigationMenuViewport'."
+  },
+  {
+    "File": "src/ui/components/neon/navigation-menu.tsx",
+    "Code": "2300",
+    "Line": "src/ui/components/neon/navigation-menu.tsx(147,10): error TS2300: Duplicate identifier 'NavigationMenuItem'."
+  },
+  {
+    "File": "src/ui/components/neon/sonner.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/neon/sonner.tsx(1,26): error TS2307: Cannot find module 'next-themes' or its corresponding type declar"
+  },
+  {
+    "File": "src/ui/components/neon/toaster.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/neon/toaster.tsx(18,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: T"
+  },
+  {
+    "File": "src/ui/components/padding/analog-clock.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/padding/analog-clock.tsx(3,45): error TS2307: Cannot find module '../_shared/family-foundations' or it"
+  },
+  {
+    "File": "src/ui/components/padding/button-group.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/padding/button-group.tsx(5,55): error TS2307: Cannot find module '../_shared/basic-surfaces' or its co"
+  },
+  {
+    "File": "src/ui/components/padding/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/padding/calendar.tsx(55,9): error TS2353: Object literal may only specify known properties, and 'IconL"
+  },
+  {
+    "File": "src/ui/components/padding/chart.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/padding/chart.tsx(4,35): error TS2307: Cannot find module '@/lib/recharts' or its corresponding type d"
+  },
+  {
+    "File": "src/ui/components/padding/chart.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/padding/chart.tsx(83,20): error TS2304: Cannot find name 'cn'."
+  },
+  {
+    "File": "src/ui/components/padding/chart.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/padding/chart.tsx(168,27): error TS2304: Cannot find name 'cn'."
+  },
+  {
+    "File": "src/ui/components/padding/chart.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/padding/chart.tsx(175,25): error TS2304: Cannot find name 'cn'."
+  },
+  {
+    "File": "src/ui/components/padding/chart.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/padding/chart.tsx(195,20): error TS2304: Cannot find name 'cn'."
+  },
+  {
+    "File": "src/ui/components/padding/chart.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/padding/chart.tsx(210,28): error TS2304: Cannot find name 'cn'."
+  },
+  {
+    "File": "src/ui/components/padding/chart.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/padding/chart.tsx(224,38): error TS2304: Cannot find name 'cn'."
+  },
+  {
+    "File": "src/ui/components/padding/chart.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/padding/chart.tsx(244,34): error TS2304: Cannot find name 'cn'."
+  },
+  {
+    "File": "src/ui/components/padding/chart.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/padding/chart.tsx(296,20): error TS2304: Cannot find name 'cn'."
+  },
+  {
+    "File": "src/ui/components/padding/chart.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/padding/chart.tsx(309,26): error TS2304: Cannot find name 'cn'."
+  },
+  {
+    "File": "src/ui/components/padding/digital-clock.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/padding/digital-clock.tsx(3,46): error TS2307: Cannot find module '../_shared/family-foundations' or i"
+  },
+  {
+    "File": "src/ui/components/padding/direction.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/padding/direction.tsx(5,55): error TS2307: Cannot find module '../_shared/basic-surfaces' or its corre"
+  },
+  {
+    "File": "src/ui/components/padding/icon-button.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/padding/icon-button.tsx(3,44): error TS2307: Cannot find module '../_shared/family-foundations' or its"
+  },
+  {
+    "File": "src/ui/components/padding/index.ts",
+    "Code": "2308",
+    "Line": "src/ui/components/padding/index.ts(30,1): error TS2308: Module \"./chart\" has already exported a member named 'Label'. Co"
+  },
+  {
+    "File": "src/ui/components/padding/index.ts",
+    "Code": "2308",
+    "Line": "src/ui/components/padding/index.ts(55,1): error TS2308: Module \"./chart\" has already exported a member named 'Tooltip'. "
+  },
+  {
+    "File": "src/ui/components/padding/input-group.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/padding/input-group.tsx(11,55): error TS2307: Cannot find module '../_shared/basic-surfaces' or its co"
+  },
+  {
+    "File": "src/ui/components/padding/input-otp.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/padding/input-otp.tsx(3,42): error TS2307: Cannot find module '../_shared/family-foundations' or its c"
+  },
+  {
+    "File": "src/ui/components/padding/menubar.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/padding/menubar.tsx(213,3): error TS2304: Cannot find name 'MenubarRadioGroup'."
+  },
+  {
+    "File": "src/ui/components/padding/menubar.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/padding/menubar.tsx(215,3): error TS2304: Cannot find name 'MenubarPortal'."
+  },
+  {
+    "File": "src/ui/components/padding/menubar.tsx",
+    "Code": "2304",
+    "Line": "src/ui/components/padding/menubar.tsx(218,3): error TS2304: Cannot find name 'MenubarGroup'."
+  },
+  {
+    "File": "src/ui/components/padding/menubar.tsx",
+    "Code": "2552",
+    "Line": "src/ui/components/padding/menubar.tsx(219,3): error TS2552: Cannot find name 'MenubarSub'. Did you mean 'Menubar'?      "
+  },
+  {
+    "File": "src/ui/components/padding/sonner.tsx",
+    "Code": "2307",
+    "Line": "src/ui/components/padding/sonner.tsx(3,26): error TS2307: Cannot find module 'next-themes' or its corresponding type dec"
+  },
+  {
+    "File": "src/ui/components/raised/alert-dialog.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/raised/alert-dialog.tsx(117,24): error TS2353: Object literal may only specify known properties, and '"
+  },
+  {
+    "File": "src/ui/components/raised/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/raised/calendar.tsx(26,28): error TS2353: Object literal may only specify known properties, and 'varia"
+  },
+  {
+    "File": "src/ui/components/raised/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/raised/calendar.tsx(38,28): error TS2353: Object literal may only specify known properties, and 'varia"
+  },
+  {
+    "File": "src/ui/components/raised/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/raised/calendar.tsx(54,9): error TS2353: Object literal may only specify known properties, and 'IconLe"
+  },
+  {
+    "File": "src/ui/components/raised/index.ts",
+    "Code": "2308",
+    "Line": "src/ui/components/raised/index.ts(60,1): error TS2308: Module './sonner' has already exported a member named 'Toaster'. "
+  },
+  {
+    "File": "src/ui/components/raised/pagination.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/raised/pagination.tsx(51,9): error TS2353: Object literal may only specify known properties, and 'vari"
+  },
+  {
+    "File": "src/ui/components/raised/pagination.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/raised/pagination.tsx(68,5): error TS2322: Type '\"default\"' is not assignable to type '\"md\" | \"sm\" | \""
+  },
+  {
+    "File": "src/ui/components/raised/pagination.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/raised/pagination.tsx(84,5): error TS2322: Type '\"default\"' is not assignable to type '\"md\" | \"sm\" | \""
+  },
+  {
+    "File": "src/ui/components/raised/toaster.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/raised/toaster.tsx(18,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?:"
+  },
+  {
+    "File": "src/ui/components/raised/toggle-group.tsx",
+    "Code": "2345",
+    "Line": "src/ui/components/raised/toggle-group.tsx(28,36): error TS2345: Argument of type 'ForwardRefExoticComponent<(ToggleGroup"
+  },
+  {
+    "File": "src/ui/components/tech-panel/badge.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/tech-panel/badge.tsx(36,9): error TS2322: Type '{ type?: BadgeType; size?: BadgeSize; variant?: string"
+  },
+  {
+    "File": "src/ui/components/tech-panel/button.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/tech-panel/button.tsx(47,9): error TS2322: Type '\"default\" | \"link\" | \"destructive\" | \"ghost\" | \"solid"
+  },
+  {
+    "File": "src/ui/components/tech-panel/card.tsx",
+    "Code": "2305",
+    "Line": "src/ui/components/tech-panel/card.tsx(4,56): error TS2305: Module '\"./_effects\"' has no exported member 'TechPanelPowerL"
+  },
+  {
+    "File": "src/ui/components/tech-panel/card.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/tech-panel/card.tsx(40,9): error TS2322: Type '{ children: (ReactNode | Element)[]; type?: CardType; s"
+  },
+  {
+    "File": "src/ui/components/tech-panel/input.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/tech-panel/input.tsx(43,9): error TS2322: Type '\"default\" | \"ghost\" | \"solid\" | \"outline\" | \"soft\" | \""
+  },
+  {
+    "File": "src/ui/components/tech-panel/label.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/tech-panel/label.tsx(36,9): error TS2322: Type '{ invalid?: boolean; size?: LabelSize; role?: AriaRole"
+  },
+  {
+    "File": "src/ui/components/tech-panel/separator.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/tech-panel/separator.tsx(41,9): error TS2322: Type '{ role?: AriaRole; onClick?: MouseEventHandler<HTM"
+  },
+  {
+    "File": "src/ui/components/terminal-window/alert-dialog.tsx",
+    "Code": "2305",
+    "Line": "src/ui/components/terminal-window/alert-dialog.tsx(4,10): error TS2305: Module '\"@/ui/components/terminal-window/button\""
+  },
+  {
+    "File": "src/ui/components/terminal-window/button.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/terminal-window/button.tsx(38,70): error TS2339: Property 'isLoading' does not exist on type 'ButtonPr"
+  },
+  {
+    "File": "src/ui/components/terminal-window/calendar.tsx",
+    "Code": "2305",
+    "Line": "src/ui/components/terminal-window/calendar.tsx(5,10): error TS2305: Module '\"@/ui/components/_base/button\"' has no expor"
+  },
+  {
+    "File": "src/ui/components/terminal-window/calendar.tsx",
+    "Code": "2353",
+    "Line": "src/ui/components/terminal-window/calendar.tsx(56,9): error TS2353: Object literal may only specify known properties, an"
+  },
+  {
+    "File": "src/ui/components/terminal-window/carousel.tsx",
+    "Code": "2345",
+    "Line": "src/ui/components/terminal-window/carousel.tsx(66,7): error TS2345: Argument of type 'CreatePluginType<LoosePluginType, "
+  },
+  {
+    "File": "src/ui/components/terminal-window/chart.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/terminal-window/chart.tsx(73,33): error TS2339: Property 'payload' does not exist on type 'TooltipProp"
+  },
+  {
+    "File": "src/ui/components/terminal-window/chart.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/terminal-window/chart.tsx(73,42): error TS2339: Property 'label' does not exist on type 'TooltipProps<"
+  },
+  {
+    "File": "src/ui/components/terminal-window/navigation-menu.tsx",
+    "Code": "2552",
+    "Line": "src/ui/components/terminal-window/navigation-menu.tsx(115,3): error TS2552: Cannot find name 'NavigationMenuItem'. Did y"
+  },
+  {
+    "File": "src/ui/components/terminal-window/pagination.tsx",
+    "Code": "2305",
+    "Line": "src/ui/components/terminal-window/pagination.tsx(4,23): error TS2305: Module '\"@/ui/components/terminal-window/button\"' "
+  },
+  {
+    "File": "src/ui/components/terminal-window/pagination.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/terminal-window/pagination.tsx(72,5): error TS2322: Type '\"default\"' is not assignable to type 'Button"
+  },
+  {
+    "File": "src/ui/components/terminal-window/pagination.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/terminal-window/pagination.tsx(89,5): error TS2322: Type '\"default\"' is not assignable to type 'Button"
+  },
+  {
+    "File": "src/ui/components/terminal-window/separator.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/terminal-window/separator.tsx(9,45): error TS2339: Property 'decorator' does not exist on type 'Omit<S"
+  },
+  {
+    "File": "src/ui/components/terminal-window/sheet.tsx",
+    "Code": "2345",
+    "Line": "src/ui/components/terminal-window/sheet.tsx(33,5): error TS2345: Argument of type '{ 'inset-y-0 right-0 h-full w-3/4 bor"
+  },
+  {
+    "File": "src/ui/components/terminal-window/sidebar.tsx",
+    "Code": "2339",
+    "Line": "src/ui/components/terminal-window/sidebar.tsx(293,35): error TS2339: Property 'InputHTMLAttributes' does not exist on ty"
+  },
+  {
+    "File": "src/ui/components/terminal-window/toaster.tsx",
+    "Code": "2322",
+    "Line": "src/ui/components/terminal-window/toaster.tsx(24,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; "
+  },
+  {
+    "File": "src/ui/handlers/analog-clock.tsx",
+    "Code": "2430",
+    "Line": "src/ui/handlers/analog-clock.tsx(9,18): error TS2430: Interface 'AnalogClockProps' incorrectly extends interface 'Analog"
+  },
+  {
+    "File": "src/ui/handlers/digital-clock.tsx",
+    "Code": "2430",
+    "Line": "src/ui/handlers/digital-clock.tsx(9,18): error TS2430: Interface 'DigitalClockProps' incorrectly extends interface 'Digi"
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(48,10): error TS2305: Module '\"./components/default/chart\"' has no exported member 'default'."
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(49,10): error TS2305: Module '\"./components/default/command\"' has no exported member 'default'."
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(50,10): error TS2305: Module '\"./components/default/combobox\"' has no exported member 'default'.        "
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(51,10): error TS2305: Module '\"./components/default/context-menu\"' has no exported member 'default'.    "
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(52,10): error TS2305: Module '\"./components/default/date-picker\"' has no exported member 'default'.     "
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(53,10): error TS2305: Module '\"./components/default/direction\"' has no exported member 'default'.       "
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(54,10): error TS2305: Module '\"./components/default/empty\"' has no exported member 'default'."
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(55,10): error TS2305: Module '\"./components/default/field\"' has no exported member 'default'."
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(57,10): error TS2305: Module '\"./components/default/icon-button\"' has no exported member 'default'.     "
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(58,10): error TS2305: Module '\"./components/default/input-group\"' has no exported member 'default'.     "
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(60,10): error TS2305: Module '\"./components/default/item\"' has no exported member 'default'."
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(61,10): error TS2305: Module '\"./components/default/kbd\"' has no exported member 'default'."
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(63,10): error TS2305: Module '\"./components/default/sidebar\"' has no exported member 'default'."
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(66,10): error TS2305: Module '\"./components/default/switch\"' has no exported member 'default'."
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(67,10): error TS2305: Module '\"./components/default/textarea\"' has no exported member 'default'.        "
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(68,10): error TS2305: Module '\"./components/default/toggle\"' has no exported member 'default'."
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2724",
+    "Line": "src/ui/index.ts(73,3): error TS2724: '\"./components/default/navigation-menu\"' has no exported member named 'NavigationMe"
+  },
+  {
+    "File": "src/ui/index.ts",
+    "Code": "2305",
+    "Line": "src/ui/index.ts(84,3): error TS2305: Module '\"./components/default/menubar\"' has no exported member 'MenubarRoot'.      "
+  }
+]

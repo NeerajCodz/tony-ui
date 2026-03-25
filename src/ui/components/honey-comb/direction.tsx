@@ -1,7 +1,6 @@
 import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
 import * as React from 'react';
-import * as DirectionPrimitive from '@radix-ui/react-direction';
-
+import { DirectionPrimitive } from '../_base/direction';
 type DirectionProviderProps = React.ComponentPropsWithoutRef<typeof DirectionPrimitive.Provider> & {
   effects?: TacticalHudEffects;
 };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
+import { CollapsiblePrimitive } from '../_base/collapsible';
 import { cn } from '@/lib/utils';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 

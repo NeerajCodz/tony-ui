@@ -14,8 +14,7 @@ import {
 } from '../_base/select';
 import { cn } from '@/lib/utils';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react';
-import * as SelectPrimitive from '@radix-ui/react-select';
-
+import { SelectPrimitive } from '../_base/select';
 export const Select = SelectBase;
 
 export const SelectGroup = SelectGroupBase;

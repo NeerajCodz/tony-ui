@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
-
 /**
  * Tabs trigger type variants
  */
@@ -168,3 +167,5 @@ export const TabsContentBase = React.forwardRef<
   TabsContentBaseProps
 >((props, ref) => <TabsPrimitive.Content ref={ref} {...props} />);
 TabsContentBase.displayName = 'TabsContentBase';
+
+export { TabsPrimitive };

@@ -1,4 +1,4 @@
-import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
+import { honeyCombEffectsClass, type HoneyCombEffects } from './_effects';
 import * as React from 'react';
 import {
   Toast,
@@ -11,16 +11,17 @@ import {
 import { useToast } from '@/ui/hooks/use-toast';
 
 export interface ToasterProps {
-  effects?: TacticalHudEffects;
+  effects?: HoneyCombEffects;
 }
 
 export function Toaster({ effects = 'on' }: ToasterProps) {
   const { toasts } = useToast();
+  const safeToasts = toasts.map(({ variant: _variant, ...toast }) => toast);
 
   return (
-    <div className={tacticalHudEffectsClass(effects)}>
+    <div className={honeyCombEffectsClass(effects)}>
       <ToastProvider>
-      {toasts.map(function ({
+      {safeToasts.map(function ({
         id,
         title,
         description,
@@ -28,31 +29,28 @@ export function Toaster({ effects = 'on' }: ToasterProps) {
         open,
         onOpenChange,
         duration,
-        variant,
         type,
       }) {
         return (
           <Toast
             key={id}
-            effects={effects}
             open={open}
             onOpenChange={onOpenChange}
             duration={duration}
-            variant={variant === 'destructive' ? 'destructive' : 'default'}
             type={type}
           >
             <div className="grid gap-1">
-              {title && <ToastTitle effects={effects}>{title}</ToastTitle>}
+              {title && <ToastTitle>{title}</ToastTitle>}
               {description && (
-                <ToastDescription effects={effects}>{description}</ToastDescription>
+                <ToastDescription>{description}</ToastDescription>
               )}
             </div>
             {action}
-            <ToastClose effects={effects} />
+            <ToastClose />
           </Toast>
         );
       })}
-      <ToastViewport effects={effects} />
+      <ToastViewport />
       </ToastProvider>
     </div>
   );

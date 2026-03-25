@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
+import { NavigationMenuPrimitive } from '../_base/navigation-menu';
 import { cva } from 'class-variance-authority';
-import { ChevronDownIcon } from '@radix-ui/react-icons';
+import { ChevronDownIcon } from '../_base/navigation-menu';
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from './_effects';
 

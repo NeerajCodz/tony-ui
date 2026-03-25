@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { ButtonProps, buttonVariants } from '@/ui/components/terminal-window/button';
+import { type ButtonProps, buttonVariants } from './button';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
 const Pagination = ({ className, effects = 'on', ...props }: React.ComponentProps<'nav'> & { effects?: TerminalWindowEffects }) => (
@@ -69,7 +69,7 @@ const PaginationPrevious = ({
 }: React.ComponentProps<typeof PaginationLink> & { effects?: TerminalWindowEffects }) => (
   <PaginationLink
     aria-label='Go to previous page'
-    size='default'
+    size='md'
     className={cn(terminalWindowEffectsClass(effects), 'gap-1 pl-2.5', className)}
     {...props}
   >
@@ -86,7 +86,7 @@ const PaginationNext = ({
 }: React.ComponentProps<typeof PaginationLink> & { effects?: TerminalWindowEffects }) => (
   <PaginationLink
     aria-label='Go to next page'
-    size='default'
+    size='md'
     className={cn(terminalWindowEffectsClass(effects), 'gap-1 pr-2.5', className)}
     {...props}
   >

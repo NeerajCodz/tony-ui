@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as SliderPrimitive from '@radix-ui/react-slider';
+import { SliderPrimitive } from '../_base/slider';
 import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 

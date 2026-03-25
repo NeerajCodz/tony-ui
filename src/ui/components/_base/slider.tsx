@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as SliderPrimitive from '@radix-ui/react-slider';
-
 /**
  * Slider sizes
  * | Size | Track Height | Thumb Size |
@@ -117,3 +116,5 @@ export const SliderThumbBase = React.forwardRef<
   SliderThumbBaseProps
 >((props, ref) => <SliderPrimitive.Thumb ref={ref} {...props} />);
 SliderThumbBase.displayName = 'SliderThumbBase';
+
+export { SliderPrimitive };

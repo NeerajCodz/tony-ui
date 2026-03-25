@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
-
 /**
  * HoverCard type variants
  */
@@ -150,3 +149,5 @@ export const HoverCardArrowBase = React.forwardRef<
   HoverCardArrowBaseProps
 >((props, ref) => <HoverCardPrimitive.Arrow ref={ref} {...props} />);
 HoverCardArrowBase.displayName = 'HoverCardArrowBase';
+
+export { HoverCardPrimitive };

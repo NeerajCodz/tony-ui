@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as SeparatorPrimitive from '@radix-ui/react-separator';
-
 export interface SeparatorBaseProps
   extends React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> {
   /**
@@ -47,3 +46,5 @@ export const SeparatorBase = React.forwardRef<
   />
 ));
 SeparatorBase.displayName = 'SeparatorBase';
+
+export { SeparatorPrimitive };

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
-
 /**
  * Tooltip sizes
  * sm: max-width 200px (compact)
@@ -129,3 +128,5 @@ TooltipArrowBase.displayName = 'TooltipArrowBase';
 // ============================================================================
 
 export const TooltipPortalBase = TooltipPrimitive.Portal;
+
+export { TooltipPrimitive };

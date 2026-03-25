@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
-
 /**
  * Collapsible type variants
  */
@@ -107,3 +106,5 @@ export const CollapsibleContentBase = React.forwardRef<
   CollapsibleContentBaseProps
 >((props, ref) => <CollapsiblePrimitive.Content ref={ref} {...props} />);
 CollapsibleContentBase.displayName = 'CollapsibleContentBase';
+
+export { CollapsiblePrimitive };

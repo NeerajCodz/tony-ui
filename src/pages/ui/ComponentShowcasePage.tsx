@@ -378,7 +378,6 @@ function renderSample(
     case 'toast':
       const toastProps = {
         version,
-        type: controls.type,
       } as const;
       return (
         <UI.ToastProvider>

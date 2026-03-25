@@ -33,7 +33,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     return (
       <BadgeBase
         ref={ref}
-        visualType={visualType}
+        type={visualType}
         className={cn(
           techPanelEffectsClass(effects),
           badgeVariants({ visualType }),

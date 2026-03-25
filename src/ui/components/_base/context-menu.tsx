@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
-
 /**
  * ContextMenu type variants
  */
@@ -361,3 +360,5 @@ export const ContextMenuShortcutBase = React.forwardRef<
   ContextMenuShortcutBaseProps
 >((props, ref) => <span ref={ref} {...props} />);
 ContextMenuShortcutBase.displayName = 'ContextMenuShortcutBase';
+
+export { ContextMenuPrimitive };

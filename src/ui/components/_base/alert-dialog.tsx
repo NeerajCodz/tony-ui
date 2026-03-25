@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
-
 /**
  * AlertDialog type variants
  */
@@ -253,3 +252,5 @@ export const AlertDialogCancelBase = React.forwardRef<
   AlertDialogCancelBaseProps
 >((props, ref) => <AlertDialogPrimitive.Cancel ref={ref} {...props} />);
 AlertDialogCancelBase.displayName = 'AlertDialogCancelBase';
+
+export { AlertDialogPrimitive };

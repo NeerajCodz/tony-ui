@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as AccordionPrimitive from '@radix-ui/react-accordion';
+import { AccordionPrimitive } from '../_base/accordion';
 import { 
   AccordionBase, 
   AccordionItemBase, 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ProgressPrimitive from '@radix-ui/react-progress';
+import { ProgressPrimitive } from '../_base/progress';
 import { cn } from '@/lib/utils';
 import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 

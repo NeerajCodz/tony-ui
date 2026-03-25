@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Slot } from '@radix-ui/react-slot';
 
 /**
  * Sidebar type variants
@@ -526,3 +527,4 @@ SidebarSeparatorBase.displayName = 'SidebarSeparatorBase';
 // Legacy alias
 export const SidebarItemBase = SidebarMenuItemBase;
 export type SidebarItemBaseProps = SidebarMenuItemBaseProps;
+export { Slot };

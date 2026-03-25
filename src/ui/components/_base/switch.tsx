@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
-
 /**
  * Switch sizes
  * | Size | Track W×H | Thumb  |
@@ -80,3 +79,6 @@ export const SwitchThumbBase = React.forwardRef<
   SwitchThumbBaseProps
 >((props, ref) => <SwitchPrimitive.Thumb ref={ref} {...props} />);
 SwitchThumbBase.displayName = 'SwitchThumbBase';
+
+export { SwitchPrimitive };
+export const SwitchPrimitives = SwitchPrimitive;

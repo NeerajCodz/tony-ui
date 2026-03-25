@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as SheetPrimitive from '@radix-ui/react-dialog';
-
 /**
  * Sheet type variants
  */
@@ -234,3 +233,5 @@ export const SheetFooterBase = React.forwardRef<HTMLDivElement, SheetFooterBaseP
   (props, ref) => <div ref={ref} {...props} />
 );
 SheetFooterBase.displayName = 'SheetFooterBase';
+
+export { SheetPrimitive };

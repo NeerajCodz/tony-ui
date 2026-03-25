@@ -1,0 +1,231 @@
+src/ui/components/angular-corner/toast.tsx(51,7): error TS2322: Type '"foreground" | "background"' is not assignable to type 'ToastType'.
+  Type '"foreground"' is not assignable to type 'ToastType'.
+src/ui/components/compact/toast.tsx(49,7): error TS2322: Type '"foreground" | "background"' is not assignable to type 'ToastType'.
+  Type '"foreground"' is not assignable to type 'ToastType'.
+src/ui/components/data-panel/toast.tsx(50,7): error TS2322: Type '"foreground" | "background"' is not assignable to type 'ToastType'.
+  Type '"foreground"' is not assignable to type 'ToastType'.
+src/ui/components/energy-shield/toast.tsx(51,7): error TS2322: Type '"foreground" | "background"' is not assignable to type 'ToastType'.
+  Type '"foreground"' is not assignable to type 'ToastType'.
+src/ui/components/ghost/calendar.tsx(58,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/ui/components/ghost/chart.tsx(61,7): error TS2339: Property 'payload' does not exist on type 'Omit<Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean; allowEscapeViewBox?: AllowInDimension; ... 24 more ...; wrapperStyle?: CSSProperties; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }, "ref">'.
+src/ui/components/ghost/chart.tsx(66,7): error TS2339: Property 'label' does not exist on type 'Omit<Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean; allowEscapeViewBox?: AllowInDimension; ... 24 more ...; wrapperStyle?: CSSProperties; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }, "ref">'.
+src/ui/components/ghost/chart.tsx(111,41): error TS2344: Type '"payload" | "verticalAlign"' does not satisfy the constraint '"string" | "mode" | "filter" | "values" | "transform" | "version" | "d" | "type" | "role" | "className" | "local" | "onClick" | "children" | "orientation" | "onSelect" | "direction" | ... 434 more ... | "onBBoxUpdate"'.
+  Type '"payload"' is not assignable to type '"string" | "mode" | "filter" | "values" | "transform" | "version" | "d" | "type" | "role" | "className" | "local" | "onClick" | "children" | "orientation" | "onSelect" | "direction" | ... 434 more ... | "onBBoxUpdate"'.
+src/ui/components/ghost/chart.tsx(120,19): error TS2339: Property 'length' does not exist on type 'unknown'.
+src/ui/components/ghost/chart.tsx(133,18): error TS2339: Property 'map' does not exist on type 'unknown'.
+src/ui/components/ghost/index.ts(61,1): error TS2308: Module "./sonner" has already exported a member named 'Toaster'. Consider explicitly re-exporting to resolve the ambiguity.
+src/ui/components/ghost/resizable.tsx(9,51): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/ghost/resizable.tsx(10,23): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/ghost/resizable.tsx(25,51): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/ghost/resizable.tsx(28,23): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/ghost/resizable.tsx(40,24): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/ghost/toaster.tsx(1,10): error TS2305: Module '"./_effects"' has no exported member 'tacticalHudEffectsClass'.
+src/ui/components/ghost/toaster.tsx(1,40): error TS2305: Module '"./_effects"' has no exported member 'TacticalHudEffects'.
+src/ui/components/ghost/typography.tsx(38,7): error TS2339: Property 'large' does not exist on type 'JSX.IntrinsicElements'.
+src/ui/components/ghost/typography.tsx(38,7): error TS2339: Property 'muted' does not exist on type 'JSX.IntrinsicElements'.
+src/ui/components/ghost/typography.tsx(38,8): error TS2604: JSX element type 'Comp' does not have any construct or call signatures.
+src/ui/components/glass-morphism/calendar.tsx(52,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/ui/components/glass-morphism/chart.tsx(118,7): error TS2339: Property 'payload' does not exist on type 'Omit<Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean; allowEscapeViewBox?: AllowInDimension; ... 24 more ...; wrapperStyle?: CSSProperties; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }, "ref">'.
+src/ui/components/glass-morphism/chart.tsx(123,7): error TS2339: Property 'label' does not exist on type 'Omit<Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean; allowEscapeViewBox?: AllowInDimension; ... 24 more ...; wrapperStyle?: CSSProperties; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }, "ref">'.
+src/ui/components/glass-morphism/chart.tsx(209,41): error TS2344: Type '"payload" | "verticalAlign"' does not satisfy the constraint '"string" | "mode" | "filter" | "values" | "transform" | "version" | "d" | "type" | "role" | "className" | "local" | "onClick" | "children" | "orientation" | "onSelect" | "direction" | ... 434 more ... | "onBBoxUpdate"'.
+  Type '"payload"' is not assignable to type '"string" | "mode" | "filter" | "values" | "transform" | "version" | "d" | "type" | "role" | "className" | "local" | "onClick" | "children" | "orientation" | "onSelect" | "direction" | ... 434 more ... | "onBBoxUpdate"'.
+src/ui/components/glass-morphism/chart.tsx(221,19): error TS2339: Property 'length' does not exist on type 'unknown'.
+src/ui/components/glass-morphism/chart.tsx(235,18): error TS2339: Property 'map' does not exist on type 'unknown'.
+src/ui/components/glass-morphism/index.ts(61,1): error TS2308: Module "./sonner" has already exported a member named 'Toaster'. Consider explicitly re-exporting to resolve the ambiguity.
+src/ui/components/glass-morphism/native-select.tsx(16,27): error TS2345: Argument of type 'false' is not assignable to parameter of type 'GlassEffects'.
+src/ui/components/glass-morphism/navigation-menu.tsx(120,3): error TS2552: Cannot find name 'NavigationMenuItem'. Did you mean 'NavigationMenu'?
+src/ui/components/glass-morphism/resizable.tsx(10,51): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/glass-morphism/resizable.tsx(11,23): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/glass-morphism/resizable.tsx(26,51): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/glass-morphism/resizable.tsx(29,23): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/glass-morphism/resizable.tsx(41,24): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/glass-morphism/sidebar.tsx(4,29): error TS2307: Cannot find module '@/hooks/use-mobile' or its corresponding type declarations.
+src/ui/components/glass-morphism/sidebar.tsx(525,7): error TS2339: Property 'variant' does not exist on type 'Omit<ClassAttributes<HTMLButtonElement> & ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean; isActive?: boolean; tooltip?: string | (Omit<...> & ... 1 more ... & RefAttributes<...>); }, "ref">'.
+src/ui/components/glass-morphism/sidebar.tsx(526,7): error TS2339: Property 'size' does not exist on type 'Omit<ClassAttributes<HTMLButtonElement> & ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean; isActive?: boolean; tooltip?: string | (Omit<...> & ... 1 more ... & RefAttributes<...>); }, "ref">'.
+src/ui/components/glass-morphism/toaster.tsx(19,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: ToastVariant; type?: ToastType; duration?: number; open?: boolean; onOpenChange?: (open: boolean) => void; ... 275 more ...; key: string; }' is not assignable to type 'VariantProps<(props?: ConfigVariants<{ variant: { default: string; destructive: string; }; }> & ClassProp) => string>'.
+  Types of property 'variant' are incompatible.
+    Type 'ToastVariant' is not assignable to type '"default" | "destructive"'.
+      Type '"error"' is not assignable to type '"default" | "destructive"'.
+src/ui/components/holo-frame/toast.tsx(50,7): error TS2322: Type '"foreground" | "background"' is not assignable to type 'ToastType'.
+  Type '"foreground"' is not assignable to type 'ToastType'.
+src/ui/components/honey-comb/alert-dialog.tsx(114,13): error TS2322: Type '{ type?: "reset" | "submit" | "button"; role?: AriaRole; onClick?: MouseEventHandler<HTMLButtonElement>; asChild?: boolean; children?: ReactNode; ... 285 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & ButtonProps & RefAttributes<HTMLButtonElement>'.
+  Property 'visualType' does not exist on type 'IntrinsicAttributes & ButtonProps & RefAttributes<HTMLButtonElement>'.
+src/ui/components/honey-comb/alert-dialog.tsx(124,13): error TS2322: Type '{ type?: "reset" | "submit" | "button"; role?: AriaRole; onClick?: MouseEventHandler<HTMLButtonElement>; asChild?: boolean; children?: ReactNode; ... 285 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & ButtonProps & RefAttributes<HTMLButtonElement>'.
+  Property 'visualType' does not exist on type 'IntrinsicAttributes & ButtonProps & RefAttributes<HTMLButtonElement>'.
+src/ui/components/honey-comb/alert.tsx(5,10): error TS2305: Module '"./_effects"' has no exported member 'hexGridPattern'.
+src/ui/components/honey-comb/calendar.tsx(54,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/ui/components/honey-comb/card.tsx(4,10): error TS2305: Module '"./_effects"' has no exported member 'hexGridPattern'.
+src/ui/components/honey-comb/dialog.tsx(8,10): error TS2305: Module '"./_effects"' has no exported member 'hexGridPattern'.
+src/ui/components/honey-comb/menubar.tsx(212,3): error TS2304: Cannot find name 'MenubarRadioGroup'.
+src/ui/components/honey-comb/menubar.tsx(214,3): error TS2304: Cannot find name 'MenubarPortal'.
+src/ui/components/honey-comb/menubar.tsx(217,3): error TS2304: Cannot find name 'MenubarGroup'.
+src/ui/components/honey-comb/resizable.tsx(12,51): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/honey-comb/resizable.tsx(13,23): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/honey-comb/resizable.tsx(28,51): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/honey-comb/resizable.tsx(31,23): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/honey-comb/resizable.tsx(43,24): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/honey-comb/sheet.tsx(9,10): error TS2305: Module '"./_effects"' has no exported member 'hexGridPattern'.
+src/ui/components/honey-comb/sidebar.tsx(8,29): error TS2307: Cannot find module '@/hooks/use-mobile' or its corresponding type declarations.
+src/ui/components/honey-comb/sidebar.tsx(21,10): error TS2305: Module '"./_effects"' has no exported member 'hexGridPattern'.
+src/ui/components/honey-comb/toast.tsx(9,10): error TS2305: Module '"./_effects"' has no exported member 'hexGridPattern'.
+src/ui/components/honey-comb/toaster.tsx(37,13): error TS2322: Type '{ children: (Element | ToastActionElement)[]; key: string; effects: TacticalHudEffects; open: boolean; onOpenChange: (open: boolean) => void; duration: number; variant: "default" | "destructive"; type: ToastType; }' is not assignable to type 'IntrinsicAttributes & Omit<ToastBaseProps & RefAttributes<HTMLLIElement>, "ref"> & VariantProps<(props?: ConfigVariants<...> & ClassProp) => string> & RefAttributes<...>'.
+  Property 'effects' does not exist on type 'IntrinsicAttributes & Omit<ToastBaseProps & RefAttributes<HTMLLIElement>, "ref"> & VariantProps<(props?: ConfigVariants<...> & ClassProp) => string> & RefAttributes<...>'.
+src/ui/components/honey-comb/toaster.tsx(45,37): error TS2322: Type '{ children: string & ReactNode; effects: TacticalHudEffects; }' is not assignable to type 'IntrinsicAttributes & Omit<ToastTitleBaseProps & RefAttributes<HTMLDivElement>, "ref"> & RefAttributes<...>'.
+  Property 'effects' does not exist on type 'IntrinsicAttributes & Omit<ToastTitleBaseProps & RefAttributes<HTMLDivElement>, "ref"> & RefAttributes<...>'.
+src/ui/components/honey-comb/toaster.tsx(47,35): error TS2322: Type '{ children: string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>; effects: TacticalHudEffects; }' is not assignable to type 'IntrinsicAttributes & Omit<ToastDescriptionBaseProps & RefAttributes<HTMLDivElement>, "ref"> & RefAttributes<...>'.
+  Property 'effects' does not exist on type 'IntrinsicAttributes & Omit<ToastDescriptionBaseProps & RefAttributes<HTMLDivElement>, "ref"> & RefAttributes<...>'.
+src/ui/components/honey-comb/toaster.tsx(51,25): error TS2322: Type '{ effects: TacticalHudEffects; }' is not assignable to type 'IntrinsicAttributes & Omit<ToastCloseBaseProps & RefAttributes<HTMLButtonElement>, "ref"> & RefAttributes<...>'.
+  Property 'effects' does not exist on type 'IntrinsicAttributes & Omit<ToastCloseBaseProps & RefAttributes<HTMLButtonElement>, "ref"> & RefAttributes<...>'.
+src/ui/components/honey-comb/toaster.tsx(55,22): error TS2322: Type '{ effects: TacticalHudEffects; }' is not assignable to type 'IntrinsicAttributes & Omit<ToastViewportBaseProps & RefAttributes<HTMLOListElement>, "ref"> & RefAttributes<...>'.
+  Property 'effects' does not exist on type 'IntrinsicAttributes & Omit<ToastViewportBaseProps & RefAttributes<HTMLOListElement>, "ref"> & RefAttributes<...>'.
+src/ui/components/large/alert-dialog.tsx(117,24): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/large/calendar.tsx(26,28): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/large/calendar.tsx(38,28): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/large/calendar.tsx(54,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/ui/components/large/index.ts(60,1): error TS2308: Module './sonner' has already exported a member named 'Toaster'. Consider explicitly re-exporting to resolve the ambiguity.
+src/ui/components/large/pagination.tsx(51,9): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/large/pagination.tsx(68,5): error TS2322: Type '"default"' is not assignable to type '"md" | "xs" | "sm" | "lg" | "xl" | "icon"'.
+src/ui/components/large/pagination.tsx(84,5): error TS2322: Type '"default"' is not assignable to type '"md" | "xs" | "sm" | "lg" | "xl" | "icon"'.
+src/ui/components/large/resizable.tsx(1,10): error TS2305: Module '"react-resizable-panels"' has no exported member 'ResizablePanelGroup'.
+src/ui/components/large/resizable.tsx(1,31): error TS2305: Module '"react-resizable-panels"' has no exported member 'ResizablePanel'.
+src/ui/components/large/resizable.tsx(1,47): error TS2305: Module '"react-resizable-panels"' has no exported member 'ResizableHandle'.
+src/ui/components/large/toaster.tsx(18,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: ToastVariant; type?: ToastType; duration?: number; open?: boolean; onOpenChange?: (open: boolean) => void; ... 275 more ...; key: string; }' is not assignable to type 'VariantProps<(props?: ConfigVariants<{ variant: { default: string; destructive: string; }; }> & ClassProp) => string>'.
+  Types of property 'variant' are incompatible.
+    Type 'ToastVariant' is not assignable to type '"default" | "destructive"'.
+      Type '"error"' is not assignable to type '"default" | "destructive"'.
+src/ui/components/large/toggle-group.tsx(28,36): error TS2345: Argument of type 'ForwardRefExoticComponent<(ToggleGroupSingleProps | ToggleGroupMultipleProps) & RefAttributes<HTMLDivElement>>' is not assignable to parameter of type 'Context<string>'.
+  Type 'ForwardRefExoticComponent<(ToggleGroupSingleProps | ToggleGroupMultipleProps) & RefAttributes<HTMLDivElement>>' is missing the following properties from type 'Context<string>': Provider, Consumer
+src/ui/components/matrix-grid/calendar.tsx(55,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/ui/components/matrix-grid/index.ts(60,1): error TS2308: Module './sonner' has already exported a member named 'Toaster'. Consider explicitly re-exporting to resolve the ambiguity.
+src/ui/components/matrix-grid/resizable.tsx(9,51): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/matrix-grid/resizable.tsx(10,23): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/matrix-grid/resizable.tsx(25,51): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/matrix-grid/resizable.tsx(28,23): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/matrix-grid/resizable.tsx(40,24): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/matrix-grid/sonner.tsx(1,26): error TS2307: Cannot find module 'next-themes' or its corresponding type declarations.
+src/ui/components/matrix-grid/toaster.tsx(18,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: ToastVariant; type?: ToastType; duration?: number; open?: boolean; onOpenChange?: (open: boolean) => void; ... 275 more ...; key: string; }' is not assignable to type 'VariantProps<(props?: ConfigVariants<{ variant: { default: string; destructive: string; }; }> & ClassProp) => string>'.
+  Types of property 'variant' are incompatible.
+    Type 'ToastVariant' is not assignable to type '"default" | "destructive"'.
+      Type '"error"' is not assignable to type '"default" | "destructive"'.
+src/ui/components/matrix-grid/toggle-group.tsx(29,36): error TS2345: Argument of type 'ForwardRefExoticComponent<(ToggleGroupSingleProps | ToggleGroupMultipleProps) & RefAttributes<HTMLDivElement>>' is not assignable to parameter of type 'Context<string>'.
+  Type 'ForwardRefExoticComponent<(ToggleGroupSingleProps | ToggleGroupMultipleProps) & RefAttributes<HTMLDivElement>>' is missing the following properties from type 'Context<string>': Provider, Consumer
+src/ui/components/neon/calendar.tsx(55,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/ui/components/neon/index.ts(60,1): error TS2308: Module './sonner' has already exported a member named 'Toaster'. Consider explicitly re-exporting to resolve the ambiguity.
+src/ui/components/neon/menubar.tsx(206,3): error TS2304: Cannot find name 'MenubarLabel'.
+src/ui/components/neon/navigation-menu.tsx(123,3): error TS2300: Duplicate identifier 'navigationMenuTriggerStyle'.
+src/ui/components/neon/navigation-menu.tsx(124,3): error TS2300: Duplicate identifier 'NavigationMenu'.
+src/ui/components/neon/navigation-menu.tsx(125,3): error TS2300: Duplicate identifier 'NavigationMenuList'.
+src/ui/components/neon/navigation-menu.tsx(126,3): error TS2300: Duplicate identifier 'NavigationMenuItem'.
+src/ui/components/neon/navigation-menu.tsx(127,3): error TS2300: Duplicate identifier 'NavigationMenuContent'.
+src/ui/components/neon/navigation-menu.tsx(128,3): error TS2300: Duplicate identifier 'NavigationMenuTrigger'.
+src/ui/components/neon/navigation-menu.tsx(129,3): error TS2300: Duplicate identifier 'NavigationMenuLink'.
+src/ui/components/neon/navigation-menu.tsx(130,3): error TS2300: Duplicate identifier 'NavigationMenuIndicator'.
+src/ui/components/neon/navigation-menu.tsx(131,3): error TS2300: Duplicate identifier 'NavigationMenuViewport'.
+src/ui/components/neon/navigation-menu.tsx(132,8): error TS2307: Cannot find module './navigation-menu-exports' or its corresponding type declarations.
+src/ui/components/neon/navigation-menu.tsx(136,3): error TS2300: Duplicate identifier 'navigationMenuTriggerStyle'.
+src/ui/components/neon/navigation-menu.tsx(137,3): error TS2300: Duplicate identifier 'NavigationMenu'.
+src/ui/components/neon/navigation-menu.tsx(138,3): error TS2300: Duplicate identifier 'NavigationMenuList'.
+src/ui/components/neon/navigation-menu.tsx(139,3): error TS2300: Duplicate identifier 'NavigationMenuContent'.
+src/ui/components/neon/navigation-menu.tsx(140,3): error TS2300: Duplicate identifier 'NavigationMenuTrigger'.
+src/ui/components/neon/navigation-menu.tsx(141,3): error TS2300: Duplicate identifier 'NavigationMenuLink'.
+src/ui/components/neon/navigation-menu.tsx(142,3): error TS2300: Duplicate identifier 'NavigationMenuIndicator'.
+src/ui/components/neon/navigation-menu.tsx(143,3): error TS2300: Duplicate identifier 'NavigationMenuViewport'.
+src/ui/components/neon/navigation-menu.tsx(147,10): error TS2300: Duplicate identifier 'NavigationMenuItem'.
+src/ui/components/neon/resizable.tsx(2,10): error TS2724: '"@/ui/components/_base/resizable"' has no exported member named 'ResizablePanelGroup'. Did you mean 'ResizablePanelGroupBase'?
+src/ui/components/neon/resizable.tsx(2,31): error TS2724: '"@/ui/components/_base/resizable"' has no exported member named 'ResizablePanel'. Did you mean 'ResizablePanelBase'?
+src/ui/components/neon/resizable.tsx(2,47): error TS2724: '"@/ui/components/_base/resizable"' has no exported member named 'ResizableHandle'. Did you mean 'ResizableHandleBase'?
+src/ui/components/neon/resizable.tsx(15,51): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/neon/resizable.tsx(16,23): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/neon/resizable.tsx(31,51): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/neon/resizable.tsx(34,23): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/neon/resizable.tsx(46,24): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/neon/sonner.tsx(1,26): error TS2307: Cannot find module 'next-themes' or its corresponding type declarations.
+src/ui/components/neon/toaster.tsx(18,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: ToastVariant; type?: ToastType; duration?: number; open?: boolean; onOpenChange?: (open: boolean) => void; ... 275 more ...; key: string; }' is not assignable to type 'VariantProps<(props?: ConfigVariants<{ variant: { default: string; destructive: string; }; }> & ClassProp) => string>'.
+  Types of property 'variant' are incompatible.
+    Type 'ToastVariant' is not assignable to type '"default" | "destructive"'.
+      Type '"error"' is not assignable to type '"default" | "destructive"'.
+src/ui/components/padding/calendar.tsx(55,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/ui/components/padding/chart.tsx(4,35): error TS2307: Cannot find module '@/lib/recharts' or its corresponding type declarations.
+src/ui/components/padding/chart.tsx(83,20): error TS2304: Cannot find name 'cn'.
+src/ui/components/padding/chart.tsx(168,27): error TS2304: Cannot find name 'cn'.
+src/ui/components/padding/chart.tsx(175,25): error TS2304: Cannot find name 'cn'.
+src/ui/components/padding/chart.tsx(195,20): error TS2304: Cannot find name 'cn'.
+src/ui/components/padding/chart.tsx(210,28): error TS2304: Cannot find name 'cn'.
+src/ui/components/padding/chart.tsx(224,38): error TS2304: Cannot find name 'cn'.
+src/ui/components/padding/chart.tsx(244,34): error TS2304: Cannot find name 'cn'.
+src/ui/components/padding/chart.tsx(296,20): error TS2304: Cannot find name 'cn'.
+src/ui/components/padding/chart.tsx(309,26): error TS2304: Cannot find name 'cn'.
+src/ui/components/padding/index.ts(30,1): error TS2308: Module "./chart" has already exported a member named 'Label'. Consider explicitly re-exporting to resolve the ambiguity.
+src/ui/components/padding/index.ts(55,1): error TS2308: Module "./chart" has already exported a member named 'Tooltip'. Consider explicitly re-exporting to resolve the ambiguity.
+src/ui/components/padding/menubar.tsx(213,3): error TS2304: Cannot find name 'MenubarRadioGroup'.
+src/ui/components/padding/menubar.tsx(215,3): error TS2304: Cannot find name 'MenubarPortal'.
+src/ui/components/padding/menubar.tsx(218,3): error TS2304: Cannot find name 'MenubarGroup'.
+src/ui/components/padding/menubar.tsx(219,3): error TS2552: Cannot find name 'MenubarSub'. Did you mean 'Menubar'?
+src/ui/components/padding/resizable.tsx(9,51): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/padding/resizable.tsx(10,23): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/padding/resizable.tsx(25,51): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/padding/resizable.tsx(28,23): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/padding/resizable.tsx(40,24): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/padding/sonner.tsx(3,26): error TS2307: Cannot find module 'next-themes' or its corresponding type declarations.
+src/ui/components/pill/toast.tsx(51,7): error TS2322: Type '"foreground" | "background"' is not assignable to type 'ToastType'.
+  Type '"foreground"' is not assignable to type 'ToastType'.
+src/ui/components/quantum-gate/toast.tsx(51,7): error TS2322: Type '"foreground" | "background"' is not assignable to type 'ToastType'.
+  Type '"foreground"' is not assignable to type 'ToastType'.
+src/ui/components/raised/alert-dialog.tsx(117,24): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/raised/calendar.tsx(26,28): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/raised/calendar.tsx(38,28): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/raised/calendar.tsx(54,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/ui/components/raised/index.ts(60,1): error TS2308: Module './sonner' has already exported a member named 'Toaster'. Consider explicitly re-exporting to resolve the ambiguity.
+src/ui/components/raised/pagination.tsx(51,9): error TS2353: Object literal may only specify known properties, and 'variant' does not exist in type 'ConfigVariants<{ visualType: { default: string; solid: string; outline: string; ghost: string; inverse: string; contrast: string; soft: string; neutral: string; subtle: string; elevated: string; flat: string; tinted: string; link: string; disabled: string; unstyled: string; }; size: { ...; }; }> & ClassProp'.
+src/ui/components/raised/pagination.tsx(68,5): error TS2322: Type '"default"' is not assignable to type '"md" | "xs" | "sm" | "lg" | "xl" | "icon"'.
+src/ui/components/raised/pagination.tsx(84,5): error TS2322: Type '"default"' is not assignable to type '"md" | "xs" | "sm" | "lg" | "xl" | "icon"'.
+src/ui/components/raised/resizable.tsx(1,10): error TS2305: Module '"react-resizable-panels"' has no exported member 'ResizablePanelGroup'.
+src/ui/components/raised/resizable.tsx(1,31): error TS2305: Module '"react-resizable-panels"' has no exported member 'ResizablePanel'.
+src/ui/components/raised/resizable.tsx(1,47): error TS2305: Module '"react-resizable-panels"' has no exported member 'ResizableHandle'.
+src/ui/components/raised/toaster.tsx(18,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; variant?: ToastVariant; type?: ToastType; duration?: number; open?: boolean; onOpenChange?: (open: boolean) => void; ... 275 more ...; key: string; }' is not assignable to type 'VariantProps<(props?: ConfigVariants<{ variant: { default: string; destructive: string; }; }> & ClassProp) => string>'.
+  Types of property 'variant' are incompatible.
+    Type 'ToastVariant' is not assignable to type '"default" | "destructive"'.
+      Type '"error"' is not assignable to type '"default" | "destructive"'.
+src/ui/components/raised/toggle-group.tsx(28,36): error TS2345: Argument of type 'ForwardRefExoticComponent<(ToggleGroupSingleProps | ToggleGroupMultipleProps) & RefAttributes<HTMLDivElement>>' is not assignable to parameter of type 'Context<string>'.
+  Type 'ForwardRefExoticComponent<(ToggleGroupSingleProps | ToggleGroupMultipleProps) & RefAttributes<HTMLDivElement>>' is missing the following properties from type 'Context<string>': Provider, Consumer
+src/ui/components/tactical-hud/toast.tsx(57,7): error TS2322: Type '"foreground" | "background"' is not assignable to type 'ToastType'.
+  Type '"foreground"' is not assignable to type 'ToastType'.
+src/ui/components/tech-panel/badge.tsx(36,9): error TS2322: Type '{ size?: BadgeSize; variant?: string; type?: BadgeType; role?: AriaRole; interactive?: boolean; removable?: boolean; onRemove?: (event: MouseEvent<Element, MouseEvent>) => void; ... 278 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & BadgeBaseProps & RefAttributes<HTMLDivElement>'.
+  Property 'visualType' does not exist on type 'IntrinsicAttributes & BadgeBaseProps & RefAttributes<HTMLDivElement>'.
+src/ui/components/tech-panel/button.tsx(47,9): error TS2322: Type '"default" | "link" | "destructive" | "solid" | "outline" | "soft" | "ghost" | "inverse" | "contrast"' is not assignable to type 'ButtonType'.
+  Type '"destructive"' is not assignable to type 'ButtonType'.
+src/ui/components/tech-panel/card.tsx(4,56): error TS2305: Module '"./_effects"' has no exported member 'TechPanelPowerLights'.
+src/ui/components/tech-panel/card.tsx(40,9): error TS2322: Type '{ children: (ReactNode | Element)[]; size?: CardSize; variant?: string; type?: CardType; role?: AriaRole; onClick?: MouseEventHandler<HTMLDivElement>; ... 283 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & CardBaseProps & RefAttributes<HTMLDivElement>'.
+  Property 'visualType' does not exist on type 'IntrinsicAttributes & CardBaseProps & RefAttributes<HTMLDivElement>'.
+src/ui/components/tech-panel/input.tsx(43,9): error TS2322: Type '"default" | "solid" | "outline" | "soft" | "ghost" | "inverse" | "contrast"' is not assignable to type 'InputType'.
+  Type '"solid"' is not assignable to type 'InputType'.
+src/ui/components/tech-panel/label.tsx(36,9): error TS2322: Type '{ size?: LabelSize; invalid?: boolean; role?: AriaRole; onClick?: MouseEventHandler<HTMLLabelElement>; asChild?: boolean; children?: ReactNode; ... 281 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & LabelBaseProps & RefAttributes<HTMLLabelElement>'.
+  Property 'visualType' does not exist on type 'IntrinsicAttributes & LabelBaseProps & RefAttributes<HTMLLabelElement>'.
+src/ui/components/tech-panel/separator.tsx(41,9): error TS2322: Type '{ role?: AriaRole; onClick?: MouseEventHandler<HTMLDivElement>; asChild?: boolean; children?: ReactNode; onSelect?: ReactEventHandler<HTMLDivElement>; ... 278 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & SeparatorBaseProps & RefAttributes<HTMLDivElement>'.
+  Property 'visualType' does not exist on type 'IntrinsicAttributes & SeparatorBaseProps & RefAttributes<HTMLDivElement>'.
+src/ui/components/tech-panel/toast.tsx(50,7): error TS2322: Type '"foreground" | "background"' is not assignable to type 'ToastType'.
+  Type '"foreground"' is not assignable to type 'ToastType'.
+src/ui/components/terminal-window/alert-dialog.tsx(4,10): error TS2305: Module '"@/ui/components/terminal-window/button"' has no exported member 'buttonVariants'.
+src/ui/components/terminal-window/button.tsx(38,70): error TS2339: Property 'isLoading' does not exist on type 'ButtonProps'.
+src/ui/components/terminal-window/calendar.tsx(5,10): error TS2305: Module '"@/ui/components/_base/button"' has no exported member 'buttonVariants'.
+src/ui/components/terminal-window/calendar.tsx(56,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+src/ui/components/terminal-window/carousel.tsx(66,7): error TS2345: Argument of type 'CreatePluginType<LoosePluginType, {}>[][]' is not assignable to parameter of type 'CreatePluginType<LoosePluginType, {}>[]'.
+  Type 'CreatePluginType<LoosePluginType, {}>[]' is not assignable to type 'CreatePluginType<LoosePluginType, {}>'.
+    Type 'CreatePluginType<LoosePluginType, {}>[]' is not assignable to type 'LoosePluginType'.
+      Index signature for type 'string' is missing in type 'CreatePluginType<LoosePluginType, {}>[]'.
+src/ui/components/terminal-window/navigation-menu.tsx(115,3): error TS2552: Cannot find name 'NavigationMenuItem'. Did you mean 'NavigationMenu'?
+src/ui/components/terminal-window/pagination.tsx(4,23): error TS2305: Module '"@/ui/components/terminal-window/button"' has no exported member 'buttonVariants'.
+src/ui/components/terminal-window/pagination.tsx(72,5): error TS2322: Type '"default"' is not assignable to type 'ButtonSize'.
+src/ui/components/terminal-window/pagination.tsx(89,5): error TS2322: Type '"default"' is not assignable to type 'ButtonSize'.
+src/ui/components/terminal-window/resizable.tsx(11,51): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/terminal-window/resizable.tsx(12,23): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/terminal-window/resizable.tsx(25,51): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/terminal-window/resizable.tsx(29,23): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/terminal-window/resizable.tsx(41,24): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("E:/TONY/ui/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+src/ui/components/terminal-window/separator.tsx(9,45): error TS2339: Property 'decorator' does not exist on type 'Omit<SeparatorProps & RefAttributes<HTMLDivElement>, "ref"> & { effects?: TerminalWindowEffects; }'.
+src/ui/components/terminal-window/sheet.tsx(33,5): error TS2345: Argument of type '{ 'inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm': boolean; 'inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm': boolean; 'inset-x-0 top-0 h-auto border-b': boolean; 'inset-x-0 bottom-0 h-auto border-t': boolean; }' is not assignable to parameter of type 'string | false'.
+src/ui/components/terminal-window/sidebar.tsx(293,35): error TS2339: Property 'InputHTMLAttributes' does not exist on type 'typeof import("E:/TONY/ui/node_modules/@types/react/index.d.ts")'.
+src/ui/components/terminal-window/toaster.tsx(24,12): error TS2322: Type '{ children: (Element | ToastActionElement)[]; effects: TerminalWindowEffects; variant?: ToastVariant; type?: ToastType; ... 278 more ...; key: string; }' is not assignable to type 'VariantProps<(props?: ConfigVariants<{ variant: { default: string; destructive: string; }; }> & ClassProp) => string>'.
+  Types of property 'variant' are incompatible.
+    Type 'ToastVariant' is not assignable to type '"default" | "destructive"'.
+      Type '"error"' is not assignable to type '"default" | "destructive"'.

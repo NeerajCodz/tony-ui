@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ProgressPrimitive from '@radix-ui/react-progress';
-
 /**
  * Progress sizes
  * | Size | Track Height |
@@ -86,3 +85,5 @@ ProgressIndicatorBase.displayName = 'ProgressIndicatorBase';
 
 // Alias for clarity
 export { ProgressIndicatorBase as ProgressFillBase };
+
+export { ProgressPrimitive };

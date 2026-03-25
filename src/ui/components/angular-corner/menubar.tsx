@@ -1,10 +1,6 @@
 import * as React from 'react';
-import * as MenubarPrimitive from '@radix-ui/react-menubar';
-import {
-  CheckIcon,
-  ChevronRightIcon,
-  DotFilledIcon,
-} from '@radix-ui/react-icons';
+import { MenubarPrimitive } from '../_base/menubar';
+import { CheckIcon, ChevronRightIcon, DotFilledIcon } from '../_base/menubar';
 import { cn } from '@/lib/utils';
 
 const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';

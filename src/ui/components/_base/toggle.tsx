@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as TogglePrimitive from '@radix-ui/react-toggle';
-
 /**
  * Toggle type variants - visual treatment when pressed
  */
@@ -93,3 +92,5 @@ export const ToggleBase = React.forwardRef<
   />
 ));
 ToggleBase.displayName = 'ToggleBase';
+
+export { TogglePrimitive };

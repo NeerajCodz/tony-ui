@@ -7,6 +7,9 @@ export const tacticalHudEffectsClass = (effects: TacticalHudEffects = 'on') => {
   return '';
 };
 
+export type HoneyCombEffects = TacticalHudEffects;
+export const honeyCombEffectsClass = tacticalHudEffectsClass;
+
 // Tactical HUD Brackets Style
 const bracketSize = '15px';
 const bracketWidth = '2px';
@@ -64,3 +67,6 @@ export const getBracketsStyle = (size: string = '15px', width: string = '2px', p
 });
 
 export const bracketsStyle = getBracketsStyle();
+
+export const hexGridPattern =
+  'radial-gradient(circle at 50% 50%, rgba(255,209,102,0.22) 0 1px, transparent 1px), linear-gradient(60deg, rgba(255,209,102,0.14) 1px, transparent 1px), linear-gradient(-60deg, rgba(255,209,102,0.14) 1px, transparent 1px)';

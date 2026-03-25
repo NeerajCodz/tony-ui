@@ -19,7 +19,10 @@ export type ToastType =
   | 'outline'
   | 'solid'
   | 'soft'
-  | 'unstyled';
+  | 'unstyled'
+  // Compatibility for legacy wrappers that still pass Radix toast types
+  | 'foreground'
+  | 'background';
 
 /**
  * Toast positions
@@ -283,3 +286,14 @@ ToastCloseBase.displayName = 'ToastCloseBase';
 
 export type ToastProps = ToastBaseProps;
 export type ToastActionElement = React.ReactElement<typeof ToastActionBase>;
+
+export const ToastPrimitives = {
+  Provider: ToastProviderBase,
+  Viewport: ToastViewportBase,
+  Root: ToastBase,
+  Title: ToastTitleBase,
+  Description: ToastDescriptionBase,
+  Action: ToastActionBase,
+  Close: ToastCloseBase,
+};
+export const ToastPrimitive = ToastPrimitives;

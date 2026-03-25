@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
-
 /**
  * Popover type variants
  */
@@ -185,3 +184,5 @@ export const PopoverCloseBase = React.forwardRef<
   PopoverCloseBaseProps
 >((props, ref) => <PopoverPrimitive.Close ref={ref} {...props} />);
 PopoverCloseBase.displayName = 'PopoverCloseBase';
+
+export { PopoverPrimitive };

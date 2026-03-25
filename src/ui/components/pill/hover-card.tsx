@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
+import { HoverCardPrimitive } from '../_base/hover-card';
 import { cn } from '@/lib/utils';
 
 const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';

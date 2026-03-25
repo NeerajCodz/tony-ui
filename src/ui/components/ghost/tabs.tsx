@@ -1,5 +1,5 @@
 import * as React from "react"
-import * as TabsPrimitive from "@radix-ui/react-tabs"
+import { TabsPrimitive } from '../_base/tabs';
 import { cn } from "@/lib/utils"
 import { ghostEffectsClass, type GhostEffects } from "./_effects"
 

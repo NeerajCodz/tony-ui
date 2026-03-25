@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
-
 /**
  * Icon button type variants (same as button for consistency)
  */
@@ -143,3 +142,5 @@ export const IconButtonBase = React.forwardRef<HTMLButtonElement, IconButtonBase
   }
 );
 IconButtonBase.displayName = 'IconButtonBase';
+
+export { Slot };

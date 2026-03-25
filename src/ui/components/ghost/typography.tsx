@@ -25,22 +25,30 @@ const typographyVariants = cva("text-[var(--gh-text)] font-display", {
 })
 
 export interface TypographyProps
-  extends React.HTMLAttributes<HTMLHeadingElement>,
+  extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof typographyVariants> {
   effects?: GhostEffects
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "div" | "blockquote" | "ul"
 }
 
-const Typography = React.forwardRef<HTMLHeadingElement, TypographyProps>(
+const Typography = React.forwardRef<HTMLElement, TypographyProps>(
   ({ className, variant, as, effects = "on", ...props }, ref) => {
-    const Comp = as || (variant === "list" ? "ul" : variant === "lead" ? "p" : variant || "p")
-    return (
-      <Comp
-        className={cn(ghostEffectsClass(effects), typographyVariants({ variant, className }))}
-        ref={ref}
-        {...props}
-      />
-    )
+    const Comp: React.ElementType =
+      as ||
+      (variant === "list"
+        ? "ul"
+        : variant === "lead"
+          ? "p"
+          : variant === "large"
+            ? "div"
+            : variant === "muted"
+              ? "p"
+              : variant || "p")
+    return React.createElement(Comp, {
+      ...props,
+      ref,
+      className: cn(ghostEffectsClass(effects), typographyVariants({ variant, className })),
+    })
   }
 )
 Typography.displayName = "Typography"

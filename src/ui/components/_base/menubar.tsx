@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as MenubarPrimitive from '@radix-ui/react-menubar';
-
+import { CheckIcon, ChevronRightIcon, DotFilledIcon } from '@radix-ui/react-icons';
 /**
  * Menubar type variants
  */
@@ -387,3 +387,26 @@ export const MenubarArrowBase = React.forwardRef<
   MenubarArrowBaseProps
 >((props, ref) => <MenubarPrimitive.Arrow ref={ref} {...props} />);
 MenubarArrowBase.displayName = 'MenubarArrowBase';
+
+export { MenubarPrimitive };
+export { CheckIcon, ChevronRightIcon, DotFilledIcon };
+
+// Compatibility aliases expected by version wrappers
+export const Menubar = MenubarBase;
+export const MenubarMenu = MenubarMenuBase;
+export const MenubarGroup = MenubarGroupBase;
+export const MenubarPortal = MenubarPortalBase;
+export const MenubarSub = MenubarSubBase;
+export const MenubarRadioGroup = MenubarRadioGroupBase;
+export const MenubarTrigger = MenubarTriggerBase;
+export const MenubarSubTrigger = MenubarSubTriggerBase;
+export const MenubarSubContent = MenubarSubContentBase;
+export const MenubarContent = MenubarContentBase;
+export const MenubarItem = MenubarItemBase;
+export const MenubarCheckboxItem = MenubarCheckboxItemBase;
+export const MenubarRadioItem = MenubarRadioItemBase;
+export const MenubarItemIndicator = MenubarItemIndicatorBase;
+export const MenubarLabel = MenubarLabelBase;
+export const MenubarSeparator = MenubarSeparatorBase;
+export const MenubarShortcut = MenubarShortcutBase;
+export const MenubarArrow = MenubarArrowBase;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
-
 /**
  * Component type defines the structural visual treatment
  * All 15 types as defined in _base.md
@@ -137,3 +136,12 @@ export const ButtonBase = React.forwardRef<HTMLButtonElement, ButtonBaseProps>(
 ButtonBase.displayName = 'ButtonBase';
 
 export { ButtonBase as Button };
+
+export { Slot };
+
+// Compatibility helper expected by many version wrappers
+export const buttonVariants = (_?: {
+  visualType?: ButtonType;
+  size?: ButtonSize;
+  className?: string;
+}) => '';

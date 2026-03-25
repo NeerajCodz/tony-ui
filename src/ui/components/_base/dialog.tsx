@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-
 /**
  * Dialog type variants
  */
@@ -185,3 +184,6 @@ export const DialogDescriptionBase = React.forwardRef<
   DialogDescriptionBaseProps
 >((props, ref) => <DialogPrimitive.Description ref={ref} {...props} />);
 DialogDescriptionBase.displayName = 'DialogDescriptionBase';
+
+export { DialogPrimitive };
+export type DialogProps = React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>;

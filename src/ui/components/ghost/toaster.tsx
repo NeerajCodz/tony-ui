@@ -1,4 +1,4 @@
-import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
+import { ghostEffectsClass, type GhostEffects } from './_effects';
 import * as React from 'react';
 import {
   Toast,
@@ -11,14 +11,14 @@ import {
 import { useToast } from '@/ui/hooks/use-toast';
 
 export interface ToasterProps {
-  effects?: TacticalHudEffects;
+  effects?: GhostEffects;
 }
 
 export function Toaster({ effects = 'on' }: ToasterProps) {
   const { toasts } = useToast();
 
   return (
-    <div className={tacticalHudEffectsClass(effects)}>
+    <div className={ghostEffectsClass(effects)}>
       <ToastProvider>
       {toasts.map(function ({
         id,

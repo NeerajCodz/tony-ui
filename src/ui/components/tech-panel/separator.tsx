@@ -35,17 +35,30 @@ export interface SeparatorProps extends Omit<SeparatorBaseProps, 'visualType'>, 
 
 export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
   ({ className, effects = 'on', visualType, orientation = 'horizontal', decorative = true, ...props }, ref) => {
+    const baseClass = cn(
+      techPanelEffectsClass(effects),
+      separatorVariants({ visualType, orientation }),
+      className
+    );
+
+    if (decorative) {
+      return (
+        <div
+          ref={ref}
+          aria-hidden="true"
+          data-orientation={orientation}
+          className={baseClass}
+          {...props}
+        />
+      );
+    }
+
     return (
       <SeparatorBase
         ref={ref}
-        visualType={visualType}
         decorative={decorative}
         orientation={orientation}
-        className={cn(
-          techPanelEffectsClass(effects),
-          separatorVariants({ visualType, orientation }),
-          className
-        )}
+        className={baseClass}
         {...props}
       />
     );

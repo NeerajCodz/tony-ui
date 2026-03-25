@@ -8,6 +8,14 @@ export interface ButtonProps extends ButtonBaseProps {
   effects?: TerminalWindowEffects;
 }
 
+type TerminalWindowButtonVariantOptions = {
+  visualType?: ButtonBaseProps['visualType'];
+  size?: ButtonBaseProps['size'];
+  className?: string;
+};
+
+export const buttonVariants = (_?: TerminalWindowButtonVariantOptions) => '';
+
 const getVisualStyles = (visualType: string = 'default') => {
   switch (visualType) {
     case 'solid':
@@ -35,7 +43,7 @@ const getSizeStyles = (size: string = 'md') => {
 };
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, visualType = 'default', size = 'md', effects = 'on', isLoading, children, ...props }, ref) => {
+  ({ className, visualType = 'default', size = 'md', effects = 'on', loading, children, ...props }, ref) => {
     return (
       <ButtonBase
         ref={ref}
@@ -49,7 +57,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         {...props}
       >
-        {isLoading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
+        {loading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
         {children}
         {/* Blinking cursor effect for hover state could be cool, but maybe overkill here */}
       </ButtonBase>

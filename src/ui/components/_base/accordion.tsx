@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
-
 /**
  * Accordion type variants
  * Trigger area inherits the type; content area is always transparent
@@ -252,3 +251,5 @@ export const AccordionContentBase = React.forwardRef<
   AccordionContentBaseProps
 >((props, ref) => <AccordionPrimitive.Content ref={ref} {...props} />);
 AccordionContentBase.displayName = 'AccordionContentBase';
+
+export { AccordionPrimitive };

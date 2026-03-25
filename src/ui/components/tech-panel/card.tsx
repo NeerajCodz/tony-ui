@@ -37,7 +37,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     return (
       <CardBase
         ref={ref}
-        visualType={visualType}
+        type={visualType}
         className={cn(
           techPanelEffectsClass(effects),
           cardVariants({ visualType }),

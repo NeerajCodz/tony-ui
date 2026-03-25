@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
+import { ToggleGroupPrimitive } from '../_base/toggle-group';
 import { type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import { techPanelEffectsClass, type TechPanelEffects } from './_effects';

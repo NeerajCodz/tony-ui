@@ -41,10 +41,16 @@ export interface ButtonProps extends Omit<ButtonBaseProps, 'size' | 'visualType'
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, effects = 'on', visualType, size, ...props }, ref) => {
+    const mappedVisualType: ButtonBaseProps['visualType'] =
+      visualType === 'destructive'
+        ? 'solid'
+        : visualType === 'link'
+          ? 'link'
+          : visualType;
     return (
       <ButtonBase
         ref={ref}
-        visualType={visualType}
+        visualType={mappedVisualType}
         size={size}
         className={cn(
           techPanelEffectsClass(effects),
