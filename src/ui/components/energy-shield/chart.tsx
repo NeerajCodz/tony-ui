@@ -7,17 +7,16 @@ import {
   ChartStyleBase,
   ChartTooltipBase,
   ChartTooltipContentBase,
-  useChart,
+  ResponsiveContainer,
   type ChartConfig,
-} from '@/ui/components/_base/chart';
+  useChart,
+} from '../_base/chart';
 import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
-import { ResponsiveContainer } from 'recharts';
 
 /* -------------------------------------------------------------------------- */
 /*                               Chart Container                              */
 /* -------------------------------------------------------------------------- */
-
 
 const ChartContainer = React.forwardRef<
   React.ComponentRef<typeof ChartContainerBase>,
@@ -27,7 +26,7 @@ const ChartContainer = React.forwardRef<
     <ChartContainerBase
       ref={ref}
       className={cn(energyShieldEffectsClass(effects), 
-        "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-[var(--text-muted)] [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-[var(--es-hex-line)]/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-[var(--es-hex-line)] [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-[var(--es-hex-line)] [&_.recharts-radial-bar-background-sector]:fill-[var(--text-muted)] [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-[var(--text-muted)] [&_.recharts-reference-line_[stroke='#ccc']]:stroke-[var(--es-hex-line)] [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none font-mono",
+        "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-[var(--text-muted)] [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-[var(--es-border)]/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-[var(--es-border)] [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-[var(--es-border)] [&_.recharts-radial-bar-background-sector]:fill-[var(--text-muted)] [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-[var(--text-muted)] [&_.recharts-reference-line_[stroke='#ccc']]:stroke-[var(--es-border)] [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none font-sans",
         className
       )}
       {...props}
@@ -82,7 +81,7 @@ const ChartTooltipContent = React.forwardRef<
     
     if (props.labelFormatter) {
       return (
-        <div className={cn(energyShieldEffectsClass(effects), 'font-bold font-sans uppercase', props.labelClassName)}>
+        <div className={cn('font-bold font-sans ', props.labelClassName)}>
           {props.labelFormatter(value, payload)}
         </div>
       );
@@ -92,17 +91,16 @@ const ChartTooltipContent = React.forwardRef<
       return null;
     }
 
-    return <div className={cn(energyShieldEffectsClass(effects), 'font-bold font-sans uppercase', props.labelClassName)}>{value}</div>;
+    return <div className={cn('font-bold font-sans ', props.labelClassName)}>{value}</div>;
   }, [label, payload, hideLabel, nestLabel, config, props.labelFormatter, props.labelClassName]);
 
   return (
     <div
       ref={ref}
       className={cn(energyShieldEffectsClass(effects), 
-        'grid min-w-[8rem] items-start gap-1.5 border border-[var(--es-hex-line)] bg-[var(--es-surface)] px-2.5 py-1.5 text-xs shadow-xl',
+        'grid min-w-[8rem] items-start gap-1.5 border border-[var(--es-border)] bg-[var(--es-bg)] px-2.5 py-1.5 text-xs shadow-xl',
         className
       )}
-      style={{ '--corner': '8px' } as React.CSSProperties}
     >
       {!nestLabel ? tooltipLabel : null}
       <div className="grid gap-1.5">
@@ -153,12 +151,12 @@ const ChartTooltipContent = React.forwardRef<
                   >
                     <div className="grid gap-1.5">
                       {nestLabel ? tooltipLabel : null}
-                      <span className="text-[var(--text-muted)] font-mono">
+                      <span className="text-[var(--text-muted)] font-sans">
                         {itemConfig?.label || item.name}
                       </span>
                     </div>
                     {item.value && (
-                      <span className="font-mono font-medium tabular-nums text-[var(--text-primary)]">
+                      <span className="font-sans font-medium tabular-nums text-[var(--text-primary)]">
                         {item.value.toLocaleString()}
                       </span>
                     )}
@@ -221,7 +219,7 @@ const ChartLegendContent = React.forwardRef<
                 }}
               />
             )}
-            <span className="text-sm text-[var(--text-muted)] font-mono">
+            <span className="text-sm text-[var(--text-muted)] font-sans">
               {itemConfig?.label}
             </span>
           </div>

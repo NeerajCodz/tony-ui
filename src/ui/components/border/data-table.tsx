@@ -11,6 +11,8 @@ import { Button } from '@/ui/components/border/button';
 import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+import type * as __BaseImport_data_table from '../_base/data-table';
+
 interface DataTableColumn<T> {
     id: string;
     header: React.ReactNode;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Drawer as DrawerPrimitive } from 'vaul';
+import { DrawerPrimitive } from '../_base/drawer';
 import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
@@ -110,3 +110,4 @@ export {
   DrawerTitle,
   DrawerDescription,
 };
+

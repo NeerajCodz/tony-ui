@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { SonnerBase } from '../_base/sonner'
 
 const Toaster = ({ ...props }: React.ComponentProps<typeof SonnerBase>) => {

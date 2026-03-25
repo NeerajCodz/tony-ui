@@ -1,4 +1,5 @@
 import * as React from "react"
+import type { EmptyBaseProps } from '../_base/empty';
 
 import { cn } from "@/lib/utils"
 

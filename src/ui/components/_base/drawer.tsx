@@ -285,3 +285,6 @@ export const DrawerCloseBase = React.forwardRef<HTMLButtonElement, DrawerCloseBa
   )
 );
 DrawerCloseBase.displayName = 'DrawerCloseBase';
+
+// Bridge export so version components consume Vaul primitives via _base only
+export { Drawer as DrawerPrimitive } from 'vaul';

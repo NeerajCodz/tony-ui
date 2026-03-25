@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DayPicker } from 'react-day-picker';
+import { DayPicker } from '../_base/calendar';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from './button';
@@ -63,3 +63,4 @@ function Calendar({ className, classNames, showOutsideDays = true, effects = 'on
 Calendar.displayName = 'Calendar';
 
 export { Calendar };
+

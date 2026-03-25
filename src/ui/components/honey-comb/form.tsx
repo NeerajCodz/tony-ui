@@ -1,6 +1,13 @@
-import * as React from "react"
-import { Slot } from '../_base/form';
-import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, useFormContext } from "react-hook-form"
+import * as React from 'react';
+import {
+  Controller,
+  ControllerProps,
+  FieldPath,
+  FieldValues,
+  FormProvider,
+  useFormContext,
+  Slot
+} from '../_base/form';
 import { cn } from "@/lib/utils"
 import { Label } from "@/ui/components/honey-comb/label"
 
@@ -165,3 +172,4 @@ export {
   FormMessage,
   FormField,
 }
+

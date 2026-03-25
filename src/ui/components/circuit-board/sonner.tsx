@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { SonnerBase } from '@/ui/components/_base/sonner';
 
 type ToasterProps = React.ComponentProps<typeof SonnerBase>;

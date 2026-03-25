@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 import { ButtonProps, buttonVariants } from './button';
 import { Link } from 'react-router-dom';
+import type { PaginationBaseProps } from '../_base/pagination';
 
 const Pagination = ({ className, effects = 'on', ...props }: React.ComponentProps<'nav'> & { effects?: EnergyShieldEffects }) => (
   <nav

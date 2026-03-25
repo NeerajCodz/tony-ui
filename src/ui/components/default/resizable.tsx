@@ -1,18 +1,6 @@
 import * as React from 'react';
-import { 
-    ResizablePanelGroupBase, 
-    ResizablePanelBase, 
-    ResizableHandleBase,
-    type ResizablePanelGroupBaseProps,
-    type ResizablePanelBaseProps,
-    type ResizableHandleBaseProps
-} from '../_base/resizable';
+import { Group, Panel, Separator } from '../_base/resizable';
 import { cn } from '@/lib/utils';
-import { 
-  Group, 
-  Panel, 
-  Separator, 
-} from 'react-resizable-panels'
 
 const ResizablePanelGroup = ({
   className,

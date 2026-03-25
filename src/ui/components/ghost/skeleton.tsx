@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { SkeletonBase } from '../_base/skeleton';
 
 function Skeleton({
   className,
@@ -8,7 +9,7 @@ function Skeleton({
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { effects?: GhostEffects }) {
   return (
-    <div
+    <SkeletonBase
       className={cn(ghostEffectsClass(effects), "animate-pulse rounded-sm bg-[var(--gh-surface)]", className)}
       {...props}
     />

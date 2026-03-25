@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
+import type { DigitalClockBaseProps } from '../_base/digital-clock';
 
 interface DigitalClockProps extends React.HTMLAttributes<HTMLDivElement> {
   effects?: TacticalHudEffects;

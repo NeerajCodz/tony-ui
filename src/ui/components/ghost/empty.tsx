@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import type { EmptyBaseProps } from '../_base/empty';
 
 interface EmptyProps extends React.HTMLAttributes<HTMLDivElement> {
     effects?: GhostEffects

@@ -1,3 +1,5 @@
+import type * as __BaseImport_typography from '../_base/typography';
+
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"

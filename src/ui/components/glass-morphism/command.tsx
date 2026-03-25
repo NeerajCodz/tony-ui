@@ -1,5 +1,5 @@
-import * as React from "react"
-import { Command as CommandPrimitive } from "cmdk"
+import * as React from 'react';
+import { CommandPrimitive } from '../_base/command';
 import { Search } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -154,3 +154,4 @@ export {
   CommandShortcut,
   CommandSeparator,
 }
+

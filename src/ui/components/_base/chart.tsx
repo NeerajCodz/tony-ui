@@ -313,3 +313,7 @@ export const ChartStyleBase: React.FC<ChartStyleBaseProps> = ({ id, config }) =>
   return <style dangerouslySetInnerHTML={{ __html: css }} />;
 };
 ChartStyleBase.displayName = 'ChartStyleBase';
+
+// Bridge exports so version components consume Recharts via _base only
+export * from 'recharts';
+

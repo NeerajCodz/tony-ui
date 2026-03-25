@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { SkeletonBase } from '../_base/skeleton';
 
 
 function Skeleton({
@@ -7,7 +8,7 @@ function Skeleton({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div
+    <SkeletonBase
       className={cn(
         'animate-pulse bg-[var(--dp-border)]/20',
         className

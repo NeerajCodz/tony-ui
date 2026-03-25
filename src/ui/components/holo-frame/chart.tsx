@@ -7,12 +7,12 @@ import {
   ChartStyleBase,
   ChartTooltipBase,
   ChartTooltipContentBase,
-  useChart,
+  ResponsiveContainer,
   type ChartConfig,
-} from '@/ui/components/_base/chart';
+  useChart,
+} from '../_base/chart';
 import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
-import { ResponsiveContainer } from 'recharts';
 
 /* -------------------------------------------------------------------------- */
 /*                               Chart Container                              */
@@ -26,7 +26,7 @@ const ChartContainer = React.forwardRef<
     <ChartContainerBase
       ref={ref}
       className={cn(holoFrameEffectsClass(effects), 
-        "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-[var(--hf-text)] [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-[var(--hf-border-dim)]/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-[var(--hf-border-dim)] [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-[var(--hf-border-dim)] [&_.recharts-radial-bar-background-sector]:fill-[var(--hf-text)] [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-[var(--hf-text)] [&_.recharts-reference-line_[stroke='#ccc']]:stroke-[var(--hf-border-dim)] [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none font-mono",
+        "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-[var(--text-muted)] [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-[var(--hf-border)]/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-[var(--hf-border)] [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-[var(--hf-border)] [&_.recharts-radial-bar-background-sector]:fill-[var(--text-muted)] [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-[var(--text-muted)] [&_.recharts-reference-line_[stroke='#ccc']]:stroke-[var(--hf-border)] [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none font-sans",
         className
       )}
       {...props}
@@ -81,7 +81,7 @@ const ChartTooltipContent = React.forwardRef<
     
     if (props.labelFormatter) {
       return (
-        <div className={cn(holoFrameEffectsClass(effects), 'font-bold font-sans uppercase', props.labelClassName)}>
+        <div className={cn('font-bold font-sans ', props.labelClassName)}>
           {props.labelFormatter(value, payload)}
         </div>
       );
@@ -91,17 +91,16 @@ const ChartTooltipContent = React.forwardRef<
       return null;
     }
 
-    return <div className={cn(holoFrameEffectsClass(effects), 'font-bold font-sans uppercase', props.labelClassName)}>{value}</div>;
+    return <div className={cn('font-bold font-sans ', props.labelClassName)}>{value}</div>;
   }, [label, payload, hideLabel, nestLabel, config, props.labelFormatter, props.labelClassName]);
 
   return (
     <div
       ref={ref}
       className={cn(holoFrameEffectsClass(effects), 
-        'grid min-w-[8rem] items-start gap-1.5 border border-[var(--hf-border-dim)] bg-[var(--hf-surface)] px-2.5 py-1.5 text-xs shadow-xl',
+        'grid min-w-[8rem] items-start gap-1.5 border border-[var(--hf-border)] bg-[var(--hf-bg)] px-2.5 py-1.5 text-xs shadow-xl',
         className
       )}
-      style={{ '--corner': '8px' } as React.CSSProperties}
     >
       {!nestLabel ? tooltipLabel : null}
       <div className="grid gap-1.5">
@@ -114,7 +113,7 @@ const ChartTooltipContent = React.forwardRef<
             <div
               key={item.dataKey as React.Key}
               className={cn(holoFrameEffectsClass(effects), 
-                'flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-[var(--hf-text)]',
+                'flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-[var(--text-muted)]',
                 indicator === 'dot' && 'items-center'
               )}
             >
@@ -152,12 +151,12 @@ const ChartTooltipContent = React.forwardRef<
                   >
                     <div className="grid gap-1.5">
                       {nestLabel ? tooltipLabel : null}
-                      <span className="text-[var(--hf-text)] font-mono">
+                      <span className="text-[var(--text-muted)] font-sans">
                         {itemConfig?.label || item.name}
                       </span>
                     </div>
                     {item.value && (
-                      <span className="font-mono font-medium tabular-nums text-[var(--hf-text)]">
+                      <span className="font-sans font-medium tabular-nums text-[var(--text-primary)]">
                         {item.value.toLocaleString()}
                       </span>
                     )}
@@ -206,7 +205,7 @@ const ChartLegendContent = React.forwardRef<
           <div
             key={item.value}
             className={cn(holoFrameEffectsClass(effects), 
-              'flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-[var(--hf-text)]'
+              'flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-[var(--text-muted)]'
             )}
           >
             {itemConfig?.icon && !hideIcon ? (
@@ -220,7 +219,7 @@ const ChartLegendContent = React.forwardRef<
                 }}
               />
             )}
-            <span className="text-sm text-[var(--hf-text)] font-mono">
+            <span className="text-sm text-[var(--text-muted)] font-sans">
               {itemConfig?.label}
             </span>
           </div>

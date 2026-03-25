@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { LabelPrimitive } from '../_base/label';
-import { Slot } from '../_base/form';
 import {
   Controller,
-  type ControllerProps,
-  type FieldPath,
-  type FieldValues,
+  ControllerProps,
+  FieldPath,
+  FieldValues,
   FormProvider,
   useFormContext,
-} from 'react-hook-form';
+  LabelPrimitive,
+  Slot
+} from '../_base/form';
 import { cn } from '@/lib/utils';
 import { Label } from '@/ui/components/terminal-window/label';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
@@ -182,3 +182,4 @@ export {
   FormMessage,
   FormField,
 };
+

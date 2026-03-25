@@ -1,16 +1,16 @@
 import * as React from 'react';
 import {
   ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
+  useReactTable,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+  SortingState,
+  getFilteredRowModel,
+  ColumnFiltersState,
+  VisibilityState,
+} from '../_base/data-table';
 import { ChevronDown, MoreHorizontal, Settings2 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -193,3 +193,4 @@ export function DataTable<TData, TValue>({
     </div>
   );
 }
+

@@ -5,6 +5,8 @@ import { ScrollArea } from './scroll-area';
 import { Sheet, SheetContent, SheetTrigger } from './sheet';
 import { Menu } from 'lucide-react';
 
+import type * as __BaseImport_sidebar from '../_base/sidebar';
+
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   collapsible?: boolean;
 }

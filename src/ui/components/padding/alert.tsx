@@ -1,3 +1,5 @@
+import type * as __BaseImport_alert from '../_base/alert';
+
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 

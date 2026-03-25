@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
+import { SkeletonBase } from '../_base/skeleton';
 
 
 function Skeleton({
@@ -9,7 +10,7 @@ function Skeleton({
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { effects?: EnergyShieldEffects }) {
   return (
-    <div
+    <SkeletonBase
       className={cn(energyShieldEffectsClass(effects),
         'animate-pulse bg-[var(--es-hex-line)]/20',
         className

@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
 import { ButtonProps, buttonVariants } from './button';
+import type { PaginationBaseProps } from '../_base/pagination';
 
 const Pagination = ({ className, effects = 'on', ...props }: React.ComponentProps<'nav'> & { effects?: TacticalHudEffects }) => (
   <nav

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import type { IconButtonBaseProps } from '../_base/icon-button';
 
 import { cn } from '@/lib/utils';
 import { Button, ButtonProps } from './button';

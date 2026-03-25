@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ButtonProps, buttonVariants } from "./button"
 import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import type { PaginationBaseProps } from '../_base/pagination';
 
 const Pagination = React.forwardRef<
   HTMLElement,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
+import { useEmblaCarousel, type UseEmblaCarouselType } from '../_base/carousel';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { CarouselContext } from '../_base/carousel';
 import { cn } from '@/lib/utils';
@@ -212,3 +212,4 @@ export {
   CarouselPrevious,
   CarouselNext,
 };
+

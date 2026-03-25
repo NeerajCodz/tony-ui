@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { format } from 'date-fns';
+import { format } from '../_base/date-picker';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './button';
@@ -49,3 +48,4 @@ export function DatePicker({
     </Popover>
   );
 }
+

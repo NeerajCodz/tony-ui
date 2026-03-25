@@ -1,4 +1,5 @@
 import * as React from "react"
+import { TableBase, TableHeaderBase, TableBodyBase, TableFooterBase, TableRowBase, TableHeadBase, TableCellBase, TableCaptionBase } from '../_base/table';
 
 import { cn } from "@/lib/utils"
 
@@ -7,7 +8,7 @@ const Table = React.forwardRef<
   React.HTMLAttributes<HTMLTableElement>
 >(({ className, ...props }, ref) => (
   <div className="relative w-full overflow-auto rounded-[8px] bg-[var(--pd-bg)] p-2">
-    <table
+    <TableBase
       ref={ref}
       className={cn("w-full caption-bottom text-sm text-left font-sans", className)}
       {...props}
@@ -20,7 +21,7 @@ const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn("[&_tr]:border-b-0", className)} {...props} />
+  <TableHeaderBase ref={ref} className={cn("[&_tr]:border-b-0", className)} {...props} />
 ))
 TableHeader.displayName = "TableHeader"
 
@@ -28,7 +29,7 @@ const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
-  <tbody
+  <TableBodyBase
     ref={ref}
     className={cn("[&_tr:last-child]:border-0", className)}
     {...props}
@@ -40,7 +41,7 @@ const TableFooter = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
-  <tfoot
+  <TableFooterBase
     ref={ref}
     className={cn(
       "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
@@ -55,7 +56,7 @@ const TableRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement>
 >(({ className, ...props }, ref) => (
-  <tr
+  <TableRowBase
     ref={ref}
     className={cn(
       "border-b border-[rgba(255,255,255,0.05)] transition-colors hover:bg-[rgba(255,255,255,0.02)] data-[state=selected]:bg-muted",
@@ -70,7 +71,7 @@ const TableHead = React.forwardRef<
   HTMLTableCellElement,
   React.ThHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, ref) => (
-  <th
+  <TableHeadBase
     ref={ref}
     className={cn(
       "h-16 px-6 text-left align-middle font-medium text-[var(--pd-muted)] [&:has([role=checkbox])]:pr-0 font-serif tracking-wide",
@@ -85,7 +86,7 @@ const TableCell = React.forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, ref) => (
-  <td
+  <TableCellBase
     ref={ref}
     className={cn(
       "p-6 align-middle [&:has([role=checkbox])]:pr-0 text-[var(--pd-text)]",
@@ -100,7 +101,7 @@ const TableCaption = React.forwardRef<
   HTMLTableCaptionElement,
   React.HTMLAttributes<HTMLTableCaptionElement>
 >(({ className, ...props }, ref) => (
-  <caption
+  <TableCaptionBase
     ref={ref}
     className={cn("mt-4 text-sm text-[var(--pd-muted)]", className)}
     {...props}

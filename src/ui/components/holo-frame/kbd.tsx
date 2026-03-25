@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
+import { KbdBase } from '../_base/kbd';
 
 export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
   effects?: HoloFrameEffects;
@@ -9,7 +10,7 @@ export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
 const Kbd = React.forwardRef<HTMLElement, KbdProps>(
   ({ className, effects = 'on', ...props }, ref) => {
     return (
-      <kbd
+      <KbdBase
         className={cn(holoFrameEffectsClass(effects), 
           'pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-[var(--hf-border-dim)] bg-[var(--hf-surface)] px-1.5 font-mono text-[10px] font-medium text-[var(--hf-text)] opacity-100',
           className

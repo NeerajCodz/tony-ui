@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/large/button';
+import type { ComboboxBaseProps } from '../_base/combobox';
 import {
   Command,
   CommandEmpty,

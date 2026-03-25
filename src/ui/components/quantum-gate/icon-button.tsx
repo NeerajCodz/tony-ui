@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Button, ButtonProps } from './button';
 import { cn } from '@/lib/utils';
 import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
+import type { IconButtonBaseProps } from '../_base/icon-button';
 
 export interface IconButtonProps extends ButtonProps {
   effects?: QuantumGateEffects;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
+import type { AnalogClockBaseProps } from '../_base/analog-clock';
 
 interface AnalogClockProps extends React.SVGAttributes<SVGSVGElement> {
   visualType?: string;

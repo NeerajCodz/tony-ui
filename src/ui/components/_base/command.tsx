@@ -374,3 +374,6 @@ export const CommandShortcutBase = React.forwardRef<HTMLSpanElement, CommandShor
   )
 );
 CommandShortcutBase.displayName = 'CommandShortcutBase';
+
+// Bridge export so version components consume cmdk via _base only
+export { Command as CommandPrimitive } from 'cmdk';

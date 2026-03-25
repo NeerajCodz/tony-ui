@@ -1,7 +1,14 @@
-import * as React from "react"
-import { LabelPrimitive } from '../_base/label';
-import { Slot } from '../_base/form';
-import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, useFormContext } from "react-hook-form"
+import * as React from 'react';
+import {
+  Controller,
+  ControllerProps,
+  FieldPath,
+  FieldValues,
+  FormProvider,
+  useFormContext,
+  LabelPrimitive,
+  Slot
+} from '../_base/form';
 import { cn } from "@/lib/utils"
 import { Label } from "./label"
 
@@ -164,3 +171,4 @@ export {
   FormMessage,
   FormField,
 }
+

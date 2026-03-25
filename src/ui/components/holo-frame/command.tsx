@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Command as CommandPrimitive } from 'cmdk';
+import { CommandPrimitive } from '../_base/command';
 import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
@@ -144,3 +144,4 @@ export {
   CommandShortcut,
   CommandSeparator,
 };
+

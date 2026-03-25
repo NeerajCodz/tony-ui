@@ -1,6 +1,4 @@
-import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 import * as React from 'react';
-import { cn } from '@/lib/utils';
 import {
   ColumnDef,
   flexRender,
@@ -12,7 +10,9 @@ import {
   getFilteredRowModel,
   ColumnFiltersState,
   VisibilityState,
-} from '@tanstack/react-table';
+} from '../_base/data-table';
+import { cn } from '@/lib/utils';
+import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 import {
   Table,
   TableBody,
@@ -36,7 +36,6 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   effects?: QuantumGateEffects;
 }
-
 
 export function DataTable<TData, TValue>({
   columns,

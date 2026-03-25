@@ -1,23 +1,31 @@
-'use client';
-
 import * as React from 'react';
-import { ButtonGroupBase } from '../_base/button-group';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { ButtonGroupBase, type ButtonGroupBaseProps } from '../_base/button-group';
+import { cn } from '@/lib/utils';
 
-export type ButtonGroupProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonGroupBase>, 'type'> & StyledProps;
+export interface ButtonGroupProps extends ButtonGroupBaseProps {}
 
-export const ButtonGroup = React.forwardRef<React.ComponentRef<typeof ButtonGroupBase>, ButtonGroupProps>(
-  ({ className, version, type, uiType, colors, style, orientation = 'horizontal', ...props }, ref) => (
+const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
+  ({ className, orientation = 'horizontal', attached = true, ...props }, ref) => (
     <ButtonGroupBase
       ref={ref}
       orientation={orientation}
-      className={cx('inline-flex gap-1', orientation === 'vertical' && 'flex-col', className)}
-      style={getSurfaceStyle(version ?? 'padding', type, uiType, colors, style)}
+      attached={attached}
+      className={cn(
+        'inline-flex gap-1',
+        orientation === 'vertical' ? 'flex-col' : 'flex-row',
+        attached &&
+          orientation === 'horizontal' &&
+          '[&>button:not(:first-child):not(:last-child)]:rounded-none [&>button:first-child]:rounded-r-none [&>button:last-child]:rounded-l-none [&>button:not(:first-child)]:-ml-px',
+        attached &&
+          orientation === 'vertical' &&
+          '[&>button:not(:first-child):not(:last-child)]:rounded-none [&>button:first-child]:rounded-b-none [&>button:last-child]:rounded-t-none [&>button:not(:first-child)]:-mt-px',
+        className
+      )}
       {...props}
     />
   )
 );
-
 ButtonGroup.displayName = 'ButtonGroup';
 
+export { ButtonGroup };
 export default ButtonGroup;

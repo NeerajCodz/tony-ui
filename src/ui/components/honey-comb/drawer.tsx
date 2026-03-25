@@ -1,5 +1,5 @@
-import * as React from "react"
-import { Drawer as DrawerPrimitive } from "vaul"
+import * as React from 'react';
+import { DrawerPrimitive } from '../_base/drawer';
 import { cn } from "@/lib/utils"
 
 const Drawer = ({
@@ -113,3 +113,4 @@ export {
   DrawerTitle,
   DrawerDescription,
 }
+

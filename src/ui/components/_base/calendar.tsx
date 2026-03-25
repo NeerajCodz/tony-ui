@@ -384,3 +384,6 @@ export const CalendarDayBase = React.forwardRef<HTMLButtonElement, CalendarDayBa
   )
 );
 CalendarDayBase.displayName = 'CalendarDayBase';
+
+// Bridge export so version components consume DayPicker via _base only
+export { DayPicker } from 'react-day-picker';

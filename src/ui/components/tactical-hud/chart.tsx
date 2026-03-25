@@ -7,17 +7,16 @@ import {
   ChartStyleBase,
   ChartTooltipBase,
   ChartTooltipContentBase,
-  useChart,
+  ResponsiveContainer,
   type ChartConfig,
-} from '@/ui/components/_base/chart';
+  useChart,
+} from '../_base/chart';
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
-import { ResponsiveContainer } from 'recharts';
 
 /* -------------------------------------------------------------------------- */
 /*                               Chart Container                              */
 /* -------------------------------------------------------------------------- */
-
 
 const ChartContainer = React.forwardRef<
   React.ComponentRef<typeof ChartContainerBase>,
@@ -27,7 +26,7 @@ const ChartContainer = React.forwardRef<
     <ChartContainerBase
       ref={ref}
       className={cn(tacticalHudEffectsClass(effects), 
-        "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-[var(--text-muted)] [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-[var(--th-hex-line)]/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-[var(--th-hex-line)] [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-[var(--th-hex-line)] [&_.recharts-radial-bar-background-sector]:fill-[var(--text-muted)] [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-[var(--text-muted)] [&_.recharts-reference-line_[stroke='#ccc']]:stroke-[var(--th-hex-line)] [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none font-sans",
+        "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-[var(--text-muted)] [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-[var(--th-border)]/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-[var(--th-border)] [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-[var(--th-border)] [&_.recharts-radial-bar-background-sector]:fill-[var(--text-muted)] [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-[var(--text-muted)] [&_.recharts-reference-line_[stroke='#ccc']]:stroke-[var(--th-border)] [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none font-sans",
         className
       )}
       {...props}
@@ -82,7 +81,7 @@ const ChartTooltipContent = React.forwardRef<
     
     if (props.labelFormatter) {
       return (
-        <div className={cn(tacticalHudEffectsClass(effects), 'font-bold font-sans uppercase', props.labelClassName)}>
+        <div className={cn('font-bold font-sans ', props.labelClassName)}>
           {props.labelFormatter(value, payload)}
         </div>
       );
@@ -92,17 +91,16 @@ const ChartTooltipContent = React.forwardRef<
       return null;
     }
 
-    return <div className={cn(tacticalHudEffectsClass(effects), 'font-bold font-sans uppercase', props.labelClassName)}>{value}</div>;
+    return <div className={cn('font-bold font-sans ', props.labelClassName)}>{value}</div>;
   }, [label, payload, hideLabel, nestLabel, config, props.labelFormatter, props.labelClassName]);
 
   return (
     <div
       ref={ref}
       className={cn(tacticalHudEffectsClass(effects), 
-        'grid min-w-[8rem] items-start gap-1.5 border border-[var(--th-hex-line)] bg-[var(--th-surface)] px-2.5 py-1.5 text-xs shadow-xl',
+        'grid min-w-[8rem] items-start gap-1.5 border border-[var(--th-border)] bg-[var(--th-bg)] px-2.5 py-1.5 text-xs shadow-xl',
         className
       )}
-      style={{ '--corner': '8px' } as React.CSSProperties}
     >
       {!nestLabel ? tooltipLabel : null}
       <div className="grid gap-1.5">

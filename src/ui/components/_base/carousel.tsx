@@ -302,3 +302,7 @@ export const CarouselDotBase = React.forwardRef<HTMLButtonElement, CarouselDotBa
   )
 );
 CarouselDotBase.displayName = 'CarouselDotBase';
+
+// Bridge exports so version components consume Embla via _base only
+export { default as useEmblaCarousel, type UseEmblaCarouselType } from 'embla-carousel-react';
+export * from 'embla-carousel-react';

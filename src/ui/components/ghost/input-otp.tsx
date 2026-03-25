@@ -1,5 +1,5 @@
-import * as React from "react"
-import { OTPInput, OTPInputContext } from "input-otp"
+import * as React from 'react';
+import { OTPInput, OTPInputContext } from '../_base/input-otp';
 import { Dot } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ghostEffectsClass, type GhostEffects } from "./_effects"
@@ -67,3 +67,4 @@ const InputOTPSeparator = React.forwardRef<
 InputOTPSeparator.displayName = "InputOTPSeparator"
 
 export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }
+

@@ -239,3 +239,6 @@ export const DatePickerPresetsBase = React.forwardRef<
   DatePickerPresetsBaseProps
 >((props, ref) => <div ref={ref} {...props} />);
 DatePickerPresetsBase.displayName = 'DatePickerPresetsBase';
+
+// Bridge export so version components consume date formatting via _base only
+export { format } from 'date-fns';

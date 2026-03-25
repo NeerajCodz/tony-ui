@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
+import { SkeletonBase } from '../_base/skeleton';
 
 
 function Skeleton({
@@ -9,7 +10,7 @@ function Skeleton({
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { effects?: TacticalHudEffects }) {
   return (
-    <div
+    <SkeletonBase
       className={cn(tacticalHudEffectsClass(effects),
         'animate-pulse bg-[var(--th-hex-line)]/20',
         className
