@@ -127,11 +127,11 @@ const DialogOverlay = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >(({ className = '', ...props }, ref) => {
-  const { versionModule, variant, colors } = useDialogContext();
+  const { versionModule, variant, colors, effects } = useDialogContext();
 
   if (versionModule?.DialogOverlay || versionModule?.Overlay) {
     const Component = versionModule.DialogOverlay || versionModule.Overlay;
-    return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
+    return <Component ref={ref} variant={variant} colors={colors} effects={effects} className={className} {...props} />;
   }
 
   return (
@@ -148,14 +148,14 @@ const DialogContent = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className = '', children, ...props }, ref) => {
-  const { versionModule, variant, colors, config } = useDialogContext();
+  const { versionModule, variant, colors, config, effects } = useDialogContext();
 
   if (versionModule?.DialogContent || versionModule?.Content) {
     const Component = versionModule.DialogContent || versionModule.Content;
     return (
       <DialogPortal>
         <DialogOverlay />
-        <Component ref={ref} variant={variant} colors={colors} config={config} className={className} {...props}>
+        <Component ref={ref} variant={variant} colors={colors} config={config} effects={effects} className={className} {...props}>
           {children}
         </Component>
       </DialogPortal>
@@ -183,11 +183,11 @@ DialogContent.displayName = 'DialogContent';
 
 const DialogHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className = '', ...props }, ref) => {
-    const { versionModule, variant, colors } = useDialogContext();
+    const { versionModule, variant, colors, effects } = useDialogContext();
 
     if (versionModule?.DialogHeader || versionModule?.Header) {
       const Component = versionModule.DialogHeader || versionModule.Header;
-      return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
+      return <Component ref={ref} variant={variant} colors={colors} effects={effects} className={className} {...props} />;
     }
 
     return (
@@ -203,11 +203,11 @@ DialogHeader.displayName = 'DialogHeader';
 
 const DialogFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className = '', ...props }, ref) => {
-    const { versionModule, variant, colors } = useDialogContext();
+    const { versionModule, variant, colors, effects } = useDialogContext();
 
     if (versionModule?.DialogFooter || versionModule?.Footer) {
       const Component = versionModule.DialogFooter || versionModule.Footer;
-      return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
+      return <Component ref={ref} variant={variant} colors={colors} effects={effects} className={className} {...props} />;
     }
 
     return (
