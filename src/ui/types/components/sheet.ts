@@ -15,6 +15,7 @@ export interface SheetProps {
   icon?: React.ReactNode;
   children?: React.ReactNode;
   className?: string;
+  effects?: string;
 }
 
 export interface SheetContentProps extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content> {

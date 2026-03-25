@@ -92,6 +92,7 @@ export const SonnerHandler = forwardRef<HTMLDivElement, SonnerProps>(
       showLoader = true,
       max = 5,
       className = '',
+      effects,
       ...props
     },
     ref
@@ -121,6 +122,7 @@ export const SonnerHandler = forwardRef<HTMLDivElement, SonnerProps>(
           duration={duration}
           showLoader={showLoader}
           max={max}
+          effects={effects}
           versionConfig={versionConfig}
           toastOptions={toastOptions}
           className={className}
