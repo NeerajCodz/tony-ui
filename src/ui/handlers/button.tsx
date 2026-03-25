@@ -44,8 +44,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   fullWidth = false,
   iconBefore,
   iconAfter,
-  leftIcon,
-  rightIcon,
   className,
   children,
   disabled,
@@ -64,8 +62,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     return componentCache.get(cacheKey)!;
   }, [version]);
 
-  const resolvedIconBefore = iconBefore ?? leftIcon;
-  const resolvedIconAfter = iconAfter ?? rightIcon;
   const sizeClassName =
     size === 'sm'
       ? 'px-3 py-1.5 text-sm'
@@ -77,10 +73,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     : [className, sizeClassName].filter(Boolean).join(' ');
   const content = (
     <>
-      {resolvedIconBefore ? <span className="mr-2 inline-flex items-center">{resolvedIconBefore}</span> : null}
+      {iconBefore ? <span className="mr-2 inline-flex items-center">{iconBefore}</span> : null}
       {children}
       {loading ? <span className="ml-2 inline-flex animate-pulse items-center">...</span> : null}
-      {!loading && resolvedIconAfter ? <span className="ml-2 inline-flex items-center">{resolvedIconAfter}</span> : null}
+      {!loading && iconAfter ? <span className="ml-2 inline-flex items-center">{iconAfter}</span> : null}
     </>
   );
 
