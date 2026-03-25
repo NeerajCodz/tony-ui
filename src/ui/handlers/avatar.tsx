@@ -18,6 +18,7 @@ export interface AvatarProps extends React.ComponentPropsWithoutRef<typeof Avata
   version?: AvatarVersion;
   variant?: AvatarVariant;
   size?: AvatarSize;
+  effects?: string;
 }
 
 // Context
@@ -25,6 +26,7 @@ interface AvatarContextValue {
   version: AvatarVersion;
   variant: AvatarVariant;
   size: AvatarSize;
+  effects?: string;
   colors: ReturnType<typeof getVariantColors>;
   versionModule: any;
 }
@@ -53,6 +55,7 @@ const AvatarRoot = React.forwardRef<
   version = 'angular-corner',
   variant = 'default',
   size = 'md',
+  effects,
   children,
   ...props
 }, ref) => {
@@ -70,8 +73,8 @@ const AvatarRoot = React.forwardRef<
   const Component = versionModule.AvatarRoot || versionModule.Avatar || versionModule.default;
 
   return (
-    <AvatarContext.Provider value={{ version, variant, size, colors, versionModule }}>
-      <Component ref={ref} variant={variant} size={size} {...props}>
+    <AvatarContext.Provider value={{ version, variant, size, effects, colors, versionModule }}>
+      <Component ref={ref} variant={variant} size={size} effects={effects} {...props}>
         {children}
       </Component>
     </AvatarContext.Provider>

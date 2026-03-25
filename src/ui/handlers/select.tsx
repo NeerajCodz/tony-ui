@@ -17,12 +17,14 @@ export type SelectVariant = Variant;
 export interface SelectProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root> {
   version?: SelectVersion;
   variant?: SelectVariant;
+  effects?: string;
 }
 
 // Context
 interface SelectContextValue {
   version: SelectVersion;
   variant: SelectVariant;
+  effects?: string;
   colors: ReturnType<typeof getVariantColors>;
   versionModule: any;
 }
@@ -40,6 +42,7 @@ const useSelectContext = () => useContext(SelectContext);
 const SelectRoot: React.FC<SelectProps> = ({
   version = 'angular-corner',
   variant = 'default',
+  effects,
   children,
   ...props
 }) => {
@@ -51,7 +54,7 @@ const SelectRoot: React.FC<SelectProps> = ({
   }, [version]);
 
   return (
-    <SelectContext.Provider value={{ version, variant, colors, versionModule }}>
+    <SelectContext.Provider value={{ version, variant, effects, colors, versionModule }}>
       <SelectPrimitive.Root {...props}>
         {children}
       </SelectPrimitive.Root>

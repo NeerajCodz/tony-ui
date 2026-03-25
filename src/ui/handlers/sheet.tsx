@@ -37,6 +37,7 @@ export const Sheet: React.FC<SheetProps> = ({
   icon,
   children,
   className,
+  effects,
   ...props
 }) => {
   const colors = React.useMemo(() => getVariantColors(variant), [variant]);
@@ -55,6 +56,7 @@ export const Sheet: React.FC<SheetProps> = ({
             variant={variant}
             colors={colors}
             className={className}
+            effects={effects}
             {...props}
           >
             {(title || description) && (

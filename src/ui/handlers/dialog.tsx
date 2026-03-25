@@ -22,6 +22,7 @@ export interface DialogProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   children?: React.ReactNode;
+  effects?: string;
 }
 
 const loadDialogModule = async (version: Version) => {
@@ -60,6 +61,7 @@ const loadDialogConfig = async (version: Version) => {
 interface DialogContextValue {
   version: DialogVersion;
   variant: DialogVariant;
+  effects?: string;
   versionModule: any;
   colors: VariantColors;
   config: any;
@@ -88,6 +90,7 @@ const DialogRoot: React.FC<DialogProps> = ({
   variant = 'default',
   open,
   onOpenChange,
+  effects,
   children,
 }) => {
   const [versionModule, setVersionModule] = useState<any>(null);
@@ -107,7 +110,7 @@ const DialogRoot: React.FC<DialogProps> = ({
   const colors = useMemo(() => getVariantColors(variant), [variant]);
 
   return (
-    <DialogContext.Provider value={{ version, variant, versionModule, colors, config }}>
+    <DialogContext.Provider value={{ version, variant, effects, versionModule, colors, config }}>
       <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
         {children}
       </DialogPrimitive.Root>
