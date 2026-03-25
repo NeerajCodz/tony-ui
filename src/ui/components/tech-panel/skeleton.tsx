@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
+import { SkeletonBase } from '../_base/skeleton';
 
 
 function Skeleton({
@@ -9,7 +10,7 @@ function Skeleton({
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { effects?: TechPanelEffects }) {
   return (
-    <div
+    <SkeletonBase
       className={cn(techPanelEffectsClass(effects),
         'animate-pulse bg-[var(--tp-border-inner)]/20',
         className

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { DayPicker } from 'react-day-picker';
+import { DayPicker } from '../_base/calendar';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/ui/components/_base/button'; 
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & { effects?: TerminalWindowEffects };
 
@@ -67,3 +67,4 @@ function Calendar({
 Calendar.displayName = 'Calendar';
 
 export { Calendar };
+

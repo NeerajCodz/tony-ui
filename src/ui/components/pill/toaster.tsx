@@ -1,51 +1,9 @@
 import * as React from 'react';
-import {
-  Toast,
-  ToastClose,
-  ToastDescription,
-  ToastProvider,
-  ToastTitle,
-  ToastViewport,
-} from './toast';
-import { useToast } from '@/ui/hooks/use-toast';
+import type { ToasterBaseProps } from '@/ui/components/_base/toaster';
+import { Toaster as SonnerToaster } from './sonner';
 
-export function Toaster() {
-  const { toasts } = useToast();
+export type ToasterProps = ToasterBaseProps & React.ComponentProps<typeof SonnerToaster>;
 
-  return (
-    <ToastProvider>
-      {toasts.map(function ({
-        id,
-        title,
-        description,
-        action,
-        open,
-        onOpenChange,
-        duration,
-        variant,
-        type,
-      }) {
-        return (
-          <Toast
-            key={id}
-            open={open}
-            onOpenChange={onOpenChange}
-            duration={duration}
-            variant={variant === 'destructive' ? 'destructive' : 'default'}
-            type={type}
-          >
-            <div className="grid gap-1">
-              {title && <ToastTitle>{title}</ToastTitle>}
-              {description && (
-                <ToastDescription>{description}</ToastDescription>
-              )}
-            </div>
-            {action}
-            <ToastClose />
-          </Toast>
-        );
-      })}
-      <ToastViewport />
-    </ToastProvider>
-  );
+export function Toaster(props: ToasterProps) {
+  return <SonnerToaster {...props} />;
 }

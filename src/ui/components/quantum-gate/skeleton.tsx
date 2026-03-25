@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
+import { SkeletonBase } from '../_base/skeleton';
 
 
 function Skeleton({
@@ -9,7 +10,7 @@ function Skeleton({
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { effects?: QuantumGateEffects }) {
   return (
-    <div
+    <SkeletonBase
       className={cn(quantumGateEffectsClass(effects),
         'animate-pulse bg-[var(--qg-border)]/20',
         className

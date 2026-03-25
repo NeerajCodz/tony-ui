@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { TextareaBase } from '../_base/textarea';
 
 export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -11,7 +12,7 @@ const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 1
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, visualType = 'outline', ...props }, ref) => {
     return (
-      <textarea
+      <TextareaBase
         className={cn(
           'flex min-h-[80px] w-full border border-[var(--ac-border)] bg-[var(--ac-surface)] px-3 py-2 text-sm ring-offset-[var(--ac-bg)] placeholder:text-[var(--text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ac-accent)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 font-mono text-[var(--text-primary)]',
           className

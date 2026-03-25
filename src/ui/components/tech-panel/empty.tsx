@@ -2,6 +2,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
 import { Ghost } from 'lucide-react';
+import type { EmptyBaseProps } from '../_base/empty';
 
 interface EmptyProps extends React.HTMLAttributes<HTMLDivElement> {
     icon?: React.ReactNode;

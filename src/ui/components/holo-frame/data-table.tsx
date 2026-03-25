@@ -1,6 +1,4 @@
-import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 import * as React from 'react';
-import { cn } from '@/lib/utils';
 import {
   ColumnDef,
   flexRender,
@@ -12,7 +10,9 @@ import {
   getFilteredRowModel,
   ColumnFiltersState,
   VisibilityState,
-} from '@tanstack/react-table';
+} from '../_base/data-table';
+import { cn } from '@/lib/utils';
+import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 import {
   Table,
   TableBody,

@@ -1,5 +1,6 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import type { ButtonGroupBaseProps } from '../_base/button-group';
 
 const ButtonGroup = React.forwardRef<
   HTMLDivElement,

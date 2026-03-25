@@ -1,6 +1,4 @@
-import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from './_effects';
 import * as React from 'react';
-import { cn } from '@/lib/utils';
 import {
   ColumnDef,
   flexRender,
@@ -12,7 +10,9 @@ import {
   getFilteredRowModel,
   ColumnFiltersState,
   VisibilityState,
-} from '@tanstack/react-table';
+} from '../_base/data-table';
+import { cn } from '@/lib/utils';
+import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
 import {
   Table,
   TableBody,
@@ -36,7 +36,6 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   effects?: TacticalHudEffects;
 }
-
 
 export function DataTable<TData, TValue>({
   columns,
@@ -109,7 +108,7 @@ export function DataTable<TData, TValue>({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="bg-[var(--th-surface)] p-1" style={{ ...bracketsStyle, '--corner': '8px' } as React.CSSProperties}>
+      <div className="bg-[var(--th-surface)] p-1" style={{ '--corner': '8px' } as React.CSSProperties}>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

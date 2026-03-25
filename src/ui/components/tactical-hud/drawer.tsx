@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Drawer as DrawerPrimitive } from 'vaul';
+import { DrawerPrimitive } from '../_base/drawer';
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from './_effects';
 
@@ -123,3 +123,4 @@ export {
   DrawerTitle,
   DrawerDescription,
 };
+

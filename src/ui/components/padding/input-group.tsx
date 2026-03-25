@@ -1,53 +1,86 @@
-'use client';
-
 import * as React from 'react';
 import {
   InputGroupBase,
   InputLeftAddonBase,
-  InputLeftElementBase,
   InputRightAddonBase,
+  InputLeftElementBase,
   InputRightElementBase,
+  type InputGroupBaseProps,
+  type InputLeftAddonBaseProps,
+  type InputRightAddonBaseProps,
+  type InputLeftElementBaseProps,
+  type InputRightElementBaseProps,
 } from '../_base/input-group';
-import { cx, getSurfaceStyle, type StyledProps } from '../_shared/basic-surfaces';
+import { cn } from '@/lib/utils';
 
-export type InputGroupProps = Omit<React.ComponentPropsWithoutRef<typeof InputGroupBase>, 'type'> & StyledProps;
-export type InputLeftAddonProps = Omit<React.ComponentPropsWithoutRef<typeof InputLeftAddonBase>, 'type'> & StyledProps;
-export type InputRightAddonProps = Omit<React.ComponentPropsWithoutRef<typeof InputRightAddonBase>, 'type'> & StyledProps;
-export type InputLeftElementProps = Omit<React.ComponentPropsWithoutRef<typeof InputLeftElementBase>, 'type'> & StyledProps;
-export type InputRightElementProps = Omit<React.ComponentPropsWithoutRef<typeof InputRightElementBase>, 'type'> & StyledProps;
-
-const InputGroup = React.forwardRef<React.ComponentRef<typeof InputGroupBase>, InputGroupProps>(
-  ({ className, version, type, uiType, colors, style, ...props }, ref) => (
+export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupBaseProps>(
+  ({ className, size = 'md', ...props }, ref) => (
     <InputGroupBase
       ref={ref}
-      className={cx('relative flex w-full items-center rounded', className)}
-      style={getSurfaceStyle(version ?? 'padding', type, uiType, colors, style)}
+      size={size}
+      className={cn('relative flex w-full items-center rounded-[8px] font-sans', className)}
       {...props}
     />
   )
 );
 InputGroup.displayName = 'InputGroup';
 
-const InputLeftAddon = React.forwardRef<React.ComponentRef<typeof InputLeftAddonBase>, InputLeftAddonProps>(
-  ({ className, ...props }, ref) => <InputLeftAddonBase ref={ref} className={cx('inline-flex items-center px-2 text-sm', className)} {...props} />
+export const InputLeftAddon = React.forwardRef<HTMLDivElement, InputLeftAddonBaseProps>(
+  ({ className, ...props }, ref) => (
+    <InputLeftAddonBase
+      ref={ref}
+      className={cn(
+        'inline-flex items-center rounded-l-[8px] border border-r-0 border-transparent bg-[rgba(255,255,255,0.05)] px-3 text-sm text-[var(--pd-muted)]',
+        className
+      )}
+      {...props}
+    />
+  )
 );
 InputLeftAddon.displayName = 'InputLeftAddon';
 
-const InputRightAddon = React.forwardRef<React.ComponentRef<typeof InputRightAddonBase>, InputRightAddonProps>(
-  ({ className, ...props }, ref) => <InputRightAddonBase ref={ref} className={cx('inline-flex items-center px-2 text-sm', className)} {...props} />
+export const InputRightAddon = React.forwardRef<HTMLDivElement, InputRightAddonBaseProps>(
+  ({ className, ...props }, ref) => (
+    <InputRightAddonBase
+      ref={ref}
+      className={cn(
+        'inline-flex items-center rounded-r-[8px] border border-l-0 border-transparent bg-[rgba(255,255,255,0.05)] px-3 text-sm text-[var(--pd-muted)]',
+        className
+      )}
+      {...props}
+    />
+  )
 );
 InputRightAddon.displayName = 'InputRightAddon';
 
-const InputLeftElement = React.forwardRef<React.ComponentRef<typeof InputLeftElementBase>, InputLeftElementProps>(
-  ({ className, ...props }, ref) => <InputLeftElementBase ref={ref} className={cx('inline-flex items-center px-2', className)} {...props} />
+export const InputLeftElement = React.forwardRef<HTMLDivElement, InputLeftElementBaseProps>(
+  ({ className, interactive, ...props }, ref) => (
+    <InputLeftElementBase
+      ref={ref}
+      interactive={interactive}
+      className={cn(
+        'absolute left-0 top-0 z-10 inline-flex items-center justify-center px-3 text-[var(--pd-muted)]',
+        interactive ? 'cursor-pointer' : 'pointer-events-none',
+        className
+      )}
+      {...props}
+    />
+  )
 );
 InputLeftElement.displayName = 'InputLeftElement';
 
-const InputRightElement = React.forwardRef<React.ComponentRef<typeof InputRightElementBase>, InputRightElementProps>(
-  ({ className, ...props }, ref) => <InputRightElementBase ref={ref} className={cx('inline-flex items-center px-2', className)} {...props} />
+export const InputRightElement = React.forwardRef<HTMLDivElement, InputRightElementBaseProps>(
+  ({ className, interactive, ...props }, ref) => (
+    <InputRightElementBase
+      ref={ref}
+      interactive={interactive}
+      className={cn(
+        'absolute right-0 top-0 z-10 inline-flex items-center justify-center px-3 text-[var(--pd-muted)]',
+        interactive ? 'cursor-pointer' : 'pointer-events-none',
+        className
+      )}
+      {...props}
+    />
+  )
 );
 InputRightElement.displayName = 'InputRightElement';
-
-export { InputLeftAddon, InputRightAddon, InputLeftElement, InputRightElement };
-
-export default InputGroup;

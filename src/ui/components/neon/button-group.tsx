@@ -1,4 +1,5 @@
 import * as React from 'react';
+import type { ButtonGroupBaseProps } from '../_base/button-group';
 
 import { cn } from '@/lib/utils';
 import { ButtonProps } from './button';

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
+import { KbdBase } from '../_base/kbd';
 
 export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
   effects?: TacticalHudEffects;
@@ -9,7 +10,7 @@ export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
 const Kbd = React.forwardRef<HTMLElement, KbdProps>(
   ({ className, effects = 'on', ...props }, ref) => {
     return (
-      <kbd
+      <KbdBase
         className={cn(tacticalHudEffectsClass(effects), 
           'pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-[var(--th-hex-line)] bg-[var(--th-surface)] px-1.5 font-sans text-[10px] font-medium text-[var(--text-muted)] opacity-100',
           className

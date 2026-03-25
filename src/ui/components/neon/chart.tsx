@@ -1,42 +1,37 @@
-"use client"
+import * as React from 'react';
+import {
+  ChartContainerBase,
+  ChartTooltipBase,
+  ChartTooltipContentBase,
+  type ChartConfig,
+} from '../_base/chart';
+import { cn } from '@/lib/utils';
 
-import * as React from "react"
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+const ChartContainer = React.forwardRef<
+  React.ComponentRef<typeof ChartContainerBase>,
+  React.ComponentPropsWithoutRef<typeof ChartContainerBase>
+>(({ className, ...props }, ref) => (
+  <ChartContainerBase
+    ref={ref}
+    className={cn('h-[350px] w-full', className)}
+    {...props}
+  />
+));
+ChartContainer.displayName = 'ChartContainer';
 
-import { cn } from "@/lib/utils"
+const ChartTooltip = ChartTooltipBase;
 
-export function Chart({ className }: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={[
-        { name: "Jan", total: Math.floor(Math.random() * 5000) + 1000 },
-        { name: "Feb", total: Math.floor(Math.random() * 5000) + 1000 },
-        { name: "Mar", total: Math.floor(Math.random() * 5000) + 1000 },
-        { name: "Apr", total: Math.floor(Math.random() * 5000) + 1000 },
-        { name: "May", total: Math.floor(Math.random() * 5000) + 1000 },
-        { name: "Jun", total: Math.floor(Math.random() * 5000) + 1000 },
-      ]}>
-        <XAxis
-          dataKey="name"
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-        />
-        <YAxis
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(value) => `$${value}`}
-        />
-        <Bar
-          dataKey="total"
-          fill="var(--ne-primary)"
-          radius={[4, 4, 0, 0]}
-          className="fill-[var(--ne-primary)]"
-        />
-      </BarChart>
-    </ResponsiveContainer>
-  )
-}
+const ChartTooltipContent = React.forwardRef<
+  React.ComponentRef<typeof ChartTooltipContentBase>,
+  React.ComponentPropsWithoutRef<typeof ChartTooltipContentBase>
+>(({ className, ...props }, ref) => (
+  <ChartTooltipContentBase
+    ref={ref}
+    className={cn('rounded border bg-background p-2 text-xs', className)}
+    {...props}
+  />
+));
+ChartTooltipContent.displayName = 'ChartTooltipContent';
+
+export { ChartContainer, ChartTooltip, ChartTooltipContent };
+export type { ChartConfig };

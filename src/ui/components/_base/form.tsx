@@ -154,3 +154,14 @@ export {
   Slot,
   useFormField,
 };
+
+// Bridge exports so version components consume react-hook-form via _base only
+export {
+  Controller,
+  FormProvider,
+  useFormContext,
+  type ControllerProps,
+  type FieldPath,
+  type FieldValues,
+} from 'react-hook-form';
+export * from 'react-hook-form';

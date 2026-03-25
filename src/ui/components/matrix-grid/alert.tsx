@@ -3,6 +3,8 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
+import type * as __BaseImport_alert from '../_base/alert';
+
 const alertVariants = cva(
   'relative w-full border p-4 [&>svg~*]:pl-7 font-mono animate-in fade-in-50',
   {

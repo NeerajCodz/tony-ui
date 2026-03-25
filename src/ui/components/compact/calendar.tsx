@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DayPicker } from 'react-day-picker';
+import { DayPicker } from '../_base/calendar';
 import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { buttonVariants } from './button'; // Use our button styles
@@ -60,3 +60,4 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
   }
 );
 Calendar.displayName = 'Calendar';
+

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { Check, ChevronsUpDown } from 'lucide-react';
+import type { ComboboxBaseProps } from '../_base/combobox';
 import {
     Command,
     CommandEmpty,

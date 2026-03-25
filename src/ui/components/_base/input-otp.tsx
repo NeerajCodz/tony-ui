@@ -232,3 +232,6 @@ export const InputOTPSeparatorBase = React.forwardRef<HTMLDivElement, InputOTPSe
   )
 );
 InputOTPSeparatorBase.displayName = 'InputOTPSeparatorBase';
+
+// Bridge exports so version components consume OTP primitives via _base only
+export { OTPInput, OTPInputContext } from 'input-otp';

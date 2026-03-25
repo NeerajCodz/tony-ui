@@ -3,6 +3,8 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { getNeonGlow } from './_effects';
 
+import type * as __BaseImport_sidebar from '../_base/sidebar';
+
 const Sidebar = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { effects?: boolean }

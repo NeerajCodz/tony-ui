@@ -7,17 +7,15 @@ import {
   ChartStyleBase,
   ChartTooltipBase,
   ChartTooltipContentBase,
-  useChart,
+  ResponsiveContainer,
   type ChartConfig,
-} from '@/ui/components/_base/chart';
+  useChart,
+} from '../_base/chart';
 import { cn } from '@/lib/utils';
-import { ResponsiveContainer } from 'recharts';
 
 /* -------------------------------------------------------------------------- */
 /*                               Chart Container                              */
 /* -------------------------------------------------------------------------- */
-
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
 const ChartContainer = React.forwardRef<
   React.ComponentRef<typeof ChartContainerBase>,
@@ -82,7 +80,7 @@ const ChartTooltipContent = React.forwardRef<
     
     if (props.labelFormatter) {
       return (
-        <div className={cn('font-bold font-mono uppercase', props.labelClassName)}>
+        <div className={cn('font-bold font-mono ', props.labelClassName)}>
           {props.labelFormatter(value, payload)}
         </div>
       );
@@ -92,17 +90,16 @@ const ChartTooltipContent = React.forwardRef<
       return null;
     }
 
-    return <div className={cn('font-bold font-mono uppercase', props.labelClassName)}>{value}</div>;
+    return <div className={cn('font-bold font-mono ', props.labelClassName)}>{value}</div>;
   }, [label, payload, hideLabel, nestLabel, config, props.labelFormatter, props.labelClassName]);
 
   return (
     <div
       ref={ref}
       className={cn(
-        'grid min-w-[8rem] items-start gap-1.5 border border-[var(--ac-border)] bg-[var(--ac-surface)] px-2.5 py-1.5 text-xs shadow-xl',
+        'grid min-w-[8rem] items-start gap-1.5 border border-[var(--ac-border)] bg-[var(--ac-bg)] px-2.5 py-1.5 text-xs shadow-xl',
         className
       )}
-      style={{ clipPath: AC_CLIP_PATH, '--corner': '8px' } as React.CSSProperties}
     >
       {!nestLabel ? tooltipLabel : null}
       <div className="grid gap-1.5">

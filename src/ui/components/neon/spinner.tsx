@@ -4,6 +4,8 @@ import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getNeonGlow } from './_effects';
 
+import type * as __BaseImport_spinner from '../_base/spinner';
+
 export interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: 'sm' | 'default' | 'lg' | 'xl';
   effects?: boolean;

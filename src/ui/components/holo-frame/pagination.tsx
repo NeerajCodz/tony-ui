@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 import { ButtonProps, buttonVariants } from './button';
 import { Link } from 'react-router-dom';
+import type { PaginationBaseProps } from '../_base/pagination';
 
 const Pagination = ({ className, effects = 'on', ...props }: React.ComponentProps<'nav'> & { effects?: HoloFrameEffects }) => (
   <nav

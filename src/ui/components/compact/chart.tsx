@@ -7,11 +7,11 @@ import {
   ChartStyleBase,
   ChartTooltipBase,
   ChartTooltipContentBase,
-  useChart,
+  ResponsiveContainer,
   type ChartConfig,
-} from '@/ui/components/_base/chart';
+  useChart,
+} from '../_base/chart';
 import { cn } from '@/lib/utils';
-import { ResponsiveContainer } from 'recharts';
 
 /* -------------------------------------------------------------------------- */
 /*                               Chart Container                              */

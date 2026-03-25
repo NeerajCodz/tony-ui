@@ -4,6 +4,8 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import { getNeonGlow } from './_effects';
 
+import type * as __BaseImport_alert from '../_base/alert';
+
 const alertVariants = cva(
   'relative w-full border-2 p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground',
   {

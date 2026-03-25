@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Button, ButtonProps } from "@/ui/components/honey-comb/button"
+import type { IconButtonBaseProps } from '../_base/icon-button';
 
 interface IconButtonProps extends ButtonProps {
   icon?: React.ReactNode

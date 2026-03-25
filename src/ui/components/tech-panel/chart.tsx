@@ -7,17 +7,16 @@ import {
   ChartStyleBase,
   ChartTooltipBase,
   ChartTooltipContentBase,
-  useChart,
+  ResponsiveContainer,
   type ChartConfig,
-} from '@/ui/components/_base/chart';
+  useChart,
+} from '../_base/chart';
 import { cn } from '@/lib/utils';
 import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
-import { ResponsiveContainer } from 'recharts';
 
 /* -------------------------------------------------------------------------- */
 /*                               Chart Container                              */
 /* -------------------------------------------------------------------------- */
-
 
 const ChartContainer = React.forwardRef<
   React.ComponentRef<typeof ChartContainerBase>,
@@ -27,7 +26,7 @@ const ChartContainer = React.forwardRef<
     <ChartContainerBase
       ref={ref}
       className={cn(techPanelEffectsClass(effects), 
-        "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-[var(--text-muted)] [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-[var(--tp-border-inner)]/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-[var(--tp-border-inner)] [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-[var(--tp-border-inner)] [&_.recharts-radial-bar-background-sector]:fill-[var(--text-muted)] [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-[var(--text-muted)] [&_.recharts-reference-line_[stroke='#ccc']]:stroke-[var(--tp-border-inner)] [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none font-mono",
+        "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-[var(--text-muted)] [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-[var(--tp-border)]/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-[var(--tp-border)] [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-[var(--tp-border)] [&_.recharts-radial-bar-background-sector]:fill-[var(--text-muted)] [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-[var(--text-muted)] [&_.recharts-reference-line_[stroke='#ccc']]:stroke-[var(--tp-border)] [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none font-mono",
         className
       )}
       {...props}
@@ -82,7 +81,7 @@ const ChartTooltipContent = React.forwardRef<
     
     if (props.labelFormatter) {
       return (
-        <div className={cn(techPanelEffectsClass(effects), 'font-bold font-display uppercase', props.labelClassName)}>
+        <div className={cn('font-bold font-mono ', props.labelClassName)}>
           {props.labelFormatter(value, payload)}
         </div>
       );
@@ -92,17 +91,16 @@ const ChartTooltipContent = React.forwardRef<
       return null;
     }
 
-    return <div className={cn(techPanelEffectsClass(effects), 'font-bold font-display uppercase', props.labelClassName)}>{value}</div>;
+    return <div className={cn('font-bold font-mono ', props.labelClassName)}>{value}</div>;
   }, [label, payload, hideLabel, nestLabel, config, props.labelFormatter, props.labelClassName]);
 
   return (
     <div
       ref={ref}
       className={cn(techPanelEffectsClass(effects), 
-        'grid min-w-[8rem] items-start gap-1.5 border border-[var(--tp-border-outer)] bg-[var(--tp-panel)] px-2.5 py-1.5 text-xs shadow-xl rounded-none',
+        'grid min-w-[8rem] items-start gap-1.5 border border-[var(--tp-border)] bg-[var(--tp-bg)] px-2.5 py-1.5 text-xs shadow-xl',
         className
       )}
-      style={{ } as React.CSSProperties}
     >
       {!nestLabel ? tooltipLabel : null}
       <div className="grid gap-1.5">
@@ -139,6 +137,7 @@ const ChartTooltipContent = React.forwardRef<
                           {
                             '--color-bg': indicatorColor,
                             '--color-border': indicatorColor,
+                            'clipPath': indicator === 'dot' ? 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)' : undefined
                           } as React.CSSProperties
                         }
                       />
@@ -216,6 +215,7 @@ const ChartLegendContent = React.forwardRef<
                 className="h-2 w-2 shrink-0"
                 style={{
                   backgroundColor: item.color,
+                  clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)'
                 }}
               />
             )}

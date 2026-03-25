@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
+import type { DigitalClockBaseProps } from '../_base/digital-clock';
 
 interface DigitalClockProps extends React.HTMLAttributes<HTMLDivElement> {
   effects?: HoloFrameEffects;

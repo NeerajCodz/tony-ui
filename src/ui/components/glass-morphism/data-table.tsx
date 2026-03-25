@@ -5,9 +5,12 @@ import {
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
-  SortingState,
   getSortedRowModel,
-} from '@tanstack/react-table';
+  SortingState,
+  getFilteredRowModel,
+  ColumnFiltersState,
+  VisibilityState,
+} from '../_base/data-table';
 
 import {
   Table,
@@ -119,3 +122,4 @@ export function DataTable<TData, TValue>({
     </div>
   );
 }
+

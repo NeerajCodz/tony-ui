@@ -66,7 +66,10 @@ const SidebarProvider = React.forwardRef<
         }
 
         _setOpen(value)
-        document.cookie = `${SIDEBAR_COOKIE_NAME}=${value}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+        document.cookie = `${SIDEBAR_COOKIE_NAME}=${value}; 
+import type * as __BaseImport_sidebar from '../_base/sidebar';
+
+path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
       },
       [setOpenProp, open]
     )

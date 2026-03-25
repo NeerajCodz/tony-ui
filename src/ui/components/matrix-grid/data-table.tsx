@@ -1,10 +1,15 @@
-import * as React from 'react';
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
-} from '@tanstack/react-table';
+  getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
+  getFilteredRowModel,
+  ColumnFiltersState,
+  VisibilityState,
+} from '../_base/data-table';
 
 import {
   Table,
@@ -80,3 +85,4 @@ export function DataTable<TData, TValue>({
     </div>
   );
 }
+

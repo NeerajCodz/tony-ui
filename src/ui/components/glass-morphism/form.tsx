@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { LabelPrimitive } from '../_base/label';
-import { Slot } from '../_base/form';
 import {
   Controller,
-  type ControllerProps,
-  type FieldPath,
-  type FieldValues,
+  ControllerProps,
+  FieldPath,
+  FieldValues,
   FormProvider,
   useFormContext,
-} from 'react-hook-form';
+  LabelPrimitive,
+  Slot
+} from '../_base/form';
 import { cn } from '@/lib/utils';
 import { Label } from './label';
 import type { GlassEffects } from './_effects';
@@ -169,3 +169,4 @@ export {
   FormMessage,
   FormField,
 };
+

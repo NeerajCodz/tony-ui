@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { KbdBase } from '../_base/kbd';
 
 export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
   effects?: GlassEffects
@@ -9,7 +10,7 @@ export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
 const Kbd = React.forwardRef<HTMLElement, KbdProps>(
   ({ className, effects = "on", ...props }, ref) => {
     return (
-      <kbd
+      <KbdBase
         ref={ref}
         className={cn(
           glassEffectsClass(effects),

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { NativeSelectBase } from '../_base/native-select';
 
 import { cn } from '@/lib/utils';
 import { getNeonGlow } from './_effects';
@@ -12,7 +13,7 @@ const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(
   ({ className, children, effects = true, ...props }, ref) => {
     return (
       <div className="relative">
-        <select
+        <NativeSelectBase
           className={cn(
             'flex h-10 w-full items-center justify-between rounded-none border-2 border-[var(--ne-primary)] bg-[var(--ne-bg)] px-3 py-2 text-sm placeholder:text-[var(--ne-text)]/50 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-[var(--ne-text)] appearance-none font-body tracking-wide',
             getNeonGlow(effects),
@@ -22,7 +23,7 @@ const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(
           {...props}
         >
           {children}
-        </select>
+        </NativeSelectBase>
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[var(--ne-primary)]">
           <svg
             className="h-4 w-4 fill-current"

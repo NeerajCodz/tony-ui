@@ -10,7 +10,7 @@ import {
   getFilteredRowModel,
   ColumnFiltersState,
   VisibilityState,
-} from '@tanstack/react-table';
+} from '../_base/data-table';
 import {
   Table,
   TableBody,
@@ -182,3 +182,4 @@ export function DataTable<TData, TValue>({
     </div>
   );
 }
+

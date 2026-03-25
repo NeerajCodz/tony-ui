@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { LabelPrimitive } from '../_base/label';
-import { Slot } from '../_base/form';
 import {
   Controller,
   ControllerProps,
@@ -8,7 +6,9 @@ import {
   FieldValues,
   FormProvider,
   useFormContext,
-} from 'react-hook-form';
+  LabelPrimitive,
+  Slot
+} from '../_base/form';
 import { cn } from '@/lib/utils';
 import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 import { Label } from './label';
@@ -177,3 +177,4 @@ export {
   FormMessage,
   FormField,
 };
+

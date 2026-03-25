@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DayPicker } from 'react-day-picker';
+import { DayPicker } from '../_base/calendar';
 import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -63,3 +63,4 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
   }
 );
 Calendar.displayName = 'Calendar';
+

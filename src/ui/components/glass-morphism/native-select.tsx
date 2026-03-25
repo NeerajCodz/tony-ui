@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { glassEffectsClass, glassInputClass, type GlassEffects } from "./_effects"
+import { NativeSelectBase } from '../_base/native-select';
 
 export interface NativeSelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -10,7 +11,7 @@ export interface NativeSelectProps
 const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(
   ({ className, effects = "on", children, ...props }, ref) => {
     return (
-        <select
+        <NativeSelectBase
           className={cn(
             glassEffectsClass(effects),
             glassInputClass(effects),
@@ -21,7 +22,7 @@ const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(
         {...props}
       >
         {children}
-      </select>
+      </NativeSelectBase>
     )
   }
 )

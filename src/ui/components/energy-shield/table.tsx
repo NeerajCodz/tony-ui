@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
+import { TableBase, TableHeaderBase, TableBodyBase, TableFooterBase, TableRowBase, TableHeadBase, TableCellBase, TableCaptionBase } from '../_base/table';
 
 const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement> & { effects?: EnergyShieldEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
   <div className="relative w-full overflow-auto">
-    <table
+    <TableBase
       ref={ref}
       className={cn(energyShieldEffectsClass(effects), 'w-full caption-bottom text-sm font-mono', className)}
       {...props}
@@ -20,7 +21,7 @@ const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement> & { effects?: EnergyShieldEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
-  <thead ref={ref} className={cn(energyShieldEffectsClass(effects), '[&_tr]:border-b border-[var(--es-hex-line)]', className)} {...props} />
+  <TableHeaderBase ref={ref} className={cn(energyShieldEffectsClass(effects), '[&_tr]:border-b border-[var(--es-hex-line)]', className)} {...props} />
 ));
 TableHeader.displayName = 'TableHeader';
 
@@ -28,7 +29,7 @@ const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement> & { effects?: EnergyShieldEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
-  <tbody
+  <TableBodyBase
     ref={ref}
     className={cn(energyShieldEffectsClass(effects), '[&_tr:last-child]:border-0', className)}
     {...props}
@@ -40,7 +41,7 @@ const TableFooter = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement> & { effects?: EnergyShieldEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
-  <tfoot
+  <TableFooterBase
     ref={ref}
     className={cn(energyShieldEffectsClass(effects), 
       'border-t bg-[var(--text-muted)]/10 font-medium [&>tr]:last:border-b-0',
@@ -55,7 +56,7 @@ const TableRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement> & { effects?: EnergyShieldEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
-  <tr
+  <TableRowBase
     ref={ref}
     className={cn(energyShieldEffectsClass(effects), 
       'border-b border-[var(--es-hex-line)] transition-colors hover:bg-[var(--es-plasma-1)]/5 data-[state=selected]:bg-[var(--es-plasma-1)]/10',
@@ -70,7 +71,7 @@ const TableHead = React.forwardRef<
   HTMLTableCellElement,
   React.ThHTMLAttributes<HTMLTableCellElement> & { effects?: EnergyShieldEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
-  <th
+  <TableHeadBase
     ref={ref}
     className={cn(energyShieldEffectsClass(effects), 
       'h-12 px-4 text-left align-middle font-bold text-[var(--text-muted)] [&:has([role=checkbox])]:pr-0 font-sans uppercase tracking-wider',
@@ -85,7 +86,7 @@ const TableCell = React.forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement> & { effects?: EnergyShieldEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
-  <td
+  <TableCellBase
     ref={ref}
     className={cn(energyShieldEffectsClass(effects), 
       'p-4 align-middle [&:has([role=checkbox])]:pr-0 text-[var(--text-primary)]',
@@ -100,7 +101,7 @@ const TableCaption = React.forwardRef<
   HTMLTableCaptionElement,
   React.HTMLAttributes<HTMLTableCaptionElement> & { effects?: EnergyShieldEffects }
 >(({ className, effects = 'on', ...props }, ref) => (
-  <caption
+  <TableCaptionBase
     ref={ref}
     className={cn(energyShieldEffectsClass(effects), 'mt-4 text-sm text-[var(--text-muted)]', className)}
     {...props}

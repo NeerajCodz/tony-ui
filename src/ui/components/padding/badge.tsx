@@ -1,3 +1,5 @@
+import type * as __BaseImport_badge from '../_base/badge';
+
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 

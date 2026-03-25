@@ -1,3 +1,5 @@
+import type * as __BaseImport_sidebar from '../_base/sidebar';
+
 import * as React from "react"
 import { PanelLeft } from "lucide-react"
 import { cn } from "@/lib/utils"

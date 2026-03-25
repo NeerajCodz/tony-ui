@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { NativeSelectBase } from '../_base/native-select';
 
 export interface NativeSelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {}
@@ -8,7 +9,7 @@ export interface NativeSelectProps
 const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <select
+      <NativeSelectBase
         className={cn(
           'flex h-10 w-full items-center justify-between border border-[var(--dp-border)] bg-[var(--dp-surface)] px-3 py-2 text-sm placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-[var(--dp-accent)] disabled:cursor-not-allowed disabled:opacity-50 font-mono text-[var(--text-primary)] appearance-none',
           className
@@ -18,7 +19,7 @@ const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(
         {...props}
       >
         {children}
-      </select>
+      </NativeSelectBase>
     );
   }
 );
