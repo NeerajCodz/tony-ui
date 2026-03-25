@@ -87,11 +87,11 @@ const AvatarImage = React.forwardRef<
   React.ComponentRef<typeof AvatarPrimitive.Image>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
 >((props, ref) => {
-  const { versionModule, variant, size, colors } = useAvatarContext();
+  const { versionModule, variant, size, colors, effects } = useAvatarContext();
 
   if (versionModule?.AvatarImage) {
     const Component = versionModule.AvatarImage;
-    return <Component ref={ref} variant={variant} size={size} colors={colors} {...props} />;
+    return <Component ref={ref} variant={variant} size={size} colors={colors} effects={effects} {...props} />;
   }
 
   return (
@@ -109,11 +109,11 @@ const AvatarFallback = React.forwardRef<
   React.ComponentRef<typeof AvatarPrimitive.Fallback>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
 >((props, ref) => {
-  const { versionModule, variant, size, colors } = useAvatarContext();
+  const { versionModule, variant, size, colors, effects } = useAvatarContext();
 
   if (versionModule?.AvatarFallback) {
     const Component = versionModule.AvatarFallback;
-    return <Component ref={ref} variant={variant} size={size} colors={colors} {...props} />;
+    return <Component ref={ref} variant={variant} size={size} colors={colors} effects={effects} {...props} />;
   }
 
   return (

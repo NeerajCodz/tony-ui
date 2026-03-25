@@ -70,11 +70,11 @@ const SelectTrigger = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
 >(({ className = '', children, ...props }, ref) => {
-  const { versionModule, variant, colors } = useSelectContext();
+  const { versionModule, variant, colors, effects } = useSelectContext();
 
   if (versionModule?.SelectTrigger) {
     const Component = versionModule.SelectTrigger;
-    return <Component ref={ref} variant={variant} colors={colors} className={className} {...props}>{children}</Component>;
+    return <Component ref={ref} variant={variant} colors={colors} effects={effects} className={className} {...props}>{children}</Component>;
   }
 
   return (
@@ -124,13 +124,13 @@ const SelectContent = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className = '', children, position = 'popper', ...props }, ref) => {
-  const { versionModule, variant, colors } = useSelectContext();
+  const { versionModule, variant, colors, effects } = useSelectContext();
 
   if (versionModule?.SelectContent) {
     const Component = versionModule.SelectContent;
     return (
       <SelectPrimitive.Portal>
-          <Component ref={ref} variant={variant} colors={colors} className={className} position={position} {...props}>
+          <Component ref={ref} variant={variant} colors={colors} effects={effects} className={className} position={position} {...props}>
           {children}
         </Component>
       </SelectPrimitive.Portal>
