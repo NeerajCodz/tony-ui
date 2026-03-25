@@ -9,6 +9,7 @@ export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
   version?: Version;
   variant?: Variant;
   animated?: boolean;
+  effects?: string;
 }
 
 const FallbackSkeleton: React.FC<SkeletonProps> = ({ className = '', animated = true, ...props }) => (

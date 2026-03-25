@@ -12,12 +12,14 @@ export interface TableProps extends React.ComponentPropsWithoutRef<'table'> {
   version?: TableVersion;
   variant?: TableVariant;
   type?: StyleComponentType;
+  effects?: string;
 }
 
 interface TableContextValue {
   version: TableVersion;
   variant: TableVariant;
   type: StyleComponentType;
+  effects?: string;
   colors: ReturnType<typeof getVariantColors>;
   versionModule: any;
 }
@@ -33,7 +35,7 @@ const TableContext = createContext<TableContextValue>({
 const useTableContext = () => useContext(TableContext);
 
 const TableRoot = React.forwardRef<HTMLTableElement, TableProps>(
-  ({ version = 'default', variant = 'default', type = 'default', children, ...props }, ref) => {
+  ({ version = 'default', variant = 'default', type = 'default', effects, children, ...props }, ref) => {
     const [versionModule, setVersionModule] = useState<any>(null);
     const colors = React.useMemo(() => getVariantColors(variant), [variant]);
 
@@ -44,9 +46,9 @@ const TableRoot = React.forwardRef<HTMLTableElement, TableProps>(
     const Component = versionModule?.Table as React.ComponentType<any> | undefined;
 
     return (
-      <TableContext.Provider value={{ version, variant, type, colors, versionModule }}>
+      <TableContext.Provider value={{ version, variant, type, effects, colors, versionModule }}>
         {Component ? (
-          <Component ref={ref} variant={variant} type={type} colors={colors} {...props}>
+          <Component ref={ref} variant={variant} type={type} colors={colors} effects={effects} {...props}>
             {children}
           </Component>
         ) : (
@@ -62,9 +64,9 @@ TableRoot.displayName = 'Table';
 
 const makePart = <T extends HTMLElement>(key: string, tag: keyof React.JSX.IntrinsicElements) =>
   React.forwardRef<T, any>((props, ref) => {
-    const { versionModule, variant, type, colors } = useTableContext();
+    const { versionModule, variant, type, effects, colors } = useTableContext();
     const Component = versionModule?.[key] as React.ComponentType<any> | undefined;
-    if (Component) return <Component ref={ref} variant={variant} type={type} colors={colors} {...props} />;
+    if (Component) return <Component ref={ref} variant={variant} type={type} colors={colors} effects={effects} {...props} />;
     return React.createElement(tag, { ref, ...props });
   });
 
