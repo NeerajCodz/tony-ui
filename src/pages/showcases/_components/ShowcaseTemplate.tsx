@@ -8,6 +8,7 @@ import React, { useState, useCallback } from 'react';
 import { ShowcaseHeader } from './ShowcaseHeader';
 import { VersionGrid, ALL_VERSIONS } from './VersionGrid';
 import type { Version, Variant } from '@/ui/types/common';
+import { VariantStyleProvider } from '@/ui/core/variant-style-provider';
 
 export interface ShowcaseTemplateProps {
   /** Component name for display */
@@ -75,15 +76,22 @@ export function ShowcaseTemplate({
     setEffectsEnabled((prev) => !prev);
   }, []);
 
-  // Render component with current settings
+  // Render component with current settings wrapped in VariantStyleProvider
   const renderWithSettings = useCallback(
     (version: Version) => {
-      return renderComponent({
+      const component = renderComponent({
         version,
         type: selectedType,
         variant: selectedVariant,
         effects: effectsEnabled ? 'glow neon-pulse' : undefined,
       });
+
+      // Wrap with VariantStyleProvider to inject CSS variables
+      return (
+        <VariantStyleProvider variant={selectedVariant} version={version}>
+          {component}
+        </VariantStyleProvider>
+      );
     },
     [renderComponent, selectedType, selectedVariant, effectsEnabled]
   );

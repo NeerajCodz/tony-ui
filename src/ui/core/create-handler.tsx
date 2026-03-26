@@ -11,6 +11,7 @@
 import React, { lazy, Suspense, useMemo, ComponentType, forwardRef } from 'react';
 import type { Version, Variant, Size, VariantColors } from '../types/common';
 import { useVersion } from './version-context';
+import { normalizeVariantColors } from './color-token-resolver';
 
 // ============================================================================
 // TYPES
@@ -115,19 +116,20 @@ async function loadVariant(variant: Variant): Promise<VariantColors> {
   if (!variantCache.has(variant)) {
     try {
       const module = await import(`../config/variants/${variant}.json`);
-      variantCache.set(variant, module.colors || module.default?.colors || {
+      const colors = normalizeVariantColors(module.colors || module.default?.colors || {
         base: '#06b6d4',
         foreground: '#ffffff',
         border: '#0891b2',
         glow: '#22d3ee'
       });
+      variantCache.set(variant, colors);
     } catch {
-      variantCache.set(variant, {
+      variantCache.set(variant, normalizeVariantColors({
         base: '#06b6d4',
         foreground: '#ffffff',
         border: '#0891b2',
         glow: '#22d3ee'
-      });
+      }));
     }
   }
   

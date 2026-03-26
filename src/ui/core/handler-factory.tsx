@@ -18,6 +18,7 @@
 import React, { lazy, Suspense, useMemo, useEffect, useState, ComponentType, createContext, useContext } from 'react';
 import type { Version, Variant, Size, VariantConfig, VariantColors, ComponentConfig } from '../types/common';
 import { ComponentRenderer } from './renderer';
+import { normalizeVariantColors } from './color-token-resolver';
 
 // ============================================================================
 // CACHES - For performance
@@ -95,7 +96,7 @@ export function getVariantColors(variant: Variant): VariantColors {
   const muted = (baseColors as any).muted ?? (baseColors as any).backgroundHover;
 
   // Merge accent from top-level config into colors object
-  return {
+  return normalizeVariantColors({
     ...baseColors,
     base,
     foreground,
@@ -109,7 +110,7 @@ export function getVariantColors(variant: Variant): VariantColors {
     borderHover: (baseColors as any).borderHover ?? border,
     accent: accent ?? (base || foreground ? { primary: base ?? foreground, secondary: border, glow } : undefined),
     icon,
-  };
+  });
 }
 
 /**
