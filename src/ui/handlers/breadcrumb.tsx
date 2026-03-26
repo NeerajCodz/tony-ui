@@ -3,207 +3,186 @@
  * Routes to version-specific implementations with lazy loading
  */
 
-import React, { lazy, Suspense, createContext, useContext, useState, useEffect } from 'react';
-import type { Version, Variant } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
-import { loadVersionModule } from './load-version-module';
+"use client";
 
-// Types
-export type BreadcrumbVersion = Version;
-export type BreadcrumbVariant = Variant;
+import * as React from "react";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
 
-export interface BreadcrumbProps extends React.ComponentPropsWithoutRef<'nav'> {
-  version?: BreadcrumbVersion;
-  variant?: BreadcrumbVariant;
+export interface BreadcrumbProps extends React.ComponentPropsWithoutRef<"nav"> {
+  version?: BaseUIProps["version"];
+  variant?: BaseUIProps["variant"];
+  effects?: string;
   separator?: React.ReactNode;
 }
 
-// Context
-interface BreadcrumbContextValue {
-  version: BreadcrumbVersion;
-  variant: BreadcrumbVariant;
-  colors: ReturnType<typeof getVariantColors>;
-  versionModule: any;
-}
-
-const BreadcrumbContext = createContext<BreadcrumbContextValue>({
-  version: 'angular-corner',
-  variant: 'default',
-  colors: getVariantColors('default'),
-  versionModule: null,
+const BreadcrumbHandler = createHandler<BreadcrumbProps & BaseUIProps>({
+  componentName: "breadcrumb",
+  exportName: "Breadcrumb"
 });
 
-const useBreadcrumbContext = () => useContext(BreadcrumbContext);
-
-// Loading skeleton
-const LoadingSkeleton: React.FC = () => (
-  <div className="animate-pulse bg-gray-800/20 rounded h-6 w-48" />
-);
-
-// Main Component
-const BreadcrumbRoot = React.forwardRef<HTMLElement, BreadcrumbProps>(({
-  version = 'angular-corner',
-  variant = 'default',
-  children,
-  ...props
-}, ref) => {
-  const [versionModule, setVersionModule] = useState<any>(null);
-  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
-
-  useEffect(() => {
-    loadVersionModule(version, 'breadcrumb', true).then(setVersionModule).catch(() => setVersionModule(null));
-  }, [version]);
-
-  return (
-    <BreadcrumbContext.Provider value={{ version, variant, colors, versionModule }}>
-      <nav ref={ref} aria-label="breadcrumb" {...props}>
-        {children}
-      </nav>
-    </BreadcrumbContext.Provider>
-  );
+const BreadcrumbListHandler = createHandler<React.ComponentPropsWithoutRef<"ol"> & BaseUIProps>({
+  componentName: "breadcrumb",
+  exportName: "BreadcrumbList"
 });
-BreadcrumbRoot.displayName = 'Breadcrumb';
 
-// List
-const BreadcrumbList = React.forwardRef<HTMLOListElement, React.ComponentPropsWithoutRef<'ol'>>(
-  ({ className = '', ...props }, ref) => {
-    const { versionModule, variant, colors } = useBreadcrumbContext();
+const BreadcrumbItemHandler = createHandler<React.ComponentPropsWithoutRef<"li"> & BaseUIProps>({
+  componentName: "breadcrumb",
+  exportName: "BreadcrumbItem"
+});
 
-    if (versionModule?.BreadcrumbList) {
-      const Component = versionModule.BreadcrumbList;
-      return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
-    }
+const BreadcrumbLinkHandler = createHandler<React.ComponentPropsWithoutRef<"a"> & BaseUIProps & { asChild?: boolean }>({
+  componentName: "breadcrumb",
+  exportName: "BreadcrumbLink"
+});
 
+const BreadcrumbPageHandler = createHandler<React.ComponentPropsWithoutRef<"span"> & BaseUIProps>({
+  componentName: "breadcrumb",
+  exportName: "BreadcrumbPage"
+});
+
+const BreadcrumbSeparatorHandler = createHandler<React.ComponentPropsWithoutRef<"li"> & BaseUIProps>({
+  componentName: "breadcrumb",
+  exportName: "BreadcrumbSeparator"
+});
+
+const BreadcrumbEllipsisHandler = createHandler<React.ComponentPropsWithoutRef<"span"> & BaseUIProps>({
+  componentName: "breadcrumb",
+  exportName: "BreadcrumbEllipsis"
+});
+
+const BreadcrumbContext = React.createContext<{
+  version?: BaseUIProps['version'];
+  variant?: BaseUIProps['variant'];
+  effects?: string;
+}>({});
+
+const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
+  ({ version = "default", variant = "default", effects, ...props }, ref) => {
     return (
-      <ol
+      <BreadcrumbContext.Provider value={{ version, variant, effects }}>
+        <BreadcrumbHandler
+          ref={ref}
+          version={version}
+          variant={variant}
+          effects={effects}
+          {...props}
+        />
+      </BreadcrumbContext.Provider>
+    );
+  }
+);
+Breadcrumb.displayName = "Breadcrumb";
+
+const BreadcrumbList = React.forwardRef<HTMLOListElement, React.ComponentPropsWithoutRef<"ol"> & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(BreadcrumbContext);
+    return (
+      <BreadcrumbListHandler
         ref={ref}
-        className={`flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5 ${className}`}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
         {...props}
       />
     );
   }
 );
-BreadcrumbList.displayName = 'BreadcrumbList';
+BreadcrumbList.displayName = "BreadcrumbList";
 
-// Item
-const BreadcrumbItem = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'li'>>(
-  ({ className = '', ...props }, ref) => {
-    const { versionModule, variant, colors } = useBreadcrumbContext();
-
-    if (versionModule?.BreadcrumbItem) {
-      const Component = versionModule.BreadcrumbItem;
-      return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
-    }
-
+const BreadcrumbItem = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<"li"> & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(BreadcrumbContext);
     return (
-      <li
+      <BreadcrumbItemHandler
         ref={ref}
-        className={`inline-flex items-center gap-1.5 ${className}`}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
         {...props}
       />
     );
   }
 );
-BreadcrumbItem.displayName = 'BreadcrumbItem';
+BreadcrumbItem.displayName = "BreadcrumbItem";
 
-// Link
-const BreadcrumbLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<'a'> & { asChild?: boolean }>(
-  ({ className = '', asChild, ...props }, ref) => {
-    const { versionModule, variant, colors } = useBreadcrumbContext();
-
-    if (versionModule?.BreadcrumbLink) {
-      const Component = versionModule.BreadcrumbLink;
-      return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
-    }
-
+const BreadcrumbLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<"a"> & BaseUIProps & { asChild?: boolean }>(
+  ({ className, asChild, ...props }, ref) => {
+    const context = React.useContext(BreadcrumbContext);
     return (
-      <a
+      <BreadcrumbLinkHandler
         ref={ref}
-        className={`transition-colors hover:text-foreground ${className}`}
+        className={className}
+        asChild={asChild}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
         {...props}
       />
     );
   }
 );
-BreadcrumbLink.displayName = 'BreadcrumbLink';
+BreadcrumbLink.displayName = "BreadcrumbLink";
 
-// Page (current)
-const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<'span'>>(
-  ({ className = '', ...props }, ref) => {
-    const { versionModule, variant, colors } = useBreadcrumbContext();
-
-    if (versionModule?.BreadcrumbPage) {
-      const Component = versionModule.BreadcrumbPage;
-      return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
-    }
-
+const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<"span"> & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(BreadcrumbContext);
     return (
-      <span
+      <BreadcrumbPageHandler
         ref={ref}
-        role="link"
-        aria-disabled="true"
-        aria-current="page"
-        className={`font-normal text-foreground ${className}`}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
         {...props}
       />
     );
   }
 );
-BreadcrumbPage.displayName = 'BreadcrumbPage';
+BreadcrumbPage.displayName = "BreadcrumbPage";
 
-// Separator
-const BreadcrumbSeparator = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'li'>>(
-  ({ className = '', children, ...props }, ref) => {
-    const { versionModule, variant, colors } = useBreadcrumbContext();
-
-    if (versionModule?.BreadcrumbSeparator) {
-      const Component = versionModule.BreadcrumbSeparator;
-      return <Component ref={ref} variant={variant} colors={colors} className={className} {...props}>{children}</Component>;
-    }
-
+const BreadcrumbSeparator = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<"li"> & BaseUIProps>(
+  ({ className, children, ...props }, ref) => {
+    const context = React.useContext(BreadcrumbContext);
     return (
-      <li
+      <BreadcrumbSeparatorHandler
         ref={ref}
-        role="presentation"
-        aria-hidden="true"
-        className={`[&>svg]:h-3.5 [&>svg]:w-3.5 ${className}`}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
         {...props}
       >
-        {children || '/'}
-      </li>
+        {children || "/"}
+      </BreadcrumbSeparatorHandler>
     );
   }
 );
-BreadcrumbSeparator.displayName = 'BreadcrumbSeparator';
+BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
 
-// Ellipsis
-const BreadcrumbEllipsis = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<'span'>>(
-  ({ className = '', ...props }, ref) => {
-    const { versionModule, variant, colors } = useBreadcrumbContext();
-
-    if (versionModule?.BreadcrumbEllipsis) {
-      const Component = versionModule.BreadcrumbEllipsis;
-      return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
-    }
-
+const BreadcrumbEllipsis = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<"span"> & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(BreadcrumbContext);
     return (
-      <span
+      <BreadcrumbEllipsisHandler
         ref={ref}
-        role="presentation"
-        aria-hidden="true"
-        className={`flex h-9 w-9 items-center justify-center ${className}`}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
         {...props}
       >
         ...
         <span className="sr-only">More</span>
-      </span>
+      </BreadcrumbEllipsisHandler>
     );
   }
 );
-BreadcrumbEllipsis.displayName = 'BreadcrumbEllipsis';
+BreadcrumbEllipsis.displayName = "BreadcrumbEllipsis";
 
-// Composite export
-export const Breadcrumb = Object.assign(BreadcrumbRoot, {
+const BreadcrumbExport = Object.assign(Breadcrumb, {
   List: BreadcrumbList,
   Item: BreadcrumbItem,
   Link: BreadcrumbLink,
@@ -213,6 +192,7 @@ export const Breadcrumb = Object.assign(BreadcrumbRoot, {
 });
 
 export {
+  BreadcrumbExport as Breadcrumb,
   BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,
@@ -220,4 +200,5 @@ export {
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
 };
-export default Breadcrumb;
+export default BreadcrumbExport;
+

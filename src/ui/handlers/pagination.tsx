@@ -1,111 +1,192 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import type { StyleComponentType, Variant, Version } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
-import { loadVersionModule } from './load-version-module';
+"use client";
 
-type PaginationVersion = Version;
-type PaginationVariant = Variant;
+import * as React from "react";
+import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
 
-export interface PaginationProps extends React.ComponentPropsWithoutRef<'nav'> {
-  version?: PaginationVersion;
-  variant?: PaginationVariant;
-  type?: StyleComponentType;
+export interface PaginationProps extends React.ComponentProps<"nav"> {
+  version?: BaseUIProps["version"];
+  variant?: BaseUIProps["variant"];
+  effects?: string;
 }
 
-interface PaginationContextValue {
-  version: PaginationVersion;
-  variant: PaginationVariant;
-  type: StyleComponentType;
-  colors: ReturnType<typeof getVariantColors>;
-  versionModule: any;
-}
-
-const PaginationContext = createContext<PaginationContextValue>({
-  version: 'default',
-  variant: 'default',
-  type: 'default',
-  colors: getVariantColors('default'),
-  versionModule: null,
+const PaginationContentHandler = createHandler<React.ComponentProps<"ul"> & BaseUIProps>({
+  componentName: "pagination",
+  exportName: "PaginationContent"
 });
 
-const usePaginationContext = () => useContext(PaginationContext);
+const PaginationItemHandler = createHandler<React.ComponentProps<"li"> & BaseUIProps>({
+  componentName: "pagination",
+  exportName: "PaginationItem"
+});
 
-const PaginationRoot = React.forwardRef<HTMLElement, PaginationProps>(
-  ({ version = 'default', variant = 'default', type = 'default', children, ...props }, ref) => {
-    const [versionModule, setVersionModule] = useState<any>(null);
-    const colors = React.useMemo(() => getVariantColors(variant), [variant]);
+const PaginationLinkHandler = createHandler<React.ComponentProps<"a"> & BaseUIProps & { isActive?: boolean; size?: string }>({
+  componentName: "pagination",
+  exportName: "PaginationLink"
+});
 
-    useEffect(() => {
-      loadVersionModule(version, 'pagination').then(setVersionModule).catch(() => setVersionModule(null));
-    }, [version]);
+const PaginationPreviousHandler = createHandler<React.ComponentProps<typeof PaginationLinkHandler> & BaseUIProps>({
+  componentName: "pagination",
+  exportName: "PaginationPrevious"
+});
 
-    const Component = versionModule?.Pagination;
+const PaginationNextHandler = createHandler<React.ComponentProps<typeof PaginationLinkHandler> & BaseUIProps>({
+  componentName: "pagination",
+  exportName: "PaginationNext"
+});
 
-    return (
-      <PaginationContext.Provider value={{ version, variant, type, colors, versionModule }}>
-        {Component ? (
-          <Component ref={ref} variant={variant} type={type} colors={colors} {...props}>
-            {children}
-          </Component>
-        ) : (
-          <nav ref={ref} aria-label="pagination" {...props}>
-            {children}
-          </nav>
-        )}
-      </PaginationContext.Provider>
-    );
-  }
+const PaginationEllipsisHandler = createHandler<React.ComponentProps<"span"> & BaseUIProps>({
+  componentName: "pagination",
+  exportName: "PaginationEllipsis"
+});
+
+const PaginationContext = React.createContext<{
+  version?: BaseUIProps['version'];
+  variant?: BaseUIProps['variant'];
+  effects?: string;
+}>({});
+
+const Pagination = ({ className, version = "default", variant = "default", effects, ...props }: PaginationProps) => (
+  <PaginationContext.Provider value={{ version, variant, effects }}>
+    <nav
+      role="navigation"
+      aria-label="pagination"
+      className={`mx-auto flex w-full justify-center ${className || ""}`}
+      {...props}
+    />
+  </PaginationContext.Provider>
 );
-PaginationRoot.displayName = 'Pagination';
+Pagination.displayName = "Pagination";
 
-const PaginationContent = React.forwardRef<HTMLUListElement, React.ComponentPropsWithoutRef<'ul'>>((props, ref) => {
-  const { versionModule, variant, type, colors } = usePaginationContext();
-  const Component = versionModule?.PaginationContent;
-  return Component ? <Component ref={ref} variant={variant} type={type} colors={colors} {...props} /> : <ul ref={ref} {...props} />;
+const PaginationContent = React.forwardRef<
+  HTMLUListElement,
+  React.ComponentProps<"ul"> & BaseUIProps
+>(({ className, ...props }, ref) => {
+  const context = React.useContext(PaginationContext);
+  return (
+    <PaginationContentHandler
+      ref={ref}
+      className={`flex flex-row items-center gap-1 ${className || ""}`}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    />
+  );
 });
+PaginationContent.displayName = "PaginationContent";
 
-const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'li'>>((props, ref) => {
-  const { versionModule, variant, type, colors } = usePaginationContext();
-  const Component = versionModule?.PaginationItem;
-  return Component ? <Component ref={ref} variant={variant} type={type} colors={colors} {...props} /> : <li ref={ref} {...props} />;
+const PaginationItem = React.forwardRef<
+  HTMLLIElement,
+  React.ComponentProps<"li"> & BaseUIProps
+>(({ className, ...props }, ref) => {
+  const context = React.useContext(PaginationContext);
+  return (
+    <PaginationItemHandler
+      ref={ref}
+      className={className}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    />
+  );
 });
+PaginationItem.displayName = "PaginationItem";
 
-type PaginationLinkProps = { isActive?: boolean } & React.ComponentPropsWithoutRef<'a'>;
+type PaginationLinkProps = {
+  isActive?: boolean;
+} & React.ComponentProps<"a"> & BaseUIProps;
 
-const PaginationLink: React.FC<PaginationLinkProps> = ({ isActive, ...props }) => {
-  const { versionModule, variant, type, colors } = usePaginationContext();
-  const Component = versionModule?.PaginationLink;
-  if (Component) return <Component variant={variant} type={type} colors={colors} isActive={isActive} {...props} />;
-  return <a aria-current={isActive ? 'page' : undefined} {...props} />;
-};
-
-const PaginationPrevious: React.FC<React.ComponentPropsWithoutRef<'a'>> = (props) => {
-  const { versionModule, variant, type, colors } = usePaginationContext();
-  const Component = versionModule?.PaginationPrevious;
-  return Component ? (
-    <Component variant={variant} type={type} colors={colors} {...props} />
-  ) : (
-    <a aria-label="Go to previous page" {...props} />
+const PaginationLink = ({
+  className,
+  isActive,
+  size = "icon",
+  ...props
+}: PaginationLinkProps) => {
+  const context = React.useContext(PaginationContext);
+  return (
+    <PaginationLinkHandler
+      aria-current={isActive ? "page" : undefined}
+      className={className}
+      isActive={isActive}
+      size={size}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    />
   );
 };
+PaginationLink.displayName = "PaginationLink";
 
-const PaginationNext: React.FC<React.ComponentPropsWithoutRef<'a'>> = (props) => {
-  const { versionModule, variant, type, colors } = usePaginationContext();
-  const Component = versionModule?.PaginationNext;
-  return Component ? (
-    <Component variant={variant} type={type} colors={colors} {...props} />
-  ) : (
-    <a aria-label="Go to next page" {...props} />
+const PaginationPrevious = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => {
+  const context = React.useContext(PaginationContext);
+  return (
+    <PaginationPreviousHandler
+      aria-label="Go to previous page"
+      size="default"
+      className={`gap-1 pl-2.5 ${className || ""}`}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    >
+      <ChevronLeft className="h-4 w-4" />
+      <span>Previous</span>
+    </PaginationPreviousHandler>
   );
 };
+PaginationPrevious.displayName = "PaginationPrevious";
 
-const PaginationEllipsis: React.FC<React.ComponentPropsWithoutRef<'span'>> = (props) => {
-  const { versionModule, variant, type, colors } = usePaginationContext();
-  const Component = versionModule?.PaginationEllipsis;
-  return Component ? <Component variant={variant} type={type} colors={colors} {...props} /> : <span {...props}>...</span>;
+const PaginationNext = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => {
+  const context = React.useContext(PaginationContext);
+  return (
+    <PaginationNextHandler
+      aria-label="Go to next page"
+      size="default"
+      className={`gap-1 pr-2.5 ${className || ""}`}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    >
+      <span>Next</span>
+      <ChevronRight className="h-4 w-4" />
+    </PaginationNextHandler>
+  );
 };
+PaginationNext.displayName = "PaginationNext";
 
-export const Pagination = Object.assign(PaginationRoot, {
+const PaginationEllipsis = ({
+  className,
+  ...props
+}: React.ComponentProps<"span"> & BaseUIProps) => {
+  const context = React.useContext(PaginationContext);
+  return (
+    <PaginationEllipsisHandler
+      aria-hidden
+      className={`flex h-9 w-9 items-center justify-center ${className || ""}`}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    >
+      <MoreHorizontal className="h-4 w-4" />
+      <span className="sr-only">More pages</span>
+    </PaginationEllipsisHandler>
+  );
+};
+PaginationEllipsis.displayName = "PaginationEllipsis";
+
+const PaginationExport = Object.assign(Pagination, {
   Content: PaginationContent,
   Item: PaginationItem,
   Link: PaginationLink,
@@ -114,5 +195,15 @@ export const Pagination = Object.assign(PaginationRoot, {
   Ellipsis: PaginationEllipsis,
 });
 
-export default Pagination;
+export {
+  PaginationExport as Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
+};
+export default PaginationExport;
+
 

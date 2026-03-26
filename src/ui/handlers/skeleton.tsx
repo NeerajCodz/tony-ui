@@ -1,44 +1,38 @@
 'use client';
 
-import React, { lazy, Suspense } from 'react';
-import type { Variant, Version } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
-import { loadVersionModule } from './load-version-module';
+"use client";
+
+import * as React from "react";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
 
 export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
-  version?: Version;
-  variant?: Variant;
+  version?: BaseUIProps["version"];
+  variant?: BaseUIProps["variant"];
   animated?: boolean;
   effects?: string;
 }
 
-const FallbackSkeleton: React.FC<SkeletonProps> = ({ className = '', animated = true, ...props }) => (
-  <div className={`${animated ? 'animate-pulse' : ''} rounded-md bg-muted ${className}`} {...props} />
+const SkeletonHandler = createHandler<SkeletonProps & BaseUIProps>({
+  componentName: "skeleton",
+  exportName: "Skeleton"
+});
+
+const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
+  ({ version = "default", variant = "default", effects, ...props }, ref) => {
+    return (
+      <SkeletonHandler
+        ref={ref}
+        version={version}
+        variant={variant}
+        effects={effects}
+        {...props}
+      />
+    );
+  }
 );
+Skeleton.displayName = "Skeleton";
 
-export const Skeleton: React.FC<SkeletonProps> = ({ version = 'default', variant = 'default', ...props }) => {
-  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
-  const LazyComponent = React.useMemo(
-    () =>
-      lazy(() =>
-        loadVersionModule(version, 'skeleton', true)
-          .then((module) => ({
-            default: module.default ?? module.Skeleton ?? FallbackSkeleton,
-          }))
-          .catch(() => ({ default: FallbackSkeleton }))
-      ),
-    [version]
-  );
-
-  const ResolvedComponent = LazyComponent as React.ComponentType<any>;
-
-  return (
-    <Suspense fallback={<FallbackSkeleton {...props} />}>
-      <ResolvedComponent variant={variant} colors={colors} {...props} />
-    </Suspense>
-  );
-};
-
-Skeleton.displayName = 'Skeleton';
-
+export { Skeleton };
 export default Skeleton;
+

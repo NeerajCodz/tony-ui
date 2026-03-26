@@ -5,266 +5,178 @@
  * NO hardcoded colors, styles, or variants
  */
 
-import React, { lazy, Suspense, createContext, useContext, useState, useEffect, useMemo } from 'react';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { X } from 'lucide-react';
-import type { Version, Variant, VariantColors } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
-import { loadVersionModule as loadByVersion } from './load-version-module';
+"use client";
 
-// Types
-export type DialogVersion = Version;
-export type DialogVariant = Variant;
+import * as React from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { X } from "lucide-react";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
 
-export interface DialogProps {
-  version?: DialogVersion;
-  variant?: DialogVariant;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  children?: React.ReactNode;
+export interface DialogProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root> {
+  version?: BaseUIProps["version"];
+  variant?: BaseUIProps["variant"];
   effects?: string;
 }
 
-const loadDialogModule = async (version: Version) => {
-  try {
-    return await loadByVersion(version, 'dialog');
-  } catch {
-    return null;
-  }
-};
-
-const resolveDialogConfigModule = (module: unknown) => {
-  if (!module || typeof module !== 'object') {
-    return null;
-  }
-
-  const maybeModule = module as { dialogConfig?: unknown; default?: unknown };
-  return maybeModule.dialogConfig ?? maybeModule.default ?? null;
-};
-
-// Dynamic config loader
-const loadDialogConfig = async (version: Version) => {
-  try {
-    const module = await import(`../config/components/${version}.json`);
-    return resolveDialogConfigModule(module);
-  } catch {
-    try {
-      const module = await import(`../config/components/default.json`);
-      return resolveDialogConfigModule(module);
-    } catch {
-      return null;
-    }
-  }
-};
-
-// Context
-interface DialogContextValue {
-  version: DialogVersion;
-  variant: DialogVariant;
-  effects?: string;
-  versionModule: any;
-  colors: VariantColors;
-  config: any;
-}
-
-const DialogContext = createContext<DialogContextValue>({
-  version: 'default',
-  variant: 'default',
-  versionModule: null,
-  colors: {} as VariantColors,
-  config: null,
+const DialogContentHandler = createHandler<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & BaseUIProps>({
+  componentName: "dialog",
+  exportName: "DialogContent"
 });
 
-const useDialogContext = () => useContext(DialogContext);
+const DialogHeaderHandler = createHandler<React.HTMLAttributes<HTMLDivElement> & BaseUIProps>({
+  componentName: "dialog",
+  exportName: "DialogHeader"
+});
 
-// Loading skeleton
-const LoadingSkeleton: React.FC = () => (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-    <div className="animate-pulse bg-muted/50 rounded w-[450px] h-[250px]" />
-  </div>
-);
+const DialogFooterHandler = createHandler<React.HTMLAttributes<HTMLDivElement> & BaseUIProps>({
+  componentName: "dialog",
+  exportName: "DialogFooter"
+});
 
-// Main Component
-const DialogRoot: React.FC<DialogProps> = ({
-  version = 'default',
-  variant = 'default',
-  open,
-  onOpenChange,
-  effects,
-  children,
-}) => {
-  const [versionModule, setVersionModule] = useState<any>(null);
-  const [config, setConfig] = useState<any>(null);
-  
-  // Dynamically load version module
-  useEffect(() => {
-    loadDialogModule(version).then(setVersionModule);
-  }, [version]);
-  
-  // Dynamically load config
-  useEffect(() => {
-    loadDialogConfig(version).then(setConfig);
-  }, [version]);
-  
-  // Get variant colors dynamically - NO hardcoding
-  const colors = useMemo(() => getVariantColors(variant), [variant]);
+const DialogTitleHandler = createHandler<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> & BaseUIProps>({
+  componentName: "dialog",
+  exportName: "DialogTitle"
+});
 
+const DialogDescriptionHandler = createHandler<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description> & BaseUIProps>({
+  componentName: "dialog",
+  exportName: "DialogDescription"
+});
+
+const DialogContext = React.createContext<{
+  version?: BaseUIProps['version'];
+  variant?: BaseUIProps['variant'];
+  effects?: string;
+}>({});
+
+const Dialog = ({ version = "default", variant = "default", effects, ...props }: DialogProps) => {
   return (
-    <DialogContext.Provider value={{ version, variant, effects, versionModule, colors, config }}>
-      <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
-        {children}
-      </DialogPrimitive.Root>
+    <DialogContext.Provider value={{ version, variant, effects }}>
+      <DialogPrimitive.Root {...props} />
     </DialogContext.Provider>
   );
 };
 
-// Subcomponents
 const DialogTrigger = DialogPrimitive.Trigger;
+
 const DialogPortal = DialogPrimitive.Portal;
+
 const DialogClose = DialogPrimitive.Close;
 
 const DialogOverlay = React.forwardRef<
-  React.ComponentRef<typeof DialogPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
->(({ className = '', ...props }, ref) => {
-  const { versionModule, variant, colors, effects } = useDialogContext();
-
-  if (versionModule?.DialogOverlay || versionModule?.Overlay) {
-    const Component = versionModule.DialogOverlay || versionModule.Overlay;
-    return <Component ref={ref} variant={variant} colors={colors} effects={effects} className={className} {...props} />;
-  }
-
-  return (
-    <DialogPrimitive.Overlay
-      ref={ref}
-      className={className}
-      {...props}
-    />
-  );
-});
-DialogOverlay.displayName = 'DialogOverlay';
+  React.ElementRef<typeof DialogPrimitive.Overlay>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> & BaseUIProps
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Overlay
+    ref={ref}
+    className={className}
+    {...props}
+  />
+));
+DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = React.forwardRef<
-  React.ComponentRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className = '', children, ...props }, ref) => {
-  const { versionModule, variant, colors, config, effects } = useDialogContext();
-
-  if (versionModule?.DialogContent || versionModule?.Content) {
-    const Component = versionModule.DialogContent || versionModule.Content;
-    return (
-      <DialogPortal>
-        <DialogOverlay />
-        <Component ref={ref} variant={variant} colors={colors} config={config} effects={effects} className={className} {...props}>
-          {children}
-        </Component>
-      </DialogPortal>
-    );
-  }
-
+  React.ElementRef<typeof DialogPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & BaseUIProps
+>(({ className, children, ...props }, ref) => {
+  const context = React.useContext(DialogContext);
+  
   return (
     <DialogPortal>
       <DialogOverlay />
-      <DialogPrimitive.Content
+      <DialogContentHandler
         ref={ref}
         className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
         {...props}
       >
         {children}
-        <DialogPrimitive.Close>
+        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
           <X className="h-4 w-4" />
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>
-      </DialogPrimitive.Content>
+      </DialogContentHandler>
     </DialogPortal>
   );
 });
-DialogContent.displayName = 'DialogContent';
+DialogContent.displayName = DialogPrimitive.Content.displayName;
 
-const DialogHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className = '', ...props }, ref) => {
-    const { versionModule, variant, colors, effects } = useDialogContext();
+const DialogHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & BaseUIProps
+>(({ className, ...props }, ref) => {
+  const context = React.useContext(DialogContext);
+  return (
+    <DialogHeaderHandler
+      ref={ref}
+      className={className}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    />
+  );
+});
+DialogHeader.displayName = "DialogHeader";
 
-    if (versionModule?.DialogHeader || versionModule?.Header) {
-      const Component = versionModule.DialogHeader || versionModule.Header;
-      return <Component ref={ref} variant={variant} colors={colors} effects={effects} className={className} {...props} />;
-    }
-
-    return (
-      <div
-        ref={ref}
-        className={className}
-        {...props}
-      />
-    );
-  }
-);
-DialogHeader.displayName = 'DialogHeader';
-
-const DialogFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className = '', ...props }, ref) => {
-    const { versionModule, variant, colors, effects } = useDialogContext();
-
-    if (versionModule?.DialogFooter || versionModule?.Footer) {
-      const Component = versionModule.DialogFooter || versionModule.Footer;
-      return <Component ref={ref} variant={variant} colors={colors} effects={effects} className={className} {...props} />;
-    }
-
-    return (
-      <div
-        ref={ref}
-        className={className}
-        {...props}
-      />
-    );
-  }
-);
-DialogFooter.displayName = 'DialogFooter';
+const DialogFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & BaseUIProps
+>(({ className, ...props }, ref) => {
+  const context = React.useContext(DialogContext);
+  return (
+    <DialogFooterHandler
+      ref={ref}
+      className={className}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    />
+  );
+});
+DialogFooter.displayName = "DialogFooter";
 
 const DialogTitle = React.forwardRef<
-  React.ComponentRef<typeof DialogPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
->(({ className = '', ...props }, ref) => {
-  const { versionModule, variant, colors } = useDialogContext();
-
-  if (versionModule?.DialogTitle || versionModule?.Title) {
-    const Component = versionModule.DialogTitle || versionModule.Title;
-    return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
-  }
-
+  React.ElementRef<typeof DialogPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> & BaseUIProps
+>(({ className, ...props }, ref) => {
+  const context = React.useContext(DialogContext);
   return (
-    <DialogPrimitive.Title
+    <DialogTitleHandler
       ref={ref}
       className={className}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
       {...props}
     />
   );
 });
-DialogTitle.displayName = 'DialogTitle';
+DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
 const DialogDescription = React.forwardRef<
-  React.ComponentRef<typeof DialogPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ className = '', ...props }, ref) => {
-  const { versionModule, variant, colors } = useDialogContext();
-
-  if (versionModule?.DialogDescription || versionModule?.Description) {
-    const Component = versionModule.DialogDescription || versionModule.Description;
-    return <Component ref={ref} variant={variant} colors={colors} className={className} {...props} />;
-  }
-
+  React.ElementRef<typeof DialogPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description> & BaseUIProps
+>(({ className, ...props }, ref) => {
+  const context = React.useContext(DialogContext);
   return (
-    <DialogPrimitive.Description
+    <DialogDescriptionHandler
       ref={ref}
       className={className}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
       {...props}
     />
   );
 });
-DialogDescription.displayName = 'DialogDescription';
+DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
-// Composite export
-export const Dialog = Object.assign(DialogRoot, {
+const DialogExport = Object.assign(Dialog, {
   Trigger: DialogTrigger,
   Portal: DialogPortal,
   Close: DialogClose,
@@ -277,6 +189,7 @@ export const Dialog = Object.assign(DialogRoot, {
 });
 
 export {
+  DialogExport as Dialog,
   DialogTrigger,
   DialogPortal,
   DialogClose,
@@ -287,4 +200,5 @@ export {
   DialogTitle,
   DialogDescription,
 };
-export default Dialog;
+export default DialogExport;
+

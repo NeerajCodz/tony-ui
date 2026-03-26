@@ -1,44 +1,42 @@
 'use client';
 
-import React, { lazy, Suspense } from 'react';
-import type { StyleComponentType, Variant, Version } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
-import { loadVersionModule } from './load-version-module';
+"use client";
+
+import * as React from "react";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
 
 export interface CalendarProps extends React.HTMLAttributes<HTMLDivElement> {
-  version?: Version;
-  variant?: Variant;
-  type?: StyleComponentType;
+  version?: BaseUIProps["version"];
+  variant?: BaseUIProps["variant"];
+  effects?: string;
+  type?: BaseUIProps["uiType"];
+  mode?: "single" | "range" | "multiple";
+  selected?: any;
+  onSelect?: any;
 }
 
-const LoadingSkeleton: React.FC = () => <div className="h-[300px] w-[280px] animate-pulse rounded bg-gray-800/20" />;
-
-const FallbackCalendar = React.forwardRef<HTMLDivElement, CalendarProps>(({ className = '', ...props }, ref) => (
-  <div ref={ref} className={`rounded border border-dashed border-gray-600 p-4 ${className}`} {...props} />
-));
-FallbackCalendar.displayName = 'FallbackCalendar';
-
-export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(({ version = 'default', variant = 'default', type = 'default', ...props }, ref) => {
-  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
-  const LazyComponent = React.useMemo(
-    () =>
-      lazy(() =>
-        loadVersionModule(version, 'calendar').catch(() => ({
-          default: FallbackCalendar,
-        }))
-      ),
-    [version]
-  );
-
-  const ResolvedComponent = LazyComponent as React.ComponentType<any>;
-
-  return (
-    <Suspense fallback={<LoadingSkeleton />}>
-      <ResolvedComponent ref={ref} version={version} variant={variant} type={type} colors={colors} {...props} />
-    </Suspense>
-  );
+const CalendarHandler = createHandler<CalendarProps & BaseUIProps>({
+  componentName: "calendar",
+  exportName: "Calendar"
 });
 
-Calendar.displayName = 'Calendar';
+const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
+  ({ version = "default", variant = "default", effects, type = "default", ...props }, ref) => {
+    return (
+      <CalendarHandler
+        ref={ref}
+        version={version}
+        variant={variant}
+        effects={effects}
+        uiType={type}
+        {...props}
+      />
+    );
+  }
+);
+Calendar.displayName = "Calendar";
 
+export { Calendar };
 export default Calendar;
+

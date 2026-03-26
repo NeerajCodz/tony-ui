@@ -5,184 +5,168 @@
  * NO hardcoded colors, styles, or variants
  */
 
-import React, { lazy, Suspense, useMemo, useState, useEffect } from 'react';
+import React from 'react';
+import { createHandler } from '../core/create-handler';
 import type { 
   CardProps, 
   CardHeaderProps,
   CardTitleProps,
   CardDescriptionProps,
   CardContentProps,
-  CardFooterProps
+  CardFooterProps,
+  CardType
 } from '../types/components/card.js';
-import type { Version } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
+import type { BaseUIProps } from '../types/common';
 
-// Dynamic component loader - NO hardcoded versions
-const loadCardComponent = (version: Version): React.LazyExoticComponent<React.ComponentType<Record<string, unknown>>> => {
-  return lazy(() =>
-    import(`../components/${version}/card.tsx`)
-      .catch(() => import(`../components/default/card.tsx`))
-      .catch(() => ({
-        default: React.forwardRef<HTMLDivElement, { children?: React.ReactNode; className?: string }>(
-          ({ children, className = '' }, ref) => (
-          <div ref={ref} className={className}>{children}</div>
-          )
-        )
-      }))
-  ) as React.LazyExoticComponent<React.ComponentType<Record<string, unknown>>>;
-};
+const CardHandler = createHandler<CardProps & BaseUIProps>({
+  componentName: 'card',
+  exportName: 'Card'
+});
 
-// Dynamic config loader
-const resolveCardConfig = (module: Record<string, unknown>) => {
-  if ('cardConfig' in module) {
-    return module.cardConfig;
-  }
-  if ('default' in module) {
-    return module.default;
-  }
-  return null;
-};
+const CardHeaderHandler = createHandler<CardHeaderProps & BaseUIProps>({
+  componentName: 'card',
+  exportName: 'CardHeader'
+});
 
-const loadCardConfig = async (version: Version) => {
-  try {
-    const module = await import(`../config/components/${version}.json`);
-    return resolveCardConfig(module as Record<string, unknown>);
-  } catch {
-    try {
-      const module = await import(`../config/components/default.json`);
-      return resolveCardConfig(module as Record<string, unknown>);
-    } catch {
-      return null;
-    }
-  }
-};
+const CardTitleHandler = createHandler<CardTitleProps & BaseUIProps>({
+  componentName: 'card',
+  exportName: 'CardTitle'
+});
 
-// Component cache for performance
-const componentCache = new Map<string, React.LazyExoticComponent<React.ComponentType<Record<string, unknown>>>>();
+const CardDescriptionHandler = createHandler<CardDescriptionProps & BaseUIProps>({
+  componentName: 'card',
+  exportName: 'CardDescription'
+});
 
-// Minimal loading skeleton
-const LoadingSkeleton: React.FC = () => (
-  <div className="animate-pulse bg-muted/20 rounded h-32" />
-);
+const CardContentHandler = createHandler<CardContentProps & BaseUIProps>({
+  componentName: 'card',
+  exportName: 'CardContent'
+});
 
-// ============ COMPOUND COMPONENTS ============
+const CardFooterHandler = createHandler<CardFooterProps & BaseUIProps>({
+  componentName: 'card',
+  exportName: 'CardFooter'
+});
 
-// CardHeader - container for title and description
-export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
-  ({ children, className = '' }, ref) => (
-    <div ref={ref} className={`flex flex-col space-y-1.5 mb-4 ${className}`}>
-      {children}
-    </div>
-  )
-);
-CardHeader.displayName = 'CardHeader';
+const CardContext = React.createContext<{
+  version?: BaseUIProps['version'];
+  variant?: BaseUIProps['variant'];
+  effects?: string;
+  type?: CardType;
+}>({});
 
-// CardTitle - loaded from config per version
-export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(({ children, className = '' }, ref) => (
-  <h3 
-    ref={ref} 
-    className={className}
-  >
-    {children}
-  </h3>
-));
-CardTitle.displayName = 'CardTitle';
-
-// CardDescription - loaded from config per version
-export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(({ children, className = '' }, ref) => (
-  <p 
-    ref={ref} 
-    className={className}
-  >
-    {children}
-  </p>
-));
-CardDescription.displayName = 'CardDescription';
-
-// CardContent - main content area
-export const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
-  ({ children, className = '' }, ref) => (
-    <div ref={ref} className={`${className}`}>
-      {children}
-    </div>
-  )
-);
-CardContent.displayName = 'CardContent';
-
-// CardFooter - footer with actions
-export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
-  ({ children, className = '' }, ref) => (
-    <div 
-      ref={ref} 
-      className={`flex items-center gap-2 mt-4 pt-4 ${className}`}
-    >
-      {children}
-    </div>
-  )
-);
-CardFooter.displayName = 'CardFooter';
-
-// ============ MAIN CARD COMPONENT ============
-
-const CardBase = React.forwardRef<HTMLDivElement, CardProps>(({ 
+const Card = React.forwardRef<HTMLDivElement, CardProps & BaseUIProps>(({ 
   version = 'default',
   variant = 'default',
   type = 'default',
   effects,
+  className,
   ...props 
 }, ref) => {
-  const [config, setConfig] = useState<unknown>(null);
-  
-  // Dynamically load config
-  useEffect(() => {
-    loadCardConfig(version).then(setConfig);
-  }, [version]);
-  
-  // Get variant colors dynamically - NO hardcoding
-  const colors = useMemo(() => getVariantColors(variant), [variant]);
-  
-  // Get or create lazy component
-  const LazyComponent = useMemo(() => {
-    const cacheKey = `${version}/card`;
-    if (!componentCache.has(cacheKey)) {
-      componentCache.set(cacheKey, loadCardComponent(version));
-    }
-    return componentCache.get(cacheKey)!;
-  }, [version]);
-  const DynamicCard = LazyComponent as React.ComponentType<Record<string, unknown>>;
-
   return (
-    <Suspense fallback={<LoadingSkeleton />}>
-      <DynamicCard 
-        ref={ref} 
+    <CardContext.Provider value={{ version, variant, effects, type }}>
+      <CardHandler
+        ref={ref}
         version={version}
         variant={variant}
         type={type}
-        colors={colors}
-        config={config}
         effects={effects}
-        {...props} 
+        className={className}
+        {...props}
       />
-    </Suspense>
+    </CardContext.Provider>
   );
 });
-CardBase.displayName = 'Card';
+Card.displayName = 'Card';
 
-// Composite Card with attached subcomponents
-type CardCompound = typeof CardBase & {
-  Header: typeof CardHeader;
-  Title: typeof CardTitle;
-  Description: typeof CardDescription;
-  Content: typeof CardContent;
-  Footer: typeof CardFooter;
-};
+export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(CardContext);
+    return (
+      <CardHeaderHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        type={context.type}
+        effects={context.effects}
+        {...props}
+      />
+    );
+  }
+);
+CardHeader.displayName = 'CardHeader';
 
-export const Card = Object.assign(CardBase, {
-  Header: CardHeader,
-  Title: CardTitle,
-  Description: CardDescription,
-  Content: CardContent,
-  Footer: CardFooter,
-}) as CardCompound;
+export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(CardContext);
+    return (
+      <CardTitleHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        type={context.type}
+        effects={context.effects}
+        {...props}
+      />
+    );
+  }
+);
+CardTitle.displayName = 'CardTitle';
+
+export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(CardContext);
+    return (
+      <CardDescriptionHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        type={context.type}
+        effects={context.effects}
+        {...props}
+      />
+    );
+  }
+);
+CardDescription.displayName = 'CardDescription';
+
+export const CardContent = React.forwardRef<HTMLDivElement, CardContentProps & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(CardContext);
+    return (
+      <CardContentHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        type={context.type}
+        effects={context.effects}
+        {...props}
+      />
+    );
+  }
+);
+CardContent.displayName = 'CardContent';
+
+export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(CardContext);
+    return (
+      <CardFooterHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        type={context.type}
+        effects={context.effects}
+        {...props}
+      />
+    );
+  }
+);
+CardFooter.displayName = 'CardFooter';
 
 export default Card;

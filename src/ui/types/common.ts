@@ -163,6 +163,7 @@ export interface BaseUIProps {
   style?: React.CSSProperties;
   animated?: boolean;
   effects?: string;
+  uiType?: string; // Generic type property for component variations
 }
 
 // ============================================================================

@@ -1,37 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import type { StyleComponentType, Variant, Version } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
-import { loadVersionModule } from './load-version-module';
+"use client";
 
-type DataTableVersion = Version;
-type DataTableVariant = Variant;
+import * as React from "react";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
 
 export interface DataTableProps extends React.HTMLAttributes<HTMLDivElement> {
-  version?: DataTableVersion;
-  variant?: DataTableVariant;
-  type?: StyleComponentType;
+  version?: BaseUIProps["version"];
+  variant?: BaseUIProps["variant"];
+  effects?: string;
+  type?: BaseUIProps["uiType"];
   columns?: any[];
   data?: any[];
 }
 
-export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
-  ({ version = 'default', variant = 'default', type = 'default', ...props }, ref) => {
-    const [Component, setComponent] = useState<any>(null);
-    const colors = React.useMemo(() => getVariantColors(variant), [variant]);
+const DataTableHandler = createHandler<DataTableProps & BaseUIProps>({
+  componentName: "data-table",
+  exportName: "DataTable"
+});
 
-    useEffect(() => {
-      loadVersionModule(version, 'data-table').then((m) => setComponent(() => m.default)).catch(() => setComponent(null));
-    }, [version]);
-
-    if (!Component) {
-      return <div ref={ref} {...props} />;
-    }
-
-    return <Component ref={ref} variant={variant} type={type} colors={colors} {...props} />;
+const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
+  ({ version = "default", variant = "default", effects, type = "default", ...props }, ref) => {
+    return (
+      <DataTableHandler
+        ref={ref}
+        version={version}
+        variant={variant}
+        effects={effects}
+        uiType={type}
+        {...props}
+      />
+    );
   }
 );
+DataTable.displayName = "DataTable";
 
-DataTable.displayName = 'DataTable';
-
+export { DataTable };
 export default DataTable;
+
 

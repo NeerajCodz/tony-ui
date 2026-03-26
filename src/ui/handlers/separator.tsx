@@ -3,63 +3,40 @@
  * Routes to version-specific implementations with lazy loading
  */
 
-import React, { lazy, Suspense } from 'react';
-import * as SeparatorPrimitive from '@radix-ui/react-separator';
-import type { Version, Variant } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
-import { loadVersionModule } from './load-version-module';
+"use client";
 
-// Types
-export type SeparatorVersion = Version;
-export type SeparatorVariant = Variant;
+import * as React from "react";
+import * as SeparatorPrimitive from "@radix-ui/react-separator";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
 
 export interface SeparatorProps extends React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> {
-  version?: SeparatorVersion;
-  variant?: SeparatorVariant;
+  version?: BaseUIProps["version"];
+  variant?: BaseUIProps["variant"];
+  effects?: string;
 }
 
-// Fallback
-const FallbackSeparator = React.forwardRef<
-  React.ComponentRef<typeof SeparatorPrimitive.Root>,
-  SeparatorProps
->(({ className = '', orientation = 'horizontal', decorative = true, ...props }, ref) => (
-  <SeparatorPrimitive.Root
-    ref={ref}
-    decorative={decorative}
-    orientation={orientation}
-    className={`shrink-0 bg-border ${orientation === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]'} ${className}`}
-    {...props}
-  />
-));
-FallbackSeparator.displayName = 'FallbackSeparator';
+const SeparatorHandler = createHandler<SeparatorProps & BaseUIProps>({
+  componentName: "separator",
+  exportName: "Separator"
+});
 
-// Main Separator Component
-export const Separator = React.forwardRef<
-  React.ComponentRef<typeof SeparatorPrimitive.Root>,
+const Separator = React.forwardRef<
+  React.ElementRef<typeof SeparatorPrimitive.Root>,
   SeparatorProps
->(({
-  version = 'angular-corner',
-  variant = 'default',
-  orientation = 'horizontal',
-  ...props
-}, ref) => {
-  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
-  const LazyComponent = React.useMemo(
-    () =>
-      lazy(() =>
-        loadVersionModule(version, 'separator', true).catch(() => ({
-          default: FallbackSeparator,
-        }))
-      ),
-    [version]
-  );
-
+>(({ version = "default", variant = "default", effects, ...props }, ref) => {
   return (
-    <Suspense fallback={<FallbackSeparator ref={ref} orientation={orientation} {...props} />}>
-      <LazyComponent ref={ref} variant={variant} colors={colors} orientation={orientation} {...props} />
-    </Suspense>
+    <SeparatorHandler
+      ref={ref}
+      version={version}
+      variant={variant}
+      effects={effects}
+      {...props}
+    />
   );
 });
-Separator.displayName = 'Separator';
+Separator.displayName = SeparatorPrimitive.Root.displayName;
 
+export { Separator };
 export default Separator;
+
