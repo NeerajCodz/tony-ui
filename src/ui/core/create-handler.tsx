@@ -10,6 +10,7 @@
 
 import React, { lazy, Suspense, useMemo, ComponentType, forwardRef } from 'react';
 import type { Version, Variant, Size, VariantColors } from '../types/common';
+import { useVersion } from './version-context';
 
 // ============================================================================
 // TYPES
@@ -25,6 +26,7 @@ export interface HandlerParams {
 
 export interface HandlerConfig {
   componentName: string;
+  exportName?: string;
   defaultVersion?: Version;
   defaultVariant?: Variant;
   defaultType?: string;
@@ -49,15 +51,32 @@ const variantCache = new Map<string, VariantColors>();
 /**
  * Lazy load a component from /components/<version>/<component>.tsx
  */
-function getComponent(version: Version, componentName: string): React.LazyExoticComponent<any> {
-  const key = `${version}/${componentName}`;
+function getComponent(version: Version, componentName: string, exportName: string = 'default'): React.LazyExoticComponent<any> {
+  const key = `${version}/${componentName}/${exportName}`;
   
   if (!componentCache.has(key)) {
-    const LazyComponent = lazy(() => 
-      import(`../components/${version}/${componentName}.tsx`).catch(() => ({
-        default: () => <div className="text-destructive">Component not found: {key}</div>
-      }))
-    );
+    const LazyComponent = lazy(async () => {
+      try {
+        const module = await import(`../components/${version}/${componentName}.tsx`);
+        // Handle named exports or default export
+        const Component = exportName === 'default' 
+          ? (module.default || module[toPascalCase(componentName)]) 
+          : module[exportName];
+          
+        if (!Component) {
+          throw new Error(`Export "${exportName}" not found in ${componentName}`);
+        }
+        
+        return { default: Component };
+      } catch (error) {
+        console.error(`Failed to load component ${key}:`, error);
+        return {
+          default: () => <div className="text-destructive p-2 border border-destructive rounded bg-destructive/10">
+            Failed to load {componentName} ({exportName})
+          </div>
+        };
+      }
+    });
     componentCache.set(key, LazyComponent);
   }
   
@@ -178,6 +197,7 @@ const DefaultLoading: React.FC<{ className?: string }> = ({ className }) => (
 export function createHandler<P extends object = {}>(config: HandlerConfig) {
   const {
     componentName,
+    exportName = 'default',
     defaultVersion = 'default',
     defaultVariant = 'default',
     defaultType = 'default',
@@ -195,8 +215,11 @@ export function createHandler<P extends object = {}>(config: HandlerConfig) {
 
   const Handler = forwardRef<any, HandlerPublicProps>(
     (props, ref) => {
+      // Get global version from context
+      const { version: globalVersion } = useVersion();
+      
       const {
-        version = defaultVersion,
+        version = globalVersion || defaultVersion,
         variant = defaultVariant,
         type = defaultType,
         size = defaultSize,
@@ -207,7 +230,7 @@ export function createHandler<P extends object = {}>(config: HandlerConfig) {
 
       // Get lazy component
       const LazyComponent = useMemo(
-        () => getComponent(version, componentName),
+        () => getComponent(version, componentName, exportName),
         [version]
       );
       const ResolvedComponent = LazyComponent as React.ComponentType<any>;
