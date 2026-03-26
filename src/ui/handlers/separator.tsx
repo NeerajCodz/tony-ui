@@ -40,3 +40,5 @@ Separator.displayName = SeparatorPrimitive.Root.displayName;
 export { Separator };
 export default Separator;
 
+
+export type { BaseUIProps };

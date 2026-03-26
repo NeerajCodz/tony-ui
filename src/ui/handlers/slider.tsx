@@ -21,3 +21,4 @@ Slider.displayName = SliderPrimitive.Root.displayName;
 
 export { Slider };
 export default Slider;
+export type { BaseUIProps };

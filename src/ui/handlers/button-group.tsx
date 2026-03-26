@@ -31,3 +31,5 @@ ButtonGroup.displayName = "ButtonGroup";
 export { ButtonGroup };
 export default ButtonGroup;
 
+
+export type { BaseUIProps };

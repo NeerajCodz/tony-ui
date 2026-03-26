@@ -245,3 +245,5 @@ export {
 };
 export default AlertDialogExport;
 
+
+export type { BaseUIProps };

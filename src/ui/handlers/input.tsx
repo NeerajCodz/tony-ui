@@ -11,3 +11,5 @@ const Input = createHandler<InputProps & BaseUIProps>({
 });
 
 export default Input;
+
+export type { InputProps };

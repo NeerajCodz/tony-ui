@@ -81,3 +81,5 @@ const AccordionExport = Object.assign(Accordion, {
 export { AccordionExport as Accordion, AccordionItem, AccordionTrigger, AccordionContent };
 export default AccordionExport;
 
+
+export type { BaseUIProps };

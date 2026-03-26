@@ -144,3 +144,7 @@ export {
 };
 export default SheetExport;
 
+
+export type { BaseUIProps };
+
+export type { SheetProps };

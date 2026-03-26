@@ -20,3 +20,5 @@ export const Button = createHandler<ButtonProps & BaseUIProps>({
 Button.displayName = 'Button';
 
 export default Button;
+
+export type { ButtonProps };

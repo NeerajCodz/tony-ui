@@ -202,3 +202,5 @@ export {
 };
 export default BreadcrumbExport;
 
+
+export type { BaseUIProps };

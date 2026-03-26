@@ -20,3 +20,4 @@ Textarea.displayName = "Textarea";
 
 export { Textarea };
 export default Textarea;
+export type { BaseUIProps };

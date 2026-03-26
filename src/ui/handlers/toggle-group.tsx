@@ -65,3 +65,4 @@ ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName;
 
 export { ToggleGroup, ToggleGroupItem };
 export default ToggleGroup;
+export type { BaseUIProps };

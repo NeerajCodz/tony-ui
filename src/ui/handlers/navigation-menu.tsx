@@ -122,3 +122,4 @@ export {
   NavigationMenuViewport,
 };
 export default NavigationMenu;
+export type { BaseUIProps };

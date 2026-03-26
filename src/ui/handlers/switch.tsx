@@ -21,3 +21,4 @@ Switch.displayName = SwitchPrimitive.Root.displayName;
 
 export { Switch };
 export default Switch;
+export type { BaseUIProps };

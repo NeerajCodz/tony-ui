@@ -33,3 +33,5 @@ Progress.displayName = ProgressPrimitive.Root.displayName;
 export { Progress };
 export default Progress;
 
+
+export type { BaseUIProps };

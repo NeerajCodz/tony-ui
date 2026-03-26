@@ -109,3 +109,5 @@ export { TabsExport as Tabs, TabsList, TabsTrigger, TabsContent };
 export default TabsExport;
 
 
+
+export type { BaseUIProps };

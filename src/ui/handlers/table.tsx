@@ -226,3 +226,5 @@ export {
 };
 export default TableExport;
 
+
+export type { BaseUIProps };

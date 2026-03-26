@@ -226,3 +226,4 @@ export {
   CommandSeparator,
 };
 export default Command;
+export type { BaseUIProps };

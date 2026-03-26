@@ -170,3 +170,5 @@ export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps & Bas
 CardFooter.displayName = 'CardFooter';
 
 export default Card;
+
+export type { BaseUIProps };

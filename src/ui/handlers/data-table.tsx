@@ -38,3 +38,5 @@ export { DataTable };
 export default DataTable;
 
 
+
+export type { BaseUIProps };

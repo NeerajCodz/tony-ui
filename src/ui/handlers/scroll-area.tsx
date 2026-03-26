@@ -88,3 +88,5 @@ export { ScrollAreaExport as ScrollArea, ScrollBar };
 export default ScrollAreaExport;
 
 
+
+export type { BaseUIProps };

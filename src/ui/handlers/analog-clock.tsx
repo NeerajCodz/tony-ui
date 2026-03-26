@@ -38,3 +38,5 @@ export { AnalogClock };
 export default AnalogClock;
 
 
+
+export type { BaseUIProps };

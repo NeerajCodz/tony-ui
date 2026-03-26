@@ -80,3 +80,5 @@ const AvatarExport = Object.assign(Avatar, {
 export { AvatarExport as Avatar, AvatarImage, AvatarFallback };
 export default AvatarExport;
 
+
+export type { BaseUIProps };

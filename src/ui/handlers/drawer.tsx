@@ -215,3 +215,5 @@ export {
 };
 export default DrawerExport;
 
+
+export type { BaseUIProps };

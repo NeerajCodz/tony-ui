@@ -207,3 +207,5 @@ export {
 export default PaginationExport;
 
 
+
+export type { BaseUIProps };

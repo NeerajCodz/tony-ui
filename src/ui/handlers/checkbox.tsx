@@ -34,3 +34,5 @@ Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 export { Checkbox };
 export default Checkbox;
 
+
+export type { BaseUIProps };

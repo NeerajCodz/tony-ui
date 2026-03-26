@@ -29,3 +29,5 @@ const AspectRatio = React.forwardRef<HTMLDivElement, AspectRatioProps>(({ versio
 AspectRatio.displayName = 'AspectRatio';
 
 export default AspectRatio;
+
+export type { BaseUIProps };

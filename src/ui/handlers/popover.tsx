@@ -65,3 +65,5 @@ const PopoverExport = Object.assign(Popover, {
 export { PopoverExport as Popover, PopoverTrigger, PopoverContent, PopoverAnchor };
 export default PopoverExport;
 
+
+export type { BaseUIProps };

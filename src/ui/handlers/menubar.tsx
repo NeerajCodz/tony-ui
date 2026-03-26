@@ -177,3 +177,4 @@ export {
   MenubarShortcut,
 };
 export default Menubar;
+export type { BaseUIProps };

@@ -71,3 +71,5 @@ const CollapsibleExport = Object.assign(Collapsible, {
 export { CollapsibleExport as Collapsible, CollapsibleTrigger, CollapsibleContent };
 export default CollapsibleExport;
 
+
+export type { BaseUIProps };

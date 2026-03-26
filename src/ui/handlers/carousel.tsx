@@ -322,3 +322,5 @@ export {
 };
 export default CarouselExport;
 
+
+export type { BaseUIProps };

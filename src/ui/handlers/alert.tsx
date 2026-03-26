@@ -95,3 +95,5 @@ const AlertExport = Object.assign(Alert, {
 export { AlertExport as Alert, AlertTitle, AlertDescription };
 export default AlertExport;
 
+
+export type { BaseUIProps };

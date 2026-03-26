@@ -114,3 +114,5 @@ SonnerHandler.displayName = "SonnerHandler";
 
 export default SonnerHandler;
 
+
+export type { BaseUIProps };

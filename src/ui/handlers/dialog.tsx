@@ -202,3 +202,5 @@ export {
 };
 export default DialogExport;
 
+
+export type { BaseUIProps };

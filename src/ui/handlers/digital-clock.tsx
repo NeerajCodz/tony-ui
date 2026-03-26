@@ -38,3 +38,5 @@ export { DigitalClock };
 export default DigitalClock;
 
 
+
+export type { BaseUIProps };

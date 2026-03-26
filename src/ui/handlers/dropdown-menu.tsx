@@ -292,3 +292,5 @@ export {
 };
 export default DropdownMenuExport;
 
+
+export type { BaseUIProps };

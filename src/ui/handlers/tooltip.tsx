@@ -74,3 +74,4 @@ TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
 export default Tooltip;
+export type { BaseUIProps };

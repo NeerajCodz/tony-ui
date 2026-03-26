@@ -249,3 +249,5 @@ export {
 };
 export default SelectExport;
 
+
+export type { BaseUIProps };

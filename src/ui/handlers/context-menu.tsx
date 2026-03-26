@@ -161,3 +161,4 @@ export {
   ContextMenuRadioGroup,
 };
 export default ContextMenu;
+export type { BaseUIProps };

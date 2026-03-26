@@ -68,3 +68,5 @@ const RadioGroupExport = Object.assign(RadioGroup, {
 export { RadioGroupExport as RadioGroup, RadioGroupItem };
 export default RadioGroupExport;
 
+
+export type { BaseUIProps };
