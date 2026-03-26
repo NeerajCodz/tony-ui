@@ -1,65 +1,72 @@
-// Showcase Components Index
-// Auto-generated exports for all 60 showcase components
+/**
+ * Showcase Exports
+ * Central export file for all component showcases
+ */
 
-export { AccordionShowcase } from './AccordionShowcase';
-export { AlertDialogShowcase } from './AlertDialogShowcase';
-export { AlertShowcase } from './AlertShowcase';
-export { AnalogClockShowcase } from './AnalogClockShowcase';
-export { AspectRatioShowcase } from './AspectRatioShowcase';
-export { AvatarShowcase } from './AvatarShowcase';
-export { BadgeShowcase } from './BadgeShowcase';
-export { BreadcrumbShowcase } from './BreadcrumbShowcase';
-export { ButtonGroupShowcase } from './ButtonGroupShowcase';
-export { ButtonShowcase } from './ButtonShowcase';
-export { CalendarShowcase } from './CalendarShowcase';
-export { CardShowcase } from './CardShowcase';
-export { CarouselShowcase } from './CarouselShowcase';
-export { ChartShowcase } from './ChartShowcase';
-export { CheckboxShowcase } from './CheckboxShowcase';
-export { CollapsibleShowcase } from './CollapsibleShowcase';
-export { ComboboxShowcase } from './ComboboxShowcase';
-export { CommandShowcase } from './CommandShowcase';
-export { ContextMenuShowcase } from './ContextMenuShowcase';
-export { DataTableShowcase } from './DataTableShowcase';
-export { DatePickerShowcase } from './DatePickerShowcase';
-export { DigitalClockShowcase } from './DigitalClockShowcase';
-export { DialogShowcase } from './DialogShowcase';
-export { DirectionShowcase } from './DirectionShowcase';
-export { DrawerShowcase } from './DrawerShowcase';
-export { DropdownMenuShowcase } from './DropdownMenuShowcase';
-export { EmptyShowcase } from './EmptyShowcase';
-export { FieldShowcase } from './FieldShowcase';
-export { HoverCardShowcase } from './HoverCardShowcase';
-export { IconButtonShowcase } from './IconButtonShowcase';
-export { InputGroupShowcase } from './InputGroupShowcase';
-export { InputOtpShowcase } from './InputOtpShowcase';
-export { InputShowcase } from './InputShowcase';
-export { ItemShowcase } from './ItemShowcase';
-export { KbdShowcase } from './KbdShowcase';
-export { LabelShowcase } from './LabelShowcase';
-export { MenubarShowcase } from './MenubarShowcase';
-export { NativeSelectShowcase } from './NativeSelectShowcase';
-export { NavigationMenuShowcase } from './NavigationMenuShowcase';
-export { PaginationShowcase } from './PaginationShowcase';
-export { PopoverShowcase } from './PopoverShowcase';
-export { ProgressShowcase } from './ProgressShowcase';
-export { RadioGroupShowcase } from './RadioGroupShowcase';
-export { ResizableShowcase } from './ResizableShowcase';
-export { ScrollAreaShowcase } from './ScrollAreaShowcase';
-export { SelectShowcase } from './SelectShowcase';
-export { SeparatorShowcase } from './SeparatorShowcase';
-export { SheetShowcase } from './SheetShowcase';
-export { SidebarShowcase } from './SidebarShowcase';
-export { SkeletonShowcase } from './SkeletonShowcase';
-export { SliderShowcase } from './SliderShowcase';
-export { SonnerShowcase } from './SonnerShowcase';
-export { SpinnerShowcase } from './SpinnerShowcase';
-export { SwitchShowcase } from './SwitchShowcase';
-export { TableShowcase } from './TableShowcase';
-export { TabsShowcase } from './TabsShowcase';
-export { TextareaShowcase } from './TextareaShowcase';
-export { ToastShowcase } from './ToastShowcase';
-export { ToggleGroupShowcase } from './ToggleGroupShowcase';
-export { ToggleShowcase } from './ToggleShowcase';
-export { TooltipShowcase } from './TooltipShowcase';
-export { TypographyShowcase } from './TypographyShowcase';
+// Buttons & Actions
+export { ButtonShowcase } from './buttons/ButtonShowcase';
+export { ButtonGroupShowcase } from './buttons/ButtonGroupShowcase';
+export { ToggleShowcase } from './buttons/ToggleShowcase';
+export { ToggleGroupShowcase } from './buttons/ToggleGroupShowcase';
+
+// Inputs
+export { InputShowcase } from './inputs/InputShowcase';
+
+// Data Display
+export { BadgeShowcase } from './data-display/BadgeShowcase';
+export { AvatarShowcase } from './data-display/AvatarShowcase';
+export { SkeletonShowcase } from './data-display/SkeletonShowcase';
+export { SpinnerShowcase } from './data-display/SpinnerShowcase';
+
+// Navigation
+export { TabsShowcase } from './navigation/TabsShowcase';
+export { PaginationShowcase } from './navigation/PaginationShowcase';
+export { BreadcrumbShowcase } from './navigation/BreadcrumbShowcase';
+
+// Layout
+export { CardShowcase } from './layout/CardShowcase';
+export { SeparatorShowcase } from './layout/SeparatorShowcase';
+export { AccordionShowcase } from './layout/AccordionShowcase';
+export { CollapsibleShowcase } from './layout/CollapsibleShowcase';
+
+// Feedback
+export { AlertShowcase } from './feedback/AlertShowcase';
+export { ProgressShowcase } from './feedback/ProgressShowcase';
+
+/**
+ * Showcase Registry
+ * Maps component slug to showcase component
+ */
+export const showcaseRegistry = {
+  // Buttons & Actions
+  'button': () => import('./buttons/ButtonShowcase'),
+  'button-group': () => import('./buttons/ButtonGroupShowcase'),
+  'toggle': () => import('./buttons/ToggleShowcase'),
+  'toggle-group': () => import('./buttons/ToggleGroupShowcase'),
+  
+  // Inputs
+  'input': () => import('./inputs/InputShowcase'),
+  
+  // Data Display
+  'badge': () => import('./data-display/BadgeShowcase'),
+  'avatar': () => import('./data-display/AvatarShowcase'),
+  'skeleton': () => import('./data-display/SkeletonShowcase'),
+  'spinner': () => import('./data-display/SpinnerShowcase'),
+  
+  // Navigation
+  'tabs': () => import('./navigation/TabsShowcase'),
+  'pagination': () => import('./navigation/PaginationShowcase'),
+  'breadcrumb': () => import('./navigation/BreadcrumbShowcase'),
+  
+  // Layout
+  'card': () => import('./layout/CardShowcase'),
+  'separator': () => import('./layout/SeparatorShowcase'),
+  'accordion': () => import('./layout/AccordionShowcase'),
+  'collapsible': () => import('./layout/CollapsibleShowcase'),
+  
+  // Feedback
+  'alert': () => import('./feedback/AlertShowcase'),
+  'progress': () => import('./feedback/ProgressShowcase'),
+} as const;
+
+export type ShowcaseSlug = keyof typeof showcaseRegistry;

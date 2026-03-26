@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Menu, X, Search, ChevronRight, LayoutGrid } from 'lucide-react';
-import { uiComponentRegistry } from '@/pages/ui/registry';
+import { showcaseRegistry } from '@/pages/showcases';
 
 export function ShowcaseLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
 
-  const filteredComponents = uiComponentRegistry.filter((component) =>
+  const components = Object.entries(showcaseRegistry).map(([slug, module]) => ({
+    slug,
+    name: slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+  }));
+
+  const filteredComponents = components.filter((component) =>
     component.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     component.slug.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -78,7 +83,7 @@ export function ShowcaseLayout() {
           </div>
 
           <div className="p-4 border-t border-border text-xs text-center text-muted-foreground">
-            {uiComponentRegistry.length} components available
+            {components.length} components available
           </div>
         </div>
       </aside>
@@ -92,7 +97,7 @@ export function ShowcaseLayout() {
             <Menu className="w-5 h-5" />
           </button>
           <span className="font-semibold">
-            {uiComponentRegistry.find((component) => `/ui/${component.slug}` === location.pathname)?.name ?? 'Showcase'}
+            {components.find((component) => `/ui/${component.slug}` === location.pathname)?.name ?? 'Showcase'}
           </span>
         </div>
 
