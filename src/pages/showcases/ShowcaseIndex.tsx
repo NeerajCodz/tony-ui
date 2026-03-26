@@ -27,6 +27,13 @@ const categories: ShowcaseCategory[] = [
     name: 'Inputs',
     components: [
       { name: 'Input', slug: 'input' },
+      { name: 'Textarea', slug: 'textarea' },
+      { name: 'Checkbox', slug: 'checkbox' },
+      { name: 'Radio Group', slug: 'radio-group' },
+      { name: 'Switch', slug: 'switch' },
+      { name: 'Slider', slug: 'slider' },
+      { name: 'Select', slug: 'select' },
+      { name: 'Label', slug: 'label' },
     ],
   },
   {
@@ -36,6 +43,14 @@ const categories: ShowcaseCategory[] = [
       { name: 'Avatar', slug: 'avatar' },
       { name: 'Skeleton', slug: 'skeleton' },
       { name: 'Spinner', slug: 'spinner' },
+      { name: 'Table', slug: 'table' },
+      { name: 'Data Table', slug: 'data-table' },
+      { name: 'Calendar', slug: 'calendar' },
+      { name: 'Carousel', slug: 'carousel' },
+      { name: 'Aspect Ratio', slug: 'aspect-ratio' },
+      { name: 'Analog Clock', slug: 'analog-clock' },
+      { name: 'Digital Clock', slug: 'digital-clock' },
+      { name: 'Typography', slug: 'typography' },
     ],
   },
   {
@@ -44,6 +59,9 @@ const categories: ShowcaseCategory[] = [
       { name: 'Tabs', slug: 'tabs' },
       { name: 'Pagination', slug: 'pagination' },
       { name: 'Breadcrumb', slug: 'breadcrumb' },
+      { name: 'Menubar', slug: 'menubar' },
+      { name: 'Navigation Menu', slug: 'navigation-menu' },
+      { name: 'Command', slug: 'command' },
     ],
   },
   {
@@ -53,6 +71,21 @@ const categories: ShowcaseCategory[] = [
       { name: 'Separator', slug: 'separator' },
       { name: 'Accordion', slug: 'accordion' },
       { name: 'Collapsible', slug: 'collapsible' },
+      { name: 'Scroll Area', slug: 'scroll-area' },
+    ],
+  },
+  {
+    name: 'Overlays',
+    components: [
+      { name: 'Dialog', slug: 'dialog' },
+      { name: 'Alert Dialog', slug: 'alert-dialog' },
+      { name: 'Sheet', slug: 'sheet' },
+      { name: 'Drawer', slug: 'drawer' },
+      { name: 'Popover', slug: 'popover' },
+      { name: 'Tooltip', slug: 'tooltip' },
+      { name: 'Hover Card', slug: 'hover-card' },
+      { name: 'Dropdown Menu', slug: 'dropdown-menu' },
+      { name: 'Context Menu', slug: 'context-menu' },
     ],
   },
   {
@@ -60,6 +93,7 @@ const categories: ShowcaseCategory[] = [
     components: [
       { name: 'Alert', slug: 'alert' },
       { name: 'Progress', slug: 'progress' },
+      { name: 'Sonner (Toast)', slug: 'sonner' },
     ],
   },
 ];
