@@ -146,6 +146,7 @@ export interface AccordionProps {
   variant?: AccordionVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   /** 'single' allows one item open, 'multiple' allows many */
   collapsible?: 'single' | 'multiple';
   value?: string | string[];
@@ -339,6 +340,7 @@ export interface CollapsibleProps {
   variant?: CollapsibleVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -511,6 +513,7 @@ export interface SeparatorProps {
   variant?: SeparatorVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   orientation?: 'horizontal' | 'vertical';
   decorative?: boolean;
   className?: string;
@@ -534,6 +537,7 @@ export interface ResizableProps {
   variant?: LayoutVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   panels: ResizablePanelDef[];
   direction?: 'horizontal' | 'vertical';
   className?: string;
@@ -548,6 +552,7 @@ export interface ScrollAreaProps {
   variant?: LayoutVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   maxHeight?: string | number;
   children: React.ReactNode;
   className?: string;
@@ -558,6 +563,7 @@ export interface ScrollAreaProps {
  */
 export interface DirectionProps {
   version?: 'default';
+  effects?: string;
   dir?: 'ltr' | 'rtl';
   children: React.ReactNode;
   className?: string;

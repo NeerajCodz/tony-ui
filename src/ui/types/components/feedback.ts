@@ -121,6 +121,7 @@ export interface AlertProps {
   variant?: AlertVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   title?: string;
   description?: string;
   children?: React.ReactNode;

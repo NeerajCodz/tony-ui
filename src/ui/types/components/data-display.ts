@@ -464,6 +464,7 @@ export interface CalendarProps {
   variant?: DataVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   value?: Date;
   defaultValue?: Date;
   onChange?: (date: Date) => void;
@@ -481,6 +482,7 @@ export interface CarouselProps {
   variant?: DataVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   items: React.ReactNode[];
   autoPlay?: boolean;
   interval?: number;
@@ -599,6 +601,9 @@ export interface AspectRatioProps {
   
   /** Enable or disable hover animations */
   animated?: boolean;
+
+  /** Visual effects (e.g., glitch, neon-pulse) */
+  effects?: string;
   
   /** Optional overlay effect */
   overlay?: boolean;

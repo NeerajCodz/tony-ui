@@ -49,6 +49,7 @@ export interface TooltipVersionConfig {
   hasArrow: boolean;
   clipPath?: string;
   features: string[];
+  effects?: string;
   animations: {
     entrance?: string;
     exit?: string;
@@ -198,6 +199,7 @@ export interface PopoverVersionConfig {
   enabled: boolean;
   classPrefix: string;
   description: string;
+  effects?: string;
   clipPath?: string;
   features: string[];
   animations: {
