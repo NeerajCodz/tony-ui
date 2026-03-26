@@ -244,6 +244,7 @@ export interface BadgeProps {
   variant?: BadgeVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   children?: React.ReactNode;
   className?: string;
 }
@@ -361,6 +362,7 @@ export interface ToastProps {
   variant?: ToastVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   title?: string;
   description?: string;
   onClose?: () => void;
@@ -522,6 +524,7 @@ export interface ProgressProps {
   variant?: ProgressVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   value?: number;
   max?: number;
   showLabel?: boolean;
@@ -670,6 +673,7 @@ export interface SpinnerProps {
   variant?: SpinnerVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   size?: 'sm' | 'md' | 'lg';
   className?: string;
   label?: string;
@@ -788,6 +792,7 @@ export interface SkeletonProps {
   variant?: SkeletonVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   width?: string | number;
   height?: string | number;
   className?: string;
@@ -907,6 +912,7 @@ export interface EmptyProps {
   variant?: EmptyVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   title?: string;
   description?: string;
   children?: React.ReactNode;

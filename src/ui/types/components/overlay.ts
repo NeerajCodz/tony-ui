@@ -461,6 +461,7 @@ export interface DialogProps {
   variant?: DialogVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   onClose?: () => void;
@@ -533,6 +534,7 @@ export interface AlertDialogProps {
   variant?: OverlayVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   title?: string;
@@ -742,6 +744,7 @@ export interface SheetProps {
   variant?: SheetVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   onClose?: () => void;
@@ -814,6 +817,7 @@ export interface DrawerProps {
   variant?: OverlayVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   side?: 'left' | 'right' | 'bottom';
@@ -831,6 +835,7 @@ export interface PopoverProps {
   variant?: OverlayVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   trigger: React.ReactNode;
@@ -848,6 +853,7 @@ export interface TooltipProps {
   variant?: OverlayVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   content: React.ReactNode;
   children: React.ReactNode;
   side?: 'top' | 'right' | 'bottom' | 'left';
@@ -864,6 +870,7 @@ export interface HoverCardProps {
   variant?: OverlayVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   trigger: React.ReactNode;
   children?: React.ReactNode;
   openDelay?: number;
@@ -888,6 +895,7 @@ export interface ContextMenuProps {
   variant?: OverlayVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   items: ContextMenuItemDef[];
   children: React.ReactNode;
   className?: string;
@@ -902,6 +910,7 @@ export interface DropdownMenuProps {
   variant?: OverlayVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   items: ContextMenuItemDef[];
   trigger: React.ReactNode;
   open?: boolean;
