@@ -27,6 +27,7 @@ export interface TypographyPartProps extends React.HTMLAttributes<HTMLElement> {
   version?: Version;
   variant?: Variant;
   type?: StyleComponentType;
+  effects?: string;
 }
 
 const moduleCache = new Map<string, TypographyExportModule>();

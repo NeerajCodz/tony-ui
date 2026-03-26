@@ -75,6 +75,8 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   className?: string;
   /** Inline styles */
   style?: React.CSSProperties;
+  /** Visual effects */
+  effects?: string;
 }
 
 /**

@@ -3,98 +3,113 @@
  * Routes to version-specific implementations with lazy loading
  */
 
-import React, { lazy, Suspense } from 'react';
-import * as SheetPrimitive from '@radix-ui/react-dialog';
-import type { SheetProps, SheetVersion, VersionSheetComponents } from '../types/components/sheet.js';
-import { getVariantColors } from '../core/handler-factory';
-import { loadVersionModule } from './load-version-module';
+"use client";
 
-// Minimal loading skeleton
-const LoadingSkeleton: React.FC = () => (
-  <div className="animate-pulse bg-gray-800/20 h-screen w-full" />
-);
+import * as React from "react";
+import * as SheetPrimitive from "@radix-ui/react-dialog";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
+import type { SheetProps } from "../types/components/sheet.js";
 
-// Fallback for disabled versions
-const FallbackSheet = React.forwardRef<HTMLDivElement, any>(({ children, className = '', ...props }, ref) => (
-  <div ref={ref} className={`fixed inset-0 z-50 bg-black/50 ${className}`}>
-    <div className="fixed right-0 top-0 h-full w-3/4 bg-gray-950 border-l border-cyan-500 p-6 sm:max-w-sm">
-      {children}
-    </div>
-  </div>
-));
-FallbackSheet.displayName = 'FallbackSheet';
+const SheetContentHandler = createHandler<SheetProps & BaseUIProps>({
+  componentName: "sheet",
+  exportName: "SheetContent"
+});
 
-// ============ MAIN SHEET COMPONENT ============
+const SheetHeaderHandler = createHandler<React.HTMLAttributes<HTMLDivElement> & BaseUIProps>({
+  componentName: "sheet",
+  exportName: "SheetHeader"
+});
 
-export const Sheet: React.FC<SheetProps> = ({
-  version = 'angular-corner',
-  variant = 'primary',
+const SheetFooterHandler = createHandler<React.HTMLAttributes<HTMLDivElement> & BaseUIProps>({
+  componentName: "sheet",
+  exportName: "SheetFooter"
+});
+
+const SheetTitleHandler = createHandler<React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title> & BaseUIProps>({
+  componentName: "sheet",
+  exportName: "SheetTitle"
+});
+
+const SheetDescriptionHandler = createHandler<React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description> & BaseUIProps>({
+  componentName: "sheet",
+  exportName: "SheetDescription"
+});
+
+const SheetOverlayHandler = createHandler<React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay> & BaseUIProps>({
+  componentName: "sheet",
+  exportName: "SheetOverlay"
+});
+
+const SheetContext = React.createContext<{
+  version?: BaseUIProps['version'];
+  variant?: BaseUIProps['variant'];
+  effects?: string;
+}>({});
+
+const Sheet = ({
+  version = "default",
+  variant = "default",
+  effects,
   open,
   onOpenChange,
+  children,
+  side = "right",
   title,
   description,
-  side = 'right',
   icon,
-  children,
   className,
   ...props
-}) => {
-  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
-  const [versionModule, setVersionModule] = React.useState<any>(null);
-
-  React.useEffect(() => {
-    loadVersionModule(version, 'sheet', true).then(setVersionModule).catch(() => setVersionModule(null));
-  }, [version]);
-
+}: SheetProps) => {
   return (
-    <SheetPrimitive.Root open={open} onOpenChange={onOpenChange}>
-      <Suspense fallback={<LoadingSkeleton />}>
-        {versionModule?.SheetContent ? (
-          <versionModule.SheetContent
-            side={side}
-            variant={variant}
-            colors={colors}
-            className={className}
-            {...props}
-          >
-            {(title || description) && (
-              <versionModule.SheetHeader variant={variant} colors={colors}>
-                {title && (
-                  <versionModule.SheetTitle variant={variant} colors={colors}>
-                    {icon && <span className="mr-2">{icon}</span>}
-                    {title}
-                  </versionModule.SheetTitle>
-                )}
-                {description && (
-                  <versionModule.SheetDescription variant={variant} colors={colors}>
-                    {description}
-                  </versionModule.SheetDescription>
-                )}
-              </versionModule.SheetHeader>
-            )}
-            {children}
-          </versionModule.SheetContent>
-        ) : (
-          <FallbackSheet className={className}>{children}</FallbackSheet>
-        )}
-      </Suspense>
-    </SheetPrimitive.Root>
+    <SheetContext.Provider value={{ version, variant, effects }}>
+      <SheetPrimitive.Root open={open} onOpenChange={onOpenChange}>
+        <SheetOverlayHandler version={version} variant={variant} effects={effects} />
+        <SheetContentHandler
+          version={version}
+          variant={variant}
+          effects={effects}
+          side={side}
+          className={className}
+          {...props}
+        >
+           {/* If the versioned SheetContent expects children directly, we pass them.
+               If it expects Header/Footer/Title/Description as children, we render them here.
+               The previous implementation passed title/description/icon as PROPS to SheetHandler.
+               If we are breaking it down, we should render them as components inside Content.
+               However, to maintain backward compatibility with `SheetProps` having title/description, 
+               we should render them inside if provided.
+           */}
+           {(title || description || icon) && (
+             <SheetHeaderHandler version={version} variant={variant} effects={effects}>
+               {title && <SheetTitleHandler version={version} variant={variant} effects={effects}>{title}</SheetTitleHandler>}
+               {description && <SheetDescriptionHandler version={version} variant={variant} effects={effects}>{description}</SheetDescriptionHandler>}
+             </SheetHeaderHandler>
+           )}
+          {children}
+        </SheetContentHandler>
+      </SheetPrimitive.Root>
+    </SheetContext.Provider>
   );
 };
+Sheet.displayName = "Sheet";
 
-Sheet.displayName = 'Sheet';
+// Note: SheetHandler here seems to be wrapping the Content AND Header/Title/Description?
+// The previous implementation used `versionModule.SheetContent` and INSIDE it rendered Header/Title etc.
+// If createHandler("sheet") returns SheetContent, then we should use it like that.
+// But the previous `Sheet` component was monolithic (taking title, description as props).
+// This is different from standard Radix/Shadcn where components are composed.
+// To support the existing API where `Sheet` takes `title`/`description`, the version component `SheetContent` must handle them.
+// OR `createHandler("sheet")` returns a wrapper that expects these props.
+// Based on the previous code, `SheetContent` took these props. So `createHandler` is correct.
 
-// ============ COMPOUND COMPONENTS ============
+const SheetTrigger = SheetPrimitive.Trigger;
+const SheetClose = SheetPrimitive.Close;
+const SheetPortal = SheetPrimitive.Portal;
 
-// Re-export primitives for custom composition
-export const SheetTrigger = SheetPrimitive.Trigger;
-export const SheetClose = SheetPrimitive.Close;
-export const SheetPortal = SheetPrimitive.Portal;
-
-// Helper hook for sheet state
-export function useSheet(defaultOpen = false) {
+// Hook
+function useSheet(defaultOpen = false) {
   const [open, setOpen] = React.useState(defaultOpen);
-
   return {
     open,
     setOpen,
@@ -102,4 +117,34 @@ export function useSheet(defaultOpen = false) {
   };
 }
 
-export default Sheet;
+const SheetExport = Object.assign(Sheet, {
+  Trigger: SheetTrigger,
+  Close: SheetClose,
+  Portal: SheetPortal,
+  Content: SheetContentHandler, // Expose for composition if needed
+  Header: SheetHeaderHandler,
+  Footer: SheetFooterHandler,
+  Title: SheetTitleHandler,
+  Description: SheetDescriptionHandler,
+  Overlay: SheetOverlayHandler
+});
+
+export { 
+  SheetExport as Sheet, 
+  SheetTrigger, 
+  SheetClose, 
+  SheetPortal, 
+  useSheet,
+  SheetContentHandler as SheetContent,
+  SheetHeaderHandler as SheetHeader,
+  SheetFooterHandler as SheetFooter,
+  SheetTitleHandler as SheetTitle,
+  SheetDescriptionHandler as SheetDescription,
+  SheetOverlayHandler as SheetOverlay
+};
+export default SheetExport;
+
+
+export type { BaseUIProps };
+
+export type { SheetProps };

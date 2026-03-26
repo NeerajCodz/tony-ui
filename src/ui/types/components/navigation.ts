@@ -165,6 +165,7 @@ export interface BreadcrumbProps {
   variant?: BreadcrumbVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   separator?: React.ReactNode;
   className?: string;
   children?: React.ReactNode;
@@ -361,6 +362,7 @@ export interface PaginationProps {
   variant?: PaginationVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   className?: string;
   children?: React.ReactNode;
 }
@@ -572,6 +574,7 @@ export interface TabsProps {
   variant?: TabsVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
@@ -642,6 +645,7 @@ export interface MenubarProps {
   variant?: NavVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   items: MenubarItem[];
   className?: string;
 }
@@ -664,6 +668,7 @@ export interface NavigationMenuProps {
   variant?: NavVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   items: NavMenuItem[];
   className?: string;
 }
@@ -677,6 +682,7 @@ export interface LegacyPaginationProps {
   variant?: NavVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
@@ -702,6 +708,7 @@ export interface SidebarProps {
   variant?: NavVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   items: SidebarItem[];
   collapsed?: boolean;
   onToggle?: () => void;
@@ -727,6 +734,7 @@ export interface CommandProps {
   variant?: NavVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   items: CommandItem[];
   placeholder?: string;
   onSearch?: (query: string) => void;

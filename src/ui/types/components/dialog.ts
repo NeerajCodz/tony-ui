@@ -50,6 +50,8 @@ export interface DialogProps {
   className?: string;
   /** Child content */
   children?: React.ReactNode;
+  /** Visual effects */
+  effects?: string;
 }
 
 /**

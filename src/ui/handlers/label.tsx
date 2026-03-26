@@ -1,67 +1,38 @@
-/**
- * Label Component Handler - Version-First Architecture
- * Routes to version-specific implementations with lazy loading
- */
+"use client";
 
-import React, { lazy, Suspense } from 'react';
-import * as LabelPrimitive from '@radix-ui/react-label';
-import type { Version, Variant } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
-import { loadVersionModule } from './load-version-module';
+import * as React from "react";
+import * as LabelPrimitive from "@radix-ui/react-label";
+import { cva, type VariantProps } from "class-variance-authority";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
 
-// Types
-export type LabelVersion = Version;
-export type LabelVariant = Variant;
+const labelVariants = cva(
+  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+);
 
-export interface LabelProps extends React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> {
-  version?: LabelVersion;
-  variant?: LabelVariant;
-  required?: boolean;
-  error?: boolean;
+export interface LabelProps
+  extends React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>,
+    VariantProps<typeof labelVariants> {
+  version?: BaseUIProps["version"];
+  variant?: BaseUIProps["variant"];
+  effects?: string;
 }
 
-// Fallback
-const FallbackLabel = React.forwardRef<
-  React.ComponentRef<typeof LabelPrimitive.Root>,
-  LabelProps
->(({ className = '', required, error, children, ...props }, ref) => (
-  <LabelPrimitive.Root
-    ref={ref}
-    className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ${error ? 'text-destructive' : ''} ${className}`}
-    {...props}
-  >
-    {children}
-    {required && <span className="text-destructive ml-1">*</span>}
-  </LabelPrimitive.Root>
-));
-FallbackLabel.displayName = 'FallbackLabel';
-
-// Main Label Component
-export const Label = React.forwardRef<
-  React.ComponentRef<typeof LabelPrimitive.Root>,
-  LabelProps
->(({
-  version = 'angular-corner',
-  variant = 'default',
-  ...props
-}, ref) => {
-  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
-  const LazyComponent = React.useMemo(
-    () =>
-      lazy(() =>
-        loadVersionModule(version, 'label', true).catch(() => ({
-          default: FallbackLabel,
-        }))
-      ),
-    [version]
-  );
-
-  return (
-    <Suspense fallback={null}>
-      <LazyComponent ref={ref} variant={variant} colors={colors} {...props} />
-    </Suspense>
-  );
+const LabelHandler = createHandler<LabelProps & BaseUIProps>({
+  componentName: "label",
+  exportName: "Label"
 });
-Label.displayName = 'Label';
 
+const Label = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  LabelProps
+>(({ className, ...props }, ref) => (
+  <LabelHandler ref={ref} className={className} {...props} />
+));
+Label.displayName = LabelPrimitive.Root.displayName;
+
+export { Label };
 export default Label;
+
+
+export type { BaseUIProps };

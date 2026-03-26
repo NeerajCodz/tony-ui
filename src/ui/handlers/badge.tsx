@@ -1,77 +1,57 @@
-/**
- * Badge Component Handler - Version-First Architecture
- * Routes to version-specific implementations with lazy loading
- */
+"use client";
 
-import React, { lazy, Suspense } from 'react';
-import type { Version, Variant } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
-import { loadVersionModule } from './load-version-module';
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
 
-// Types
-export type BadgeVersion = Version;
-export type BadgeVariant = Variant;
-export type BadgeSize = 'sm' | 'md' | 'lg';
+const badgeVariants = cva(
+  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  {
+    variants: {
+      variant: {
+        default:
+          "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+        secondary:
+          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        destructive:
+          "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
+        outline: "text-foreground",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  version?: BadgeVersion;
-  variant?: BadgeVariant;
-  size?: BadgeSize;
-  icon?: React.ReactNode;
-  removable?: boolean;
-  onRemove?: () => void;
+export interface BadgeProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof badgeVariants> {
+  version?: BaseUIProps["version"];
+  variant?: "default" | "secondary" | "destructive" | "outline";
+  effects?: string;
 }
 
-// Loading skeleton
-const LoadingSkeleton: React.FC = () => (
-  <div className="animate-pulse bg-gray-800/20 rounded-full h-6 w-16" />
-);
+const BadgeHandler = createHandler<BadgeProps & BaseUIProps>({
+  componentName: "badge",
+  exportName: "Badge"
+});
 
-// Fallback
-const FallbackBadge = React.forwardRef<HTMLDivElement, BadgeProps>(
-  ({ children, className = '', variant = 'default', size = 'md', ...props }, ref) => (
-    <div
+const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
+  ({ className, variant, ...props }, ref) => (
+    <BadgeHandler
       ref={ref}
-      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors ${className}`}
-      style={{
-        borderColor: 'hsl(var(--border-base))',
-        backgroundColor: 'hsl(var(--background-secondary) / 0.5)',
-      }}
+      className={className}
+      variant={variant}
       {...props}
-    >
-      {children}
-    </div>
+    />
   )
 );
-FallbackBadge.displayName = 'FallbackBadge';
+Badge.displayName = "Badge";
 
-// Main Badge Component
-export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(({
-  version = 'angular-corner',
-  variant = 'default',
-  size = 'md',
-  children,
-  ...props
-}, ref) => {
-  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
-  const LazyComponent = React.useMemo(
-    () =>
-      lazy(() =>
-        loadVersionModule(version, 'badge', true).catch(() => ({
-          default: FallbackBadge,
-        }))
-      ),
-    [version]
-  );
-
-  return (
-    <Suspense fallback={<LoadingSkeleton />}>
-      <LazyComponent ref={ref} variant={variant} colors={colors} size={size} {...props}>
-        {children}
-      </LazyComponent>
-    </Suspense>
-  );
-});
-Badge.displayName = 'Badge';
-
+export { Badge, badgeVariants };
 export default Badge;
+
+
+export type { BaseUIProps };

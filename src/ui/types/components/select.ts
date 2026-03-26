@@ -92,6 +92,8 @@ export interface SelectProps {
   className?: string;
   /** Child content */
   children?: React.ReactNode;
+  /** Visual effects */
+  effects?: string;
 }
 
 /**

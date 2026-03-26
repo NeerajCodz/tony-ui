@@ -8,30 +8,29 @@
  * 4. Manages loader animation with duration prop
  */
 
-import React, { forwardRef, useMemo } from 'react';
-import { Toaster as SonnerToaster } from 'sonner';
-import { SonnerProps, SonnerVersion, SonnerType, SONNER_VERSION_CONFIGS } from '../types/components/sonner';
-import { loadVersionModule } from './load-version-module';
+"use client";
 
-const createVersionComponent = (version: string) =>
-  React.lazy(() =>
-    loadVersionModule(version, 'sonner').catch(() => loadVersionModule('default', 'sonner'))
-  );
+import * as React from "react";
+import { Toaster as SonnerToaster } from "sonner";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
+import { SonnerProps, SonnerVersion, SonnerType, SONNER_VERSION_CONFIGS } from "../types/components/sonner";
 
-// Fallback loader
-const LoadingSkeleton: React.FC = () => (
-  <div className="fixed bottom-4 right-4 w-[356px] h-[80px] bg-muted/20 animate-pulse rounded" />
-);
+// Use createHandler to load the version-specific implementation
+// We cast it to any because the internal props might differ slightly from the wrapper props
+const VersionedSonner = createHandler<any>({
+  componentName: "sonner",
+  exportName: "Toaster"
+});
 
 /**
  * Calculate toast duration from seconds to milliseconds
- * If duration is provided and type is 'loader', use it for animation
  */
 const calculateDuration = (duration?: number, type?: SonnerType): number => {
-  if (type === 'loader' && duration) {
-    return duration * 1000; // Convert seconds to milliseconds
+  if (type === "loader" && duration) {
+    return duration * 1000;
   }
-  return 4000; // Default duration
+  return 4000;
 };
 
 /**
@@ -48,26 +47,13 @@ const getToastOptions = (
     duration: toastDuration,
   };
 
-  // Type-specific configurations
   const typeConfigs: Record<SonnerType, any> = {
-    default: {
-      // Standard toast with full styling
-    },
-    filled: {
-      // Solid background
-      className: 'sonner-toast-filled',
-    },
-    outline: {
-      // Border-only
-      className: 'sonner-toast-outline',
-    },
-    minimal: {
-      // Text-only, no background
-      className: 'sonner-toast-minimal',
-    },
+    default: {},
+    filled: { className: "sonner-toast-filled" },
+    outline: { className: "sonner-toast-outline" },
+    minimal: { className: "sonner-toast-minimal" },
     loader: {
-      // Progress animation
-      className: 'sonner-toast-loader',
+      className: "sonner-toast-loader",
       duration: toastDuration,
     },
   };
@@ -78,59 +64,55 @@ const getToastOptions = (
   };
 };
 
-/**
- * Sonner Handler - Main component that manages toast rendering
- */
-export const SonnerHandler = forwardRef<HTMLDivElement, SonnerProps>(
+export const SonnerHandler = React.forwardRef<HTMLDivElement, SonnerProps>(
   (
     {
-      version = 'default',
-      type = 'default',
-      variant = 'neutral',
-      position = 'bottom-right',
+      version = "default",
+      type = "default",
+      variant = "neutral",
+      position = "bottom-right",
       duration = 4,
       showLoader = true,
       max = 5,
-      className = '',
+      className = "",
+      effects,
       ...props
     },
     ref
   ) => {
     // Get version config
-    const versionConfig = useMemo(() => {
+    const versionConfig = React.useMemo(() => {
       return SONNER_VERSION_CONFIGS[version as SonnerVersion] || SONNER_VERSION_CONFIGS.default;
     }, [version]);
 
     // Get toast options
-    const toastOptions = useMemo(() => {
+    const toastOptions = React.useMemo(() => {
       return getToastOptions(type, variant, duration);
     }, [type, variant, duration]);
 
-    // Get the version-specific component
-    const VersionComponent = useMemo(() => createVersionComponent(version as SonnerVersion), [version]);
-
-    // Fallback if version component not found
     return (
-      <React.Suspense fallback={<LoadingSkeleton />}>
-        <VersionComponent
-          ref={ref}
-          version={version}
-          type={type}
-          variant={variant}
-          position={position}
-          duration={duration}
-          showLoader={showLoader}
-          max={max}
-          versionConfig={versionConfig}
-          toastOptions={toastOptions}
-          className={className}
-          {...props}
-        />
-      </React.Suspense>
+      <VersionedSonner
+        ref={ref}
+        version={version}
+        type={type}
+        variant={variant}
+        position={position}
+        duration={duration}
+        showLoader={showLoader}
+        max={max}
+        effects={effects}
+        versionConfig={versionConfig}
+        toastOptions={toastOptions}
+        className={className}
+        {...props}
+      />
     );
   }
 );
 
-SonnerHandler.displayName = 'SonnerHandler';
+SonnerHandler.displayName = "SonnerHandler";
 
 export default SonnerHandler;
+
+
+export type { BaseUIProps };

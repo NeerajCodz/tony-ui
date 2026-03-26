@@ -1,82 +1,210 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import type { StyleComponentType, Variant, Version } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
-import { loadVersionModule } from './load-version-module';
+"use client";
 
-type TableVersion = Version;
-type TableVariant = Variant;
+import * as React from "react";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
 
-export interface TableProps extends React.ComponentPropsWithoutRef<'table'> {
-  version?: TableVersion;
-  variant?: TableVariant;
-  type?: StyleComponentType;
+export interface TableProps extends React.ComponentPropsWithoutRef<"table"> {
+  version?: BaseUIProps["version"];
+  variant?: BaseUIProps["variant"];
+  effects?: string;
+  type?: BaseUIProps["uiType"];
 }
 
-interface TableContextValue {
-  version: TableVersion;
-  variant: TableVariant;
-  type: StyleComponentType;
-  colors: ReturnType<typeof getVariantColors>;
-  versionModule: any;
-}
-
-const TableContext = createContext<TableContextValue>({
-  version: 'default',
-  variant: 'default',
-  type: 'default',
-  colors: getVariantColors('default'),
-  versionModule: null,
+const TableHandler = createHandler<TableProps & BaseUIProps>({
+  componentName: "table",
+  exportName: "Table"
 });
 
-const useTableContext = () => useContext(TableContext);
+const TableHeaderHandler = createHandler<React.HTMLAttributes<HTMLTableSectionElement> & BaseUIProps>({
+  componentName: "table",
+  exportName: "TableHeader"
+});
 
-const TableRoot = React.forwardRef<HTMLTableElement, TableProps>(
-  ({ version = 'default', variant = 'default', type = 'default', children, ...props }, ref) => {
-    const [versionModule, setVersionModule] = useState<any>(null);
-    const colors = React.useMemo(() => getVariantColors(variant), [variant]);
+const TableBodyHandler = createHandler<React.HTMLAttributes<HTMLTableSectionElement> & BaseUIProps>({
+  componentName: "table",
+  exportName: "TableBody"
+});
 
-    useEffect(() => {
-      loadVersionModule(version, 'table').then(setVersionModule).catch(() => setVersionModule(null));
-    }, [version]);
+const TableFooterHandler = createHandler<React.HTMLAttributes<HTMLTableSectionElement> & BaseUIProps>({
+  componentName: "table",
+  exportName: "TableFooter"
+});
 
-    const Component = versionModule?.Table as React.ComponentType<any> | undefined;
+const TableRowHandler = createHandler<React.HTMLAttributes<HTMLTableRowElement> & BaseUIProps>({
+  componentName: "table",
+  exportName: "TableRow"
+});
 
+const TableHeadHandler = createHandler<React.ThHTMLAttributes<HTMLTableCellElement> & BaseUIProps>({
+  componentName: "table",
+  exportName: "TableHead"
+});
+
+const TableCellHandler = createHandler<React.TdHTMLAttributes<HTMLTableCellElement> & BaseUIProps>({
+  componentName: "table",
+  exportName: "TableCell"
+});
+
+const TableCaptionHandler = createHandler<React.HTMLAttributes<HTMLTableCaptionElement> & BaseUIProps>({
+  componentName: "table",
+  exportName: "TableCaption"
+});
+
+const TableContext = React.createContext<{
+  version?: BaseUIProps['version'];
+  variant?: BaseUIProps['variant'];
+  effects?: string;
+  type?: string;
+}>({});
+
+const Table = React.forwardRef<HTMLTableElement, TableProps>(
+  ({ version = "default", variant = "default", effects, type = "default", ...props }, ref) => {
     return (
-      <TableContext.Provider value={{ version, variant, type, colors, versionModule }}>
-        {Component ? (
-          <Component ref={ref} variant={variant} type={type} colors={colors} {...props}>
-            {children}
-          </Component>
-        ) : (
-          <table ref={ref} {...props}>
-            {children}
-          </table>
-        )}
+      <TableContext.Provider value={{ version, variant, effects, type }}>
+        <TableHandler
+          ref={ref}
+          version={version}
+          variant={variant}
+          effects={effects}
+          type={type}
+          {...props}
+        />
       </TableContext.Provider>
     );
   }
 );
-TableRoot.displayName = 'Table';
+Table.displayName = "Table";
 
-const makePart = <T extends HTMLElement>(key: string, tag: keyof React.JSX.IntrinsicElements) =>
-  React.forwardRef<T, any>((props, ref) => {
-    const { versionModule, variant, type, colors } = useTableContext();
-    const Component = versionModule?.[key] as React.ComponentType<any> | undefined;
-    if (Component) return <Component ref={ref} variant={variant} type={type} colors={colors} {...props} />;
-    return React.createElement(tag, { ref, ...props });
-  });
+const TableHeader = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement> & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(TableContext);
+    return (
+      <TableHeaderHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
+        type={context.type}
+        {...props}
+      />
+    );
+  }
+);
+TableHeader.displayName = "TableHeader";
 
-const TableHeader = makePart<HTMLTableSectionElement>('TableHeader', 'thead');
-const TableBody = makePart<HTMLTableSectionElement>('TableBody', 'tbody');
-const TableFooter = makePart<HTMLTableSectionElement>('TableFooter', 'tfoot');
-const TableHead = makePart<HTMLTableCellElement>('TableHead', 'th');
-const TableRow = makePart<HTMLTableRowElement>('TableRow', 'tr');
-const TableCell = makePart<HTMLTableCellElement>('TableCell', 'td');
-const TableCaption = makePart<HTMLTableCaptionElement>('TableCaption', 'caption');
+const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement> & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(TableContext);
+    return (
+      <TableBodyHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
+        type={context.type}
+        {...props}
+      />
+    );
+  }
+);
+TableBody.displayName = "TableBody";
 
-export const Table = Object.assign(TableRoot, {
+const TableFooter = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement> & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(TableContext);
+    return (
+      <TableFooterHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
+        type={context.type}
+        {...props}
+      />
+    );
+  }
+);
+TableFooter.displayName = "TableFooter";
+
+const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement> & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(TableContext);
+    return (
+      <TableRowHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
+        type={context.type}
+        {...props}
+      />
+    );
+  }
+);
+TableRow.displayName = "TableRow";
+
+const TableHead = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<HTMLTableCellElement> & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(TableContext);
+    return (
+      <TableHeadHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
+        type={context.type}
+        {...props}
+      />
+    );
+  }
+);
+TableHead.displayName = "TableHead";
+
+const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<HTMLTableCellElement> & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(TableContext);
+    return (
+      <TableCellHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
+        type={context.type}
+        {...props}
+      />
+    );
+  }
+);
+TableCell.displayName = "TableCell";
+
+const TableCaption = React.forwardRef<HTMLTableCaptionElement, React.HTMLAttributes<HTMLTableCaptionElement> & BaseUIProps>(
+  ({ className, ...props }, ref) => {
+    const context = React.useContext(TableContext);
+    return (
+      <TableCaptionHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
+        type={context.type}
+        {...props}
+      />
+    );
+  }
+);
+TableCaption.displayName = "TableCaption";
+
+const TableExport = Object.assign(Table, {
   Header: TableHeader,
   Body: TableBody,
   Footer: TableFooter,
@@ -86,4 +214,17 @@ export const Table = Object.assign(TableRoot, {
   Caption: TableCaption,
 });
 
-export default Table;
+export {
+  TableExport as Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+};
+export default TableExport;
+
+
+export type { BaseUIProps };

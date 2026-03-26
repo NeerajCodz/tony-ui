@@ -75,6 +75,9 @@ export interface InputVersionConfig {
   
   /** Features list */
   features?: string[];
+
+  /** Visual effects (e.g., glitch, neon-pulse) */
+  effects?: string;
 }
 
 /**

@@ -3,131 +3,82 @@
  * Routes to version-specific implementations with lazy loading
  */
 
-import React, { lazy, Suspense, createContext, useContext, useState, useEffect } from 'react';
-import * as AvatarPrimitive from '@radix-ui/react-avatar';
-import type { Version, Variant } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
-import { loadVersionModule } from './load-version-module';
+"use client";
 
-// Types
-export type AvatarVersion = Version;
-export type AvatarVariant = Variant;
-export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+import * as React from "react";
+import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
 
 export interface AvatarProps extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> {
-  version?: AvatarVersion;
-  variant?: AvatarVariant;
-  size?: AvatarSize;
+  version?: BaseUIProps["version"];
+  variant?: BaseUIProps["variant"];
+  effects?: string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 }
 
-// Context
-interface AvatarContextValue {
-  version: AvatarVersion;
-  variant: AvatarVariant;
-  size: AvatarSize;
-  colors: ReturnType<typeof getVariantColors>;
-  versionModule: any;
-}
-
-const AvatarContext = createContext<AvatarContextValue>({
-  version: 'angular-corner',
-  variant: 'default',
-  size: 'md',
-  colors: getVariantColors('default'),
-  versionModule: null,
+const AvatarHandler = createHandler<AvatarProps & BaseUIProps>({
+  componentName: "avatar",
+  exportName: "Avatar"
 });
 
-const useAvatarContext = () => useContext(AvatarContext);
+const AvatarContext = React.createContext<{
+  version?: BaseUIProps['version'];
+  variant?: BaseUIProps['variant'];
+  effects?: string;
+  size?: AvatarProps['size'];
+}>({});
 
-// Loading skeleton
-const LoadingSkeleton: React.FC<{ size?: AvatarSize }> = ({ size = 'md' }) => {
-  const sizeMap = { xs: 'w-6 h-6', sm: 'w-8 h-8', md: 'w-10 h-10', lg: 'w-12 h-12', xl: 'w-16 h-16', '2xl': 'w-20 h-20' };
-  return <div className={`animate-pulse bg-gray-800/20 rounded-full ${sizeMap[size]}`} />;
-};
-
-// Main Component
-const AvatarRoot = React.forwardRef<
-  React.ComponentRef<typeof AvatarPrimitive.Root>,
+const Avatar = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Root>,
   AvatarProps
->(({
-  version = 'angular-corner',
-  variant = 'default',
-  size = 'md',
-  children,
-  ...props
-}, ref) => {
-  const [versionModule, setVersionModule] = useState<any>(null);
-  const colors = React.useMemo(() => getVariantColors(variant), [variant]);
-
-  useEffect(() => {
-    loadVersionModule(version, 'avatar', true).then(setVersionModule).catch(() => setVersionModule(null));
-  }, [version]);
-
-  if (!versionModule) {
-    return <LoadingSkeleton size={size} />;
-  }
-
-  const Component = versionModule.AvatarRoot || versionModule.Avatar || versionModule.default;
-
+>(({ version = "default", variant = "default", effects, size = "md", ...props }, ref) => {
   return (
-    <AvatarContext.Provider value={{ version, variant, size, colors, versionModule }}>
-      <Component ref={ref} variant={variant} size={size} {...props}>
-        {children}
-      </Component>
+    <AvatarContext.Provider value={{ version, variant, effects, size }}>
+      <AvatarHandler
+        ref={ref}
+        version={version}
+        variant={variant}
+        effects={effects}
+        size={size}
+        {...props}
+      />
     </AvatarContext.Provider>
   );
 });
-AvatarRoot.displayName = 'Avatar';
+Avatar.displayName = AvatarPrimitive.Root.displayName;
 
-// Image subcomponent
 const AvatarImage = React.forwardRef<
-  React.ComponentRef<typeof AvatarPrimitive.Image>,
+  React.ElementRef<typeof AvatarPrimitive.Image>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
->((props, ref) => {
-  const { versionModule, variant, size, colors } = useAvatarContext();
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Image
+    ref={ref}
+    className={`aspect-square h-full w-full ${className || ""}`}
+    {...props}
+  />
+));
+AvatarImage.displayName = AvatarPrimitive.Image.displayName;
 
-  if (versionModule?.AvatarImage) {
-    const Component = versionModule.AvatarImage;
-    return <Component ref={ref} variant={variant} size={size} colors={colors} {...props} />;
-  }
-
-  return (
-    <AvatarPrimitive.Image
-      ref={ref}
-      className="aspect-square h-full w-full"
-      {...props}
-    />
-  );
-});
-AvatarImage.displayName = 'AvatarImage';
-
-// Fallback subcomponent
 const AvatarFallback = React.forwardRef<
-  React.ComponentRef<typeof AvatarPrimitive.Fallback>,
+  React.ElementRef<typeof AvatarPrimitive.Fallback>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
->((props, ref) => {
-  const { versionModule, variant, size, colors } = useAvatarContext();
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Fallback
+    ref={ref}
+    className={`flex h-full w-full items-center justify-center rounded-full bg-muted font-mono text-xs ${className || ""}`}
+    {...props}
+  />
+));
+AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
-  if (versionModule?.AvatarFallback) {
-    const Component = versionModule.AvatarFallback;
-    return <Component ref={ref} variant={variant} size={size} colors={colors} {...props} />;
-  }
-
-  return (
-    <AvatarPrimitive.Fallback
-      ref={ref}
-      className="flex h-full w-full items-center justify-center rounded-full bg-muted font-mono text-xs"
-      {...props}
-    />
-  );
-});
-AvatarFallback.displayName = 'AvatarFallback';
-
-// Composite export
-export const Avatar = Object.assign(AvatarRoot, {
+const AvatarExport = Object.assign(Avatar, {
   Image: AvatarImage,
   Fallback: AvatarFallback,
 });
 
-export { AvatarImage, AvatarFallback };
-export default Avatar;
+export { AvatarExport as Avatar, AvatarImage, AvatarFallback };
+export default AvatarExport;
+
+
+export type { BaseUIProps };

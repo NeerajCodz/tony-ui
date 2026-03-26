@@ -1,176 +1,219 @@
-'use client';
+"use client";
 
-/**
- * Drawer Component Handler - Dynamic Loading
- * NO hardcoded colors, styles, or variants
- */
+import * as React from "react";
+import { Drawer as DrawerPrimitive } from "vaul";
+import { createHandler } from "../core/create-handler";
+import type { BaseUIProps } from "../types/common";
 
-import React, { lazy, Suspense, useMemo, useState, useEffect } from 'react';
-import { Drawer as DrawerPrimitive } from 'vaul';
-import type { DrawerProps, DrawerVersion, VersionDrawerComponents } from '../types/components/drawer.js';
-import type { Version, Variant, VariantColors } from '../types/common';
-import { getVariantColors } from '../core/handler-factory';
-
-// Dynamic component loader - NO hardcoded versions
-const loadDrawerComponent = (version: Version) => {
-  return lazy(() =>
-    import(`../components/${version}/drawer.tsx`)
-      .catch(() => import(`../components/default/drawer.tsx`))
-      .catch(() => ({
-        default: {
-          Overlay: () => <div />,
-          Content: React.forwardRef<HTMLDivElement, any>(({ children, className = '' }, ref) => (
-            <div ref={ref} className={className}>{children}</div>
-          )),
-          Title: React.forwardRef<HTMLHeadingElement, any>(({ children, className = '' }, ref) => (
-            <h2 ref={ref} className={className}>{children}</h2>
-          )),
-          Description: React.forwardRef<HTMLParagraphElement, any>(({ children, className = '' }, ref) => (
-            <p ref={ref} className={className}>{children}</p>
-          )),
-        }
-      }))
-  );
+export type DrawerProps = React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Root> & {
+  version?: BaseUIProps["version"];
+  variant?: BaseUIProps["variant"];
+  effects?: string;
+  shouldScaleBackground?: boolean;
 };
 
-const resolveDrawerConfigModule = (module: unknown) => {
-  if (!module || typeof module !== 'object') {
-    return null;
-  }
+const DrawerContentHandler = createHandler<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> & BaseUIProps>({
+  componentName: "drawer",
+  exportName: "DrawerContent"
+});
 
-  const maybeModule = module as { drawerConfig?: unknown; default?: unknown };
-  return maybeModule.drawerConfig ?? maybeModule.default ?? null;
-};
+const DrawerOverlayHandler = createHandler<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay> & BaseUIProps>({
+  componentName: "drawer",
+  exportName: "DrawerOverlay"
+});
 
-// Dynamic config loader
-const loadDrawerConfig = async (version: Version) => {
-  try {
-    const module = await import(`../config/components/${version}.json`);
-    return resolveDrawerConfigModule(module);
-  } catch {
-    try {
-      const module = await import(`../config/components/default.json`);
-      return resolveDrawerConfigModule(module);
-    } catch {
-      return null;
-    }
-  }
-};
+const DrawerHeaderHandler = createHandler<React.HTMLAttributes<HTMLDivElement> & BaseUIProps>({
+  componentName: "drawer",
+  exportName: "DrawerHeader"
+});
 
-// Component cache for performance
-const componentCache = new Map<string, React.LazyExoticComponent<any>>();
+const DrawerFooterHandler = createHandler<React.HTMLAttributes<HTMLDivElement> & BaseUIProps>({
+  componentName: "drawer",
+  exportName: "DrawerFooter"
+});
 
-// Minimal loading skeleton
-const LoadingSkeleton: React.FC = () => (
-  <div className="animate-pulse bg-muted/20 h-32" />
-);
+const DrawerTitleHandler = createHandler<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title> & BaseUIProps>({
+  componentName: "drawer",
+  exportName: "DrawerTitle"
+});
 
-// ============ MAIN DRAWER COMPONENT ============
+const DrawerDescriptionHandler = createHandler<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description> & BaseUIProps>({
+  componentName: "drawer",
+  exportName: "DrawerDescription"
+});
 
-export const Drawer: React.FC<DrawerProps> = ({
-  version = 'default',
-  variant = 'primary',
-  open,
-  onOpenChange,
-  title,
-  description,
-  icon,
+const DrawerContext = React.createContext<{
+  version?: BaseUIProps['version'];
+  variant?: BaseUIProps['variant'];
+  effects?: string;
+}>({});
+
+const Drawer = ({
+  shouldScaleBackground = true,
+  version = "default",
+  variant = "default",
+  effects,
   children,
-  className,
-  dismissible = true,
-  snapPoints,
-  activeSnapPoint,
-  setActiveSnapPoint,
   ...props
-}) => {
-  const [config, setConfig] = useState<any>(null);
-  const [VersionComponent, setVersionComponent] = useState<any>(null);
-  
-  // Dynamically load config
-  useEffect(() => {
-    loadDrawerConfig(version).then(setConfig);
-  }, [version]);
-  
-  // Get variant colors dynamically - NO hardcoding
-  const colors = useMemo(() => getVariantColors(variant), [variant]);
-  
-  // Get or create lazy component
-  useEffect(() => {
-    const cacheKey = `${version}/drawer`;
-    if (!componentCache.has(cacheKey)) {
-      componentCache.set(cacheKey, loadDrawerComponent(version));
-    }
-    const LazyComponent = componentCache.get(cacheKey)!;
-    
-    // Load the component to get its exports
-    import(`../components/${version}/drawer.tsx`)
-      .catch(() => import(`../components/default/drawer.tsx`))
-      .then(module => setVersionComponent(module))
-      .catch(() => setVersionComponent(null));
-  }, [version]);
-
-  if (!VersionComponent) {
-    return (
-      <DrawerPrimitive.Root open={open} onOpenChange={onOpenChange}>
-        <LoadingSkeleton />
-      </DrawerPrimitive.Root>
-    );
-  }
-
+}: DrawerProps) => {
   return (
-    <DrawerPrimitive.Root
-      open={open}
-      onOpenChange={onOpenChange}
-      dismissible={dismissible}
-      snapPoints={snapPoints}
-      activeSnapPoint={activeSnapPoint}
-      setActiveSnapPoint={setActiveSnapPoint}
-    >
-      <Suspense fallback={<LoadingSkeleton />}>
-        <VersionComponent.Overlay colors={colors} />
-        <DrawerPrimitive.Portal>
-          <VersionComponent.Content variant={variant} colors={colors} config={config} className={className} {...props}>
-            {(title || description) && (
-              <div className="px-4 pt-6 pb-4">
-                {title && (
-                  <VersionComponent.Title variant={variant} colors={colors}>
-                    {icon && <span className="mr-2">{icon}</span>}
-                    {title}
-                  </VersionComponent.Title>
-                )}
-                {description && (
-                  <VersionComponent.Description variant={variant} colors={colors} className="mt-2">
-                    {description}
-                  </VersionComponent.Description>
-                )}
-              </div>
-            )}
-            <div className="px-4 pb-6">{children}</div>
-          </VersionComponent.Content>
-        </DrawerPrimitive.Portal>
-      </Suspense>
-    </DrawerPrimitive.Root>
+    <DrawerContext.Provider value={{ version, variant, effects }}>
+      <DrawerPrimitive.Root
+        shouldScaleBackground={shouldScaleBackground}
+        {...props}
+      >
+        {children}
+      </DrawerPrimitive.Root>
+    </DrawerContext.Provider>
   );
 };
+Drawer.displayName = "Drawer";
 
-Drawer.displayName = 'Drawer';
+const DrawerTrigger = DrawerPrimitive.Trigger;
 
-// ============ COMPOUND COMPONENTS ============
+const DrawerPortal = DrawerPrimitive.Portal;
 
-// Re-export primitives for custom composition
-export const DrawerTrigger = DrawerPrimitive.Trigger;
-export const DrawerClose = DrawerPrimitive.Close;
-export const DrawerPortal = DrawerPrimitive.Portal;
+const DrawerClose = DrawerPrimitive.Close;
 
-// Helper hook for drawer state
-export function useDrawer(defaultOpen = false) {
-  const [open, setOpen] = React.useState(defaultOpen);
+const DrawerOverlay = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.Overlay>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay> & BaseUIProps
+>(({ className, ...props }, ref) => {
+  const context = React.useContext(DrawerContext);
+  return (
+    <DrawerOverlayHandler
+      ref={ref}
+      className={className}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    />
+  );
+});
+DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 
-  return {
-    open,
-    setOpen,
-    onOpenChange: setOpen,
-  };
-}
+const DrawerContent = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> & BaseUIProps
+>(({ className, children, ...props }, ref) => {
+  const context = React.useContext(DrawerContext);
+  return (
+    <DrawerPortal>
+      <DrawerOverlay />
+      <DrawerContentHandler
+        ref={ref}
+        className={className}
+        version={context.version}
+        variant={context.variant}
+        effects={context.effects}
+        {...props}
+      >
+        <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
+        {children}
+      </DrawerContentHandler>
+    </DrawerPortal>
+  );
+});
+DrawerContent.displayName = "DrawerContent";
 
-export default Drawer;
+const DrawerHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & BaseUIProps
+>(({ className, ...props }, ref) => {
+  const context = React.useContext(DrawerContext);
+  return (
+    <DrawerHeaderHandler
+      ref={ref}
+      className={className}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    />
+  );
+});
+DrawerHeader.displayName = "DrawerHeader";
+
+const DrawerFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & BaseUIProps
+>(({ className, ...props }, ref) => {
+  const context = React.useContext(DrawerContext);
+  return (
+    <DrawerFooterHandler
+      ref={ref}
+      className={className}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    />
+  );
+});
+DrawerFooter.displayName = "DrawerFooter";
+
+const DrawerTitle = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title> & BaseUIProps
+>(({ className, ...props }, ref) => {
+  const context = React.useContext(DrawerContext);
+  return (
+    <DrawerTitleHandler
+      ref={ref}
+      className={className}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    />
+  );
+});
+DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
+
+const DrawerDescription = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description> & BaseUIProps
+>(({ className, ...props }, ref) => {
+  const context = React.useContext(DrawerContext);
+  return (
+    <DrawerDescriptionHandler
+      ref={ref}
+      className={className}
+      version={context.version}
+      variant={context.variant}
+      effects={context.effects}
+      {...props}
+    />
+  );
+});
+DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
+
+const DrawerExport = Object.assign(Drawer, {
+  Trigger: DrawerTrigger,
+  Portal: DrawerPortal,
+  Close: DrawerClose,
+  Overlay: DrawerOverlay,
+  Content: DrawerContent,
+  Header: DrawerHeader,
+  Footer: DrawerFooter,
+  Title: DrawerTitle,
+  Description: DrawerDescription,
+});
+
+export {
+  DrawerExport as Drawer,
+  DrawerTrigger,
+  DrawerPortal,
+  DrawerClose,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerTitle,
+  DrawerDescription,
+};
+export default DrawerExport;
+
+
+export type { BaseUIProps };

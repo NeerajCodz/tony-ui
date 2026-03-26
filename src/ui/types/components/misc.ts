@@ -146,6 +146,7 @@ export interface ToggleProps {
   variant?: ToggleVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   pressed?: boolean;
   defaultPressed?: boolean;
   onPressedChange?: (pressed: boolean) => void;
@@ -195,6 +196,7 @@ export interface ToggleGroupProps {
   variant?: ToggleGroupVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   items?: ToggleGroupItemProps[];
   children?: React.ReactNode;
   value?: string | string[];
@@ -322,6 +324,7 @@ export interface ButtonGroupProps {
   variant?: ButtonGroupVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   children: React.ReactNode;
   orientation?: 'horizontal' | 'vertical';
   className?: string;
@@ -425,6 +428,7 @@ export interface KbdProps {
   variant?: MiscVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   children: React.ReactNode;
   className?: string;
 }
@@ -455,6 +459,7 @@ export interface ItemProps {
   variant?: MiscVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   children?: React.ReactNode;
   className?: string;
   onClick?: () => void;

@@ -2,23 +2,14 @@
 
 import React from 'react';
 import { createHandler } from '../core/create-handler';
-import type { Variant, Version } from '../types/common';
+import type { InputProps } from '../types/components/input';
+import type { BaseUIProps } from '../types/common';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  version?: Version;
-  variant?: Variant;
-  type?: string;
-  uiType?: string;
-  colors?: unknown;
-  error?: boolean;
-  icon?: React.ReactNode;
-  iconPosition?: 'left' | 'right';
-}
-
-const Input = createHandler<InputProps>({
+const Input = createHandler<InputProps & BaseUIProps>({
   componentName: 'input',
-  defaultVersion: 'default',
-  defaultVariant: 'default',
+  exportName: 'Input'
 });
 
 export default Input;
+
+export type { InputProps };
