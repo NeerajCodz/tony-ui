@@ -3,14 +3,16 @@
 import React from 'react';
 import { createHandler } from '../core/create-handler';
 import type { BaseUIProps } from '../types/common';
-import type { SpinnerProps } from '../types/components/feedback';
+import type { SpinnerProps as SpinnerTypeProps } from '../types/components/feedback';
 
-const SpinnerHandler = createHandler<SpinnerProps & BaseUIProps>({
+export type SpinnerProps = Omit<SpinnerTypeProps, 'version'> & BaseUIProps;
+
+const SpinnerHandler = createHandler<SpinnerProps>({
   componentName: 'spinner',
   exportName: 'Spinner'
 });
 
-const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps & BaseUIProps>(({ version, variant, effects, ...props }, ref) => {
+const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(({ version, variant, effects, ...props }, ref) => {
   return (
     <SpinnerHandler
       ref={ref}
@@ -25,4 +27,3 @@ const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps & BaseUIProps>(({ 
 Spinner.displayName = 'Spinner';
 
 export default Spinner;
-export type { SpinnerProps };

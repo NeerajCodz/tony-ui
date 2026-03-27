@@ -83,7 +83,7 @@ function normalizeCssVariableValue(value: string): string {
   return trimmed;
 }
 
-function versionPrefix(version: string): string {
+export function getVersionTokenPrefix(version: string): string {
   const prefixes: Record<string, string> = {
     'angular-corner': 'ac',
     border: 'br',
@@ -110,7 +110,7 @@ function versionPrefix(version: string): string {
 }
 
 function mapUnprefixedToken(version: string, key: string): string {
-  const prefix = versionPrefix(version);
+  const prefix = getVersionTokenPrefix(version);
 
   const generic: Record<string, string> = {
     background: `--${prefix}-bg`,
