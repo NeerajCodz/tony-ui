@@ -19,20 +19,22 @@ const ToggleGroupContext = React.createContext<{
   version?: BaseUIProps['version'];
   variant?: BaseUIProps['variant'];
   effects?: string;
+  uiType?: string;
   size?: "default" | "sm" | "lg";
 }>({});
 
 const ToggleGroup = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> & BaseUIProps & { size?: "default" | "sm" | "lg" }
->(({ className, version = "default", variant = "default", effects, size = "default", ...props }, ref) => (
-  <ToggleGroupContext.Provider value={{ version, variant, effects, size }}>
+>(({ className, version = "default", variant = "default", effects, uiType = "default", size = "default", ...props }, ref) => (
+  <ToggleGroupContext.Provider value={{ version, variant, effects, uiType, size }}>
     <ToggleGroupHandler
       ref={ref}
       className={className}
       version={version}
       variant={variant}
       effects={effects}
+      uiType={uiType}
       size={size}
       {...props}
     />
@@ -53,6 +55,7 @@ const ToggleGroupItem = React.forwardRef<
       version={context.version}
       variant={context.variant}
       effects={context.effects}
+      uiType={context.uiType}
       size={size || context.size}
       {...props}
     >

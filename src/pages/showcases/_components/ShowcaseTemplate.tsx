@@ -56,18 +56,18 @@ export function ShowcaseTemplate({
   const [selectedVariant, setSelectedVariant] = useState<Variant>(defaultVariant);
   const [effectsEnabled, setEffectsEnabled] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [animationKey, setAnimationKey] = useState('initial');
+  const [animationDirection, setAnimationDirection] = useState<'in' | 'out'>('in');
 
   // Animation handlers
   const handleAnimateIn = useCallback(() => {
     setIsAnimating(true);
-    setAnimationKey(`animate-in-${Date.now()}`);
+    setAnimationDirection('in');
     setTimeout(() => setIsAnimating(false), 1000);
   }, []);
 
   const handleAnimateOut = useCallback(() => {
     setIsAnimating(true);
-    setAnimationKey(`animate-out-${Date.now()}`);
+    setAnimationDirection('out');
     setTimeout(() => setIsAnimating(false), 1000);
   }, []);
 
@@ -83,13 +83,15 @@ export function ShowcaseTemplate({
         version,
         type: selectedType,
         variant: selectedVariant,
-        effects: effectsEnabled ? 'glow neon-pulse' : undefined,
+        effects: effectsEnabled ? 'on' : undefined,
       });
+
+      const effectClass = effectsEnabled ? 'transition-all duration-300 drop-shadow-[0_0_12px_rgba(34,211,238,0.35)]' : '';
 
       // Wrap with VariantStyleProvider to inject CSS variables
       return (
         <VariantStyleProvider variant={selectedVariant} version={version}>
-          {component}
+          <div className={effectClass}>{component}</div>
         </VariantStyleProvider>
       );
     },
@@ -117,7 +119,7 @@ export function ShowcaseTemplate({
         versions={versions}
         renderComponent={renderWithSettings}
         isAnimating={isAnimating}
-        animationKey={animationKey}
+        animationDirection={animationDirection}
         columns={columns}
       />
     </div>

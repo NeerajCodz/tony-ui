@@ -18,7 +18,7 @@ export function CardShowcase() {
       renderComponent={({ version, type, variant, effects }) => (
         <Card
           version={version}
-          type={type as any}
+          uiType={type}
           variant={variant}
           effects={effects}
           className="w-64"

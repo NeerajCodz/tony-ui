@@ -20,7 +20,7 @@ export function ToggleShowcase() {
       defaultType="outline"
       columns={4}
       renderComponent={({ version, type, variant, effects }) => (
-        <Toggle version={version} type={type as any} variant={variant} effects={effects}>
+        <Toggle version={version} uiType={type} variant={variant} effects={effects}>
           <Bold className="h-4 w-4" />
         </Toggle>
       )}

@@ -21,6 +21,7 @@ export interface HandlerParams {
   version?: Version;
   variant?: Variant;
   type?: string;
+  uiType?: string;
   size?: Size;
   effects?: string;
 }
@@ -208,13 +209,6 @@ export function createHandler<P extends object = {}>(config: HandlerConfig) {
   } = config;
 
   type HandlerPublicProps = P & HandlerParams & { className?: string; style?: React.CSSProperties; children?: React.ReactNode };
-  type HandlerResolvedProps = HandlerPublicProps & {
-    version: Version;
-    variant: Variant;
-    type: string;
-    size: Size;
-  };
-
   const Handler = forwardRef<any, HandlerPublicProps>(
     (props, ref) => {
       // Get global version from context
@@ -223,12 +217,16 @@ export function createHandler<P extends object = {}>(config: HandlerConfig) {
       const {
         version = globalVersion || defaultVersion,
         variant = defaultVariant,
-        type = defaultType,
+        type,
+        uiType,
         size = defaultSize,
         effects,
         style,
         ...restProps
-      } = props as HandlerResolvedProps;
+      } = props as HandlerPublicProps;
+
+      const explicitVisualType = (restProps as { visualType?: string }).visualType;
+      const resolvedVisualType = explicitVisualType ?? uiType ?? type ?? defaultType;
 
       // Get lazy component
       const LazyComponent = useMemo(
@@ -244,9 +242,10 @@ export function createHandler<P extends object = {}>(config: HandlerConfig) {
             ref={ref}
             version={version}
             variant={variant}
-            type={type}
             size={size}
             effects={effects}
+            {...(type !== undefined ? { type } : {})}
+            {...(resolvedVisualType ? { uiType: resolvedVisualType, visualType: resolvedVisualType } : {})}
             style={style}
             {...restProps}
           />

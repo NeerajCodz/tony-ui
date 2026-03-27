@@ -18,9 +18,10 @@ export function AccordionShowcase() {
       renderComponent={({ version, type, variant, effects }) => (
         <Accordion
           version={version}
-          type={type as any}
+          uiType={type}
           variant={variant}
           effects={effects}
+          type="single"
           collapsible
           className="w-full max-w-sm"
         >

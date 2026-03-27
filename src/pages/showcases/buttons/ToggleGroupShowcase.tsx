@@ -22,10 +22,11 @@ export function ToggleGroupShowcase() {
       renderComponent={({ version, type, variant, effects }) => (
         <ToggleGroup
           version={version}
-          type={type as any}
+          uiType={type}
           variant={variant}
           effects={effects}
-          defaultValue="bold"
+          type="multiple"
+          defaultValue={["bold"]}
         >
           <ToggleGroupItem value="bold">
             <Bold className="h-4 w-4" />

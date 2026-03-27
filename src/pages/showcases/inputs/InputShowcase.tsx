@@ -31,7 +31,7 @@ export function InputShowcase() {
       renderComponent={({ version, type, variant, effects }) => (
         <Input
           version={version}
-          type={type as any}
+          uiType={type}
           variant={INPUT_VARIANT_MAP[variant] || 'neutral'}
           effects={effects}
           placeholder="Enter text..."

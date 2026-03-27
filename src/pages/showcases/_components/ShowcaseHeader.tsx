@@ -86,21 +86,17 @@ export function ShowcaseHeader({
             <label className="text-xs font-bold text-cyber-blue/80 uppercase tracking-widest">
               Type
             </label>
-            <div className="flex flex-wrap gap-2">
+            <select
+              value={selectedType}
+              onChange={(e) => onTypeChange(e.target.value)}
+              className="w-full bg-cyber-panel border border-cyber-blue/30 text-cyber-blue text-xs px-3 py-2 rounded focus:outline-none focus:border-cyber-blue uppercase tracking-wider font-bold"
+            >
               {availableTypes.map((type) => (
-                <button
-                  key={type}
-                  onClick={() => onTypeChange(type)}
-                  className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all ${
-                    selectedType === type
-                      ? 'bg-cyber-blue text-cyber-dark'
-                      : 'bg-cyber-panel/50 text-cyber-blue/70 hover:bg-cyber-blue/10 border border-cyber-blue/30'
-                  }`}
-                >
+                <option key={type} value={type}>
                   {type}
-                </button>
+                </option>
               ))}
-            </div>
+            </select>
           </div>
 
           {/* Variant Selector */}
@@ -108,34 +104,17 @@ export function ShowcaseHeader({
             <label className="text-xs font-bold text-cyber-blue/80 uppercase tracking-widest">
               Variant
             </label>
-            <div className="flex flex-wrap gap-2">
-              {availableVariants.slice(0, 4).map((variant) => (
-                <button
-                  key={variant}
-                  onClick={() => onVariantChange(variant)}
-                  className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all ${
-                    selectedVariant === variant
-                      ? 'bg-cyber-blue text-cyber-dark'
-                      : 'bg-cyber-panel/50 text-cyber-blue/70 hover:bg-cyber-blue/10 border border-cyber-blue/30'
-                  }`}
-                >
+            <select
+              value={selectedVariant}
+              onChange={(e) => onVariantChange(e.target.value as Variant)}
+              className="w-full bg-cyber-panel border border-cyber-blue/30 text-cyber-blue text-xs px-3 py-2 rounded focus:outline-none focus:border-cyber-blue uppercase tracking-wider font-bold"
+            >
+              {availableVariants.map((variant) => (
+                <option key={variant} value={variant}>
                   {variant}
-                </button>
+                </option>
               ))}
-            </div>
-            {availableVariants.length > 4 && (
-              <select
-                value={selectedVariant}
-                onChange={(e) => onVariantChange(e.target.value as Variant)}
-                className="w-full bg-cyber-panel border border-cyber-blue/30 text-cyber-blue text-xs px-3 py-2 rounded focus:outline-none focus:border-cyber-blue uppercase tracking-wider font-bold"
-              >
-                {availableVariants.map((variant) => (
-                  <option key={variant} value={variant}>
-                    {variant}
-                  </option>
-                ))}
-              </select>
-            )}
+            </select>
           </div>
 
           {/* Animation Controls */}

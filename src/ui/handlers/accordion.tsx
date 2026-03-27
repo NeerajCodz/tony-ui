@@ -1,5 +1,3 @@
-'use client';
-
 "use client";
 
 import * as React from "react";
@@ -7,31 +5,32 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { createHandler } from "../core/create-handler";
 import type { BaseUIProps } from "../types/common";
 
-type AccordionPrimitiveRootProps = React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>;
-export type AccordionProps = AccordionPrimitiveRootProps & {
+export type AccordionProps = Omit<
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>,
+  "type" | "value" | "defaultValue" | "onValueChange"
+> &
+  BaseUIProps & {
+    type?: "single" | "multiple";
+    value?: string | string[];
+    defaultValue?: string | string[];
+    onValueChange?: ((value: string) => void) | ((value: string[]) => void);
+    collapsible?: boolean;
+  };
+
+const AccordionHandler = createHandler<AccordionProps>({
+  componentName: "accordion",
+  exportName: "Accordion",
+});
+
+const AccordionContext = React.createContext<{
   version?: BaseUIProps["version"];
   variant?: BaseUIProps["variant"];
   effects?: string;
   uiType?: BaseUIProps["uiType"];
-};
-
-const AccordionHandler = createHandler<AccordionProps & BaseUIProps>({
-  componentName: "accordion",
-  exportName: "Accordion"
-});
-
-const AccordionContext = React.createContext<{
-  version?: BaseUIProps['version'];
-  variant?: BaseUIProps['variant'];
-  effects?: string;
-  uiType?: BaseUIProps['uiType'];
 }>({});
 
-const Accordion = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Root>,
-  AccordionProps
->(({ version = "default", variant = "default", effects, uiType = "default", ...props }, ref) => {
-  return (
+const Accordion = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, AccordionProps>(
+  ({ version = "default", variant = "default", effects, uiType = "default", type = "single", ...props }, ref) => (
     <AccordionContext.Provider value={{ version, variant, effects, uiType }}>
       <AccordionHandler
         ref={ref}
@@ -39,19 +38,18 @@ const Accordion = React.forwardRef<
         variant={variant}
         effects={effects}
         uiType={uiType}
+        type={type}
         {...props}
       />
     </AccordionContext.Provider>
-  );
-});
+  )
+);
 Accordion.displayName = AccordionPrimitive.Root.displayName;
 
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->((props, ref) => (
-  <AccordionPrimitive.Item ref={ref} {...props} />
-));
+>((props, ref) => <AccordionPrimitive.Item ref={ref} {...props} />);
 AccordionItem.displayName = "AccordionItem";
 
 const AccordionTrigger = React.forwardRef<
@@ -67,9 +65,7 @@ AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->((props, ref) => (
-  <AccordionPrimitive.Content ref={ref} {...props} />
-));
+>((props, ref) => <AccordionPrimitive.Content ref={ref} {...props} />);
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
 const AccordionExport = Object.assign(Accordion, {
@@ -80,6 +76,4 @@ const AccordionExport = Object.assign(Accordion, {
 
 export { AccordionExport as Accordion, AccordionItem, AccordionTrigger, AccordionContent };
 export default AccordionExport;
-
-
 export type { BaseUIProps };

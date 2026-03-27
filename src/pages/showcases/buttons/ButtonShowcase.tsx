@@ -20,7 +20,7 @@ export function ButtonShowcase() {
       renderComponent={({ version, type, variant, effects }) => (
         <Button
           version={version}
-          type={type as any}
+          uiType={type}
           variant={variant}
           effects={effects}
         >
