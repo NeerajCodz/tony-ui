@@ -1,7 +1,7 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
-import { TableBase, TableHeaderBase, TableBodyBase, TableFooterBase, TableRowBase, TableHeadBase, TableCellBase, TableCaptionBase } from '../_base/table';
+import { cn } from "@/lib/utils";
+import * as React from "react";
+import { TableBase, TableBodyBase, TableCaptionBase, TableCellBase, TableFooterBase, TableHeadBase, TableHeaderBase, TableRowBase } from '../_base/table';
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const Table = React.forwardRef<
   HTMLTableElement,
@@ -107,12 +107,6 @@ const TableCaption = React.forwardRef<
 TableCaption.displayName = "TableCaption"
 
 export {
-  Table,
-  TableHeader,
-  TableBody,
-  TableFooter,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableCaption,
-}
+Table,TableBody,TableCaption,TableCell,TableFooter,
+TableHead,TableHeader,TableRow
+};

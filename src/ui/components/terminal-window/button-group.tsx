@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
-import type { ButtonGroupBaseProps } from '../_base/button-group';
 
 export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   effects?: TerminalWindowEffects;

@@ -1,11 +1,6 @@
-import * as React from 'react';
-import { 
-  AvatarBase, 
-  AvatarImageBase, 
-  AvatarFallbackBase, 
-  type AvatarBaseProps 
-} from '../_base/avatar';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { AvatarBase, AvatarFallbackBase, AvatarImageBase, type AvatarBaseProps } from '../_base/avatar';
 
 export interface AvatarProps extends AvatarBaseProps {}
 
@@ -68,4 +63,4 @@ const AvatarFallback = React.forwardRef<
 ));
 AvatarFallback.displayName = 'AvatarFallback';
 
-export { Avatar, AvatarImage, AvatarFallback };
+export { Avatar,AvatarFallback,AvatarImage };

@@ -1,14 +1,5 @@
 import * as React from 'react';
-import {
-  Controller,
-  ControllerProps,
-  FieldPath,
-  FieldValues,
-  FormProvider,
-  useFormContext,
-  LabelPrimitive,
-  Slot
-} from '../_base/form';
+import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, useFormContext, LabelPrimitive, Slot } from '../_base/form';
 import { cn } from '@/lib/utils';
 import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 import { Label } from './label';

@@ -1,36 +1,13 @@
 import * as React from 'react';
 "use client"
 
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-  getPaginationRowModel,
-  getSortedRowModel,
-  SortingState,
-  getFilteredRowModel,
-  ColumnFiltersState,
-  VisibilityState,
-} from '../_base/data-table';
-import { ChevronDown } from "lucide-react"
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, getSortedRowModel, SortingState, getFilteredRowModel, ColumnFiltersState, VisibilityState } from '../_base/data-table';
+import { ChevronDown } from "lucide-react";
 
-import { Button } from "./button"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "./dropdown-menu"
-import { Input } from "./input"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "./table"
+import { Button } from "./button";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "./dropdown-menu";
+import { Input } from "./input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./table";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

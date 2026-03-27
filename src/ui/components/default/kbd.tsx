@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { KbdBase, type KbdBaseProps } from '@/ui/components/_base/kbd';
 import { cn } from '@/lib/utils';
+import { KbdBase, type KbdBaseProps } from '@/ui/components/_base/kbd';
 import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 const kbdVariants = cva(
   "inline-flex items-center justify-center rounded font-mono font-medium text-muted-foreground transition-colors",

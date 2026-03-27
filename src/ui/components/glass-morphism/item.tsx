@@ -1,19 +1,9 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
-import {
-  ItemActionBase,
-  ItemBadgeBase,
-  ItemBase,
-  type ItemBaseProps,
-  ItemContentBase,
-  ItemDescriptionBase,
-  ItemIconBase,
-  ItemIndicatorBase,
-  ItemTitleBase,
-} from "@/ui/components/_base/item"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { ItemActionBase, ItemBadgeBase, ItemBase, type ItemBaseProps, ItemContentBase, ItemDescriptionBase, ItemIconBase, ItemIndicatorBase, ItemTitleBase } from "@/ui/components/_base/item";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 const itemVariants = cva(
   "group flex w-full items-center gap-3 relative overflow-hidden transition-all duration-200",

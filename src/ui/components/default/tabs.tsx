@@ -1,12 +1,6 @@
-import * as React from 'react';
-import { 
-    TabsBase, 
-    TabsListBase, 
-    TabsTriggerBase, 
-    TabsContentBase,
-    type TabsBaseProps 
-} from '../_base/tabs';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { TabsBase, TabsContentBase, TabsListBase, TabsTriggerBase, type TabsBaseProps } from '../_base/tabs';
 
 export interface TabsProps extends TabsBaseProps {}
 

@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 import { SliderPrimitive } from '../_base/slider';
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 const Slider = React.forwardRef<
   React.ComponentRef<typeof SliderPrimitive.Root>,

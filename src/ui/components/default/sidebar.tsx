@@ -1,31 +1,7 @@
-import * as React from 'react';
-import { 
-    SidebarBase, 
-    SidebarContentBase, 
-    SidebarFooterBase, 
-    SidebarHeaderBase, 
-    SidebarRailBase, 
-    SidebarTriggerBase,
-    SidebarGroupBase,
-    SidebarGroupLabelBase,
-    SidebarGroupActionBase,
-    SidebarGroupContentBase,
-    SidebarMenuBase,
-    SidebarMenuItemBase,
-    SidebarMenuButtonBase,
-    SidebarMenuActionBase,
-    SidebarMenuBadgeBase,
-    SidebarMenuSubBase,
-    SidebarMenuSubItemBase,
-    SidebarMenuSubButtonBase,
-    SidebarProvider,
-    SidebarInsetBase,
-    SidebarInputBase,
-    SidebarSeparatorBase,
-    type SidebarBaseProps
-} from '../_base/sidebar';
 import { cn } from '@/lib/utils';
 import { PanelLeft } from 'lucide-react';
+import * as React from 'react';
+import { SidebarBase, SidebarContentBase, SidebarFooterBase, SidebarGroupActionBase, SidebarGroupBase, SidebarGroupContentBase, SidebarGroupLabelBase, SidebarHeaderBase, SidebarInputBase, SidebarInsetBase, SidebarMenuActionBase, SidebarMenuBadgeBase, SidebarMenuBase, SidebarMenuButtonBase, SidebarMenuItemBase, SidebarMenuSubBase, SidebarMenuSubButtonBase, SidebarMenuSubItemBase, SidebarProvider, SidebarRailBase, SidebarSeparatorBase, SidebarTriggerBase, type SidebarBaseProps } from '../_base/sidebar';
 
 export { SidebarProvider };
 

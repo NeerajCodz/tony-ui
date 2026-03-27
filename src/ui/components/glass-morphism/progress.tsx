@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 import { ProgressPrimitive } from '../_base/progress';
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 const Progress = React.forwardRef<
   React.ComponentRef<typeof ProgressPrimitive.Root>,

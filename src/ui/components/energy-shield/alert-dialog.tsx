@@ -1,22 +1,8 @@
-import * as React from 'react';
-import { 
-  AlertDialogBase, 
-  AlertDialogTriggerBase, 
-  AlertDialogContentBase, 
-  AlertDialogHeaderBase, 
-  AlertDialogFooterBase, 
-  AlertDialogTitleBase, 
-  AlertDialogDescriptionBase, 
-  AlertDialogActionBase, 
-  AlertDialogCancelBase, 
-  AlertDialogOverlayBase, 
-  AlertDialogPortalBase,
-  type AlertDialogContentBaseProps 
-} from '../_base/alert-dialog';
-import { Button } from './button'; 
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { AlertDialogActionBase, AlertDialogBase, AlertDialogCancelBase, AlertDialogContentBase, AlertDialogDescriptionBase, AlertDialogFooterBase, AlertDialogHeaderBase, AlertDialogOverlayBase, AlertDialogPortalBase, AlertDialogTitleBase, AlertDialogTriggerBase, type AlertDialogContentBaseProps } from '../_base/alert-dialog';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
-
+import { Button } from './button';
 
 const AlertDialog = AlertDialogBase;
 const AlertDialogTrigger = AlertDialogTriggerBase;
@@ -127,15 +113,6 @@ const AlertDialogCancel = React.forwardRef<
 AlertDialogCancel.displayName = AlertDialogCancelBase.displayName;
 
 export {
-  AlertDialog,
-  AlertDialogPortal,
-  AlertDialogOverlay,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogFooter,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogAction,
-  AlertDialogCancel,
+AlertDialog,AlertDialogAction,
+AlertDialogCancel,AlertDialogContent,AlertDialogDescription,AlertDialogFooter,AlertDialogHeader,AlertDialogOverlay,AlertDialogPortal,AlertDialogTitle,AlertDialogTrigger
 };

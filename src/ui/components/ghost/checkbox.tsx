@@ -1,8 +1,8 @@
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import { Check } from "lucide-react";
+import * as React from "react";
 import { CheckboxPrimitive } from '../_base/checkbox';
-import { Check } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const Checkbox = React.forwardRef<
   React.ComponentRef<typeof CheckboxPrimitive.Root>,
@@ -25,4 +25,4 @@ const Checkbox = React.forwardRef<
 ))
 Checkbox.displayName = CheckboxPrimitive.Root.displayName
 
-export { Checkbox }
+export { Checkbox };

@@ -1,7 +1,7 @@
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import * as React from "react";
 import { SeparatorPrimitive } from '../_base/separator';
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const Separator = React.forwardRef<
   React.ComponentRef<typeof SeparatorPrimitive.Root>,
@@ -26,4 +26,4 @@ const Separator = React.forwardRef<
 )
 Separator.displayName = SeparatorPrimitive.Root.displayName
 
-export { Separator }
+export { Separator };

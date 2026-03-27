@@ -1,7 +1,7 @@
+import { cn } from '@/lib/utils';
+import { Dot } from 'lucide-react';
 import * as React from 'react';
 import { OTPInput, OTPInputContext } from '../_base/input-otp';
-import { Dot } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
@@ -68,5 +68,5 @@ const InputOTPSeparator = React.forwardRef<
 ));
 InputOTPSeparator.displayName = 'InputOTPSeparator';
 
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };
+export { InputOTP,InputOTPGroup,InputOTPSeparator,InputOTPSlot };
 

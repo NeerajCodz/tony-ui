@@ -1,8 +1,7 @@
-import * as React from 'react';
 import { cn } from '@/lib/utils';
-import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 import { PackageOpen } from 'lucide-react';
-import type { EmptyBaseProps } from '../_base/empty';
+import * as React from 'react';
+import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 const EmptyState = React.forwardRef<
   HTMLDivElement,

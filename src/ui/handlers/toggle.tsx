@@ -11,6 +11,7 @@ export interface ToggleProps
     variant?: BaseUIProps["variant"];
     effects?: string;
     size?: "default" | "sm" | "lg";
+    uiType?: BaseUIProps["uiType"];
 }
 
 const Toggle = createHandler<ToggleProps & BaseUIProps>({

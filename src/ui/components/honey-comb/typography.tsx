@@ -1,7 +1,6 @@
-import type * as __BaseImport_typography from '../_base/typography';
 
-import * as React from "react"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
 const h1 = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, ...props }, ref) => (
   <h1 ref={ref} className={cn("scroll-m-20 text-4xl font-extrabold tracking-widest uppercase font-display text-[var(--hc-accent-bright)] lg:text-5xl", className)} {...props} />

@@ -1,13 +1,12 @@
+import { cn } from '@/lib/utils';
+import { X } from 'lucide-react';
 import * as React from 'react';
 import { BadgeBase, type BadgeBaseProps } from '../_base/badge';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
-import { X } from 'lucide-react';
 
 export interface BadgeProps extends BadgeBaseProps {
   effects?: EnergyShieldEffects;
 }
-
 
 const getVisualTypeStyles = (type: string = 'default') => {
   switch (type) {

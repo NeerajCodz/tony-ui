@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { RadioGroupPrimitive } from '../_base/radio-group';
-import { Circle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
 
@@ -17,7 +16,6 @@ const RadioGroup = React.forwardRef<
   );
 });
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
-
 
 const RadioGroupItem = React.forwardRef<
   React.ComponentRef<typeof RadioGroupPrimitive.Item>,

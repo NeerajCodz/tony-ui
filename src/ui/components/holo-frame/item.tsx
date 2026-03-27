@@ -1,15 +1,5 @@
 import * as React from 'react';
-import {
-  ItemBase,
-  ItemActionBase,
-  ItemBadgeBase,
-  ItemContentBase,
-  ItemDescriptionBase,
-  ItemIconBase,
-  ItemIndicatorBase,
-  ItemTitleBase,
-  type ItemBaseProps,
-} from '@/ui/components/_base/item';
+import { ItemBase, ItemActionBase, ItemBadgeBase, ItemContentBase, ItemDescriptionBase, ItemIconBase, ItemIndicatorBase, ItemTitleBase, type ItemBaseProps } from '@/ui/components/_base/item';
 import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -62,10 +52,6 @@ export interface ItemProps extends Omit<ItemBaseProps, 'disabled'>, VariantProps
 
 const Item = React.forwardRef<HTMLDivElement, ItemProps>(
   ({ className, effects = 'on', type, size, interactive, selected, disabled, style, ...props }, ref) => {
-    // Apply clip-path unless unstyled
-    const componentStyle = (type !== 'unstyled')
-      ? { ...style }
-      : style;
 
     return (
       <ItemBase

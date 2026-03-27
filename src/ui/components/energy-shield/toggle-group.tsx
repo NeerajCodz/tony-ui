@@ -1,10 +1,9 @@
+import { cn } from '@/lib/utils';
+import { type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 import { ToggleGroupPrimitive } from '../_base/toggle-group';
-import { type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 import { toggleVariants } from './toggle';
-
 
 const ToggleGroup = React.forwardRef<
   React.ComponentRef<typeof ToggleGroupPrimitive.Root>,
@@ -58,4 +57,4 @@ const ToggleGroupItem = React.forwardRef<
 
 ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName;
 
-export { ToggleGroup, ToggleGroupItem };
+export { ToggleGroup,ToggleGroupItem };

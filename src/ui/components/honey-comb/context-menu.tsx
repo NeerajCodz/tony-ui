@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 import { ContextMenuPrimitive } from '../_base/context-menu';
-import { Check, ChevronRight, Circle } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { Check, ChevronRight, Circle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const ContextMenu = ContextMenuPrimitive.Root
 const ContextMenuTrigger = ContextMenuPrimitive.Trigger

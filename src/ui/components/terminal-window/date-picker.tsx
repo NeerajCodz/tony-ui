@@ -3,11 +3,7 @@ import { Calendar as CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/terminal-window/button';
 import { Calendar } from '@/ui/components/terminal-window/calendar';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/ui/components/terminal-window/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/ui/components/terminal-window/popover';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
 export interface DatePickerProps {

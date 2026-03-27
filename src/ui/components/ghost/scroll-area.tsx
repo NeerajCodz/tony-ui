@@ -1,7 +1,7 @@
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import * as React from "react";
 import { ScrollAreaPrimitive } from '../_base/scroll-area';
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const ScrollArea = React.forwardRef<
   React.ComponentRef<typeof ScrollAreaPrimitive.Root>,
@@ -43,4 +43,4 @@ const ScrollBar = React.forwardRef<
 ))
 ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName
 
-export { ScrollArea, ScrollBar }
+export { ScrollArea,ScrollBar };

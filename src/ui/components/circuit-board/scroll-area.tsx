@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { ScrollAreaBase, ScrollAreaViewportBase, ScrollBarBase, ScrollBarThumbBase, ScrollAreaCornerBase } from '@/ui/components/_base/scroll-area';
 import { cn } from '@/lib/utils';
+import { ScrollAreaBase, ScrollAreaCornerBase, ScrollAreaViewportBase, ScrollBarBase, ScrollBarThumbBase } from '@/ui/components/_base/scroll-area';
+import * as React from 'react';
 
 const ScrollArea = React.forwardRef<React.ComponentRef<typeof ScrollAreaBase>, React.ComponentPropsWithoutRef<typeof ScrollAreaBase>>(
   ({ className, children, ...props }, ref) => (
@@ -40,4 +40,4 @@ const ScrollBar = React.forwardRef<React.ComponentRef<typeof ScrollBarBase>, Rea
 );
 ScrollBar.displayName = 'ScrollBar';
 
-export { ScrollArea, ScrollBar };
+export { ScrollArea,ScrollBar };

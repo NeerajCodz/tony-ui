@@ -1,17 +1,5 @@
 import * as React from 'react';
-import {
-  BoxSelect,
-  Database,
-  FolderOpen,
-  Ghost,
-  Grid3X3,
-  HardDrive,
-  Radio,
-  SearchX,
-  ShieldAlert,
-  Terminal,
-  type LucideIcon,
-} from 'lucide-react';
+import { BoxSelect, Database, FolderOpen, Ghost, Grid3X3, HardDrive, Radio, SearchX, ShieldAlert, Terminal, type LucideIcon } from 'lucide-react';
 import { EmptyStateBase, type EmptyStateBaseProps } from '@/ui/components/_base/empty-state';
 import { cn } from '@/lib/utils';
 

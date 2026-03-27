@@ -70,13 +70,7 @@ export interface ToastProviderBaseProps {
 /**
  * ToastProviderBase - Context provider for toast notifications
  */
-export const ToastProviderBase = ({
-  children,
-  duration = 5000,
-  limit = 5,
-  position = 'bottom-right',
-  pauseOnHover = true,
-}: ToastProviderBaseProps) => <>{children}</>;
+export const ToastProviderBase = ({ children }: ToastProviderBaseProps) => <>{children}</>;
 ToastProviderBase.displayName = 'ToastProviderBase';
 
 // ============================================================================

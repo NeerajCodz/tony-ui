@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 import { Toaster as Sonner } from 'sonner';
-import type { SonnerBaseProps } from '../_base/sonner';
+import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 

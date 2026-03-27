@@ -1,7 +1,7 @@
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import * as React from "react";
 import { SwitchPrimitive } from '../_base/switch';
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const Switch = React.forwardRef<
   React.ComponentRef<typeof SwitchPrimitive.Root>,
@@ -24,4 +24,4 @@ const Switch = React.forwardRef<
 ))
 Switch.displayName = SwitchPrimitive.Root.displayName
 
-export { Switch }
+export { Switch };

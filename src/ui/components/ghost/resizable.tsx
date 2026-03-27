@@ -1,3 +1,3 @@
-import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/ui/components/_base/resizable';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/ui/components/_base/resizable';
 
-export { ResizablePanelGroup, ResizablePanel, ResizableHandle };
+export { ResizableHandle,ResizablePanel,ResizablePanelGroup };

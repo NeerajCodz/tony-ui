@@ -1,7 +1,6 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { Button, ButtonProps } from "./button"
-import type { IconButtonBaseProps } from '../_base/icon-button';
+import { cn } from "@/lib/utils";
+import * as React from "react";
+import { Button, ButtonProps } from "./button";
 
 const IconButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, size = "icon", ...props }, ref) => {
@@ -17,4 +16,4 @@ const IconButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
 )
 IconButton.displayName = "IconButton"
 
-export { IconButton }
+export { IconButton };

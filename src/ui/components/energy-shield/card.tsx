@@ -1,12 +1,11 @@
-import * as React from 'react';
-import { CardBase, CardHeaderBase, CardTitleBase, CardDescriptionBase, CardContentBase, CardFooterBase, type CardBaseProps } from '../_base/card';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { CardBase, CardContentBase, CardDescriptionBase, CardFooterBase, CardHeaderBase, CardTitleBase, type CardBaseProps } from '../_base/card';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 export interface CardProps extends CardBaseProps {
   effects?: EnergyShieldEffects;
 }
-
 
 const getVisualTypeStyles = (visualType: string = 'default') => {
   switch (visualType) {
@@ -117,4 +116,4 @@ const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 );
 CardFooter.displayName = 'CardFooter';
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
+export { Card,CardContent,CardDescription,CardFooter,CardHeader,CardTitle };

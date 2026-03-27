@@ -1,20 +1,8 @@
-import * as React from 'react';
-import { AccordionPrimitive } from '../_base/accordion';
-import { 
-  AccordionBase, 
-  AccordionItemBase, 
-  AccordionHeaderBase, 
-  AccordionTriggerBase, 
-  AccordionContentBase, 
-  type AccordionBaseProps,
-  type AccordionItemBaseProps,
-  type AccordionTriggerBaseProps,
-  type AccordionContentBaseProps
-} from '../_base/accordion';
 import { cn } from '@/lib/utils';
-import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 import { ChevronDown } from 'lucide-react';
-
+import * as React from 'react';
+import { AccordionBase, AccordionContentBase, AccordionHeaderBase, AccordionItemBase, AccordionPrimitive, AccordionTriggerBase, type AccordionBaseProps, type AccordionContentBaseProps, type AccordionItemBaseProps, type AccordionTriggerBaseProps } from '../_base/accordion';
+import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 const Accordion = React.forwardRef<React.ComponentRef<typeof AccordionPrimitive.Root>, EnergyShieldAccordionProps>(
   ({ className, effects = 'on', ...props }, ref) => (
@@ -82,4 +70,4 @@ const AccordionContent = React.forwardRef<React.ComponentRef<typeof AccordionPri
 );
 AccordionContent.displayName = 'AccordionContent';
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export { Accordion,AccordionContent,AccordionItem,AccordionTrigger };

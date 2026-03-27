@@ -1,8 +1,8 @@
 "use client"
 
-import * as React from "react"
+import * as React from "react";
 import { SeparatorPrimitive } from '../_base/separator';
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Separator = React.forwardRef<
   React.ComponentRef<typeof SeparatorPrimitive.Root>,

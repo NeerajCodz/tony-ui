@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { TabsBase, TabsListBase, TabsTriggerBase, TabsContentBase } from '@/ui/components/_base/tabs';
 import { cn } from '@/lib/utils';
+import { TabsBase, TabsContentBase, TabsListBase, TabsTriggerBase } from '@/ui/components/_base/tabs';
+import * as React from 'react';
 
 const Tabs = TabsBase;
 
@@ -46,4 +46,4 @@ const TabsContent = React.forwardRef<React.ComponentRef<typeof TabsContentBase>,
 );
 TabsContent.displayName = 'TabsContent';
 
-export { Tabs, TabsList, TabsTrigger, TabsContent };
+export { Tabs,TabsContent,TabsList,TabsTrigger };

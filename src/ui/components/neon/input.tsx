@@ -3,7 +3,6 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { getNeonGlow } from './_effects';
 
-import type * as __BaseImport_input from '../_base/input';
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

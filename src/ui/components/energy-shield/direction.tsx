@@ -1,6 +1,6 @@
-import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 import * as React from 'react';
 import { DirectionPrimitive } from '../_base/direction';
+import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 type DirectionProviderProps = React.ComponentPropsWithoutRef<typeof DirectionPrimitive.Provider> & {
   effects?: EnergyShieldEffects;
 };

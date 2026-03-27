@@ -1,6 +1,6 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 import { SkeletonBase } from '../_base/skeleton';
 
 const Skeleton = React.forwardRef<

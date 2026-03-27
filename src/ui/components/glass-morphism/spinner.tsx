@@ -1,7 +1,7 @@
-import * as React from "react"
-import { SpinnerBase, type SpinnerBaseProps } from "../_base/spinner"
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import * as React from "react";
+import { SpinnerBase, type SpinnerBaseProps } from "../_base/spinner";
+import { cn } from "@/lib/utils";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 export interface SpinnerProps extends SpinnerBaseProps {
   effects?: GlassEffects

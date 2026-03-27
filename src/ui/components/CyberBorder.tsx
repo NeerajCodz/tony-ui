@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, type FC, type ReactNode } from 'react';
+import React, { useEffect, useRef, useState, type FC, type ReactNode } from 'react';
 import { getClipPath, getSvgPathGenerator } from '../utils/clip-paths.js';
 import { VARIANT_COLOR_MAP, getColorVar } from '../utils/component-helpers.js';
 

@@ -1,5 +1,5 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { cn } from "@/lib/utils";
 import { KbdBase } from '../_base/kbd';
 
 const Kbd = React.forwardRef<

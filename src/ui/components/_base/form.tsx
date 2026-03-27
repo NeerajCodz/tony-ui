@@ -1,14 +1,7 @@
-import * as React from 'react';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
-import {
-  Controller,
-  type ControllerProps,
-  type FieldPath,
-  type FieldValues,
-  FormProvider,
-  useFormContext,
-} from 'react-hook-form';
+import * as React from 'react';
+import { Controller, type ControllerProps, type FieldPath, type FieldValues, FormProvider, useFormContext } from 'react-hook-form';
 import { LabelBase } from './label';
 
 const Form = FormProvider;
@@ -143,25 +136,25 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
 FormMessage.displayName = 'FormMessage';
 
 export {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  LabelPrimitive,
-  Slot,
-  useFormField,
+Form,
+FormControl,
+FormDescription,
+FormField,
+FormItem,
+FormLabel,
+FormMessage,
+LabelPrimitive,
+Slot,
+useFormField
 };
 
 // Bridge exports so version components consume react-hook-form via _base only
-export {
-  Controller,
-  FormProvider,
-  useFormContext,
-  type ControllerProps,
-  type FieldPath,
-  type FieldValues,
-} from 'react-hook-form';
 export * from 'react-hook-form';
+export {
+Controller,
+FormProvider,
+useFormContext,
+type ControllerProps,
+type FieldPath,
+type FieldValues
+} from 'react-hook-form';

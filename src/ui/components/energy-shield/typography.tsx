@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { TypographyBase, type TypographyBaseProps } from '../_base/typography';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 export interface TypographyProps extends TypographyBaseProps {

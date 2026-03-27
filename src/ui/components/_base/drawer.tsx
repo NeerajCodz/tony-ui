@@ -89,7 +89,7 @@ export interface DrawerBaseProps {
  * - Focus trap when open
  * - Esc to close
  */
-export const DrawerBase = ({ children, type = 'default', side = 'right', ...props }: DrawerBaseProps) => <>{children}</>;
+export const DrawerBase = ({ children }: DrawerBaseProps) => <>{children}</>;
 DrawerBase.displayName = 'DrawerBase';
 
 // ============================================================================

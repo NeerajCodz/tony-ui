@@ -1,28 +1,10 @@
 import * as React from 'react';
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-  getPaginationRowModel,
-  getSortedRowModel,
-  SortingState,
-  getFilteredRowModel,
-  ColumnFiltersState,
-  VisibilityState,
-} from '../_base/data-table';
+import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, SortingState, useReactTable } from '../_base/data-table';
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from './table';
-import { Button } from './button';
-import { glassEffectsClass, type GlassEffects } from './_effects';
 import { cn } from '@/lib/utils';
+import { glassEffectsClass, type GlassEffects } from './_effects';
+import { Button } from './button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

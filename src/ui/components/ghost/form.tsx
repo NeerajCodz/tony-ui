@@ -1,16 +1,7 @@
+import { cn } from "@/lib/utils";
 import * as React from 'react';
-import {
-  Controller,
-  ControllerProps,
-  FieldPath,
-  FieldValues,
-  FormProvider,
-  useFormContext,
-  LabelPrimitive,
-  Slot
-} from '../_base/form';
-import { cn } from "@/lib/utils"
-import { Label } from "./label"
+import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, LabelPrimitive, Slot, useFormContext } from '../_base/form';
+import { Label } from "./label";
 
 const Form = FormProvider
 
@@ -162,13 +153,8 @@ const FormMessage = React.forwardRef<
 FormMessage.displayName = "FormMessage"
 
 export {
-  useFormField,
-  Form,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormDescription,
-  FormMessage,
-  FormField,
-}
+Form,FormControl,
+FormDescription,FormField,FormItem,
+FormLabel,FormMessage,useFormField
+};
 

@@ -1,7 +1,6 @@
-import type * as __BaseImport_typography from '../_base/typography';
 
-import * as React from "react"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
 // h1: 56px | weight 300 | tracking -0.04em | color: --text-primary | font: Cormorant
 export function H1({ className, ...props }: React.ComponentProps<"h1">) {

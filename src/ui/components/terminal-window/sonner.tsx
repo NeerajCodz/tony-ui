@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Toaster as Sonner } from 'sonner';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
-import type { SonnerBaseProps } from '../_base/sonner';
 
 type ToasterProps = React.ComponentProps<typeof Sonner> & { effects?: TerminalWindowEffects };
 

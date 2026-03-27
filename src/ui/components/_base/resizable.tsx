@@ -256,4 +256,4 @@ export const ResizablePanel = ResizablePanelBase;
 export const ResizableHandle = ResizableHandleBase;
 
 // Bridge exports so version components consume resizable-panels via _base only
-export { Group, Panel, Separator } from 'react-resizable-panels';
+export { Group,Panel,Separator } from 'react-resizable-panels';

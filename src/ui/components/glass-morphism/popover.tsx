@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 import { PopoverPrimitive } from '../_base/popover';
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 const Popover = PopoverPrimitive.Root
 

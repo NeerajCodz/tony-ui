@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { ProgressBase, ProgressFillBase, type ProgressBaseProps } from '../_base/progress';
-import { cn } from '@/lib/utils';
 
 export interface ProgressProps extends ProgressBaseProps {}
 

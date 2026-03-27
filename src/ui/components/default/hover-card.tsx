@@ -1,11 +1,6 @@
-import * as React from 'react';
-import { 
-    HoverCardBase, 
-    HoverCardTriggerBase, 
-    HoverCardContentBase, 
-    HoverCardArrowBase 
-} from '../_base/hover-card';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { HoverCardArrowBase, HoverCardBase, HoverCardContentBase, HoverCardTriggerBase } from '../_base/hover-card';
 
 export const HoverCard = HoverCardBase;
 export const HoverCardTrigger = HoverCardTriggerBase;

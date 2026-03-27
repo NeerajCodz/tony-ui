@@ -1,14 +1,13 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { PanelLeft } from "lucide-react"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { PanelLeft } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/ui/components/padding/button"
-import { Sheet, SheetContent } from "@/ui/components/padding/sheet"
+import { cn } from "@/lib/utils";
+import { Button } from "@/ui/components/padding/button";
+import { Sheet, SheetContent } from "@/ui/components/padding/sheet";
 
 const SIDEBAR_WIDTH = "18rem" // Wider for padding version
 const SIDEBAR_WIDTH_MOBILE = "20rem"
-const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 
@@ -534,7 +533,7 @@ const SidebarMenuButton = React.forwardRef<
     ref
   ) => {
     // const Comp = asChild ? Slot : "button"
-    const { isMobile, state } = useSidebar()
+    useSidebar()
 
     const button = (
       <button

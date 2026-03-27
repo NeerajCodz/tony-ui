@@ -1,38 +1,12 @@
 import * as React from 'react';
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-  getPaginationRowModel,
-  getSortedRowModel,
-  SortingState,
-  getFilteredRowModel,
-  ColumnFiltersState,
-  VisibilityState,
-} from '../_base/data-table';
-import { ChevronDown, MoreHorizontal, Settings2 } from 'lucide-react';
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, getSortedRowModel, SortingState, getFilteredRowModel, ColumnFiltersState, VisibilityState } from '../_base/data-table';
+import { Settings2 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/terminal-window/button';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/ui/components/terminal-window/dropdown-menu';
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/ui/components/terminal-window/dropdown-menu';
 import { Input } from '@/ui/components/terminal-window/input';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/ui/components/terminal-window/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/ui/components/terminal-window/table';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
 interface DataTableProps<TData, TValue> {

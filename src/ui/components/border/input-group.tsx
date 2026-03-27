@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { InputGroupBase } from '@/ui/components/_base/input-group';
 import { cn } from '@/lib/utils';
+import { InputGroupBase } from '@/ui/components/_base/input-group';
+import * as React from 'react';
 
 const InputGroup = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof InputGroupBase>>(
   ({ className, ...props }, ref) => (

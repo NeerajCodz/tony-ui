@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DayPicker } from '../_base/calendar';
 import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { buttonVariants } from './button'; // Use our button styles
+ // Use our button styles
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
     visualType?: string;
@@ -12,7 +12,7 @@ export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
 const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
 export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
-  ({ className, classNames, showOutsideDays = true, visualType = 'default', variant, ...props }, ref) => {
+  ({ className, classNames, showOutsideDays = true, visualType = 'default', variant, ...props }, _ref) => {
     return (
       <DayPicker
         showOutsideDays={showOutsideDays}

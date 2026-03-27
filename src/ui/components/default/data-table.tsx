@@ -1,29 +1,7 @@
-import * as React from 'react';
-import { 
-    DataTableBase, 
-    type DataTableBaseProps,
-    type DataTableColumn 
-} from '../_base/data-table';
-import { 
-    Table, 
-    TableHeader, 
-    TableBody, 
-    TableFooter, 
-    TableHead, 
-    TableRow, 
-    TableCell 
-} from './table';
-import { Button } from './button';
-import { Input } from './input';
 import { cn } from '@/lib/utils';
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
-import { 
-    Select, 
-    SelectContent, 
-    SelectItem, 
-    SelectTrigger, 
-    SelectValue 
-} from './select';
+import { type DataTableBaseProps } from '../_base/data-table';
+import { Button } from './button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table';
 
 export interface DataTableProps<T> extends DataTableBaseProps<T> {}
 

@@ -1,6 +1,5 @@
-import * as React from 'react';
-import { SpinnerBase, type SpinnerBaseProps } from '@/ui/components/_base/spinner';
 import { cn } from '@/lib/utils';
+import { SpinnerBase, type SpinnerBaseProps } from '@/ui/components/_base/spinner';
 
 const Spinner = ({ className, ...props }: SpinnerBaseProps) => {
   return (

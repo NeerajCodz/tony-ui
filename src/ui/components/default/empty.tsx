@@ -1,15 +1,7 @@
-import * as React from 'react';
-import {
-  EmptyBase,
-  EmptyActionsBase,
-  EmptyDescriptionBase,
-  EmptyIconBase,
-  EmptyTitleBase,
-  type EmptyBaseProps,
-  type EmptySize,
-} from '@/ui/components/_base/empty';
 import { cn } from '@/lib/utils';
+import { EmptyActionsBase, EmptyBase, EmptyDescriptionBase, EmptyIconBase, EmptyTitleBase, type EmptyBaseProps, type EmptySize } from '@/ui/components/_base/empty';
 import { cva } from 'class-variance-authority';
+import * as React from 'react';
 
 const emptyVariants = cva(
   "flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center animate-in fade-in-50",
@@ -99,4 +91,4 @@ const EmptyActions = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
 );
 EmptyActions.displayName = 'EmptyActions';
 
-export { Empty, EmptyIcon, EmptyTitle, EmptyDescription, EmptyActions };
+export { Empty,EmptyActions,EmptyDescription,EmptyIcon,EmptyTitle };

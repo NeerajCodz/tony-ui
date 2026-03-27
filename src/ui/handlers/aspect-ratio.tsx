@@ -1,26 +1,22 @@
 'use client';
 
 import React from 'react';
-import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import { createHandler } from '../core/create-handler';
 import type { BaseUIProps } from '../types/common';
-
-export interface AspectRatioProps extends React.ComponentPropsWithoutRef<typeof AspectRatioPrimitive.Root> {
-  version?: BaseUIProps['version'];
-  variant?: BaseUIProps['variant'];
-}
+import type { AspectRatioProps } from '../types/components/data-display';
 
 const AspectRatioHandler = createHandler<AspectRatioProps & BaseUIProps>({
   componentName: 'aspect-ratio',
   exportName: 'AspectRatio'
 });
 
-const AspectRatio = React.forwardRef<HTMLDivElement, AspectRatioProps>(({ version = 'default', variant = 'default', ...props }, ref) => {
+const AspectRatio = React.forwardRef<HTMLDivElement, AspectRatioProps & BaseUIProps>(({ version, variant, effects, ...props }, ref) => {
   return (
     <AspectRatioHandler
       ref={ref}
       version={version}
       variant={variant}
+      effects={effects}
       {...props}
     />
   );
@@ -29,5 +25,4 @@ const AspectRatio = React.forwardRef<HTMLDivElement, AspectRatioProps>(({ versio
 AspectRatio.displayName = 'AspectRatio';
 
 export default AspectRatio;
-
-export type { BaseUIProps };
+export type { AspectRatioProps };

@@ -8,6 +8,16 @@ import React, { createContext, useCallback, useEffect, useMemo, useState } from 
 import type { ColorsConfigFile, ColorVariables, ThemeColors } from '../types/colors.d.js';
 import colorsConfig from '../config/colors.json';
 import semanticConfig from '../config/semantic.json';
+import { getVersionCssVariables } from '../core/version-token-loader';
+
+function toHslColor(value?: string, fallback = '0 0% 0%'): string {
+  if (!value) return `hsl(${fallback})`;
+  const trimmed = value.trim();
+  if (trimmed.startsWith('hsl(') || trimmed.startsWith('rgb(') || trimmed.startsWith('#')) {
+    return trimmed;
+  }
+  return `hsl(${trimmed})`;
+}
 
 /**
  * Color Context - Provides color data and setters to entire app
@@ -87,7 +97,59 @@ export const ColorProvider: React.FC<ColorProviderProps> = ({
       vars['--text-base'] = themeColors.surface.foreground;
       vars['--text-muted'] = themeColors.muted.foreground;
       vars['--border-base'] = themeColors.surface.border;
-      
+
+      // Inject design-system aliases used throughout components (`--df-*`)
+      vars['--df-bg'] = toHslColor(themeColors.surface.background);
+      vars['--df-background'] = vars['--df-bg'];
+      vars['--df-surface'] = toHslColor(themeColors.container.background || themeColors.surface.background);
+      vars['--df-text'] = toHslColor(themeColors.surface.foreground);
+      vars['--df-foreground'] = vars['--df-text'];
+      vars['--df-border'] = toHslColor(themeColors.surface.border);
+      vars['--df-ring'] = toHslColor(themeColors.primary.ring || themeColors.accent.ring);
+      vars['--df-muted'] = toHslColor(themeColors.muted.background);
+      vars['--df-muted-text'] = toHslColor(themeColors.text.roles.secondary);
+      vars['--df-muted-foreground'] = vars['--df-muted-text'];
+      vars['--df-secondary'] = toHslColor(themeColors.secondary.base);
+      vars['--df-accent'] = toHslColor(themeColors.accent.base);
+      vars['--df-accent-hover'] = toHslColor(themeColors.accent.hover);
+      vars['--df-accent-foreground'] = toHslColor(themeColors.accent.foreground);
+      vars['--df-success'] = toHslColor('142 70% 50%');
+      vars['--df-warning'] = toHslColor('41 100% 55%');
+      vars['--df-destructive'] = toHslColor('0 100% 60%');
+      vars['--df-error'] = vars['--df-destructive'];
+
+      // Inject all version token variables so any rendered version component
+      // has the full token namespace available globally.
+      const allVersions = [
+        'default',
+        'angular-corner',
+        'border',
+        'circuit-board',
+        'compact',
+        'data-panel',
+        'energy-shield',
+        'ghost',
+        'glass-morphism',
+        'holo-frame',
+        'honey-comb',
+        'large',
+        'matrix-grid',
+        'neon',
+        'padding',
+        'quantum-gate',
+        'raised',
+        'tactical-hud',
+        'tech-panel',
+        'terminal-window',
+      ] as const;
+
+      for (const version of allVersions) {
+        const tokenMap = getVersionCssVariables(version);
+        Object.entries(tokenMap).forEach(([key, value]) => {
+          vars[key] = value;
+        });
+      }
+       
       // Also inject semantic colors from semantic.json
       const semanticColors = (semanticConfig as any).semantic;
       if (semanticColors && Array.isArray(semanticColors)) {
@@ -97,6 +159,13 @@ export const ColorProvider: React.FC<ColorProviderProps> = ({
             states.forEach((state) => {
               vars[`--${sc.id}-${state}`] = sc.colors[state];
             });
+            // Also mirror semantic colors to df aliases when available
+            if (sc.id === 'success') vars['--df-success'] = toHslColor(sc.colors.base);
+            if (sc.id === 'warning') vars['--df-warning'] = toHslColor(sc.colors.base);
+            if (sc.id === 'destructive') {
+              vars['--df-destructive'] = toHslColor(sc.colors.base);
+              vars['--df-error'] = toHslColor(sc.colors.base);
+            }
           }
         });
       }

@@ -1,10 +1,10 @@
+import { Search } from "lucide-react";
 import * as React from 'react';
 import { CommandPrimitive } from '../_base/command';
-import { Search } from "lucide-react"
 
-import { cn } from "@/lib/utils"
-import { Dialog, DialogContent } from "./dialog"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
+import { Dialog, DialogContent } from "./dialog";
 
 const Command = React.forwardRef<
   React.ComponentRef<typeof CommandPrimitive>,
@@ -144,14 +144,8 @@ const CommandShortcut = ({
 CommandShortcut.displayName = "CommandShortcut"
 
 export {
-  Command,
-  CommandDialog,
-  CommandInput,
-  CommandList,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandShortcut,
-  CommandSeparator,
-}
+Command,
+CommandDialog,CommandEmpty,
+CommandGroup,CommandInput,CommandItem,CommandList,CommandSeparator,CommandShortcut
+};
 

@@ -1,17 +1,9 @@
-import * as React from 'react';
-import {
-    Table,
-    TableHeader,
-    TableBody,
-    TableHead,
-    TableRow,
-    TableCell,
-} from '@/ui/components/circuit-board/table';
-import { Button } from '@/ui/components/circuit-board/button';
 import { cn } from '@/lib/utils';
+import { Button } from '@/ui/components/circuit-board/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/ui/components/circuit-board/table';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import * as React from 'react';
 
-import type * as __BaseImport_data_table from '../_base/data-table';
 
 interface DataTableColumn<T> {
     id: string;

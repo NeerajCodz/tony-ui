@@ -1,16 +1,5 @@
 import * as React from 'react';
-import {
-  ChartBase,
-  ChartContainerBase,
-  ChartLegendBase,
-  ChartLegendContentBase,
-  ChartStyleBase,
-  ChartTooltipBase,
-  ChartTooltipContentBase,
-  ResponsiveContainer,
-  type ChartConfig,
-  useChart,
-} from '../_base/chart';
+import { ChartBase, ChartContainerBase, ChartLegendBase, ChartLegendContentBase, ChartStyleBase, ChartTooltipBase, ChartTooltipContentBase, ResponsiveContainer, type ChartConfig, useChart } from '../_base/chart';
 import { cn } from '@/lib/utils';
 import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 

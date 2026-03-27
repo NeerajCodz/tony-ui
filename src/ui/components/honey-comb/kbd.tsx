@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 import { KbdBase } from '../_base/kbd';
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 export function Kbd({
   className,

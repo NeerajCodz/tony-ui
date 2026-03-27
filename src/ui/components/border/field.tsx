@@ -1,7 +1,5 @@
-import { FieldBase, FieldLabelBase, FieldDescriptionBase, FieldErrorBase } from '@/ui/components/_base/field';
+import { FieldBase, FieldDescriptionBase, FieldErrorBase, FieldLabelBase } from '@/ui/components/_base/field';
 export {
-  FieldBase as Field,
-  FieldLabelBase as FieldLabel,
-  FieldDescriptionBase as FieldDescription,
-  FieldErrorBase as FieldError,
+FieldBase as Field,FieldDescriptionBase as FieldDescription,
+FieldErrorBase as FieldError,FieldLabelBase as FieldLabel
 };

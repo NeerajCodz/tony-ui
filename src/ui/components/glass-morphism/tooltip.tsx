@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 import { TooltipPrimitive } from '../_base/tooltip';
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 const TooltipProvider = TooltipPrimitive.Provider
 

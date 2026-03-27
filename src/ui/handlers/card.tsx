@@ -7,15 +7,7 @@
 
 import React from 'react';
 import { createHandler } from '../core/create-handler';
-import type { 
-  CardProps, 
-  CardHeaderProps,
-  CardTitleProps,
-  CardDescriptionProps,
-  CardContentProps,
-  CardFooterProps,
-  CardType
-} from '../types/components/card.js';
+import type { CardProps, CardHeaderProps, CardTitleProps, CardDescriptionProps, CardContentProps, CardFooterProps, CardType } from '../types/components/card.js';
 import type { BaseUIProps } from '../types/common';
 
 const CardHandler = createHandler<CardProps & BaseUIProps>({

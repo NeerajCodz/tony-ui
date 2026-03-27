@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { ToggleBase, type ToggleBaseProps, type ToggleType, type ToggleSize } from '@/ui/components/_base/toggle';
 import { cn } from '@/lib/utils';
+import { ToggleBase, type ToggleBaseProps, type ToggleSize, type ToggleType } from '@/ui/components/_base/toggle';
+import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 const toggleVariants = cva(
   'inline-flex items-center justify-center rounded-none font-mono text-sm font-medium transition-all hover:bg-[var(--cb-trace-dim)]/10 hover:text-[var(--cb-trace-lit)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cb-trace-lit)] disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-[var(--cb-trace-lit)] data-[state=on]:text-[var(--cb-bg)] data-[state=on]:shadow-[0_0_8px_var(--cb-trace-lit)] uppercase tracking-wider',
@@ -48,4 +48,4 @@ const Toggle = React.forwardRef<React.ComponentRef<typeof ToggleBase>, TogglePro
 );
 Toggle.displayName = 'Toggle';
 
-export { Toggle, toggleVariants };
+export { Toggle,toggleVariants };

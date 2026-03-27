@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MenubarPrimitive } from '../_base/menubar';
-import { Check, ChevronRight, Circle } from 'lucide-react';
+import { Check, Circle } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { getNeonGlow } from './_effects';

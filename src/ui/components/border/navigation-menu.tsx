@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { NavigationMenuBase, NavigationMenuListBase, NavigationMenuItemBase, NavigationMenuContentBase, NavigationMenuTriggerBase, NavigationMenuLinkBase, NavigationMenuIndicatorBase, NavigationMenuViewportBase } from '@/ui/components/_base/navigation-menu';
 import { cn } from '@/lib/utils';
+import { NavigationMenuBase, NavigationMenuContentBase, NavigationMenuIndicatorBase, NavigationMenuItemBase, NavigationMenuLinkBase, NavigationMenuListBase, NavigationMenuTriggerBase, NavigationMenuViewportBase } from '@/ui/components/_base/navigation-menu';
 import { ChevronDown } from 'lucide-react';
+import * as React from 'react';
 
 const navigationMenuTriggerStyle = () =>
   'inline-flex h-10 w-max items-center justify-center rounded-none px-4 py-2 text-sm font-medium transition-colors';
@@ -105,13 +105,5 @@ const NavigationMenuIndicator = React.forwardRef<React.ComponentRef<typeof Navig
 NavigationMenuIndicator.displayName = 'NavigationMenuIndicator';
 
 export {
-  navigationMenuTriggerStyle,
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuContent,
-  NavigationMenuTrigger,
-  NavigationMenuLink,
-  NavigationMenuIndicator,
-  NavigationMenuViewport,
+NavigationMenu,NavigationMenuContent,NavigationMenuIndicator,NavigationMenuItem,NavigationMenuLink,NavigationMenuList,NavigationMenuTrigger,navigationMenuTriggerStyle,NavigationMenuViewport
 };

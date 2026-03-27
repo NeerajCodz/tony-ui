@@ -1,7 +1,6 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
-import type { AnalogClockBaseProps } from '../_base/analog-clock';
+import { cn } from "@/lib/utils";
+import * as React from "react";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 interface AnalogClockProps extends React.SVGAttributes<SVGSVGElement> {
   effects?: GlassEffects
@@ -130,4 +129,4 @@ const AnalogClock = React.forwardRef<SVGSVGElement, AnalogClockProps>(
 )
 AnalogClock.displayName = "AnalogClock"
 
-export { AnalogClock }
+export { AnalogClock };

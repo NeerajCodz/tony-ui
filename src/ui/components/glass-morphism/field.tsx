@@ -1,19 +1,8 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
-import {
-  FieldBase,
-  type FieldBaseProps,
-  FieldControlBase,
-  type FieldControlBaseProps,
-  FieldDescriptionBase,
-  type FieldDescriptionBaseProps,
-  FieldErrorBase,
-  type FieldErrorBaseProps,
-  FieldLabelBase,
-  type FieldLabelBaseProps,
-} from "@/ui/components/_base/field"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { FieldBase, type FieldBaseProps, FieldControlBase, type FieldControlBaseProps, FieldDescriptionBase, type FieldDescriptionBaseProps, FieldErrorBase, type FieldErrorBaseProps, FieldLabelBase, type FieldLabelBaseProps } from "@/ui/components/_base/field";
+import { type GlassEffects, glassEffectsClass } from "./_effects";
 
 export interface FieldProps extends FieldBaseProps {
   effects?: GlassEffects

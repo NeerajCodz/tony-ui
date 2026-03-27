@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { CommandPrimitive } from '../_base/command';
-import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Dialog, DialogContent } from '@/ui/components/terminal-window/dialog';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';

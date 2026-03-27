@@ -2,7 +2,7 @@
  * Drawer Component Type Definitions
  */
 
-import type { Version, CoreVariant, Size } from '../common';
+import type { Version, CoreVariant } from '../common';
 import type React from 'react';
 
 /**

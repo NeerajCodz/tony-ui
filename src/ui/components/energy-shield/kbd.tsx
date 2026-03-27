@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { cn } from '@/lib/utils';
-import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
+import * as React from 'react';
 import { KbdBase } from '../_base/kbd';
+import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
   effects?: EnergyShieldEffects;

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
-import type { DigitalClockBaseProps } from '../_base/digital-clock';
 
 export interface DigitalClockProps extends React.HTMLAttributes<HTMLDivElement> {
   time?: Date;

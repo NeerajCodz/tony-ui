@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { SwitchBase, SwitchThumbBase, type SwitchBaseProps } from '@/ui/components/_base/switch';
 import { cn } from '@/lib/utils';
+import { SwitchBase, SwitchThumbBase, type SwitchBaseProps } from '@/ui/components/_base/switch';
+import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 const switchVariants = cva(
   'peer inline-flex shrink-0 cursor-pointer items-center border border-[var(--cb-trace)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cb-trace-lit)] focus-visible:shadow-[0_0_8px_var(--cb-trace-lit)] disabled:cursor-not-allowed disabled:opacity-50',

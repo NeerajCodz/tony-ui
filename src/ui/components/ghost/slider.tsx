@@ -1,7 +1,7 @@
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import * as React from "react";
 import { SliderPrimitive } from '../_base/slider';
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const Slider = React.forwardRef<
   React.ComponentRef<typeof SliderPrimitive.Root>,
@@ -23,4 +23,4 @@ const Slider = React.forwardRef<
 ))
 Slider.displayName = SliderPrimitive.Root.displayName
 
-export { Slider }
+export { Slider };

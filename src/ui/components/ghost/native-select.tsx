@@ -1,7 +1,7 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import * as React from "react";
 import { NativeSelectBase } from '../_base/native-select';
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 export interface NativeSelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -28,4 +28,4 @@ const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(
 )
 NativeSelect.displayName = "NativeSelect"
 
-export { NativeSelect }
+export { NativeSelect };

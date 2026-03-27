@@ -1,8 +1,7 @@
-import type * as __BaseImport_input from '../_base/input';
 
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import * as React from "react";
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -26,4 +25,4 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 )
 Input.displayName = "Input"
 
-export { Input }
+export { Input };

@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 import { Slot } from '../_base/direction';
 interface DirectionProps extends React.HTMLAttributes<HTMLDivElement> {
   asChild?: boolean
@@ -13,4 +13,4 @@ const Direction = React.forwardRef<HTMLDivElement, DirectionProps>(
 )
 Direction.displayName = "Direction"
 
-export { Direction }
+export { Direction };

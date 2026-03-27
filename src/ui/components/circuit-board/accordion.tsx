@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { AccordionBase, AccordionItemBase, AccordionTriggerBase, AccordionContentBase } from '@/ui/components/_base/accordion';
 import { cn } from '@/lib/utils';
+import { AccordionBase, AccordionContentBase, AccordionItemBase, AccordionTriggerBase } from '@/ui/components/_base/accordion';
 import { ChevronDown } from 'lucide-react';
+import * as React from 'react';
 
 const Accordion = AccordionBase;
 
@@ -46,4 +46,4 @@ const AccordionContent = React.forwardRef<React.ComponentRef<typeof AccordionCon
 );
 AccordionContent.displayName = 'AccordionContent';
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export { Accordion,AccordionContent,AccordionItem,AccordionTrigger };

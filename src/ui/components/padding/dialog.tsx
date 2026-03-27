@@ -1,8 +1,8 @@
-import * as React from "react"
+import * as React from "react";
 import { DialogPrimitive } from '../_base/dialog';
-import { X } from "lucide-react"
+import { X } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Dialog = DialogPrimitive.Root
 

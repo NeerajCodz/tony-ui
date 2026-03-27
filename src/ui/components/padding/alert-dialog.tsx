@@ -1,4 +1,3 @@
-import React from 'react';
 import { cn } from '@/lib/utils';
 import type { AlertDialogProps, AlertDialogActionProps, AlertDialogCancelProps, AlertDialogContentProps, AlertDialogDescriptionProps, AlertDialogFooterProps, AlertDialogHeaderProps, AlertDialogTitleProps, AlertDialogTriggerProps } from '@/ui/types/components/overlay';
 import { AlertDialogActionBase, AlertDialogBase, AlertDialogCancelBase, AlertDialogContentBase, AlertDialogDescriptionBase, AlertDialogOverlayBase, AlertDialogPortalBase, AlertDialogTitleBase, AlertDialogTriggerBase } from '../_base/alert-dialog';
@@ -52,7 +51,6 @@ export function AlertDialogContent({ className, colors, uiType = 'default', ...p
     },
 
   };
-
 
   return (
     <AlertDialogPortalBase>

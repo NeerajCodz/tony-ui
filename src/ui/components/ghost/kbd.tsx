@@ -1,7 +1,7 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import * as React from "react";
 import { KbdBase } from '../_base/kbd';
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 interface KbdProps extends React.HTMLAttributes<HTMLDivElement> {
     effects?: GhostEffects
@@ -21,4 +21,4 @@ const Kbd = React.forwardRef<HTMLElement, KbdProps>(
 )
 Kbd.displayName = "Kbd"
 
-export { Kbd }
+export { Kbd };

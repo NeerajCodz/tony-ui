@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 import { ProgressPrimitive } from '../_base/progress';
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Progress = React.forwardRef<
   React.ComponentRef<typeof ProgressPrimitive.Root>,

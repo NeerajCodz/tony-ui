@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { AnalogClockBase, type AnalogClockBaseProps } from '@/ui/components/_base/analog-clock';
 import { cn } from '@/lib/utils';
+import { AnalogClockBase, type AnalogClockBaseProps } from '@/ui/components/_base/analog-clock';
+import * as React from 'react';
 
 export interface AnalogClockProps extends AnalogClockBaseProps {}
 

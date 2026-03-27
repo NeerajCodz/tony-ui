@@ -1,18 +1,9 @@
-import * as React from 'react';
-import { 
-  AlertBase, 
-  AlertIconBase, 
-  AlertContentBase, 
-  AlertTitleBase, 
-  AlertDescriptionBase, 
-  AlertCloseBase,
-  type AlertBaseProps 
-} from '../_base/alert';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
+import * as React from 'react';
+import { AlertBase, AlertCloseBase, AlertDescriptionBase, AlertTitleBase, type AlertBaseProps } from '../_base/alert';
 
 export interface AlertProps extends AlertBaseProps {}
-
 
 const getVariantStyles = (variant: string = 'default', type: string = 'default') => {
   // Base colors for variants
@@ -94,4 +85,4 @@ const AlertDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttrib
 );
 AlertDescription.displayName = 'AlertDescription';
 
-export { Alert, AlertTitle, AlertDescription };
+export { Alert,AlertDescription,AlertTitle };

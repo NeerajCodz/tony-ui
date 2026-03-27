@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { MenubarBase, MenubarMenuBase, MenubarTriggerBase, MenubarContentBase, MenubarItemBase, MenubarSeparatorBase, MenubarLabelBase, MenubarCheckboxItemBase, MenubarRadioGroupBase, MenubarRadioItemBase, MenubarPortalBase, MenubarSubContentBase, MenubarSubTriggerBase, MenubarGroupBase, MenubarSubBase, MenubarShortcutBase } from '@/ui/components/_base/menubar';
 import { cn } from '@/lib/utils';
+import { MenubarBase, MenubarCheckboxItemBase, MenubarContentBase, MenubarGroupBase, MenubarItemBase, MenubarLabelBase, MenubarMenuBase, MenubarPortalBase, MenubarRadioGroupBase, MenubarRadioItemBase, MenubarSeparatorBase, MenubarShortcutBase, MenubarSubBase, MenubarSubContentBase, MenubarSubTriggerBase, MenubarTriggerBase } from '@/ui/components/_base/menubar';
 import { Check, ChevronRight, Circle } from 'lucide-react';
+import * as React from 'react';
 
 const MenubarMenu = MenubarMenuBase;
 const MenubarGroup = MenubarGroupBase;
@@ -177,20 +177,7 @@ const MenubarShortcut = ({
 MenubarShortcut.displayName = 'MenubarShortcut';
 
 export {
-  Menubar,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarContent,
-  MenubarItem,
-  MenubarSeparator,
-  MenubarLabel,
-  MenubarCheckboxItem,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarPortal,
-  MenubarSubContent,
-  MenubarSubTrigger,
-  MenubarGroup,
-  MenubarSub,
-  MenubarShortcut,
+Menubar,MenubarCheckboxItem,MenubarContent,MenubarGroup,MenubarItem,MenubarLabel,MenubarMenu,MenubarPortal,MenubarRadioGroup,
+MenubarRadioItem,MenubarSeparator,MenubarShortcut,MenubarSub,MenubarSubContent,
+MenubarSubTrigger,MenubarTrigger
 };

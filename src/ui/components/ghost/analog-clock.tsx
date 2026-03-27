@@ -1,7 +1,6 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
-import type { AnalogClockBaseProps } from '../_base/analog-clock';
+import { cn } from "@/lib/utils";
+import * as React from "react";
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 interface AnalogClockProps extends React.HTMLAttributes<HTMLDivElement> {
     effects?: GhostEffects
@@ -58,4 +57,4 @@ const AnalogClock = React.forwardRef<HTMLDivElement, AnalogClockProps>(
 )
 AnalogClock.displayName = "AnalogClock"
 
-export { AnalogClock }
+export { AnalogClock };

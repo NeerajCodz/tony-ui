@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { Group, Panel, Separator } from '../_base/resizable';
-import { cn } from '@/lib/utils';
 
 const ResizablePanelGroup = ({
   className,
@@ -53,4 +53,4 @@ const ResizableHandle = ({
   </Separator>
 )
 
-export { ResizablePanelGroup, ResizablePanel, ResizableHandle }
+export { ResizableHandle,ResizablePanel,ResizablePanelGroup };

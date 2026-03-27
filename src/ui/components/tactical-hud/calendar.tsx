@@ -13,7 +13,7 @@ export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
 
 
 export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
-  ({ className, effects = 'on', classNames, showOutsideDays = true, visualType = 'default', variant, style, ...props }, ref) => {
+  ({ className, effects = 'on', classNames, showOutsideDays = true, visualType = 'default', variant, style, ...props }, _ref) => {
     return (
       <div className={cn(tacticalHudEffectsClass(effects), "p-3 bg-[var(--th-surface)]/50 inline-block", className)} style={{ ...bracketsStyle, ...style }}>
       <DayPicker

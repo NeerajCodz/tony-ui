@@ -1,11 +1,9 @@
-import * as React from 'react';
-import { CheckboxPrimitive } from '../_base/checkbox';
-import { CheckboxBase, CheckboxIndicatorBase, type CheckboxBaseProps } from '../_base/checkbox';
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
+import * as React from 'react';
+import { CheckboxBase, CheckboxIndicatorBase, CheckboxPrimitive, type CheckboxBaseProps } from '../_base/checkbox';
 
 export interface CheckboxProps extends CheckboxBaseProps {}
-
 
 const getVisualTypeStyles = (visualType: string = 'default') => {
   switch (visualType) {

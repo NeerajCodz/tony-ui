@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { AlertBase, AlertTitleBase, AlertDescriptionBase } from '@/ui/components/_base/alert';
 import { cn } from '@/lib/utils';
+import { AlertBase, AlertDescriptionBase, AlertTitleBase } from '@/ui/components/_base/alert';
 import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 const alertVariants = cva(
   'relative w-full rounded-none border px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7 font-mono',
@@ -56,4 +56,4 @@ const AlertDescription = React.forwardRef<
 ));
 AlertDescription.displayName = 'AlertDescription';
 
-export { Alert, AlertTitle, AlertDescription };
+export { Alert,AlertDescription,AlertTitle };

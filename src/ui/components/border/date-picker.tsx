@@ -1,6 +1,5 @@
-import * as React from 'react';
-import { DatePickerBase, type DatePickerBaseProps } from '@/ui/components/_base/date-picker';
 import { cn } from '@/lib/utils';
+import { DatePickerBase, type DatePickerBaseProps } from '@/ui/components/_base/date-picker';
 
 const DatePicker = ({ className, ...props }: DatePickerBaseProps) => {
   return (

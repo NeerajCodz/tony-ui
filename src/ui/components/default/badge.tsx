@@ -1,7 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { BadgeBase, type BadgeBaseProps } from '../_base/badge';
-import { cn } from '@/lib/utils';
-import { X } from 'lucide-react';
 
 export interface BadgeProps extends BadgeBaseProps {}
 

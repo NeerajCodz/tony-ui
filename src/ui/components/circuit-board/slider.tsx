@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { SliderBase, SliderTrackBase, SliderRangeBase, SliderThumbBase, type SliderBaseProps } from '@/ui/components/_base/slider';
 import { cn } from '@/lib/utils';
+import { SliderBase, SliderRangeBase, SliderThumbBase, SliderTrackBase, type SliderBaseProps } from '@/ui/components/_base/slider';
+import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 const sliderVariants = cva(
   'relative flex w-full touch-none select-none items-center',

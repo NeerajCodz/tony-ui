@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { cn } from '@/lib/utils';
-import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
+import * as React from 'react';
 import { SkeletonBase } from '../_base/skeleton';
+import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 
 function Skeleton({

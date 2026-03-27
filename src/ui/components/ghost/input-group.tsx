@@ -1,7 +1,6 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
-import type { InputGroupBaseProps } from '../_base/input-group';
+import { cn } from "@/lib/utils";
+import * as React from "react";
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const InputGroup = React.forwardRef<
   HTMLDivElement,
@@ -15,4 +14,4 @@ const InputGroup = React.forwardRef<
 ))
 InputGroup.displayName = "InputGroup"
 
-export { InputGroup }
+export { InputGroup };

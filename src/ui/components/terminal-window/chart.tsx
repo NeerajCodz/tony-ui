@@ -1,13 +1,5 @@
 import * as React from 'react';
-import {
-  ChartContainerBase,
-  ChartTooltipBase,
-  ChartTooltipContentBase,
-  ChartLegendBase,
-  ChartLegendContentBase,
-  ChartStyleBase,
-  type ChartConfig,
-} from '../_base/chart';
+import { ChartContainerBase, ChartTooltipBase, ChartTooltipContentBase, ChartLegendBase, ChartLegendContentBase, ChartStyleBase, type ChartConfig } from '../_base/chart';
 import { cn } from '@/lib/utils';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 

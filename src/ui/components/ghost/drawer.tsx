@@ -1,7 +1,7 @@
+import { cn } from "@/lib/utils";
 import * as React from 'react';
 import { DrawerPrimitive } from '../_base/drawer';
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const Drawer = ({
   shouldScaleBackground = true,
@@ -103,15 +103,7 @@ const DrawerDescription = React.forwardRef<
 DrawerDescription.displayName = DrawerPrimitive.Description.displayName
 
 export {
-  Drawer,
-  DrawerPortal,
-  DrawerOverlay,
-  DrawerTrigger,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerFooter,
-  DrawerTitle,
-  DrawerDescription,
-}
+Drawer,DrawerClose,
+DrawerContent,DrawerDescription,DrawerFooter,DrawerHeader,DrawerOverlay,DrawerPortal,DrawerTitle,DrawerTrigger
+};
 

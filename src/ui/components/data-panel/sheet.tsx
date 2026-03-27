@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { SheetPrimitive } from '../_base/sheet';
+import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { SheetPrimitive } from '../_base/sheet';
 
 const Sheet = SheetPrimitive.Root;
 
@@ -11,7 +11,6 @@ const SheetTrigger = SheetPrimitive.Trigger;
 const SheetClose = SheetPrimitive.Close;
 
 const SheetPortal = SheetPrimitive.Portal;
-
 
 const SheetOverlay = React.forwardRef<
   React.ComponentRef<typeof SheetPrimitive.Overlay>,
@@ -129,14 +128,6 @@ const SheetDescription = React.forwardRef<
 SheetDescription.displayName = SheetPrimitive.Description.displayName;
 
 export {
-  Sheet,
-  SheetPortal,
-  SheetOverlay,
-  SheetTrigger,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetFooter,
-  SheetTitle,
-  SheetDescription,
+Sheet,SheetClose,
+SheetContent,SheetDescription,SheetFooter,SheetHeader,SheetOverlay,SheetPortal,SheetTitle,SheetTrigger
 };

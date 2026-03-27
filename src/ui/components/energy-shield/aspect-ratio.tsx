@@ -1,12 +1,11 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { AspectRatioBase, type AspectRatioBaseProps } from '../_base/aspect-ratio';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 export interface AspectRatioProps extends AspectRatioBaseProps {
   effects?: EnergyShieldEffects;
 }
-
 
 export const AspectRatio = React.forwardRef<React.ComponentRef<typeof AspectRatioBase>, AspectRatioProps>(
   ({ className, effects = 'on', style, ...props }, ref) => (

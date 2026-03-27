@@ -1,8 +1,7 @@
-import type * as __BaseImport_spinner from '../_base/spinner';
 
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { Loader2 } from "lucide-react"
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
 
 export interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: "sm" | "md" | "lg"

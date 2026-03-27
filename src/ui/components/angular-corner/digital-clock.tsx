@@ -1,6 +1,5 @@
-import * as React from 'react';
 import { cn } from '@/lib/utils';
-import type { DigitalClockBaseProps } from '../_base/digital-clock';
+import * as React from 'react';
 
 interface DigitalClockProps extends React.HTMLAttributes<HTMLDivElement> {
     size?: 'sm' | 'md' | 'lg' | 'xl';

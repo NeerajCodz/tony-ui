@@ -1,9 +1,8 @@
-import type * as __BaseImport_typography from '../_base/typography';
 
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const typographyVariants = cva("text-[var(--gh-text)] font-display", {
   variants: {
@@ -55,4 +54,4 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
 )
 Typography.displayName = "Typography"
 
-export { Typography, typographyVariants }
+export { Typography,typographyVariants };

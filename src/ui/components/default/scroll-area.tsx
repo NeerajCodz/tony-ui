@@ -1,13 +1,6 @@
-import * as React from 'react';
-import { 
-    ScrollAreaBase, 
-    ScrollAreaViewportBase, 
-    ScrollBarBase, 
-    ScrollAreaThumbBase, 
-    ScrollAreaCornerBase,
-    type ScrollAreaBaseProps
-} from '../_base/scroll-area';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { ScrollAreaBase, ScrollAreaCornerBase, ScrollAreaThumbBase, ScrollAreaViewportBase, ScrollBarBase, type ScrollAreaBaseProps } from '../_base/scroll-area';
 
 export interface ScrollAreaProps extends ScrollAreaBaseProps {}
 

@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
+import * as React from 'react';
 /**
  * Component type defines the structural visual treatment
  * All 15 types as defined in _base.md
@@ -118,7 +118,7 @@ export const ButtonBase = React.forwardRef<HTMLButtonElement, ButtonBaseProps>(
         ref={ref}
         // Default to type="button" to prevent form submission
         type={asChild ? undefined : htmlType}
-        disabled={disabled}
+        disabled={isDisabled}
         aria-disabled={loading ? true : ariaDisabled}
         aria-busy={loading ? true : undefined}
         data-type={visualType}

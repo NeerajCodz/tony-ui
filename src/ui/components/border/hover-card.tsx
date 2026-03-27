@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { HoverCardBase, HoverCardTriggerBase, HoverCardContentBase, type HoverCardContentBaseProps } from '@/ui/components/_base/hover-card';
 import { cn } from '@/lib/utils';
+import { HoverCardBase, HoverCardContentBase, HoverCardTriggerBase, type HoverCardContentBaseProps } from '@/ui/components/_base/hover-card';
+import * as React from 'react';
 
 const HoverCard = HoverCardBase;
 const HoverCardTrigger = HoverCardTriggerBase;
@@ -21,4 +21,4 @@ const HoverCardContent = React.forwardRef<React.ComponentRef<typeof HoverCardCon
 );
 HoverCardContent.displayName = 'HoverCardContent';
 
-export { HoverCard, HoverCardTrigger, HoverCardContent };
+export { HoverCard,HoverCardContent,HoverCardTrigger };

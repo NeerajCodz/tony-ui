@@ -1,7 +1,7 @@
+import { cn } from '@/lib/utils';
+import { Dot } from 'lucide-react';
 import * as React from 'react';
 import { OTPInput, OTPInputContext } from '../_base/input-otp';
-import { Dot } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 const InputOTP = React.forwardRef<
   React.ComponentRef<typeof OTPInput>,
@@ -65,5 +65,5 @@ const InputOTPSeparator = React.forwardRef<
 ));
 InputOTPSeparator.displayName = 'InputOTPSeparator';
 
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };
+export { InputOTP,InputOTPGroup,InputOTPSeparator,InputOTPSlot };
 

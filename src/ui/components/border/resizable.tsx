@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { ResizablePanelGroupBase, ResizablePanelBase, ResizableHandleBase } from '@/ui/components/_base/resizable';
 import { cn } from '@/lib/utils';
+import { ResizableHandleBase, ResizablePanelBase, ResizablePanelGroupBase } from '@/ui/components/_base/resizable';
 import { GripVertical } from 'lucide-react';
+import * as React from 'react';
 
 const ResizablePanelGroup = ({ className, ...props }: React.ComponentProps<typeof ResizablePanelGroupBase>) => (
   <ResizablePanelGroupBase
@@ -28,4 +28,4 @@ const ResizableHandle = ({ withHandle, className, ...props }: React.ComponentPro
   </ResizableHandleBase>
 );
 
-export { ResizablePanelGroup, ResizablePanel, ResizableHandle };
+export { ResizableHandle,ResizablePanel,ResizablePanelGroup };

@@ -1,6 +1,6 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ChevronDown } from "lucide-react"
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react";
 import { NativeSelectBase } from '../_base/native-select';
 
 export interface NativeSelectProps

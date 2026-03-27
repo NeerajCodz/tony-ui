@@ -2,20 +2,8 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 import { Check, ChevronsUpDown } from 'lucide-react';
-import type { ComboboxBaseProps } from '../_base/combobox';
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-} from './command';
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from './popover';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './command';
+import { Popover, PopoverContent, PopoverTrigger } from './popover';
 
 interface ComboboxProps {
     options: { value: string; label: string }[];
@@ -35,7 +23,6 @@ export function Combobox({
     placeholder = 'Select option...', 
     emptyText = 'No option found.',
     className,
-    visualType,
     effects = 'on'
 }: ComboboxProps) {
     const [open, setOpen] = React.useState(false)

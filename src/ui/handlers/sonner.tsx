@@ -38,7 +38,6 @@ const calculateDuration = (duration?: number, type?: SonnerType): number => {
  */
 const getToastOptions = (
   type?: SonnerType,
-  variant?: string,
   duration?: number
 ): Partial<typeof SonnerToaster> => {
   const toastDuration = calculateDuration(duration, type);
@@ -87,8 +86,8 @@ export const SonnerHandler = React.forwardRef<HTMLDivElement, SonnerProps>(
 
     // Get toast options
     const toastOptions = React.useMemo(() => {
-      return getToastOptions(type, variant, duration);
-    }, [type, variant, duration]);
+      return getToastOptions(type, duration);
+    }, [type, duration]);
 
     return (
       <VersionedSonner

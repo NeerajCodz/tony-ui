@@ -1,20 +1,8 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { Check, ChevronsUpDown } from 'lucide-react';
-import type { ComboboxBaseProps } from '../_base/combobox';
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-} from './command';
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from './popover';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './command';
+import { Popover, PopoverContent, PopoverTrigger } from './popover';
 
 interface ComboboxProps {
     options: { value: string; label: string }[];
@@ -34,8 +22,7 @@ export function Combobox({
     onValueChange, 
     placeholder = 'Select option...', 
     emptyText = 'No option found.',
-    className,
-    visualType
+    className
 }: ComboboxProps) {
     const [open, setOpen] = React.useState(false)
    

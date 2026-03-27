@@ -1,36 +1,13 @@
 import * as React from 'react';
 "use client"
 
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-  getPaginationRowModel,
-  getSortedRowModel,
-  SortingState,
-  getFilteredRowModel,
-  ColumnFiltersState,
-  VisibilityState,
-} from '../_base/data-table';
-import { ChevronDown } from "lucide-react"
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, getSortedRowModel, SortingState, getFilteredRowModel, ColumnFiltersState, VisibilityState } from '../_base/data-table';
+import { ChevronDown } from "lucide-react";
 
-import { Button } from "@/ui/components/padding/button"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/ui/components/padding/dropdown-menu"
-import { Input } from "@/ui/components/padding/input"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/ui/components/padding/table"
+import { Button } from "@/ui/components/padding/button";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/ui/components/padding/dropdown-menu";
+import { Input } from "@/ui/components/padding/input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/ui/components/padding/table";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

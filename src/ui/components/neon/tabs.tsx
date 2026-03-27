@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { TabsPrimitive } from '../_base/tabs';
 import { cn } from '@/lib/utils';
-import { getNeonGlow } from './_effects';
 
 const Tabs = TabsPrimitive.Root;
 

@@ -3,7 +3,6 @@ import { cn } from '@/lib/utils';
 import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
 import { Label } from './label';
 
-import type * as __BaseImport_field from '../_base/field';
 
 interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;

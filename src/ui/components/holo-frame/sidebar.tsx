@@ -1,23 +1,5 @@
 import * as React from 'react';
-import {
-  SidebarBase,
-  SidebarHeaderBase,
-  SidebarContentBase,
-  SidebarFooterBase,
-  SidebarGroupBase,
-  SidebarGroupLabelBase,
-  SidebarGroupContentBase,
-  SidebarMenuBase,
-  SidebarMenuItemBase,
-  SidebarMenuButtonBase,
-  SidebarMenuSubBase,
-  SidebarRailBase,
-  SidebarTriggerBase,
-  SidebarInsetBase,
-  SidebarContext,
-  useSidebar,
-  type SidebarBaseProps,
-} from '../_base/sidebar';
+import { SidebarContext, useSidebar, type SidebarBaseProps } from '../_base/sidebar';
 import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 import { Button } from './button';

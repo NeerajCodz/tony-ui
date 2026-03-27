@@ -1,7 +1,7 @@
+import { cn } from '@/lib/utils';
+import { Check } from 'lucide-react';
 import * as React from 'react';
 import { CheckboxPrimitive } from '../_base/checkbox';
-import { Check } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { glassInputClass, type GlassEffects } from './_effects';
 
 const Checkbox = React.forwardRef<

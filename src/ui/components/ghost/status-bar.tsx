@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { StatusBarBase, type StatusBarBaseProps } from '@/ui/components/_base/status-bar';
 import { cn } from '@/lib/utils';
+import { StatusBarBase, type StatusBarBaseProps } from '@/ui/components/_base/status-bar';
+import * as React from 'react';
 import { ghostEffectsClass, type GhostEffects } from './_effects';
 
 export interface StatusBarProps extends StatusBarBaseProps {

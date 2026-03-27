@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Slot } from '../_base/field';
 import { cn } from '@/lib/utils';
 import { Label } from './label';
 

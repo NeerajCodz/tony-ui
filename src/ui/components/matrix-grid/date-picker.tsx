@@ -4,11 +4,7 @@ import { Calendar as CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/matrix-grid/button';
 import { Calendar } from '@/ui/components/matrix-grid/calendar';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/ui/components/matrix-grid/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/ui/components/matrix-grid/popover';
 
 interface DatePickerProps {
   date?: Date;

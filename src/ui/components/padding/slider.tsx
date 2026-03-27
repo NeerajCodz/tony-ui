@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 import { SliderPrimitive } from '../_base/slider';
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Slider = React.forwardRef<
   React.ComponentRef<typeof SliderPrimitive.Root>,

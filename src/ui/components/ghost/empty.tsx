@@ -1,7 +1,6 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
-import type { EmptyBaseProps } from '../_base/empty';
+import { cn } from "@/lib/utils";
+import * as React from "react";
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 interface EmptyProps extends React.HTMLAttributes<HTMLDivElement> {
     effects?: GhostEffects
@@ -23,4 +22,4 @@ const Empty = React.forwardRef<HTMLDivElement, EmptyProps>(
 )
 Empty.displayName = "Empty"
 
-export { Empty }
+export { Empty };

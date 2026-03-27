@@ -1,5 +1,5 @@
-import * as React from 'react';
 import type { Locale } from 'date-fns';
+import * as React from 'react';
 
 /**
  * Calendar type variants

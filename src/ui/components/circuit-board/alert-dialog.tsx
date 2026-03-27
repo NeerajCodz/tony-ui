@@ -1,21 +1,6 @@
-import * as React from 'react';
-import {
-  AlertDialogBase,
-  AlertDialogPortalBase,
-  AlertDialogOverlayBase,
-  AlertDialogTriggerBase,
-  AlertDialogContentBase,
-  AlertDialogHeaderBase,
-  AlertDialogFooterBase,
-  AlertDialogTitleBase,
-  AlertDialogDescriptionBase,
-  AlertDialogActionBase,
-  AlertDialogCancelBase,
-  type AlertDialogContentBaseProps,
-  type AlertDialogActionBaseProps,
-  type AlertDialogCancelBaseProps
-} from '@/ui/components/_base/alert-dialog';
 import { cn } from '@/lib/utils';
+import { AlertDialogActionBase, AlertDialogBase, AlertDialogCancelBase, AlertDialogContentBase, AlertDialogDescriptionBase, AlertDialogFooterBase, AlertDialogHeaderBase, AlertDialogOverlayBase, AlertDialogPortalBase, AlertDialogTitleBase, AlertDialogTriggerBase, type AlertDialogActionBaseProps, type AlertDialogCancelBaseProps, type AlertDialogContentBaseProps } from '@/ui/components/_base/alert-dialog';
+import * as React from 'react';
 import { buttonVariants } from './button';
 
 const AlertDialog = AlertDialogBase;
@@ -120,15 +105,6 @@ const AlertDialogCancel = React.forwardRef<React.ComponentRef<typeof AlertDialog
 AlertDialogCancel.displayName = 'AlertDialogCancel';
 
 export {
-  AlertDialog,
-  AlertDialogPortal,
-  AlertDialogOverlay,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogFooter,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogAction,
-  AlertDialogCancel,
+AlertDialog,AlertDialogAction,
+AlertDialogCancel,AlertDialogContent,AlertDialogDescription,AlertDialogFooter,AlertDialogHeader,AlertDialogOverlay,AlertDialogPortal,AlertDialogTitle,AlertDialogTrigger
 };

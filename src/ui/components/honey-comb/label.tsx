@@ -1,10 +1,10 @@
 "use client"
 
-import * as React from "react"
+import * as React from "react";
 import { LabelPrimitive } from '../_base/label';
-import { cva, type VariantProps } from "class-variance-authority"
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const labelVariants = cva(
   "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase tracking-[0.4em] font-display text-[var(--hc-accent)] text-[10px]"

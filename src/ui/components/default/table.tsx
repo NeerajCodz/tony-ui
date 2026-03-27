@@ -1,16 +1,6 @@
-import * as React from 'react';
-import { 
-    TableBase, 
-    TableHeaderBase, 
-    TableBodyBase, 
-    TableFooterBase, 
-    TableRowBase, 
-    TableHeadBase, 
-    TableCellBase, 
-    TableCaptionBase,
-    type TableBaseProps 
-} from '../_base/table';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { TableBase, TableBodyBase, TableCaptionBase, TableCellBase, TableFooterBase, TableHeadBase, TableHeaderBase, TableRowBase, type TableBaseProps } from '../_base/table';
 
 export interface TableProps extends TableBaseProps {}
 

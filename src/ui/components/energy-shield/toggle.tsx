@@ -1,9 +1,8 @@
+import { cn } from '@/lib/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 import { TogglePrimitive } from '../_base/toggle';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
-
 
 const toggleVariants = cva(
   'inline-flex items-center justify-center text-sm font-sans font-medium uppercase tracking-wider transition-colors hover:bg-[var(--es-surface)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--es-plasma-1)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-[var(--es-plasma-1)] data-[state=on]:text-[var(--es-bg)] border border-[var(--es-hex-line)] ring-offset-[var(--es-bg)] ',
@@ -42,4 +41,4 @@ const Toggle = React.forwardRef<
 
 Toggle.displayName = TogglePrimitive.Root.displayName;
 
-export { Toggle, toggleVariants };
+export { Toggle,toggleVariants };

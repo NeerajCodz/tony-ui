@@ -1,24 +1,7 @@
-import * as React from 'react';
-import { 
-    MenubarBase, 
-    MenubarMenuBase, 
-    MenubarTriggerBase, 
-    MenubarContentBase, 
-    MenubarItemBase, 
-    MenubarSeparatorBase, 
-    MenubarLabelBase, 
-    MenubarCheckboxItemBase, 
-    MenubarRadioGroupBase, 
-    MenubarRadioItemBase, 
-    MenubarSubBase, 
-    MenubarSubTriggerBase, 
-    MenubarSubContentBase, 
-    MenubarShortcutBase,
-    MenubarGroupBase,
-    MenubarPortalBase
-} from '../_base/menubar';
 import { cn } from '@/lib/utils';
 import { Check, ChevronRight, Circle } from 'lucide-react';
+import * as React from 'react';
+import { MenubarBase, MenubarCheckboxItemBase, MenubarContentBase, MenubarGroupBase, MenubarItemBase, MenubarLabelBase, MenubarMenuBase, MenubarPortalBase, MenubarRadioGroupBase, MenubarRadioItemBase, MenubarSeparatorBase, MenubarShortcutBase, MenubarSubBase, MenubarSubContentBase, MenubarSubTriggerBase, MenubarTriggerBase } from '../_base/menubar';
 
 export const Menubar = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<typeof MenubarBase>>(
   ({ className, ...props }, ref) => (

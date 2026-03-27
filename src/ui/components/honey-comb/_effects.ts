@@ -66,7 +66,7 @@ export const getBracketsStyle = (size: string = '15px', width: string = '2px', p
   backgroundRepeat: 'no-repeat',
 });
 
-export const bracketsStyle = getBracketsStyle();
+export const bracketsStyle = getBracketsStyle(bracketSize, bracketWidth, pipSize);
 
 export const hexGridPattern =
   'radial-gradient(circle at 50% 50%, rgba(255,209,102,0.22) 0 1px, transparent 1px), linear-gradient(60deg, rgba(255,209,102,0.14) 1px, transparent 1px), linear-gradient(-60deg, rgba(255,209,102,0.14) 1px, transparent 1px)';

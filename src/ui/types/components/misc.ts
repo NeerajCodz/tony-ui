@@ -441,6 +441,7 @@ export interface TypographyProps {
   variant?: MiscVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'blockquote' | 'code' | 'pre';
   weight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';

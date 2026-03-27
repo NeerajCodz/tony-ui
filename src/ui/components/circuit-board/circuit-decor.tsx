@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { CircuitDecorBase, type CircuitDecorBaseProps } from '@/ui/components/_base/circuit-decor';
 import { cn } from '@/lib/utils';
+import { CircuitDecorBase, type CircuitDecorBaseProps } from '@/ui/components/_base/circuit-decor';
+import * as React from 'react';
 
 const CircuitBoardDecor = React.forwardRef<HTMLSpanElement, CircuitDecorBaseProps>(
   ({ className, ...props }, ref) => {

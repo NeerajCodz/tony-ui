@@ -420,6 +420,7 @@ export interface CheckboxProps {
   variant?: CheckboxVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: (checked: boolean) => void;
@@ -559,6 +560,7 @@ export interface SwitchProps {
   variant?: SwitchVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: (checked: boolean) => void;
@@ -585,6 +587,7 @@ export interface RadioGroupProps {
   variant?: InputVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   options: RadioOption[];
   value?: string;
   defaultValue?: string;
@@ -610,6 +613,7 @@ export interface SelectProps {
   variant?: InputVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   options: SelectOption[];
   value?: string;
   defaultValue?: string;
@@ -630,6 +634,7 @@ export interface SliderProps {
   variant?: InputVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   min?: number;
   max?: number;
   step?: number;
@@ -759,6 +764,7 @@ export interface FieldProps {
   variant?: InputVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   label?: string;
   helperText?: string;
   error?: string;
@@ -776,6 +782,7 @@ export interface LabelProps {
   variant?: InputVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   children: React.ReactNode;
   htmlFor?: string;
   required?: boolean;
@@ -789,6 +796,7 @@ export interface InputGroupProps {
   version?: 'default' | 'attached';
   variant?: InputVariant;
   colorType?: ColorType;
+  effects?: string;
   children: React.ReactNode;
   className?: string;
 }
@@ -802,6 +810,7 @@ export interface ComboboxProps {
   variant?: InputVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   options: SelectOption[];
   value?: string;
   onChange?: (value: string) => void;
@@ -820,6 +829,7 @@ export interface InputOTPProps {
   variant?: InputVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   length?: number;
   value?: string;
   onChange?: (value: string) => void;
@@ -836,6 +846,7 @@ export interface NativeSelectProps {
   variant?: InputVariant;
   colorType?: ColorType;
   animated?: boolean;
+  effects?: string;
   options: SelectOption[];
   value?: string;
   defaultValue?: string;

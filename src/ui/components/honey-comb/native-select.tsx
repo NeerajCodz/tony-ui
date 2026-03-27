@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 import { NativeSelectBase } from '../_base/native-select';
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 export interface NativeSelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {}

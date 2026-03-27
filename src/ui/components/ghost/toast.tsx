@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { ToastPrimitive } from '../_base/toast';
+import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { ToastPrimitive } from '../_base/toast';
 import { ghostEffectsClass, type GhostEffects } from './_effects';
 
 const ToastProvider = ToastPrimitive.Provider;
@@ -115,13 +115,5 @@ type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>;
 type ToastActionElement = React.ReactElement<typeof ToastAction>;
 
 export {
-  type ToastProps,
-  type ToastActionElement,
-  ToastProvider,
-  ToastViewport,
-  Toast,
-  ToastTitle,
-  ToastDescription,
-  ToastClose,
-  ToastAction,
+Toast,ToastAction,ToastClose,ToastDescription,ToastProvider,ToastTitle,ToastViewport,type ToastActionElement,type ToastProps
 };

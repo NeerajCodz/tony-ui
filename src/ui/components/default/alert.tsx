@@ -1,46 +1,8 @@
-import * as React from 'react';
-import { 
-    AlertBase, 
-    AlertTitleBase, 
-    AlertDescriptionBase, 
-    AlertIconBase, 
-    type AlertBaseProps 
-} from '../_base/alert';
 import { cn } from '@/lib/utils';
-import { AlertCircle, CheckCircle2, Info, XCircle } from 'lucide-react';
+import * as React from 'react';
+import { AlertBase, AlertDescriptionBase, AlertIconBase, AlertTitleBase, type AlertBaseProps } from '../_base/alert';
 
 export interface AlertProps extends AlertBaseProps {}
-
-const getVariantStyles = (variant: string = 'default') => {
-    switch (variant) {
-        case 'destructive':
-            return 'border-red-500/50 text-red-500 [&>svg]:text-red-500';
-        case 'success':
-            return 'border-green-500/50 text-green-500 [&>svg]:text-green-500';
-        case 'warning':
-            return 'border-yellow-500/50 text-yellow-500 [&>svg]:text-yellow-500';
-        case 'info':
-            return 'border-blue-500/50 text-blue-500 [&>svg]:text-blue-500';
-        default:
-            return 'bg-[var(--df-surface)] text-[var(--df-text)]';
-    }
-}
-
-const getTypeStyles = (type: string = 'default', variant: string = 'default') => {
-    // Combine with variant if needed
-    if (type === 'solid') {
-         // Solid overrides variant text colors usually
-         return 'bg-[var(--df-accent)] text-white border-transparent [&>svg]:text-white';
-    }
-    if (type === 'outline') {
-        return 'bg-transparent border border-[var(--df-border)]';
-    }
-    if (type === 'soft') {
-        return 'bg-[var(--df-accent)]/10 border-none';
-    }
-    // Default
-    return 'bg-[var(--df-surface)] border border-[var(--df-border)]';
-}
 
 const getCombinedStyles = (type: string = 'default', variant: string = 'default') => {
     // This is getting complex, let's simplify based on common usage

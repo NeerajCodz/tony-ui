@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SelectPrimitive } from '../_base/select';
-import { Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from './_effects';
 

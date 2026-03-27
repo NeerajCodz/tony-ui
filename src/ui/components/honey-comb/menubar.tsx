@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 import { MenubarPrimitive } from '../_base/menubar';
-import { Check, ChevronRight, Circle } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { Check, ChevronRight, Circle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const Menubar = React.forwardRef<
   React.ComponentRef<typeof MenubarPrimitive.Root>,

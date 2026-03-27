@@ -1,20 +1,7 @@
-import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import {
-  CardBase,
-  CardHeaderBase,
-  CardTitleBase,
-  CardDescriptionBase,
-  CardContentBase,
-  CardFooterBase,
-  type CardBaseProps,
-  type CardHeaderBaseProps,
-  type CardTitleBaseProps,
-  type CardDescriptionBaseProps,
-  type CardContentBaseProps,
-  type CardFooterBaseProps
-} from '@/ui/components/_base/card';
 import { cn } from '@/lib/utils';
+import { CardBase, CardContentBase, CardDescriptionBase, CardFooterBase, CardHeaderBase, CardTitleBase, type CardBaseProps, type CardContentBaseProps, type CardDescriptionBaseProps, type CardFooterBaseProps, type CardHeaderBaseProps, type CardTitleBaseProps } from '@/ui/components/_base/card';
+import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 const cardVariants = cva(
   'rounded-none overflow-hidden font-mono relative',
@@ -120,4 +107,4 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterBaseProps>(
 );
 CardFooter.displayName = 'CardFooter';
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
+export { Card,CardContent,CardDescription,CardFooter,CardHeader,CardTitle };

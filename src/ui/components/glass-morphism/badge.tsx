@@ -1,9 +1,8 @@
-import type * as __BaseImport_badge from '../_base/badge';
 
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 const badgeVariants = cva(
   "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 font-display backdrop-blur-sm",
@@ -42,4 +41,4 @@ function Badge({ className, variant, effects = "on", ...props }: BadgeProps) {
   )
 }
 
-export { Badge, badgeVariants }
+export { Badge,badgeVariants };

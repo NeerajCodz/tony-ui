@@ -1,9 +1,9 @@
+import { cn } from "@/lib/utils";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import * as React from 'react';
 import { DayPicker } from '../_base/calendar';
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "./button"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
+import { buttonVariants } from "./button";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
     effects?: GhostEffects
@@ -68,5 +68,5 @@ function Calendar({
 }
 Calendar.displayName = "Calendar"
 
-export { Calendar }
+export { Calendar };
 

@@ -1,22 +1,12 @@
-import * as React from 'react';
-import { 
-  BreadcrumbBase, 
-  BreadcrumbListBase, 
-  BreadcrumbItemBase, 
-  BreadcrumbLinkBase, 
-  BreadcrumbPageBase, 
-  BreadcrumbSeparatorBase, 
-  BreadcrumbEllipsisBase,
-  type BreadcrumbBaseProps 
-} from '../_base/breadcrumb';
 import { cn } from '@/lib/utils';
-import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 import { ChevronRight } from 'lucide-react';
+import * as React from 'react';
+import { BreadcrumbBase, BreadcrumbEllipsisBase, BreadcrumbItemBase, BreadcrumbLinkBase, BreadcrumbListBase, BreadcrumbPageBase, BreadcrumbSeparatorBase, type BreadcrumbBaseProps } from '../_base/breadcrumb';
+import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 export interface BreadcrumbProps extends BreadcrumbBaseProps {
   effects?: EnergyShieldEffects;
 }
-
 
 const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
   ({ className, effects = 'on', ...props }, ref) => (
@@ -99,11 +89,7 @@ const BreadcrumbEllipsis = React.forwardRef<HTMLSpanElement, React.ComponentProp
 BreadcrumbEllipsis.displayName = 'BreadcrumbEllipsis';
 
 export {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  BreadcrumbEllipsis,
+Breadcrumb,BreadcrumbEllipsis,BreadcrumbItem,
+BreadcrumbLink,BreadcrumbList,BreadcrumbPage,
+BreadcrumbSeparator
 };

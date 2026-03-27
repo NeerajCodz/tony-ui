@@ -3,18 +3,9 @@
  * Original cyberpunk UI system components
  */
 
-import React from 'react';
+import { DollarSign, FileText, HelpCircle, Info, Monitor, Play, Settings, User } from 'lucide-react';
 import { motion } from 'motion/react';
-import {
-  User,
-  DollarSign,
-  FileText,
-  HelpCircle,
-  Info,
-  Settings,
-  Play,
-  Monitor,
-} from 'lucide-react';
+import React from 'react';
 
 // --- Shared Components ---
 

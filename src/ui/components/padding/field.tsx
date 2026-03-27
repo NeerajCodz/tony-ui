@@ -1,8 +1,7 @@
-import type * as __BaseImport_field from '../_base/field';
 
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { Label } from "@/ui/components/padding/label"
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import { Label } from "@/ui/components/padding/label";
 
 interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string

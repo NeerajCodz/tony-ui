@@ -1,14 +1,5 @@
 import * as React from 'react';
-import { 
-  BreadcrumbBase, 
-  BreadcrumbListBase, 
-  BreadcrumbItemBase, 
-  BreadcrumbLinkBase, 
-  BreadcrumbPageBase, 
-  BreadcrumbSeparatorBase, 
-  BreadcrumbEllipsisBase,
-  type BreadcrumbBaseProps 
-} from '../_base/breadcrumb';
+import { BreadcrumbBase, BreadcrumbListBase, BreadcrumbItemBase, BreadcrumbLinkBase, BreadcrumbPageBase, BreadcrumbSeparatorBase, BreadcrumbEllipsisBase, type BreadcrumbBaseProps } from '../_base/breadcrumb';
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
 import { ChevronRight } from 'lucide-react';
@@ -16,7 +7,6 @@ import { ChevronRight } from 'lucide-react';
 export interface BreadcrumbProps extends BreadcrumbBaseProps {
   effects?: TacticalHudEffects;
 }
-
 
 const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
   ({ className, effects = 'on', ...props }, ref) => (

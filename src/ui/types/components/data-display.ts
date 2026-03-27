@@ -176,6 +176,9 @@ export interface AvatarProps {
   /** Enable animations */
   animated?: boolean;
   
+  /** Visual effects (e.g., glitch, neon-pulse) */
+  effects?: string;
+  
   /** Image source URL */
   src?: string;
   
@@ -374,6 +377,9 @@ export interface TableProps<T = any> {
   
   /** Enable animations */
   animated?: boolean;
+  
+  /** Visual effects (e.g., glitch, neon-pulse) */
+  effects?: string;
   
   /** Column definitions */
   columns?: TableColumn<T>[];
@@ -612,5 +618,31 @@ export interface AspectRatioProps {
   children: React.ReactNode;
   
   /** CSS class name */
+  className?: string;
+}
+
+/**
+ * Analog Clock Props
+ */
+export interface AnalogClockProps extends React.SVGProps<SVGSVGElement> {
+  version?: 'default' | 'minimal' | 'technical';
+  variant?: DataVariant;
+  colorType?: ColorType;
+  animated?: boolean;
+  effects?: string;
+  type?: DataType;
+  className?: string;
+}
+
+/**
+ * Digital Clock Props
+ */
+export interface DigitalClockProps extends React.HTMLAttributes<HTMLDivElement> {
+  version?: 'default' | 'minimal' | 'technical';
+  variant?: DataVariant;
+  colorType?: ColorType;
+  animated?: boolean;
+  effects?: string;
+  type?: DataType;
   className?: string;
 }

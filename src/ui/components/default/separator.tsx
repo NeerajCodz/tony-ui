@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { SeparatorBase, type SeparatorBaseProps } from '../_base/separator';
-import { cn } from '@/lib/utils';
 
 const Separator = React.forwardRef<React.ComponentRef<typeof SeparatorBase>, SeparatorBaseProps>(
   ({ className, orientation = 'horizontal', decorative = true, ...props }, ref) => (
@@ -19,4 +19,4 @@ const Separator = React.forwardRef<React.ComponentRef<typeof SeparatorBase>, Sep
 );
 Separator.displayName = 'Separator';
 
-export { Separator }
+export { Separator };

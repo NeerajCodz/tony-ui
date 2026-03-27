@@ -1,5 +1,4 @@
 import * as React from 'react';
-import type { AnalogClockBaseProps } from '../_base/analog-clock';
 
 import { cn } from '@/lib/utils';
 import { getNeonGlow } from './_effects';

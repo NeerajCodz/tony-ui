@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { AspectRatioBase, type AspectRatioBaseProps } from '../_base/aspect-ratio';
-import { cn } from '@/lib/utils';
 
 export interface AspectRatioProps extends AspectRatioBaseProps {}
 

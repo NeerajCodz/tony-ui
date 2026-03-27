@@ -1,21 +1,10 @@
-import * as React from 'react';
-import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Button } from './button';
-import type { ComboboxBaseProps } from '../_base/combobox';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from './command';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from './popover';
+import { Check, ChevronsUpDown } from 'lucide-react';
+import * as React from 'react';
 import { ghostEffectsClass, type GhostEffects } from './_effects';
+import { Button } from './button';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from './command';
+import { Popover, PopoverContent, PopoverTrigger } from './popover';
 
 export interface ComboboxProps {
   options: { value: string; label: string }[];

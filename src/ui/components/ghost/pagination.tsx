@@ -1,9 +1,8 @@
-import * as React from "react"
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { ButtonProps, buttonVariants } from "./button"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
-import type { PaginationBaseProps } from '../_base/pagination';
+import { cn } from "@/lib/utils";
+import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import * as React from "react";
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
+import { ButtonProps, buttonVariants } from "./button";
 
 const Pagination = React.forwardRef<
   HTMLElement,
@@ -112,11 +111,11 @@ const PaginationEllipsis = ({
 PaginationEllipsis.displayName = "PaginationEllipsis"
 
 export {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
+Pagination,
+PaginationContent,
+PaginationEllipsis,
+PaginationItem,
+PaginationLink,
+PaginationNext,
+PaginationPrevious
 }

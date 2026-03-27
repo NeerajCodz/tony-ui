@@ -1,21 +1,6 @@
-import * as React from 'react';
-import {
-  TypographyH1Base,
-  TypographyH2Base,
-  TypographyH3Base,
-  TypographyH4Base,
-  TypographyPBase,
-  TypographyBlockquoteBase,
-  TypographyListBase,
-  TypographyListItemBase,
-  TypographyCodeBase,
-  TypographyLeadBase,
-  TypographyLargeBase,
-  TypographySmallBase,
-  TypographyMutedBase,
-  TypographyOrderedListBase,
-} from '@/ui/components/_base/typography';
 import { cn } from '@/lib/utils';
+import { TypographyBlockquoteBase, TypographyCodeBase, TypographyH1Base, TypographyH2Base, TypographyH3Base, TypographyH4Base, TypographyLargeBase, TypographyLeadBase, TypographyListBase, TypographyListItemBase, TypographyMutedBase, TypographyOrderedListBase, TypographyPBase, TypographySmallBase } from '@/ui/components/_base/typography';
+import * as React from 'react';
 
 // Border Theme Typography - IBM Plex Mono based
 const monoFont = 'font-mono'; // Assumes 'IBM Plex Mono' is set as mono font in tailwind config
@@ -230,18 +215,8 @@ const TypographyMuted = React.forwardRef<HTMLParagraphElement, React.ComponentPr
 TypographyMuted.displayName = 'TypographyMuted';
 
 export {
-  TypographyH1,
-  TypographyH2,
-  TypographyH3,
-  TypographyH4,
-  TypographyP,
-  TypographyBlockquote,
-  TypographyList,
-  TypographyOrderedList,
-  TypographyListItem,
-  TypographyCode,
-  TypographyLead,
-  TypographyLarge,
-  TypographySmall,
-  TypographyMuted,
+TypographyBlockquote,TypographyCode,TypographyH1,
+TypographyH2,
+TypographyH3,
+TypographyH4,TypographyLarge,TypographyLead,TypographyList,TypographyListItem,TypographyMuted,TypographyOrderedList,TypographyP,TypographySmall
 };

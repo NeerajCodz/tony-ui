@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 import { DirectionPrimitive } from '../_base/direction';
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 type DirectionProviderProps = React.ComponentPropsWithoutRef<
   typeof DirectionPrimitive.Provider
@@ -17,4 +17,4 @@ const DirectionProvider = ({
   </div>
 )
 
-export { DirectionProvider }
+export { DirectionProvider };

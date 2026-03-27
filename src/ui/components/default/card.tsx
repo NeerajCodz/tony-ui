@@ -1,14 +1,6 @@
-import * as React from 'react';
-import { 
-    CardBase, 
-    CardHeaderBase, 
-    CardTitleBase, 
-    CardDescriptionBase, 
-    CardContentBase, 
-    CardFooterBase, 
-    type CardBaseProps 
-} from '../_base/card';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { CardBase, CardContentBase, CardDescriptionBase, CardFooterBase, CardHeaderBase, CardTitleBase, type CardBaseProps } from '../_base/card';
 
 export interface CardProps extends CardBaseProps {}
 
@@ -29,16 +21,6 @@ const getTypeStyles = (type: string = 'default') => {
         default:
             return 'rounded-lg border border-[var(--df-border)] bg-[var(--df-surface)] text-[var(--df-text)] shadow-sm';
     }
-}
-
-const getSizeStyles = (size: string = 'md') => {
-    // We apply padding to children usually, but base component might not handle it automatically for custom content.
-    // Base doc says "size variant affecting padding".
-    // Let's rely on Base to handle internal spacing if it does, OR apply classes here.
-    // Actually, in `CardBase`, it passes `data-size`.
-    // But commonly in these UI libs, Card is just a container and padding is on Content/Header.
-    // Let's see CardContent.
-    return ''; 
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(

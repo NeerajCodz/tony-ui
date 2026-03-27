@@ -1,10 +1,7 @@
-import * as React from "react"
-import {
-  ButtonGroupBase,
-  type ButtonGroupBaseProps,
-} from "../_base/button-group"
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import * as React from "react";
+import { ButtonGroupBase, type ButtonGroupBaseProps } from "../_base/button-group";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 export interface ButtonGroupProps extends ButtonGroupBaseProps {
   effects?: GlassEffects

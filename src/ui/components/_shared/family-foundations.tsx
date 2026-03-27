@@ -1,104 +1,28 @@
 'use client';
 
-import * as React from 'react';
 import { Check, ChevronDown, ChevronUp, Dot, X } from 'lucide-react';
+import * as React from 'react';
 import type { VariantColors } from '../../types/common';
-import {
-  getCoreTypeStyles,
-  getSpinnerVisual,
-  getTypographyTone,
-  getVersionStyleProfile,
-  normalizeColors,
-} from './version-styles';
-import {
-  AccordionBase,
-  AccordionContentBase,
-  AccordionHeaderBase,
-  AccordionItemBase,
-  AccordionTriggerBase,
-} from '../_base/accordion';
-import { AvatarBase, AvatarFallbackBase, AvatarImageBase } from '../_base/avatar';
-import {
-  CarouselBase,
-  CarouselContentBase,
-  CarouselItemBase,
-  CarouselNextBase,
-  CarouselPreviousBase,
-} from '../_base/carousel';
-import { DatePickerBase } from '../_base/date-picker';
-import {
-  DrawerContentBase,
-  DrawerDescriptionBase,
-  DrawerOverlayBase,
-  DrawerTitleBase,
-} from '../_base/drawer';
-import { IconButtonBase } from '../_base/icon-button';
-import {
-  InputOTPBase,
-  InputOTPGroupBase,
-  InputOTPSeparatorBase,
-  InputOTPSlotBase,
-} from '../_base/input-otp';
-import {
-  ScrollAreaBase,
-  ScrollAreaCornerBase,
-  ScrollAreaViewportBase,
-  ScrollBarBase,
-  ScrollBarThumbBase,
-} from '../_base/scroll-area';
-import {
-  SelectBase,
-  SelectContentBase,
-  SelectGroupBase,
-  SelectItemBase,
-  SelectItemIndicatorBase,
-  SelectItemTextBase,
-  SelectLabelBase,
-  SelectScrollDownButtonBase,
-  SelectScrollUpButtonBase,
-  SelectSeparatorBase,
-  SelectTriggerBase,
-  SelectValueBase,
-  SelectViewportBase,
-} from '../_base/select';
-import {
-  SheetBase,
-  SheetCloseBase,
-  SheetContentBase,
-  SheetDescriptionBase,
-  SheetFooterBase,
-  SheetHeaderBase,
-  SheetOverlayBase,
-  SheetPortalBase,
-  SheetTitleBase,
-  SheetTriggerBase,
-} from '../_base/sheet';
-import { SwitchBase, SwitchThumbBase } from '../_base/switch';
-import {
-  TableBase,
-  TableBodyBase,
-  TableCaptionBase,
-  TableCellBase,
-  TableFooterBase,
-  TableHeadBase,
-  TableHeaderBase,
-  TableRowBase,
-} from '../_base/table';
-import { TabsBase, TabsContentBase, TabsListBase, TabsTriggerBase } from '../_base/tabs';
-import {
-  ToastActionBase,
-  ToastBase,
-  ToastCloseBase,
-  ToastDescriptionBase,
-  ToastProviderBase,
-  ToastTitleBase,
-  ToastViewportBase,
-} from '../_base/toast';
-import { ToggleGroupBase, ToggleGroupItemBase } from '../_base/toggle-group';
-import { ToggleBase } from '../_base/toggle';
-import { TooltipBase, TooltipContentBase, TooltipProviderBase, TooltipTriggerBase } from '../_base/tooltip';
-import { DigitalClockBase } from '../_base/digital-clock';
+import { AccordionBase, AccordionContentBase, AccordionHeaderBase, AccordionItemBase, AccordionTriggerBase } from '../_base/accordion';
 import { AnalogClockBase } from '../_base/analog-clock';
+import { AvatarBase, AvatarFallbackBase, AvatarImageBase } from '../_base/avatar';
+import { CarouselBase, CarouselContentBase, CarouselItemBase, CarouselNextBase, CarouselPreviousBase } from '../_base/carousel';
+import { DatePickerBase } from '../_base/date-picker';
+import { DigitalClockBase } from '../_base/digital-clock';
+import { DrawerContentBase, DrawerDescriptionBase, DrawerOverlayBase, DrawerTitleBase } from '../_base/drawer';
+import { IconButtonBase } from '../_base/icon-button';
+import { InputOTPBase, InputOTPGroupBase, InputOTPSeparatorBase, InputOTPSlotBase } from '../_base/input-otp';
+import { ScrollAreaBase, ScrollAreaCornerBase, ScrollAreaViewportBase, ScrollBarBase, ScrollBarThumbBase } from '../_base/scroll-area';
+import { SelectBase, SelectContentBase, SelectGroupBase, SelectItemBase, SelectItemIndicatorBase, SelectItemTextBase, SelectLabelBase, SelectScrollDownButtonBase, SelectScrollUpButtonBase, SelectSeparatorBase, SelectTriggerBase, SelectValueBase, SelectViewportBase } from '../_base/select';
+import { SheetBase, SheetCloseBase, SheetContentBase, SheetDescriptionBase, SheetFooterBase, SheetHeaderBase, SheetOverlayBase, SheetPortalBase, SheetTitleBase, SheetTriggerBase } from '../_base/sheet';
+import { SwitchBase, SwitchThumbBase } from '../_base/switch';
+import { TableBase, TableBodyBase, TableCaptionBase, TableCellBase, TableFooterBase, TableHeadBase, TableHeaderBase, TableRowBase } from '../_base/table';
+import { TabsBase, TabsContentBase, TabsListBase, TabsTriggerBase } from '../_base/tabs';
+import { ToastActionBase, ToastBase, ToastCloseBase, ToastDescriptionBase, ToastProviderBase, ToastTitleBase, ToastViewportBase } from '../_base/toast';
+import { ToggleBase } from '../_base/toggle';
+import { ToggleGroupBase, ToggleGroupItemBase } from '../_base/toggle-group';
+import { TooltipBase, TooltipContentBase, TooltipProviderBase, TooltipTriggerBase } from '../_base/tooltip';
+import { getCoreTypeStyles, getSpinnerVisual, getTypographyTone, getVersionStyleProfile, normalizeColors } from './version-styles';
 
 type VisualType = string | undefined;
 
