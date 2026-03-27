@@ -58,6 +58,32 @@ const AlertDialogContext = React.createContext<{
   effects?: string;
 }>({});
 
+type AlertDialogNodeKind = "title" | "description";
+
+function getElementDisplayName(type: unknown): string | undefined {
+  if (typeof type === "string") return type;
+  if (!type || (typeof type !== "function" && typeof type !== "object")) return undefined;
+  const typed = type as { displayName?: string; name?: string };
+  return typed.displayName || typed.name;
+}
+
+function hasAlertDialogNode(node: React.ReactNode, kind: AlertDialogNodeKind): boolean {
+  const targets =
+    kind === "title"
+      ? new Set(["AlertDialogTitle", AlertDialogPrimitive.Title.displayName || "AlertDialogTitle"])
+      : new Set(["AlertDialogDescription", AlertDialogPrimitive.Description.displayName || "AlertDialogDescription"]);
+
+  return React.Children.toArray(node).some((child) => {
+    if (!React.isValidElement(child)) return false;
+    const childElement = child as React.ReactElement<{ children?: React.ReactNode }>;
+    const displayName = getElementDisplayName(childElement.type);
+    if (displayName && targets.has(displayName)) {
+      return true;
+    }
+    return hasAlertDialogNode(childElement.props.children, kind);
+  });
+}
+
 const AlertDialog = ({ version = "default", variant = "default", effects, ...props }: AlertDialogProps) => {
   return (
     <AlertDialogContext.Provider value={{ version, variant, effects }}>
@@ -91,8 +117,18 @@ AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;
 const AlertDialogContent = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content> & BaseUIProps
->(({ className, ...props }, ref) => {
+>(({ className, children, ...props }, ref) => {
   const context = React.useContext(AlertDialogContext);
+  const fallbackTitleId = React.useId();
+  const fallbackDescriptionId = React.useId();
+  const hasTitle = hasAlertDialogNode(children, "title");
+  const hasDescription = hasAlertDialogNode(children, "description");
+
+  const ariaLabelledBy = props["aria-labelledby"];
+  const ariaDescribedBy = props["aria-describedby"];
+  const needsFallbackTitle = !hasTitle && ariaLabelledBy == null;
+  const needsFallbackDescription = !hasDescription && ariaDescribedBy == null;
+
   return (
     <AlertDialogPortal>
       <AlertDialogOverlay />
@@ -103,7 +139,21 @@ const AlertDialogContent = React.forwardRef<
         variant={context.variant}
         effects={context.effects}
         {...props}
-      />
+        aria-labelledby={ariaLabelledBy ?? (needsFallbackTitle ? fallbackTitleId : undefined)}
+        aria-describedby={ariaDescribedBy ?? (needsFallbackDescription ? fallbackDescriptionId : undefined)}
+      >
+        {children}
+        {needsFallbackTitle ? (
+          <AlertDialogTitle id={fallbackTitleId} className="sr-only">
+            Confirmation
+          </AlertDialogTitle>
+        ) : null}
+        {needsFallbackDescription ? (
+          <AlertDialogDescription id={fallbackDescriptionId} className="sr-only">
+            Confirm or cancel this action.
+          </AlertDialogDescription>
+        ) : null}
+      </AlertDialogContentHandler>
     </AlertDialogPortal>
   );
 });

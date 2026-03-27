@@ -35,7 +35,9 @@ const AlertDialogContent = React.forwardRef<
         className
       )}
       {...props}
-    />
+      >
+        {props.children}
+      </AlertDialogContentBase>
   </AlertDialogPortal>
 ))
 AlertDialogContent.displayName = 'AlertDialogContent'

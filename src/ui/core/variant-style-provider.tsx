@@ -6,7 +6,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { Variant, Version } from '../types/common';
 import { getVariantColors } from '../core/handler-factory';
-import { getVersionCssVariables } from './version-token-loader';
+import { getVersionCssVariables, getVersionTokenPrefix } from './version-token-loader';
 
 interface VariantStyleProviderProps {
   variant: Variant;
@@ -32,6 +32,8 @@ export function createVariantCssVariables(variant: Variant, version: Version = '
   const warning = getVariantColors('warning');
   const destructive = getVariantColors('destructive');
   const versionVariables = getVersionCssVariables(version);
+  const tokenPrefix = getVersionTokenPrefix(version);
+  const prefixed = (name: string) => `--${tokenPrefix}-${name}`;
 
   const accentPrimary = colors.accent?.primary || colors.base || '#06b6d4';
   const accentForeground = hasDarkLuminance(accentPrimary) ? '#ffffff' : '#0b1020';
@@ -65,6 +67,23 @@ export function createVariantCssVariables(variant: Variant, version: Version = '
     '--df-warning': warning.accent?.primary || warning.base || '#eab308',
     '--df-destructive': destructive.accent?.primary || destructive.base || '#ef4444',
     '--df-error': destructive.accent?.primary || destructive.base || '#ef4444',
+
+    // Mirror semantic tokens into active version namespace so version-scoped
+    // components (`--tp-*`, `--mg-*`, etc.) react to variant changes too.
+    [prefixed('accent')]: accentPrimary,
+    [prefixed('accent-dim')]: colors.accent?.secondary || colors.borderHover || border,
+    [prefixed('text')]: text,
+    [prefixed('text-dim')]: colors.textHover || text,
+    [prefixed('border')]: border,
+    [prefixed('surface')]: surface,
+    [prefixed('bg')]: colors.background || '#0a0b14',
+    [prefixed('primary')]: accentPrimary,
+    [prefixed('secondary')]: muted,
+    [prefixed('success')]: success.accent?.primary || success.base || '#22c55e',
+    [prefixed('warning')]: warning.accent?.primary || warning.base || '#eab308',
+    [prefixed('destructive')]: destructive.accent?.primary || destructive.base || '#ef4444',
+    [prefixed('danger')]: destructive.accent?.primary || destructive.base || '#ef4444',
+    [prefixed('critical')]: destructive.accent?.primary || destructive.base || '#ef4444',
   };
 }
 

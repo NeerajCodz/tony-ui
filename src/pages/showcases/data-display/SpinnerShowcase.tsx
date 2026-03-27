@@ -3,32 +3,32 @@
  */
 
 import Spinner from '@/ui/handlers/spinner';
-import type { SpinnerVariant, SpinnerVersion } from '@/ui/types/components/feedback';
+import type { SpinnerVariant } from '@/ui/types/components/feedback';
+import type { Version } from '@/ui/types/common';
 import { ShowcaseTemplate } from '../_components';
 
 const SPINNER_TYPES = ['default', 'outline'];
 
-// Map generic Version to SpinnerVersion
-const SPINNER_VERSION_MAP: Record<string, SpinnerVersion> = {
-  'default': 'rotating-hexagon',
-  'angular-corner': 'circuit-trace',
-  'border': 'radar-sweep',
-  'circuit-board': 'quantum-particles',
-  'compact': 'terminal-cursor',
-  'data-panel': 'energy-ring',
-  'energy-shield': 'matrix-code',
-  'ghost': 'plasma-orb',
-  'glass-morphism': 'data-burst',
-  'holo-frame': 'holographic-ring',
-  'large': 'rotating-hexagon',
-  'matrix-grid': 'matrix-code',
-  'neon': 'energy-ring',
-  'padding': 'rotating-hexagon',
-  'quantum-gate': 'quantum-particles',
-  'pill': 'rotating-hexagon',
-  'tactical-hud': 'circuit-trace',
-  'tech-panel': 'radar-sweep',
-  'terminal-window': 'terminal-cursor',
+const SPINNER_VERSION_MAP: Record<Version, Version> = {
+  'angular-corner': 'angular-corner',
+  border: 'border',
+  'circuit-board': 'circuit-board',
+  compact: 'compact',
+  'data-panel': 'data-panel',
+  default: 'default',
+  'energy-shield': 'energy-shield',
+  ghost: 'ghost',
+  'glass-morphism': 'glass-morphism',
+  'holo-frame': 'holo-frame',
+  large: 'large',
+  'matrix-grid': 'matrix-grid',
+  neon: 'neon',
+  padding: 'padding',
+  'quantum-gate': 'quantum-gate',
+  pill: 'pill',
+  'tactical-hud': 'tactical-hud',
+  'tech-panel': 'tech-panel',
+  'terminal-window': 'terminal-window',
 };
 
 // Map generic Variant to SpinnerVariant
@@ -53,7 +53,7 @@ export function SpinnerShowcase() {
       columns={5}
       renderComponent={({ version, variant, effects }) => (
         <Spinner
-          version={SPINNER_VERSION_MAP[version] || 'rotating-hexagon'}
+          version={SPINNER_VERSION_MAP[version]}
           variant={SPINNER_VARIANT_MAP[variant] || 'neutral'}
           effects={effects}
         />
