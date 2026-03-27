@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { PaginationBase, PaginationContentBase, PaginationItemBase, PaginationEllipsisBase } from '@/ui/components/_base/pagination';
 import { cn } from '@/lib/utils';
+import { PaginationBase, PaginationContentBase, PaginationEllipsisBase, PaginationItemBase } from '@/ui/components/_base/pagination';
 import { Button } from '@/ui/components/circuit-board/button';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
+import * as React from 'react';
 
 const Pagination = PaginationBase;
 
@@ -99,11 +99,6 @@ const PaginationEllipsis = ({
 PaginationEllipsis.displayName = 'PaginationEllipsis';
 
 export {
-  Pagination,
-  PaginationContent,
-  PaginationLink,
-  PaginationItem,
-  PaginationPrevious,
-  PaginationNext,
-  PaginationEllipsis,
+Pagination,
+PaginationContent,PaginationEllipsis,PaginationItem,PaginationLink,PaginationNext,PaginationPrevious
 };

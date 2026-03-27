@@ -1,7 +1,7 @@
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import * as React from "react";
 import { HoverCardPrimitive } from '../_base/hover-card';
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const HoverCard = HoverCardPrimitive.Root
 const HoverCardTrigger = HoverCardPrimitive.Trigger
@@ -23,4 +23,4 @@ const HoverCardContent = React.forwardRef<
 ))
 HoverCardContent.displayName = HoverCardPrimitive.Content.displayName
 
-export { HoverCard, HoverCardTrigger, HoverCardContent }
+export { HoverCard,HoverCardContent,HoverCardTrigger };

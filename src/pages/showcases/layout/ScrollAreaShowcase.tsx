@@ -2,9 +2,8 @@
  * ScrollArea Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { ScrollArea } from '@/ui/handlers/scroll-area';
+import { ShowcaseTemplate } from '../_components';
 
 const SCROLL_AREA_TYPES = ['default', 'horizontal'];
 

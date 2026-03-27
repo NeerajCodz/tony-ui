@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { Variant } from '../../types/common';
 

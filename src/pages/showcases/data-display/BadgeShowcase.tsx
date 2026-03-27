@@ -2,9 +2,8 @@
  * Badge Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Badge } from '@/ui/handlers/badge';
+import { ShowcaseTemplate } from '../_components';
 
 const BADGE_TYPES = ['default', 'solid', 'outline', 'soft'];
 
@@ -15,7 +14,7 @@ export function BadgeShowcase() {
       availableTypes={BADGE_TYPES}
       defaultType="solid"
       columns={5}
-      renderComponent={({ version, type, variant, effects }) => (
+      renderComponent={({ version, effects }) => (
         <Badge
           version={version}
           effects={effects}

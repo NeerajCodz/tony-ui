@@ -1,12 +1,6 @@
-import * as React from 'react';
-import { 
-    SliderBase, 
-    SliderTrackBase, 
-    SliderRangeBase, 
-    SliderThumbBase,
-    type SliderBaseProps
-} from '../_base/slider';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { SliderBase, SliderRangeBase, SliderThumbBase, SliderTrackBase, type SliderBaseProps } from '../_base/slider';
 
 export const Slider = React.forwardRef<React.ComponentRef<typeof SliderBase>, SliderBaseProps>(
   ({ className, ...props }, ref) => (

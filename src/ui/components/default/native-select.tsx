@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { NativeSelectBase, NativeSelectOptionBase, NativeSelectOptGroupBase, type NativeSelectBaseProps } from '../_base/native-select';
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
+import * as React from 'react';
+import { NativeSelectBase, NativeSelectOptGroupBase, NativeSelectOptionBase, type NativeSelectBaseProps } from '../_base/native-select';
 
 export const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectBaseProps>(
   ({ className, selectSize = 'md', visualType = 'default', children, ...props }, ref) => (

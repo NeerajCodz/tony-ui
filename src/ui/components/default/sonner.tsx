@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SonnerBase } from '../_base/sonner'
+import { SonnerBase } from '../_base/sonner';
 
 const Toaster = ({ ...props }: React.ComponentProps<typeof SonnerBase>) => {
   return (
@@ -21,4 +21,4 @@ const Toaster = ({ ...props }: React.ComponentProps<typeof SonnerBase>) => {
   )
 }
 
-export { Toaster }
+export { Toaster };

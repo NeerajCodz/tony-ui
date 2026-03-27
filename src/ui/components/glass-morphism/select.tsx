@@ -1,9 +1,9 @@
-import * as React from "react"
+import * as React from "react";
 import { SelectPrimitive } from '../_base/select';
-import { Check, ChevronDown, ChevronUp } from "lucide-react"
+import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, glassInputClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { glassEffectsClass, glassInputClass, type GlassEffects } from "./_effects";
 
 const Select = SelectPrimitive.Root
 

@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 import { SeparatorPrimitive } from '../_base/separator';
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 const Separator = React.forwardRef<
   React.ComponentRef<typeof SeparatorPrimitive.Root>,

@@ -1,14 +1,6 @@
-import * as React from 'react';
-import {
-  ChartContainerBase,
-  ChartTooltipBase,
-  ChartTooltipContentBase,
-  ChartLegendBase,
-  ChartLegendContentBase,
-  ChartStyleBase,
-  type ChartConfig,
-} from '@/ui/components/_base/chart';
 import { cn } from '@/lib/utils';
+import { ChartContainerBase, ChartLegendBase, ChartLegendContentBase, ChartStyleBase, ChartTooltipBase, ChartTooltipContentBase, type ChartConfig } from '@/ui/components/_base/chart';
+import * as React from 'react';
 
 const ChartContainer = ChartContainerBase;
 const ChartTooltip = ChartTooltipBase;
@@ -43,11 +35,9 @@ const ChartLegendContent = React.forwardRef<
 ChartLegendContent.displayName = 'ChartLegendContent';
 
 export {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
-  ChartStyle,
+ChartContainer,ChartLegend,
+ChartLegendContent,
+ChartStyle,ChartTooltip,
+ChartTooltipContent
 };
 export type { ChartConfig };

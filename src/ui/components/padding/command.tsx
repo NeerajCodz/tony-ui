@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { CommandPrimitive } from '../_base/command';
-import { Search } from "lucide-react"
+import { Search } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { Dialog, DialogContent } from "@/ui/components/padding/dialog"
+import { cn } from "@/lib/utils";
+import { Dialog, DialogContent } from "@/ui/components/padding/dialog";
 
 const Command = React.forwardRef<
   React.ComponentRef<typeof CommandPrimitive>,

@@ -2,9 +2,8 @@
  * Separator Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Separator } from '@/ui/handlers/separator';
+import { ShowcaseTemplate } from '../_components';
 
 const SEPARATOR_TYPES = ['default'];
 

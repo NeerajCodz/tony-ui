@@ -4,7 +4,7 @@
  * Each version applies its unique styling via config
  */
 
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Version, Variant, Size, VariantColors } from '../types/common';
 import { loadConfig, loadVariant, resolveStyles } from './create-handler';
 

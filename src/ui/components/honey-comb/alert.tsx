@@ -1,10 +1,9 @@
-import type * as __BaseImport_alert from '../_base/alert';
 
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
-import { hexGridPattern } from "./_effects"
+import { cn } from "@/lib/utils";
+import { hexGridPattern } from "./_effects";
 
 const alertVariants = cva(
   "relative w-full border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground font-body bg-[var(--hc-bg)]",

@@ -2,9 +2,8 @@
  * AnalogClock Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import AnalogClock from '@/ui/handlers/analog-clock';
+import { ShowcaseTemplate } from '../_components';
 
 const ANALOG_CLOCK_TYPES = ['default', 'minimal'];
 

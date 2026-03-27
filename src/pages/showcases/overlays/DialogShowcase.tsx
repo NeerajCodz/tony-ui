@@ -2,17 +2,9 @@
  * Dialog Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/ui/handlers/dialog';
 import { Button } from '@/ui/handlers/button';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/ui/handlers/dialog';
+import { ShowcaseTemplate } from '../_components';
 
 const DIALOG_TYPES = ['default', 'modal'];
 

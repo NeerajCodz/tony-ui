@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
-import type { InputGroupBaseProps } from '../_base/input-group';
 
 const InputGroup = React.forwardRef<
   HTMLDivElement,

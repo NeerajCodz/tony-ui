@@ -1,8 +1,7 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { SliderPrimitive } from '../_base/slider';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
-
 
 const Slider = React.forwardRef<
   React.ComponentRef<typeof SliderPrimitive.Root>,

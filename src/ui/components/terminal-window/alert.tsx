@@ -1,16 +1,7 @@
 import * as React from 'react';
-import { 
-  AlertBase, 
-  AlertIconBase, 
-  AlertContentBase, 
-  AlertTitleBase, 
-  AlertDescriptionBase, 
-  AlertCloseBase,
-  type AlertBaseProps 
-} from '../_base/alert';
+import { AlertBase, AlertTitleBase, AlertDescriptionBase, type AlertBaseProps } from '../_base/alert';
 import { cn } from '@/lib/utils';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
-import { Terminal } from 'lucide-react';
 
 export interface AlertProps extends AlertBaseProps {
   effects?: TerminalWindowEffects;

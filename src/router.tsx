@@ -1,59 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
-import { Layout, Layers, Box } from 'lucide-react';
-import { Dashboard, PanelsGallery, ElementsGallery } from './pages/legacy';
+import { Box, Layers, Layout } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { Link, Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
+import { ElementsGallery, PanelsGallery } from './pages/legacy';
 
 // Import new showcase components
+import { AccordionShowcase, AlertDialogShowcase, AlertShowcase, AnalogClockShowcase, AspectRatioShowcase, AvatarShowcase, BadgeShowcase, BreadcrumbShowcase, ButtonGroupShowcase, ButtonShowcase, CalendarShowcase, CardShowcase, CarouselShowcase, CheckboxShowcase, CollapsibleShowcase, CommandShowcase, ContextMenuShowcase, DataTableShowcase, DialogShowcase, DigitalClockShowcase, DrawerShowcase, DropdownMenuShowcase, HoverCardShowcase, InputShowcase, LabelShowcase, MenubarShowcase, NavigationMenuShowcase, PaginationShowcase, PopoverShowcase, ProgressShowcase, RadioGroupShowcase, ScrollAreaShowcase, SelectShowcase, SeparatorShowcase, SheetShowcase, SkeletonShowcase, SliderShowcase, SonnerShowcase, SpinnerShowcase, SwitchShowcase, TableShowcase, TabsShowcase, TextareaShowcase, ToggleGroupShowcase, ToggleShowcase, TooltipShowcase, TypographyShowcase } from './pages/showcases';
 import { ShowcaseIndex } from './pages/showcases/ShowcaseIndex';
-import {
-  ButtonShowcase,
-  ButtonGroupShowcase,
-  ToggleShowcase,
-  ToggleGroupShowcase,
-  InputShowcase,
-  TextareaShowcase,
-  CheckboxShowcase,
-  RadioGroupShowcase,
-  SwitchShowcase,
-  SliderShowcase,
-  SelectShowcase,
-  LabelShowcase,
-  BadgeShowcase,
-  AvatarShowcase,
-  SkeletonShowcase,
-  SpinnerShowcase,
-  TableShowcase,
-  DataTableShowcase,
-  CalendarShowcase,
-  CarouselShowcase,
-  AspectRatioShowcase,
-  AnalogClockShowcase,
-  DigitalClockShowcase,
-  TypographyShowcase,
-  TabsShowcase,
-  PaginationShowcase,
-  BreadcrumbShowcase,
-  MenubarShowcase,
-  NavigationMenuShowcase,
-  CommandShowcase,
-  CardShowcase,
-  SeparatorShowcase,
-  AccordionShowcase,
-  CollapsibleShowcase,
-  ScrollAreaShowcase,
-  DialogShowcase,
-  AlertDialogShowcase,
-  SheetShowcase,
-  DrawerShowcase,
-  PopoverShowcase,
-  TooltipShowcase,
-  HoverCardShowcase,
-  DropdownMenuShowcase,
-  ContextMenuShowcase,
-  AlertShowcase,
-  ProgressShowcase,
-  SonnerShowcase,
-} from './pages/showcases';
 
 const showcaseRoutes = [
   // Buttons & Actions

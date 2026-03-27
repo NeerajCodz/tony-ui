@@ -1,22 +1,8 @@
 import * as React from 'react';
-import { 
-  AlertDialogBase, 
-  AlertDialogTriggerBase, 
-  AlertDialogContentBase, 
-  AlertDialogHeaderBase, 
-  AlertDialogFooterBase, 
-  AlertDialogTitleBase, 
-  AlertDialogDescriptionBase, 
-  AlertDialogActionBase, 
-  AlertDialogCancelBase, 
-  AlertDialogOverlayBase, 
-  AlertDialogPortalBase,
-  type AlertDialogContentBaseProps 
-} from '../_base/alert-dialog';
+import { AlertDialogBase, AlertDialogTriggerBase, AlertDialogContentBase, AlertDialogHeaderBase, AlertDialogFooterBase, AlertDialogTitleBase, AlertDialogDescriptionBase, AlertDialogActionBase, AlertDialogCancelBase, AlertDialogOverlayBase, AlertDialogPortalBase, type AlertDialogContentBaseProps } from '../_base/alert-dialog';
 import { Button } from './button'; 
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
-
 
 const AlertDialog = AlertDialogBase;
 const AlertDialogTrigger = AlertDialogTriggerBase;

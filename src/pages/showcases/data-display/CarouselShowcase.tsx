@@ -2,15 +2,8 @@
  * Carousel Showcase
  */
 
-import React from 'react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/ui/handlers/carousel';
 import { ShowcaseTemplate } from '../_components';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/ui/handlers/carousel';
 
 const CAROUSEL_TYPES = ['default', 'fade'];
 

@@ -1,7 +1,6 @@
-import * as React from "react"
-import type { EmptyBaseProps } from '../_base/empty';
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 export function Empty({
   className,

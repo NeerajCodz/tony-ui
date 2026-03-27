@@ -1,11 +1,10 @@
-import type * as __BaseImport_sidebar from '../_base/sidebar';
 
-import * as React from "react"
-import { PanelLeft } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "./button"
-import { Sheet, SheetContent } from "./sheet"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { PanelLeft } from "lucide-react";
+import * as React from "react";
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
+import { Button } from "./button";
+import { Sheet, SheetContent } from "./sheet";
 
 const SidebarContext = React.createContext<{
   state: "expanded" | "collapsed"
@@ -158,4 +157,4 @@ function SidebarTrigger({
   )
 }
 
-export { Sidebar, SidebarProvider, SidebarTrigger }
+export { Sidebar,SidebarProvider,SidebarTrigger };

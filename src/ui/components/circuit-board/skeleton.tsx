@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { SkeletonBase, type SkeletonBaseProps } from '@/ui/components/_base/skeleton';
 import { cn } from '@/lib/utils';
+import { SkeletonBase, type SkeletonBaseProps } from '@/ui/components/_base/skeleton';
+import * as React from 'react';
 
 const Skeleton = React.forwardRef<HTMLDivElement, SkeletonBaseProps>(
   ({ className, ...props }, ref) => (

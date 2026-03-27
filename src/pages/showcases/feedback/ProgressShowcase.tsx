@@ -2,9 +2,8 @@
  * Progress Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Progress } from '@/ui/handlers/progress';
+import { ShowcaseTemplate } from '../_components';
 
 const PROGRESS_TYPES = ['default'];
 

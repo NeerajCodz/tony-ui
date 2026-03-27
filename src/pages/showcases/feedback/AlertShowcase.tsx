@@ -2,9 +2,8 @@
  * Alert Showcase
  */
 
-import React from 'react';
+import { Alert, AlertDescription, AlertTitle } from '@/ui/handlers/alert';
 import { ShowcaseTemplate } from '../_components';
-import { Alert, AlertTitle, AlertDescription } from '@/ui/handlers/alert';
 
 const ALERT_TYPES = ['default'];
 

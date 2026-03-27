@@ -1,6 +1,6 @@
-import * as React from 'react';
 import * as DirectionPrimitive from '@radix-ui/react-direction';
 import { Slot } from '@radix-ui/react-slot';
+import * as React from 'react';
 /**
  * Text direction values
  */
@@ -80,4 +80,4 @@ DirectionBase.displayName = 'DirectionBase';
  */
 export const useDirectionBase = DirectionPrimitive.useDirection;
 
-export { DirectionPrimitive, Slot };
+export { DirectionPrimitive,Slot };

@@ -1,12 +1,6 @@
-import * as React from 'react';
-import { 
-    TooltipBase, 
-    TooltipTriggerBase, 
-    TooltipContentBase, 
-    TooltipProviderBase, 
-    TooltipArrowBase
-} from '../_base/tooltip';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { TooltipArrowBase, TooltipBase, TooltipContentBase, TooltipProviderBase, TooltipTriggerBase } from '../_base/tooltip';
 
 export const Tooltip = TooltipBase;
 export const TooltipTrigger = TooltipTriggerBase;

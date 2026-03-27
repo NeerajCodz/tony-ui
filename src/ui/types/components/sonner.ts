@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import type { ColorType, SemanticColorId } from '../colors.d.js';
+import type { ColorType } from '../colors.d.js';
 
 /**
  * Sonner Toast Versions - 19 futuristic/themed toast notification styles

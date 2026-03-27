@@ -1,13 +1,5 @@
 import * as React from 'react';
-import { 
-  AlertBase, 
-  AlertIconBase, 
-  AlertContentBase, 
-  AlertTitleBase, 
-  AlertDescriptionBase, 
-  AlertCloseBase,
-  type AlertBaseProps 
-} from '../_base/alert';
+import { AlertBase, AlertTitleBase, AlertDescriptionBase, AlertCloseBase, type AlertBaseProps } from '../_base/alert';
 import { cn } from '@/lib/utils';
 import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 import { X } from 'lucide-react';
@@ -15,7 +7,6 @@ import { X } from 'lucide-react';
 export interface AlertProps extends AlertBaseProps {
   effects?: QuantumGateEffects;
 }
-
 
 const getVariantStyles = (variant: string = 'default', type: string = 'default') => {
   // Base colors for variants

@@ -2,10 +2,9 @@
  * Input Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import Input from '@/ui/handlers/input';
 import type { InputVariant } from '@/ui/types/components/inputs';
+import { ShowcaseTemplate } from '../_components';
 
 const INPUT_TYPES = ['default', 'filled', 'outline', 'underlined'];
 

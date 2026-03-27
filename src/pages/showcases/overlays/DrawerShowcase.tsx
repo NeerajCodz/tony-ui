@@ -2,17 +2,9 @@
  * Drawer Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/ui/handlers/drawer';
 import { Button } from '@/ui/handlers/button';
+import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/ui/handlers/drawer';
+import { ShowcaseTemplate } from '../_components';
 
 const DRAWER_TYPES = ['default', 'bottom'];
 

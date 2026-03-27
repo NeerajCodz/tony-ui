@@ -2,14 +2,9 @@
  * HoverCard Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/ui/handlers/hover-card';
 import { Button } from '@/ui/handlers/button';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/ui/handlers/hover-card';
+import { ShowcaseTemplate } from '../_components';
 
 const HOVER_CARD_TYPES = ['default'];
 

@@ -1,17 +1,6 @@
-import * as React from 'react';
-import { 
-    FieldBase, 
-    FieldLabelBase, 
-    FieldDescriptionBase, 
-    FieldErrorBase, 
-    FieldControlBase,
-    type FieldBaseProps,
-    type FieldLabelBaseProps,
-    type FieldDescriptionBaseProps,
-    type FieldErrorBaseProps,
-    type FieldControlBaseProps
-} from '../_base/field';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { FieldBase, FieldControlBase, FieldDescriptionBase, FieldErrorBase, FieldLabelBase, type FieldBaseProps, type FieldControlBaseProps, type FieldDescriptionBaseProps, type FieldErrorBaseProps, type FieldLabelBaseProps } from '../_base/field';
 
 export interface FieldProps extends FieldBaseProps {}
 export interface FieldLabelProps extends FieldLabelBaseProps {

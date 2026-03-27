@@ -2,16 +2,8 @@
  * NavigationMenu Showcase
  */
 
-import React from 'react';
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from '@/ui/handlers/navigation-menu';
 import { ShowcaseTemplate } from '../_components';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from '@/ui/handlers/navigation-menu';
 
 const NAV_MENU_TYPES = ['default', 'horizontal'];
 

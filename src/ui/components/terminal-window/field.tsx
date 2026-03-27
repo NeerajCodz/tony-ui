@@ -3,7 +3,6 @@ import { cn } from '@/lib/utils';
 import { Label } from '@/ui/components/terminal-window/label';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 
-import type * as __BaseImport_field from '../_base/field';
 
 export interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;

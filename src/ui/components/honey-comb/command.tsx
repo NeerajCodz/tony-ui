@@ -2,10 +2,10 @@ import * as React from 'react';
 "use client"
 
 import { CommandPrimitive } from '../_base/command';
-import { Search } from "lucide-react"
+import { Search } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { Dialog, DialogContent } from "@/ui/components/honey-comb/dialog"
+import { cn } from "@/lib/utils";
+import { Dialog, DialogContent } from "@/ui/components/honey-comb/dialog";
 
 const Command = React.forwardRef<
   React.ComponentRef<typeof CommandPrimitive>,

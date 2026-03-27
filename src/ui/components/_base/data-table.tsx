@@ -475,14 +475,14 @@ DataTableViewOptionsBase.displayName = 'DataTableViewOptionsBase';
 
 // Bridge exports so version components consume TanStack Table via _base only
 export {
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-  type ColumnDef,
-  type ColumnFiltersState,
-  type SortingState,
-  type VisibilityState,
+flexRender,
+getCoreRowModel,
+getFilteredRowModel,
+getPaginationRowModel,
+getSortedRowModel,
+useReactTable,
+type ColumnDef,
+type ColumnFiltersState,
+type SortingState,
+type VisibilityState
 } from '@tanstack/react-table';

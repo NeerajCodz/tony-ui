@@ -1,7 +1,7 @@
-import * as React from "react"
-import { ChevronRight, MoreHorizontal } from "lucide-react"
+import { cn } from "@/lib/utils";
+import { ChevronRight, MoreHorizontal } from "lucide-react";
+import * as React from "react";
 import { Slot } from '../_base/breadcrumb';
-import { cn } from "@/lib/utils"
 
 const Breadcrumb = React.forwardRef<
   HTMLElement,
@@ -107,11 +107,7 @@ const BreadcrumbEllipsis = ({
 BreadcrumbEllipsis.displayName = "BreadcrumbEllipsis"
 
 export {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  BreadcrumbEllipsis,
-}
+Breadcrumb,BreadcrumbEllipsis,BreadcrumbItem,
+BreadcrumbLink,BreadcrumbList,BreadcrumbPage,
+BreadcrumbSeparator
+};

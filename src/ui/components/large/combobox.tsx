@@ -2,19 +2,8 @@ import * as React from 'react';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/ui/components/large/button';
-import type { ComboboxBaseProps } from '../_base/combobox';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/ui/components/large/command';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/ui/components/large/popover';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/ui/components/large/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@/ui/components/large/popover';
 
 export interface ComboboxProps {
   options: { label: string; value: string }[];

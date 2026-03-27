@@ -2,9 +2,8 @@
  * Switch Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Switch } from '@/ui/handlers/switch';
+import { ShowcaseTemplate } from '../_components';
 
 const SWITCH_TYPES = ['default', 'outline'];
 

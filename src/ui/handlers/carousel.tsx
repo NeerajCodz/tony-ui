@@ -1,9 +1,7 @@
 "use client";
 
 import * as React from "react";
-import useEmblaCarousel, {
-  type UseEmblaCarouselType,
-} from "embla-carousel-react";
+import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { createHandler } from "../core/create-handler";
 import type { BaseUIProps } from "../types/common";
@@ -47,10 +45,6 @@ function useCarousel() {
   return context;
 }
 
-const CarouselHandler = createHandler<CarouselProps & BaseUIProps>({
-  componentName: "carousel",
-  exportName: "Carousel"
-});
 
 const CarouselContentHandler = createHandler<React.HTMLAttributes<HTMLDivElement> & BaseUIProps>({
   componentName: "carousel",
@@ -262,7 +256,7 @@ const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<"button"> & BaseUIProps
 >(({ className, ...props }, ref) => {
-  const { orientation, scrollPrev, canScrollPrev, version, variant, effects } = useCarousel();
+  const { scrollPrev, canScrollPrev, version, variant, effects } = useCarousel();
 
   return (
     <CarouselPreviousHandler
@@ -286,7 +280,7 @@ const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<"button"> & BaseUIProps
 >(({ className, ...props }, ref) => {
-  const { orientation, scrollNext, canScrollNext, version, variant, effects } = useCarousel();
+  const { scrollNext, canScrollNext, version, variant, effects } = useCarousel();
 
   return (
     <CarouselNextHandler

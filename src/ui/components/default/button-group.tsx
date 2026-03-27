@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { ButtonGroupBase, type ButtonGroupBaseProps } from '@/ui/components/_base/button-group';
 import { cn } from '@/lib/utils';
+import { ButtonGroupBase, type ButtonGroupBaseProps } from '@/ui/components/_base/button-group';
+import * as React from 'react';
 
 export interface ButtonGroupProps extends ButtonGroupBaseProps {}
 

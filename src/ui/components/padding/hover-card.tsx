@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 import { HoverCardPrimitive } from '../_base/hover-card';
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const HoverCard = HoverCardPrimitive.Root
 

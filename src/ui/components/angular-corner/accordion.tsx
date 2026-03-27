@@ -1,18 +1,7 @@
-import * as React from 'react';
-import { AccordionPrimitive } from '../_base/accordion';
-import { 
-  AccordionBase, 
-  AccordionItemBase, 
-  AccordionHeaderBase, 
-  AccordionTriggerBase, 
-  AccordionContentBase, 
-  type AccordionBaseProps,
-  type AccordionItemBaseProps,
-  type AccordionTriggerBaseProps,
-  type AccordionContentBaseProps
-} from '../_base/accordion';
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
+import * as React from 'react';
+import { AccordionBase, AccordionContentBase, AccordionHeaderBase, AccordionItemBase, AccordionPrimitive, AccordionTriggerBase, type AccordionBaseProps, type AccordionContentBaseProps, type AccordionItemBaseProps, type AccordionTriggerBaseProps } from '../_base/accordion';
 
 const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
@@ -78,4 +67,4 @@ const AccordionContent = React.forwardRef<React.ComponentRef<typeof AccordionPri
 );
 AccordionContent.displayName = 'AccordionContent';
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export { Accordion,AccordionContent,AccordionItem,AccordionTrigger };

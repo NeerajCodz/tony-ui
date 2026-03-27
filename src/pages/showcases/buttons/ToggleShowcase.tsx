@@ -3,11 +3,9 @@
  * Displays all toggle versions with interactive controls
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Toggle } from '@/ui/handlers/toggle';
 import { Bold } from 'lucide-react';
-import type { Version, Variant } from '@/ui/types/common';
+import { ShowcaseTemplate } from '../_components';
 
 // Toggle types
 const TOGGLE_TYPES = ['default', 'outline', 'solid'];

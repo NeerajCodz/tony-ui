@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { NativeSelectBase } from '@/ui/components/_base/native-select';
 import { cn } from '@/lib/utils';
+import { NativeSelectBase } from '@/ui/components/_base/native-select';
+import * as React from 'react';
 
 const NativeSelect = React.forwardRef<HTMLSelectElement, React.ComponentProps<typeof NativeSelectBase>>(
   ({ className, ...props }, ref) => (

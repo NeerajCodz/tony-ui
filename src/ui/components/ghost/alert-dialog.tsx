@@ -1,8 +1,8 @@
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import * as React from "react";
 import { AlertDialogPrimitive } from '../_base/alert-dialog';
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
-import { buttonVariants } from "./button"
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
+import { buttonVariants } from "./button";
 
 const AlertDialog = AlertDialogPrimitive.Root
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger
@@ -122,15 +122,6 @@ const AlertDialogCancel = React.forwardRef<
 AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName
 
 export {
-  AlertDialog,
-  AlertDialogPortal,
-  AlertDialogOverlay,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogFooter,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogAction,
-  AlertDialogCancel,
-}
+AlertDialog,AlertDialogAction,
+AlertDialogCancel,AlertDialogContent,AlertDialogDescription,AlertDialogFooter,AlertDialogHeader,AlertDialogOverlay,AlertDialogPortal,AlertDialogTitle,AlertDialogTrigger
+};

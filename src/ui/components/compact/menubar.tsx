@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { MenubarPrimitive } from '../_base/menubar';
-import { CheckIcon, ChevronRightIcon, DotFilledIcon } from '../_base/menubar';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { CheckIcon, ChevronRightIcon, DotFilledIcon, MenubarPrimitive } from '../_base/menubar';
 
 const Menubar = React.forwardRef<
   React.ComponentRef<typeof MenubarPrimitive.Root>,
@@ -222,20 +221,7 @@ const MenubarShortcut = ({
 MenubarShortcut.displayname = 'MenubarShortcut';
 
 export {
-  Menubar,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarContent,
-  MenubarItem,
-  MenubarSeparator,
-  MenubarLabel,
-  MenubarCheckboxItem,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarPortal,
-  MenubarSubContent,
-  MenubarSubTrigger,
-  MenubarGroup,
-  MenubarSub,
-  MenubarShortcut,
+Menubar,MenubarCheckboxItem,MenubarContent,MenubarGroup,MenubarItem,MenubarLabel,MenubarMenu,MenubarPortal,MenubarRadioGroup,
+MenubarRadioItem,MenubarSeparator,MenubarShortcut,MenubarSub,MenubarSubContent,
+MenubarSubTrigger,MenubarTrigger
 };

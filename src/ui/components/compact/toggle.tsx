@@ -1,7 +1,7 @@
+import { cn } from '@/lib/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 import { TogglePrimitive } from '../_base/toggle';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
 
 const toggleVariants = cva(
   'inline-flex items-center justify-center text-sm font-mono font-medium  tracking-normal transition-colors hover:bg-[var(--cp-bg)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cp-accent)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-[var(--cp-accent)] data-[state=on]:text-[var(--cp-bg)] border border-[var(--cp-border)] ring-offset-[var(--cp-bg)] ',
@@ -40,4 +40,4 @@ const Toggle = React.forwardRef<
 
 Toggle.displayName = TogglePrimitive.Root.displayName;
 
-export { Toggle, toggleVariants };
+export { Toggle,toggleVariants };

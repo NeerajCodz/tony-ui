@@ -1,12 +1,11 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { InputBase, type InputBaseProps } from '../_base/input';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 export interface InputProps extends InputBaseProps {
   effects?: EnergyShieldEffects;
 }
-
 
 const getVisualTypeStyles = (visualType: string = 'default', invalid: boolean = false) => {
   if (invalid) {

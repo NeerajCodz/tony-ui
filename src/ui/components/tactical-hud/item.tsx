@@ -1,19 +1,8 @@
 import * as React from 'react';
-import {
-  ItemBase,
-  ItemActionBase,
-  ItemBadgeBase,
-  ItemContentBase,
-  ItemDescriptionBase,
-  ItemIconBase,
-  ItemIndicatorBase,
-  ItemTitleBase,
-  type ItemBaseProps,
-} from '@/ui/components/_base/item';
+import { ItemBase, ItemActionBase, ItemBadgeBase, ItemContentBase, ItemDescriptionBase, ItemIconBase, ItemIndicatorBase, ItemTitleBase, type ItemBaseProps } from '@/ui/components/_base/item';
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects } from './_effects';
 import { cva, type VariantProps } from 'class-variance-authority';
-
 
 const itemVariants = cva(
   "group flex w-full items-center gap-3 relative overflow-hidden transition-all duration-400",

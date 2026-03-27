@@ -2,14 +2,8 @@
  * ContextMenu Showcase
  */
 
-import React from 'react';
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from '@/ui/handlers/context-menu';
 import { ShowcaseTemplate } from '../_components';
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-} from '@/ui/handlers/context-menu';
 
 const CONTEXT_MENU_TYPES = ['default'];
 

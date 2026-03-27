@@ -7,10 +7,9 @@
  * - Effects toggle
  */
 
-import React from 'react';
-import { motion } from 'motion/react';
-import { Play, Rewind, Sparkles, SparklesIcon } from 'lucide-react';
 import type { Variant } from '@/ui/types/common';
+import { Play, Rewind, Sparkles, SparklesIcon } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export interface ShowcaseHeaderProps {
   componentName: string;

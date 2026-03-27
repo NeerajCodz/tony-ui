@@ -2,16 +2,8 @@
  * Table Showcase
  */
 
-import React from 'react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/ui/handlers/table';
 import { ShowcaseTemplate } from '../_components';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/ui/handlers/table';
 
 const TABLE_TYPES = ['default', 'striped'];
 

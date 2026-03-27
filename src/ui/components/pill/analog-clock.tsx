@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
-import type { AnalogClockBaseProps } from '../_base/analog-clock';
 
 interface AnalogClockProps extends React.SVGAttributes<SVGSVGElement> {
   visualType?: string;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
 const AnalogClock = React.forwardRef<SVGSVGElement, AnalogClockProps>(
   ({ className, size = 'md', visualType = 'outline', ...props }, ref) => {

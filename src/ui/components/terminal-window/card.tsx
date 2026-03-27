@@ -1,12 +1,5 @@
 import * as React from 'react';
-import { 
-  CardBase, 
-  CardHeaderBase, 
-  CardTitleBase, 
-  CardDescriptionBase, 
-  CardContentBase, 
-  CardFooterBase 
-} from '../_base/card';
+import { CardBase, CardHeaderBase, CardTitleBase, CardDescriptionBase, CardContentBase, CardFooterBase } from '../_base/card';
 import { cn } from '@/lib/utils';
 import { terminalWindowEffectsClass, type TerminalWindowEffects } from './_effects';
 

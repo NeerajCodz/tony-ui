@@ -1,33 +1,14 @@
-import * as React from 'react';
-import {
-  SidebarBase,
-  SidebarHeaderBase,
-  SidebarContentBase,
-  SidebarFooterBase,
-  SidebarGroupBase,
-  SidebarGroupLabelBase,
-  SidebarGroupContentBase,
-  SidebarMenuBase,
-  SidebarMenuItemBase,
-  SidebarMenuButtonBase,
-  SidebarMenuSubBase,
-  SidebarRailBase,
-  SidebarTriggerBase,
-  SidebarInsetBase,
-  SidebarContext,
-  useSidebar,
-  type SidebarBaseProps,
-} from '../_base/sidebar';
 import { cn } from '@/lib/utils';
+import { PanelLeft } from 'lucide-react';
+import * as React from 'react';
+import { SidebarContext, useSidebar, type SidebarBaseProps } from '../_base/sidebar';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 import { Button } from './button';
 import { Sheet, SheetContent } from './sheet';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
-import { PanelLeft } from 'lucide-react';
-
 
 // Re-export context and hook
-export { SidebarContext, useSidebar };
+export { SidebarContext,useSidebar };
 
 type SidebarWithEffects<T> = T & { effects?: EnergyShieldEffects };
 

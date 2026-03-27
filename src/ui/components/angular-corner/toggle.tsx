@@ -1,7 +1,7 @@
+import { cn } from '@/lib/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 import { TogglePrimitive } from '../_base/toggle';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
 
 const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
@@ -42,4 +42,4 @@ const Toggle = React.forwardRef<
 
 Toggle.displayName = TogglePrimitive.Root.displayName;
 
-export { Toggle, toggleVariants };
+export { Toggle,toggleVariants };

@@ -1,20 +1,7 @@
-import * as React from 'react';
-import { 
-    SelectBase, 
-    SelectGroupBase, 
-    SelectValueBase, 
-    SelectTriggerBase, 
-    SelectContentBase, 
-    SelectLabelBase, 
-    SelectItemBase, 
-    SelectSeparatorBase, 
-    SelectScrollUpButtonBase,
-    SelectScrollDownButtonBase,
-    type SelectTriggerBaseProps
-} from '../_base/select';
 import { cn } from '@/lib/utils';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react';
-import { SelectPrimitive } from '../_base/select';
+import * as React from 'react';
+import { SelectBase, SelectContentBase, SelectGroupBase, SelectItemBase, SelectLabelBase, SelectPrimitive, SelectScrollDownButtonBase, SelectScrollUpButtonBase, SelectSeparatorBase, SelectTriggerBase, SelectValueBase, type SelectTriggerBaseProps } from '../_base/select';
 export const Select = SelectBase;
 
 export const SelectGroup = SelectGroupBase;

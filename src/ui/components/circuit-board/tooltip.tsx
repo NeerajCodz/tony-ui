@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { TooltipBase, TooltipTriggerBase, TooltipContentBase, TooltipProviderBase, type TooltipContentBaseProps } from '@/ui/components/_base/tooltip';
 import { cn } from '@/lib/utils';
+import { TooltipBase, TooltipContentBase, TooltipProviderBase, TooltipTriggerBase, type TooltipContentBaseProps } from '@/ui/components/_base/tooltip';
+import * as React from 'react';
 
 const TooltipProvider = TooltipProviderBase;
 const Tooltip = TooltipBase;
@@ -21,4 +21,4 @@ const TooltipContent = React.forwardRef<React.ComponentRef<typeof TooltipContent
 );
 TooltipContent.displayName = 'TooltipContent';
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
+export { Tooltip,TooltipContent,TooltipProvider,TooltipTrigger };

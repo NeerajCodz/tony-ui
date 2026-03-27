@@ -2,9 +2,8 @@
  * Avatar Showcase
  */
 
-import React from 'react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/ui/handlers/avatar';
 import { ShowcaseTemplate } from '../_components';
-import { Avatar, AvatarImage, AvatarFallback } from '@/ui/handlers/avatar';
 
 const AVATAR_TYPES = ['default'];
 

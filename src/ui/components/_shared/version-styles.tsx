@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Version, VariantColors } from '../../types/common';
+import type { VariantColors, Version } from '../../types/common';
 
 export type CoreStyleType = 'default' | 'solid' | 'outline' | 'ghost' | 'inverse' | 'contrast' | 'soft';
 

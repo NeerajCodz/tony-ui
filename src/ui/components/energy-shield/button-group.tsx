@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { ButtonGroupBase, type ButtonGroupBaseProps } from '../_base/button-group';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 export interface ButtonGroupProps extends ButtonGroupBaseProps {

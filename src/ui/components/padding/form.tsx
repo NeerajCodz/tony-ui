@@ -1,17 +1,8 @@
 import * as React from 'react';
-import {
-  Controller,
-  ControllerProps,
-  FieldPath,
-  FieldValues,
-  FormProvider,
-  useFormContext,
-  LabelPrimitive,
-  Slot
-} from '../_base/form';
+import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, useFormContext, LabelPrimitive, Slot } from '../_base/form';
 
-import { cn } from "@/lib/utils"
-import { Label } from "@/ui/components/padding/label"
+import { cn } from "@/lib/utils";
+import { Label } from "@/ui/components/padding/label";
 
 const Form = FormProvider
 

@@ -1,17 +1,11 @@
-import * as React from 'react';
-import { 
-  AvatarBase, 
-  AvatarImageBase, 
-  AvatarFallbackBase, 
-  type AvatarBaseProps 
-} from '../_base/avatar';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { AvatarBase, AvatarFallbackBase, AvatarImageBase, type AvatarBaseProps } from '../_base/avatar';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 export interface AvatarProps extends AvatarBaseProps {
   effects?: EnergyShieldEffects;
 }
-
 
 const getSizeStyles = (size: string = 'md') => {
   switch (size) {
@@ -72,4 +66,4 @@ const AvatarFallback = React.forwardRef<
 ));
 AvatarFallback.displayName = 'AvatarFallback';
 
-export { Avatar, AvatarImage, AvatarFallback };
+export { Avatar,AvatarFallback,AvatarImage };

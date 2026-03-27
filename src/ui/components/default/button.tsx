@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { ButtonBase, type ButtonBaseProps } from '../_base/button';
-import { cn } from '@/lib/utils';
 
 export interface ButtonProps extends ButtonBaseProps {}
 

@@ -2,10 +2,9 @@
  * Sonner Showcase (Toast notifications)
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Button } from '@/ui/handlers/button';
 import { toast } from 'sonner';
+import { ShowcaseTemplate } from '../_components';
 
 const SONNER_TYPES = ['default'];
 
@@ -16,7 +15,7 @@ export function SonnerShowcase() {
       availableTypes={SONNER_TYPES}
       defaultType="default"
       columns={4}
-      renderComponent={({ version, variant, effects }) => (
+      renderComponent={({ version }) => (
         <Button
           version={version}
           variant="outline"

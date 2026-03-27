@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { KbdBase } from '@/ui/components/_base/kbd';
 import { cn } from '@/lib/utils';
+import { KbdBase } from '@/ui/components/_base/kbd';
+import * as React from 'react';
 
 const Kbd = React.forwardRef<HTMLElement, React.ComponentProps<typeof KbdBase>>(
   ({ className, ...props }, ref) => (

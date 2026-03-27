@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { BreadcrumbBase, BreadcrumbListBase, BreadcrumbItemBase, BreadcrumbLinkBase, BreadcrumbPageBase, BreadcrumbSeparatorBase, BreadcrumbEllipsisBase } from '@/ui/components/_base/breadcrumb';
 import { cn } from '@/lib/utils';
+import { BreadcrumbBase, BreadcrumbEllipsisBase, BreadcrumbItemBase, BreadcrumbLinkBase, BreadcrumbListBase, BreadcrumbPageBase, BreadcrumbSeparatorBase } from '@/ui/components/_base/breadcrumb';
 import { Slash } from 'lucide-react';
+import * as React from 'react';
 
 const Breadcrumb = BreadcrumbBase;
 
@@ -85,11 +85,7 @@ const BreadcrumbEllipsis = ({
 BreadcrumbEllipsis.displayName = 'BreadcrumbEllipsis';
 
 export {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  BreadcrumbEllipsis,
+Breadcrumb,BreadcrumbEllipsis,BreadcrumbItem,
+BreadcrumbLink,BreadcrumbList,BreadcrumbPage,
+BreadcrumbSeparator
 };

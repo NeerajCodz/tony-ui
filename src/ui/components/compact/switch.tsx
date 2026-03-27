@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { SwitchPrimitive } from '../_base/switch';
-import { SwitchBase, SwitchThumbBase, type SwitchBaseProps } from '../_base/switch';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { SwitchBase, SwitchPrimitive, SwitchThumbBase, type SwitchBaseProps } from '../_base/switch';
 
 export interface SwitchProps extends SwitchBaseProps {}
 

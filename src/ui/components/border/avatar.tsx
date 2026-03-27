@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { AvatarBase, AvatarImageBase, AvatarFallbackBase } from '@/ui/components/_base/avatar';
 import { cn } from '@/lib/utils';
+import { AvatarBase, AvatarFallbackBase, AvatarImageBase } from '@/ui/components/_base/avatar';
+import * as React from 'react';
 
 const Avatar = React.forwardRef<React.ComponentRef<typeof AvatarBase>, React.ComponentPropsWithoutRef<typeof AvatarBase>>(
   ({ className, ...props }, ref) => (
@@ -41,4 +41,4 @@ const AvatarFallback = React.forwardRef<React.ComponentRef<typeof AvatarFallback
 );
 AvatarFallback.displayName = 'AvatarFallback';
 
-export { Avatar, AvatarImage, AvatarFallback };
+export { Avatar,AvatarFallback,AvatarImage };

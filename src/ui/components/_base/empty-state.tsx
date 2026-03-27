@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-  EmptyActionsBase,
-  EmptyBase,
-  EmptyDescriptionBase,
-  EmptyIconBase,
-  EmptyTitleBase,
-  type EmptyBaseProps,
-} from './empty';
+import { EmptyActionsBase, EmptyBase, EmptyDescriptionBase, EmptyIconBase, EmptyTitleBase, type EmptyBaseProps } from './empty';
 
 type EmptyStateIconComponent = React.ComponentType<{ className?: string }>;
 

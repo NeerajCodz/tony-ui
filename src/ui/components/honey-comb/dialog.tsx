@@ -1,11 +1,11 @@
 "use client"
 
-import * as React from "react"
+import * as React from "react";
 import { DialogPrimitive } from '../_base/dialog';
-import { X } from "lucide-react"
+import { X } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { hexGridPattern } from "./_effects"
+import { cn } from "@/lib/utils";
+import { hexGridPattern } from "./_effects";
 
 const Dialog = DialogPrimitive.Root
 

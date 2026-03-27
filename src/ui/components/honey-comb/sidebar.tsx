@@ -1,24 +1,19 @@
 "use client"
 
-import * as React from "react"
+import * as React from "react";
 import { Slot } from '../_base/sidebar';
-import { VariantProps, cva } from "class-variance-authority"
-import { PanelLeft } from "lucide-react"
+import { VariantProps, cva } from "class-variance-authority";
+import { PanelLeft } from "lucide-react";
 
-import { useIsMobile } from "./use-mobile"
-import { cn } from "@/lib/utils"
-import { Button } from "@/ui/components/honey-comb/button"
-import { Input } from "@/ui/components/honey-comb/input"
-import { Separator } from "@/ui/components/honey-comb/separator"
-import { Sheet, SheetContent } from "@/ui/components/honey-comb/sheet"
-import { Skeleton } from "@/ui/components/honey-comb/skeleton"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/ui/components/honey-comb/tooltip"
-import { hexGridPattern } from "./_effects"
+import { useIsMobile } from "./use-mobile";
+import { cn } from "@/lib/utils";
+import { Button } from "@/ui/components/honey-comb/button";
+import { Input } from "@/ui/components/honey-comb/input";
+import { Separator } from "@/ui/components/honey-comb/separator";
+import { Sheet, SheetContent } from "@/ui/components/honey-comb/sheet";
+import { Skeleton } from "@/ui/components/honey-comb/skeleton";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/ui/components/honey-comb/tooltip";
+import { hexGridPattern } from "./_effects";
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7

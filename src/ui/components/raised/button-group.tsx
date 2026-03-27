@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
-import { Button, ButtonProps } from '@/ui/components/raised/button';
-import type { ButtonGroupBaseProps } from '../_base/button-group';
+import { ButtonProps } from '@/ui/components/raised/button';
 
 interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   orientation?: 'horizontal' | 'vertical';

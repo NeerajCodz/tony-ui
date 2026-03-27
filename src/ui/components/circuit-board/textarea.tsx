@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { TextareaBase, type TextareaBaseProps } from '@/ui/components/_base/textarea';
 import { cn } from '@/lib/utils';
+import { TextareaBase, type TextareaBaseProps } from '@/ui/components/_base/textarea';
+import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 const textareaVariants = cva(
   'flex w-full rounded-none border font-mono px-3 py-2 text-sm shadow-sm placeholder:text-[var(--cb-trace-dim)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cb-trace-lit)] focus-visible:shadow-[0_0_8px_var(--cb-trace-lit)] disabled:cursor-not-allowed disabled:opacity-50 uppercase tracking-wide',

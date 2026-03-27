@@ -1,6 +1,5 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import type { AnalogClockBaseProps } from '../_base/analog-clock';
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
 interface AnalogClockProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: Date

@@ -1,10 +1,9 @@
-import * as React from 'react';
-import { BadgeBase, type BadgeBaseProps } from '../_base/badge';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
+import * as React from 'react';
+import { BadgeBase, type BadgeBaseProps } from '../_base/badge';
 
 export interface BadgeProps extends BadgeBaseProps {}
-
 
 const getVisualTypeStyles = (type: string = 'default') => {
   switch (type) {

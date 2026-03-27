@@ -1,17 +1,6 @@
-import * as React from 'react';
-import {
-  ChartBase,
-  ChartContainerBase,
-  ChartLegendBase,
-  ChartLegendContentBase,
-  ChartStyleBase,
-  ChartTooltipBase,
-  ChartTooltipContentBase,
-  ResponsiveContainer,
-  type ChartConfig,
-  useChart,
-} from '../_base/chart';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { ChartBase, ChartContainerBase, ChartLegendBase, ChartLegendContentBase, ChartStyleBase, ChartTooltipBase, ChartTooltipContentBase, ResponsiveContainer, useChart, type ChartConfig } from '../_base/chart';
 
 /* -------------------------------------------------------------------------- */
 /*                               Chart Container                              */
@@ -267,11 +256,9 @@ function getPayloadConfigFromPayload(
 }
 
 export {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
-  ChartStyleBase as ChartStyle,
+ChartContainer,ChartLegend,
+ChartLegendContent,
+ChartStyleBase as ChartStyle,ChartTooltip,
+ChartTooltipContent
 };
 export type { ChartConfig };

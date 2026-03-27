@@ -1,20 +1,10 @@
-import * as React from 'react';
-import { 
-  BreadcrumbBase, 
-  BreadcrumbListBase, 
-  BreadcrumbItemBase, 
-  BreadcrumbLinkBase, 
-  BreadcrumbPageBase, 
-  BreadcrumbSeparatorBase, 
-  BreadcrumbEllipsisBase,
-  type BreadcrumbBaseProps 
-} from '../_base/breadcrumb';
 import { cn } from '@/lib/utils';
 import { ChevronRight } from 'lucide-react';
+import * as React from 'react';
+import { BreadcrumbBase, BreadcrumbEllipsisBase, BreadcrumbItemBase, BreadcrumbLinkBase, BreadcrumbListBase, BreadcrumbPageBase, BreadcrumbSeparatorBase, type BreadcrumbBaseProps } from '../_base/breadcrumb';
 
 export interface BreadcrumbProps extends BreadcrumbBaseProps {}
 
-const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
 const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
   ({ className, ...props }, ref) => (
@@ -97,11 +87,7 @@ const BreadcrumbEllipsis = React.forwardRef<HTMLSpanElement, React.ComponentProp
 BreadcrumbEllipsis.displayName = 'BreadcrumbEllipsis';
 
 export {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  BreadcrumbEllipsis,
+Breadcrumb,BreadcrumbEllipsis,BreadcrumbItem,
+BreadcrumbLink,BreadcrumbList,BreadcrumbPage,
+BreadcrumbSeparator
 };

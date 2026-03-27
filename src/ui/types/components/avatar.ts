@@ -1,4 +1,3 @@
-import type { ColorType } from '../colors.d.js';
 
 /**
  * Avatar Versions - From standard to cyber-themed

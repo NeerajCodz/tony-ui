@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { ToggleGroupBase, ToggleGroupItemBase, type ToggleGroupBaseProps, type ToggleGroupItemBaseProps } from '@/ui/components/_base/toggle-group';
 import { cn } from '@/lib/utils';
-import { toggleVariants } from './toggle';
+import { ToggleGroupBase, ToggleGroupItemBase, type ToggleGroupBaseProps, type ToggleGroupItemBaseProps } from '@/ui/components/_base/toggle-group';
 import { VariantProps } from 'class-variance-authority';
+import * as React from 'react';
+import { toggleVariants } from './toggle';
 
 const ToggleGroup = React.forwardRef<React.ComponentRef<typeof ToggleGroupBase>, ToggleGroupBaseProps>(
   ({ className, ...props }, ref) => (
@@ -28,4 +28,4 @@ const ToggleGroupItem = React.forwardRef<React.ComponentRef<typeof ToggleGroupIt
 );
 ToggleGroupItem.displayName = 'ToggleGroupItem';
 
-export { ToggleGroup, ToggleGroupItem };
+export { ToggleGroup,ToggleGroupItem };

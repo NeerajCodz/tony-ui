@@ -7,7 +7,6 @@
  * NO hardcoded colors, styles, or variants
  */
 
-import React from 'react';
 import { createHandler } from '../core/create-handler';
 import type { ButtonProps } from '../types/components/button';
 import type { BaseUIProps } from '../types/common';

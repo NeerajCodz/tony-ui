@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { SheetBase, SheetPortalBase, SheetOverlayBase, SheetTriggerBase, SheetCloseBase, SheetContentBase, SheetHeaderBase, SheetFooterBase, SheetTitleBase, SheetDescriptionBase, type SheetContentBaseProps } from '@/ui/components/_base/sheet';
 import { cn } from '@/lib/utils';
-import { X } from 'lucide-react';
+import { SheetBase, SheetCloseBase, SheetContentBase, SheetDescriptionBase, SheetFooterBase, SheetHeaderBase, SheetOverlayBase, SheetPortalBase, SheetTitleBase, SheetTriggerBase, type SheetContentBaseProps } from '@/ui/components/_base/sheet';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { X } from 'lucide-react';
+import * as React from 'react';
 
 const Sheet = SheetBase;
 const SheetTrigger = SheetTriggerBase;
@@ -108,14 +108,6 @@ const SheetDescription = React.forwardRef<React.ComponentRef<typeof SheetDescrip
 SheetDescription.displayName = 'SheetDescription';
 
 export {
-  Sheet,
-  SheetPortal,
-  SheetOverlay,
-  SheetTrigger,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetFooter,
-  SheetTitle,
-  SheetDescription,
+Sheet,SheetClose,
+SheetContent,SheetDescription,SheetFooter,SheetHeader,SheetOverlay,SheetPortal,SheetTitle,SheetTrigger
 };

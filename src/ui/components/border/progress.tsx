@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { ProgressBase, ProgressIndicatorBase, type ProgressBaseProps } from '@/ui/components/_base/progress';
 import { cn } from '@/lib/utils';
+import { ProgressBase, ProgressIndicatorBase, type ProgressBaseProps } from '@/ui/components/_base/progress';
+import * as React from 'react';
 
 const Progress = React.forwardRef<React.ComponentRef<typeof ProgressBase>, ProgressBaseProps>(
   ({ className, value, ...props }, ref) => (

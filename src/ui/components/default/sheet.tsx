@@ -1,18 +1,7 @@
-import * as React from 'react';
-import { 
-    SheetBase, 
-    SheetPortalBase, 
-    SheetOverlayBase, 
-    SheetContentBase, 
-    SheetHeaderBase, 
-    SheetFooterBase, 
-    SheetTitleBase, 
-    SheetDescriptionBase, 
-    SheetCloseBase, 
-    SheetTriggerBase 
-} from '../_base/sheet';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
+import * as React from 'react';
+import { SheetBase, SheetCloseBase, SheetContentBase, SheetDescriptionBase, SheetFooterBase, SheetHeaderBase, SheetOverlayBase, SheetPortalBase, SheetTitleBase, SheetTriggerBase } from '../_base/sheet';
 
 export const Sheet = SheetBase;
 export const SheetTrigger = SheetTriggerBase;

@@ -1,8 +1,7 @@
+import { cn } from '@/lib/utils'; // Assuming this exists or I define styles inline. Button styles.
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import * as React from 'react';
 import { DayPicker } from '../_base/calendar';
-import { CalendarBase, type CalendarBaseProps } from '../_base/calendar';
-import { cn } from '@/lib/utils';// Assuming this exists or I define styles inline. Button styles.
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
     visualType?: string;
@@ -11,7 +10,7 @@ export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
 
 // Map DayPicker styles to our design system
 export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
-  ({ className, classNames, showOutsideDays = true, visualType = 'default', variant, ...props }, ref) => {
+  ({ className, classNames, showOutsideDays = true, visualType = 'default', variant, ...props }, _ref) => {
     return (
       <DayPicker
         showOutsideDays={showOutsideDays}

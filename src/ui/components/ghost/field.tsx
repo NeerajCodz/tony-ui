@@ -1,8 +1,7 @@
-import type * as __BaseImport_field from '../_base/field';
 
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import * as React from "react";
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 export interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
   effects?: GhostEffects
@@ -21,4 +20,4 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
 )
 Field.displayName = "Field"
 
-export { Field }
+export { Field };

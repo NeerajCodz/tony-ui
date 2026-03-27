@@ -1,8 +1,7 @@
-import type * as __BaseImport_field from '../_base/field';
 
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 export function Field({
   className,

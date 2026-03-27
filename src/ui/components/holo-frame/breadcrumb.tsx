@@ -1,14 +1,5 @@
 import * as React from 'react';
-import { 
-  BreadcrumbBase, 
-  BreadcrumbListBase, 
-  BreadcrumbItemBase, 
-  BreadcrumbLinkBase, 
-  BreadcrumbPageBase, 
-  BreadcrumbSeparatorBase, 
-  BreadcrumbEllipsisBase,
-  type BreadcrumbBaseProps 
-} from '../_base/breadcrumb';
+import { BreadcrumbBase, BreadcrumbListBase, BreadcrumbItemBase, BreadcrumbLinkBase, BreadcrumbPageBase, BreadcrumbSeparatorBase, BreadcrumbEllipsisBase, type BreadcrumbBaseProps } from '../_base/breadcrumb';
 import { cn } from '@/lib/utils';
 import { holoFrameEffectsClass, type HoloFrameEffects } from './_effects';
 import { ChevronRight } from 'lucide-react';

@@ -2,9 +2,8 @@
  * Tabs Showcase
  */
 
-import React from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/ui/handlers/tabs';
 import { ShowcaseTemplate } from '../_components';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/ui/handlers/tabs';
 
 const TABS_TYPES = ['default'];
 

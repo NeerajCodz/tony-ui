@@ -1,9 +1,8 @@
-import type * as __BaseImport_spinner from '../_base/spinner';
 
-import * as React from "react"
-import { Loader2 } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
+import * as React from "react";
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
     effects?: GhostEffects
@@ -18,4 +17,4 @@ const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(
 )
 Spinner.displayName = "Spinner"
 
-export { Spinner }
+export { Spinner };

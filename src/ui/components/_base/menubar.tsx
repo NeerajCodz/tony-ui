@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as MenubarPrimitive from '@radix-ui/react-menubar';
 import { CheckIcon, ChevronRightIcon, DotFilledIcon } from '@radix-ui/react-icons';
+import * as MenubarPrimitive from '@radix-ui/react-menubar';
+import * as React from 'react';
 /**
  * Menubar type variants
  */
@@ -388,8 +388,7 @@ export const MenubarArrowBase = React.forwardRef<
 >((props, ref) => <MenubarPrimitive.Arrow ref={ref} {...props} />);
 MenubarArrowBase.displayName = 'MenubarArrowBase';
 
-export { MenubarPrimitive };
-export { CheckIcon, ChevronRightIcon, DotFilledIcon };
+export { CheckIcon,ChevronRightIcon,DotFilledIcon,MenubarPrimitive };
 
 // Compatibility aliases expected by version wrappers
 export const Menubar = MenubarBase;

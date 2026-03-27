@@ -1,17 +1,11 @@
 import * as React from 'react';
-import { 
-  AvatarBase, 
-  AvatarImageBase, 
-  AvatarFallbackBase, 
-  type AvatarBaseProps 
-} from '../_base/avatar';
+import { AvatarBase, AvatarImageBase, AvatarFallbackBase, type AvatarBaseProps } from '../_base/avatar';
 import { cn } from '@/lib/utils';
 import { quantumGateEffectsClass, type QuantumGateEffects } from './_effects';
 
 export interface AvatarProps extends AvatarBaseProps {
   effects?: QuantumGateEffects;
 }
-
 
 const getSizeStyles = (size: string = 'md') => {
   switch (size) {

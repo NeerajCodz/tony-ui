@@ -2,10 +2,9 @@
  * Spinner Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import Spinner from '@/ui/handlers/spinner';
-import type { SpinnerVersion, SpinnerVariant } from '@/ui/types/components/feedback';
+import type { SpinnerVariant, SpinnerVersion } from '@/ui/types/components/feedback';
+import { ShowcaseTemplate } from '../_components';
 
 const SPINNER_TYPES = ['default', 'outline'];
 

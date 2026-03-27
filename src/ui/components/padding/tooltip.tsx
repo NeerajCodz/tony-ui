@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 import { TooltipPrimitive } from '../_base/tooltip';
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const TooltipProvider = TooltipPrimitive.Provider
 

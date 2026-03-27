@@ -2,9 +2,8 @@
  * DigitalClock Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import DigitalClock from '@/ui/handlers/digital-clock';
+import { ShowcaseTemplate } from '../_components';
 
 const DIGITAL_CLOCK_TYPES = ['default', '24h'];
 

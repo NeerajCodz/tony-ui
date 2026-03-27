@@ -1,16 +1,12 @@
 "use client"
 
 import { format } from '../_base/date-picker';
-import { Calendar as CalendarIcon } from "lucide-react"
+import { Calendar as CalendarIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/ui/components/honey-comb/button"
-import { Calendar } from "@/ui/components/honey-comb/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/ui/components/honey-comb/popover"
+import { cn } from "@/lib/utils";
+import { Button } from "@/ui/components/honey-comb/button";
+import { Calendar } from "@/ui/components/honey-comb/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/ui/components/honey-comb/popover";
 
 export function DatePicker({
   date,

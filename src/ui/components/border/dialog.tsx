@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { DialogBase, DialogTriggerBase, DialogPortalBase, DialogOverlayBase, DialogContentBase, DialogHeaderBase, DialogFooterBase, DialogTitleBase, DialogDescriptionBase, DialogCloseBase, type DialogContentBaseProps } from '@/ui/components/_base/dialog';
 import { cn } from '@/lib/utils';
+import { DialogBase, DialogCloseBase, DialogContentBase, DialogDescriptionBase, DialogFooterBase, DialogHeaderBase, DialogOverlayBase, DialogPortalBase, DialogTitleBase, DialogTriggerBase, type DialogContentBaseProps } from '@/ui/components/_base/dialog';
 import { X } from 'lucide-react';
+import * as React from 'react';
 
 const Dialog = DialogBase;
 const DialogTrigger = DialogTriggerBase;
@@ -90,14 +90,6 @@ const DialogDescription = React.forwardRef<React.ComponentRef<typeof DialogDescr
 DialogDescription.displayName = 'DialogDescription';
 
 export {
-  Dialog,
-  DialogPortal,
-  DialogOverlay,
-  DialogTrigger,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
-  DialogDescription,
+Dialog,DialogClose,
+DialogContent,DialogDescription,DialogFooter,DialogHeader,DialogOverlay,DialogPortal,DialogTitle,DialogTrigger
 };

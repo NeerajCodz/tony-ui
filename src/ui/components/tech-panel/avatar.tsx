@@ -1,17 +1,11 @@
 import * as React from 'react';
-import { 
-  AvatarBase, 
-  AvatarImageBase, 
-  AvatarFallbackBase, 
-  type AvatarBaseProps 
-} from '../_base/avatar';
+import { AvatarBase, AvatarImageBase, AvatarFallbackBase, type AvatarBaseProps } from '../_base/avatar';
 import { cn } from '@/lib/utils';
 import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
 
 export interface AvatarProps extends AvatarBaseProps {
   effects?: TechPanelEffects;
 }
-
 
 const getSizeStyles = (size: string = 'md') => {
   switch (size) {

@@ -1,24 +1,6 @@
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-  getPaginationRowModel,
-  getSortedRowModel,
-  SortingState,
-  getFilteredRowModel,
-  ColumnFiltersState,
-  VisibilityState,
-} from '../_base/data-table';
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '../_base/data-table';
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/ui/components/matrix-grid/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/ui/components/matrix-grid/table';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

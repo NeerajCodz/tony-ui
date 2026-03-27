@@ -1,17 +1,12 @@
-import * as React from "react"
-import { PanelLeft } from "lucide-react"
+import * as React from "react";
+import { PanelLeft } from "lucide-react";
 import { Slot } from '../_base/sidebar';
-import { useIsMobile } from "./use-mobile"
-import { cn } from "@/lib/utils"
-import { Button } from "./button"
-import { Sheet, SheetContent } from "./sheet"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./tooltip"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { useIsMobile } from "./use-mobile";
+import { cn } from "@/lib/utils";
+import { Button } from "./button";
+import { Sheet, SheetContent } from "./sheet";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
+import { type GlassEffects } from "./_effects";
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7

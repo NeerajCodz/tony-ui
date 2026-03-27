@@ -1,10 +1,10 @@
-import * as React from "react"
+import * as React from "react";
 import { SheetPrimitive } from '../_base/sheet';
-import { cva, type VariantProps } from "class-variance-authority"
-import { X } from "lucide-react"
+import { cva, type VariantProps } from "class-variance-authority";
+import { X } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 const Sheet = SheetPrimitive.Root
 

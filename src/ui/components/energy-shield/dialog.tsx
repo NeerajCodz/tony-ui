@@ -1,7 +1,7 @@
+import { cn } from '@/lib/utils';
+import { X } from 'lucide-react';
 import * as React from 'react';
 import { DialogPrimitive } from '../_base/dialog';
-import { X } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 const Dialog = DialogPrimitive.Root;
@@ -11,7 +11,6 @@ const DialogTrigger = DialogPrimitive.Trigger;
 const DialogPortal = DialogPrimitive.Portal;
 
 const DialogClose = DialogPrimitive.Close;
-
 
 const DialogOverlay = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Overlay>,
@@ -103,14 +102,5 @@ const DialogDescription = React.forwardRef<
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 export {
-  Dialog,
-  DialogPortal,
-  DialogOverlay,
-  DialogClose,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
-  DialogDescription,
+Dialog,DialogClose,DialogContent,DialogDescription,DialogFooter,DialogHeader,DialogOverlay,DialogPortal,DialogTitle,DialogTrigger
 };

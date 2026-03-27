@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { SkeletonBase, SkeletonTextBase, type SkeletonBaseProps, type SkeletonTextBaseProps } from '../_base/skeleton';
-import { cn } from '@/lib/utils';
 
 export interface SkeletonProps extends SkeletonBaseProps {}
 export interface SkeletonTextProps extends SkeletonTextBaseProps {}

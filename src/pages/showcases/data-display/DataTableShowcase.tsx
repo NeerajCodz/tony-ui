@@ -2,9 +2,8 @@
  * DataTable Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import DataTable from '@/ui/handlers/data-table';
+import { ShowcaseTemplate } from '../_components';
 
 const DATA_TABLE_TYPES = ['default', 'advanced'];
 

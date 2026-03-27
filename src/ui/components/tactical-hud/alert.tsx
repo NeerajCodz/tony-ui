@@ -1,11 +1,5 @@
 import * as React from 'react';
-import { 
-  AlertBase, 
-  AlertTitleBase, 
-  AlertDescriptionBase, 
-  AlertCloseBase,
-  type AlertBaseProps 
-} from '../_base/alert';
+import { AlertBase, AlertTitleBase, AlertDescriptionBase, AlertCloseBase, type AlertBaseProps } from '../_base/alert';
 import { cn } from '@/lib/utils';
 import { tacticalHudEffectsClass, type TacticalHudEffects, bracketsStyle } from './_effects';
 import { X } from 'lucide-react';
@@ -14,7 +8,7 @@ export interface AlertProps extends AlertBaseProps {
   effects?: TacticalHudEffects;
 }
 
-const getVariantStyles = (variant: string = 'default', type: string = 'default') => {
+const getVariantStyles = (variant: string = 'default') => {
   // Styles for different variants
   const isDestructive = variant === 'destructive';
   const isWarning = variant === 'warning';
@@ -58,7 +52,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         style={componentStyle}
         className={cn(tacticalHudEffectsClass(effects), 
           'relative w-full p-4 pl-12 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4',
-          getVariantStyles(variant, type),
+          getVariantStyles(variant),
           className
         )}
         {...props}

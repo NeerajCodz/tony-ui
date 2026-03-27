@@ -2,9 +2,8 @@
  * AspectRatio Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import AspectRatio from '@/ui/handlers/aspect-ratio';
+import { ShowcaseTemplate } from '../_components';
 
 const ASPECT_RATIO_TYPES = ['default'];
 

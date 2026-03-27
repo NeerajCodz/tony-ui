@@ -1,36 +1,13 @@
 import * as React from 'react';
 "use client"
 
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-  getPaginationRowModel,
-  getSortedRowModel,
-  SortingState,
-  getFilteredRowModel,
-  ColumnFiltersState,
-  VisibilityState,
-} from '../_base/data-table';
-import { ChevronDown } from "lucide-react"
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, getSortedRowModel, SortingState, getFilteredRowModel, ColumnFiltersState, VisibilityState } from '../_base/data-table';
+import { ChevronDown } from "lucide-react";
 
-import { Button } from "@/ui/components/honey-comb/button"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/ui/components/honey-comb/dropdown-menu"
-import { Input } from "@/ui/components/honey-comb/input"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/ui/components/honey-comb/table"
+import { Button } from "@/ui/components/honey-comb/button";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/ui/components/honey-comb/dropdown-menu";
+import { Input } from "@/ui/components/honey-comb/input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/ui/components/honey-comb/table";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

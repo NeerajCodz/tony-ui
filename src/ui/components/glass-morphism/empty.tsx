@@ -1,8 +1,7 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
-import { PackageOpen } from "lucide-react"
-import type { EmptyBaseProps } from '../_base/empty';
+import { cn } from "@/lib/utils";
+import { PackageOpen } from "lucide-react";
+import * as React from "react";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
 
 const EmptyState = React.forwardRef<
   HTMLDivElement,
@@ -35,4 +34,4 @@ const EmptyState = React.forwardRef<
 })
 EmptyState.displayName = "EmptyState"
 
-export { EmptyState }
+export { EmptyState };

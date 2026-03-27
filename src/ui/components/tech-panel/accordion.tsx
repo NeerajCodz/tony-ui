@@ -1,16 +1,6 @@
 import * as React from 'react';
 import { AccordionPrimitive } from '../_base/accordion';
-import { 
-  AccordionBase, 
-  AccordionItemBase, 
-  AccordionHeaderBase, 
-  AccordionTriggerBase, 
-  AccordionContentBase, 
-  type AccordionBaseProps,
-  type AccordionItemBaseProps,
-  type AccordionTriggerBaseProps,
-  type AccordionContentBaseProps
-} from '../_base/accordion';
+import { AccordionBase, AccordionItemBase, AccordionHeaderBase, AccordionTriggerBase, AccordionContentBase, type AccordionBaseProps, type AccordionItemBaseProps, type AccordionTriggerBaseProps, type AccordionContentBaseProps } from '../_base/accordion';
 import { cn } from '@/lib/utils';
 import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
 import { ChevronDown } from 'lucide-react';

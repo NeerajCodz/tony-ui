@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-  StatusBarBase,
-  StatusBarIndicatorBase,
-  type StatusBarBaseProps,
-  type StatusBarState,
-} from '@/ui/components/_base/status-bar';
+import { StatusBarBase, StatusBarIndicatorBase, type StatusBarBaseProps, type StatusBarState } from '@/ui/components/_base/status-bar';
 import { cn } from '@/lib/utils';
 import { glassEffectsClass, type GlassEffects } from './_effects';
 

@@ -1,16 +1,7 @@
-import * as React from 'react';
-import { 
-    BreadcrumbBase, 
-    BreadcrumbListBase, 
-    BreadcrumbItemBase, 
-    BreadcrumbLinkBase, 
-    BreadcrumbPageBase, 
-    BreadcrumbSeparatorBase, 
-    BreadcrumbEllipsisBase,
-    type BreadcrumbBaseProps
-} from '../_base/breadcrumb';
 import { cn } from '@/lib/utils';
 import { ChevronRight, MoreHorizontal } from 'lucide-react';
+import * as React from 'react';
+import { BreadcrumbBase, BreadcrumbEllipsisBase, BreadcrumbItemBase, BreadcrumbLinkBase, BreadcrumbListBase, BreadcrumbPageBase, BreadcrumbSeparatorBase, type BreadcrumbBaseProps } from '../_base/breadcrumb';
 
 export interface BreadcrumbProps extends BreadcrumbBaseProps {}
 

@@ -2,16 +2,8 @@
  * Command Showcase
  */
 
-import React from 'react';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/ui/handlers/command';
 import { ShowcaseTemplate } from '../_components';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/ui/handlers/command';
 
 const COMMAND_TYPES = ['default', 'palette'];
 

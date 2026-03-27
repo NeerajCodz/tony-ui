@@ -1,10 +1,9 @@
-import * as React from 'react';
-import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 import { ButtonProps, buttonVariants } from './button';
-import { Link } from 'react-router-dom';
-import type { PaginationBaseProps } from '../_base/pagination';
 
 const Pagination = ({ className, effects = 'on', ...props }: React.ComponentProps<'nav'> & { effects?: EnergyShieldEffects }) => (
   <nav
@@ -119,11 +118,11 @@ const PaginationEllipsis = ({
 PaginationEllipsis.displayName = 'PaginationEllipsis';
 
 export {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
+Pagination,
+PaginationContent,
+PaginationEllipsis,
+PaginationItem,
+PaginationLink,
+PaginationNext,
+PaginationPrevious
 };

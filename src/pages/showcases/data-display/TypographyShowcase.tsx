@@ -2,9 +2,8 @@
  * Typography Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Typography } from '@/ui/handlers/typography';
+import { ShowcaseTemplate } from '../_components';
 
 const TYPOGRAPHY_TYPES = ['h1', 'h2', 'h3', 'h4', 'p', 'lead'];
 

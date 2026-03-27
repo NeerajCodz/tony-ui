@@ -2,9 +2,8 @@
  * Pagination Showcase
  */
 
-import React from 'react';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/ui/handlers/pagination';
 import { ShowcaseTemplate } from '../_components';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext } from '@/ui/handlers/pagination';
 
 const PAGINATION_TYPES = ['default'];
 

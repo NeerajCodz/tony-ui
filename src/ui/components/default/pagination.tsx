@@ -1,15 +1,8 @@
-import * as React from 'react';
-import { 
-    PaginationBase, 
-    PaginationContentBase, 
-    PaginationItemBase, 
-    PaginationLinkBase, 
-    PaginationEllipsisBase,
-    type PaginationBaseProps
-} from '../_base/pagination';
 import { cn } from '@/lib/utils';
-import { Button } from './button';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
+import * as React from 'react';
+import { PaginationBase, PaginationContentBase, PaginationEllipsisBase, PaginationItemBase, PaginationLinkBase, type PaginationBaseProps } from '../_base/pagination';
+import { Button } from './button';
 
 export const Pagination = React.forwardRef<HTMLElement, PaginationBaseProps>(
   ({ className, ...props }, ref) => (

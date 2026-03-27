@@ -1,7 +1,7 @@
+import { cn } from '@/lib/utils';
+import { Check, Minus } from 'lucide-react';
 import * as React from 'react';
 import { CheckboxBase, CheckboxIndicatorBase, type CheckboxBaseProps } from '../_base/checkbox';
-import { Check, Minus } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 export interface CheckboxProps extends CheckboxBaseProps {}
 

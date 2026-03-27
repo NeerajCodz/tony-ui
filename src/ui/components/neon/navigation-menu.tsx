@@ -1,16 +1,7 @@
 import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import { ChevronDown } from 'lucide-react';
-import {
-  NavigationMenuBase,
-  NavigationMenuListBase,
-  NavigationMenuItemBase,
-  NavigationMenuContentBase,
-  NavigationMenuTriggerBase,
-  NavigationMenuLinkBase,
-  NavigationMenuIndicatorBase,
-  NavigationMenuViewportBase,
-} from '@/ui/components/_base/navigation-menu';
+import { NavigationMenuBase, NavigationMenuListBase, NavigationMenuItemBase, NavigationMenuContentBase, NavigationMenuTriggerBase, NavigationMenuLinkBase, NavigationMenuIndicatorBase, NavigationMenuViewportBase } from '@/ui/components/_base/navigation-menu';
 import { cn } from '@/lib/utils';
 import { getNeonGlow } from './_effects';
 

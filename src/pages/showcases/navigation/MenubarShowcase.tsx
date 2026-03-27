@@ -2,15 +2,8 @@
  * Menubar Showcase
  */
 
-import React from 'react';
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from '@/ui/handlers/menubar';
 import { ShowcaseTemplate } from '../_components';
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarTrigger,
-} from '@/ui/handlers/menubar';
 
 const MENUBAR_TYPES = ['default'];
 

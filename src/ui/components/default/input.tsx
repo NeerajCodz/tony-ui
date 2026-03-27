@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { InputBase, type InputBaseProps } from '../_base/input';
-import { cn } from '@/lib/utils';
 
 export interface InputProps extends InputBaseProps {}
 

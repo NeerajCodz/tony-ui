@@ -2,9 +2,9 @@
  * Calendar Showcase
  */
 
-import React, { useState } from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Calendar } from '@/ui/handlers/calendar';
+import { useState } from 'react';
+import { ShowcaseTemplate } from '../_components';
 
 const CALENDAR_TYPES = ['default', 'range'];
 

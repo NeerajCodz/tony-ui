@@ -18,24 +18,19 @@ export * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 export * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 export * as SelectPrimitive from '@radix-ui/react-select';
 export * as SeparatorPrimitive from '@radix-ui/react-separator';
-export * as SheetPrimitive from '@radix-ui/react-dialog';
 export * as SliderPrimitive from '@radix-ui/react-slider';
 export * as SwitchPrimitive from '@radix-ui/react-switch';
-export * as SwitchPrimitives from '@radix-ui/react-switch';
 export * as TabsPrimitive from '@radix-ui/react-tabs';
 export * as ToastPrimitive from '@radix-ui/react-toast';
-export * as ToastPrimitives from '@radix-ui/react-toast';
-export * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
 export * as TogglePrimitive from '@radix-ui/react-toggle';
+export * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
 export * as TooltipPrimitive from '@radix-ui/react-tooltip';
 
+export { CheckIcon,ChevronDownIcon,ChevronRightIcon,DotFilledIcon } from '@radix-ui/react-icons';
 export { Slot } from '@radix-ui/react-slot';
-export { CheckIcon, ChevronDownIcon, ChevronRightIcon, DotFilledIcon } from '@radix-ui/react-icons';
 
 export {
-  NavigationMenu as NavigationMenuPrimitiveRoot,
-  NavigationMenuList as NavigationMenuPrimitiveList,
-  NavigationMenuItem as NavigationMenuPrimitiveItem,
+NavigationMenuItem as NavigationMenuPrimitiveItem,NavigationMenuList as NavigationMenuPrimitiveList,NavigationMenu as NavigationMenuPrimitiveRoot
 } from '@radix-ui/react-navigation-menu';
 
 export type { DialogProps } from '@radix-ui/react-dialog';

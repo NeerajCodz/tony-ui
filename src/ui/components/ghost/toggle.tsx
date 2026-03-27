@@ -1,8 +1,8 @@
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
 import { TogglePrimitive } from '../_base/toggle';
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const toggleVariants = cva(
   "inline-flex items-center justify-center rounded-sm text-sm font-medium ring-offset-background transition-colors hover:bg-[var(--gh-surface-hover)] hover:text-[var(--gh-text-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-[var(--gh-surface-hover)] data-[state=on]:text-[var(--gh-text-hover)]",
@@ -40,4 +40,4 @@ const Toggle = React.forwardRef<
 
 Toggle.displayName = TogglePrimitive.Root.displayName
 
-export { Toggle, toggleVariants }
+export { Toggle,toggleVariants };

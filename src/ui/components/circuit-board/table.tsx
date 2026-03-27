@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { TableBase, TableHeaderBase, TableBodyBase, TableFooterBase, TableRowBase, TableHeadBase, TableCellBase, TableCaptionBase } from '@/ui/components/_base/table';
 import { cn } from '@/lib/utils';
+import { TableBase, TableBodyBase, TableCaptionBase, TableCellBase, TableFooterBase, TableHeadBase, TableHeaderBase, TableRowBase } from '@/ui/components/_base/table';
+import * as React from 'react';
 
 const Table = React.forwardRef<HTMLTableElement, React.ComponentPropsWithoutRef<typeof TableBase>>(
   ({ className, ...props }, ref) => (
@@ -95,12 +95,6 @@ const TableCaption = React.forwardRef<HTMLTableCaptionElement, React.ComponentPr
 TableCaption.displayName = 'TableCaption';
 
 export {
-  Table,
-  TableHeader,
-  TableBody,
-  TableFooter,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableCaption,
+Table,TableBody,TableCaption,TableCell,TableFooter,
+TableHead,TableHeader,TableRow
 };

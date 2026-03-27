@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { TextareaBase, type TextareaBaseProps } from '../_base/textarea';
-import { cn } from '@/lib/utils';
 
 export interface TextareaProps extends TextareaBaseProps {}
 

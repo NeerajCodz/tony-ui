@@ -2,9 +2,8 @@
  * Checkbox Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Checkbox } from '@/ui/handlers/checkbox';
+import { ShowcaseTemplate } from '../_components';
 
 const CHECKBOX_TYPES = ['default', 'outline'];
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DrawerPrimitive } from '../_base/drawer';
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Drawer = ({
   shouldScaleBackground = true,

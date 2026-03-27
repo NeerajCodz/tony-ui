@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { LabelBase, type LabelBaseProps } from '@/ui/components/_base/label';
 import { cn } from '@/lib/utils';
+import { LabelBase, type LabelBaseProps } from '@/ui/components/_base/label';
+import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 const labelVariants = cva(
   'font-mono text-sm font-bold uppercase tracking-wider peer-disabled:cursor-not-allowed peer-disabled:opacity-70',

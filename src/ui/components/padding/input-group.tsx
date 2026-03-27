@@ -1,16 +1,5 @@
 import * as React from 'react';
-import {
-  InputGroupBase,
-  InputLeftAddonBase,
-  InputRightAddonBase,
-  InputLeftElementBase,
-  InputRightElementBase,
-  type InputGroupBaseProps,
-  type InputLeftAddonBaseProps,
-  type InputRightAddonBaseProps,
-  type InputLeftElementBaseProps,
-  type InputRightElementBaseProps,
-} from '../_base/input-group';
+import { InputGroupBase, InputLeftAddonBase, InputRightAddonBase, InputLeftElementBase, InputRightElementBase, type InputGroupBaseProps, type InputLeftAddonBaseProps, type InputRightAddonBaseProps, type InputLeftElementBaseProps, type InputRightElementBaseProps } from '../_base/input-group';
 import { cn } from '@/lib/utils';
 
 export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupBaseProps>(

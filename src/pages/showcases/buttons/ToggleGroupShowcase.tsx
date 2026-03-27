@@ -3,11 +3,9 @@
  * Displays all toggle-group versions with interactive controls
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { ToggleGroup, ToggleGroupItem } from '@/ui/handlers/toggle-group';
 import { Bold, Italic, Underline } from 'lucide-react';
-import type { Version, Variant } from '@/ui/types/common';
+import { ShowcaseTemplate } from '../_components';
 
 // Toggle Group types
 const TOGGLE_GROUP_TYPES = ['default', 'outline', 'solid'];

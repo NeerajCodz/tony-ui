@@ -1,8 +1,7 @@
-import type * as __BaseImport_item from '../_base/item';
 
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import * as React from "react";
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 export interface ItemProps extends React.HTMLAttributes<HTMLDivElement> {
   effects?: GhostEffects
@@ -29,4 +28,4 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>(
 )
 Item.displayName = "Item"
 
-export { Item }
+export { Item };

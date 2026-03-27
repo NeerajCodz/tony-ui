@@ -1,15 +1,5 @@
 import * as React from 'react';
-import {
-  ItemBase,
-  ItemActionBase,
-  ItemBadgeBase,
-  ItemContentBase,
-  ItemDescriptionBase,
-  ItemIconBase,
-  ItemIndicatorBase,
-  ItemTitleBase,
-  type ItemBaseProps,
-} from '@/ui/components/_base/item';
+import { ItemBase, ItemActionBase, ItemBadgeBase, ItemContentBase, ItemDescriptionBase, ItemIconBase, ItemIndicatorBase, ItemTitleBase, type ItemBaseProps } from '@/ui/components/_base/item';
 import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 

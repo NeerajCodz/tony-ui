@@ -21,7 +21,7 @@ export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
   ({ orientation = 'horizontal', opts, setApi, plugins, className, children, effects = 'on', ...props }, ref) => {
-    const [emblaRef, api] = useEmblaCarousel(
+    const [, api] = useEmblaCarousel(
       {
         ...opts,
         axis: orientation === 'horizontal' ? 'x' : 'y',

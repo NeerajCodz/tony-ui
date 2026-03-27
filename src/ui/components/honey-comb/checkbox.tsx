@@ -1,10 +1,10 @@
 "use client"
 
-import * as React from "react"
+import * as React from "react";
 import { CheckboxPrimitive } from '../_base/checkbox';
-import { Check } from "lucide-react"
+import { Check } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Checkbox = React.forwardRef<
   React.ComponentRef<typeof CheckboxPrimitive.Root>,

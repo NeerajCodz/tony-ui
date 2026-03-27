@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { SelectBase, SelectGroupBase, SelectValueBase, SelectTriggerBase, SelectContentBase, SelectLabelBase, SelectItemBase, SelectSeparatorBase, SelectScrollUpButtonBase, SelectScrollDownButtonBase, SelectIconBase, SelectPortalBase, SelectViewportBase, SelectItemIndicatorBase, SelectItemTextBase } from '@/ui/components/_base/select';
 import { cn } from '@/lib/utils';
+import { SelectBase, SelectContentBase, SelectGroupBase, SelectIconBase, SelectItemBase, SelectItemIndicatorBase, SelectItemTextBase, SelectLabelBase, SelectPortalBase, SelectScrollDownButtonBase, SelectScrollUpButtonBase, SelectSeparatorBase, SelectTriggerBase, SelectValueBase, SelectViewportBase } from '@/ui/components/_base/select';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react';
+import * as React from 'react';
 
 const Select = SelectBase;
 const SelectGroup = SelectGroupBase;
@@ -128,14 +128,5 @@ const SelectSeparator = React.forwardRef<React.ComponentRef<typeof SelectSeparat
 SelectSeparator.displayName = 'SelectSeparator';
 
 export {
-  Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectLabel,
-  SelectItem,
-  SelectSeparator,
-  SelectScrollUpButton,
-  SelectScrollDownButton,
+Select,SelectContent,SelectGroup,SelectItem,SelectLabel,SelectScrollDownButton,SelectScrollUpButton,SelectSeparator,SelectTrigger,SelectValue
 };

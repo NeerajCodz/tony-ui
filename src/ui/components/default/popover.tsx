@@ -1,12 +1,6 @@
-import * as React from 'react';
-import { 
-    PopoverBase, 
-    PopoverTriggerBase, 
-    PopoverContentBase, 
-    PopoverCloseBase, 
-    PopoverArrowBase 
-} from '../_base/popover';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { PopoverArrowBase, PopoverBase, PopoverCloseBase, PopoverContentBase, PopoverTriggerBase } from '../_base/popover';
 
 export const Popover = PopoverBase;
 export const PopoverTrigger = PopoverTriggerBase;

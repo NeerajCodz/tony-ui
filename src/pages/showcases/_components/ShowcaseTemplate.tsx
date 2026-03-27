@@ -4,11 +4,11 @@
  * Combines header controls and version grid
  */
 
-import React, { useState, useCallback } from 'react';
-import { ShowcaseHeader } from './ShowcaseHeader';
-import { VersionGrid, ALL_VERSIONS } from './VersionGrid';
-import type { Version, Variant } from '@/ui/types/common';
 import { VariantStyleProvider } from '@/ui/core/variant-style-provider';
+import type { Variant, Version } from '@/ui/types/common';
+import React, { useCallback, useState } from 'react';
+import { ShowcaseHeader } from './ShowcaseHeader';
+import { ALL_VERSIONS, VersionGrid } from './VersionGrid';
 
 export interface ShowcaseTemplateProps {
   /** Component name for display */

@@ -2,10 +2,9 @@
  * Button Group Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
-import { ButtonGroup } from '@/ui/handlers/button-group';
 import { Button } from '@/ui/handlers/button';
+import { ButtonGroup } from '@/ui/handlers/button-group';
+import { ShowcaseTemplate } from '../_components';
 
 const BUTTON_GROUP_TYPES = ['default'];
 

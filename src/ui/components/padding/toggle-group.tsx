@@ -1,9 +1,9 @@
-import * as React from "react"
+import * as React from "react";
 import { ToggleGroupPrimitive } from '../_base/toggle-group';
-import { type VariantProps } from "class-variance-authority"
+import { type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
-import { toggleVariants } from "@/ui/components/padding/toggle"
+import { cn } from "@/lib/utils";
+import { toggleVariants } from "@/ui/components/padding/toggle";
 
 const ToggleGroup = React.forwardRef<
   React.ComponentRef<typeof ToggleGroupPrimitive.Root>,

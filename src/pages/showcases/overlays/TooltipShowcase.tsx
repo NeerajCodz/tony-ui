@@ -2,15 +2,9 @@
  * Tooltip Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/ui/handlers/tooltip';
 import { Button } from '@/ui/handlers/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/ui/handlers/tooltip';
+import { ShowcaseTemplate } from '../_components';
 
 const TOOLTIP_TYPES = ['default'];
 

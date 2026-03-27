@@ -2,9 +2,8 @@
  * Select Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/handlers/select';
+import { ShowcaseTemplate } from '../_components';
 
 const SELECT_TYPES = ['default', 'outline'];
 

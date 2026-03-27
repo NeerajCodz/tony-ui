@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 import { SwitchPrimitive } from '../_base/switch';
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Switch = React.forwardRef<
   React.ComponentRef<typeof SwitchPrimitive.Root>,

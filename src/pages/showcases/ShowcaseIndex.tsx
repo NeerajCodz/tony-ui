@@ -3,10 +3,9 @@
  * Navigation hub for all component showcases
  */
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { ArrowRight, Package } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Package, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface ShowcaseCategory {
   name: string;

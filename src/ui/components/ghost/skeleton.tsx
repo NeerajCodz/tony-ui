@@ -1,7 +1,7 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import * as React from "react";
 import { SkeletonBase } from '../_base/skeleton';
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 function Skeleton({
   className,
@@ -16,4 +16,4 @@ function Skeleton({
   )
 }
 
-export { Skeleton }
+export { Skeleton };

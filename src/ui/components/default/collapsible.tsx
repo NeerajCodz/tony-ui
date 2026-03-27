@@ -1,11 +1,6 @@
-import * as React from 'react';
-import { 
-    CollapsibleBase, 
-    CollapsibleTriggerBase, 
-    CollapsibleContentBase,
-    type CollapsibleBaseProps
-} from '../_base/collapsible';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { CollapsibleBase, CollapsibleContentBase, CollapsibleTriggerBase, type CollapsibleBaseProps } from '../_base/collapsible';
 
 const Collapsible = React.forwardRef<React.ComponentRef<typeof CollapsibleBase>, CollapsibleBaseProps>(
   ({ className, ...props }, ref) => (
@@ -22,4 +17,4 @@ const CollapsibleTrigger = CollapsibleTriggerBase;
 
 const CollapsibleContent = CollapsibleContentBase;
 
-export { Collapsible, CollapsibleTrigger, CollapsibleContent }
+export { Collapsible,CollapsibleContent,CollapsibleTrigger };

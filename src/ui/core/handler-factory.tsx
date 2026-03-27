@@ -15,7 +15,7 @@
  * - Memoized style computation
  */
 
-import React, { lazy, Suspense, useMemo, useEffect, useState, ComponentType, createContext, useContext } from 'react';
+import React, { lazy, useMemo, useEffect, useState, createContext, useContext } from 'react';
 import type { Version, Variant, Size, VariantConfig, VariantColors, ComponentConfig } from '../types/common';
 import { ComponentRenderer } from './renderer';
 import { normalizeVariantColors } from './color-token-resolver';
@@ -24,8 +24,6 @@ import { normalizeVariantColors } from './color-token-resolver';
 // CACHES - For performance
 // ============================================================================
 
-// Component module cache
-const componentCache = new Map<string, ComponentType<any>>();
 
 // Config module cache  
 const configCache = new Map<string, ComponentConfig<any>>();
@@ -261,7 +259,6 @@ export function UniversalHandler({
   ...props
 }: UniversalHandlerProps) {
   const [config, setConfig] = useState<ComponentConfig<any> | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const shouldLog = process.env.NODE_ENV !== 'production';
   
   // Get variant colors (instant from cache)
@@ -280,7 +277,6 @@ export function UniversalHandler({
     loadConfig(version, component).then(loadedConfig => {
       if (!cancelled) {
         setConfig(loadedConfig);
-        setIsLoading(false);
       }
     });
     

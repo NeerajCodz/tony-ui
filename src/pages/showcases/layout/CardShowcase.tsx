@@ -2,9 +2,8 @@
  * Card Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import Card from '@/ui/handlers/card';
+import { ShowcaseTemplate } from '../_components';
 
 const CARD_TYPES = ['default', 'outline', 'solid'];
 

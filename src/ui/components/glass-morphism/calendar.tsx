@@ -1,9 +1,9 @@
+import { cn } from '@/lib/utils';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import * as React from 'react';
 import { DayPicker } from '../_base/calendar';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { buttonVariants } from './button';
 import { glassEffectsClass, type GlassEffects } from './_effects';
+import { buttonVariants } from './button';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & { effects?: GlassEffects };
 

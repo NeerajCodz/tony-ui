@@ -1,8 +1,7 @@
-import * as React from "react"
-import { Button, ButtonProps } from "./button"
-import { cn } from "@/lib/utils"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
-import type { IconButtonBaseProps } from '../_base/icon-button';
+import { cn } from "@/lib/utils";
+import * as React from "react";
+import { glassEffectsClass, type GlassEffects } from "./_effects";
+import { Button, ButtonProps } from "./button";
 
 export interface IconButtonProps extends ButtonProps {
   effects?: GlassEffects
@@ -22,4 +21,4 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 )
 IconButton.displayName = "IconButton"
 
-export { IconButton }
+export { IconButton };

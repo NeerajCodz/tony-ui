@@ -21,7 +21,7 @@ const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 1
 
 const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
   ({ orientation = 'horizontal', opts, setApi, plugins, className, children, ...props }, ref) => {
-    const [emblaRef, api] = useEmblaCarousel(
+    const [, api] = useEmblaCarousel(
       {
         ...opts,
         axis: orientation === 'horizontal' ? 'x' : 'y',

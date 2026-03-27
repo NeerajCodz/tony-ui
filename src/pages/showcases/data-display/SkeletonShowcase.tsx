@@ -2,9 +2,8 @@
  * Skeleton Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Skeleton } from '@/ui/handlers/skeleton';
+import { ShowcaseTemplate } from '../_components';
 
 const SKELETON_TYPES = ['default'];
 

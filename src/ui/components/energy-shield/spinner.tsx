@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { SpinnerBase, type SpinnerBaseProps } from '../_base/spinner';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 export interface SpinnerProps extends SpinnerBaseProps {

@@ -4,7 +4,6 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import { getNeonGlow } from './_effects';
 
-import type * as __BaseImport_typography from '../_base/typography';
 
 const typographyVariants = cva('text-foreground', {
   variants: {

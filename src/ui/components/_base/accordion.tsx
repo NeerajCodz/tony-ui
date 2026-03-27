@@ -1,5 +1,5 @@
-import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
+import * as React from 'react';
 /**
  * Accordion type variants
  * Trigger area inherits the type; content area is always transparent

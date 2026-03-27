@@ -1,4 +1,3 @@
-import { cn } from '@/lib/utils';
 
 export const neonGlow = "shadow-[0_0_10px_var(--ne-primary)]";
 export const neonGlowHigh = "shadow-[0_0_20px_var(--ne-primary)]";

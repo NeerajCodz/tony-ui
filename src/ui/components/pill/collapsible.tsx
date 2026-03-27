@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { CollapsiblePrimitive } from '../_base/collapsible';
 const Collapsible = CollapsiblePrimitive.Root;
 

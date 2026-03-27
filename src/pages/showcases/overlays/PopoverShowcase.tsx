@@ -2,14 +2,9 @@
  * Popover Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/ui/handlers/popover';
 import { Button } from '@/ui/handlers/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/ui/handlers/popover';
+import { ShowcaseTemplate } from '../_components';
 
 const POPOVER_TYPES = ['default', 'floating'];
 

@@ -1,10 +1,10 @@
 "use client"
 
-import * as React from "react"
+import * as React from "react";
 import { AccordionPrimitive } from '../_base/accordion';
-import { ChevronDown } from "lucide-react"
+import { ChevronDown } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Accordion = AccordionPrimitive.Root
 

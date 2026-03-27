@@ -1,13 +1,4 @@
-import * as React from 'react';
-import {
-  ChartContainerBase,
-  ChartTooltipBase,
-  ChartTooltipContentBase,
-  ChartLegendBase,
-  ChartLegendContentBase,
-  ChartStyleBase,
-  type ChartConfig,
-} from '@/ui/components/_base/chart';
+import { ChartContainerBase, ChartLegendBase, ChartLegendContentBase, ChartStyleBase, ChartTooltipBase, ChartTooltipContentBase, type ChartConfig } from '@/ui/components/_base/chart';
 
 const ChartContainer = ChartContainerBase;
 const ChartTooltip = ChartTooltipBase;
@@ -17,11 +8,9 @@ const ChartLegendContent = ChartLegendContentBase;
 const ChartStyle = ChartStyleBase;
 
 export {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
-  ChartStyle,
+ChartContainer,ChartLegend,
+ChartLegendContent,
+ChartStyle,ChartTooltip,
+ChartTooltipContent
 };
 export type { ChartConfig };

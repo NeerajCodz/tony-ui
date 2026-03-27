@@ -1,18 +1,7 @@
-import * as React from 'react';
-import { 
-    NavigationMenuBase, 
-    NavigationMenuListBase, 
-    NavigationMenuItemBase, 
-    NavigationMenuContentBase, 
-    NavigationMenuTriggerBase, 
-    NavigationMenuLinkBase, 
-    NavigationMenuIndicatorBase, 
-    NavigationMenuViewportBase, 
-    NavigationMenuSubBase,
-    type NavigationMenuBaseProps
-} from '../_base/navigation-menu';
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
+import * as React from 'react';
+import { NavigationMenuBase, NavigationMenuContentBase, NavigationMenuIndicatorBase, NavigationMenuItemBase, NavigationMenuLinkBase, NavigationMenuListBase, NavigationMenuTriggerBase, NavigationMenuViewportBase, type NavigationMenuBaseProps } from '../_base/navigation-menu';
 
 export const NavigationMenu = React.forwardRef<HTMLDivElement, NavigationMenuBaseProps>(
   ({ className, children, ...props }, ref) => (

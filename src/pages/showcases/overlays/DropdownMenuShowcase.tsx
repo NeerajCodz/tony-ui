@@ -2,17 +2,9 @@
  * DropdownMenu Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/ui/handlers/dropdown-menu';
 import { Button } from '@/ui/handlers/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/ui/handlers/dropdown-menu';
+import { ShowcaseTemplate } from '../_components';
 
 const DROPDOWN_TYPES = ['default', 'context'];
 

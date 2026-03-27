@@ -1,10 +1,4 @@
-import * as React from 'react';
-import {
-  DirectionBase,
-  DirectionProviderBase,
-  useDirectionBase,
-  type Direction as DirectionType,
-} from '../_base/direction';
+import { DirectionBase, DirectionProviderBase, useDirectionBase, type Direction as DirectionType } from '../_base/direction';
 
 export {
   DirectionBase as Direction,

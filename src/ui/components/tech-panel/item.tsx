@@ -2,7 +2,6 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { techPanelEffectsClass, type TechPanelEffects } from './_effects';
 
-import type * as __BaseImport_item from '../_base/item';
 
 interface ItemProps extends React.HTMLAttributes<HTMLDivElement> {
   effects?: TechPanelEffects;

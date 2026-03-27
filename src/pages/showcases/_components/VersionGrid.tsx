@@ -4,9 +4,9 @@
  * with animation support
  */
 
-import React from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import type { Version } from '@/ui/types/common';
+import { AnimatePresence, motion } from 'motion/react';
+import React from 'react';
 import { staggerContainerVariant, staggerItemVariant } from './animations';
 
 export interface VersionGridProps {

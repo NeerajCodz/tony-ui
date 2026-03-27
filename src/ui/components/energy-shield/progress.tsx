@@ -1,8 +1,7 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { ProgressPrimitive } from '../_base/progress';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
-
 
 const Progress = React.forwardRef<
   React.ComponentRef<typeof ProgressPrimitive.Root>,

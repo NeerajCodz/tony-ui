@@ -1,8 +1,7 @@
-import * as React from 'react';
-import { useEmblaCarousel, type UseEmblaCarouselType } from '../_base/carousel';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { CarouselContext } from '../_base/carousel';
 import { cn } from '@/lib/utils';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import * as React from 'react';
+import { CarouselContext, useEmblaCarousel, type UseEmblaCarouselType } from '../_base/carousel';
 import { Button } from './button';
 
 type CarouselApi = UseEmblaCarouselType[1];
@@ -20,7 +19,7 @@ export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
   ({ orientation = 'horizontal', opts, setApi, plugins, className, children, ...props }, ref) => {
-    const [emblaRef, api] = useEmblaCarousel(
+    const [, api] = useEmblaCarousel(
       {
         ...opts,
         axis: orientation === 'horizontal' ? 'x' : 'y',
@@ -205,10 +204,8 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
 CarouselNext.displayName = 'CarouselNext';
 
 export {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
+Carousel,
+CarouselContent,
+CarouselItem,CarouselNext,CarouselPrevious
 };
 

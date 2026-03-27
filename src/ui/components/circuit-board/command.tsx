@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { CommandPrimitive } from '../_base/command';
-import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Dialog, DialogContent } from '@/ui/components/circuit-board/dialog';
+import { Search } from 'lucide-react';
+import * as React from 'react';
+import { CommandPrimitive } from '../_base/command';
 
 const Command = React.forwardRef<React.ComponentRef<typeof CommandPrimitive>, React.ComponentPropsWithoutRef<typeof CommandPrimitive>>(
   ({ className, ...props }, ref) => (
@@ -127,14 +127,8 @@ const CommandShortcut = ({
 CommandShortcut.displayName = 'CommandShortcut';
 
 export {
-  Command,
-  CommandDialog,
-  CommandInput,
-  CommandList,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandShortcut,
-  CommandSeparator,
+Command,
+CommandDialog,CommandEmpty,
+CommandGroup,CommandInput,CommandItem,CommandList,CommandSeparator,CommandShortcut
 };
 

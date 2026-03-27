@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { ScrollAreaPrimitive } from '../_base/scroll-area';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 const ScrollArea = React.forwardRef<
@@ -43,4 +43,4 @@ const ScrollBar = React.forwardRef<
 ));
 ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName;
 
-export { ScrollArea, ScrollBar };
+export { ScrollArea,ScrollBar };

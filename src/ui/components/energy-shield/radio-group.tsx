@@ -1,7 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { RadioGroupPrimitive } from '../_base/radio-group';
-import { Circle } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 const RadioGroup = React.forwardRef<
@@ -17,7 +16,6 @@ const RadioGroup = React.forwardRef<
   );
 });
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
-
 
 const RadioGroupItem = React.forwardRef<
   React.ComponentRef<typeof RadioGroupPrimitive.Item>,
@@ -41,4 +39,4 @@ const RadioGroupItem = React.forwardRef<
 });
 RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName;
 
-export { RadioGroup, RadioGroupItem };
+export { RadioGroup,RadioGroupItem };

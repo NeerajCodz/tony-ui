@@ -2,10 +2,9 @@
  * Collapsible Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/ui/handlers/collapsible';
 import { Button } from '@/ui/handlers/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/ui/handlers/collapsible';
+import { ShowcaseTemplate } from '../_components';
 
 const COLLAPSIBLE_TYPES = ['default'];
 
@@ -16,7 +15,7 @@ export function CollapsibleShowcase() {
       availableTypes={COLLAPSIBLE_TYPES}
       defaultType="default"
       columns={3}
-      renderComponent={({ version, type, variant, effects }) => (
+      renderComponent={({ version, variant, effects }) => (
         <Collapsible version={version} variant={variant} effects={effects} className="w-full max-w-sm">
           <CollapsibleTrigger asChild>
             <Button version={version} variant={variant} type="outline" size="sm">

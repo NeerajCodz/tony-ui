@@ -2,9 +2,8 @@
  * Textarea Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Textarea } from '@/ui/handlers/textarea';
+import { ShowcaseTemplate } from '../_components';
 
 const TEXTAREA_TYPES = ['default', 'filled', 'outline'];
 

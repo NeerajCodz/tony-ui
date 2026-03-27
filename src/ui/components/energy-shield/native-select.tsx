@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { cn } from '@/lib/utils';
-import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
+import * as React from 'react';
 import { NativeSelectBase } from '../_base/native-select';
+import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 
 export interface NativeSelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {

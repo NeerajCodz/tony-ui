@@ -2,16 +2,12 @@ import * as React from 'react';
 "use client"
 
 import { format } from '../_base/date-picker';
-import { Calendar as CalendarIcon } from "lucide-react"
+import { Calendar as CalendarIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "./button"
-import { Calendar } from "./calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "./popover"
+import { cn } from "@/lib/utils";
+import { Button } from "./button";
+import { Calendar } from "./calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 export function DatePicker({ effects = true }: { effects?: boolean }) {
   const [date, setDate] = React.useState<Date>()

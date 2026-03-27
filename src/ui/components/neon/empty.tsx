@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { FileQuestion } from 'lucide-react';
-import type { EmptyBaseProps } from '../_base/empty';
 
 import { cn } from '@/lib/utils';
 import { getNeonGlow } from './_effects';

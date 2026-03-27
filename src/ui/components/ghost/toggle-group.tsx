@@ -1,9 +1,9 @@
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import { type VariantProps } from "class-variance-authority";
+import * as React from "react";
 import { ToggleGroupPrimitive } from '../_base/toggle-group';
-import { type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-import { toggleVariants } from "./toggle"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
+import { toggleVariants } from "./toggle";
 
 const ToggleGroupContext = React.createContext<
   VariantProps<typeof toggleVariants>
@@ -56,4 +56,4 @@ const ToggleGroupItem = React.forwardRef<
 
 ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName
 
-export { ToggleGroup, ToggleGroupItem }
+export { ToggleGroup,ToggleGroupItem };

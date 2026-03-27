@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { MenubarPrimitive } from '../_base/menubar';
-import { CheckIcon, ChevronRightIcon, DotFilledIcon } from '../_base/menubar';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { CheckIcon, ChevronRightIcon, DotFilledIcon, MenubarPrimitive } from '../_base/menubar';
 
 const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
@@ -224,20 +223,7 @@ const MenubarShortcut = ({
 MenubarShortcut.displayname = 'MenubarShortcut';
 
 export {
-  Menubar,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarContent,
-  MenubarItem,
-  MenubarSeparator,
-  MenubarLabel,
-  MenubarCheckboxItem,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarPortal,
-  MenubarSubContent,
-  MenubarSubTrigger,
-  MenubarGroup,
-  MenubarSub,
-  MenubarShortcut,
+Menubar,MenubarCheckboxItem,MenubarContent,MenubarGroup,MenubarItem,MenubarLabel,MenubarMenu,MenubarPortal,MenubarRadioGroup,
+MenubarRadioItem,MenubarSeparator,MenubarShortcut,MenubarSub,MenubarSubContent,
+MenubarSubTrigger,MenubarTrigger
 };

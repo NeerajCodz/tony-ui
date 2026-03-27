@@ -1,23 +1,12 @@
 "use client"
 
-import * as React from "react"
-import { Check, ChevronsUpDown } from "lucide-react"
-import type { ComboboxBaseProps } from '../_base/combobox';
+import * as React from "react";
+import { Check, ChevronsUpDown } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/ui/components/padding/button"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/ui/components/padding/command"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/ui/components/padding/popover"
+import { cn } from "@/lib/utils";
+import { Button } from "@/ui/components/padding/button";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/ui/components/padding/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/ui/components/padding/popover";
 
 interface ComboboxProps {
   items: { value: string; label: string }[]

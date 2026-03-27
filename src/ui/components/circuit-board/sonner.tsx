@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { SonnerBase } from '@/ui/components/_base/sonner';
+import * as React from 'react';
 
 type ToasterProps = React.ComponentProps<typeof SonnerBase>;
 

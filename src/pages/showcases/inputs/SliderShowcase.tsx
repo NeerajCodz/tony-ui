@@ -2,9 +2,8 @@
  * Slider Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Slider } from '@/ui/handlers/slider';
+import { ShowcaseTemplate } from '../_components';
 
 const SLIDER_TYPES = ['default', 'outline'];
 

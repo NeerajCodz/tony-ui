@@ -1,8 +1,8 @@
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react";
+import * as React from "react";
 import { AccordionPrimitive } from '../_base/accordion';
-import { ChevronDown } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const Accordion = AccordionPrimitive.Root
 
@@ -52,4 +52,4 @@ const AccordionContent = React.forwardRef<
 ))
 AccordionContent.displayName = AccordionPrimitive.Content.displayName
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }
+export { Accordion,AccordionContent,AccordionItem,AccordionTrigger };

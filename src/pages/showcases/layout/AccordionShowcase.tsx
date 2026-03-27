@@ -2,9 +2,8 @@
  * Accordion Showcase
  */
 
-import React from 'react';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/ui/handlers/accordion';
 import { ShowcaseTemplate } from '../_components';
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/ui/handlers/accordion';
 
 const ACCORDION_TYPES = ['default', 'outline'];
 

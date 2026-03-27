@@ -2,9 +2,8 @@
  * Label Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { Label } from '@/ui/handlers/label';
+import { ShowcaseTemplate } from '../_components';
 
 const LABEL_TYPES = ['default'];
 

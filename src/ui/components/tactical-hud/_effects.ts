@@ -63,4 +63,4 @@ export const getBracketsStyle = (size: string = '15px', width: string = '2px', p
   backgroundRepeat: 'no-repeat',
 });
 
-export const bracketsStyle = getBracketsStyle();
+export const bracketsStyle = getBracketsStyle(bracketSize, bracketWidth, pipSize);

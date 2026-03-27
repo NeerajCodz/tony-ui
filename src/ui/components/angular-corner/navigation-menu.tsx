@@ -1,8 +1,7 @@
-import * as React from 'react';
-import { NavigationMenuPrimitive } from '../_base/navigation-menu';
-import { cva } from 'class-variance-authority';
-import { ChevronDownIcon } from '../_base/navigation-menu';
 import { cn } from '@/lib/utils';
+import { cva } from 'class-variance-authority';
+import * as React from 'react';
+import { ChevronDownIcon, NavigationMenuPrimitive } from '../_base/navigation-menu';
 
 const AC_CLIP_PATH = 'polygon(var(--corner) 0%, calc(100% - var(--corner)) 0%, 100% var(--corner), 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, var(--corner) 100%, 0% calc(100% - var(--corner)), 0% var(--corner))';
 
@@ -120,13 +119,5 @@ NavigationMenuIndicator.displayName =
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 export {
-  navigationMenuTriggerStyle,
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuContent,
-  NavigationMenuTrigger,
-  NavigationMenuLink,
-  NavigationMenuIndicator,
-  NavigationViewport,
+NavigationMenu,NavigationMenuContent,NavigationMenuIndicator,NavigationMenuItem,NavigationMenuLink,NavigationMenuList,NavigationMenuTrigger,navigationMenuTriggerStyle,NavigationViewport
 };

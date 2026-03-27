@@ -1,6 +1,6 @@
-import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 import * as React from 'react';
 import { CollapsiblePrimitive } from '../_base/collapsible';
+import { energyShieldEffectsClass, type EnergyShieldEffects } from './_effects';
 type CollapsibleProps = React.ComponentPropsWithoutRef<typeof CollapsiblePrimitive.Root> & {
   effects?: EnergyShieldEffects;
 };
@@ -25,4 +25,4 @@ const CollapsibleContent = ({ effects = 'on', className, ...props }: Collapsible
   <CollapsiblePrimitive.CollapsibleContent className={energyShieldEffectsClass(effects) + (className ? ` ${className}` : '')} {...props} />
 );
 
-export { Collapsible, CollapsibleTrigger, CollapsibleContent };
+export { Collapsible,CollapsibleContent,CollapsibleTrigger };

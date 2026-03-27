@@ -1,11 +1,6 @@
-import * as React from 'react';
-import { 
-    ToggleGroupBase, 
-    ToggleGroupItemBase,
-    type ToggleGroupBaseProps,
-    type ToggleGroupItemBaseProps
-} from '../_base/toggle-group';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { ToggleGroupBase, ToggleGroupItemBase, type ToggleGroupBaseProps, type ToggleGroupItemBaseProps } from '../_base/toggle-group';
 
 const ToggleGroupContext = React.createContext<{
     visualType?: string;

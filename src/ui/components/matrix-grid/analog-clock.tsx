@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
-import type { AnalogClockBaseProps } from '../_base/analog-clock';
 
 interface AnalogClockProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: number;

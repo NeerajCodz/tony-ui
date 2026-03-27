@@ -1,5 +1,4 @@
 import * as React from 'react';
-import type { InputGroupBaseProps } from '../_base/input-group';
 
 import { cn } from '@/lib/utils';
 

@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { LabelBase, type LabelBaseProps } from '../_base/label';
-import { cn } from '@/lib/utils';
 
 export interface LabelProps extends LabelBaseProps {}
 

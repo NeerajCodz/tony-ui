@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
-import type * as __BaseImport_item from '../_base/item';
 
 const Item = React.forwardRef<
   HTMLDivElement,

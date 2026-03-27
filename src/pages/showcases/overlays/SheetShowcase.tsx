@@ -2,17 +2,9 @@
  * Sheet Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/ui/handlers/sheet';
 import { Button } from '@/ui/handlers/button';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/ui/handlers/sheet';
+import { ShowcaseTemplate } from '../_components';
 
 const SHEET_TYPES = ['default', 'side'];
 

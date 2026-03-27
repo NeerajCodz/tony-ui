@@ -1,10 +1,5 @@
 import * as React from 'react';
-import { 
-  AvatarBase, 
-  AvatarImageBase, 
-  AvatarFallbackBase, 
-  type AvatarBaseProps 
-} from '../_base/avatar';
+import { AvatarBase, AvatarImageBase, AvatarFallbackBase, type AvatarBaseProps } from '../_base/avatar';
 import { cn } from '@/lib/utils';
 
 export interface AvatarProps extends AvatarBaseProps {}

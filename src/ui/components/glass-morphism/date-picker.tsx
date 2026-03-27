@@ -1,15 +1,11 @@
+import { Calendar as CalendarIcon } from "lucide-react";
 import { format } from '../_base/date-picker';
-import { Calendar as CalendarIcon } from "lucide-react"
 
-import { cn } from "@/lib/utils"
-import { Button } from "./button"
-import { Calendar } from "./calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "./popover"
-import { glassEffectsClass, type GlassEffects } from "./_effects"
+import { cn } from "@/lib/utils";
+import { type GlassEffects } from "./_effects";
+import { Button } from "./button";
+import { Calendar } from "./calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 export interface DatePickerProps {
   date?: Date

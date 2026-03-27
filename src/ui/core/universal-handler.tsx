@@ -6,7 +6,7 @@
 
 'use client';
 
-import React, { lazy, Suspense, useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import type { Version, Variant } from '../types/common';
 
 interface UniversalHandlerProps extends Record<string, any> {

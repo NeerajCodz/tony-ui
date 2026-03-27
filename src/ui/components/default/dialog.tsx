@@ -1,18 +1,7 @@
-import * as React from 'react';
-import { 
-    DialogBase, 
-    DialogPortalBase, 
-    DialogOverlayBase, 
-    DialogContentBase, 
-    DialogHeaderBase, 
-    DialogFooterBase, 
-    DialogTitleBase, 
-    DialogDescriptionBase, 
-    DialogCloseBase, 
-    DialogTriggerBase 
-} from '../_base/dialog';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
+import * as React from 'react';
+import { DialogBase, DialogCloseBase, DialogContentBase, DialogDescriptionBase, DialogFooterBase, DialogHeaderBase, DialogOverlayBase, DialogPortalBase, DialogTitleBase, DialogTriggerBase } from '../_base/dialog';
 
 export const Dialog = DialogBase;
 export const DialogTrigger = DialogTriggerBase;

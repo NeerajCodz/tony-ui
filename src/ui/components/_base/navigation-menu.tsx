@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
+import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
+import * as React from 'react';
 /**
  * NavigationMenu type variants
  */
@@ -249,8 +249,7 @@ export const NavigationMenuSubBase = React.forwardRef<
 >((props, ref) => <NavigationMenuPrimitive.Sub ref={ref} {...props} />);
 NavigationMenuSubBase.displayName = 'NavigationMenuSubBase';
 
-export { NavigationMenuPrimitive };
-export { ChevronDownIcon };
+export { ChevronDownIcon,NavigationMenuPrimitive };
 export const NavigationMenu = NavigationMenuBase;
 export const NavigationMenuList = NavigationMenuListBase;
 export const NavigationMenuItem = NavigationMenuItemBase;

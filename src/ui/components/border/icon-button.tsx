@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { IconButtonBase, type IconButtonBaseProps } from '@/ui/components/_base/icon-button';
 import { cn } from '@/lib/utils';
+import { IconButtonBase, type IconButtonBaseProps } from '@/ui/components/_base/icon-button';
 import { buttonVariants } from '@/ui/components/border/button';
+import * as React from 'react';
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonBaseProps>(
   ({ className, visualType, size, ...props }, ref) => {

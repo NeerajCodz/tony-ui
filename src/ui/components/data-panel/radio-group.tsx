@@ -1,7 +1,6 @@
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { RadioGroupPrimitive } from '../_base/radio-group';
-import { Circle } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 const RadioGroup = React.forwardRef<
   React.ComponentRef<typeof RadioGroupPrimitive.Root>,
@@ -40,4 +39,4 @@ const RadioGroupItem = React.forwardRef<
 });
 RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName;
 
-export { RadioGroup, RadioGroupItem };
+export { RadioGroup,RadioGroupItem };

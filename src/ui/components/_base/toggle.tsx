@@ -1,5 +1,5 @@
-import * as React from 'react';
 import * as TogglePrimitive from '@radix-ui/react-toggle';
+import * as React from 'react';
 /**
  * Toggle type variants - visual treatment when pressed
  */

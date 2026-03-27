@@ -1,7 +1,7 @@
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import * as React from "react";
 import { ProgressPrimitive } from '../_base/progress';
-import { cn } from "@/lib/utils"
-import { ghostEffectsClass, type GhostEffects } from "./_effects"
+import { ghostEffectsClass, type GhostEffects } from "./_effects";
 
 const Progress = React.forwardRef<
   React.ComponentRef<typeof ProgressPrimitive.Root>,
@@ -23,4 +23,4 @@ const Progress = React.forwardRef<
 ))
 Progress.displayName = ProgressPrimitive.Root.displayName
 
-export { Progress }
+export { Progress };

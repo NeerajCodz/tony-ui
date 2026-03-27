@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { Menu, X, Search, ChevronRight, LayoutGrid } from 'lucide-react';
 import { showcaseRegistry } from '@/pages/showcases';
+import { ChevronRight, LayoutGrid, Menu, Search, X } from 'lucide-react';
+import { useState } from 'react';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 export function ShowcaseLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
 
-  const components = Object.entries(showcaseRegistry).map(([slug, module]) => ({
+  const components = Object.entries(showcaseRegistry).map(([slug]) => ({
     slug,
     name: slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
   }));

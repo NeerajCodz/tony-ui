@@ -2,9 +2,8 @@
  * RadioGroup Showcase
  */
 
-import React from 'react';
-import { ShowcaseTemplate } from '../_components';
 import { RadioGroup, RadioGroupItem } from '@/ui/handlers/radio-group';
+import { ShowcaseTemplate } from '../_components';
 
 const RADIO_TYPES = ['default', 'outline'];
 
